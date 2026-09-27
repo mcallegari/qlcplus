@@ -23,6 +23,7 @@
 #include <QQuickView>
 #include <QQuickItem>
 #include <QMediaPlayer>
+#include <QPointer>
 
 #include "video.h"
 
@@ -36,9 +37,13 @@ public:
     VideoProvider(QQuickView *view, Doc *doc, QObject *parent = 0);
     ~VideoProvider();
 
+    /** Get the main QML view */
+    QQuickView *view() const;
     /** Get/Set the shared fullscreen context */
-    QQuickView *fullscreenContext();
+    QQuickView *fullscreenContext() const;
     void setFullscreenContext(QQuickView *context);
+    /** Force close any video windows and contexts */
+    void shutdown();
 
 protected slots:
     void slotFunctionAdded(quint32 id);
@@ -56,7 +61,7 @@ private:
     /** Map of the currently available Video functions */
     QMap<quint32, VideoContent *> m_videoMap;
     /** A single instance for fullscreen rendering shared between videos */
-    QQuickView *m_fullscreenContext;
+    QPointer<QQuickView> m_fullscreenContext;
 };
 
 class VideoContent final : public QObject
@@ -72,10 +77,11 @@ public:
     Q_INVOKABLE void destroyContext();
 
     void playContent();
+    void pauseContent(bool enable);
     void stopContent();
 
 protected:
-    QVariant getAttribute(quint32 id, const char *propName);
+    QVariant getAttribute(quint32 id, const char *propName) const;
     void updateAttribute(quint32 id, const char *propName, QVariant value);
 
 public slots:
@@ -97,7 +103,7 @@ protected:
     /** the video position considering its resolution and the target screen */
     QRect m_geometry;
     /** Quick context for windowed video playback */
-    QQuickView *m_viewContext;
+    QPointer<QQuickView> m_viewContext;
 };
 
 #endif // VIDEOPROVIDER_H

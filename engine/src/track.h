@@ -71,7 +71,7 @@ public:
     static quint32 invalidId();
 
     /** Get/Set the Show ID this Track belongs to */
-    quint32 showId();
+    quint32 showId() const;
     void setShowId(quint32 id);
 
 private:
@@ -102,7 +102,7 @@ public:
     void setSceneID(quint32 id);
 
     /** Return the Scene ID associated to this track */
-    quint32 getSceneID();
+    quint32 getSceneID() const;
 
 private:
     /** ID of the Scene which this track represents
@@ -119,7 +119,7 @@ public:
     void setMute(bool);
 
     /** Return the mute state of the track */
-    bool isMute();
+    bool isMute() const;
 
 signals:
     void muteChanged(bool mute);
@@ -146,7 +146,7 @@ public:
     bool addShowFunction(ShowFunction *func);
 
     /** Get a reference to a ShowFunction with the provided ID */
-    ShowFunction *showFunction(quint32 id);
+    ShowFunction *showFunction(quint32 id) const;
 
     /** Returns the list of ShowFunctions added to this Track */
     QList <ShowFunction *> showFunctions() const;
@@ -159,7 +159,7 @@ private:
      * Load & Save
      *********************************************************************/
 public:
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) const;
 
     bool loadXML(QXmlStreamReader &root);
 

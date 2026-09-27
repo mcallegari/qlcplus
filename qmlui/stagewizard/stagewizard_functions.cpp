@@ -1,0 +1,1353 @@
+/*
+  Q Light Controller Plus
+  stagewizard_functions.cpp
+
+  Copyright (c) Massimo Callegari
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+
+#include "stagewizard.h"
+
+#include "doc.h"
+#include "fixture.h"
+#include "function.h"
+#include "scene.h"
+#include "qlcpalette.h"
+#include "scenevalue.h"
+#include "chaser.h"
+#include "chaserstep.h"
+#include "efx.h"
+#include "collection.h"
+#include "efxfixture.h"
+#include "rgbmatrix.h"
+#include "rgbalgorithm.h"
+#include "fixturegroup.h"
+#include "monitorproperties.h"
+#include "qlccapability.h"
+#include "qlcchannel.h"
+#include "qlcfixturehead.h"
+#include "qlcfixturemode.h"
+
+#include "fixturemanager.h"
+#include "functionmanager.h"
+#include "virtualconsole/virtualconsole.h"
+#include "virtualconsole/vcpage.h"
+#include "virtualconsole/vcframe.h"
+#include "virtualconsole/vcsoloframe.h"
+#include "virtualconsole/vcbutton.h"
+#include "virtualconsole/vcslider.h"
+#include "virtualconsole/vccuelist.h"
+#include "virtualconsole/vcxypad.h"
+#include "contextmanager.h"
+#include "mainview3d.h"
+#include "fixtureutils.h"
+#include "inputoutputmap.h"
+#include "outputpatch.h"
+#include "inputpatch.h"
+#include "qlcinputsource.h"
+#include "qlcfixturedef.h"
+
+#include <QtMath>
+#include <QSet>
+#include <QDebug>
+
+#include <algorithm>
+
+// ── Generation helpers ────────────────────────────────────────────────────────
+
+Scene *StageWizard::makeFullScene(const FixtureGroupEntry &grp, const QString &name)
+{
+    Scene *s = new Scene(m_doc);
+    s->setName(name);
+    for (quint32 fxID : grp.fixtureIDs)
+    {
+        Fixture *fx = m_doc->fixture(fxID);
+        if (!fx) continue;
+        for (quint32 ch = 0; ch < fx->channels(); ++ch)
+        {
+            const QLCChannel *c = fx->channel(ch);
+            if (c && c->group() == QLCChannel::Intensity)
+                s->setValue(SceneValue(fxID, ch, 255));
+        }
+    }
+    return s;
+}
+
+Chaser *StageWizard::makeChaserFromScenes(const QList<Scene *> &scenes,
+                                          const QString &name,
+                                          uint fadeMs, uint holdMs)
+{
+    Chaser *ch = new Chaser(m_doc);
+    ch->setName(name);
+    ch->setFadeInMode(Chaser::Common);
+    ch->setFadeOutMode(Chaser::Common);
+    ch->setDurationMode(Chaser::Common);
+    ch->setFadeInSpeed(fadeMs);
+    ch->setFadeOutSpeed(fadeMs);
+    ch->setDuration(holdMs);
+
+    for (Scene *s : scenes)
+    {
+        m_doc->addFunction(s);
+        m_generatedFunctionIDs.append(s->id());
+        ChaserStep step(s->id());
+        step.fadeIn  = fadeMs;
+        step.hold    = holdMs;
+        step.fadeOut = fadeMs;
+        ch->addStep(step);
+    }
+    return ch;
+}
+
+// ── Palette-based generation ────────────────────────────────────────────────
+
+quint32 StageWizard::findPalette(int type, const QVariantList &values) const
+{
+    for (QLCPalette *p : m_doc->palettes())
+    {
+        if (p == nullptr || int(p->type()) != type)
+            continue;
+        if (p->values() == values)
+            return p->id();
+    }
+    return QLCPalette::invalidId();
+}
+
+quint32 StageWizard::makeColorPalette(const QString &name, const QColor &color)
+{
+    QLCPalette *p = new QLCPalette(QLCPalette::Color);
+    p->setValue(QLCPalette::colorToString(color, QColor()));
+
+    // Colour palettes are value-based (group independent): reuse if one exists.
+    quint32 existing = findPalette(QLCPalette::Color, p->values());
+    if (existing != QLCPalette::invalidId()) { delete p; return existing; }
+
+    p->setName(name);
+    if (!m_doc->addPalette(p)) { delete p; return QLCPalette::invalidId(); }
+    return p->id();
+}
+
+quint32 StageWizard::makeDimmerPalette(const QString &name, int value)
+{
+    QLCPalette *p = new QLCPalette(QLCPalette::Dimmer);
+    p->setValue(value);
+
+    quint32 existing = findPalette(QLCPalette::Dimmer, p->values());
+    if (existing != QLCPalette::invalidId()) { delete p; return existing; }
+
+    p->setName(name);
+    if (!m_doc->addPalette(p)) { delete p; return QLCPalette::invalidId(); }
+    return p->id();
+}
+
+quint32 StageWizard::makeShutterPalette(const QString &name, int preset, int percent)
+{
+    QLCPalette *p = new QLCPalette(QLCPalette::Shutter);
+    p->setValue(preset, percent); // (QLCCapability::Preset, 0-100)
+
+    quint32 existing = findPalette(QLCPalette::Shutter, p->values());
+    if (existing != QLCPalette::invalidId()) { delete p; return existing; }
+
+    p->setName(name);
+    if (!m_doc->addPalette(p)) { delete p; return QLCPalette::invalidId(); }
+    return p->id();
+}
+
+quint32 StageWizard::makePosition3DPalette(const QString &name, const QVector3D &targetMM)
+{
+    QLCPalette *p = new QLCPalette(QLCPalette::Position3D);
+    // Position3D palette targets are expressed in metres (monitor/grid frame).
+    p->setValue(targetMM.x() / 1000.0f, targetMM.y() / 1000.0f, targetMM.z() / 1000.0f);
+
+    quint32 existing = findPalette(QLCPalette::Position3D, p->values());
+    if (existing != QLCPalette::invalidId()) { delete p; return existing; }
+
+    p->setName(name);
+    if (!m_doc->addPalette(p)) { delete p; return QLCPalette::invalidId(); }
+    return p->id();
+}
+
+bool StageWizard::allGroupsCanRender(const QColor &color) const
+{
+    // Which of the requested colour's components a group has to be able to
+    // drive. A component the colour doesn't use imposes no requirement, so a
+    // pure red only asks for red.
+    const bool wantR = color.red()   > 0;
+    const bool wantG = color.green() > 0;
+    const bool wantB = color.blue()  > 0;
+
+    for (const FixtureGroupEntry &grp : m_groups)
+    {
+        if (!grp.selected || grp.fixtureIDs.isEmpty())
+            continue;
+
+        // A group with no colour mixing at all (plain dimmers, a hazer) is not
+        // a dissenting vote — it simply ignores colour, and excluding every
+        // colour on its account would empty the aggregate's palette.
+        if (!grp.hasRGB && !grp.hasCMY)
+            continue;
+
+        bool hasR = false, hasG = false, hasB = false;
+        for (quint32 fxID : grp.fixtureIDs)
+        {
+            Fixture *fx = m_doc->fixture(fxID);
+            if (!fx) continue;
+            for (quint32 ch = 0; ch < fx->channels(); ++ch)
+            {
+                const QLCChannel *c = fx->channel(ch);
+                if (!c || c->group() != QLCChannel::Intensity)
+                    continue;
+                switch (c->colour())
+                {
+                    // Subtractive channels are counted as the additive
+                    // component they control: cyan removes red, and so on.
+                    case QLCChannel::Red:     case QLCChannel::Cyan:    hasR = true; break;
+                    case QLCChannel::Green:   case QLCChannel::Magenta: hasG = true; break;
+                    case QLCChannel::Blue:    case QLCChannel::Yellow:  hasB = true; break;
+                    case QLCChannel::White:   hasR = hasG = hasB = true; break;
+                    default: break;
+                }
+            }
+        }
+
+        if ((wantR && !hasR) || (wantG && !hasG) || (wantB && !hasB))
+            return false;
+    }
+
+    return true;
+}
+
+Scene *StageWizard::makePaletteScene(const QString &name, quint32 groupID,
+                                     quint32 paletteID, const QString &path)
+{
+    if (paletteID == QLCPalette::invalidId())
+        return nullptr;
+
+    Scene *s = new Scene(m_doc);
+    s->setName(name);
+    if (groupID != FixtureGroup::invalidId())
+        s->addFixtureGroup(groupID);
+    s->addPalette(paletteID);
+    // Set the path BEFORE addFunction so FunctionManager::slotFunctionAdded
+    // places the tree item in the right folder immediately.
+    if (!path.isEmpty())
+        s->setPath(path);
+    m_doc->addFunction(s);
+    m_generatedFunctionIDs.append(s->id());
+    return s;
+}
+
+QString StageWizard::wizardPath(const QString &sub) const
+{
+    QString base = tr("Show Wizard");
+    return sub.isEmpty() ? base : base + "/" + sub;
+}
+
+void StageWizard::generateGroupPalettes(const FixtureGroupEntry &grp)
+{
+    if (grp.groupId == FixtureGroup::invalidId())
+        return;
+
+    const QString prefix = grp.name;
+
+    // ── Colours ─────────────────────────────────────────────────────────────
+    // Colour wheels LEAD and RGB follows. A wheel can only ever produce the
+    // gels physically in it, whereas a mixing fixture can produce anything —
+    // so the wheels decide the vocabulary and the RGB units are slaved to it.
+    // Forcing a fixed R/G/B/C/M/Y set and then dropping whatever the wheels
+    // happen not to have is backwards: it left the page offering Cyan and
+    // Magenta that only half the rig could show.
+    //
+    //   1. take the common colours across every wheel in the group
+    //   2. build one scene per colour: wheel units get their own slot value,
+    //      mixing units get a Color palette for the same colour
+    //   3. only when the group has NO wheel at all does the generic mixing
+    //      palette apply, since then nothing constrains the vocabulary
+    const QList<CommonWheelColor> wheelColors =
+        grp.hasColorWheel ? commonWheelColors(grp.fixtureIDs)
+                          : QList<CommonWheelColor>();
+
+    const bool hasMixers = grp.hasRGB || grp.hasCMY;
+
+    if (!wheelColors.isEmpty())
+    {
+        // Wheel slots are raw DMX, resolved per fixture: the layout differs per
+        // model, so what one calls "Dark blue" at slot 3 another calls "Blue"
+        // at slot 5. commonWheelColors() matched them by name and perceptual
+        // closeness (see stagewizard_colors.cpp).
+        const QString path = wizardPath(prefix + "/" + tr("Color Wheel"));
+
+        for (const CommonWheelColor &cwc : wheelColors)
+        {
+            Scene *s = new Scene(m_doc);
+            s->setName(tr("%1 – %2").arg(prefix).arg(cwc.label));
+            s->addFixtureGroup(grp.groupId);
+
+            QSet<quint32> onWheel;
+            for (const WheelColor &wc : cwc.members)
+            {
+                s->setValue(SceneValue(wc.fixtureID, wc.channel, wc.value));
+                onWheel.insert(wc.fixtureID);
+            }
+
+            // The mixing units follow the wheel: same colour, via a palette
+            // that each fixture resolves for itself. This is what makes an RGB
+            // par match the spots instead of offering its own separate set.
+            bool anyMixer = false;
+            for (quint32 fxID : grp.fixtureIDs)
+            {
+                if (onWheel.contains(fxID))
+                    continue;
+                Fixture *fx = m_doc->fixture(fxID);
+                if (fx == nullptr)
+                    continue;
+                for (quint32 ch = 0; ch < fx->channels() && !anyMixer; ++ch)
+                {
+                    const QLCChannel *c = fx->channel(ch);
+                    if (c && c->group() == QLCChannel::Intensity &&
+                        c->colour() != QLCChannel::NoColour)
+                        anyMixer = true;
+                }
+                if (anyMixer)
+                    break;
+            }
+            if (anyMixer)
+            {
+                quint32 pid = makeColorPalette(cwc.label, cwc.color);
+                if (pid != QLCPalette::invalidId())
+                    s->addPalette(pid);
+            }
+
+            s->setPath(path);
+            m_doc->addFunction(s);
+            m_generatedFunctionIDs.append(s->id());
+        }
+    }
+    else if (hasMixers)
+    {
+        // No wheel anywhere in this group, so nothing constrains the palette:
+        // give the mixers the standard set. Amber and Lime are included because
+        // a fixture carrying those emitters can hit them cleanly, and they are
+        // the two most common extras beyond RGB.
+        const QString path = wizardPath(prefix + "/" + tr("Colors"));
+        struct ColorDef { const char *name; QColor color; };
+        const ColorDef colors[] = {
+            { QT_TR_NOOP("Red"),     QColor(255,   0,   0) },
+            { QT_TR_NOOP("Green"),   QColor(  0, 255,   0) },
+            { QT_TR_NOOP("Blue"),    QColor(  0,   0, 255) },
+            { QT_TR_NOOP("Cyan"),    QColor(  0, 255, 255) },
+            { QT_TR_NOOP("Magenta"), QColor(255,   0, 255) },
+            { QT_TR_NOOP("Yellow"),  QColor(255, 255,   0) },
+            { QT_TR_NOOP("Amber"),   QColor(255, 191,   0) },
+            { QT_TR_NOOP("Lime"),    QColor(191, 255,   0) },
+            { QT_TR_NOOP("White"),   QColor(255, 255, 255) },
+        };
+        for (const ColorDef &cd : colors)
+        {
+            // On the aggregate, keep only what EVERY mixing group can produce,
+            // so page 0 never offers a colour half the rig ignores.
+            if (grp.isAggregate && !allGroupsCanRender(cd.color))
+                continue;
+
+            // Palette name is generic (shared across groups); scene name is group-specific.
+            quint32 pid = makeColorPalette(tr(cd.name), cd.color);
+            makePaletteScene(tr("%1 – %2").arg(prefix).arg(tr(cd.name)), grp.groupId, pid, path);
+        }
+    }
+
+    // ── Dimmer palettes + scenes ────────────────────────────────────────────
+    if (grp.hasDimmer || grp.hasRGB || grp.hasCMY)
+    {
+        const QString path = wizardPath(prefix + "/" + tr("Dimmer"));
+        struct DimDef { const char *name; int value; };
+        const DimDef dims[] = {
+            { QT_TR_NOOP("Full"), 255 },
+            { QT_TR_NOOP("Half"), 128 },
+            { QT_TR_NOOP("Off"),    0 },
+        };
+        for (const DimDef &dd : dims)
+        {
+            // Generic palette name (shared); group-specific scene name.
+            quint32 pid = makeDimmerPalette(tr("Dimmer %1").arg(tr(dd.name)), dd.value);
+            makePaletteScene(tr("%1 – Dimmer %2").arg(prefix).arg(tr(dd.name)), grp.groupId, pid, path);
+        }
+    }
+
+    // ── Shutter palettes + scenes ───────────────────────────────────────────
+    if (grp.hasShutter)
+    {
+        const QString path = wizardPath(prefix + "/" + tr("Shutter"));
+        quint32 openPid = makeShutterPalette(tr("Shutter Open"),
+                                             QLCCapability::ShutterOpen);
+        makePaletteScene(tr("%1 – Shutter Open").arg(prefix), grp.groupId, openPid, path);
+
+        quint32 closePid = makeShutterPalette(tr("Shutter Closed"),
+                                              QLCCapability::ShutterClose);
+        makePaletteScene(tr("%1 – Shutter Closed").arg(prefix), grp.groupId, closePid, path);
+
+        // Slow / fast strobe, as two points on the fixture's own strobe ramp.
+        // A Shutter palette resolves $percent into the capability's DMX range,
+        // so the same pair of palettes works on any fixture whose strobe
+        // capability is tagged StrobeSlowToFast — no per-model DMX values here.
+        quint32 slowPid = makeShutterPalette(tr("Strobe Slow"),
+                                             QLCCapability::StrobeSlowToFast, 20);
+        makePaletteScene(tr("%1 – Strobe Slow").arg(prefix), grp.groupId, slowPid, path);
+
+        quint32 fastPid = makeShutterPalette(tr("Strobe Fast"),
+                                             QLCCapability::StrobeSlowToFast, 85);
+        makePaletteScene(tr("%1 – Strobe Fast").arg(prefix), grp.groupId, fastPid, path);
+    }
+
+    // ── Lamp On ─────────────────────────────────────────────────────────────
+    // Discharge fixtures (spots, beams) strike their lamp from a Maintenance
+    // channel. A Shutter palette can't express this — it only resolves the
+    // shutter presets — so this is a raw scene, and it only exists for groups
+    // whose fixtures actually declare a LampOn capability.
+    generateLampOnScene(grp, prefix);
+}
+
+void StageWizard::generateLampOnScene(const FixtureGroupEntry &grp, const QString &prefix)
+{
+    Scene *s = nullptr;
+
+    for (quint32 fxID : grp.fixtureIDs)
+    {
+        Fixture *fx = m_doc->fixture(fxID);
+        if (!fx) continue;
+
+        for (quint32 ch = 0; ch < fx->channels(); ++ch)
+        {
+            const QLCChannel *c = fx->channel(ch);
+            if (!c) continue;
+
+            const QLCCapability *lamp = nullptr;
+            for (const QLCCapability *cap : c->capabilities())
+            {
+                if (cap->preset() == QLCCapability::LampOn)
+                {
+                    lamp = cap;
+                    break;
+                }
+            }
+            if (!lamp) continue;
+
+            // Created lazily, so a group with no lamp-striking fixture leaves
+            // no empty scene (and therefore no button) behind.
+            if (!s)
+            {
+                s = new Scene(m_doc);
+                s->setName(tr("%1 – Lamp On").arg(prefix));
+                s->addFixtureGroup(grp.groupId);
+            }
+            s->setValue(SceneValue(fxID, ch, uchar((lamp->min() + lamp->max()) / 2)));
+            break;  // one lamp channel per fixture
+        }
+    }
+
+    if (!s)
+        return;
+
+    // Filed with the shutter scenes: the VC puts its button in the same row.
+    s->setPath(wizardPath(prefix + "/" + tr("Shutter")));
+    m_doc->addFunction(s);
+    m_generatedFunctionIDs.append(s->id());
+}
+
+int StageWizard::movingHeadCount(const FixtureGroupEntry &grp) const
+{
+    int n = 0;
+    for (quint32 fxID : grp.fixtureIDs)
+    {
+        Fixture *fx = m_doc->fixture(fxID);
+        if (fx && fx->channelNumber(QLCChannel::Pan, QLCChannel::MSB) != QLCChannel::invalid())
+            n += qMax(1, fx->heads());
+    }
+    return n;
+}
+
+// Moving-head fixture IDs of a group, paired with their placed X (mm).
+QList<QPair<quint32, float>> StageWizard::movingHeadsByX(const FixtureGroupEntry &grp) const
+{
+    MonitorProperties *props = m_doc->monitorProperties();
+    QList<QPair<quint32, float>> heads;
+    for (quint32 fxID : grp.fixtureIDs)
+    {
+        Fixture *fx = m_doc->fixture(fxID);
+        if (!fx || fx->channelNumber(QLCChannel::Pan, QLCChannel::MSB) == QLCChannel::invalid())
+            continue;
+        heads.append(qMakePair(fxID, props->fixturePosition(fxID, 0, 0).x()));
+    }
+    return heads;
+}
+
+void StageWizard::generateMusicianKeyScenes(const FixtureGroupEntry &grp)
+{
+    if (grp.groupId == FixtureGroup::invalidId())
+        return;
+    if (grp.role != RoleKey || !grp.hasMovement)
+        return;
+
+    // Front (key/fill) moving heads come from this Key group; back (rim/depth)
+    // heads come from Back-role groups.
+    QList<QPair<quint32, float>> frontHeads = movingHeadsByX(grp);
+    QList<QPair<quint32, float>> backHeads;
+    for (const FixtureGroupEntry &g : m_groups)
+        if (g.selected && g.role == RoleBack)
+            backHeads.append(movingHeadsByX(g));
+
+    // Each musician needs 2 heads from the front (key + fill). The number of
+    // spots is bounded by the available front heads, capped at 6 (a band).
+    int spotCount = qMin(frontHeads.count() / 2, 6);
+    if (spotCount < 1)
+        return;
+
+    // Lay musicians out in rows of at most 3 (so max 2 rows / 6 total).
+    const int perRow  = 3;
+    const int rowCount = (spotCount + perRow - 1) / perRow;   // 1 or 2
+
+    const float gx = m_envSize.x() * 1000.0f;
+    const float gz = m_envSize.z() * 1000.0f;
+    // Musician rows along the depth. Z: 0 = rear, gz = front (audience), so the
+    // front row is the LARGER Z. Front row at 2/3, back row at 1/3.
+    // (e.g. 9 m stage -> front 6 m, back 3 m)
+    const float rowZ[2] = { gz * (2.0f / 3.0f), gz * (1.0f / 3.0f) };
+
+    // Consume the nearest still-unused heads (by X) to a target X.
+    auto takeNearest = [](QList<QPair<quint32, float>> &pool, float x, int n) -> QList<quint32>
+    {
+        QList<quint32> picked;
+        for (int k = 0; k < n && !pool.isEmpty(); k++)
+        {
+            int best = 0;
+            float bestDist = qAbs(pool[0].second - x);
+            for (int i = 1; i < pool.count(); i++)
+            {
+                float dd = qAbs(pool[i].second - x);
+                if (dd < bestDist) { bestDist = dd; best = i; }
+            }
+            picked.append(pool[best].first);
+            pool.removeAt(best);
+        }
+        return picked;
+    };
+
+    const QString path = wizardPath(grp.name + "/" + tr("Positions"));
+
+    for (int m = 0; m < spotCount; m++)
+    {
+        int row = m / perRow;
+        int col = m % perRow;
+        // Number of spots actually on this row (last row may be shorter).
+        int spotsInRow = qMin(perRow, spotCount - row * perRow);
+
+        // Spread this row evenly across the usable stage width, centred.
+        float x = (spotsInRow <= 1) ? gx * 0.5f
+                                    : gx * (0.20f + 0.60f * (col / float(spotsInRow - 1)));
+        float z = rowZ[qMin(row, rowCount - 1)];
+        QVector3D target(x, 0.0f, z);
+
+        // 2 front heads + up to 2 back heads aimed at this spot.
+        QList<quint32> heads = takeNearest(frontHeads, x, 2);
+        heads.append(takeNearest(backHeads, x, 2));
+        if (heads.isEmpty())
+            break;
+
+        QString name = tr("Musician %1").arg(m + 1);
+
+        // Reference the Position3D palette and add ONLY the chosen heads as the
+        // scene's fixtures. At playback the engine resolves the palette against
+        // the scene's fixtures (Scene::write), so exactly those heads aim at the
+        // spot — the rest of the rig is untouched.
+        quint32 pid = makePosition3DPalette(tr("%1 – %2").arg(grp.name).arg(name), target);
+        if (pid == QLCPalette::invalidId())
+            continue;
+
+        Scene *s = new Scene(m_doc);
+        s->setName(tr("%1 – %2").arg(grp.name).arg(name));
+        for (quint32 headID : heads)
+            s->addFixture(headID);
+        s->addPalette(pid);
+        s->setPath(path);
+        m_doc->addFunction(s);
+        m_generatedFunctionIDs.append(s->id());
+    }
+}
+
+void StageWizard::generateColorPalette(const FixtureGroupEntry &grp, const QString &prefix)
+{
+    if (!grp.hasRGB && !grp.hasCMY) return;
+
+    struct ColorDef { QString name; quint8 r, g, b; };
+    static const ColorDef colors[] = {
+        { "Red",     255,   0,   0 },
+        { "Green",     0, 255,   0 },
+        { "Blue",      0,   0, 255 },
+        { "Cyan",      0, 255, 255 },
+        { "Magenta", 255,   0, 255 },
+        { "Yellow",  255, 255,   0 },
+        { "White",   255, 255, 255 },
+    };
+
+    QList<Scene *> scenes;
+    for (const ColorDef &cd : colors)
+    {
+        Scene *s = new Scene(m_doc);
+        s->setName(tr("%1 – %2").arg(prefix).arg(cd.name));
+        for (quint32 fxID : grp.fixtureIDs)
+        {
+            Fixture *fx = m_doc->fixture(fxID);
+            if (!fx) continue;
+            for (quint32 ch = 0; ch < fx->channels(); ++ch)
+            {
+                const QLCChannel *c = fx->channel(ch);
+                if (!c || c->group() != QLCChannel::Intensity) continue;
+                quint8 val = 0;
+                switch (c->colour())
+                {
+                    case QLCChannel::Red:     val = cd.r; break;
+                    case QLCChannel::Green:   val = cd.g; break;
+                    case QLCChannel::Blue:    val = cd.b; break;
+                    case QLCChannel::Cyan:    val = 255 - cd.r; break;
+                    case QLCChannel::Magenta: val = 255 - cd.g; break;
+                    case QLCChannel::Yellow:  val = 255 - cd.b; break;
+                    case QLCChannel::White:   val = (cd.r == 255 && cd.g == 255 && cd.b == 255) ? 255 : 0; break;
+                    default: break;
+                }
+                s->setValue(SceneValue(fxID, ch, val));
+            }
+        }
+        scenes.append(s);
+    }
+
+    Chaser *ch = makeChaserFromScenes(scenes,
+                                      tr("%1 – Color Palette").arg(prefix),
+                                      500, 2000);
+    m_doc->addFunction(ch);
+    m_generatedFunctionIDs.append(ch->id());
+}
+
+void StageWizard::generateGoboPalette(const FixtureGroupEntry &grp, const QString &prefix)
+{
+    // Collect gobo capabilities from the first fixture in the group
+    Fixture *sample = nullptr;
+    for (quint32 id : grp.fixtureIDs)
+    {
+        sample = m_doc->fixture(id);
+        if (sample) break;
+    }
+    if (!sample) return;
+
+    // Own subfolder, so createVCLayout() can find this group's gobo scenes by
+    // path and give the page a gobo row (pages without gobos get no row).
+    const QString path = wizardPath(prefix + "/" + tr("Gobos"));
+
+    QList<Scene *> scenes;
+    for (quint32 ch = 0; ch < sample->channels(); ++ch)
+    {
+        const QLCChannel *c = sample->channel(ch);
+        if (!c || c->group() != QLCChannel::Gobo) continue;
+        for (const QLCCapability *cap : c->capabilities())
+        {
+            // Only static gobo positions. GoboMacro is the preset a fixture
+            // definition uses for "this range selects gobo N"; rotation ranges
+            // (GoboShakeMacro, indexing, continuous scroll) are speed controls,
+            // not selectable looks, so they don't belong on a swatch button.
+            if (cap->preset() != QLCCapability::GoboMacro)
+                continue;
+
+            Scene *s = new Scene(m_doc);
+            s->setName(tr("%1 – %2").arg(prefix).arg(cap->name()));
+            s->addFixtureGroup(grp.groupId);
+            for (quint32 fxID : grp.fixtureIDs)
+            {
+                quint8 midVal = (cap->min() + cap->max()) / 2;
+                s->setValue(SceneValue(fxID, ch, midVal));
+            }
+            s->setPath(path);
+            scenes.append(s);
+            if (scenes.count() >= 16) break; // cap at 16 gobos
+        }
+        break; // first gobo channel only
+    }
+
+    if (scenes.isEmpty()) return;
+
+    Chaser *ch = makeChaserFromScenes(scenes,
+                                      tr("%1 – Gobo Palette").arg(prefix),
+                                      0, 1000);
+    m_doc->addFunction(ch);
+    ch->setPath(path);
+    m_generatedFunctionIDs.append(ch->id());
+}
+
+void StageWizard::generateShutterEffects(const FixtureGroupEntry &grp, const QString &prefix)
+{
+    Fixture *sample = nullptr;
+    for (quint32 id : grp.fixtureIDs)
+    {
+        sample = m_doc->fixture(id);
+        if (sample) break;
+    }
+    if (!sample) return;
+
+    QList<Scene *> scenes;
+    for (quint32 ch = 0; ch < sample->channels(); ++ch)
+    {
+        const QLCChannel *c = sample->channel(ch);
+        if (!c || c->group() != QLCChannel::Shutter) continue;
+        for (const QLCCapability *cap : c->capabilities())
+        {
+            if (cap->name().contains("open", Qt::CaseInsensitive) ||
+                cap->name().contains("closed", Qt::CaseInsensitive))
+                continue;
+            Scene *s = new Scene(m_doc);
+            s->setName(tr("%1 – %2").arg(prefix).arg(cap->name()));
+            for (quint32 fxID : grp.fixtureIDs)
+            {
+                quint8 midVal = (cap->min() + cap->max()) / 2;
+                s->setValue(SceneValue(fxID, ch, midVal));
+            }
+            scenes.append(s);
+            if (scenes.count() >= 8) break;
+        }
+        break;
+    }
+
+    if (scenes.isEmpty()) return;
+
+    Chaser *ch = makeChaserFromScenes(scenes,
+                                      tr("%1 – Shutter Effects").arg(prefix),
+                                      0, 500);
+    m_doc->addFunction(ch);
+    m_generatedFunctionIDs.append(ch->id());
+}
+
+void StageWizard::generatePositionPresets(const FixtureGroupEntry &grp, const QString &prefix)
+{
+    if (!grp.hasMovement) return;
+
+    // Standard theatrical position presets: Centre, Left, Right, Up, Down
+    struct PosDef { QString name; quint8 panVal; quint8 tiltVal; };
+    static const PosDef positions[] = {
+        { "Centre",       128, 90  },
+        { "Stage Left",   64,  90  },
+        { "Stage Right",  192, 90  },
+        { "Up",           128, 30  },
+        { "Down / Floor", 128, 150 },
+    };
+
+    for (const PosDef &pd : positions)
+    {
+        Scene *s = new Scene(m_doc);
+        s->setName(tr("%1 – %2").arg(prefix).arg(pd.name));
+        for (quint32 fxID : grp.fixtureIDs)
+        {
+            Fixture *fx = m_doc->fixture(fxID);
+            if (!fx) continue;
+            for (quint32 ch = 0; ch < fx->channels(); ++ch)
+            {
+                const QLCChannel *c = fx->channel(ch);
+                if (!c) continue;
+                if (c->group() == QLCChannel::Pan)
+                    s->setValue(SceneValue(fxID, ch, pd.panVal));
+                else if (c->group() == QLCChannel::Tilt)
+                    s->setValue(SceneValue(fxID, ch, pd.tiltVal));
+            }
+        }
+        m_doc->addFunction(s);
+        m_generatedFunctionIDs.append(s->id());
+    }
+}
+
+quint32 StageWizard::baseMovementPosition(const FixtureGroupEntry &grp, MovementAnchor anchor)
+{
+    // Reuse a base position scene already made for this group + anchor.
+    quint64 key = (quint64(grp.groupId) << 8) | quint64(anchor);
+    if (m_basePositionScenes.contains(key))
+        return m_basePositionScenes.value(key);
+
+    const float gx = m_envSize.x() * 1000.0f;
+    const float gz = m_envSize.z() * 1000.0f;
+    const float gy = m_envSize.y() * 1000.0f;
+
+    QVector3D target;
+    QString aname;
+    switch (anchor)
+    {
+        case AnchorAerial:   // up into the air, centre
+            target = QVector3D(gx * 0.5f, gy * 0.9f, gz * 0.5f);
+            aname = tr("Aerial");
+            break;
+        case AnchorAudience: // out over the audience (front edge, low on the floor beyond)
+            target = QVector3D(gx * 0.5f, 0.0f, gz * 1.2f);
+            aname = tr("Audience");
+            break;
+        case AnchorCentre:   // stage floor centre
+        default:
+            target = QVector3D(gx * 0.5f, 0.0f, gz * 0.5f);
+            aname = tr("Centre");
+            break;
+    }
+
+    quint32 pid = makePosition3DPalette(tr("%1 – %2").arg(grp.name).arg(aname), target);
+    if (pid == QLCPalette::invalidId())
+        return Function::invalidId();
+
+    Scene *s = new Scene(m_doc);
+    s->setName(tr("%1 – Position %2").arg(grp.name).arg(aname));
+    for (quint32 fxID : grp.fixtureIDs)
+    {
+        Fixture *fx = m_doc->fixture(fxID);
+        if (fx && fx->channelNumber(QLCChannel::Pan, QLCChannel::MSB) != QLCChannel::invalid())
+            s->addFixture(fxID);
+    }
+    s->addPalette(pid);
+    s->setPath(wizardPath(grp.name + "/" + tr("Positions")));
+    m_doc->addFunction(s);
+    m_generatedFunctionIDs.append(s->id());
+    m_basePositionScenes.insert(key, s->id());
+    return s->id();
+}
+
+void StageWizard::groupPanTiltMax(const FixtureGroupEntry &grp, float &panDeg, float &tiltDeg) const
+{
+    panDeg = 540.0f;
+    tiltDeg = 270.0f;
+    for (quint32 fxID : grp.fixtureIDs)
+    {
+        Fixture *fx = m_doc->fixture(fxID);
+        if (!fx || !fx->fixtureMode())
+            continue;
+        QLCPhysical phy = fx->fixtureMode()->physical();
+        if (phy.focusPanMax() > 0)  panDeg  = phy.focusPanMax();
+        if (phy.focusTiltMax() > 0) tiltDeg = phy.focusTiltMax();
+        return; // first moving head is representative
+    }
+}
+
+int StageWizard::efxSizeForDegrees(float degrees, float maxDeg) const
+{
+    if (maxDeg <= 0.0f)
+        maxDeg = 360.0f;
+    // EFX swings +/- Width DMX; full DMX (255) spans maxDeg. So a total swing of
+    // $degrees needs Width = degrees * 127.5 / maxDeg.
+    int w = int(qRound(degrees * 127.5f / maxDeg));
+    return qBound(1, w, 127);
+}
+
+void StageWizard::generateMovementEffect(const FixtureGroupEntry &grp, const QString &prefix,
+                                         int algorithm, const QString &label,
+                                         MovementAnchor anchor)
+{
+    if (!grp.hasMovement) return;
+
+    // Base position scene the effect starts from (so the relative EFX has a
+    // defined aim to ride on top of and never teleports).
+    quint32 posID = baseMovementPosition(grp, anchor);
+    if (posID == Function::invalidId())
+        return;
+
+    float panMax, tiltMax;
+    groupPanTiltMax(grp, panMax, tiltMax);
+
+    EFX *efx = new EFX(m_doc);
+    efx->setName(tr("%1 – %2 (motion)").arg(prefix).arg(label));
+    efx->setAlgorithm(static_cast<EFX::Algorithm>(algorithm));
+    // Relative: the pattern rides on top of each head's current (base-position)
+    // aim, so heads move smoothly around the anchor.
+    efx->setIsRelative(true);
+    efx->setFadeInSpeed(1000);
+    // One full lap every 10 s — slow enough to read as a deliberate move on a
+    // concert rig rather than a spin. (EFX duration = the cycle time.)
+    efx->setDuration(10000);
+
+    if (label == tr("Audience Sweep"))
+    {
+        // Wide horizontal sweep across the audience, shallow vertically.
+        efx->setWidth(efxSizeForDegrees(60.0f, panMax));
+        efx->setHeight(efxSizeForDegrees(8.0f, tiltMax));
+        efx->setPropagationMode(EFX::Parallel);
+    }
+    else
+    {
+        // Compact aerial figure: ~50 degrees of travel max.
+        efx->setWidth(efxSizeForDegrees(50.0f, panMax));
+        efx->setHeight(efxSizeForDegrees(50.0f, tiltMax));
+        efx->setPropagationMode(EFX::Serial);  // chase-style phase spread
+    }
+
+    for (quint32 fxID : grp.fixtureIDs)
+    {
+        Fixture *fx = m_doc->fixture(fxID);
+        if (!fx) continue;
+        int heads = qMax(1, fx->heads());
+        for (int h = 0; h < heads; ++h)
+            efx->addFixture(fxID, h);
+    }
+    m_doc->addFunction(efx);
+    efx->setPath(wizardPath(grp.name + "/" + tr("Effects")));
+    m_generatedFunctionIDs.append(efx->id());
+
+    // Collection = base position + relative EFX on top.
+    Collection *col = new Collection(m_doc);
+    col->setName(tr("%1 – %2").arg(prefix).arg(label));
+    col->addFunction(posID);
+    col->addFunction(efx->id());
+    m_doc->addFunction(col);
+    col->setPath(wizardPath(grp.name + "/" + tr("Effects")));
+    m_generatedFunctionIDs.append(col->id());
+}
+
+void StageWizard::generateEFX(const FixtureGroupEntry &grp, const QString &prefix,
+                               int algorithm, const QString &label)
+{
+    // Fly Out / Fly In: beams sweep up and down and fade as they "fly".
+    Q_UNUSED(algorithm)
+    if (!grp.hasMovement) return;
+
+    // ABSOLUTE, not relative: an absolute EFX writes pan on every tick, so it
+    // drives the aim itself rather than riding a base position scene the way
+    // the relative Circle/Eight effects do. Pairing it with one would just make
+    // the two fight over the pan channel.
+    //
+    // EFX offsets are raw DMX, NOT degrees, so there is nothing to convert:
+    // these are the values from the hand-tuned reference rig, used verbatim.
+    // The only things that vary are how the head is hung — upside down, or
+    // panned away from the audience — which computeRotation() already decided
+    // when the fixtures were placed.
+    static const int kFlyHeight  = 70;   // tilt swing, DMX
+    static const int kFlyXOffset = 83;   // pan aim, DMX
+    static const int kFlyYOffset = 75;   // tilt centre of the sweep, DMX
+
+    // Orientation of this group's heads, as the placement step set it.
+    // X ~180 = the unit stands on the deck with the mesh flipped upright, so
+    // its tilt runs the opposite way; Y = how far it is panned off "front".
+    QVector3D rot;
+    for (quint32 fxID : grp.fixtureIDs)
+    {
+        Fixture *fx = m_doc->fixture(fxID);
+        if (fx && fx->channelNumber(QLCChannel::Pan, QLCChannel::MSB) != QLCChannel::invalid())
+        {
+            rot = m_doc->monitorProperties()->fixtureRotation(fxID, 0, 0);
+            break;   // one mover is representative of the group
+        }
+    }
+    const bool upsideDown = qAbs(rot.x() - 180.0f) < 90.0f;
+
+    // Pan: the reference aim, mirrored about centre when the head is turned to
+    // face upstage (Y ~180), so a back-truss unit flies out over the crowd
+    // rather than into the backdrop.
+    int xOffset = kFlyXOffset;
+    if (qAbs(rot.y()) > 90.0f && qAbs(rot.y()) < 270.0f)
+        xOffset = 255 - kFlyXOffset;
+
+    // Tilt: mirrored when the unit hangs the other way up, since its tilt zero
+    // is then at the opposite end of the travel.
+    const int yOffset = upsideDown ? (255 - kFlyYOffset) : kFlyYOffset;
+
+    EFX *efx = new EFX(m_doc);
+    efx->setName(tr("%1 – %2").arg(prefix).arg(label));
+    efx->setAlgorithm(EFX::Line);
+    efx->setWidth(0);                                        // no pan swing: tilt only
+    efx->setHeight(kFlyHeight);
+    efx->setIsRelative(false);
+    efx->setXOffset(xOffset);
+    efx->setYOffset(yOffset);
+    efx->setPropagationMode(EFX::Parallel);
+    efx->setDimmerControlEnabled(true);                     // beams fade as they fly
+    efx->setFadeInSpeed(1000);
+
+    for (quint32 fxID : grp.fixtureIDs)
+    {
+        Fixture *fx = m_doc->fixture(fxID);
+        if (!fx) continue;
+        int heads = qMax(1, fx->heads());
+        for (int h = 0; h < heads; ++h)
+            efx->addFixture(fxID, h);
+    }
+
+    // Spread the phase evenly across the fixtures (0, 360/N, 2*360/N, …) so they
+    // fly in a cascade rather than all together.
+    const QList<EFXFixture *> efxFx = efx->fixtures();
+    int n = efxFx.count();
+    for (int i = 0; i < n; i++)
+        efxFx.at(i)->setStartOffset(n > 0 ? (i * 360 / n) : 0);
+
+    // No Collection wrapper here, unlike Circle/Eight: those are RELATIVE and
+    // need a base position underneath to ride on, whereas this one is absolute
+    // and drives pan itself. Pairing it with a position scene would just have
+    // the two fight over the pan channel every tick.
+    m_doc->addFunction(efx);
+    efx->setPath(wizardPath(grp.name + "/" + tr("Effects")));
+    m_generatedFunctionIDs.append(efx->id());
+}
+
+void StageWizard::generateRGBMatrix(const FixtureGroupEntry &grp,
+                                    const QString &scriptName,
+                                    const QString &label)
+{
+    if (grp.fixtureIDs.isEmpty()) return;
+
+    // Run on the group the user defined in step 2 (or the "All Groups"
+    // aggregate), NOT on a private one per effect. Five matrix effects used to
+    // mint five identical throwaway groups per group, cluttering the fixture
+    // group list and — worse — each with a made-up square grid that had nothing
+    // to do with where the fixtures actually hang. createFixtureGroups() has
+    // already given this group a grid mirroring the rig's real layout, which is
+    // what makes a wave travel across the rig the way it looks like it should.
+    if (grp.groupId == FixtureGroup::invalidId())
+        return;
+
+    RGBMatrix *matrix = new RGBMatrix(m_doc);
+    matrix->setName(tr("%1 – %2").arg(grp.name).arg(label));
+    matrix->setFixtureGroup(grp.groupId);
+
+    // Control mode is the COMMON DENOMINATOR across the group, not whether any
+    // member can mix. The group's hasRGB flag is an OR — on the "All Groups"
+    // aggregate it is true as soon as one RGB par is in the rig — so keying off
+    // it put a mixed group of moving heads and RGB pars into Rgb mode, where
+    // the heads (colour wheel, no mixing) render nothing at all.
+    //
+    // In Dimmer mode the engine greyscales each cell onto the fixture's
+    // intensity channel (RGBMatrix::updateMapChannels, ControlModeDimmer),
+    // which every one of them has. So: Rgb only when EVERY fixture can mix,
+    // otherwise Dimmer, and the pattern reads across the whole group.
+    bool allCanMix = true;
+    for (quint32 fxID : grp.fixtureIDs)
+    {
+        Fixture *fx = m_doc->fixture(fxID);
+        if (fx == nullptr)
+            continue;
+
+        bool mixes = false;
+        for (quint32 ch = 0; ch < fx->channels() && !mixes; ++ch)
+        {
+            const QLCChannel *c = fx->channel(ch);
+            if (c && c->group() == QLCChannel::Intensity &&
+                c->colour() != QLCChannel::NoColour)
+                mixes = true;
+        }
+        if (!mixes)
+        {
+            allCanMix = false;
+            break;
+        }
+    }
+    matrix->setControlMode(allCanMix ? RGBMatrix::ControlModeRgb
+                                     : RGBMatrix::ControlModeDimmer);
+
+    // NOTE: a bad script name does NOT come back as nullptr. RGBScriptsCache::
+    // script() returns a default-constructed, UNLOADED RGBScript, so the old
+    // "if (!algo)" fallback never fired and the matrix silently ran an
+    // algorithm that renders nothing. An unloaded script has an empty name and
+    // apiVersion 0 — check that instead.
+    auto loadAlgorithm = [this](const QString &name) -> RGBAlgorithm *
+    {
+        RGBAlgorithm *a = RGBAlgorithm::algorithm(m_doc, name);
+        if (a != nullptr && !a->name().isEmpty() && a->apiVersion() > 0)
+            return a;
+        delete a;
+        return nullptr;
+    };
+
+    RGBAlgorithm *algo = loadAlgorithm(scriptName);
+    if (algo == nullptr)
+    {
+        qWarning() << "StageWizard: RGB script" << scriptName
+                   << "not found; falling back to Stripes";
+        algo = loadAlgorithm(QStringLiteral("Stripes"));
+    }
+    if (algo == nullptr)
+    {
+        // No usable algorithm at all (scripts missing from the install): a
+        // matrix with none would be an inert function in the tree.
+        delete matrix;
+        return;
+    }
+    matrix->setAlgorithm(algo);
+
+    m_doc->addFunction(matrix);
+    m_generatedFunctionIDs.append(matrix->id());
+}
+
+Chaser *StageWizard::generateStrobeChase(const FixtureGroupEntry &grp, const QString &prefix)
+{
+    // Two scenes: full open, full closed shutter – alternating fast
+    Scene *open   = new Scene(m_doc);
+    Scene *closed = new Scene(m_doc);
+    open->setName(tr("%1 – Strobe Open").arg(prefix));
+    closed->setName(tr("%1 – Strobe Closed").arg(prefix));
+
+    for (quint32 fxID : grp.fixtureIDs)
+    {
+        Fixture *fx = m_doc->fixture(fxID);
+        if (!fx) continue;
+        for (quint32 ch = 0; ch < fx->channels(); ++ch)
+        {
+            const QLCChannel *c = fx->channel(ch);
+            if (!c || c->group() != QLCChannel::Shutter) continue;
+            // Find open/closed capability values
+            quint8 openVal = 255, closedVal = 0;
+            for (const QLCCapability *cap : c->capabilities())
+            {
+                if (cap->name().contains("open", Qt::CaseInsensitive))
+                    openVal = (cap->min() + cap->max()) / 2;
+                if (cap->name().contains("closed", Qt::CaseInsensitive))
+                    closedVal = (cap->min() + cap->max()) / 2;
+            }
+            open->setValue(SceneValue(fxID, ch, openVal));
+            closed->setValue(SceneValue(fxID, ch, closedVal));
+        }
+    }
+
+    return makeChaserFromScenes({ open, closed },
+                                tr("%1 – Strobe Chase").arg(prefix),
+                                0, 80);
+}
+
+Chaser *StageWizard::generateHeartbeat(const FixtureGroupEntry &grp, const QString &prefix)
+{
+    Scene *full = makeFullScene(grp, tr("%1 – Full").arg(prefix));
+    Scene *dim  = new Scene(m_doc);
+    dim->setName(tr("%1 – Dim").arg(prefix));
+    for (quint32 fxID : grp.fixtureIDs)
+    {
+        Fixture *fx = m_doc->fixture(fxID);
+        if (!fx) continue;
+        for (quint32 ch = 0; ch < fx->channels(); ++ch)
+        {
+            const QLCChannel *c = fx->channel(ch);
+            if (c && c->group() == QLCChannel::Intensity)
+                dim->setValue(SceneValue(fxID, ch, 30));
+        }
+    }
+
+    m_doc->addFunction(full);
+    m_doc->addFunction(dim);
+    m_generatedFunctionIDs.append(full->id());
+    m_generatedFunctionIDs.append(dim->id());
+
+    Chaser *ch = new Chaser(m_doc);
+    ch->setName(tr("%1 – Heartbeat").arg(prefix));
+    ch->setFadeInMode(Chaser::PerStep);
+    ch->setFadeOutMode(Chaser::PerStep);
+    ch->setDurationMode(Chaser::PerStep);
+
+    ChaserStep s1(full->id()); s1.fadeIn = 80;  s1.hold = 100; s1.fadeOut = 0;
+    ChaserStep s2(dim->id());  s2.fadeIn = 0;   s2.hold = 400; s2.fadeOut = 80;
+    ch->addStep(s1);
+    ch->addStep(s2);
+
+    m_doc->addFunction(ch);
+    return ch;
+}
+
+Chaser *StageWizard::generateColorRainbow(const FixtureGroupEntry &grp, const QString &prefix)
+{
+    struct ColorDef { QString name; quint8 r, g, b; };
+    static const ColorDef colors[] = {
+        { "Red",     255,   0,   0 },
+        { "Orange",  255, 128,   0 },
+        { "Yellow",  255, 255,   0 },
+        { "Green",     0, 255,   0 },
+        { "Cyan",      0, 255, 255 },
+        { "Blue",      0,   0, 255 },
+        { "Magenta", 255,   0, 255 },
+    };
+
+    QList<Scene *> scenes;
+    for (const ColorDef &cd : colors)
+    {
+        Scene *s = new Scene(m_doc);
+        s->setName(tr("%1 – Rainbow %2").arg(prefix).arg(cd.name));
+        for (quint32 fxID : grp.fixtureIDs)
+        {
+            Fixture *fx = m_doc->fixture(fxID);
+            if (!fx) continue;
+            for (quint32 ch = 0; ch < fx->channels(); ++ch)
+            {
+                const QLCChannel *c = fx->channel(ch);
+                if (!c || c->group() != QLCChannel::Intensity) continue;
+                quint8 val = 0;
+                switch (c->colour())
+                {
+                    case QLCChannel::Red:     val = cd.r; break;
+                    case QLCChannel::Green:   val = cd.g; break;
+                    case QLCChannel::Blue:    val = cd.b; break;
+                    case QLCChannel::Cyan:    val = 255 - cd.r; break;
+                    case QLCChannel::Magenta: val = 255 - cd.g; break;
+                    case QLCChannel::Yellow:  val = 255 - cd.b; break;
+                    default: break;
+                }
+                s->setValue(SceneValue(fxID, ch, val));
+            }
+        }
+        scenes.append(s);
+    }
+
+    return makeChaserFromScenes(scenes,
+                                tr("%1 – Color Rainbow").arg(prefix),
+                                500, 1000);
+}
+
+Chaser *StageWizard::generateSplitColor(const FixtureGroupEntry &grp, const QString &prefix)
+{
+    // Even fixtures: red, Odd fixtures: blue – then swap
+    auto makeScene = [&](const QString &name, bool swap) -> Scene *
+    {
+        Scene *s = new Scene(m_doc);
+        s->setName(name);
+        for (int i = 0; i < grp.fixtureIDs.count(); ++i)
+        {
+            quint32 fxID = grp.fixtureIDs[i];
+            Fixture *fx  = m_doc->fixture(fxID);
+            if (!fx) continue;
+            bool isOdd = (i % 2 != 0) ^ swap;
+            for (quint32 ch = 0; ch < fx->channels(); ++ch)
+            {
+                const QLCChannel *c = fx->channel(ch);
+                if (!c || c->group() != QLCChannel::Intensity) continue;
+                quint8 val = 0;
+                if (!isOdd)
+                {
+                    if (c->colour() == QLCChannel::Red)   val = 255;
+                    if (c->colour() == QLCChannel::Cyan)  val = 0;
+                }
+                else
+                {
+                    if (c->colour() == QLCChannel::Blue)    val = 255;
+                    if (c->colour() == QLCChannel::Yellow)  val = 0;
+                }
+                s->setValue(SceneValue(fxID, ch, val));
+            }
+        }
+        return s;
+    };
+
+    Scene *s1 = makeScene(tr("%1 – Split A").arg(prefix), false);
+    Scene *s2 = makeScene(tr("%1 – Split B").arg(prefix), true);
+
+    return makeChaserFromScenes({ s1, s2 },
+                                tr("%1 – Split Color").arg(prefix),
+                                200, 500);
+}
+
+Scene *StageWizard::generateBlinderHit(const FixtureGroupEntry &grp, const QString &prefix)
+{
+    if (grp.groupId == FixtureGroup::invalidId())
+        return nullptr;
+
+    // Full-intensity WHITE hit via (shared) Dimmer Full + Color White palettes.
+    quint32 dimPid = makeDimmerPalette(tr("Dimmer %1").arg(tr("Full")), 255);
+    if (dimPid == QLCPalette::invalidId())
+        return nullptr;
+    quint32 whitePid = makeColorPalette(tr("White"), QColor(255, 255, 255));
+
+    Scene *s = new Scene(m_doc);
+    s->setName(tr("%1 – Blinder Hit").arg(prefix));
+    s->addFixtureGroup(grp.groupId);
+    s->addPalette(dimPid);
+    if (whitePid != QLCPalette::invalidId())
+        s->addPalette(whitePid);
+    m_doc->addFunction(s);
+    return s;
+}
+
+Scene *StageWizard::generateBlinderFlash()
+{
+    // All selected Blinder-role groups.
+    QList<quint32> blinderGroups;
+    for (const FixtureGroupEntry &grp : m_groups)
+    {
+        if (grp.selected && grp.role == RoleBlinder &&
+            grp.groupId != FixtureGroup::invalidId() && !grp.fixtureIDs.isEmpty())
+            blinderGroups.append(grp.groupId);
+    }
+    if (blinderGroups.isEmpty())
+        return nullptr;
+
+    // Full-intensity WHITE hit via (shared) Dimmer Full + Color White palettes.
+    quint32 dimPid = makeDimmerPalette(tr("Dimmer %1").arg(tr("Full")), 255);
+    if (dimPid == QLCPalette::invalidId())
+        return nullptr;
+    quint32 whitePid = makeColorPalette(tr("White"), QColor(255, 255, 255));
+
+    Scene *s = new Scene(m_doc);
+    s->setName(tr("Blinder Flash"));
+    for (quint32 gid : blinderGroups)
+        s->addFixtureGroup(gid);
+    s->addPalette(dimPid);
+    if (whitePid != QLCPalette::invalidId())
+        s->addPalette(whitePid);
+    // Instant on, short fade-out so releasing the momentary Flash button leaves
+    // a quick decay rather than a hard cut.
+    s->setFadeInSpeed(0);
+    s->setFadeOutSpeed(300);
+    m_doc->addFunction(s);
+    s->setPath(wizardPath(tr("Show Cues")));
+    m_generatedFunctionIDs.append(s->id());
+    return s;
+}
+
+Chaser *StageWizard::generateAmbientLoop()
+{
+    QList<Scene *> scenes;
+    // Warm white → cool blue → warm white cycle
+    struct ColorDef { QString name; quint8 r, g, b; };
+    static const ColorDef ambient[] = {
+        { "Warm White", 255, 200, 100 },
+        { "Cool Blue",   80, 120, 255 },
+        { "Soft White", 220, 220, 255 },
+    };
+    for (const FixtureGroupEntry &grp : m_groups)
+    {
+        // Static colour mixers only — same rule buildEffectsModel() uses to
+        // offer the effect at all, so the checkbox and what gets built agree.
+        if ((!grp.hasRGB && !grp.hasCMY) || grp.hasMovement) continue;
+        for (const ColorDef &cd : ambient)
+        {
+            Scene *s = new Scene(m_doc);
+            s->setName(tr("Ambient – %1 %2").arg(grp.name).arg(cd.name));
+            for (quint32 fxID : grp.fixtureIDs)
+            {
+                Fixture *fx = m_doc->fixture(fxID);
+                if (!fx) continue;
+                for (quint32 ch = 0; ch < fx->channels(); ++ch)
+                {
+                    const QLCChannel *c = fx->channel(ch);
+                    if (!c || c->group() != QLCChannel::Intensity) continue;
+                    quint8 val = 0;
+                    switch (c->colour())
+                    {
+                        case QLCChannel::Red:     val = cd.r; break;
+                        case QLCChannel::Green:   val = cd.g; break;
+                        case QLCChannel::Blue:    val = cd.b; break;
+                        case QLCChannel::White:   val = (cd.r > 200 && cd.g > 200) ? 200 : 0; break;
+                        default: val = (cd.r + cd.g + cd.b) / 3; break;
+                    }
+                    s->setValue(SceneValue(fxID, ch, val));
+                }
+            }
+            scenes.append(s);
+        }
+        break; // one ambient loop across the first suitable group
+    }
+
+    if (scenes.isEmpty()) return nullptr;
+
+    Chaser *ch = makeChaserFromScenes(scenes, tr("Ambient Loop"), 4000, 8000);
+    ch->setRunOrder(Chaser::Loop);
+    m_doc->addFunction(ch);
+    return ch;
+}

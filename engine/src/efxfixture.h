@@ -45,9 +45,9 @@ class QImage;
 #define KXMLQLCEFXFixtureStartOffset    QStringLiteral("StartOffset")
 #define KXMLQLCEFXFixtureIntensity      QStringLiteral("Intensity")
 
-#define KXMLQLCEFXFixtureModePanTilt    QStringLiteral("Position")
-#define KXMLQLCEFXFixtureModeDimmer     QStringLiteral("Dimmer")
-#define KXMLQLCEFXFixtureModeRGB        QStringLiteral("RGB")
+#define KXMLQLCEFXFixtureModePanTilt        QStringLiteral("Position")
+#define KXMLQLCEFXFixtureModeDimmer         QStringLiteral("Dimmer")
+#define KXMLQLCEFXFixtureModeRGB            QStringLiteral("RGB")
 
 class EFXFixture final
 {
@@ -107,7 +107,7 @@ public:
     Mode mode() const;
 
     /** Return the Universe ID where this head falls in */
-    quint32 universe();
+    quint32 universe() const;
 
     /**
      * Check that this object has a fixture ID and at least LSB channel
@@ -119,7 +119,7 @@ public:
 
 public:
     /** Get the supported mode for this fixture in a string list */
-    QStringList modeList();
+    QStringList modeList() const;
 
     /** Convert a mode to a string */
     static QString modeToString(Mode algo);
@@ -184,6 +184,7 @@ private:
     /** 0..M_PI*2, current position, recomputed on each timer tick; depends on elapsed() and parent->duration() */
     float m_currentAngle;
 
+
     /*************************************************************************
      * Running
      *************************************************************************/
@@ -195,18 +196,28 @@ private:
     void nextStep(QList<Universe *> universes, QSharedPointer<GenericFader> fader);
 
     /** Set a 16bit value on a fader gotten from the engine */
-    void updateFaderValues(FadeChannel *fc, quint32 value);
+    void updateFaderValues(FadeChannel &fc, quint32 value);
 
     /** Write this EFXFixture's channel data to universe faders */
     void setPointPanTilt(QList<Universe *> universes, QSharedPointer<GenericFader> fader, float pan, float tilt);
     void setPointDimmer(QList<Universe *> universes, QSharedPointer<GenericFader> fader, float dimmer);
     void setPointRGB (QList<Universe *> universes, QSharedPointer<GenericFader> fader, float x, float y);
 
+    /** Write a dimmer value to the cached intensity channel (used when the EFX
+        has dimmer control enabled, where m_firstMsbChannel/m_secondMsbChannel are
+        already taken by pan/tilt) */
+    void setPointIntensity(QList<Universe *> universes, QSharedPointer<GenericFader> fader, float dimmer);
+
 private:
     quint32 m_firstMsbChannel;
     quint32 m_firstLsbChannel;
     quint32 m_secondMsbChannel;
     quint32 m_secondLsbChannel;
+
+    /** Intensity channel cache used when the EFX has dimmer control enabled
+        (pan/tilt use the channels above) */
+    quint32 m_intensityMsbChannel;
+    quint32 m_intensityLsbChannel;
 
 private:
     static QImage m_rgbGradient;

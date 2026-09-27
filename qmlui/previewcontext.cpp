@@ -35,7 +35,7 @@ PreviewContext::PreviewContext(QQuickView *view, Doc *doc, QString name, QObject
     , m_pixelDensity(0)
     , m_enabled(false)
     , m_detached(false)
-    , m_universeFilter(0)
+    , m_universeFilter(Universe::invalid())
 {
 }
 
@@ -65,7 +65,7 @@ void PreviewContext::enableContext(bool enable)
     m_enabled = enable;
 }
 
-bool PreviewContext::isEnabled()
+bool PreviewContext::isEnabled() const
 {
     return m_enabled;
 }
@@ -85,12 +85,12 @@ void PreviewContext::setUniverseFilter(quint32 universeFilter)
     emit universeFilterChanged(universeFilter);
 }
 
-QQuickView *PreviewContext::view()
+QQuickView *PreviewContext::view() const
 {
     return m_view;
 }
 
-QQuickItem *PreviewContext::contextItem()
+QQuickItem *PreviewContext::contextItem() const
 {
     return m_contextItem;
 }
@@ -138,7 +138,7 @@ void PreviewContext::setDetached(bool detached)
     if (detached == true)
     {
         /** Create a new Quick View, as a true separate window */
-        ContextQuickView *cqView = new ContextQuickView();
+        ContextQuickView *cqView = new ContextQuickView(m_mainView->engine());
         m_view = cqView;
         m_pixelDensity = m_mainView->rootContext()->contextProperty("screenPixelDensity").toReal();
         connect(cqView, &ContextQuickView::keyPressed, this, &PreviewContext::keyPressed);
@@ -149,6 +149,7 @@ void PreviewContext::setDetached(bool detached)
          *  This is a bit ugly, but I guess it is a downside of the QML programming */
         m_view->rootContext()->setContextProperty("qlcplus", m_mainView->rootContext()->contextProperty("qlcplus"));
         m_view->rootContext()->setContextProperty("screenPixelDensity", m_pixelDensity);
+        m_view->rootContext()->setContextProperty("uiManager", m_mainView->rootContext()->contextProperty("uiManager"));
         m_view->rootContext()->setContextProperty("ioManager", m_mainView->rootContext()->contextProperty("ioManager"));
         m_view->rootContext()->setContextProperty("fixtureBrowser", m_mainView->rootContext()->contextProperty("fixtureBrowser"));
         m_view->rootContext()->setContextProperty("fixtureManager", m_mainView->rootContext()->contextProperty("fixtureManager"));
@@ -163,13 +164,17 @@ void PreviewContext::setDetached(bool detached)
         m_view->rootContext()->setContextProperty("View2D", m_mainView->rootContext()->contextProperty("View2D"));
         m_view->rootContext()->setContextProperty("View3D", m_mainView->rootContext()->contextProperty("View3D"));
 
-        /** Set the fundamental properties to allow the detached context to properly load */
-        m_view->rootContext()->setContextProperty("viewSource", contextResource());
-        m_view->rootContext()->setContextProperty("contextName", name());
-        m_view->rootContext()->setContextProperty("contextPage", contextPage());
-
         /** Finally, load the context wrapper and show it on the screen */
         m_view->setSource(QUrl("qrc:/WindowLoader.qml"));
+        if (m_view->rootObject())
+        {
+            /** Note: the view source must be set last, since it triggers
+             *  the synchronous loading of the context, which needs
+             *  the other properties to be already in place */
+            m_view->rootObject()->setProperty("detachedContextName", name());
+            m_view->rootObject()->setProperty("detachedContextPage", contextPage());
+            m_view->rootObject()->setProperty("detachedViewSource", contextResource());
+        }
 
         m_view->setTitle(contextTitle());
         m_view->setIcon(QIcon(":/qlcplus.svg"));

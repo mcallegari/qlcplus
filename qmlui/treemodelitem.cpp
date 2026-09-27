@@ -81,7 +81,7 @@ int TreeModelItem::flags() const
     return m_flags;
 }
 
-QVariant TreeModelItem::data(int index)
+QVariant TreeModelItem::data(int index) const
 {
     //qDebug() << "Getting data at" << index << label();
     if (index < 0 || index >= m_data.count())
@@ -90,7 +90,7 @@ QVariant TreeModelItem::data(int index)
     return m_data.at(index);
 }
 
-QVariantList TreeModelItem::data()
+QVariantList TreeModelItem::data() const
 {
     return m_data;
 }
@@ -122,7 +122,7 @@ bool TreeModelItem::setChildrenColumns(QStringList columns)
     return childrenTreeCreated;
 }
 
-bool TreeModelItem::addChild(QString label, QVariantList data, bool sorting, QString path, int flags)
+bool TreeModelItem::addChild(QString label, QVariantList data, QStringList columns, bool sorting, QString path, int flags)
 {
     bool childrenTreeCreated = false;
     if (m_children == nullptr)
@@ -131,13 +131,14 @@ bool TreeModelItem::addChild(QString label, QVariantList data, bool sorting, QSt
         QQmlEngine::setObjectOwnership(m_children, QQmlEngine::CppOwnership);
         childrenTreeCreated = true;
     }
+    m_children->setColumnNames(columns);
     m_children->enableSorting(sorting);
     m_children->addItem(label, data, path, flags);
 
     return childrenTreeCreated;
 }
 
-bool TreeModelItem::hasChildren()
+bool TreeModelItem::hasChildren() const
 {
     if (m_children != nullptr)
         return true;
@@ -145,14 +146,12 @@ bool TreeModelItem::hasChildren()
     return false;
 }
 
-TreeModel *TreeModelItem::children()
+TreeModel *TreeModelItem::children() const
 {
     return m_children;
 }
 
-void TreeModelItem::printItem(int tab)
+void TreeModelItem::printItem(int tab) const
 {
     qDebug() << QString("%1%2").arg(QString(tab, QChar(0x20))).arg(label()) << m_path << m_data;
 }
-
-

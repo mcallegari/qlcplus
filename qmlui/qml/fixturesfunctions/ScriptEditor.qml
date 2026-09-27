@@ -58,6 +58,12 @@ Rectangle
         width: parent.width
         height: parent.height - topBar.height
 
+        handle: Rectangle
+        {
+            implicitWidth: screenPixelDensity * UISettings.scalingFactor * 0.9
+            color: SplitHandle.hovered || SplitHandle.pressed ? UISettings.highlight : UISettings.bgLighter
+        }
+
         Loader
         {
             id: sideLoader

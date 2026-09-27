@@ -54,6 +54,8 @@ class ContextManager final : public QObject
     Q_PROPERTY(quint32 dumpChannelMask READ dumpChannelMask NOTIFY dumpChannelMaskChanged)
     Q_PROPERTY(bool multipleSelection READ multipleSelection WRITE setMultipleSelection NOTIFY multipleSelectionChanged)
     Q_PROPERTY(bool positionPicking READ positionPicking WRITE setPositionPicking NOTIFY positionPickingChanged)
+    Q_PROPERTY(QVector3D lastPickedPoint READ lastPickedPoint NOTIFY lastPickedPointChanged)
+    Q_PROPERTY(bool showFixtureGroups READ showFixtureGroups WRITE setShowFixtureGroups NOTIFY showFixtureGroupsChanged)
 
 public:
     explicit ContextManager(QQuickView *view, Doc *doc,
@@ -106,8 +108,16 @@ public:
 
     Q_INVOKABLE void setPositionPickPoint(QVector3D point);
 
+    /** Returns the last 3D point picked in the scene (in monitor coordinates, mm) */
+    QVector3D lastPickedPoint() const;
+
     /** Get/Set the last item clicked type */
     int lastClickedType() const;
+
+    /** Get/Set the visibility of the fixture groups bar. This is shared
+     *  between the 2D and 3D views and not persisted across sessions */
+    bool showFixtureGroups() const;
+    void setShowFixtureGroups(bool show);
 
 public slots:
     void setLastClickedType(const int &newLastClickedType);
@@ -117,11 +127,24 @@ signals:
     void currentSubContextChanged();
     void environmentSizeChanged();
     void positionPickingChanged();
+    void lastPickedPointChanged();
     void multipleSelectionChanged();
+    void showFixtureGroupsChanged();
+
+    /** Emitted when the user requested the deletion of the currently
+     *  selected Functions/Folders (e.g. by pressing the Delete key).
+     *  The UI is expected to ask for confirmation before performing
+     *  the actual deletion, like the Functions Manager toolbar does */
+    void requestFunctionsDeletion();
 
 public slots:
     /** Resets the data structures and update the currently enabled views */
     void resetContexts();
+
+    /** Destroys the items of the currently enabled preview views, without
+     *  recreating them. To be called before the Doc contents are cleared,
+     *  since the view items reference Doc fixtures */
+    void resetViewItems();
 
     /** Handle a key press from a QQuickView context */
     void handleKeyPress(QKeyEvent *e);
@@ -160,9 +183,14 @@ private:
     bool m_multipleSelection;
     /** Flag that indicates if a position picking is active */
     bool m_positionPicking;
+    /** Flag that indicates if the fixture groups bar is visible in the 2D/3D views */
+    bool m_showFixtureGroups;
+    /** Last 3D point picked in the scene (in monitor coordinates) */
+    QVector3D m_lastPickedPoint;
 
     /** Keep track of the last item type that was
-     *  clicked, to handle the Del keypress */
+     *  clicked, to handle the Del keypress and to only steal
+     *  CTRL+A when a preview area was the last clicked widget */
     int m_lastClickedType;
 
     /*********************************************************************
@@ -254,7 +282,7 @@ public:
     Q_INVOKABLE qreal getCurrentValue(int type, bool degrees);
 
     /** Get the RGB color of the current fixture selection */
-    Q_INVOKABLE void getCurrentColors(QQuickItem *item);
+    Q_INVOKABLE void getCurrentColors(QQuickItem *item) const;
 
     Q_INVOKABLE void createFixtureGroup();
 
@@ -310,8 +338,17 @@ signals:
     void fixturesRotationChanged();
 
 private:
+    /** Select the next available Fixture group, cycling through the
+     *  groups defined in the Doc. Deselects everything else. */
+    void selectNextFixtureGroup();
+
+private:
     /** The list of the currently selected Fixture item IDs */
     QList<quint32> m_selectedFixtures;
+
+    /** The ID of the Fixture group currently selected via CTRL+Tab,
+     *  or Function::invalidId() if none */
+    quint32 m_currentFixtureGroupID;
 
     /** A flag indicating if a Function is currently being edited */
     bool m_editingEnabled;

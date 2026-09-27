@@ -457,7 +457,7 @@ void EFXFixture_Test::setPoint8bit()
     ef.start(fader);
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE(fader->channels().count(), 2);
-    universe->processFaders();
+    universe->processFaders(MasterTimer::tick());
 
     QCOMPARE((int)universe->preGMValues()[m_fixture8bitAddress + 0], 5);
     QCOMPARE((int)universe->preGMValues()[m_fixture8bitAddress + 1], 1);
@@ -478,7 +478,7 @@ void EFXFixture_Test::setPoint16bit()
     ef.start(fader);
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE(fader->channels().count(), 4);
-    universe->processFaders();
+    universe->processFaders(MasterTimer::tick());
     QCOMPARE((int)universe->preGMValues()[m_fixture16bitAddress + 0], 5);
     QCOMPARE((int)universe->preGMValues()[m_fixture16bitAddress + 1], 1);
     QCOMPARE((int)universe->preGMValues()[m_fixture16bitAddress + 2], 102); /* 255 * 0.4 */
@@ -498,7 +498,7 @@ void EFXFixture_Test::setPointPanOnly()
     ef.start(fader);
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE(fader->channels().count(), 1);
-    universe->processFaders();
+    universe->processFaders(MasterTimer::tick());
     QCOMPARE((int)universe->preGMValues()[m_fixturePanOnlyAddress + 0], 5); /* Pan */
     QCOMPARE((int)universe->preGMValues()[m_fixturePanOnlyAddress + 1], 0);
     QCOMPARE((int)universe->preGMValues()[m_fixturePanOnlyAddress + 2], 0);
@@ -518,7 +518,7 @@ void EFXFixture_Test::setPointLedBar()
     ef.start(fader);
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE(fader->channels().count(), 1);
-    universe->processFaders();
+    universe->processFaders(MasterTimer::tick());
 
     QCOMPARE((int)universe->preGMValues()[m_fixtureLedBarAddress + 0], 1); /* Tilt */
     QCOMPARE((int)universe->preGMValues()[m_fixtureLedBarAddress + 1], 0);

@@ -67,6 +67,10 @@ void MainView2D::enableContext(bool enable)
 void MainView2D::setUniverseFilter(quint32 universeFilter)
 {
     PreviewContext::setUniverseFilter(universeFilter);
+
+    if (!isEnabled())
+        return;
+
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
     while (it.hasNext())
     {
@@ -163,9 +167,9 @@ void MainView2D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     newFixtureItem->setParentItem(m_gridItem);
     newFixtureItem->setProperty("itemID", itemID);
     newFixtureItem->setProperty("fixtureName", fixture->name());
-
-    if (itemFlags & MonitorProperties::HiddenFlag)
-        newFixtureItem->setProperty("visible", false);
+    bool isVisible = !(itemFlags & MonitorProperties::HiddenFlag) &&
+                     (m_universeFilter == Universe::invalid() || fixture->universe() == m_universeFilter);
+    newFixtureItem->setProperty("visible", isVisible);
 
     if (fxMode != nullptr && fixture->type() != QLCFixtureDef::Dimmer)
     {
@@ -257,9 +261,13 @@ void MainView2D::setFixtureFlags(quint32 itemID, quint32 flags)
         return;
 
     fxItem->setProperty("visible", (flags & MonitorProperties::HiddenFlag) ? false : true);
+
+    // re-evaluate the drag layer parenting in case the locked flag changed
+    if (fxItem->property("isSelected").toBool())
+        selectFixture(fxItem, true);
 }
 
-QList<quint32> MainView2D::selectFixturesRect(QRectF rect)
+QList<quint32> MainView2D::selectFixturesRect(QRectF rect) const
 {
     QList<quint32>fxList;
 
@@ -560,14 +568,21 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
     }
 }
 
-void MainView2D::selectFixture(QQuickItem *fxItem, bool enable)
+void MainView2D::selectFixture(QQuickItem *fxItem, bool enable) const
 {
     if (fxItem == nullptr)
         return;
 
     fxItem->setProperty("isSelected", enable);
 
-    if (enable)
+    quint32 itemID = fxItem->property("itemID").toUInt();
+    quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+    quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+    quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+    bool locked = m_monProps->fixtureFlags(fxID, headIndex, linkedIndex) & MonitorProperties::LockedFlag;
+
+    // a locked item must not follow the drag layer, so keep it parented to the grid
+    if (enable && !locked)
     {
         QQuickItem *rootObj = m_view->rootObject();
         if (rootObj == nullptr)
@@ -778,7 +793,7 @@ void MainView2D::setPointOfView(int pointOfView)
     slotRefreshView();
 }
 
-QString MainView2D::backgroundImage()
+QString MainView2D::backgroundImage() const
 {
     return m_monProps->commonBackgroundImage();
 }
@@ -796,8 +811,3 @@ void MainView2D::setBackgroundImage(QString path)
     m_monProps->setCommonBackgroundImage(path);
     emit backgroundImageChanged();
 }
-
-
-
-
-

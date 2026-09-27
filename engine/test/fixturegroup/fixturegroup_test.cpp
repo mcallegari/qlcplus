@@ -597,10 +597,10 @@ void FixtureGroup_Test::swap()
 
 void FixtureGroup_Test::copy()
 {
-    FixtureGroup grp1(m_doc);
-    grp1.setSize(QSize(4, 4));
-    grp1.setName("Pertti Pasanen");
-    grp1.setId(99);
+    FixtureGroup group1(m_doc);
+    group1.setSize(QSize(4, 4));
+    group1.setName("Pertti Pasanen");
+    group1.setId(99);
     for (quint32 id = 0; id < 16; id++)
     {
         Fixture* fxi = new Fixture(m_doc);
@@ -608,18 +608,18 @@ void FixtureGroup_Test::copy()
         fxi->setAddress(m_currentAddr);
         m_currentAddr += fxi->channels();
         m_doc->addFixture(fxi);
-        grp1.assignFixture(fxi->id());
+        group1.assignFixture(fxi->id());
     }
-    QCOMPARE(grp1.fixtureList().size(), 16);
+    QCOMPARE(group1.fixtureList().size(), 16);
 
-    FixtureGroup grp2(m_doc);
-    grp2.copyFrom(&grp1);
-    QCOMPARE(grp2.size(), QSize(4, 4));
-    QCOMPARE(grp2.name(), QString("Pertti Pasanen"));
-    QVERIFY(grp2.id() != quint32(99)); // ID must not be copied
-    QCOMPARE(grp2.fixtureList().size(), 16);
+    FixtureGroup group2(m_doc);
+    group2.copyFrom(&group1);
+    QCOMPARE(group2.size(), QSize(4, 4));
+    QCOMPARE(group2.name(), QString("Pertti Pasanen"));
+    QVERIFY(group2.id() != quint32(99)); // ID must not be copied
+    QCOMPARE(group2.fixtureList().size(), 16);
     for (quint32 id = 0; id < 16; id++)
-        QVERIFY(grp2.fixtureList().contains(id) == true);
+        QVERIFY(group2.fixtureList().contains(id) == true);
 }
 
 void FixtureGroup_Test::loadWrongID()
@@ -824,12 +824,12 @@ void FixtureGroup_Test::load()
     xmlReader.readNextStartElement();
     QVERIFY(FixtureGroup::loader(xmlReader, m_doc) == true);
     QCOMPARE(m_doc->fixtureGroups().size(), 1);
-    FixtureGroup* grp2 = m_doc->fixtureGroup(99);
-    QVERIFY(grp2 != NULL);
-    QCOMPARE(grp2->size(), QSize(4, 5));
-    QCOMPARE(grp2->name(), QString("Pertti Pasanen"));
-    QCOMPARE(grp2->id(), quint32(99));
-    QCOMPARE(grp2->headsMap(), grp.headsMap());
+    FixtureGroup* group2 = m_doc->fixtureGroup(99);
+    QVERIFY(group2 != NULL);
+    QCOMPARE(group2->size(), QSize(4, 5));
+    QCOMPARE(group2->name(), QString("Pertti Pasanen"));
+    QCOMPARE(group2->id(), quint32(99));
+    QCOMPARE(group2->headsMap(), grp.headsMap());
 }
 
 void FixtureGroup_Test::save()

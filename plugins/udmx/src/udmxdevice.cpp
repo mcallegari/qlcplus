@@ -41,6 +41,14 @@
 #define SETTINGS_FREQUENCY "udmx/frequency"
 #define SETTINGS_CHANNELS "udmx/channels"
 
+namespace
+{
+constexpr unsigned char kVendorInterfaceOutRequestType =
+    static_cast<unsigned char>(static_cast<unsigned char>(LIBUSB_REQUEST_TYPE_VENDOR) |
+                               static_cast<unsigned char>(LIBUSB_RECIPIENT_INTERFACE) |
+                               static_cast<unsigned char>(LIBUSB_ENDPOINT_OUT));
+}
+
 /****************************************************************************
  * Initialization
  ****************************************************************************/
@@ -249,9 +257,7 @@ void UDMXDevice::run()
 
         /* Write all 512 channels */
         r = libusb_control_transfer(m_handle,
-                            LIBUSB_REQUEST_TYPE_VENDOR |
-                            LIBUSB_RECIPIENT_INTERFACE |
-                            LIBUSB_ENDPOINT_OUT,
+                            kVendorInterfaceOutRequestType,
                             UDMX_SET_CHANNEL_RANGE,     /* Command */
                             m_universe.size(),          /* Number of channels to set */
                             0,                          /* Starting index */

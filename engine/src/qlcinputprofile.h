@@ -203,7 +203,7 @@ protected:
      * Color Translation Table
      ********************************************************************/
 public:
-    bool hasColorTable();
+    bool hasColorTable() const;
     void addColor(uchar value, QString label, QColor color);
     void removeColor(uchar value);
 
@@ -216,7 +216,7 @@ protected:
      * MIDI Channel table
      ********************************************************************/
 public:
-    bool hasMidiChannelTable();
+    bool hasMidiChannelTable() const;
     void addMidiChannel(uchar channel, QString label);
     void removeMidiChannel(uchar channel);
 

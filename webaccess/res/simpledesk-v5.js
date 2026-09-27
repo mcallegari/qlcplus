@@ -22,6 +22,7 @@ var slidersContainer;
 var pageDisplay;
 var universeSelect;
 var fadersSelect;
+var wsStatus;
 var pollTimer = null;
 var lastStartChannel = null;
 var lastChannelCount = null;
@@ -43,6 +44,15 @@ var GROUP_ICONS = {
 function sendMessage(msg) {
   if (!websocket || websocket.readyState !== 1) return;
   websocket.send(msg);
+}
+
+function setStatus(connected) {
+  if (!wsStatus) return;
+  wsStatus.textContent = "";
+  wsStatus.classList.toggle("connected", connected);
+  wsStatus.classList.toggle("disconnected", !connected);
+  wsStatus.setAttribute("aria-label", connected ? "Connected" : "Disconnected");
+  wsStatus.title = connected ? "Connected" : "Disconnected";
 }
 
 function updateWebPixelDensity() {
@@ -71,8 +81,54 @@ function updateRangeFill(input) {
   input.style.setProperty("--slider-fill", fill + "%");
 }
 
+function readRootCssNumber(name, fallback) {
+  var value = parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name));
+  return isNaN(value) ? fallback : value;
+}
+
+function getResponsiveUiScale() {
+  var width = window.innerWidth || document.documentElement.clientWidth || 0;
+  var phoneScale = readRootCssNumber("--ui-scale-phone", 1);
+  var tabletScale = readRootCssNumber("--ui-scale-tablet", 1);
+  var tabletWideScale = readRootCssNumber("--ui-scale-tablet-wide", 1);
+  if (width <= 700) return phoneScale;
+  if (width <= 900) return tabletScale;
+  if (width <= 1280) return tabletWideScale;
+  return 1;
+}
+
+function getEffectiveIconSize() {
+  var cssIconSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--icon-size-default"));
+  if (!isNaN(cssIconSize)) return cssIconSize;
+  var density = readRootCssNumber("--pd", 1);
+  return density * 10 * getResponsiveUiScale();
+}
+
+function getUnifiedSliderThumbSize() {
+  var iconSize = getEffectiveIconSize();
+  var scale = readRootCssNumber("--slider-thumb-scale", 1.0);
+  var aspect = readRootCssNumber("--slider-thumb-aspect", 0.75);
+  var width = Math.max(6, iconSize * scale);
+  var height = Math.max(6, width * aspect);
+  return { width: width, height: height };
+}
+
+function isSimpleDeskSliderTouchTarget(target) {
+  if (!target || typeof target.closest !== "function") return false;
+  var range = target.closest("input[type='range']");
+  if (!range) return false;
+  return !!range.closest(".sd-slider");
+}
+
 function updatePageDisplay() {
   if (pageDisplay) pageDisplay.textContent = currentPage;
+}
+
+function normalizedUniverse() {
+  var uni = parseInt(currentUniverse, 10);
+  if (isNaN(uni) || uni < 1) uni = 1;
+  currentUniverse = uni;
+  return uni;
 }
 
 function getMaxPages() {
@@ -82,7 +138,8 @@ function getMaxPages() {
 
 function requestPage() {
   var address = ((currentPage - 1) * channelsPerPage) + 1;
-  sendMessage("QLC+API|getChannelsValues|" + currentUniverse + "|" + address + "|" + channelsPerPage);
+  var uni = normalizedUniverse();
+  sendMessage("QLC+API|getChannelsValues|" + uni + "|" + address + "|" + channelsPerPage);
 }
 
 function applyChannelValue(chNum, value, isOverriding) {
@@ -111,12 +168,15 @@ function applyChannelType(chNum, type) {
 function connect() {
   var url = "ws://" + window.location.host + "/qlcplusWS";
   websocket = new WebSocket(url);
+  setStatus(false);
 
   websocket.onopen = function() {
+    setStatus(true);
     requestPage();
   };
 
   websocket.onclose = function() {
+    setStatus(false);
     console.log("QLC+ connection is closed. Reconnect will be attempted in 1 second.");
     setTimeout(function () {
       connect();
@@ -126,6 +186,7 @@ function connect() {
   websocket.onerror = function(ev) {
     console.error("QLC+ connection encountered error. Closing socket");
     console.error("Error: " + ev.data);
+    setStatus(false);
     websocket.close();
   };
 
@@ -157,11 +218,11 @@ function drawPage(data) {
     var isOverriding = stride === 4 ? (cVars[i + 3] === "1" || cVars[i + 3] === "true") : false;
     if (!hasLayout) {
       html += "<div class='vc-slider sd-slider" + (isOverriding ? " is-active" : "") + "' data-ch='" + chNum + "'>";
-      html += getTopMarkup(type).replace(/>$/, " data-type=\"" + type + "\">");
+      html += getTopMarkup(type);
       html += "<div id='sdslv" + chNum + "' class='slider-value'>" + value + "</div>";
       html += "<div class='slider-track'><input type='range' class='range-vertical sd-range' id='" + chNum + "' min='0' max='255' step='1' value='" + value + "'></div>";
       html += "<div id='sdsln" + chNum + "' class='slider-caption'>" + chNum + "</div>";
-      html += "<button class='slider-reset-btn sd-reset-btn' data-ch='" + chNum + "' type='button'>x</button>";
+      html += "<button class='slider-reset-btn sd-reset-btn' data-ch='" + chNum + "' type='button'><span class='fa-icon'>&#xf00d;</span></button>";
       html += "</div>";
     } else {
       applyChannelValue(chNum, value, isOverriding);
@@ -189,13 +250,9 @@ function drawPage(data) {
       if (!track || !input) return;
       var trackHeight = track.clientHeight || 120;
       input.style.setProperty("--slider-length", trackHeight + "px");
-      var sliderWidth = slider.clientWidth || 60;
-      var rootStyle = getComputedStyle(document.documentElement);
-      var iconSize = parseFloat(rootStyle.getPropertyValue("--icon-size-default")) || 28;
-      var thumbWidth = Math.min(sliderWidth, iconSize * 0.75);
-      var thumbHeight = Math.min(iconSize, sliderWidth);
-      input.style.setProperty("--slider-thumb-width", thumbHeight + "px");
-      input.style.setProperty("--slider-thumb-height", thumbWidth + "px");
+      var thumbSize = getUnifiedSliderThumbSize();
+      input.style.setProperty("--slider-thumb-width", `${thumbSize.width}px`);
+      input.style.setProperty("--slider-thumb-height", `${thumbSize.height}px`);
     });
   }
 }
@@ -242,14 +299,16 @@ function universeChanged(uniIdx) {
 }
 
 function resetChannel(pageCh) {
-  var chNum = ((currentUniverse - 1) * 512) + parseInt(pageCh, 10);
+  var uni = normalizedUniverse();
+  var chNum = ((uni - 1) * 512) + parseInt(pageCh, 10);
   sendMessage("QLC+API|sdResetChannel|" + chNum);
 }
 
 function resetUniverse() {
+  var uni = normalizedUniverse();
   currentPage = 1;
   updatePageDisplay();
-  sendMessage("QLC+API|sdResetUniverse|" + currentUniverse);
+  sendMessage("QLC+API|sdResetUniverse|" + uni);
   requestPage();
 }
 
@@ -258,11 +317,17 @@ window.addEventListener("load", function() {
   window.addEventListener("resize", function() {
     updateWebPixelDensity();
   });
+  document.addEventListener("contextmenu", function(ev) {
+    if (isSimpleDeskSliderTouchTarget(ev.target)) ev.preventDefault();
+  });
   slidersContainer = document.getElementById("slidersContainer");
   pageDisplay = document.getElementById("pageDisplay");
   universeSelect = document.getElementById("universeSelect");
   fadersSelect = document.getElementById("fadersSelect");
+  wsStatus = document.getElementById("wsStatus");
+  setStatus(false);
 
+  normalizedUniverse();
   updatePageDisplay();
   if (fadersSelect) fadersSelect.value = String(channelsPerPage);
 
@@ -294,8 +359,9 @@ window.addEventListener("load", function() {
     if (labelObj) labelObj.textContent = ev.target.value;
     updateRangeFill(ev.target);
     var slider = ev.target.closest(".sd-slider");
-    if (slider) slider.classList.toggle("is-active", parseInt(ev.target.value, 10) > 0);
-    var chNum = ((currentUniverse - 1) * 512) + parseInt(id, 10);
+    if (slider && parseInt(ev.target.value, 10) > 0) slider.classList.add("is-active");
+    var uni = normalizedUniverse();
+    var chNum = ((uni - 1) * 512) + parseInt(id, 10);
     sendMessage("CH|" + chNum + "|" + ev.target.value);
   });
 
@@ -310,6 +376,7 @@ window.addEventListener("load", function() {
     if (ev.target.closest(".sd-reset-btn") || ev.target.closest("input[type='range']")) return;
     var track = ev.target.closest(".slider-track");
     if (!track) return;
+    ev.preventDefault();
     var input = track.querySelector("input[type='range']");
     if (!input) return;
     var rect = track.getBoundingClientRect();
@@ -325,7 +392,8 @@ window.addEventListener("load", function() {
     if (labelObj) labelObj.textContent = value;
     var slider = input.closest(".sd-slider");
     if (slider) slider.classList.toggle("is-active", value > 0);
-    var chNum = ((currentUniverse - 1) * 512) + parseInt(input.id, 10);
+    var uni = normalizedUniverse();
+    var chNum = ((uni - 1) * 512) + parseInt(input.id, 10);
     sendMessage("CH|" + chNum + "|" + value);
   });
 

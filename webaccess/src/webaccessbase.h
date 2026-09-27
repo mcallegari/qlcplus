@@ -45,6 +45,7 @@ class WebAccessBase : public QObject
     Q_OBJECT
 public:
     virtual ~WebAccessBase();
+    void closeServer();
 
 protected:
     enum class CommonRequestResult
@@ -59,26 +60,26 @@ protected:
                            QObject *parent = nullptr);
 
     bool sendFile(QHttpResponse *response, QString filename, QString contentType) const;
-    void sendWebSocketMessage(const QString &message);
+    void sendWebSocketMessage(const QString &message) const;
     virtual QString webFilePath(const QString &relativePath) const;
     bool servePng(QHttpResponse *resp, const QString &reqUrl) const;
     bool serveWebFile(QHttpResponse *resp, const QString &reqUrl, const QString &contentType) const;
-    bool authenticateRequest(QHttpRequest *req, QHttpResponse *resp, WebAccessUser &user);
+    bool authenticateRequest(const QHttpRequest *req, QHttpResponse *resp, WebAccessUser &user) const;
     bool acceptWebSocket(QHttpResponse *resp, const WebAccessUser &user);
     QByteArray extractProjectXml(const QHttpRequest *req) const;
     void sendProjectLoadingResponse(QHttpResponse *resp) const;
     void sendNotFound(QHttpResponse *resp) const;
     void sendHtmlResponse(QHttpResponse *resp, const QString &content) const;
     bool requireAuthLevel(QHttpResponse *resp, const WebAccessUser &user, WebAccessUserLevel level) const;
-    bool handleCommonWebSocketCommand(QHttpConnection *conn, WebAccessUser *user,
+    bool handleCommonWebSocketCommand(QHttpConnection *conn, const WebAccessUser *user,
                                       const QStringList &cmdList, const QString &logTag,
                                       bool logWarning);
-    CommonRequestResult handleCommonHTTPRequest(QHttpRequest *req, QHttpResponse *resp,
+    CommonRequestResult handleCommonHTTPRequest(const QHttpRequest *req, QHttpResponse *resp,
                                                 const WebAccessUser &user, const QString &reqUrl,
                                                 QString &content);
     virtual void handleAutostartProject(const QString &path);
     virtual void handleProjectLoad(const QByteArray &projectXml) = 0;
-    virtual bool storeFixtureDefinition(const QString &fxName, const QByteArray &fixtureXML) = 0;
+    virtual bool storeFixtureDefinition(const QString &fxName, const QByteArray &fixtureXML);
 
 protected slots:
     virtual void slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp) = 0;

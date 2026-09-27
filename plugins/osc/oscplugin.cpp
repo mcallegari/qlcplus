@@ -300,7 +300,18 @@ void OSCPlugin::sendFeedBack(quint32 universe, quint32 input,
 
     OSCController *controller = m_IOmapping[input].controller;
     if (controller != NULL)
-        controller->sendFeedback(universe, channel, value, params.toString());
+    {
+        // params holds the OSC path as a string. When no path has been set
+        // (eg. no input profile defines one), it is left to its default
+        // placeholder value of -1, which must NOT be forwarded as a literal
+        // path string, otherwise the controller won't fall back to its
+        // internal path/channel hash map lookup
+        QString path;
+        if (params.userType() == QMetaType::QString)
+            path = params.toString();
+
+        controller->sendFeedback(universe, channel, value, path);
+    }
 }
 
 /*********************************************************************

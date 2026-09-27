@@ -53,17 +53,17 @@ void main()
 {
 
     vec3 albedo, normal, position;
-    
+
     vec4 u =  viewProjectionMatrix * vec4(fsPos, 1.0);
     vec2 uv = (u.xy / u.w) * 0.5 + vec2(0.5);
     albedo = SAMPLE_TEX2D(albedoTex, uv).rgb;
-    normal = SAMPLE_TEX2D(normalTex, uv).xyz;
+    normal = normalize(SAMPLE_TEX2D(normalTex, uv).xyz);
     float z = SAMPLE_TEX2D(depthTex, uv).r;
 
     vec4 temp = inverseViewProjectionMatrix * vec4(u.x / u.w, u.y / u.w, -1.0 + 2.0 * z, 1.0);
     temp.xyz = temp.xyz / temp.w;
     position = temp.xyz;
-  
+
     float shadowMask = 1.0;
     if (useShadows == 1) {
         vec4 p = lightProjectionMatrix * lightViewMatrix * vec4(position.xyz, 1.0);

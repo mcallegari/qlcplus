@@ -66,7 +66,7 @@ DMXUSBWidget::DMXUSBWidget(DMXInterface *iface, quint32 outputLine, int frequenc
     QVariant var = settings.value(DMXUSB_WINDOWSTIMERRESOLUTION);
     if (var.isValid())
         s_windowsTimerResolution = var.toUInt();
-    
+
     setWindowsTimerResolution(s_windowsTimerResolution);
 #endif
 }
@@ -338,7 +338,7 @@ bool DMXUSBWidget::setWindowsTimerResolution(uint resolution)
 {
     TIMECAPS ptc;
     MMRESULT result;
-    
+
     /* Find out the minimum and maximum possible timer resolution, in milliseconds */
     result = timeGetDevCaps(&ptc, sizeof(TIMECAPS));
     if (result != TIMERR_NOERROR)
@@ -346,16 +346,16 @@ bool DMXUSBWidget::setWindowsTimerResolution(uint resolution)
         qWarning() << Q_FUNC_INFO << "timeGetDevCaps() returned with error" << result;
         return false;
     }
-    
+
     qDebug() << Q_FUNC_INFO << "timeGetDevCaps(): wPeriodMin =" << ptc.wPeriodMin << "wPeriodMax =" << ptc.wPeriodMax;
-    
+
     /* Is given resolution within allowed range? */
     if (resolution < ptc.wPeriodMin || resolution > ptc.wPeriodMax)
     {
         qWarning() << Q_FUNC_INFO << "Period of" << resolution << "ms out of range";
         return false;
     }
-    
+
     /* Request system timer resolution of the given number of milliseconds */
     result = timeBeginPeriod(resolution);
     if (result != TIMERR_NOERROR)
@@ -363,25 +363,25 @@ bool DMXUSBWidget::setWindowsTimerResolution(uint resolution)
         qWarning() << Q_FUNC_INFO << "timeBeginPeriod() returned with error" << result;
         return false;
     }
-    
+
     qDebug() << Q_FUNC_INFO << "timeBeginPeriod() of" << resolution << "ms";
-    
+
     return true;
 }
 
 bool DMXUSBWidget::clearWindowsTimerResolution(uint resolution)
 {
     MMRESULT result;
-    
+
     result = timeEndPeriod(resolution);
     if (result != TIMERR_NOERROR)
     {
         qWarning() << Q_FUNC_INFO << "timeEndPeriod() returned with error" << result;
         return false;
     }
-    
+
     qDebug() << Q_FUNC_INFO << "timeEndPeriod() of" << resolution << "ms";
-    
+
     return true;
 }
 #endif

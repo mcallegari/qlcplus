@@ -133,9 +133,12 @@ void GenericDMXSource::writeDMX(MasterTimer* timer, QList<Universe *> ua)
                 m_fadersMap[universe->id()] = fader;
             }
 
-            FadeChannel *fc = fader->getChannelFader(m_doc, universe, fixture->id(), channelIndex);
-            fc->setCurrent(it.value());
-            fc->setTarget(it.value());
+            const uchar value = it.value();
+            fader->updateChannel(m_doc, universe, fixture->id(), channelIndex, [value](FadeChannel &fc)
+            {
+                fc.setCurrent(value);
+                fc.setTarget(value);
+            });
         }
     }
     if (m_clearRequest)

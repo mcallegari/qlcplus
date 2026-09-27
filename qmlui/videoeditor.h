@@ -74,7 +74,7 @@ public:
     void setFullscreen(bool fullscreen);
 
     /** Get/Set looped attribute for this Video function */
-    bool isLooped();
+    bool isLooped() const;
     void setLooped(bool looped);
 
     bool hasCustomGeometry() const;

@@ -370,7 +370,7 @@ void HandlerGraphicsItem::setBoundingBox(QRectF rect)
     //qDebug() << Q_FUNC_INFO << rect;
 }
 
-QRectF HandlerGraphicsItem::boundingBox()
+QRectF HandlerGraphicsItem::boundingBox() const
 {
     return m_boundingBox;
 }

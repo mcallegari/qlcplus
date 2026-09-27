@@ -24,8 +24,10 @@
 #include <QVariant>
 #include <QObject>
 #include <QMap>
+#include <QColor>
 
 #include "qlcinputprofile.h"
+#include "qlcinputchannel.h"
 #include "midiprotocol.h"
 
 class Doc;
@@ -42,6 +44,8 @@ class InputProfileEditor final : public QObject
     Q_PROPERTY(QLCInputProfile::Type type READ type WRITE setType NOTIFY typeChanged FINAL)
     Q_PROPERTY(bool midiNoteOff READ midiNoteOff WRITE setMidiNoteOff NOTIFY midiNoteOffChanged FINAL)
     Q_PROPERTY(QVariant channels READ channels NOTIFY channelsChanged FINAL)
+    Q_PROPERTY(QVariant colorTable READ colorTable NOTIFY colorTableChanged FINAL)
+    Q_PROPERTY(QVariant midiChannelTable READ midiChannelTable NOTIFY midiChannelTableChanged FINAL)
     Q_PROPERTY(QVariantList channelTypeModel READ channelTypeModel CONSTANT)
 
     /************************************************************************
@@ -64,11 +68,11 @@ public:
     void setModel(const QString &newModel);
 
     /* Get/Set the type of the profile currently being edited */
-    QLCInputProfile::Type type();
+    QLCInputProfile::Type type() const;
     void setType(const QLCInputProfile::Type &newType);
 
     /* Get/Set MIDI Note Off setting */
-    bool midiNoteOff();
+    bool midiNoteOff() const;
     void setMidiNoteOff(const bool &newNoteOff);
 
 protected slots:
@@ -124,11 +128,19 @@ public:
 
     /* Return a QML-ready list of channels of the profile
      * currently being edited */
-    QVariant channels();
+    QVariant channels() const;
+
+    /* Return a QML-ready list of colors of the profile
+     * currently being edited */
+    QVariant colorTable() const;
+
+    /* Return a QML-ready list of MIDI channels of the profile
+     * currently being edited */
+    QVariant midiChannelTable() const;
 
     /* Return a QML-ready list of channel types to be
      * used by a combo box component */
-    QVariantList channelTypeModel();
+    QVariantList channelTypeModel() const;
 
     /* Get a copy of the channel with the provided number */
     Q_INVOKABLE QLCInputChannel *getEditChannel(int channelNumber);
@@ -139,10 +151,25 @@ public:
     /* Remove the input channel with the provided channel number */
     Q_INVOKABLE bool removeChannel(int channelNumber);
 
+    /* Add/Remove entries to/from the color table */
+    Q_INVOKABLE void addColor(int value, const QString &label, const QColor &color);
+    Q_INVOKABLE void removeColor(int value);
+
+    /* Add/Remove entries to/from the MIDI channel table */
+    Q_INVOKABLE void addMidiChannel(int channel, const QString &label);
+    Q_INVOKABLE void removeMidiChannel(int channel);
+
 signals:
     void channelsChanged();
+    void colorTableChanged();
+    void midiChannelTableChanged();
+    void inputSignalReceived(int channelNumber, bool alreadyMapped);
 
 private:
+    QString defaultChannelName(QLCInputChannel::Type type, quint32 channel, const QString &key) const;
+    void appendRollingValue(QVector<uchar> &history, uchar value) const;
+    bool shouldPromoteToSlider(const QVector<uchar> &history) const;
+
     // map of <channel, values> used to detect if
     // an input signal comes from a button or a fader
     QMap<quint32, QVector<uchar>> m_channelsMap;

@@ -105,11 +105,11 @@ private:
      * Universe controls
      *********************************************************************/
 public:
-    int getSlidersNumber();
-    int getCurrentUniverseIndex();
-    int getCurrentPage();
-    uchar getAbsoluteChannelValue(uint address);
-    bool isChannelOverridden(uint address);
+    int getSlidersNumber() const;
+    int getCurrentUniverseIndex() const;
+    int getCurrentPage() const;
+    uchar getAbsoluteChannelValue(uint address) const;
+    bool isChannelOverridden(uint address) const;
     void setAbsoluteChannelValue(uint address, uchar value);
     void resetChannel(quint32 address);
     void resetUniverse();

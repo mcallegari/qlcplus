@@ -32,6 +32,22 @@ SidePanel
     property int selectedItemsCount: functionManager.selectedFunctionCount + functionManager.selectedFolderCount
     property bool inShowManager: false
 
+    function confirmDeleteSelectedItems()
+    {
+        var selNames = functionManager.selectedItemNames()
+        deleteItemsPopup.message = qsTr("Are you sure you want to delete the following items?") + "\n" + selNames
+        deleteItemsPopup.open()
+    }
+
+    Connections
+    {
+        target: contextManager
+        function onRequestFunctionsDeletion()
+        {
+            confirmDeleteSelectedItems()
+        }
+    }
+
     function createFunctionAndEditor(fType)
     {
         var i
@@ -90,6 +106,20 @@ SidePanel
             addFunction.checked = false
             funcManagerButton.checked = true
         }
+    }
+
+    // Close the currently open function editor but keep the side panel open,
+    // going back to the function list (e.g. when the edited function gets
+    // deleted by an undo action)
+    function closeEditor()
+    {
+        if (!(qlcplus.accessMask & App.AC_FunctionEditing))
+            return
+
+        loaderSource = ""
+        itemID = -1
+        loaderSource = "qrc:/FunctionManager.qml"
+        funcManagerButton.checked = true
     }
 
     function requestEditor(funcID, funcType)
@@ -247,6 +277,18 @@ SidePanel
 
             IconButton
             {
+                z: 2
+                width: iconSize
+                height: iconSize
+                faSource: FontAwesome.fa_hat_wizard
+                faColor: "yellow"
+                tooltip: qsTr("Show Wizard")
+                visible: qlcplus.accessMask & App.AC_FunctionEditing
+                onClicked: mainView.openShowWizard()
+            }
+
+            IconButton
+            {
                 id: addFunction
                 visible: qlcplus.accessMask & App.AC_FunctionEditing
                 z: 2
@@ -288,13 +330,7 @@ SidePanel
                 faColor: "crimson"
                 tooltip: qsTr("Delete the selected functions")
                 counter: selectedItemsCount && !functionManager.isEditing
-                onClicked:
-                {
-                    var selNames = functionManager.selectedItemNames()
-                    //console.log(selNames)
-                    deleteItemsPopup.message = qsTr("Are you sure you want to delete the following items?") + "\n" + selNames
-                    deleteItemsPopup.open()
-                }
+                onClicked: confirmDeleteSelectedItems()
 
                 CustomPopupDialog
                 {

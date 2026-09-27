@@ -58,4 +58,29 @@ void DmxDumpFactoryProperties_Test::maskAndChasers()
     QCOMPARE(props.selectedTarget(), DmxDumpFactoryProperties::VCSlider);
 }
 
+void DmxDumpFactoryProperties_Test::universesResize()
+{
+    DmxDumpFactoryProperties props(4);
+    QCOMPARE(props.channelsMask().size(), 2048);
+
+    // growing must preserve the existing selection
+    QByteArray mask(2048, 0);
+    mask[2047] = 1;
+    props.setChannelsMask(mask);
+
+    props.setUniversesCount(6);
+    QCOMPARE(props.channelsMask().size(), 3072);
+    QCOMPARE(props.channelsMask().at(2047), char(1));
+    QCOMPARE(props.channelsMask().at(2048), char(0));
+
+    // shrinking must not happen, to never invalidate existing addresses
+    props.setUniversesCount(2);
+    QCOMPARE(props.channelsMask().size(), 3072);
+
+    // a longer mask must not be truncated
+    props.setChannelsMask(QByteArray(4096, 1));
+    QCOMPARE(props.channelsMask().size(), 4096);
+    QCOMPARE(props.channelsMask().at(4095), char(1));
+}
+
 QTEST_APPLESS_MAIN(DmxDumpFactoryProperties_Test)

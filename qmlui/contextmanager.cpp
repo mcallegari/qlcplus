@@ -52,8 +52,11 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     , m_currentSubContext("2D")
     , m_multipleSelection(false)
     , m_positionPicking(false)
+    , m_showFixtureGroups(false)
+    , m_lastPickedPoint(QVector3D())
     , m_lastClickedType(App::NoDragItem)
     , m_universeFilter(Universe::invalid())
+    , m_currentFixtureGroupID(Function::invalidId())
     , m_editingEnabled(false)
     , m_selectedDimmersCount(0)
     , m_dumpChannelMask(0)
@@ -141,9 +144,6 @@ void ContextManager::enableContext(QString name, bool enable, QQuickItem *item)
         return;
 
     PreviewContext *context = m_contextsMap[name];
-
-    if (enable == false && context->detached() == true)
-        reattachContext(name);
 
     context->setContextItem(item);
     context->enableContext(enable);
@@ -321,6 +321,11 @@ void ContextManager::setPositionPicking(bool enable)
     emit positionPickingChanged();
 }
 
+QVector3D ContextManager::lastPickedPoint() const
+{
+    return m_lastPickedPoint;
+}
+
 void ContextManager::setPositionPickPoint(QVector3D point)
 {
     if (positionPicking() == false)
@@ -329,6 +334,9 @@ void ContextManager::setPositionPickPoint(QVector3D point)
     point = QVector3D(point.x() + m_monProps->gridSize().x() / 2,
                       point.y(),
                       point.z() + m_monProps->gridSize().z() / 2);
+
+    m_lastPickedPoint = point;
+    emit lastPickedPointChanged();
 
     for (quint32 &itemID : m_selectedFixtures)
     {
@@ -348,8 +356,13 @@ void ContextManager::setPositionPickPoint(QVector3D point)
         if (panMSB == QLCChannel::invalid() && tiltMSB == QLCChannel::invalid())
             continue;
 
-        QVector3D lightPos = m_3DView->lightPosition(itemID);
-        QMatrix4x4 lightMatrix = m_3DView->lightMatrix(itemID);
+        QVector3D lightPos;
+        QMatrix4x4 lightMatrix;
+        if (FixtureUtils::lightProperties(m_monProps, fixture, headIndex, lightPos, lightMatrix) == false)
+        {
+            lightPos = m_3DView->lightPosition(itemID);
+            lightMatrix = m_3DView->lightMatrix(itemID);
+        }
 
         lightPos = QVector3D(lightPos.x() + m_monProps->gridSize().x() / 2,
                              lightPos.y(),
@@ -453,6 +466,21 @@ void ContextManager::setLastClickedType(const int &newLastClickedType)
     m_lastClickedType = newLastClickedType;
 }
 
+bool ContextManager::showFixtureGroups() const
+{
+    return m_showFixtureGroups;
+}
+
+void ContextManager::setShowFixtureGroups(bool show)
+{
+    if (m_showFixtureGroups == show)
+        return;
+
+    m_showFixtureGroups = show;
+
+    emit showFixtureGroupsChanged();
+}
+
 void ContextManager::resetContexts()
 {
     m_channelsMap.clear();
@@ -478,6 +506,22 @@ void ContextManager::resetContexts()
     /** TODO: nothing to do on the other contexts ? */
 }
 
+void ContextManager::resetViewItems()
+{
+    m_channelsMap.clear();
+
+    // iterate on a copy: setFixtureSelection() removes entries from m_selectedFixtures
+    const QList<quint32> selected = m_selectedFixtures;
+    for (const quint32 &itemID : selected)
+        setFixtureSelection(itemID, -1, false);
+    m_selectedFixtures.clear();
+
+    if (m_2DView->isEnabled())
+        m_2DView->resetItems();
+    if (m_3DView->isEnabled())
+        m_3DView->resetItems();
+}
+
 void ContextManager::handleKeyPress(QKeyEvent *e)
 {
     int key = e->key();
@@ -493,7 +537,15 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
         switch(e->key())
         {
             case Qt::Key_A:
-                toggleFixturesSelection();
+                // Only steal CTRL+A to select all the fixtures in the
+                // preview if a preview area (2D/3D view) was the last
+                // clicked widget. Otherwise, let it go through so text
+                // fields can handle their own "select all" shortcut.
+                if (m_lastClickedType == App::FixtureDragItem)
+                    toggleFixturesSelection();
+            break;
+            case Qt::Key_Tab:
+                selectNextFixtureGroup();
             break;
             case Qt::Key_P:
                 setPositionPicking(true);
@@ -518,19 +570,34 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
     // 'Delete' key has its own handling
     if (e->key() == Qt::Key_Delete)
     {
+        // When a Function editor is open, the selection belongs to the editor
+        // (e.g. the Scene Editor fixture list or the EFX Editor head list), so
+        // the editor decides what to delete. Never delete Fixtures or Functions
+        // from the project while editing.
+        // Show items and Tracks are excluded, as those are explicitly clicked
+        // on the Show Manager timeline, which can be visible while editing.
+        if (m_editingEnabled &&
+            m_lastClickedType != App::ShowDragItem &&
+            m_lastClickedType != App::TrackDragItem)
+        {
+            if (m_functionManager->deleteCurrentEditorItems())
+                return;
+        }
+
         switch (m_lastClickedType)
         {
             case App::FixtureDragItem:
                 m_fixtureManager->deleteFixtures(selectedItemIDVariantList());
+                m_fixtureManager->resetCapabilities();
             break;
             case App::FixtureGroupDragItem:
                 //m_fixtureManager->deleteFixtureGroups(); // TODO
             break;
             case App::FunctionDragItem:
-                m_functionManager->deleteFunctions(m_functionManager->selectedFunctionsID());
-            break;
             case App::FolderDragItem:
-                m_functionManager->deleteSelectedFolders();
+                // Let the UI ask for confirmation before actually deleting,
+                // like the Functions Manager toolbar delete button does
+                emit requestFunctionsDeletion();
             break;
             case App::ShowDragItem:
             {
@@ -598,12 +665,9 @@ void ContextManager::setUniverseFilter(quint32 universeFilter)
 
     m_universeFilter = universeFilter;
 
-    if (m_DMXView->isEnabled())
-        m_DMXView->setUniverseFilter(m_universeFilter);
-    if (m_2DView->isEnabled())
-        m_2DView->setUniverseFilter(m_universeFilter);
-    if (m_3DView->isEnabled())
-        m_3DView->setUniverseFilter(m_universeFilter);
+    m_DMXView->setUniverseFilter(m_universeFilter);
+    m_2DView->setUniverseFilter(m_universeFilter);
+    m_3DView->setUniverseFilter(m_universeFilter);
 
     emit universeFilterChanged(universeFilter);
 }
@@ -868,6 +932,11 @@ void ContextManager::setFixturePosition(quint32 itemID, qreal x, qreal y, qreal 
     quint32 fxID = FixtureUtils::itemFixtureID(itemID);
     quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
     quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+    // do not move locked items
+    if (m_monProps->fixtureFlags(fxID, headIndex, linkedIndex) & MonitorProperties::LockedFlag)
+        return;
+
     QVector3D currPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
     QVector3D newPos(x, y, z);
 
@@ -887,6 +956,11 @@ void ContextManager::setFixturesOffset(qreal x, qreal y)
         quint32 fxID = FixtureUtils::itemFixtureID(itemID);
         quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
         quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+        // do not move locked items
+        if (m_monProps->fixtureFlags(fxID, headIndex, linkedIndex) & MonitorProperties::LockedFlag)
+            continue;
+
         QVector3D currPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
         QVector3D newPos;
 
@@ -939,6 +1013,11 @@ void ContextManager::setFixturesPosition(QVector3D position)
         quint32 fxID = FixtureUtils::itemFixtureID(itemID);
         quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
         quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+        // do not move locked items
+        if (m_monProps->fixtureFlags(fxID, headIndex, linkedIndex) & MonitorProperties::LockedFlag)
+            return;
+
         QVector3D currPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
 
         Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, itemID, QVariant(currPos), QVariant(position));
@@ -956,6 +1035,11 @@ void ContextManager::setFixturesPosition(QVector3D position)
             quint32 fxID = FixtureUtils::itemFixtureID(itemID);
             quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
             quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+            // do not move locked items
+            if (m_monProps->fixtureFlags(fxID, headIndex, linkedIndex) & MonitorProperties::LockedFlag)
+                continue;
+
             QVector3D currPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
             QVector3D newPos = currPos + position;
             Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, itemID, QVariant(currPos), QVariant(newPos));
@@ -1290,14 +1374,14 @@ qreal ContextManager::getCurrentValue(int type, bool degrees)
     return currValue;
 }
 
-void ContextManager::getCurrentColors(QQuickItem *item)
+void ContextManager::getCurrentColors(QQuickItem *item) const
 {
     int rgbDiffCount = 0;
     int wauvDiffCount = 0;
     QColor rgbColor;
     QColor wauvColor;
 
-    for (quint32 &itemID : m_selectedFixtures)
+    for (const quint32 &itemID : m_selectedFixtures)
     {
         quint32 fxID = FixtureUtils::itemFixtureID(itemID);
         quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
@@ -1488,6 +1572,34 @@ void ContextManager::setFixtureGroupSelection(quint32 id, bool enable, bool isUn
             }
         }
     }
+}
+
+void ContextManager::selectNextFixtureGroup()
+{
+    QList<FixtureGroup *> groups = m_doc->fixtureGroups();
+    if (groups.isEmpty())
+        return;
+
+    /* Find the index of the currently selected group, if any */
+    int currentIndex = -1;
+    for (int i = 0; i < groups.count(); i++)
+    {
+        if (groups.at(i)->id() == m_currentFixtureGroupID)
+        {
+            currentIndex = i;
+            break;
+        }
+    }
+
+    /* Move on to the next group, cycling back to the first one */
+    int nextIndex = (currentIndex + 1) % groups.count();
+    quint32 nextGroupID = groups.at(nextIndex)->id();
+
+    /* Clear the current selection before selecting the new group */
+    resetFixtureSelection();
+
+    m_currentFixtureGroupID = nextGroupID;
+    setFixtureGroupSelection(nextGroupID, true, false);
 }
 
 void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z)
@@ -1860,6 +1972,16 @@ void ContextManager::dumpDmxChannels(quint32 channelMask, QString sceneName, int
 
 void ContextManager::resetDumpValues()
 {
+    QVariantList oldValues;
+    for (const SceneValue &sv : m_dumpValues)
+        oldValues.append(QVariant::fromValue(sv));
+
+    if (!oldValues.isEmpty())
+    {
+        Tardis::instance()->enqueueAction(Tardis::FixtureResetDumpValues, 0,
+                              oldValues, QVariantList());
+    }
+
     for (SceneValue &sv : m_dumpValues)
         m_source->unset(sv.fxi, sv.channel);
 
@@ -1871,4 +1993,3 @@ void ContextManager::resetDumpValues()
     m_dumpChannelMask = 0;
     emit dumpChannelMaskChanged();
 }
-

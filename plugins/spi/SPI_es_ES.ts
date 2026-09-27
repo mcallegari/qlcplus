@@ -15,23 +15,27 @@
     </message>
     <message>
         <location filename="spiconfiguration.ui" line="54"/>
-        <source>1Mhz</source>
-        <translation>1Mhz</translation>
+        <source>1 MHz</source>
+        <oldsource>1Mhz</oldsource>
+        <translation>1 MHz</translation>
     </message>
     <message>
         <location filename="spiconfiguration.ui" line="59"/>
-        <source>2Mhz</source>
-        <translation>2Mhz</translation>
+        <source>2 MHz</source>
+        <oldsource>2Mhz</oldsource>
+        <translation>2 MHz</translation>
     </message>
     <message>
         <location filename="spiconfiguration.ui" line="64"/>
-        <source>4MHz</source>
-        <translation>4MHz</translation>
+        <source>4 MHz</source>
+        <oldsource>4MHz</oldsource>
+        <translation>4 MHz</translation>
     </message>
     <message>
         <location filename="spiconfiguration.ui" line="69"/>
-        <source>8MHz</source>
-        <translation>8MHz</translation>
+        <source>8 MHz</source>
+        <oldsource>8MHz</oldsource>
+        <translation>8 MHz</translation>
     </message>
 </context>
 <context>

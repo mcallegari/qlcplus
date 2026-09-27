@@ -19,6 +19,7 @@
 
 #include <QComboBox>
 #include <QSettings>
+#include <QFileInfo>
 
 #include <gpiod.hpp>
 
@@ -49,9 +50,18 @@ GPIOConfiguration::GPIOConfiguration(GPIOPlugin* plugin, QWidget* parent)
     if (geometrySettings.isValid() == true)
         restoreGeometry(geometrySettings.toByteArray());
 
-    for (auto& it: ::gpiod::make_chip_iter())
-        m_chipCombo->addItem(QString::fromStdString(it.name()));
-    m_chipCombo->setCurrentText(QString::fromStdString(m_plugin->chipName()));
+    const QList<GPIOPlugin::ChipInfo> chips = m_plugin->availableChips();
+    for (const auto &chip : chips)
+    {
+        const QString displayName = chip.name.isEmpty()
+            ? QFileInfo(chip.path).fileName()
+            : chip.name;
+        m_chipCombo->addItem(displayName, chip.path);
+    }
+
+    int chipIndex = m_chipCombo->findData(QString::fromStdString(m_plugin->chipName()));
+    if (chipIndex >= 0)
+        m_chipCombo->setCurrentIndex(chipIndex);
 
     connect(m_chipCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotChipChanged(int)));
@@ -138,7 +148,7 @@ void GPIOConfiguration::accept()
 
 void GPIOConfiguration::slotChipChanged(int index)
 {
-    m_plugin->setChipName(m_chipCombo->itemText(index));
+    m_plugin->setChipName(m_chipCombo->itemData(index).toString());
 
     fillTree();
 }
@@ -147,4 +157,3 @@ int GPIOConfiguration::exec()
 {
     return QDialog::exec();
 }
-

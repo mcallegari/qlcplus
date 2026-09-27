@@ -22,6 +22,7 @@
 #include <QFile>
 #include <QHostAddress>
 #include <QProcess>
+#include <QRegularExpression>
 #include <QSettings>
 
 #include "webaccessbase.h"
@@ -29,6 +30,7 @@
 #include "webaccessconfiguration.h"
 #include "webaccesssimpledesk.h"
 #include "webaccessnetwork.h"
+#include "webaccessupload.h"
 #include "commonjscss.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
@@ -36,6 +38,7 @@
 #include "inputpatch.h"
 #include "audiocapture.h"
 #include "audiorenderer.h"
+#include "qlcioplugin.h"
 #include "qhttpserver.h"
 #include "qhttprequest.h"
 #include "qhttpresponse.h"
@@ -43,6 +46,93 @@
 
 #define DEFAULT_PORT_NUMBER    9999
 #define AUTOSTART_PROJECT_NAME "autostart.qxw"
+
+namespace
+{
+bool extractMultipartFilePayload(const QHttpRequest *req, QByteArray &payload, QString *fileName = nullptr)
+{
+    payload.clear();
+    if (fileName != nullptr)
+        fileName->clear();
+
+    if (req == nullptr)
+        return false;
+
+    const QByteArray body = req->body();
+    if (body.isEmpty())
+        return false;
+
+    const QString contentType = req->header("content-type");
+    const bool isMultipart = contentType.contains("multipart/form-data", Qt::CaseInsensitive);
+    const int boundaryPos = contentType.indexOf("boundary=", 0, Qt::CaseInsensitive);
+
+    // Allow plain payloads too (used by programmatic uploads).
+    if (isMultipart == false || boundaryPos < 0)
+    {
+        payload = body;
+        return true;
+    }
+
+    QString boundary = contentType.mid(boundaryPos + 9).trimmed();
+    const int semicolonPos = boundary.indexOf(';');
+    if (semicolonPos >= 0)
+        boundary.truncate(semicolonPos);
+    if (boundary.startsWith('"') && boundary.endsWith('"') && boundary.size() > 1)
+        boundary = boundary.mid(1, boundary.size() - 2);
+    if (boundary.isEmpty())
+        return false;
+
+    const QByteArray boundaryMarker = QByteArray("--") + boundary.toUtf8();
+
+    int partStart = body.indexOf(boundaryMarker);
+    if (partStart < 0)
+        return false;
+    partStart += boundaryMarker.size();
+
+    if (body.mid(partStart, 2) == "\r\n")
+        partStart += 2;
+    else if (body.mid(partStart, 1) == "\n")
+        partStart += 1;
+
+    int headersEnd = body.indexOf("\r\n\r\n", partStart);
+    int payloadSeparatorSize = 4;
+    if (headersEnd < 0)
+    {
+        headersEnd = body.indexOf("\n\n", partStart);
+        payloadSeparatorSize = 2;
+    }
+    if (headersEnd < 0)
+        return false;
+
+    const QByteArray partHeaders = body.mid(partStart, headersEnd - partStart);
+    if (fileName != nullptr)
+    {
+        QRegularExpression re("filename=\"([^\"]*)\"");
+        QRegularExpressionMatch match = re.match(QString::fromUtf8(partHeaders));
+        if (match.hasMatch())
+        {
+            const QString rawName = match.captured(1);
+            if (!isPlainUploadedFileName(rawName))
+            {
+                qWarning() << Q_FUNC_INFO << "Rejected fixture upload filename" << rawName;
+                return false;
+            }
+
+            *fileName = rawName;
+        }
+    }
+
+    const int payloadStart = headersEnd + payloadSeparatorSize;
+    int payloadEnd = body.indexOf(QByteArray("\r\n") + boundaryMarker, payloadStart);
+    if (payloadEnd < 0)
+        payloadEnd = body.indexOf(QByteArray("\n") + boundaryMarker, payloadStart);
+    if (payloadEnd < 0)
+        return false;
+
+    payload = body.mid(payloadStart, payloadEnd - payloadStart);
+    return true;
+}
+}
 
 WebAccessBase::WebAccessBase(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance,
                              int portNumber, bool enableAuth, const QString &passwdFile,
@@ -89,13 +179,20 @@ WebAccessBase::WebAccessBase(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *s
 
 WebAccessBase::~WebAccessBase()
 {
+    closeServer();
+
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     delete m_netConfig;
 #endif
-    foreach (QHttpConnection *conn, m_webSocketsList)
-        delete conn;
+    m_webSocketsList.clear();
 
     delete m_auth;
+}
+
+void WebAccessBase::closeServer()
+{
+    if (m_httpServer != nullptr)
+        m_httpServer->close();
 }
 
 bool WebAccessBase::sendFile(QHttpResponse *response, QString filename, QString contentType) const
@@ -115,8 +212,20 @@ bool WebAccessBase::sendFile(QHttpResponse *response, QString filename, QString 
         QByteArray resContent = resFile.readAll();
         resFile.close();
 
+        if (response == nullptr)
+            return false;
+
         response->setHeader("Content-Type", contentType);
         response->setHeader("Content-Length", QString::number(resContent.size()));
+        if (contentType == "text/css" ||
+            contentType == "text/javascript" ||
+            contentType == "text/html" ||
+            contentType == "application/json")
+        {
+            response->setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
+            response->setHeader("Pragma", "no-cache");
+            response->setHeader("Expires", "0");
+        }
         response->writeHead(200);
         response->end(resContent);
 
@@ -128,7 +237,7 @@ bool WebAccessBase::sendFile(QHttpResponse *response, QString filename, QString 
     return false;
 }
 
-void WebAccessBase::sendWebSocketMessage(const QString &message)
+void WebAccessBase::sendWebSocketMessage(const QString &message) const
 {
     foreach (QHttpConnection *conn, m_webSocketsList)
         conn->webSocketWrite(message);
@@ -160,7 +269,7 @@ bool WebAccessBase::serveWebFile(QHttpResponse *resp, const QString &reqUrl, con
     return sendFile(resp, webFilePath(reqUrl.mid(1)), contentType);
 }
 
-bool WebAccessBase::authenticateRequest(QHttpRequest *req, QHttpResponse *resp, WebAccessUser &user)
+bool WebAccessBase::authenticateRequest(const QHttpRequest *req, QHttpResponse *resp, WebAccessUser &user) const
 {
     if (!m_auth)
         return true;
@@ -193,12 +302,10 @@ bool WebAccessBase::acceptWebSocket(QHttpResponse *resp, const WebAccessUser &us
 
 QByteArray WebAccessBase::extractProjectXml(const QHttpRequest *req) const
 {
-    if (req == nullptr)
+    QByteArray projectXML;
+    if (!extractMultipartFilePayload(req, projectXML))
         return QByteArray();
 
-    QByteArray projectXML = req->body();
-    projectXML.remove(0, projectXML.indexOf("\n\r\n") + 3);
-    projectXML.truncate(projectXML.lastIndexOf("\n\r\n"));
     return projectXML;
 }
 
@@ -208,11 +315,11 @@ void WebAccessBase::sendProjectLoadingResponse(QHttpResponse *resp) const
         return;
 
     QByteArray postReply =
-            QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
+            QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n"
             "<script>\n" PROJECT_LOADED_JS
             "</script></head><body style=\"background-color: #45484d;\">"
             "<div style=\"position: absolute; width: 100%; height: 30px; top: 50%; background-color: #888888;"
-            "text-align: center; font:bold 24px/1.2em sans-serif;\">"
+            "text-align: center; font: bold 24px/1.2em sans-serif;\">"
             + tr("Loading project...") +
             "</div></body></html>").toUtf8();
 
@@ -255,11 +362,14 @@ bool WebAccessBase::requireAuthLevel(QHttpResponse *resp, const WebAccessUser &u
     return true;
 }
 
-WebAccessBase::CommonRequestResult WebAccessBase::handleCommonHTTPRequest(QHttpRequest *req, QHttpResponse *resp,
+WebAccessBase::CommonRequestResult WebAccessBase::handleCommonHTTPRequest(const QHttpRequest *req, QHttpResponse *resp,
                                                                           const WebAccessUser &user,
                                                                           const QString &reqUrl,
                                                                           QString &content)
 {
+    if (resp == nullptr)
+        return CommonRequestResult::NotHandled;
+
     if (reqUrl == "/qlcplusWS")
     {
         if (acceptWebSocket(resp, user))
@@ -270,6 +380,8 @@ WebAccessBase::CommonRequestResult WebAccessBase::handleCommonHTTPRequest(QHttpR
     {
         if (!requireAuthLevel(resp, user, SUPER_ADMIN_LEVEL))
             return CommonRequestResult::Handled;
+        if (req == nullptr)
+            return CommonRequestResult::NotHandled;
         QByteArray projectXML = extractProjectXml(req);
 
         qDebug() << "Workspace XML received. Content-Length:" << req->headers().value("content-length") << projectXML.size();
@@ -285,18 +397,46 @@ WebAccessBase::CommonRequestResult WebAccessBase::handleCommonHTTPRequest(QHttpR
     {
         if (!requireAuthLevel(resp, user, SUPER_ADMIN_LEVEL))
             return CommonRequestResult::Handled;
-        QByteArray fixtureXML = req->body();
-        int fnamePos = fixtureXML.indexOf("filename=") + 10;
-        QString fxName = fixtureXML.mid(fnamePos, fixtureXML.indexOf("\"", fnamePos) - fnamePos);
+        if (req == nullptr)
+            return CommonRequestResult::NotHandled;
 
-        fixtureXML.remove(0, fixtureXML.indexOf("\n\r\n") + 3);
-        fixtureXML.truncate(fixtureXML.lastIndexOf("\n\r\n"));
+        QByteArray fixtureXML;
+        QString fxName;
+        if (!extractMultipartFilePayload(req, fixtureXML, &fxName) || fxName.isEmpty())
+        {
+            qWarning() << Q_FUNC_INFO << "Invalid fixture upload payload";
+            QByteArray postReply =
+                    QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n"
+                            "<script>\n"
+                            " alert(\"" + tr("Invalid fixture upload payload") + "\");"
+                            " window.location = \"/config\"\n"
+                            "</script></head></html>").toUtf8();
+
+            resp->setHeader("Content-Type", "text/html");
+            resp->setHeader("Content-Length", QString::number(postReply.size()));
+            resp->writeHead(400);
+            resp->end(postReply);
+            return CommonRequestResult::Handled;
+        }
 
         if (!storeFixtureDefinition(fxName, fixtureXML))
+        {
+            QByteArray postReply =
+                    QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n"
+                            "<script>\n"
+                            " alert(\"" + tr("Unable to store fixture definition") + "\");"
+                            " window.location = \"/config\"\n"
+                            "</script></head></html>").toUtf8();
+
+            resp->setHeader("Content-Type", "text/html");
+            resp->setHeader("Content-Length", QString::number(postReply.size()));
+            resp->writeHead(500);
+            resp->end(postReply);
             return CommonRequestResult::Handled;
+        }
 
         QByteArray postReply =
-                QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
+                QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n"
                         "<script>\n"
                         " alert(\"" + tr("Fixture stored and loaded") + "\");"
                         " window.location = \"/config\"\n"
@@ -328,6 +468,8 @@ WebAccessBase::CommonRequestResult WebAccessBase::handleCommonHTTPRequest(QHttpR
     {
         if (!requireAuthLevel(resp, user, SUPER_ADMIN_LEVEL))
             return CommonRequestResult::Handled;
+        if (m_netConfig == nullptr)
+            return CommonRequestResult::NotHandled;
         content = m_netConfig->getHTML();
         return CommonRequestResult::ContentReady;
     }
@@ -381,7 +523,7 @@ WebAccessBase::CommonRequestResult WebAccessBase::handleCommonHTTPRequest(QHttpR
     return CommonRequestResult::NotHandled;
 }
 
-bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, WebAccessUser *user,
+bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, const WebAccessUser *user,
                                                  const QStringList &cmdList, const QString &logTag,
                                                  bool logWarning)
 {
@@ -397,6 +539,19 @@ bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, WebAcces
 
     if (cmdList[0] == "QLC+IO")
     {
+        auto parseLineIndex = [&](int paramIndex) -> quint32
+        {
+            if (cmdList.count() <= paramIndex)
+                return QLCIOPlugin::invalidLine();
+
+            bool ok = false;
+            int line = cmdList.at(paramIndex).trimmed().toInt(&ok);
+            if (!ok || line < 0)
+                return QLCIOPlugin::invalidLine();
+
+            return quint32(line);
+        };
+
         if (m_auth && user && user->level < SUPER_ADMIN_LEVEL)
             return true;
 
@@ -407,30 +562,45 @@ bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, WebAcces
 
         if (cmdList[1] == "INPUT")
         {
-            m_doc->inputOutputMap()->setInputPatch(universe, cmdList[3], "", cmdList[4].toUInt());
+            if (cmdList.count() < 5)
+                return true;
+
+            m_doc->inputOutputMap()->setInputPatch(universe, cmdList[3], "", "", parseLineIndex(4));
             m_doc->inputOutputMap()->saveDefaults();
         }
         else if (cmdList[1] == "OUTPUT")
         {
-            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], "", cmdList[4].toUInt(), false);
+            if (cmdList.count() < 5)
+                return true;
+
+            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], "", "", parseLineIndex(4), false);
             m_doc->inputOutputMap()->saveDefaults();
         }
         else if (cmdList[1] == "FB")
         {
-            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], "", cmdList[4].toUInt(), true);
+            if (cmdList.count() < 5)
+                return true;
+
+            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], "", "", parseLineIndex(4), true);
             m_doc->inputOutputMap()->saveDefaults();
         }
         else if (cmdList[1] == "PROFILE")
         {
+            if (cmdList.count() < 4)
+                return true;
+
             InputPatch *inPatch = m_doc->inputOutputMap()->inputPatch(universe);
             if (inPatch != nullptr)
             {
-                m_doc->inputOutputMap()->setInputPatch(universe, inPatch->pluginName(), "", inPatch->input(), cmdList[3]);
+                m_doc->inputOutputMap()->setInputPatch(universe, inPatch->pluginName(), "", "", inPatch->input(), cmdList[3]);
                 m_doc->inputOutputMap()->saveDefaults();
             }
         }
         else if (cmdList[1] == "PASSTHROUGH")
         {
+            if (cmdList.count() < 4)
+                return true;
+
             quint32 uniIdx = cmdList[2].toUInt();
             m_doc->inputOutputMap()->setUniversePassthrough(uniIdx, cmdList[3] == "true");
             m_doc->inputOutputMap()->saveDefaults();
@@ -461,6 +631,18 @@ bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, WebAcces
 
         return true;
     }
+    else if (cmdList[0] == "GM_VALUE")
+    {
+        if (m_auth && user && user->level < SIMPLE_DESK_AND_VC_LEVEL)
+            return true;
+
+        if (cmdList.count() < 2)
+            return true;
+
+        uchar value = cmdList[1].toInt();
+        m_doc->inputOutputMap()->setGrandMasterValue(value);
+        return true;
+    }
     else if (cmdList[0] == "QLC+AUTH")
     {
         if (!m_auth)
@@ -474,6 +656,9 @@ bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, WebAcces
 
         if (cmdList.at(1) == "ADD_USER")
         {
+            if (cmdList.count() < 5)
+                return true;
+
             QString username = cmdList.at(2);
             QString password = cmdList.at(3);
             int level = cmdList.at(4).toInt();
@@ -496,12 +681,18 @@ bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, WebAcces
         }
         else if (cmdList.at(1) == "DEL_USER")
         {
+            if (cmdList.count() < 3)
+                return true;
+
             QString username = cmdList.at(2);
             if (!username.isEmpty())
                 m_auth->deleteUser(username);
         }
         else if (cmdList.at(1) == "SET_USER_LEVEL")
         {
+            if (cmdList.count() < 4)
+                return true;
+
             QString username = cmdList.at(2);
             int level = cmdList.at(3).toInt();
             if (username.isEmpty())
@@ -545,10 +736,18 @@ bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, WebAcces
         if (cmdList.count() < 2)
             return true;
 
-        if (cmdList.at(1) == "NETWORK")
+        if (cmdList.at(1) == "NETWORK" && m_netConfig != nullptr)
         {
             QString wsMessage;
-            if (m_netConfig->updateNetworkSettings(cmdList))
+            // QLC+SYS|NETWORK|dev|mode|ip|netmask|gateway|ssid|wpapsk
+            if (cmdList.count() < 9)
+            {
+                wsMessage = QString("ALERT|" + tr("Invalid network configuration request."));
+                if (conn)
+                    conn->webSocketWrite(wsMessage);
+                return true;
+            }
+            else if (m_netConfig->updateNetworkSettings(cmdList))
                 wsMessage = QString("ALERT|" + tr("Network configuration changed. Reboot to apply the changes."));
             else
                 wsMessage = QString("ALERT|" + tr("An error occurred while updating the network configuration."));
@@ -557,7 +756,7 @@ bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, WebAcces
                 conn->webSocketWrite(wsMessage);
             return true;
         }
-        else if (cmdList.at(1) == "HOTSPOT")
+        else if (cmdList.at(1) == "HOTSPOT" && m_netConfig != nullptr)
         {
             QString wsMessage;
             if (cmdList.count() < 5)
@@ -618,4 +817,15 @@ bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, WebAcces
 void WebAccessBase::handleAutostartProject(const QString &path)
 {
     Q_UNUSED(path)
+}
+
+bool WebAccessBase::storeFixtureDefinition(const QString &fxName, const QByteArray &fixtureXML)
+{
+    if (m_doc == nullptr || fxName.isEmpty())
+        return false;
+
+    bool ok = m_doc->fixtureDefCache()->storeFixtureDef(fxName, QString::fromUtf8(fixtureXML));
+    if (ok == false)
+        qWarning() << Q_FUNC_INFO << "Unable to store fixture definition" << fxName;
+    return ok;
 }

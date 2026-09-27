@@ -45,7 +45,7 @@ public:
     static bool compare(VCSpeedDialPreset const* left, VCSpeedDialPreset const* right);
 
     bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) const;
 
 public:
     quint8 m_id;

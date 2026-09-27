@@ -140,8 +140,8 @@ pushd plugins/enttecwing/test
 eval $TESTPREFIX ./test.sh
 RESULT=$?
 if [ $RESULT != 0 ]; then
-	echo "${RESULT} Enttec wing unit tests failed. Please fix before commit."
-	exit $RESULT
+    echo "${RESULT} Enttec wing unit tests failed. Please fix before commit."
+    exit $RESULT
 fi
 popd
 
@@ -158,7 +158,7 @@ else
   RESULT=$?
   if [ $RESULT != 0 ]; then
     echo "Velleman unit test failed ($RESULT). Please fix before commit."
-	exit $RESULT
+    exit $RESULT
   fi
   popd
 fi
@@ -172,8 +172,8 @@ pushd plugins/midi/test
 eval $TESTPREFIX ./test.sh
 RESULT=$?
 if [ $RESULT != 0 ]; then
-	echo "${RESULT} MIDI unit tests failed. Please fix before commit."
-	exit $RESULT
+    echo "${RESULT} MIDI unit tests failed. Please fix before commit."
+    exit $RESULT
 fi
 popd
 
@@ -186,8 +186,8 @@ pushd plugins/artnet/test
 eval $TESTPREFIX ./test.sh
 RESULT=$?
 if [ $RESULT != 0 ]; then
-	echo "${RESULT} ArtNet unit tests failed. Please fix before commit."
-	exit $RESULT
+    echo "${RESULT} ArtNet unit tests failed. Please fix before commit."
+    exit $RESULT
 fi
 popd
 

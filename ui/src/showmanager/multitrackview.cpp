@@ -437,7 +437,7 @@ quint32 MultiTrackView::getPositionFromTime(quint32 time) const
     return TRACK_WIDTH + xPos;
 }
 
-int MultiTrackView::getTrackIndex(Track *trk) const
+int MultiTrackView::getTrackIndex(const Track *trk) const
 {
     for (int idx = 0; idx < m_tracks.count(); idx++)
     {

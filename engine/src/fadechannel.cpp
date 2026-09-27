@@ -63,6 +63,9 @@ FadeChannel::FadeChannel(const FadeChannel& ch)
 FadeChannel::FadeChannel(const Doc *doc, quint32 fxi, quint32 channel)
     : m_flags(0)
     , m_fixture(fxi)
+    , m_universe(Universe::invalid())
+    , m_primaryChannel(QLCChannel::invalid())
+    , m_address(QLCChannel::invalid())
     , m_channelRef(NULL)
     , m_start(0)
     , m_target(0)
@@ -131,6 +134,9 @@ void FadeChannel::autoDetect(const Doc *doc)
     bool fixtureWasInvalid = false;
     // reset before autodetecting
     setFlags(0);
+    m_universe = Universe::invalid();
+    m_primaryChannel = QLCChannel::invalid();
+    m_address = QLCChannel::invalid();
 
     /* on invalid fixture, channel number is most likely
      * absolute (SimpleDesk/CueStack do it this way), so attempt
@@ -144,8 +150,6 @@ void FadeChannel::autoDetect(const Doc *doc)
     Fixture *fixture = doc->fixture(m_fixture);
     if (fixture == NULL)
     {
-        m_universe = Universe::invalid();
-        m_address = QLCChannel::invalid();
         addFlag(FadeChannel::HTP | FadeChannel::Intensity | FadeChannel::CanFade);
     }
     else
@@ -231,7 +235,7 @@ quint32 FadeChannel::channel() const
     return m_channels.isEmpty() ? QLCChannel::invalid() : m_channels.first();
 }
 
-int FadeChannel::channelIndex(quint32 channel)
+int FadeChannel::channelIndex(quint32 channel) const
 {
     int idx = m_channels.indexOf(channel);
     return idx < 0 ? 0 : idx;
@@ -400,4 +404,3 @@ uchar FadeChannel::calculateCurrent(uint fadeTime, uint elapsedTime)
 
     return uchar(m_current);
 }
-

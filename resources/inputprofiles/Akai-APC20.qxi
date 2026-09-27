@@ -239,7 +239,7 @@
  </Channel>
  <Channel Number="16563">
   <Name>Left</Name>
-  <Type>Button</Type>
+  <Type>Previous Page</Type>
  </Channel>
  <Channel Number="16564">
   <Name>Clip stop 5</Name>
@@ -283,7 +283,7 @@
  </Channel>
  <Channel Number="20659">
   <Name>Right</Name>
-  <Type>Button</Type>
+  <Type>Next Page</Type>
  </Channel>
  <Channel Number="20660">
   <Name>Clip stop 6</Name>

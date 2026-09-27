@@ -60,6 +60,8 @@ Q_DECLARE_METATYPE(StringDoublePair)
 typedef QPair<QString, QString> StringStringPair;
 Q_DECLARE_METATYPE(StringStringPair)
 
+#define LIVE_ACTIONS_START_CODE     0xF000
+
 class Tardis final : public QThread
 {
     Q_OBJECT
@@ -76,22 +78,23 @@ public:
         GenericItemSetRotation,
         GenericItemSetScale,
 
-        IOAddUniverse = 0x0090,
+        /* Input/Output mapping actions */
+        IOAddUniverse = 0x0100,
         IORemoveUniverse,
 
         /* Fixture editing actions */
-        FixtureCreate = 0x0100,
+        FixtureCreate = 0x0200,
         FixtureDelete,
         FixtureMove,
         FixtureSetName,
-        FixtureSetDumpValue,
+        FixtureSetChannelModifier,
 
         /* Fixture group editing actions */
-        FixtureGroupCreate,
+        FixtureGroupCreate = 0x0300,
         FixtureGroupDelete,
 
         /* Function editing actions */
-        FunctionCreate = 0x0200,
+        FunctionCreate = 0x1000,
         FunctionDelete,
         FunctionSetName,
         FunctionSetPath,
@@ -102,7 +105,8 @@ public:
         FunctionSetFadeOut,
         FunctionSetDuration,
 
-        SceneSetChannelValue,
+        /* Scene editing actions */
+        SceneSetChannelValue = 0x1100,
         SceneUnsetChannelValue,
         SceneAddFixture,
         SceneRemoveFixture,
@@ -111,7 +115,8 @@ public:
         SceneAddPalette,
         SceneRemovePalette,
 
-        ChaserAddStep,
+        /* Chaser editing actions */
+        ChaserAddStep = 0x1200,
         ChaserRemoveStep,
         ChaserMoveStep,
         ChaserSetStepFadeIn,
@@ -119,7 +124,8 @@ public:
         ChaserSetStepFadeOut,
         ChaserSetStepDuration,
 
-        EFXAddFixture,
+        /* EFX editing actions */
+        EFXAddFixture = 0x1300,
         EFXRemoveFixture,
         EFXFixturePropagation,
         EFXSetAlgorithmIndex,
@@ -135,10 +141,12 @@ public:
         EFXSetXPhase,
         EFXSetYPhase,
 
-        CollectionAddFunction,
+        /* Collection editing actions */
+        CollectionAddFunction = 0x1400,
         CollectionRemoveFunction,
 
-        RGBMatrixSetFixtureGroup,
+        /* RGB Matrix editing actions */
+        RGBMatrixSetFixtureGroup = 0x1500,
         RGBMatrixSetAlgorithmIndex,
         RGBMatrixSetColor1,
         RGBMatrixSetColor2,
@@ -154,10 +162,12 @@ public:
         RGBMatrixSetOffset,
         RGBMatrixSetAnimationStyle,
 
-        AudioSetSource,
+        /* Audio editing actions */
+        AudioSetSource = 0x1600,
         AudioSetVolume,
 
-        VideoSetSource,
+        /* Video editing actions */
+        VideoSetSource = 0x1700,
         VideoSetScreenIndex,
         VideoSetFullscreen,
         VideoSetGeometry,
@@ -171,6 +181,7 @@ public:
         ShowManagerDeleteFunction,
         ShowManagerItemSetStartTime,
         ShowManagerItemSetDuration,
+        ShowManagerItemSetTrack,
 
         /* Simple Desk actions */
         SimpleDeskSetChannel = 0xC000,
@@ -180,6 +191,7 @@ public:
         VCWidgetCreate = 0xE000,
         VCWidgetDelete,
         VCWidgetGeometry,
+        VCWidgetReparent,
         VCWidgetAllowResize,
         VCWidgetDisabled,
         VCWidgetVisible,
@@ -191,12 +203,13 @@ public:
         VCWidgetPage,
         VCWidgetZIndex,
 
-        VCButtonSetActionType,
+        VCButtonSetActionType = 0xE100,
         VCButtonSetFunctionID,
         VCButtonEnableStartupIntensity,
         VCButtonSetStartupIntensity,
 
-        VCSliderSetMode,
+        VCSliderSetMode = 0xE200,
+        VCSliderSetWidgetStyle,
         VCSliderSetDisplayStyle,
         VCSliderSetInverted,
         VCSliderSetFunctionID,
@@ -204,11 +217,50 @@ public:
         VCSliderSetLowLimit,
         VCSliderSetHighLimit,
 
-        VCCueListSetChaserID,
+        VCCueListSetChaserID = 0xE300,
 
-        /* Virtual Console live actions */
-        VCButtonSetPressed = 0xF000,
-        VCSliderSetValue,
+        /* Live actions */
+        FixtureSetDumpValue = LIVE_ACTIONS_START_CODE,
+        FixtureResetDumpValues,
+
+        FunctionStart = LIVE_ACTIONS_START_CODE + 0x100,
+        FunctionStop,
+
+        VCButtonSetPressed = LIVE_ACTIONS_START_CODE + 0x200,
+
+        VCSliderSetValue = LIVE_ACTIONS_START_CODE + 0x300,
+        VCSliderButtonPress,
+
+        VCCueListPlayClicked = LIVE_ACTIONS_START_CODE + 0x400,
+        VCCueListStopClicked,
+        VCCueListNextClicked,
+        VCCueListPreviousClicked,
+        VCCueListSetIndex,
+        VCCueListSideFaderLevel,
+
+        VCSpeedDialSetTime = LIVE_ACTIONS_START_CODE + 0x500,
+        VCSpeedDialSetFactor,
+        VCSpeedDialApply,
+
+        VCXYPadSetPosition = LIVE_ACTIONS_START_CODE + 0x600,
+        VCXYPadSetGeometry,
+        VCXYPadActivatePreset,
+        VCXYPadSetFloorPosition,
+
+        VCAudioTriggersSetCaptureEnabled = LIVE_ACTIONS_START_CODE + 0x700,
+        VCAudioTriggersSetLevel,
+
+        VCClockSetEnabled = LIVE_ACTIONS_START_CODE + 0x800,
+        VCClockReset,
+
+        VCAnimationSetFaderLevel = LIVE_ACTIONS_START_CODE + 0x900,
+        VCAnimationSetAlgorithmIndex,
+        VCAnimationSetColor1,
+        VCAnimationSetColor2,
+        VCAnimationSetColor3,
+        VCAnimationSetColor4,
+        VCAnimationSetColor5,
+        VCAnimationActivatePreset,
 
         /* Network protocol actions */
         NetAnnounce = 0xFF00,
@@ -217,7 +269,10 @@ public:
         NetAuthenticationReply,
         NetPoll,
         NetPollReply,
-        NetProjectTransfer
+        NetProjectTransfer,
+        NetProjectChanging,
+        NetProjectLoaded,
+        NetProjectRequest
     };
 
     Q_ENUM(ActionCodes)
@@ -251,13 +306,18 @@ public:
     /** Reset the actions history */
     void resetHistory();
 
-    void forwardActionToNetwork(int code, TardisAction &action);
+    /** Send an action to the connected peers. @a code is the action code to
+     *  transmit, which may differ from action.m_action when @a undo is true
+     *  (e.g. undoing a FunctionCreate transmits a FunctionDelete) */
+    void forwardActionToNetwork(int code, TardisAction &action, bool undo = false);
 
     /** @reimp */
     void run() override; // thread run function
 
+    /** Return the symbolic name of an action code, for logging purposes */
+    static QString actionToString(int action);
+
 protected:
-    QString actionToString(int action);
     bool processBufferedAction(int action, quint32 objID, QVariant &value);
 
 protected slots:

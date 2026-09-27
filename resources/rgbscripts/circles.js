@@ -3,7 +3,7 @@
   circles.js
 
   Copyright (c) Massimo Callegari
-  with Additions by Branson Matheson 
+  with Additions by Branson Matheson
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -152,7 +152,7 @@ var testAlgo;
       }
     };
 
-    // from https://www.redblobgames.com/grids/circle-drawing/ 
+    // from https://www.redblobgames.com/grids/circle-drawing/
     util.drawCircle = function(cx, cy, color, width, height, r) {
       ctop = Math.max(0, cy - r)
       cbottom = Math.min(height, cy + r )
@@ -235,7 +235,7 @@ var testAlgo;
           } else {
             util.drawCircle(circles[i].xCenter, circles[i].yCenter, color, width, height, circles[i].step)
           }
-        } 
+        }
 
         circles[i].step++;
         if (circles[i].step >= (util.circlesMaxSize / 2))

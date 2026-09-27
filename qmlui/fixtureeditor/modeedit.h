@@ -72,7 +72,7 @@ public:
     Q_INVOKABLE QLCChannel *channelFromIndex(int index) const;
 
     /** Delete the given $channel from the mode being edited */
-    Q_INVOKABLE bool deleteChannel(QLCChannel *channel);
+    Q_INVOKABLE bool deleteChannel(const QLCChannel *channel);
 
     /** Return a simple list with the possible channels to act on */
     QStringList actsOnChannels();

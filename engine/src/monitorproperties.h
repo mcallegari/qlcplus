@@ -22,11 +22,13 @@
 
 #include <QObject>
 #include <QVector3D>
+#include <QMatrix4x4>
 #include <QColor>
 #include <QFont>
 #include <QSize>
 #include <QMap>
 
+class Fixture;
 class QXmlStreamReader;
 class QXmlStreamWriter;
 
@@ -38,7 +40,7 @@ class Doc;
 
 #define KXMLQLCMonitorProperties QStringLiteral("Monitor")
 
-typedef struct
+struct PreviewItem
 {
     QVector3D m_position;       ///< 3D item position
     QVector3D m_rotation;       ///< 3D item rotation
@@ -46,15 +48,20 @@ typedef struct
     QString m_name;             ///< Fixture/Item Custom name
     QString m_resource;         ///< Generic: source file
     QColor m_color;             ///< Generic: item color, Fixture: gel color
-    int m_zoom;                 ///< Fixture: fixed zoom in degrees
-    quint32 m_flags;            ///< Item flags as specified in the ItemsFlags enum
-} PreviewItem;
+    int m_zoom = 0;             ///< Fixture: fixed zoom in degrees
+    quint32 m_flags = 0;        ///< Item flags as specified in the ItemsFlags enum
+};
 
-typedef struct
+struct FixturePreviewItem
 {
     PreviewItem m_baseItem;                 ///< Base fixture item properties
     QMap<quint32, PreviewItem> m_subItems;  ///< Map of the heads/linked fixtures
-} FixturePreviewItem;
+};
+
+struct LightEmitter
+{
+    QVector3D m_position;       ///< Local offset from fixture root to beam origin
+};
 
 class MonitorProperties final : public QObject
 {
@@ -138,7 +145,8 @@ public:
         HiddenFlag          = (1 << 0),
         InvertedPanFlag     = (1 << 1),
         InvertedTiltFlag    = (1 << 2),
-        MeshZUpFlag         = (1 << 3)
+        MeshZUpFlag         = (1 << 3),
+        LockedFlag          = (1 << 4)
     };
 #if QT_VERSION >= 0x050500
     Q_ENUM(ItemFlags)
@@ -211,40 +219,80 @@ private:
     QMap <quint32, FixturePreviewItem> m_fixtureItems;
 
     /********************************************************************
+     * Light items
+     ********************************************************************/
+public:
+    /** Remove a Light entry from the Monitor map by resource name */
+    void removeLight(QString resource);
+
+    /** Remove a Light entry from the Monitor map by resource name and head index */
+    void removeLight(QString resource, quint16 head);
+
+    /** Returns true if the provided resource and head index are in the light map */
+    bool containsLightEmitter(QString resource, quint16 head) const;
+
+    /** Get/Set the beam origin offset associated to a light item */
+    void setLightPosition(QString resource, quint16 head, QVector3D position);
+    QVector3D lightPosition(QString resource, quint16 head) const;
+
+    /** Get/Set a single light emitter with the given resource and head index */
+    LightEmitter lightEmitter(QString resource, quint16 head) const;
+    void setLightEmitter(QString resource, quint16 head, LightEmitter props);
+
+    /** Get a list of resources that currently have persisted light metadata */
+    QList<QString> lightResources() const { return m_lightItems.keys(); }
+
+    /** Return a list of head IDs for a light item with the given resource */
+    QList<quint32> lightHeadList(QString resource) const;
+
+    /** Build a rotation matrix from fixture Euler rotation (degrees), matching
+     *  Qt3DCore::QTransform::fromAxesAndAngles(X,-rx, Y,-ry, Z,-rz) — X applied first */
+    static QMatrix4x4 fixtureRotationMatrix(QVector3D rotationDegrees);
+
+    /** Compute the world-space beam origin for a fixture head.
+     *  Returns false if no LightEmitter data is available for this fixture. */
+    static bool fixtureBeamPosition(const MonitorProperties *monProps,
+                                    const Fixture *fixture, int headIndex,
+                                    QVector3D &beamPos, QMatrix4x4 &rotMatrix);
+
+private:
+    QMap <QString, QMap<quint32, LightEmitter> > m_lightItems;
+
+    /********************************************************************
      * Generic items
      ********************************************************************/
 public:
     /** Returns true if the item with ID $itemID is present in the monitor map */
-    inline bool containsItem(quint32 itemID) { return m_genericItems.contains(itemID); }
+    inline bool containsItem(quint32 itemID) const { return m_genericItems.contains(itemID); }
 
     /** Remove an existing item from the generic items map */
     inline void removeItem(quint32 itemID) { m_genericItems.take(itemID); }
 
     /** Returns a list of all the generic item IDs */
-    QList<quint32> genericItemsID();
+    QList<quint32> genericItemsID() const;
 
     /** Get/Set the custom name for an item with ID $itemID */
-    QString itemName(quint32 itemID);
+    QString itemName(quint32 itemID) const;
     void setItemName(quint32 itemID, QString name);
 
     /** Get/Set the resource string for an item with ID $itemID */
-    QString itemResource(quint32 itemID);
+    QString itemResource(quint32 itemID) const;
     void setItemResource(quint32 itemID, QString resource);
 
     /** Get/Set the 3D position of an item with ID $itemID */
-    QVector3D itemPosition(quint32 itemID);
+    QVector3D itemPosition(quint32 itemID) const;
     void setItemPosition(quint32 itemID, QVector3D pos);
 
     /** Get/Set the 3D rotation of an item with ID $itemID */
-    QVector3D itemRotation(quint32 itemID);
+    QVector3D itemRotation(quint32 itemID) const;
     void setItemRotation(quint32 itemID, QVector3D rot);
 
     /** Get/Set the 3D scale of an item with ID $itemID */
-    QVector3D itemScale(quint32 itemID);
+    QVector3D itemScale(quint32 itemID) const;
     void setItemScale(quint32 itemID, QVector3D scale);
 
     /** Get/Set the flags of an item with ID $itemID */
-    quint32 itemFlags(quint32 itemID);
+    quint32 itemFlags(quint32 itemID) const;
     void setItemFlags(quint32 itemID, quint32 flags);
 
 private:
@@ -271,7 +319,7 @@ public:
     QMap<quint32, QString> customBackgroundList() const { return m_customBackgroundImages; }
 
     /** Returns the path of a custom picture set for a Function with $id */
-    QString customBackground(quint32 fid);
+    QString customBackground(quint32 fid) const;
 
 private:
     QString m_commonBackgroundImage;

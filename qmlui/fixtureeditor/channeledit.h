@@ -21,6 +21,7 @@
 #define CHANNELEDIT_H
 
 #include <QQuickView>
+#include <QColor>
 
 #include "qlcchannel.h"
 
@@ -79,7 +80,15 @@ public:
     /** Perform a check on a recently modified capability for overlapping and integrity */
     Q_INVOKABLE void checkCapabilities();
 
+    /** Auto-detect and patch color capabilities using namedrgb color filters */
+    Q_INVOKABLE void autoPatchColorCapabilities();
+
 private:
+    QString normalizeWords(const QString &input) const;
+    bool isEntirelyLowercase(const QString &text) const;
+    QString titleCaseWords(const QString &text) const;
+    int fuzzyScore(const QString &a, const QString &b) const;
+    QList<QColor> detectNamedColors(const QString &description, const QVariantList &namedColors) const;
     void updateCapabilities();
 
 protected slots:

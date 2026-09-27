@@ -67,6 +67,7 @@ private slots:
     void writeNoAutoStep();
 
     void adjustIntensity();
+    void adjustMasterIntensityAcrossRunningCrossfadeSteps();
 
 private:
     Doc* m_doc;

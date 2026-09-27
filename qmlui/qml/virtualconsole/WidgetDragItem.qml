@@ -24,8 +24,10 @@ Rectangle
 {
     x: 3
     id: widgetDragItem
-    width: parent.width
-    height: UISettings.listItemHeight * 1.7
+    // when dragged, the item reduces to just the icon square so that it can
+    // be centered on the mouse/finger position and dropped more intuitively
+    width: reduced ? iconBox.width : parent.width
+    height: reduced ? iconBox.height : UISettings.listItemHeight * 1.7
     color: "transparent"
 
     property string widgetName
@@ -38,8 +40,9 @@ Rectangle
         spacing: 3
         Rectangle
         {
+            id: iconBox
             radius: 3
-            height: widgetDragItem.height - 4
+            height: UISettings.listItemHeight * 1.7 - 4
             width: height
             gradient:
                 Gradient
@@ -50,8 +53,8 @@ Rectangle
                 }
             border.width: 2
             border.color: UISettings.borderColorDark
-            x: 5
-            y: 2
+            x: reduced ? 0 : 5
+            y: reduced ? 0 : 2
 
             Image
             {
@@ -67,7 +70,7 @@ Rectangle
         RobotoText
         {
             height: widgetDragItem.height
-            width: widgetDragItem.width - wIcon.width
+            width: widgetDragItem.width - iconBox.width
             label: widgetName
             wrapText: true
             visible: reduced ? false : true

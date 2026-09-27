@@ -18,7 +18,7 @@
 */
 
 #if defined(WIN32) || defined(Q_OS_WIN)
-#	include <Windows.h>
+#   include <Windows.h>
 #else
 #   include <unistd.h>
 #endif
@@ -50,6 +50,8 @@ InputOutputMap::InputOutputMap(const Doc *doc, quint32 universes)
     , m_localProfilesLoaded(false)
     , m_currentBPM(0)
     , m_beatTime(new QElapsedTimer())
+    , m_networkServerType(NativeServer)
+    , m_networkServerAutoStart(false)
 {
     m_grandMaster = new GrandMaster(this);
     for (quint32 i = 0; i < universes; i++)
@@ -207,7 +209,7 @@ void InputOutputMap::startUniverses()
         uni->start();
 }
 
-quint32 InputOutputMap::getUniverseID(int index)
+quint32 InputOutputMap::getUniverseID(int index) const
 {
     if (index >= 0 && index < m_universeArray.count())
         return index;
@@ -215,7 +217,7 @@ quint32 InputOutputMap::getUniverseID(int index)
     return invalidUniverse();
 }
 
-QString InputOutputMap::getUniverseNameByIndex(int index)
+QString InputOutputMap::getUniverseNameByIndex(int index) const
 {
     if (index >= 0 && index < m_universeArray.count())
         return m_universeArray.at(index)->name();
@@ -223,7 +225,7 @@ QString InputOutputMap::getUniverseNameByIndex(int index)
     return QString();
 }
 
-QString InputOutputMap::getUniverseNameByID(quint32 id)
+QString InputOutputMap::getUniverseNameByID(quint32 id) const
 {
     return getUniverseNameByIndex(id);
 }
@@ -242,7 +244,7 @@ void InputOutputMap::setUniversePassthrough(int index, bool enable)
     m_universeArray.at(index)->setPassthrough(enable);
 }
 
-bool InputOutputMap::getUniversePassthrough(int index)
+bool InputOutputMap::getUniversePassthrough(int index) const
 {
     if (index < 0 || index >= m_universeArray.count())
         return false;
@@ -256,14 +258,14 @@ void InputOutputMap::setUniverseMonitor(int index, bool enable)
     m_universeArray.at(index)->setMonitor(enable);
 }
 
-bool InputOutputMap::getUniverseMonitor(int index)
+bool InputOutputMap::getUniverseMonitor(int index) const
 {
     if (index < 0 || index >= m_universeArray.count())
         return false;
     return m_universeArray.at(index)->monitor();
 }
 
-bool InputOutputMap::isUniversePatched(int index)
+bool InputOutputMap::isUniversePatched(int index) const
 {
     if (index < 0 || index >= m_universeArray.count())
         return false;
@@ -281,7 +283,7 @@ QList<Universe *> InputOutputMap::universes() const
     return m_universeArray;
 }
 
-Universe *InputOutputMap::universe(quint32 id)
+Universe *InputOutputMap::universe(quint32 id) const
 {
     for (int i = 0; i < m_universeArray.size(); i++)
         if (m_universeArray.at(i)->id() == id)
@@ -333,7 +335,7 @@ void InputOutputMap::setGrandMasterChannelMode(GrandMaster::ChannelMode mode)
     }
 }
 
-GrandMaster::ChannelMode InputOutputMap::grandMasterChannelMode()
+GrandMaster::ChannelMode InputOutputMap::grandMasterChannelMode() const
 {
     Q_ASSERT(m_grandMaster != NULL);
 
@@ -353,7 +355,7 @@ void InputOutputMap::setGrandMasterValueMode(GrandMaster::ValueMode mode)
     emit grandMasterValueModeChanged(mode);
 }
 
-GrandMaster::ValueMode InputOutputMap::grandMasterValueMode()
+GrandMaster::ValueMode InputOutputMap::grandMasterValueMode() const
 {
     Q_ASSERT(m_grandMaster != NULL);
 
@@ -374,7 +376,7 @@ void InputOutputMap::setGrandMasterValue(uchar value)
         emit grandMasterValueChanged(value);
 }
 
-uchar InputOutputMap::grandMasterValue()
+uchar InputOutputMap::grandMasterValue() const
 {
     Q_ASSERT(m_grandMaster != NULL);
 
@@ -393,8 +395,8 @@ void InputOutputMap::flushInputs()
 }
 
 bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
-                                   const QString &inputUID, quint32 input,
-                                   const QString &profileName)
+                                   const QString &inputUID, const QString &inputName,
+                                   quint32 input, const QString &profileName)
 {
     /* Check that the universe that we're doing mapping for is valid */
     if (universe >= universesCount())
@@ -420,19 +422,24 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
     InputPatch *ip = NULL;
     QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
 
-    if (!inputUID.isEmpty() && plugin != NULL)
+    if (plugin != NULL)
     {
-        QStringList inputs = plugin->inputs();
-        int lIdx = inputs.indexOf(inputUID);
+        int lIdx = -1;
+        // 1. Match by stable UID
+        if (!inputUID.isEmpty())
+            lIdx = plugin->inputsUID().indexOf(inputUID);
+        // 2. Match by display name
+        if (lIdx == -1 && !inputName.isEmpty())
+            lIdx = plugin->inputs().indexOf(inputName);
+        // 3. Fall back to saved line number
         if (lIdx != -1)
         {
-            qDebug() << "[IOMAP] Found match on input by name on universe" << universe << "-" << input << "vs" << lIdx;
+            qDebug() << "[IOMAP] Found match on input on universe" << universe << "line" << lIdx;
             input = lIdx;
         }
         else
         {
-            qDebug() << "[IOMAP] !!No match found!! for input on universe" << universe << "-" << input << inputUID;
-            qDebug() << plugin->inputs();
+            qDebug() << "[IOMAP] !!No match found!! for input on universe" << universe << "uid:" << inputUID << "name:" << inputName;
         }
     }
 
@@ -481,8 +488,8 @@ bool InputOutputMap::setInputProfile(quint32 universe, const QString &profileNam
 }
 
 bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,
-                                    const QString &outputUID, quint32 output,
-                                    bool isFeedback, int index)
+                                    const QString &outputUID, const QString &outputName,
+                                    quint32 output, bool isFeedback, int index)
 {
     /* Check that the universe that we're doing mapping for is valid */
     if (universe >= universesCount())
@@ -494,19 +501,24 @@ bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,
     QMutexLocker locker(&m_universeMutex);
     QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
 
-    if (!outputUID.isEmpty() && plugin != NULL)
+    if (plugin != NULL)
     {
-        QStringList inputs = plugin->outputs();
-        int lIdx = inputs.indexOf(outputUID);
+        int lIdx = -1;
+        // 1. Match by stable UID
+        if (!outputUID.isEmpty())
+            lIdx = plugin->outputsUID().indexOf(outputUID);
+        // 2. Match by display name
+        if (lIdx == -1 && !outputName.isEmpty())
+            lIdx = plugin->outputs().indexOf(outputName);
+        // 3. Fall back to saved line number
         if (lIdx != -1)
         {
-            qDebug() << "[IOMAP] Found match on output by name on universe" << universe << "-" << output << "vs" << lIdx;
+            qDebug() << "[IOMAP] Found match on output on universe" << universe << "line" << lIdx;
             output = lIdx;
         }
         else
         {
-            qDebug() << "[IOMAP] !!No match found!! for output on universe" << universe << "-" << output << outputUID;
-            qDebug() << plugin->outputs();
+            qDebug() << "[IOMAP] !!No match found!! for output on universe" << universe << "uid:" << outputUID << "name:" << outputName;
         }
     }
 
@@ -600,7 +612,7 @@ quint32 InputOutputMap::outputMapping(const QString &pluginName, quint32 output)
  * Plugins
  *****************************************************************************/
 
-QString InputOutputMap::pluginDescription(const QString &pluginName)
+QString InputOutputMap::pluginDescription(const QString &pluginName) const
 {
     QLCIOPlugin* plugin = NULL;
 
@@ -615,7 +627,7 @@ QString InputOutputMap::pluginDescription(const QString &pluginName)
         return "";
 }
 
-void InputOutputMap::removeDuplicates(QStringList &list)
+void InputOutputMap::removeDuplicates(QStringList &list) const
 {
     if (list.count() == 1)
         return;
@@ -635,7 +647,7 @@ void InputOutputMap::removeDuplicates(QStringList &list)
     }
 }
 
-QStringList InputOutputMap::inputPluginNames()
+QStringList InputOutputMap::inputPluginNames() const
 {
     QStringList list;
     QListIterator <QLCIOPlugin*> it(m_doc->ioPluginCache()->plugins());
@@ -648,7 +660,7 @@ QStringList InputOutputMap::inputPluginNames()
     return list;
 }
 
-QStringList InputOutputMap::outputPluginNames()
+QStringList InputOutputMap::outputPluginNames() const
 {
     QStringList list;
     QListIterator <QLCIOPlugin*> it(m_doc->ioPluginCache()->plugins());
@@ -661,7 +673,7 @@ QStringList InputOutputMap::outputPluginNames()
     return list;
 }
 
-QStringList InputOutputMap::pluginInputs(const QString& pluginName)
+QStringList InputOutputMap::pluginInputs(const QString& pluginName) const
 {
     QLCIOPlugin* ip = m_doc->ioPluginCache()->plugin(pluginName);
     if (ip == NULL)
@@ -674,7 +686,7 @@ QStringList InputOutputMap::pluginInputs(const QString& pluginName)
     }
 }
 
-QStringList InputOutputMap::pluginOutputs(const QString& pluginName)
+QStringList InputOutputMap::pluginOutputs(const QString& pluginName) const
 {
     QLCIOPlugin* op = m_doc->ioPluginCache()->plugin(pluginName);
     if (op == NULL)
@@ -687,7 +699,7 @@ QStringList InputOutputMap::pluginOutputs(const QString& pluginName)
     }
 }
 
-bool InputOutputMap::pluginSupportsFeedback(const QString& pluginName)
+bool InputOutputMap::pluginSupportsFeedback(const QString& pluginName) const
 {
     QLCIOPlugin* outputPlugin = m_doc->ioPluginCache()->plugin(pluginName);
     if (outputPlugin != NULL)
@@ -703,7 +715,7 @@ void InputOutputMap::configurePlugin(const QString& pluginName)
         outputPlugin->configure();
 }
 
-bool InputOutputMap::canConfigurePlugin(const QString& pluginName)
+bool InputOutputMap::canConfigurePlugin(const QString& pluginName) const
 {
     QLCIOPlugin* outputPlugin = m_doc->ioPluginCache()->plugin(pluginName);
     if (outputPlugin != NULL)
@@ -712,7 +724,7 @@ bool InputOutputMap::canConfigurePlugin(const QString& pluginName)
         return false;
 }
 
-QString InputOutputMap::inputPluginStatus(const QString& pluginName, quint32 input)
+QString InputOutputMap::inputPluginStatus(const QString& pluginName, quint32 input) const
 {
     QLCIOPlugin* inputPlugin = NULL;
     QString info;
@@ -735,7 +747,7 @@ QString InputOutputMap::inputPluginStatus(const QString& pluginName, quint32 inp
     return info;
 }
 
-QString InputOutputMap::outputPluginStatus(const QString& pluginName, quint32 output)
+QString InputOutputMap::outputPluginStatus(const QString& pluginName, quint32 output) const
 {
     QLCIOPlugin* outputPlugin = m_doc->ioPluginCache()->plugin(pluginName);
     if (outputPlugin != NULL)
@@ -839,7 +851,7 @@ void InputOutputMap::loadProfiles(const QDir& dir)
     }
 }
 
-QStringList InputOutputMap::profileNames()
+QStringList InputOutputMap::profileNames() const
 {
     QStringList list;
     QListIterator <QLCInputProfile*> it(m_profiles);
@@ -1018,7 +1030,7 @@ void InputOutputMap::setBeatGeneratorType(InputOutputMap::BeatGeneratorType type
     if (m_beatGeneratorType == Audio)
     {
         m_inputCapture->unregisterBandsNumber(4);
-        disconnect(m_inputCapture, SIGNAL(beatDetected()), this, SLOT(slotProcessBeat()));
+        disconnect(m_inputCapture, SIGNAL(beatDetected(int)), this, SLOT(slotProcessBeat(int)));
     }
 
     m_beatGeneratorType = type;
@@ -1048,7 +1060,7 @@ void InputOutputMap::setBeatGeneratorType(InputOutputMap::BeatGeneratorType type
             m_beatTime->restart();
             QSharedPointer<AudioCapture> capture(m_doc->audioInputCapture());
             m_inputCapture = capture.data();
-            connect(m_inputCapture, SIGNAL(beatDetected()), this, SLOT(slotProcessBeat()));
+            connect(m_inputCapture, SIGNAL(beatDetected(int)), this, SLOT(slotProcessBeat(int)));
             m_inputCapture->registerBandsNumber(4);
         }
         break;
@@ -1112,21 +1124,35 @@ int InputOutputMap::bpmNumber() const
     return m_currentBPM;
 }
 
-void InputOutputMap::slotProcessBeat()
+void InputOutputMap::slotProcessBeat(int bpm)
 {
     // process the timer as first thing, to avoid wasting time
     // with the operations below
     qint64 elapsed = m_beatTime->elapsed();
     m_beatTime->restart();
 
-    int bpm = qRound(60000.0 / (float)elapsed);
-    float currBpmTime = 60000.0 / (float)m_currentBPM;
-    // here we check if the difference between the current BPM duration
-    // and the current time elapsed is within a range of +/-1ms.
-    // If it isn't, then the BPM number has really changed, otherwise
-    // it's just a tiny time drift
-    if (qAbs((float)elapsed - currBpmTime) > 1)
-        setBpmNumber(bpm);
+    if (bpm > 0)
+    {
+        // the beat source provides its own tempo estimate
+        if (bpm != m_currentBPM)
+        {
+            qDebug() << "[InputOutputMap] beat source BPM:" << bpm;
+            setBpmNumber(bpm);
+        }
+    }
+    else
+    {
+        // no tempo estimate available: derive the BPM number from the
+        // wall-clock spacing of the beat signals
+        int elapsedBpm = qRound(60000.0 / (float)elapsed);
+        float currBpmTime = 60000.0 / (float)m_currentBPM;
+        // here we check if the difference between the current BPM duration
+        // and the current time elapsed is within a range of +/-1ms.
+        // If it isn't, then the BPM number has really changed, otherwise
+        // it's just a tiny time drift
+        if (qAbs((float)elapsed - currBpmTime) > 1)
+            setBpmNumber(elapsedBpm);
+    }
 
     m_doc->masterTimer()->requestBeat();
     emit beat();
@@ -1151,6 +1177,84 @@ void InputOutputMap::slotPluginBeat(quint32 universe, quint32 channel, uchar val
     qDebug() << "Plugin beat:" << channel << m_beatTime->elapsed();
 
     slotProcessBeat();
+}
+
+/*********************************************************************
+ * Network server
+ *********************************************************************/
+
+void InputOutputMap::setNetworkServerType(int typeMask)
+{
+    m_networkServerType = typeMask;
+}
+
+int InputOutputMap::networkServerType() const
+{
+    return m_networkServerType;
+}
+
+QString InputOutputMap::networkServerTypeToString(int typeMask) const
+{
+    QStringList types;
+
+    if (typeMask & NativeServer)
+        types << "Native";
+    if (typeMask & WebServer)
+        types << "Web";
+
+    if (types.isEmpty())
+        return "None";
+
+    return types.join("|");
+}
+
+int InputOutputMap::stringToNetworkServerType(const QString &str) const
+{
+    int typeMask = NoServer;
+
+    // a legacy project stores a single type, while a
+    // recent one can store a '|' separated list of types
+    for (const QString &token : str.split('|', Qt::SkipEmptyParts))
+    {
+        QString type = token.trimmed();
+
+        if (type.compare("Native", Qt::CaseInsensitive) == 0)
+            typeMask |= NativeServer;
+        else if (type.compare("Web", Qt::CaseInsensitive) == 0)
+            typeMask |= WebServer;
+    }
+
+    return typeMask;
+}
+
+void InputOutputMap::setNetworkServerAutoStart(bool enable)
+{
+    m_networkServerAutoStart = enable;
+}
+
+bool InputOutputMap::networkServerAutoStart() const
+{
+    return m_networkServerAutoStart;
+}
+
+void InputOutputMap::setNetworkServerName(QString name)
+{
+    m_networkServerName = name;
+}
+
+QString InputOutputMap::networkServerName() const
+{
+    return m_networkServerName;
+}
+
+void InputOutputMap::setNetworkServerPassword(QString password)
+{
+    m_networkServerPassword = password;
+}
+
+QString InputOutputMap::networkServerPassword() const
+{
+    return m_networkServerPassword;
 }
 
 /*********************************************************************
@@ -1189,7 +1293,7 @@ void InputOutputMap::loadDefaults()
 
         /* Do the mapping */
         if (plugin != KInputNone && input != KInputNone)
-            setInputPatch(i, plugin, "", input.toUInt(), profileName);
+            setInputPatch(i, plugin, "", "", input.toUInt(), profileName);
     }
 
     /* ************************ OUTPUT *********************************** */
@@ -1216,14 +1320,14 @@ void InputOutputMap::loadDefaults()
         feedback = settings.value(key).toString();
 
         if (plugin != KOutputNone && output != KOutputNone)
-            setOutputPatch(i, plugin, "", output.toUInt());
+            setOutputPatch(i, plugin, "", "", output.toUInt());
 
         if (fb_plugin != KOutputNone && feedback != KOutputNone)
-            setOutputPatch(i, fb_plugin, "", feedback.toUInt(), true);
+            setOutputPatch(i, fb_plugin, "", "", feedback.toUInt(), true);
     }
 }
 
-void InputOutputMap::saveDefaults()
+void InputOutputMap::saveDefaults() const
 {
     /* ************************ INPUT *********************************** */
     QSettings settings;
@@ -1342,6 +1446,31 @@ bool InputOutputMap::loadXML(QXmlStreamReader &root)
 
             root.skipCurrentElement();
         }
+        else if (root.name() == KXMLIONetworkServer)
+        {
+            QXmlStreamAttributes attrs = root.attributes();
+            int typeMask = NativeServer;
+
+            if (attrs.hasAttribute(KXMLIONetworkType))
+                typeMask = stringToNetworkServerType(attrs.value(KXMLIONetworkType).toString());
+            setNetworkServerType(typeMask);
+
+            if (attrs.hasAttribute(KXMLIONetworkAutoStart))
+                setNetworkServerAutoStart(attrs.value(KXMLIONetworkAutoStart) == KXMLQLCTrue);
+
+            if (typeMask & NativeServer)
+            {
+                setNetworkServerName(attrs.value(KXMLIONetworkName).toString());
+                setNetworkServerPassword(attrs.value(KXMLIONetworkPassword).toString());
+            }
+            else
+            {
+                setNetworkServerName(QString());
+                setNetworkServerPassword(QString());
+            }
+
+            root.skipCurrentElement();
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown IO Map tag:" << root.name();
@@ -1362,6 +1491,16 @@ bool InputOutputMap::saveXML(QXmlStreamWriter *doc) const
     doc->writeStartElement(KXMLIOBeatGenerator);
     doc->writeAttribute(KXMLIOBeatType, beatTypeToString(m_beatGeneratorType));
     doc->writeAttribute(KXMLIOBeatsPerMinute, QString::number(m_currentBPM));
+    doc->writeEndElement();
+
+    doc->writeStartElement(KXMLIONetworkServer);
+    doc->writeAttribute(KXMLIONetworkType, networkServerTypeToString(m_networkServerType));
+    doc->writeAttribute(KXMLIONetworkAutoStart, m_networkServerAutoStart ? KXMLQLCTrue : KXMLQLCFalse);
+    if (m_networkServerType & NativeServer)
+    {
+        doc->writeAttribute(KXMLIONetworkName, m_networkServerName);
+        doc->writeAttribute(KXMLIONetworkPassword, m_networkServerPassword);
+    }
     doc->writeEndElement();
 
     foreach (Universe *uni, m_universeArray)

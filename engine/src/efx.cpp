@@ -40,6 +40,7 @@
 EFX::EFX(Doc* doc)
     : Function(doc, Function::EFXType)
     , m_algorithm(EFX::Circle)
+    , m_dimmerControl(false)
     , m_isRelative(false)
     , m_xFrequency(2)
     , m_yFrequency(3)
@@ -127,6 +128,7 @@ bool EFX::copyFrom(const Function* function)
     m_yPhase = efx->m_yPhase;
 
     m_algorithm = efx->m_algorithm;
+    m_dimmerControl = efx->m_dimmerControl;
 
     return Function::copyFrom(function);
 }
@@ -180,7 +182,7 @@ QStringList EFX::algorithmList()
     list << algorithmToString(EFX::Diamond);
     list << algorithmToString(EFX::Square);
     list << algorithmToString(EFX::SquareChoppy);
-	list << algorithmToString(EFX::SquareTrue);
+    list << algorithmToString(EFX::SquareTrue);
     list << algorithmToString(EFX::Leaf);
     list << algorithmToString(EFX::Lissajous);
     return list;
@@ -205,7 +207,7 @@ QString EFX::algorithmToString(EFX::Algorithm algo)
             return QString(KXMLQLCEFXSquareAlgorithmName);
         case EFX::SquareChoppy:
             return QString(KXMLQLCEFXSquareChoppyAlgorithmName);
-		 case EFX::SquareTrue:
+        case EFX::SquareTrue:
             return QString(KXMLQLCEFXSquareTrueAlgorithmName);
         case EFX::Leaf:
             return QString(KXMLQLCEFXLeafAlgorithmName);
@@ -228,7 +230,7 @@ EFX::Algorithm EFX::stringToAlgorithm(const QString& str)
         return EFX::Square;
     else if (str == QString(KXMLQLCEFXSquareChoppyAlgorithmName))
         return EFX::SquareChoppy;
-	 else if (str == QString(KXMLQLCEFXSquareTrueAlgorithmName))
+    else if (str == QString(KXMLQLCEFXSquareTrueAlgorithmName))
         return EFX::SquareTrue;
     else if (str == QString(KXMLQLCEFXLeafAlgorithmName))
         return EFX::Leaf;
@@ -236,6 +238,16 @@ EFX::Algorithm EFX::stringToAlgorithm(const QString& str)
         return EFX::Lissajous;
     else
         return EFX::Circle;
+}
+
+bool EFX::dimmerControlEnabled() const
+{
+    return m_dimmerControl;
+}
+
+void EFX::setDimmerControlEnabled(bool enable)
+{
+    m_dimmerControl = enable;
 }
 
 void EFX::preview(QPolygonF &polygon) const
@@ -328,13 +340,38 @@ float EFX::calculateDirection(Function::Direction direction, float iterator) con
     case Diamond:
     case Square:
     case SquareChoppy:
-	case SquareTrue:
+    case SquareTrue:
     case Leaf:
     case Lissajous:
         return (M_PI * 2.0) - iterator;
     case Line:
         return (iterator > M_PI) ? (iterator - M_PI) : (iterator + M_PI);
     }
+}
+
+float EFX::dimmerLevel(float startOffset, float iterator) const
+{
+    /* The dimmer follows the tilt itself, so it fades at the same RATE as the
+       movement (not linearly), reaching full/0 exactly when the tilt reaches its
+       extremes. The angle is phased per fixture by its StartOffset (both in
+       radians). Over the first half [0, PI) the tilt goes from its +1 extreme to
+       its -1 extreme; the second half [PI, 2PI) (the return stroke) stays black.
+       The EFX Direction is handled by the movement itself, so it is not applied
+       here. */
+    const float PI = float(M_PI);
+    const float TWO_PI = float(M_PI * 2.0);
+
+    float angle = iterator + startOffset;
+    angle = fmodf(angle, TWO_PI);
+    if (angle < 0.0f)
+        angle += TWO_PI;
+
+    if (angle >= PI)
+        return 0.0f; // return stroke: black
+
+    /* cos(angle): +1 at angle 0 (tilt extreme) -> -1 at angle PI (other extreme).
+       Map to 0..1 so brightness tracks the tilt curve: full at +1, dark at -1. */
+    return (cosf(angle) + 1.0f) * 0.5f;
 }
 
 // this function should map from 0..M_PI * 2 -> -1..1
@@ -395,8 +432,8 @@ void EFX::calculatePoint(float iterator, float *x, float *y) const
         *x = round(cos(iterator));
         *y = round(sin(iterator));
         break;
-		
-	case SquareTrue:
+
+    case SquareTrue:
         if (iterator < M_PI / 2)
         {
             *x = 1;
@@ -417,7 +454,7 @@ void EFX::calculatePoint(float iterator, float *x, float *y) const
             *x = -1;
             *y = 1;
         }
-		break;
+        break;
 
     case Leaf:
         *x = pow(cos(iterator + M_PI_2), 5);
@@ -597,7 +634,7 @@ int EFX::yFrequency() const
     return static_cast<int> (m_yFrequency);
 }
 
-bool EFX::isFrequencyEnabled()
+bool EFX::isFrequencyEnabled() const
 {
     if (m_algorithm == EFX::Lissajous)
         return true;
@@ -651,7 +688,7 @@ bool EFX::addFixture(EFXFixture* ef)
      * not prevent multiple entries because a fixture can have multiple efx. */
     //! @todo Prevent multiple entries using head & mode
     int i;
-    for (i = 0; i < m_fixtures.size (); i++)
+    for (i = 0; i < m_fixtures.size(); i++)
     {
         if (m_fixtures[i]->head() == ef->head())
         {
@@ -817,7 +854,7 @@ QString EFX::propagationModeToString(PropagationMode mode)
         return QString(KXMLQLCEFXPropagationModeParallel);
 }
 
-EFX::PropagationMode EFX::stringToPropagationMode(QString str)
+EFX::PropagationMode EFX::stringToPropagationMode(const QString& str)
 {
     if (str == QString(KXMLQLCEFXPropagationModeSerial))
         return Serial;
@@ -870,6 +907,8 @@ bool EFX::saveXML(QXmlStreamWriter *doc) const
     doc->writeTextElement(KXMLQLCEFXStartOffset, QString::number(startOffset()));
     /* IsRelative */
     doc->writeTextElement(KXMLQLCEFXIsRelative, QString::number(isRelative() ? 1 : 0));
+    /* DimmerControl */
+    doc->writeTextElement(KXMLQLCEFXDimmerControl, QString::number(dimmerControlEnabled() ? 1 : 0));
 
     /********************************************
      * X-Axis
@@ -995,6 +1034,20 @@ bool EFX::loadXML(QXmlStreamReader &root)
         {
             /* IsRelative */
             setIsRelative(root.readElementText().toInt() != 0);
+        }
+        else if (root.name() == KXMLQLCEFXDimmerControl)
+        {
+            /* DimmerControl */
+            setDimmerControlEnabled(root.readElementText().toInt() != 0);
+        }
+        else if (root.name() == QStringLiteral("DimmerWidth") ||
+                 root.name() == QStringLiteral("DimmerAttack") ||
+                 root.name() == QStringLiteral("DimmerDecay") ||
+                 root.name() == QStringLiteral("DimmerShape") ||
+                 root.name() == QStringLiteral("DimmerOrder"))
+        {
+            /* LEGACY: dimmer sub-parameters that no longer exist. Skip silently. */
+            root.skipCurrentElement();
         }
         else if (root.name() == KXMLQLCEFXAxis)
         {

@@ -211,6 +211,9 @@ private slots:
         Note that only 'Notes" column is considered */
     void slotItemChanged(QTreeWidgetItem*item, int column);
 
+    /** Slot that is called whenever an item field has been double-clicked */
+    void slotItemDoubleClicked(QTreeWidgetItem *item, int column);
+
     /** Slot called whenever a function is started */
     void slotFunctionRunning(quint32 fid);
 

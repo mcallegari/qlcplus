@@ -24,9 +24,9 @@
 #include <QQmlApplicationEngine>
 
 #include "app.h"
-#include "webaccess-qml.h"
-#include "qlcfile.h"
+#include "networkmanager.h"
 #include "qlcconfig.h"
+#include "qlcfile.h"
 
 QFile logFile;
 
@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    // Since Qt6, the default rendering backend is Rhi. 
+    // Since Qt6, the default rendering backend is Rhi.
     // QLC+ doesn't support it yet so OpenGL have to be forced.
     QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGLRhi);
     qputenv("QT3D_RENDERER", "opengl");
@@ -69,9 +69,10 @@ int main(int argc, char *argv[])
     parser.addVersionOption();
 
     QCommandLineOption openFileOption(QStringList() << "o" << "open",
-                                      "Specify a file to open.",
-                                      "filename", "");
+                                      "Specify a file to open.");
     parser.addOption(openFileOption);
+
+    parser.addPositionalArgument("file", "File to open.", "[file]");
 
     QCommandLineOption openLastOption(QStringList() << "9" << "openlast",
                                       "Open the file from last session.");
@@ -102,6 +103,10 @@ int main(int argc, char *argv[])
                                       "Disable the 3D preview.");
     parser.addOption(threedSupportOption);
 
+    QCommandLineOption noWmOption(QStringList() << "m" << "nowm",
+                                  "The OS doesn't provide a window manager");
+    parser.addOption(noWmOption);
+
     QCommandLineOption webAccessOption(QStringList() << "w" << "web",
                                       "Enable remote web access");
     parser.addOption(webAccessOption);
@@ -120,6 +125,14 @@ int main(int argc, char *argv[])
                                       "file", "");
     parser.addOption(webAuthFileOption);
 
+    QCommandLineOption remoteOption(QStringList() << "s" << "server",
+                                      "Enable the native network server");
+    parser.addOption(remoteOption);
+
+    QCommandLineOption allowAllNativeOption(QStringList() << "sa" << "server-allow-all",
+        "Automatically grant full access to every native TCP client (unsafe on untrusted networks)");
+    parser.addOption(allowAllNativeOption);
+
     parser.process(app);
 
     bool enableWebAccess = parser.isSet(webAccessOption)
@@ -129,9 +142,11 @@ int main(int argc, char *argv[])
     bool enableWebAuth = parser.isSet(webAuthOption);
     int webAccessPort = parser.value(webPortOption).toInt();
     QString webAccessPasswordFile = parser.value(webAuthFileOption);
+    bool allowAllNative = parser.isSet(allowAllNativeOption);
+    bool enableNativeServer = parser.isSet(remoteOption) || allowAllNative;
 
-    // 3D enablement
 #if !defined Q_OS_ANDROID
+    // 3D enablement
     if (!parser.isSet(threedSupportOption))
     {
         QSurfaceFormat format;
@@ -141,6 +156,9 @@ int main(int argc, char *argv[])
         QSurfaceFormat::setDefaultFormat(format);
     }
 #endif
+
+    if (parser.isSet(noWmOption))
+        QLCFile::setHasWindowManager(false);
 
     if (parser.isSet(logOption))
     {
@@ -182,34 +200,21 @@ int main(int argc, char *argv[])
     }
     qlcplusApp.setLanguage(locale);
 
+    if (parser.isSet(threedSupportOption))
+        qlcplusApp.set3dSupported(false);
+
     // kiosk mode
     if (parser.isSet(kioskOption))
         qlcplusApp.enableKioskMode();
 
     qlcplusApp.startup();
 
-    if (enableWebAccess)
-    {
-        WebAccessQml *webAccess = new WebAccessQml(qlcplusApp.doc(),
-                                                   qlcplusApp.virtualConsole(),
-                                                   qlcplusApp.simpleDesk(),
-                                                   webAccessPort,
-                                                   enableWebAuth,
-                                                   webAccessPasswordFile,
-                                                   &qlcplusApp);
-
-        QObject::connect(webAccess, &WebAccessQml::loadProject, &qlcplusApp,
-                         [&qlcplusApp](const QByteArray &xmlData)
-        {
-            QByteArray xmlCopy = xmlData;
-            qlcplusApp.slotLoadDocFromMemory(xmlCopy);
-        });
-        QObject::connect(webAccess, &WebAccessQml::storeAutostartProject,
-                         &qlcplusApp, &App::slotSaveAutostart);
-    }
-
     // open file
-    QString filename = parser.value(openFileOption);
+    QString filename;
+    QStringList posArgs = parser.positionalArguments();
+    if (!posArgs.isEmpty())
+        filename = posArgs.first();
+
     if (filename.isEmpty() == false)
     {
         if (filename.endsWith(KExtFixture))
@@ -221,6 +226,30 @@ int main(int argc, char *argv[])
     // open last file
     if (parser.isSet(openLastOption))
         qlcplusApp.loadLastWorkspace();
+
+    if ((enableWebAccess || enableNativeServer) && qlcplusApp.networkManager() != nullptr)
+    {
+        NetworkManager *netMgr = qlcplusApp.networkManager();
+        netMgr->setAllowAllNative(allowAllNative);
+        if (allowAllNative)
+        {
+            qCritical().noquote()
+                << "WARNING: --server-allow-all grants full QLC+ control to every native client, including LAN clients. Keep TCP port 9998 firewalled or use only a trusted network.";
+        }
+        int forcedTypes = NetworkManager::NoServer;
+
+        if (enableWebAccess)
+        {
+            netMgr->setWebServerConfiguration(webAccessPort, enableWebAuth, webAccessPasswordFile);
+            forcedTypes |= NetworkManager::WebServer;
+        }
+
+        if (enableNativeServer)
+            forcedTypes |= NetworkManager::NativeServer;
+
+        netMgr->setForcedServerTypes(forcedTypes);
+        netMgr->startServer();
+    }
 
     // fullscreen mode
     if (parser.isSet(fullscreenOption))

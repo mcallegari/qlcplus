@@ -622,6 +622,9 @@ bool Function::loadXMLTempoType(QXmlStreamReader &root)
 
 void Function::setFadeInSpeed(uint ms)
 {
+    if (m_fadeInSpeed == ms)
+        return;
+
     m_fadeInSpeed = ms;
     emit changed(m_id);
 }
@@ -633,6 +636,9 @@ uint Function::fadeInSpeed() const
 
 void Function::setFadeOutSpeed(uint ms)
 {
+    if (m_fadeOutSpeed == ms)
+        return;
+
     m_fadeOutSpeed = ms;
     emit changed(m_id);
 }
@@ -644,6 +650,9 @@ uint Function::fadeOutSpeed() const
 
 void Function::setDuration(uint ms)
 {
+    if (m_duration == ms)
+        return;
+
     m_duration = ms;
     emit changed(m_id);
 }
@@ -845,7 +854,7 @@ uint Function::defaultSpeed()
  * UI State
  *****************************************************************************/
 
-QVariant Function::uiStateValue(QString property)
+QVariant Function::uiStateValue(QString property) const
 {
     return m_uiState.value(property, QVariant());
 }
@@ -1338,6 +1347,23 @@ bool Function::unregisterAttribute(QString name)
         if (m_attributes[i].m_name == name)
         {
             m_attributes.removeAt(i);
+
+            /** Removing an attribute shifts down the index of every attribute
+             *  following it, so the registered overrides must be realigned:
+             *  drop those referencing the attribute being removed and decrease
+             *  the ones referencing the attributes after it. Otherwise they
+             *  would end up controlling the wrong attribute, or point outside
+             *  the attributes list boundaries */
+            QMutableMapIterator <int, AttributeOverride> it(m_overrideMap);
+            while (it.hasNext())
+            {
+                it.next();
+                if (it.value().m_attrIndex == i)
+                    it.remove();
+                else if (it.value().m_attrIndex > i)
+                    it.value().m_attrIndex--;
+            }
+
             return true;
         }
     }
@@ -1379,6 +1405,10 @@ int Function::adjustAttribute(qreal value, int attributeId)
         // Adjust an attribute override value and recalculate the final overridden value
         m_overrideMap[attributeId].m_value = value;
         attrIndex = m_overrideMap[attributeId].m_attrIndex;
+
+        if (attrIndex < 0 || attrIndex >= m_attributes.count())
+            return -1;
+
         calculateOverrideValue(attrIndex);
     }
 

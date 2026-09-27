@@ -36,6 +36,7 @@
 #define KXMLQLCVCCueListSlidersMode         QStringLiteral("SlidersMode")
 #define KXMLQLCVCCueListCrossfadeLeft       QStringLiteral("CrossLeft")
 #define KXMLQLCVCCueListCrossfadeRight      QStringLiteral("CrossRight")
+#define KXMLQLCVCCueListColumnsWidths       QStringLiteral("ColumnsWidths")
 
 class ListModel;
 
@@ -45,6 +46,8 @@ class VCCueList : public VCWidget
 
     Q_PROPERTY(quint32 chaserID READ chaserID WRITE setChaserID NOTIFY chaserIDChanged)
     Q_PROPERTY(QVariant stepsList READ stepsList NOTIFY stepsListChanged)
+
+    Q_PROPERTY(QVariantList columnsWidths READ columnsWidths WRITE setColumnsWidths NOTIFY columnsWidthsChanged)
 
     Q_PROPERTY(NextPrevBehavior nextPrevBehavior READ nextPrevBehavior WRITE setNextPrevBehavior NOTIFY nextPrevBehaviorChanged)
     Q_PROPERTY(PlaybackLayout playbackLayout READ playbackLayout WRITE setPlaybackLayout NOTIFY playbackLayoutChanged)
@@ -175,7 +178,7 @@ public:
     Q_INVOKABLE void setChaserID(quint32 fid);
 
     /** Get the chaser function that is used as cue list steps */
-    Chaser *chaser();
+    Chaser *chaser() const;
 
     /** Return the Chaser step list formatted as explained in m_stepsList */
     QVariant stepsList() const;
@@ -186,6 +189,12 @@ public:
 
     /** @reimp */
     void notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity, bool excludeMonitored) override;
+
+    /** Get/Set the steps list columns widths, expressed as percentages (0-100)
+     *  of the available width, so they can be restored regardless of the
+     *  actual pixel width of the widget */
+    QVariantList columnsWidths() const;
+    void setColumnsWidths(QVariantList widths);
 
 private slots:
     void slotFunctionRemoved(quint32 fid);
@@ -199,6 +208,7 @@ private:
 signals:
     void chaserIDChanged(quint32 id);
     void stepsListChanged();
+    void columnsWidthsChanged();
 
 private:
     /** The ID of the Chaser attached to this Cue List */
@@ -209,6 +219,9 @@ private:
      *  funcID | isSelected | fadeIn | fadeOut | hold | duration | note
      */
     ListModel *m_stepsList;
+
+    /** Steps list columns widths, as percentages of the available width */
+    QVariantList m_columnsWidths;
 
     /*********************************************************************
      * Playback
@@ -234,7 +247,7 @@ public:
     int playbackIndex() const;
     void setPlaybackIndex(int playbackIndex);
 
-    PlaybackStatus playbackStatus();
+    PlaybackStatus playbackStatus() const;
 
     Q_INVOKABLE void playClicked();
     Q_INVOKABLE void stopClicked();

@@ -54,7 +54,7 @@ public:
      * @param name The modifier name
      * @return a pointer to the requested modifier or NULL if not found
      */
-    ChannelModifier* modifier(QString name) const;
+    ChannelModifier* modifier(const QString& name) const;
 
     /**
      * Get the default system channels modifiers directory that contains

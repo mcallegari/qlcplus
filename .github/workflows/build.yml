@@ -45,7 +45,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           submodules: false
 
@@ -69,18 +69,16 @@ jobs:
         run: |
           echo "QT=${QT:-$(echo '${{matrix.task}}' | cut -d '-' -f 2)}" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
-          echo "QT_VERSION=6.8.1" >> $GITHUB_ENV
+          echo "QT_VERSION=6.9.3" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
-          source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
 
       - name: Set Qt ENV variables (v5)
         if: ${{ endsWith( matrix.task, 'v5') }}
         run: |
           echo "QT=${QT:-$(echo '${{matrix.task}}' | cut -d '-' -f 2)}" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
-          echo "QT_VERSION=6.8.1" >> $GITHUB_ENV
+          echo "QT_VERSION=6.10.2" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
-          source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
 
       - name: Print ENV vars
         run: |
@@ -97,7 +95,7 @@ jobs:
           echo "NPROC: ${NPROC}"
 
       - name: Download, cache and install packages
-        uses: awalsh128/cache-apt-pkgs-action@v1.4.3
+        uses: awalsh128/cache-apt-pkgs-action@v1.6.3
         with:
           packages: ${{env.PACKAGES_ALL}}
           version: ${{runner.os}}-apt
@@ -114,7 +112,7 @@ jobs:
         run: pip install lxml
 
       - name: Setup ccache
-        uses: hendrikmuhs/ccache-action@v1.2
+        uses: hendrikmuhs/ccache-action@v1.2.23
         with:
           key: ${{ github.job }}-${{ matrix.task }}
 
@@ -132,8 +130,6 @@ jobs:
         run: |
           echo "CXX:"
           ${CXX} --version
-          echo "QMAKE:"
-          ${QMAKE} -v
           echo "Python:"
           python --version
           echo "WHOAMI:"
@@ -155,7 +151,9 @@ jobs:
           cmake -DCMAKE_PREFIX_PATH="/opt/Qt/$QT_VERSION/gcc_64/lib/cmake" -Dcoverage=ON -DINSTALL_ROOT=${INSTALL_ROOT} -B build
 
       - name: Build
-        run: cmake --build build --parallel `nproc`
+        run: |
+          sed -i "s/\(#define APPVERSION \".*\)\"/\1 ${{env.GIT_REV}}\"/" engine/src/qlcconfig.h
+          cmake --build build --parallel `nproc`
 
       - name: Test
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
@@ -179,6 +177,13 @@ jobs:
           cmake --build build --target install
           cp -v resources/icons/svg/qlcplus.svg ${INSTALL_ROOT}
           cp -v platforms/linux/qlcplus.desktop ${INSTALL_ROOT}
+          # QLC+ 5 keeps its translations in a separate directory, so that the
+          # two flavours don't overwrite each other's .qm files
+          if [ "${{ matrix.task }}" == "build-v5" ]; then
+            cp -v $QTDIR/translations/qtbase_* ${INSTALL_ROOT}/share/qlcplus/translations5/
+          else
+            cp -v $QTDIR/translations/qtbase_* ${INSTALL_ROOT}/share/qlcplus/translations/
+          fi
 
       - name: Set APPVERSION
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
@@ -194,13 +199,13 @@ jobs:
       - name: Adapt qlcplus for AppImage (v5)
         if: ${{ matrix.task == 'build-v5' }}
         run: |
-          chrpath -r "../lib" ${INSTALL_ROOT}/usr/bin/qlcplus-qml
-          sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus-qml/g' ${INSTALL_ROOT}/qlcplus.desktop
+          chrpath -r "../lib" ${INSTALL_ROOT}/usr/bin/qlcplus5
+          sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus5/g' ${INSTALL_ROOT}/qlcplus.desktop
 
       - name: Store original install artifacts before stripping and AppImage
         # Activate for debugging
         if: ${{ false && ! startsWith( matrix.task, 'coverage') }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.task }}-files
           path: ${{ env.INSTALL_ROOT }}
@@ -209,13 +214,13 @@ jobs:
         if: ${{ matrix.task == 'build-v4' }}
         run: |
           strip -v ${INSTALL_ROOT}/usr/bin/qlcplus
-          find ${INSTALL_ROOT}/usr/lib/ -name libqlcplusengine.so.1.0.0 -exec strip -v {} \;
+          find ${INSTALL_ROOT}/usr/lib/ -name 'libqlcplus*.so*' -exec strip -v {} \;
 
       - name: Strip Binaries (v5)
         if: ${{ matrix.task == 'build-v5' }}
         run: |
-          strip -v ${INSTALL_ROOT}/usr/bin/qlcplus-qml
-          find ${INSTALL_ROOT}/usr/lib/ -name libqlcplusengine.so.1.0.0 -exec strip -v {} \;
+          strip -v ${INSTALL_ROOT}/usr/bin/qlcplus5
+          find ${INSTALL_ROOT}/usr/lib/ -name 'libqlcplus*.so*' -exec strip -v {} \;
 
       - name: Delete unused files for AppImage
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
@@ -244,7 +249,7 @@ jobs:
 
       - name: Store AppImage artifacts
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.task }}-AppImage
           path: qlcplus-${{env.TASK}}-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.AppImage
@@ -260,16 +265,16 @@ jobs:
       CI_REPO_SLUG: ${{ github.repository }}
       CI_BRANCH: ${{ github.head_ref }}
       CI_PULL_REQUEST: ${{ github.event.number }}
-      QT_VERSION: "6.8.1"
+      QT_VERSION: "6.10.2"
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           submodules: false
 
       - name: Setup ccache
-        uses: hendrikmuhs/ccache-action@v1.2
+        uses: hendrikmuhs/ccache-action@v1.2.23
         with:
           key: ${{ github.job }}-${{ matrix.task }}
 
@@ -396,6 +401,7 @@ jobs:
       - name: Build for Windows
         shell: msys2 {0}
         run: |
+          sed -i "s/\(#define APPVERSION \".*\)\"/\1 ${{env.GIT_REV}}\"/" engine/src/qlcconfig.h
           cd build
           ninja
 
@@ -428,7 +434,7 @@ jobs:
           ./translate.sh release qmlui
           cp *.qm /c/qlcplus
           cd /c/qlcplus
-          ${{ env.QTDIR }}/bin/windeployqt --qmldir $SRC_DIR/qmlui/qml qlcplus-qml.exe qlcplusengine.dll plugins/dmxusb.dll
+          ${{ env.QTDIR }}/bin/windeployqt --qmldir $SRC_DIR/qmlui/qml qlcplus5.exe qlcplusengine.dll plugins/dmxusb.dll
 
       - name: Build installation package
         shell: msys2 {0}
@@ -439,7 +445,7 @@ jobs:
           mv /c/qlcplus/${{env.OUTFILE}} /d/a/qlcplus/qlcplus/${{matrix.task}}-${{env.OUTFILE}}
 
       - name: Store executable artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: QLC+-${{matrix.task}}-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.exe
           path: ${{matrix.task}}-${{env.OUTFILE}}
@@ -455,11 +461,19 @@ jobs:
       CI_REPO_SLUG: ${{ github.repository }}
       CI_BRANCH: ${{ github.head_ref }}
       CI_PULL_REQUEST: ${{ github.event.number }}
-      QT_VERSION: "6.9.3"
+      QT_VERSION: "6.10.2"
+      MACOS_KEYCHAIN: build.keychain
+      MACOS_KEYCHAIN_PASSWORD: ${{ secrets.MACOS_KEYCHAIN_PASSWORD }}
+      MACOS_CERT_P12: ${{ secrets.MACOS_CERT_P12 }}
+      MACOS_CERT_PASSWORD: ${{ secrets.MACOS_CERT_PASSWORD }}
+      MACOS_CODESIGN_IDENTITY: ${{ secrets.MACOS_CODESIGN_IDENTITY }}
+      MACOS_NOTARY_KEY_P8: ${{ secrets.MACOS_NOTARY_KEY_P8 }}
+      MACOS_NOTARY_KEY_ID: ${{ secrets.MACOS_NOTARY_KEY_ID }}
+      MACOS_NOTARY_ISSUER: ${{ secrets.MACOS_NOTARY_ISSUER }}
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           submodules: false
 
@@ -494,11 +508,11 @@ jobs:
           echo "NPROC: ${NPROC}"
 
       - name: Dependencies
-        run: | 
+        run: |
           brew update
           brew install fftw mad libsndfile libftdi
-          brew link --overwrite python@3.13
-    
+          brew link --overwrite python@3.14
+
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
@@ -508,25 +522,39 @@ jobs:
           arch: 'clang_64'
           modules: 'qt3d qtimageformats qtmultimedia qtserialport qtwebsockets'
 
+      - name: Import macOS signing certificate
+        shell: bash
+        if: false # ${{ env.MACOS_CERT_P12 != '' && env.MACOS_CODESIGN_IDENTITY != '' }}
+        run: |
+          echo "${MACOS_CERT_P12}" | base64 --decode > /tmp/macos_cert.p12
+          security create-keychain -p "${MACOS_KEYCHAIN_PASSWORD}" "${MACOS_KEYCHAIN}"
+          security default-keychain -s "${MACOS_KEYCHAIN}"
+          security unlock-keychain -p "${MACOS_KEYCHAIN_PASSWORD}" "${MACOS_KEYCHAIN}"
+          security import /tmp/macos_cert.p12 -k "${MACOS_KEYCHAIN}" -P "${MACOS_CERT_PASSWORD}" -T /usr/bin/codesign -T /usr/bin/security
+          security set-key-partition-list -S apple-tool:,apple: -s -k "${MACOS_KEYCHAIN_PASSWORD}" "${MACOS_KEYCHAIN}"
+          rm -f /tmp/macos_cert.p12
+
       - name: Setup ccache
-        uses: hendrikmuhs/ccache-action@v1.2
-        if: false
+        uses: hendrikmuhs/ccache-action@v1.2.23
+        with:
+          key: ${{ github.job }}-${{ matrix.task }}
 
       - name: Configure v4 build
         shell: bash
         if: ${{ matrix.task == 'build-v4' }}
         run: |-
-          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.15
+          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.15 -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
       - name: Configure v5 build
         shell: bash
         if: ${{ matrix.task == 'build-v5' }}
         run: |-
-          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.15 -Dqmlui=ON
+          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.15 -Dqmlui=ON -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
       - name: Build
         shell: bash
         run: |-
+          sed -i '' "s/\(#define APPVERSION \".*\)\"/\1 ${{env.GIT_REV}}\"/" engine/src/qlcconfig.h
           cd build
           make -j${{ env.NPROC }}
 
@@ -556,14 +584,14 @@ jobs:
         if: ${{ matrix.task == 'build-v5' }}
         run: |-
           platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/Frameworks/libsndfile.1.dylib
-          platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/MacOS/qlcplus-qml
+          platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/MacOS/qlcplus5
           ${{ env.QTDIR }}/bin/macdeployqt ~/QLC+.app -qmldir=qmlui/qml
 
       - name: Create DMG
         # Use retry loop to work around a race condition on macOS causing
         # 'Resource busy' errors with 'hdiutil'. See
         # https://github.com/actions/runner-images/issues/7522
-        uses: nick-fields/retry@v3
+        uses: nick-fields/retry@v4
         with:
           timeout_minutes: 30
           max_attempts: 12
@@ -582,8 +610,22 @@ jobs:
             $OUTDIR/QLC+_${{ matrix.task }}.dmg \
             ~/QLC+.app
 
+      - name: Notarize and staple DMG
+        shell: bash
+        if: false # ${{ env.MACOS_NOTARY_KEY_P8 != '' }}
+        run: |-
+          DMG_PATH="QLC+_${{ matrix.task }}.dmg"
+          echo "${MACOS_NOTARY_KEY_P8}" > /tmp/AuthKey.p8
+          xcrun notarytool submit \
+            --key /tmp/AuthKey.p8 \
+            --key-id "${MACOS_NOTARY_KEY_ID}" \
+            --issuer "${MACOS_NOTARY_ISSUER}" \
+            --wait "${DMG_PATH}"
+          xcrun stapler staple "${DMG_PATH}"
+          rm -f /tmp/AuthKey.p8
+
       - name: Store DMG artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: QLC+-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.dmg
           path: QLC+_${{ matrix.task }}.dmg

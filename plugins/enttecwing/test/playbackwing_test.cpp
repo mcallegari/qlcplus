@@ -26,12 +26,12 @@
 #include "playbackwing_test.h"
 
 #define PLB_FIRMWARE 192
-#define PLB_FLAGS (1 << 7) /* Page Up */	\
-		| (1 << 6) /* Page Down */	\
-		| (1 << 5) /* Back */		\
-		| (1 << 4) /* Go */		\
-		| (0 << 1) /* Product (1=PLB, 2=SHC, 3=PGM) */	\
-		| (1 << 0) /* Product */
+#define PLB_FLAGS (1 << 7) /* Page Up */  \
+                | (1 << 6) /* Page Down */  \
+                | (1 << 5) /* Back */  \
+                | (1 << 4) /* Go */  \
+                | (0 << 1) /* Product (1=PLB, 2=SHC, 3=PGM) */  \
+                | (1 << 0) /* Product */
 
 QByteArray PlaybackWing_Test::data()
 {

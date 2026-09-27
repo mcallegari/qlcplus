@@ -44,6 +44,8 @@ typedef struct
 {
     int m_index;                        //! Index of the step from the original Chaser
     Function *m_function;               //! Currently active function
+    qreal m_masterIntensity;            //! Current master intensity applied to this step
+    qreal m_stepIntensity;              //! Current step intensity applied to this step
     quint32 m_elapsed;                  //! Elapsed milliseconds
     quint32 m_elapsedBeats;             //! Elapsed beats
     uint m_fadeIn;                      //! Step fade in in ms
@@ -89,7 +91,7 @@ private:
      * Step control
      ************************************************************************/
 public:
-    void setAction(ChaserAction &action);
+    void setAction(const ChaserAction &action);
 
     /**
      * Produce a tap event to the runner, possibly producing a next() call.

@@ -35,7 +35,7 @@ cd build
 if [ -n "$QTDIR" ]; then
     cmake -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" $CMAKE_OPTS -Dappimage=ON -DINSTALL_ROOT=$TARGET_DIR ..
 else
-    cmake -DCMAKE_PREFIX_PATH="/usr/lib/x86_64-linux-gnu/cmake/Qt5" $CMAKE_OPTS -Dappimage=ON -DINSTALL_ROOT=$TARGET_DIR ..
+    cmake -DCMAKE_PREFIX_PATH="/usr/lib/x86_64-linux-gnu/cmake/Qt6" $CMAKE_OPTS -Dappimage=ON -DINSTALL_ROOT=$TARGET_DIR ..
 fi
 
 NUM_CPUS=$(nproc) || true
@@ -54,12 +54,20 @@ make install
 cp -v ../resources/icons/svg/qlcplus.svg $TARGET_DIR
 cp -v ../platforms/linux/qlcplus.desktop $TARGET_DIR
 
-find $TARGET_DIR/usr/lib/ -name 'libqlcplusengine.so*' -exec strip -v {} \;
+# Install base Qt translations. QLC+ 5 keeps its translations in a separate
+# directory, so that the two flavours don't overwrite each other's .qm files
+if [ "$1" == "qmlui" ]; then
+    cp $QTDIR/translations/qtbase_* $TARGET_DIR/share/qlcplus/translations5/
+else
+    cp $QTDIR/translations/qtbase_* $TARGET_DIR/share/qlcplus/translations/
+fi
+
+find $TARGET_DIR/usr/lib/ -name 'libqlcplusengine*.so*' -exec strip -v {} \;
 
 if [ "$1" == "qmlui" ]; then
-    strip $TARGET_DIR/usr/bin/qlcplus-qml
+    strip $TARGET_DIR/usr/bin/qlcplus5
     # FIXME: no rpath or runpath tag found.
-    chrpath -r "../lib" $TARGET_DIR/usr/bin/qlcplus-qml || true
+    chrpath -r "../lib" $TARGET_DIR/usr/bin/qlcplus5 || true
 
     pushd $TARGET_DIR/usr/bin
     find . -name plugins.qmltypes -type f -delete
@@ -69,7 +77,7 @@ if [ "$1" == "qmlui" ]; then
     rm -rf QtQuick/Controls.2/Universal QtQuick/Controls.2/Fusion
     rm -rf QtQuick/Controls.2/Imagine QtQuick/Controls.2/Scene2D
     popd
-    sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus-qml/g' $TARGET_DIR/qlcplus.desktop
+    sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus5/g' $TARGET_DIR/qlcplus.desktop
 else
     strip $TARGET_DIR/usr/bin/qlcplus
     chrpath -r "../lib" $TARGET_DIR/usr/bin/qlcplus || true

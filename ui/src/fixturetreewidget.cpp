@@ -301,17 +301,17 @@ void FixtureTreeWidget::updateGroupItem(QTreeWidgetItem* item, const FixtureGrou
     }
 }
 
-int FixtureTreeWidget::universeCount()
+int FixtureTreeWidget::universeCount() const
 {
     return m_universesCount;
 }
 
-int FixtureTreeWidget::fixturesCount()
+int FixtureTreeWidget::fixturesCount() const
 {
     return m_fixturesCount;
 }
 
-int FixtureTreeWidget::channelsCount()
+int FixtureTreeWidget::channelsCount() const
 {
     return m_channelsCount;
 }

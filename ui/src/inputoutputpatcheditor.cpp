@@ -425,7 +425,7 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
 
             /* Apply the patch immediately so that input data can be used in the
                input profile editor */
-            if (m_ioMap->setInputPatch(m_universe, m_currentInputPluginName, "",
+            if (m_ioMap->setInputPatch(m_universe, m_currentInputPluginName, "", "",
                                        m_currentInput, m_currentProfileName) == false)
                 showPluginMappingError();
         }
@@ -444,7 +444,7 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
                 m_currentOutput = item->text(KMapColumnOutputLine).toUInt();
 
                 /* Apply the patch immediately */
-                if (m_ioMap->setOutputPatch(m_universe, m_currentOutputPluginName, "",
+                if (m_ioMap->setOutputPatch(m_universe, m_currentOutputPluginName, "", "",
                                             m_currentOutput, false) == false)
                     showPluginMappingError();
             }
@@ -463,7 +463,7 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
                 m_currentFeedback = item->text(KMapColumnOutputLine).toUInt();
 
                 /* Apply the patch immediately */
-                if (m_ioMap->setOutputPatch(m_universe, m_currentFeedbackPluginName, "",
+                if (m_ioMap->setOutputPatch(m_universe, m_currentFeedbackPluginName, "", "",
                                             m_currentFeedback, true) == false)
                     showPluginMappingError();
             }
@@ -477,7 +477,7 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
             m_currentInputPluginName = KInputNone;
             m_currentInput = QLCIOPlugin::invalidLine();
 
-            if (m_ioMap->setInputPatch(m_universe, m_currentInputPluginName, "", m_currentInput) == false)
+            if (m_ioMap->setInputPatch(m_universe, m_currentInputPluginName, "", "", m_currentInput) == false)
                 showPluginMappingError();
         }
         else if (col == KMapColumnHasOutput)
@@ -486,7 +486,7 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
             m_currentOutput = QLCIOPlugin::invalidLine();
 
             /* Apply the patch immediately */
-            if (m_ioMap->setOutputPatch(m_universe, m_currentOutputPluginName, "", m_currentOutput, false) == false)
+            if (m_ioMap->setOutputPatch(m_universe, m_currentOutputPluginName, "", "", m_currentOutput, false) == false)
                 showPluginMappingError();
         }
         else if (col == KMapColumnHasFeedback)
@@ -495,7 +495,7 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
             m_currentFeedback = QLCIOPlugin::invalidLine();
 
             /* Apply the patch immediately */
-            if (m_ioMap->setOutputPatch(m_universe, m_currentFeedbackPluginName, "", m_currentFeedback, true) == false)
+            if (m_ioMap->setOutputPatch(m_universe, m_currentFeedbackPluginName, "", "", m_currentFeedback, true) == false)
                 showPluginMappingError();
         }
     }

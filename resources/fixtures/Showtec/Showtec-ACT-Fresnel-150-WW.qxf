@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.2.2 GIT</Version>
+  <Author>Laurent Georget</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>ACT Fresnel 150 WW</Model>
+ <Type>Dimmer</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Closed/Blackout</Capability>
+  <Capability Min="20" Max="24" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="25" Max="64" Preset="StrobeFastToSlow">Strobe, from high to low frequency</Capability>
+  <Capability Min="65" Max="69" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="70" Max="84" Preset="RampUpFastToSlow">Strobe, fast close/slow open, from high to low frequency</Capability>
+  <Capability Min="85" Max="89" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="90" Max="104" Preset="RampDownFastToSlow">Strobe, slow close/fast open, from high to low frequency</Capability>
+  <Capability Min="105" Max="109" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="110" Max="124" Preset="StrobeRandomFastToSlow">Random strobe, from high to low frequency</Capability>
+  <Capability Min="125" Max="129" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="130" Max="144" Preset="StrobeRandomFastToSlow">Random strobe, fast close/slow open from high to low frequency</Capability>
+  <Capability Min="145" Max="149" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="150" Max="164" Preset="StrobeRandomFastToSlow">Random strobe, slow close/fast open, from high to low frequency</Capability>
+  <Capability Min="165" Max="169" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="170" Max="184" Preset="PulseFastToSlow">Pulse strobe, from high to low frequency</Capability>
+  <Capability Min="185" Max="189" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="190" Max="204">Random pulsestrobe, from high to low frequency</Capability>
+  <Capability Min="205" Max="209" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="210" Max="224">Strobe, slow close,/slow open, from high to low frequency</Capability>
+  <Capability Min="225" Max="229" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="230" Max="244">Burst strobe, from high to low frequency</Capability>
+  <Capability Min="245" Max="255" Preset="ShutterOpen">No strobe</Capability>
+ </Channel>
+ <Mode Name="1 channel">
+  <Channel Number="0">Master dimmer</Channel>
+ </Mode>
+ <Mode Name="2 channels">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="8780" ColourTemperature="3000"/>
+  <Dimensions Weight="4.1" Width="225" Height="345" Depth="366"/>
+  <Lens Name="Fresnel" DegreesMin="14" DegreesMax="44"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="170" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

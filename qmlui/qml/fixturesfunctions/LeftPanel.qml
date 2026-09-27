@@ -184,6 +184,8 @@ SidePanel
                     x: leftSidePanel.width
                     y: UISettings.bigItemHeight
                     visible: shutterToolButton.checked
+                    showPalette: true
+                    paletteType: QLCPalette.Shutter
                     onVisibleChanged: if (visible) updatePresets(fixtureManager.shutterChannels)
                     onPresetSelected:
                         function(cap, fxID, chIdx, value)

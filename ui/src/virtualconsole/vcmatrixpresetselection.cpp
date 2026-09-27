@@ -220,12 +220,12 @@ void VCMatrixPresetSelection::slotPropertyEditChanged(QString text)
     m_properties[pName] = text;
 }
 
-QString VCMatrixPresetSelection::selectedPreset()
+QString VCMatrixPresetSelection::selectedPreset() const
 {
     return m_presetCombo->currentText();
 }
 
-QMap<QString, QString> VCMatrixPresetSelection::customizedProperties()
+QMap<QString, QString> VCMatrixPresetSelection::customizedProperties() const
 {
     return m_properties;
 }

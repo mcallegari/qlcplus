@@ -1,8 +1,11 @@
 project(icons)
 
-set(desktop_FILES qlcplus.desktop)
-if(NOT qmlui)
-    list(APPEND desktop_FILES qlcplus-fixtureeditor.desktop)
+if(qmlui)
+    set(desktop_FILES qlcplus5.desktop)
+else()
+    set(desktop_FILES
+        qlcplus.desktop
+        qlcplus-fixtureeditor.desktop)
 endif()
 install(FILES ${desktop_FILES} DESTINATION ${INSTALLROOT}/share/applications/)
 
@@ -14,9 +17,12 @@ install(FILES ${icons_SRCS} DESTINATION ${INSTALLROOT}/share/pixmaps/)
 
 install(FILES qlcplus.xml DESTINATION ${INSTALLROOT}/share/mime/packages)
 
-set(appdata_FILES org.qlcplus.QLCPlus.appdata.xml)
-if(NOT qmlui)
-    list(APPEND appdata_FILES org.qlcplus.QLCPlusFixtureEditor.appdata.xml)
+if(qmlui)
+    set(appdata_FILES org.qlcplus.QLCPlus5.appdata.xml)
+else()
+    set(appdata_FILES
+        org.qlcplus.QLCPlus.appdata.xml
+        org.qlcplus.QLCPlusFixtureEditor.appdata.xml)
 endif()
 install(FILES ${appdata_FILES} DESTINATION ${METAINFODIR})
 
@@ -62,6 +68,7 @@ if(appimage)
             ${QT_LIBS_PATH}/libQt6Svg.so
             ${QT_LIBS_PATH}/libQt6Widgets.so
             ${QT_LIBS_PATH}/libQt6OpenGL.so
+            ${QT_LIBS_PATH}/libQt6Concurrent.so
             ${QT_LIBS_PATH}/libQt6Multimedia.so
             ${QT_LIBS_PATH}/libQt6MultimediaWidgets.so
             ${QT_LIBS_PATH}/libQt6SerialPort.so
@@ -116,7 +123,6 @@ if(appimage)
             ${QT_LIBS_PATH}/libQt63DQuickRender.so
             ${QT_LIBS_PATH}/libQt63DQuickScene3D.so
             ${QT_LIBS_PATH}/libQt63DRender.so
-            ${QT_LIBS_PATH}/libQt6Concurrent.so
             ${QT_LIBS_PATH}/libQt6Gamepad.so
             ${QT_LIBS_PATH}/libQt6PrintSupport.so)
 
@@ -133,7 +139,7 @@ if(appimage)
             ${QT_LIBS_PATH}/libQt6FFmpegStub-va.so.2)
 
     endif()
-    
+
     set(_resolved_qtlibs_FILES "")
     foreach (_file ${qtlibs_FILES})
         file(GLOB _files "${_file}*")
@@ -150,7 +156,7 @@ if(appimage)
     endif()
 
     install(
-        FILES 
+        FILES
             ${QT_PLUGINS_PATH}/platforms/libqlinuxfb.so
             ${QT_PLUGINS_PATH}/platforms/libqxcb.so
             ${QT_PLUGINS_PATH}/platforms/libqminimal.so

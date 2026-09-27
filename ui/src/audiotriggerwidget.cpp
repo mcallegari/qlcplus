@@ -51,7 +51,7 @@ void AudioTriggerWidget::setBarsNumber(int num)
     update();
 }
 
-int AudioTriggerWidget::barsNumber()
+int AudioTriggerWidget::barsNumber() const
 {
     return m_barsNumber;
 }
@@ -61,7 +61,7 @@ void AudioTriggerWidget::setMaxFrequency(int freq)
     m_maxFrequency = freq;
 }
 
-uchar AudioTriggerWidget::getUcharVolume()
+uchar AudioTriggerWidget::getUcharVolume() const
 {
     return SCALE(float(m_volumeBarHeight), 0.0, float(m_spectrumHeight), 0.0, 255.0);
 }

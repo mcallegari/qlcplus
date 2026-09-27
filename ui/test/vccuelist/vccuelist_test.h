@@ -45,6 +45,7 @@ private slots:
     void nextPrevious();
     void manualActivation();
     void keyboardNextPrevious();
+    void submasterWorksAfterSliderModeRoundTrip();
 
     void input();
 

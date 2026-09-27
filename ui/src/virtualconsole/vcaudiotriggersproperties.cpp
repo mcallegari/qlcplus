@@ -21,6 +21,7 @@
 #include <QToolButton>
 #include <QComboBox>
 #include <QSpinBox>
+#include <qmath.h>
 
 #include "vcaudiotriggersproperties.h"
 #include "inputselectionwidget.h"
@@ -28,6 +29,7 @@
 #include "functionselection.h"
 #include "vcwidgetselection.h"
 #include "vcaudiotriggers.h"
+#include "audiocapture.h"
 #include "qlcmacros.h"
 #include "audiobar.h"
 
@@ -120,7 +122,7 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
     connect(combo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotTypeComboChanged(int)));
 
-    if (bar->m_type == AudioBar::DMXBar)
+    if (bar->m_type == AudioBar::BarType::DMXBar)
     {
         QToolButton *btn = new QToolButton();
         btn->setIcon(QIcon(":/attach.png"));
@@ -129,7 +131,7 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
         connect(btn, SIGNAL(clicked()), this, SLOT(slotDmxSelectionClicked()));
         item->setText(KColumnInfo, tr("%1 channels").arg(bar->m_dmxChannels.count()));
     }
-    else if (bar->m_type == AudioBar::FunctionBar)
+    else if (bar->m_type == AudioBar::BarType::FunctionBar)
     {
         QToolButton *btn = new QToolButton();
         btn->setIcon(QIcon(":/attach.png"));
@@ -147,7 +149,7 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
             item->setIcon(KColumnInfo, QIcon());
         }
     }
-    else if (bar->m_type == AudioBar::VCWidgetBar)
+    else if (bar->m_type == AudioBar::BarType::VCWidgetBar)
     {
         QToolButton *btn = new QToolButton();
         btn->setIcon(QIcon(":/attach.png"));
@@ -171,8 +173,8 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
         item->setIcon(KColumnInfo, QIcon());
     }
 
-    if (bar->m_type == AudioBar::FunctionBar
-        || (bar->m_type == AudioBar::VCWidgetBar && ((bar->widget() == NULL) || bar->widget()->type() != VCWidget::SliderWidget)))
+    if (bar->m_type == AudioBar::BarType::FunctionBar
+        || (bar->m_type == AudioBar::BarType::VCWidgetBar && ((bar->widget() == NULL) || bar->widget()->type() != VCWidget::SliderWidget)))
     {
         QSpinBox *minspin = new QSpinBox();
         minspin->setMinimum(5);
@@ -195,7 +197,7 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
         m_tree->setItemWidget(item, KColumnMaxThreshold, maxspin);
     }
 
-    if (bar->m_type == AudioBar::VCWidgetBar
+    if (bar->m_type == AudioBar::BarType::VCWidgetBar
         && bar->widget() != NULL
         && (bar->widget()->type() == VCWidget::SpeedDialWidget || bar->widget()->type() == VCWidget::CueListWidget))
     {
@@ -224,15 +226,29 @@ void AudioTriggersConfiguration::updateTree()
     volItem->setText(KColumnName, tr("Volume Bar"));
     updateTreeItem(volItem, 1000);
 
-    double freqIncr = (double)m_maxFrequency / m_barsNumSpin->value();
-    double freqCount = 0.0;
+    const int bandsNumber = m_barsNumSpin->value();
+    const double minFreq = AudioCapture::minFrequency();
+    const double maxFreq = m_maxFrequency;
+    const double logRange = (bandsNumber > 0 && maxFreq > minFreq) ? qLn(maxFreq / minFreq) : 0.0;
 
-    for (int i = 0; i < m_barsNumSpin->value(); i++)
+    for (int i = 0; i < bandsNumber; i++)
     {
+        double bandStartFreq = minFreq;
+        double bandEndFreq = maxFreq;
+        if (logRange > 0.0)
+        {
+            bandStartFreq = minFreq * qExp(logRange * (double(i) / double(bandsNumber)));
+            bandEndFreq = minFreq * qExp(logRange * (double(i + 1) / double(bandsNumber)));
+        }
+
+        int bandStartHz = qCeil(bandStartFreq);
+        int bandEndHz = (i == bandsNumber - 1) ? int(maxFreq) : (qCeil(bandEndFreq) - 1);
+        if (bandEndHz <= bandStartHz)
+            bandEndHz = bandStartHz;
+
         QTreeWidgetItem *barItem = new QTreeWidgetItem(m_tree);
-        barItem->setText(KColumnName, tr("#%1 (%2Hz - %3Hz)").arg(i + 1).arg((int)freqCount).arg((int)(freqCount + freqIncr)));
+        barItem->setText(KColumnName, tr("#%1 (%2Hz - %3Hz)").arg(i + 1).arg(bandStartHz).arg(bandEndHz));
         updateTreeItem(barItem, i);
-        freqCount += freqIncr;
     }
 
     m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
@@ -368,4 +384,3 @@ void AudioTriggersConfiguration::slotDivisorChanged(int val)
             bar->setDivisor(val);
     }
 }
-

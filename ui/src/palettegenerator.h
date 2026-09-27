@@ -86,21 +86,21 @@ public:
     void setName(QString name);
 
     /** Get the palette name */
-    QString name();
+    QString name() const;
 
     /** Get the palette full name, including the fixture model */
-    QString fullName();
+    QString fullName() const;
 
     /** Get the palette fixture model */
-    QString model();
+    QString model() const;
 
     /********************************************************************
      * Type
      ********************************************************************/
 
-    PaletteType type();
+    PaletteType type() const;
 
-    PaletteSubType subType();
+    PaletteSubType subType() const;
 
     static QString typetoString(PaletteType type);
 
@@ -109,9 +109,9 @@ public:
      ********************************************************************/
     static QStringList getCapabilities(const Fixture* fixture);
 
-    QList<Scene *> scenes();
-    QList<Chaser *> chasers();
-    QList<RGBMatrix *> matrices();
+    QList<Scene *> scenes() const;
+    QList<Chaser *> chasers() const;
+    QList<RGBMatrix *> matrices() const;
 
     void addToDoc();
 
@@ -138,8 +138,8 @@ private:
      */
     void createFunctions(PaletteType type, PaletteSubType subType);
 
-    QString getNamePrefix(QString name);
-    QString getNamePrefix(QString type, QString name);
+    QString getNamePrefix(QString name) const;
+    QString getNamePrefix(QString type, QString name) const;
 
 private:
     Doc* m_doc;

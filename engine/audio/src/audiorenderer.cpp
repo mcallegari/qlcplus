@@ -48,7 +48,7 @@ void AudioRenderer::adjustIntensity(qreal fraction)
     m_intensity = CLAMP(fraction, 0.0, 1.0);
 }
 
-bool AudioRenderer::isLooped()
+bool AudioRenderer::isLooped() const
 {
     return m_looped;
 }
@@ -58,9 +58,14 @@ void AudioRenderer::setLooped(bool looped)
     m_looped = looped;
 }
 
-bool AudioRenderer::isEos()
+bool AudioRenderer::isEos() const
 {
     return m_isEos;
+}
+
+bool AudioRenderer::backendDrainedAtEos() const
+{
+    return true;
 }
 
 /*********************************************************************
@@ -93,6 +98,7 @@ void AudioRenderer::setFadeOut(uint fadeTime)
     int channels = m_adec->audioParameters().channels();
     qreal stepsCount = (qreal)fadeTime * ((qreal)(sampleRate * channels) / 1000);
     m_fadeStep = -(m_intensity / stepsCount);
+    m_currentIntensity = m_intensity;
 
     qDebug() << Q_FUNC_INFO << "stepsCount:" << stepsCount << ", fadeStep:" << m_fadeStep;
 }
@@ -120,6 +126,8 @@ void AudioRenderer::run()
 {
     qint64 audioDataWritten;
     audioDataRead = 0;
+    bool sourceEofReached = false;
+    quint32 eosWaitCycles = 0;
 
     int sampleSize = m_adec->audioParameters().sampleSize();
     if (sampleSize > 2)
@@ -144,7 +152,24 @@ void AudioRenderer::run()
                     }
                     else
                     {
-                        m_isEos = true;
+                        if (sourceEofReached == false)
+                        {
+                            sourceEofReached = true;
+                            qDebug() << "[AudioRenderer] decoder EOF reached, waiting for backend drain";
+                        }
+
+                        if (backendDrainedAtEos())
+                        {
+                            qDebug() << "[AudioRenderer] backend drained, setting EOS";
+                            m_isEos = true;
+                        }
+                        else
+                        {
+                            eosWaitCycles++;
+                            if ((eosWaitCycles % 100) == 0)
+                                qDebug() << "[AudioRenderer] waiting EOS drain..." << eosWaitCycles;
+                            usleep(5000);
+                        }
                     }
                 }
                 if (m_intensity != 1.0 || m_fadeStep != 0)

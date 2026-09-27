@@ -108,7 +108,7 @@ public:
     WorkingMode workingMode() const;
     void setWorkingMode(WorkingMode mode);
 
-    bool needsUpdate();
+    bool needsUpdate() const;
 
     int sensitivity() const;
     void setSensitivity(int value);

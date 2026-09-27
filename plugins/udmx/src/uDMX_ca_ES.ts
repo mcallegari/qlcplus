@@ -17,47 +17,47 @@
 <context>
     <name>UDMXDevice</name>
     <message>
-        <location filename="udmxdevice.cpp" line="122"/>
+        <location filename="udmxdevice.cpp" line="130"/>
         <source>Unknown</source>
         <translation>Desconegut</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="142"/>
+        <location filename="udmxdevice.cpp" line="150"/>
         <source>Device name</source>
         <translation>Nom del dispositiu</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="144"/>
+        <location filename="udmxdevice.cpp" line="152"/>
         <source>DMX Channels</source>
         <translation>Canals DMX</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="146"/>
+        <location filename="udmxdevice.cpp" line="154"/>
         <source>DMX Frame Frequency</source>
         <translation>Freqüència DMX</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="149"/>
+        <location filename="udmxdevice.cpp" line="157"/>
         <source>Bad</source>
         <translation>Dolent</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="151"/>
+        <location filename="udmxdevice.cpp" line="159"/>
         <source>Good</source>
         <translation>Bo</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="153"/>
+        <location filename="udmxdevice.cpp" line="161"/>
         <source>Patch this device to a universe to find out.</source>
         <translation>Assigni aquest dispositiu a un univers per trobarlo.</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="154"/>
+        <location filename="udmxdevice.cpp" line="162"/>
         <source>System Timer Accuracy</source>
         <translation>Precisió del rellotge del sistema</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="159"/>
+        <location filename="udmxdevice.cpp" line="167"/>
         <source>Device not in use</source>
         <translation>El dispositiu no està en ús</translation>
     </message>

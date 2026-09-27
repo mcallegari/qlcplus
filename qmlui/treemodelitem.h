@@ -50,10 +50,10 @@ public:
     int flags() const;
 
     /** Get a user custom field with $index as variant */
-    QVariant data(int index);
+    QVariant data(int index) const;
 
     /** Get all the user custom fields as a variant list */
-    QVariantList data();
+    QVariantList data() const;
 
     /** Set the list of user custom fields */
     void setData(QVariantList data);
@@ -65,15 +65,16 @@ public:
     bool setChildrenColumns(QStringList columns);
 
     /** Add a child to this item. Typically this means the item is a folder */
-    bool addChild(QString label, QVariantList data, bool sorting = false, QString path = QString(), int flags = 0);
+    bool addChild(QString label, QVariantList data, QStringList columns, bool sorting = false,
+                  QString path = QString(), int flags = 0);
 
     /** Return if the item has children. Typically for folders */
-    bool hasChildren();
+    bool hasChildren() const;
 
     /** Return a reference to the item's children */
-    TreeModel *children();
+    TreeModel *children() const;
 
-    void printItem(int tab = 0);
+    void printItem(int tab = 0) const;
 
 private:
     QString m_label;

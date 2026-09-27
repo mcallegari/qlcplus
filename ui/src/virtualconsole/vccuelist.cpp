@@ -170,6 +170,8 @@ VCCueList::VCCueList(QWidget *parent, Doc *doc) : VCWidget(parent, doc)
             this, SLOT(slotItemActivated(QTreeWidgetItem*)));
     connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
             this, SLOT(slotItemChanged(QTreeWidgetItem*,int)));
+    connect(m_tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)),
+            this, SLOT(slotItemDoubleClicked(QTreeWidgetItem *, int)));
     vbox->addWidget(m_tree);
 
     m_progress = new QProgressBar(this);
@@ -818,16 +820,16 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
 
         float stepVal;
         int stepsCount = m_tree->topLevelItemCount();
-        if (stepsCount < 256) 
+        if (stepsCount < 256)
         {
             stepVal = 256.0 / (float)stepsCount; //divide up the full 0..255 range
             stepVal = qFloor((stepVal * 100000.0) + 0.5) / 100000.0; //round to 5 decimals to fix corner cases
         }
-        else 
+        else
         {
             stepVal = 1.0;
         }
-        
+
         // value->step# truncates down in slotSideFaderValueChanged; so use ceiling for step#->value
         float slValue = stepVal * (float)stepNumber;
         if (slValue > 255)
@@ -844,9 +846,9 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
             m_topPercentageLabel->setText(QString("%1").arg(qCeil(slValue)));
             m_sideFader->blockSignals(false);
 
-            //qDebug() << "Slider value:" << m_sideFader->value() << "->" << 255-qCeil(slValue) 
-            //    << "(disp:" << slValue << ")" << "Step range:" << upperBound << lowerBound 
-            //    << "(stepSize:" << stepVal << ")" 
+            //qDebug() << "Slider value:" << m_sideFader->value() << "->" << 255-qCeil(slValue)
+            //    << "(disp:" << slValue << ")" << "Step range:" << upperBound << lowerBound
+            //    << "(stepSize:" << stepVal << ")"
             //    << "(raw lower:" << (256.0 - slValue - stepVal) << ")";
         }
     }
@@ -895,6 +897,16 @@ void VCCueList::slotStepNoteChanged(int idx, QString note)
     ch->replaceStep(step, idx);
 }
 
+void VCCueList::slotItemDoubleClicked(QTreeWidgetItem *item, int column)
+{
+    Q_UNUSED(column)
+
+    if (mode() != Doc::Operate)
+        return;
+
+    playCueAtIndex(m_tree->indexOfTopLevelItem(item));
+}
+
 void VCCueList::slotFunctionRunning(quint32 fid)
 {
     if (fid != m_chaserID)
@@ -914,6 +926,7 @@ void VCCueList::slotFunctionStopped(quint32 fid)
     if (fid != m_chaserID)
         return;
 
+    resetIntensityOverrideAttribute();
     m_playbackButton->setIcon(QIcon(":/player_play.png"));
     m_topStepLabel->setText("");
     m_topStepLabel->setStyleSheet(cfLabelNoStyle);
@@ -927,7 +940,7 @@ void VCCueList::slotFunctionStopped(quint32 fid)
     emit stepChanged(-1);
 
     m_progress->setFormat("");
-    m_progress->setValue(0);    
+    m_progress->setValue(0);
 
     emit progressStateChanged();
     emit sideFaderValueChanged();
@@ -1367,9 +1380,9 @@ void VCCueList::slotKeyPressed(const QKeySequence& keySequence)
 
 void VCCueList::updateFeedback()
 {
-    int fbv = int(SCALE(float(m_sideFader->value()), 
+    int fbv = int(SCALE(float(m_sideFader->value()),
                         float(m_sideFader->minimum()),
-                        float(m_sideFader->maximum()), 
+                        float(m_sideFader->maximum()),
                         float(0), float(UCHAR_MAX)));
     sendFeedback(fbv, sideFaderInputSourceId);
 

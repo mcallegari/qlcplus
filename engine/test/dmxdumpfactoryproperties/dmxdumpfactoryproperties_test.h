@@ -29,6 +29,7 @@ class DmxDumpFactoryProperties_Test final : public QObject
 private slots:
     void initial();
     void maskAndChasers();
+    void universesResize();
 };
 
 #endif // DMXDUMPFACTORYPROPERTIES_TEST_H

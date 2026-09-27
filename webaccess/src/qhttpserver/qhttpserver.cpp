@@ -134,7 +134,7 @@ void CustomTcpServer::incomingConnection(qintptr handle)
     QTcpSocket *socket = new QTcpSocket(this);
     socket->setSocketDescriptor(handle);
 
-    QHttpConnection *connection = new QHttpConnection(socket);
+    QHttpConnection *connection = new QHttpConnection(socket, this);
     connect(connection, SIGNAL(newRequest(QHttpRequest*, QHttpResponse*)),
             this, SIGNAL(newRequest(QHttpRequest*, QHttpResponse*)));
     connect(connection, SIGNAL(webSocketDataReady(QHttpConnection*,QString)),

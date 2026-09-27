@@ -1094,7 +1094,7 @@ void ChaserEditor::updateSpeedDials()
 /****************************************************************************
  * Test
  ****************************************************************************/
-int ChaserEditor::getCurrentIndex()
+int ChaserEditor::getCurrentIndex() const
 {
     // Return the index of the current selected item
     // Return -1 if nothing is selected
@@ -1345,7 +1345,7 @@ void ChaserEditor::applyStepValues()
     }
 }
 
-void ChaserEditor::printSteps()
+void ChaserEditor::printSteps() const
 {
     int i = 0;
     QListIterator <ChaserStep> it(m_chaser->steps());

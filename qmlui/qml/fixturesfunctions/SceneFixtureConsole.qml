@@ -36,11 +36,29 @@ Rectangle
     property bool isSceneEditor: true
     property bool multipleSelection: false
 
+    /** Bumped on every external controller mapping change, to make the
+     *  Fixture consoles re-evaluate their channel highlights */
+    property int externalMapRevision: 0
+
     function scrollToItem(fxIdx)
     {
         console.log("[scrollToItem] fxIdx: " + fxIdx)
         fixtureList.positionViewAtIndex(fxIdx, ListView.Beginning)
         fixtureList.currentIndex = fxIdx
+    }
+
+    /** Refresh the channel highlights when the external controller
+     *  mapping changes. Scrolling and Fixture selection are handled
+     *  by the Scene editor through the standard Fixture selection */
+    Connections
+    {
+        target: sceneEditor
+        ignoreUnknownSignals: true
+
+        function onExternalMapChanged()
+        {
+            sfcContainer.externalMapRevision++
+        }
     }
 
     ChannelToolLoader
@@ -87,6 +105,7 @@ Rectangle
                     showEnablers: true
                     sceneConsole: true
                     multipleSelection: sfcContainer.multipleSelection
+                    externalMapRevision: sfcContainer.externalMapRevision
 
                     onRequestTool:
                         function (item, fixtureID, chIndex, value)

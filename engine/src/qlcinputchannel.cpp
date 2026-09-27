@@ -69,9 +69,9 @@ void QLCInputChannel::setType(Type type)
 
     m_type = type;
     if (type == Encoder)
-        m_movementSensitivity = 1;
+        setMovementSensitivity(1);
     else
-        m_movementSensitivity = 20;
+        setMovementSensitivity(20);
 
     emit typeChanged();
 }
@@ -101,10 +101,10 @@ QString QLCInputChannel::typeToString(Type type)
             return KXMLQLCInputChannelPageSet;
         default:
             return KXMLQLCInputChannelNone;
-        }
+    }
 }
 
-QString QLCInputChannel::typeString()
+QString QLCInputChannel::typeString() const
 {
     return typeToString(type());
 }
@@ -163,8 +163,8 @@ QString QLCInputChannel::iconResource(Type type, bool svg)
         case Knob: return QString("%1:/knob.%2").arg(prefix, ext);
         case Encoder: return QString("%1:/knob.%2").arg(prefix, ext);
         case Slider: return QString("%1:/slider.%2").arg(prefix, ext);
-        case PrevPage: return QString("%1:/forward.%2").arg(prefix, ext);
-        case NextPage: return QString("%1:/back.%2").arg(prefix, ext);
+        case PrevPage: return QString("%1:/back.%2").arg(prefix, ext);
+        case NextPage: return QString("%1:/forward.%2").arg(prefix, ext);
         case PageSet: return QString("%1:/star.%2").arg(prefix, ext);
         default: return QString();
     }
@@ -207,7 +207,11 @@ QLCInputChannel::MovementType QLCInputChannel::movementType() const
 
 void QLCInputChannel::setMovementType(QLCInputChannel::MovementType type)
 {
+    if (type == m_movementType)
+        return;
+
     m_movementType = type;
+    emit movementTypeChanged();
 }
 
 int QLCInputChannel::movementSensitivity() const
@@ -217,7 +221,11 @@ int QLCInputChannel::movementSensitivity() const
 
 void QLCInputChannel::setMovementSensitivity(int value)
 {
+    if (value == m_movementSensitivity)
+        return;
+
     m_movementSensitivity = value;
+    emit movementSensitivityChanged();
 }
 
 /*********************************************************************
@@ -253,7 +261,7 @@ void QLCInputChannel::setLowerValue(const uchar value)
 {
     if (value == m_lowerValue)
         return;
-    
+
     m_lowerValue = value;
     emit lowerValueChanged();
 }
@@ -267,7 +275,7 @@ void QLCInputChannel::setUpperValue(const uchar value)
 {
     if (value == m_upperValue)
         return;
-    
+
     m_upperValue = value;
     emit upperValueChanged();
 }
@@ -281,7 +289,7 @@ void QLCInputChannel::setLowerChannel(const int channel)
 {
     if (channel == m_lowerChannel)
         return;
-    
+
     m_lowerChannel = channel;
     emit midiChannelChanged();
 }

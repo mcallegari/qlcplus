@@ -317,7 +317,7 @@ void App::init()
 
 #if defined(WIN32) || defined(Q_OS_WIN)
     HotPlugMonitor::setWinId(winId());
-    
+
     // When on Windows 11, disable system timer resolution throttling when
     // app is minimised, occluded, etc.
     disableTimerResolutionThrottling();
@@ -359,12 +359,12 @@ void App::disableTimerResolutionThrottling()
     // non-visible or non-audible to the end-user, Windows may ignore timer
     // resolution requests and not give a higher resolution than the default system
     // timer resolution (typically 15.625 ms).
-    
+
     // Note: we must resolve the SetProcessInformation API function at run-time
     // because it does not exist prior to Windows 8. On supported Windows versions
     // earlier than 11, the call to SetProcessInformation will just fail, which we
     // can ignore.
-    
+
     HMODULE hKernel32 = LoadLibrary(L"kernel32.dll");
     Q_ASSERT(hKernel32 != NULL); // Shouldn't ever fail because kernel32 already loaded into every process
 

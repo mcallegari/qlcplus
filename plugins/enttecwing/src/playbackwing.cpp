@@ -89,7 +89,7 @@ WING_PLAYBACK_BYTE_SLIDER + 9: Slider 10 (0-255)
 
 /** Should constitute up to 50 channels */
 #define WING_PLAYBACK_CHANNEL_COUNT 8 * WING_PLAYBACK_BUTTON_SIZE \
-					+ WING_PLAYBACK_SLIDER_SIZE
+                                      + WING_PLAYBACK_SLIDER_SIZE
 
 /** number of extra buttons (go,back, pageup, pagedown) */
 #define WING_PLAYBACK_EXTRA_BUTTONS_COUNT 4

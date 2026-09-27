@@ -113,7 +113,8 @@ QImage WaveformImageProvider::requestImage(const QString &id,
     if (!ok || m_doc == nullptr)
         return QImage();
 
-    if (m_doc->function(fid)->type() != Function::AudioType)
+    Function *f = m_doc->function(fid);
+    if (f == nullptr || f->type() != Function::AudioType)
         return QImage();
 
     // 1) Try cache first

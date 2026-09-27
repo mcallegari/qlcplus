@@ -58,7 +58,7 @@ public:
     int currentStepIndex() const;
 
     /** Calculate the RGB components delta between $startColor and $endColor */
-    void calculateColorDelta(QColor startColor, QColor endColor, RGBAlgorithm *algorithm);
+    void calculateColorDelta(const QColor& startColor, const QColor& endColor, const RGBAlgorithm *algorithm);
 
     /** Set/Get the final color of the next step to be reproduced */
     void setStepColor(QColor color);
@@ -70,7 +70,7 @@ public:
 
     /** Initialize the playback direction and set the initial step index and
       * color based on $startColor and $endColor */
-    void initializeDirection(Function::Direction direction, QColor startColor, QColor endColor, int stepsCount, RGBAlgorithm *algorithm);
+    void initializeDirection(Function::Direction direction, const QColor& startColor, const QColor& endColor, int stepsCount, const RGBAlgorithm *algorithm);
 
     /** Check the steps progression based on $order and the internal m_direction.
      *  This method returns true if the RGBMatrix can continue to run, otherwise
@@ -106,6 +106,28 @@ public:
 
     /** @reimp */
     QIcon getIcon() const override;
+
+    enum MatrixAttribute
+    {
+        Color1Attr = Function::Intensity + 1,
+        Color2Attr = Color1Attr + 1,
+        Color3Attr = Color1Attr + 2,
+        Color4Attr = Color1Attr + 3,
+        Color5Attr = Color1Attr + 4,
+        ColorLastAttr = Color1Attr + RGBAlgorithmColorDisplayCount - 1,
+        PatternAttr = ColorLastAttr + 1,
+        /** First index of the attributes dynamically registered by a Script algorithm. */
+        ScriptPropertyAttr = PatternAttr + 1
+    };
+    enum { ColorAttributeCount = RGBAlgorithmColorDisplayCount };
+    static_assert(RGBAlgorithmColorDisplayCount >= 5,
+                  "RGBMatrix exposes Color1..Color5 compatibility attributes and requires at least 5 colors");
+
+    /** Return the index of the currently selected algorithm. */
+    int algorithmIndex() const;
+
+    /** Re-apply style attributes (colors + pattern) to runtime state. */
+    void applyStyleAttributes();
 
     /*********************************************************************
      * Contents
@@ -216,6 +238,29 @@ public:
     QString property(QString propName);
 
 private:
+    /** Return the properties of the currently loaded Script algorithm that
+     *  are exposed as Function attributes. Index 0 of the returned list
+     *  matches the attribute index $ScriptPropertyAttr */
+    QList<RGBScriptProperty> scriptPropertyAttributes() const;
+
+    /** Return the attribute name used to expose the given Script property */
+    static QString scriptPropertyAttributeName(const RGBScriptProperty &prop);
+
+    /** Register a Function attribute for every property exposed by the
+     *  currently loaded Script algorithm, so that they can be controlled
+     *  by a VC Slider in 'Adjust' mode */
+    void registerScriptPropertyAttributes();
+
+    /** Unregister the attributes of the currently loaded Script algorithm.
+     *  To be called before replacing it, since the attribute names are
+     *  retrieved from the algorithm itself */
+    void unregisterScriptPropertyAttributes();
+
+    /** Apply the value of a Script property attribute to the algorithm.
+     *  $attrIndex is an index of $scriptPropertyAttributes */
+    void applyScriptPropertyAttribute(int attrIndex, qreal value);
+
+private:
     /** A map of the custom properties for this matrix */
     QMap<QString, QString>m_properties;
 
@@ -252,11 +297,13 @@ private:
     /** Check if the engine needs to be re-created */
     void checkEngineCreation();
 
-    FadeChannel *getFader(Universe *universe, quint32 fixtureID, quint32 channel);
-    void updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime);
+    QSharedPointer<GenericFader> getFader(Universe *universe);
+    void updateFaderValues(FadeChannel &fc, uchar value, uint fadeTime);
 
     /** Update FadeChannels when $map has changed since last time */
     void updateMapChannels(const RGBMap& map, const FixtureGroup* grp, QList<Universe *> universes);
+    void applyColorAttribute(int colorIndex, qreal packedColor);
+    void applyPatternAttribute(qreal patternIndex);
 
 public:
     /** Convert color values to fader value */
@@ -271,6 +318,13 @@ private:
 
     /** The duration of a step based on the current BPM (Beats tempo only) */
     uint m_stepBeatDuration;
+
+    /** Continuous phase (0.0 - 1.0) for accurate phase scaling during runtime speed changes.
+     *  This prevents cumulative rounding errors when properties are changed multiple times.
+     *  Analogous to EFX's m_currentAngle, but for RGBMatrix step-based animations. */
+    double m_continuousPhase;
+
+    bool m_applyingStyleAttributes;
 
     /*********************************************************************
      * Attributes
@@ -302,17 +356,17 @@ public:
     };
 
     /** Get/Set the control mode associated to this RGBMatrix */
-    ControlMode controlMode() const;
-    void setControlMode(ControlMode mode);
+    RGBMatrix::ControlMode controlMode() const;
+    void setControlMode(RGBMatrix::ControlMode mode);
 
     /** Return a control mode from a string */
-    static ControlMode stringToControlMode(QString mode);
+    static RGBMatrix::ControlMode stringToControlMode(QString mode);
 
     /** Return a string from a control mode, to be saved into a XML */
-    static QString controlModeToString(ControlMode mode);
+    static QString controlModeToString(RGBMatrix::ControlMode mode);
 
 private:
-    ControlMode m_controlMode;
+    RGBMatrix::ControlMode m_controlMode;
 };
 
 /** @} */

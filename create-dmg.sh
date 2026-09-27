@@ -24,7 +24,7 @@ fi
 
 # Build
 if [ -n "$QTDIR" ]; then
-    CMAKE_OSX_DEPLOYMENT_TARGET=12.0
+    CMAKE_OSX_DEPLOYMENT_TARGET=13.0
     [ -d "$QTDIR/lib/cmake/Qt5Core" ] && CMAKE_OSX_DEPLOYMENT_TARGET=10.13
     cmake -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake" -DCMAKE_OSX_DEPLOYMENT_TARGET=$CMAKE_OSX_DEPLOYMENT_TARGET $OPTS ..
 else
@@ -62,7 +62,7 @@ if [ -f "$BIN_DIR/qlcplus" ]; then
     platforms/macos/fix_dylib_deps.sh $BIN_DIR/qlcplus
     platforms/macos/fix_dylib_deps.sh $BIN_DIR/qlcplus-fixtureeditor
 else
-    platforms/macos/fix_dylib_deps.sh $BIN_DIR/qlcplus-qml
+    platforms/macos/fix_dylib_deps.sh $BIN_DIR/qlcplus5
 fi
 
 echo "Run macdeployqt..."
@@ -76,6 +76,9 @@ if [ "$1" == "qmlui" ]; then
     rm -rf $QML_DIR/QtQuick/Controls/Material
     rm -rf $QML_DIR/QtQuick/Controls/Universal
     rm -rf $QML_DIR/QtQuick/Particles
+
+    # Install base Qt translations
+    cp $QTDIR/translations/qtbase_* $APP_DIR/Contents/Resources/Translations
 else
     $QTDIR/bin/macdeployqt $APP_DIR
 fi
@@ -104,7 +107,7 @@ if [ -n "$SIGNATURE" ]; then
         codesign --force --sign "$SIGNATURE" --timestamp --entitlements $ENTITLEMENTS --options runtime $BIN_DIR/qlcplus
         codesign --force --sign "$SIGNATURE" --timestamp --entitlements $ENTITLEMENTS --options runtime $BIN_DIR/qlcplus-launcher
     else
-        codesign --force --sign "$SIGNATURE" --timestamp --entitlements $ENTITLEMENTS --options runtime $BIN_DIR/qlcplus-qml
+        codesign --force --sign "$SIGNATURE" --timestamp --entitlements $ENTITLEMENTS --options runtime $BIN_DIR/qlcplus5
     fi
 fi
 

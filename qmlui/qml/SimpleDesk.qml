@@ -52,6 +52,12 @@ Rectangle
         orientation: Qt.Vertical
         z: 1
 
+        handle: Rectangle
+        {
+            implicitHeight: screenPixelDensity * UISettings.scalingFactor * 0.9
+            color: SplitHandle.hovered || SplitHandle.pressed ? UISettings.highlight : UISettings.bgLighter
+        }
+
         // Top view (faders)
         Rectangle
         {
@@ -141,6 +147,33 @@ Rectangle
                 boundsBehavior: Flickable.StopAtBounds
                 highlightFollowsCurrentItem: false
                 currentIndex: -1
+
+                // Set once the saved scroll position has been restored, so that
+                // scrolling caused by the restore itself is not saved back
+                property bool scrollRestored: false
+
+                // Restore the channel the view was scrolled to before the last
+                // context change. Positioning by index is reliable even while the
+                // ListView is still laying out its delegates (unlike setting
+                // contentX, which gets clamped when contentWidth isn't known yet).
+                Component.onCompleted:
+                {
+                    if (UISettings.simpleDeskScrollIndex > 0)
+                        positionViewAtIndex(UISettings.simpleDeskScrollIndex, ListView.Beginning)
+                    scrollRestored = true
+                }
+
+                // Persist the first visible channel so it can be restored when
+                // coming back to the Simple Desk context
+                onContentXChanged:
+                {
+                    if (scrollRestored)
+                    {
+                        let firstIdx = indexAt(contentX, 0)
+                        if (firstIdx >= 0)
+                            UISettings.simpleDeskScrollIndex = firstIdx
+                    }
+                }
 
                 function scrollToItem(chIdx)
                 {
@@ -312,6 +345,7 @@ Rectangle
                     width: parent.width
                     boundsBehavior: Flickable.StopAtBounds
                     model: simpleDesk.fixtureList
+                    currentIndex: -1
 
                     delegate:
                         Rectangle
@@ -319,7 +353,7 @@ Rectangle
                             id: fixtureDelegate
                             width: fixtureList.width
                             height: UISettings.listItemHeight
-                            color: fxiMa.pressed ? UISettings.highlight : "transparent"
+                            color: fixtureList.currentIndex == index ? UISettings.highlight : "transparent"
 
                             property Fixture fixtureObj: modelData
 
@@ -336,7 +370,11 @@ Rectangle
                                     id: fxiMa
                                     anchors.fill: parent
 
-                                    onClicked: channelView.scrollToItem(fixtureObj.address)
+                                    onClicked:
+                                    {
+                                        fixtureList.currentIndex = index
+                                        channelView.scrollToItem(fixtureObj.address)
+                                    }
                                 }
                             }
 

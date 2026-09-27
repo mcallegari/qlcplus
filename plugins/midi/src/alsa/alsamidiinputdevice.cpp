@@ -22,6 +22,7 @@
 
 #include "alsamidiinputdevice.h"
 #include "alsamidiinputthread.h"
+#include "alsamidiutil.h"
 #include "midiprotocol.h"
 
 /****************************************************************************
@@ -83,6 +84,11 @@ bool AlsaMidiInputDevice::isOpen() const
 const snd_seq_addr_t* AlsaMidiInputDevice::address() const
 {
     return m_address;
+}
+
+uint AlsaMidiInputDevice::rawAddressUid() const
+{
+    return AlsaMidiUtil::addressToVariant(m_address).toUInt();
 }
 
 bool AlsaMidiInputDevice::processMBC(snd_seq_event_type_t type)

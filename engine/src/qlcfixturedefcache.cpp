@@ -132,7 +132,7 @@ bool QLCFixtureDefCache::addFixtureDef(QLCFixtureDef* fixtureDef)
     }
 }
 
-bool QLCFixtureDefCache::storeFixtureDef(QString filename, QString data)
+bool QLCFixtureDefCache::storeFixtureDef(const QString& filename, const QString& data)
 {
     QDir userFolder = userDefinitionDirectory();
 
@@ -160,10 +160,33 @@ bool QLCFixtureDefCache::reloadFixtureDef(QLCFixtureDef *fixtureDef)
 
     QLCFixtureDef *def = m_defs.takeAt(idx);
     QString absPath = def->definitionSourceFile();
+    bool isUser = def->isUser();
     delete def;
 
     QLCFixtureDef *origDef = new QLCFixtureDef();
-    origDef->loadXML(absPath);
+    QFile::FileError error = origDef->loadXML(absPath);
+    if (error != QFile::NoError)
+    {
+        qWarning() << Q_FUNC_INFO << "Fixture definition loading from"
+                   << absPath << "failed:" << QLCFile::errorString(error);
+        delete origDef;
+        return false;
+    }
+
+    /* A definition with no modes cannot be used to patch a fixture,
+       so don't add it back to the cache. Note that fixture editors load
+       definitions directly, so they can still handle incomplete ones */
+    if (origDef->modes().isEmpty())
+    {
+        qWarning() << Q_FUNC_INFO << "Fixture definition" << absPath
+                   << "has no modes. Skipping.";
+        delete origDef;
+        return false;
+    }
+
+    origDef->setIsUser(isUser);
+    origDef->setDefinitionSourceFile(absPath);
+    origDef->setLoaded(true);
     m_defs << origDef;
 
     return true;
@@ -171,23 +194,43 @@ bool QLCFixtureDefCache::reloadFixtureDef(QLCFixtureDef *fixtureDef)
 
 bool QLCFixtureDefCache::reloadOrAddFixtureDef(QLCFixtureDef *fixtureDef)
 {
-    // check upon bundled definitions
-    QListIterator <QLCFixtureDef*> it(m_defs);
-    while (it.hasNext() == true)
+    // Check existing definitions first.
+    for (int i = 0; i < m_defs.size(); i++)
     {
-        QLCFixtureDef *def = it.next();
+        QLCFixtureDef *def = m_defs.at(i);
         if (def->manufacturer() == fixtureDef->manufacturer() &&
             def->model() == fixtureDef->model())
         {
-            // set as user and perform a deep copy
-            def->setIsUser(true);
-            *def = *fixtureDef;
+            if (def == fixtureDef)
+            {
+                // Cache and editor must not share ownership of the same instance.
+                // Keep a detached cache copy and leave editor-owned instance untouched.
+                QLCFixtureDef *cacheCopy = new QLCFixtureDef(fixtureDef);
+                cacheCopy->setIsUser(true);
+                cacheCopy->setLoaded(true);
+                m_defs[i] = cacheCopy;
+            }
+            else
+            {
+                // Set as user and perform a deep copy.
+                def->setIsUser(true);
+                *def = *fixtureDef;
+                def->setLoaded(true);
+            }
+
             return true;
         }
     }
 
-    // add a new user fixture
-    addFixtureDef(fixtureDef);
+    // Add a new user fixture as a detached cache copy.
+    QLCFixtureDef *cacheCopy = new QLCFixtureDef(fixtureDef);
+    cacheCopy->setIsUser(true);
+    cacheCopy->setLoaded(true);
+    if (addFixtureDef(cacheCopy) == false)
+    {
+        delete cacheCopy;
+        return false;
+    }
 
     return true;
 }
@@ -216,7 +259,7 @@ bool QLCFixtureDefCache::load(const QDir& dir)
     return true;
 }
 
-int QLCFixtureDefCache::loadMapManufacturer(QXmlStreamReader *doc, QString manufacturer)
+int QLCFixtureDefCache::loadMapManufacturer(QXmlStreamReader *doc, const QString& manufacturer)
 {
     int count = 0;
     QString spacedManufacturer = manufacturer;
@@ -403,6 +446,17 @@ bool QLCFixtureDefCache::loadQXF(const QString& path, bool isUser)
     QFile::FileError error = fxi->loadXML(path);
     if (error == QFile::NoError)
     {
+        /* A definition with no modes cannot be used to patch a fixture,
+           so don't add it to the cache. Note that fixture editors load
+           definitions directly, so they can still handle incomplete ones */
+        if (fxi->modes().isEmpty())
+        {
+            qWarning() << Q_FUNC_INFO << "Fixture definition" << path
+                       << "has no modes. Skipping.";
+            delete fxi;
+            return false;
+        }
+
         fxi->setIsUser(isUser);
         fxi->setDefinitionSourceFile(path);
         fxi->setLoaded(true);

@@ -126,7 +126,7 @@ QVariant FolderBrowser::folderModel() const
         return list;
 
     QDir cp(m_currentPath);
-    cp.setSorting(QDir::SortFlag::DirsFirst | QDir::SortFlag::Name);
+    cp.setSorting(QDir::SortFlag::DirsFirst | QDir::SortFlag::Name | QDir::SortFlag::IgnoreCase);
     cp.setFilter(QDir::AllDirs | QDir::Files | QDir::NoDotAndDotDot);
 
     // extract name filters

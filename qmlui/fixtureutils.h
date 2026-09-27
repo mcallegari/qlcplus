@@ -21,6 +21,7 @@
 #define FIXTUREUTILS_H
 
 #include <QColor>
+#include <QMatrix4x4>
 #include <QPointF>
 #include <QVector3D>
 
@@ -45,12 +46,12 @@ public:
     /** Returns the linked index from the given itemID composite ID */
     static quint16 itemLinkedIndex(quint32 itemID);
 
-    static QPointF item2DPosition(MonitorProperties *monProps, int pointOfView, QVector3D pos);
+    static QPointF item2DPosition(const MonitorProperties *monProps, int pointOfView, QVector3D pos);
     static float item2DRotation(int pointOfView, QVector3D rot);
-    static QSizeF item2DDimension(QLCFixtureMode *fxMode, int pointOfView);
+    static QSizeF item2DDimension(const QLCFixtureMode *fxMode, int pointOfView);
     static void alignItem(QVector3D refPos, QVector3D &origPos, int pointOfView, int alignment);
 
-    static QVector3D item3DPosition(MonitorProperties *monProps, QPointF point, float thirdVal);
+    static QVector3D item3DPosition(const MonitorProperties *monProps, QPointF point, float thirdVal);
 
     /** Returns the first available space (in mm) for a rectangle
      * of the given width and height.
@@ -65,6 +66,21 @@ public:
     static QColor headColor(Fixture *fixture, int headIndex = 0);
 
     static QColor applyColorFilter(QColor source, QColor filter);
+
+    /** Returns the file name of the generic 3D mesh used to draw the given
+     *  fixture, which doubles as the resource key for its LightEmitter data.
+     *  Empty for fixture types drawn without a mesh (LED bars, which are built
+     *  procedurally from the fixture's own layout).
+     *
+     *  Single source of truth: MainView3D picks the mesh to load with it, and
+     *  anything needing a fixture's real drawn geometry resolves the same file
+     *  through it. */
+    static QString fixtureLightResource(const Fixture *fixture);
+
+    /** Reconstruct persisted light properties without requiring the 3D scene graph.
+     *  Returns true when persisted metadata is available for the fixture model/head. */
+    static bool lightProperties(const MonitorProperties *monProps, const Fixture *fixture,
+                                int headIndex, QVector3D &lightPos, QMatrix4x4 &lightMatrix);
 
     /** Calculate the pan/tilt speed depending on the $ch preset */
     static void positionTimings(const QLCChannel *ch, uchar value, int &panDuration, int &tiltDuration);

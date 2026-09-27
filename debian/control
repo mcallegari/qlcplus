@@ -9,9 +9,12 @@ Build-Depends:
  libfftw3-dev,
  libftdi1-dev (>= 0.17),
  libsndfile1-dev,
- qtbase5-dev, qtscript5-dev,
- qtmultimedia5-dev, libqt5serialport5-dev,
- libqt5websockets5-dev,
+ qt6-base-dev,
+ qt6-multimedia-dev, qt6-serialport-dev,
+ qt6-websockets-dev,
+ qt6-declarative-dev,
+ qt6-3d-dev,
+ qt6-tools-dev, qt6-tools-dev-tools,
  libstdc++-dev,
  libudev-dev,
  libusb-1.0-0-dev (>= 2:0.1.12),
@@ -22,15 +25,30 @@ Build-Depends:
 Standards-Version: 3.7.3
 Homepage: http://www.qlcplus.org/
 
+Package: qlcplus-data
+Section: misc
+Architecture: all
+Depends:
+ ${misc:Depends},
+Description: Q Light Controller Plus - architecture independent data
+ Software lighting desk for controlling professional lighting fixtures.
+ .
+ This package contains the fixture definitions, gobos, input profiles, MIDI
+ templates and RGB scripts shared by QLC+ 4 and QLC+ 5.
+
 Package: qlcplus
 Section: misc
 Architecture: any
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
+ qlcplus-data,
 Recommends:
  libsndfile1,
- libqt5multimedia5-plugins,
+ libqt6multimedia6,
+ gstreamer1.0-plugins-good,
+ gstreamer1.0-plugins-base,
+ gstreamer1.0-libav,
 Description: Q Light Controller Plus - The open DMX lighting desk
  Software lighting desk for controlling professional lighting fixtures.
 
@@ -43,3 +61,38 @@ Depends:
  ${misc:Depends},
 Description: Debugging symbols for Q Light Controller Plus
  Q Light Controller Plus debugging symbols.
+
+Package: qlcplus5
+Section: misc
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ qlcplus-data,
+ qml6-module-qtqml-workerscript,
+ qml6-module-qtquick-controls,
+ qml6-module-qtquick-dialogs,
+ qml6-module-qtquick-layouts,
+ qml6-module-qtquick-templates,
+ qml6-module-qtquick-window,
+Recommends:
+ libsndfile1,
+ libqt6multimedia6,
+ gstreamer1.0-plugins-good,
+ gstreamer1.0-plugins-base,
+ gstreamer1.0-libav,
+Description: Q Light Controller Plus 5 - The open DMX lighting desk
+ Software lighting desk for controlling professional lighting fixtures.
+ .
+ This is the QLC+ 5 QML user interface, which can be installed alongside
+ QLC+ 4.
+
+Package: qlcplus5-dbg
+Architecture: any
+Section: debug
+Priority: extra
+Depends:
+ qlcplus5 (= ${binary:Version}),
+ ${misc:Depends},
+Description: Debugging symbols for Q Light Controller Plus 5
+ Q Light Controller Plus 5 debugging symbols.

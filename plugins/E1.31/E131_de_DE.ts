@@ -16,7 +16,7 @@
     <message>
         <location filename="configuree131.ui" line="56"/>
         <source>Interface</source>
-        <translation>Interface</translation>
+        <translation>Schnittstelle (Interface)</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="66"/>

@@ -81,10 +81,10 @@ SidePanel
                 autoExclusive: false
                 tooltip: qsTr("Enable/Disable the widgets edit mode")
 
-                onClicked:
+                onClicked: virtualConsole.editMode = !checked
+
+                onCheckedChanged:
                 {
-                    checked = !checked
-                    virtualConsole.editMode = checked
                     if (checked)
                         loaderSource = "qrc:/VCWidgetProperties.qml"
                     animatePanel(checked)
@@ -154,6 +154,19 @@ SidePanel
                 tooltip: qsTr("Copy the selected widgets to clipboard")
                 counter: virtualConsole.selectedWidgetsCount
                 onClicked: virtualConsole.copyToClipboard()
+            }
+
+            IconButton
+            {
+                id: cutButton
+                z: 2
+                width: iconSize
+                height: iconSize
+                faSource: FontAwesome.fa_scissors
+                faColor: UISettings.fgMain
+                tooltip: qsTr("Cut the selected widgets to clipboard")
+                counter: virtualConsole.selectedWidgetsCount
+                onClicked: virtualConsole.cutToClipboard()
             }
 
             IconButton

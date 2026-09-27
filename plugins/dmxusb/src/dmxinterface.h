@@ -113,7 +113,7 @@ public:
      */
     static bool validInterface(quint16 vendor, quint16 product);
 
-    bool checkInfo(QString &serial, QString &name, QString &vendor) const;
+    bool checkInfo(const QString &serial, const QString &name, const QString &vendor) const;
 
     /**
      * Get a map of [serial = type] bindings that tells which serials should

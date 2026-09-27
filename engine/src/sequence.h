@@ -73,6 +73,13 @@ public:
 
     QList<quint32> components() const override;
 
+    /** Apply dumped values to this Sequence.
+     *  If $targetStepIndex is valid, values are applied to that step.
+     *  Otherwise a new step is appended.
+     *  Steps are normalized against the bound Scene channel set, preserving
+     *  existing values and initializing newly introduced channels to 0. */
+    void applyDumpValues(const QList<SceneValue> &dumpedValues, int targetStepIndex = -1);
+
 protected:
     /** The Scene ID associated to this Sequence */
     quint32 m_boundSceneID;
@@ -82,6 +89,12 @@ protected:
      *  has a lower ID, so it is found during the first XML load, but in
      *  case it is not, steps will be fixed on postLoad */
     bool m_needFixup;
+
+    /*********************************************************************
+     * Fixtures
+     *********************************************************************/
+public slots:
+    void slotFixtureRemoved(quint32 fxID) override;
 
     /*********************************************************************
      * Save & Load

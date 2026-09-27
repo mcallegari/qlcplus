@@ -101,7 +101,10 @@ Rectangle
     {
         id: twoDView
         objectName: "twoDView"
-        anchors.fill: parent
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: groupsBar.visible ? groupsBar.bottom : parent.top
+        anchors.bottom: parent.bottom
         z: 1
         interactive: false
         boundsBehavior: Flickable.StopAtBounds
@@ -228,6 +231,10 @@ Rectangle
                 onPressed: (mouse) =>
                 {
                     console.log("button: " + mouse.button + ", mods: " + mouse.modifiers)
+                    // mark the preview as the last clicked area, so CTRL+A
+                    // is handled here instead of being stolen from other
+                    // focused widgets like text fields
+                    contextManager.setLastClickedType(App.FixtureDragItem)
                     var itemID = View2D.itemIDAtPos(Qt.point(mouse.x, mouse.y))
 
                     // pressing on nothing starts to draw the selection rectangle
@@ -235,11 +242,11 @@ Rectangle
                     {
                         //console.log("Starting selection rectangle!")
                         // initialize local variables to determine the selection orientation
-                        initialXPos = mouse.x
-                        initialYPos = mouse.y
+                        initialXPos = mouse.x - twoDView.contentX
+                        initialYPos = mouse.y - twoDView.contentY
 
-                        selectionRect.x = mouse.x
-                        selectionRect.y = mouse.y
+                        selectionRect.x = initialXPos
+                        selectionRect.y = initialYPos
                         selectionRect.width = 0
                         selectionRect.height = 0
                         selectionRect.visible = true
@@ -286,13 +293,13 @@ Rectangle
 
                         if (selectionRect.rotation == 0 || selectionRect.rotation == -180)
                         {
-                            selectionRect.width = Math.abs(mouse.x - selectionRect.x)
-                            selectionRect.height = Math.abs(mouse.y - selectionRect.y)
+                            selectionRect.width = Math.abs(mouse.x - twoDView.contentX - selectionRect.x)
+                            selectionRect.height = Math.abs(mouse.y - twoDView.contentY - selectionRect.y)
                         }
                         else
                         {
-                            selectionRect.width = Math.abs(mouse.y - selectionRect.y)
-                            selectionRect.height = Math.abs(mouse.x - selectionRect.x)
+                            selectionRect.width = Math.abs(mouse.y - twoDView.contentY - selectionRect.y)
+                            selectionRect.height = Math.abs(mouse.x - twoDView.contentX - selectionRect.x)
                         }
                     }
                 }
@@ -301,8 +308,8 @@ Rectangle
                 {
                     if (selectionRect.visible === true && selectionRect.width && selectionRect.height)
                     {
-                        var rx = selectionRect.x
-                        var ry = selectionRect.y
+                        var rx = selectionRect.x + twoDView.contentX
+                        var ry = selectionRect.y + twoDView.contentY
                         var rw = selectionRect.width
                         var rh = selectionRect.height
                         switch (selectionRect.rotation)
@@ -322,10 +329,16 @@ Rectangle
 
                 onWheel: (wheel)=>
                 {
-                    //console.log("Wheel delta: " + wheel.angleDelta.y)
-                    if (wheel.angleDelta.y > 0)
+                    // High-resolution trackpads can send wheel events whose
+                    // angle delta is zero. Do not treat a neutral or purely
+                    // horizontal event as a request to zoom out.
+                    var deltaY = wheel.angleDelta.y
+                    if (deltaY === 0)
+                        deltaY = wheel.pixelDelta.y
+
+                    if (deltaY > 0)
                         setZoom(0.5)
-                    else
+                    else if (deltaY < 0)
                         setZoom(-0.5)
                 }
             }
@@ -353,7 +366,7 @@ Rectangle
                     drag.threshold: 10
                     drag.target: parent
 
-                    onReleased:
+                    onReleased: (mouse) =>
                     {
                         if (drag.active)
                         {
@@ -410,23 +423,13 @@ Rectangle
         border.width: 1
         border.color: "#103A6E"
         transformOrigin: Item.TopLeft
+
+        /* x/y are assigned from coordinates relative to the Flickable, so
+         * shift the item down by the space taken by the groups bar. This is
+         * done with a transform to leave the selection arithmetic untouched */
+        transform: Translate { y: twoDView.y }
     }
-/*
-    CustomScrollBar
-    {
-        anchors.right: parent.right
-        z: 2
-        flickable: twoDView
-        doubleBars: true
-    }
-    CustomScrollBar
-    {
-        anchors.bottom: parent.bottom
-        z: 2
-        flickable: twoDView
-        orientation: Qt.Horizontal
-    }
-*/
+
     PopupMonitor
     {
         id: monitorPOVPopup
@@ -440,5 +443,18 @@ Rectangle
         visible: false
         x: parent.width - width
         z: 5
+    }
+
+    FixtureGroupsBar
+    {
+        id: groupsBar
+        visible: contextManager ? contextManager.showFixtureGroups : false
+        anchors.left: parent.left
+        // leave the side settings panel space untouched when it is open
+        anchors.right: twoDSettings.visible ? twoDSettings.left : parent.right
+        anchors.top: parent.top
+        z: 6
+
+        onVisibleChanged: twoDView.calculateCellSize()
     }
 }

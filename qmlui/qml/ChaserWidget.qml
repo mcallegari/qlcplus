@@ -43,6 +43,11 @@ Column
     property int editStepType
     property int selectionRequestIndex: -1
 
+    /** Steps list columns widths, expressed as percentages (0-100) of the
+     *  available width, in this order: number, name, fade in, hold, fade out,
+     *  duration. Set from outside to restore a previously saved layout. */
+    property var columnsWidths: []
+
     signal indexChanged(int index)
     signal stepValueChanged(int index, int value, int type)
     signal noteTextChanged(int index, string text)
@@ -52,6 +57,44 @@ Column
     signal dragEntered(var item)
     signal dragExited(var item)
     signal enterPressed(int index)
+    /** Emitted whenever the user finishes dragging a column separator,
+     *  with the new columns widths expressed as percentages (see columnsWidths) */
+    signal columnsResized(var widths)
+
+    onColumnsWidthsChanged: applyColumnsWidths()
+
+    function applyColumnsWidths()
+    {
+        var availWidth = chListHeader.width
+
+        if (availWidth <= 0 || columnsWidths.length < 6)
+            return
+
+        numCol.width = availWidth * columnsWidths[0] / 100
+        nameCol.width = availWidth * columnsWidths[1] / 100
+        fInCol.width = availWidth * columnsWidths[2] / 100
+        holdCol.width = availWidth * columnsWidths[3] / 100
+        fOutCol.width = availWidth * columnsWidths[4] / 100
+        durCol.width = availWidth * columnsWidths[5] / 100
+    }
+
+    function storeColumnsWidths()
+    {
+        var availWidth = chListHeader.width
+        if (availWidth <= 0)
+            return
+
+        var widths = [
+            numCol.width * 100 / availWidth,
+            nameCol.width * 100 / availWidth,
+            fInCol.width * 100 / availWidth,
+            holdCol.width * 100 / availWidth,
+            fOutCol.width * 100 / availWidth,
+            durCol.width * 100 / availWidth
+        ]
+
+        widgetRoot.columnsResized(widths)
+    }
 
     onPlaybackIndexChanged:
     {
@@ -112,6 +155,11 @@ Column
         ceSelector.resetSelection(cStepsList.model)
     }
 
+    function scrollToItem(index)
+    {
+        cStepsList.positionViewAtIndex(index, ListView.Contain)
+    }
+
     ModelSelector
     {
         id: ceSelector
@@ -164,10 +212,12 @@ Column
         color: UISettings.bgLight
         property int fSize: UISettings.textSizeDefault * 0.75
 
+        onWidthChanged: applyColumnsWidths()
+
         Row
         {
             height: UISettings.listItemHeight
-            spacing: 2
+            spacing: 0
 
             // Step number column
             RobotoText
@@ -180,7 +230,7 @@ Column
                 textHAlign: Text.AlignHCenter
                 fontSize: chListHeader.fSize
             }
-            Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
+            Rectangle { height: parent.height; width: screenPixelDensity * UISettings.scalingFactor * 0.6; color: UISettings.fgMedium }
 
             // Step Function name column
             RobotoText
@@ -199,7 +249,7 @@ Column
                 id: nameColDrag
                 visible: !isSequence
                 height: parent.height
-                width: 1
+                width: screenPixelDensity * UISettings.scalingFactor * 0.6
                 color: UISettings.fgMedium
 
                 MouseArea
@@ -216,9 +266,13 @@ Column
                     {
                         if (drag.target == null)
                             return
-                        nameCol.width = nameColDrag.x - nameCol.x - 1
+                        nameCol.width = Math.max(0, nameColDrag.x - nameCol.x - 1)
                     }
-                    onReleased: drag.target = null
+                    onReleased:
+                    {
+                        drag.target = null
+                        widgetRoot.storeColumnsWidths()
+                    }
                 }
             }
 
@@ -237,7 +291,7 @@ Column
             {
                 id: fInColDrag
                 height: parent.height
-                width: 1
+                width: screenPixelDensity * UISettings.scalingFactor * 0.6
                 color: UISettings.fgMedium
 
                 MouseArea
@@ -254,9 +308,13 @@ Column
                     {
                         if (drag.target == null)
                             return
-                        fInCol.width = fInColDrag.x - fInCol.x - 1
+                        fInCol.width = Math.max(0, fInColDrag.x - fInCol.x - 1)
                     }
-                    onReleased: drag.target = null
+                    onReleased:
+                    {
+                        drag.target = null
+                        widgetRoot.storeColumnsWidths()
+                    }
                 }
             }
 
@@ -275,7 +333,7 @@ Column
             {
                 id: holdColDrag
                 height: parent.height
-                width: 1
+                width: screenPixelDensity * UISettings.scalingFactor * 0.6
                 color: UISettings.fgMedium
 
                 MouseArea
@@ -292,9 +350,13 @@ Column
                     {
                         if (drag.target == null)
                             return
-                        holdCol.width = holdColDrag.x - holdCol.x - 1
+                        holdCol.width = Math.max(0, holdColDrag.x - holdCol.x - 1)
                     }
-                    onReleased: drag.target = null
+                    onReleased:
+                    {
+                        drag.target = null
+                        widgetRoot.storeColumnsWidths()
+                    }
                 }
             }
 
@@ -313,7 +375,7 @@ Column
             {
                 id: fOutColDrag
                 height: parent.height
-                width: 1
+                width: screenPixelDensity * UISettings.scalingFactor * 0.6
                 color: UISettings.fgMedium
 
                 MouseArea
@@ -330,9 +392,13 @@ Column
                     {
                         if (drag.target == null)
                             return
-                        fOutCol.width = fOutColDrag.x - fOutCol.x - 1
+                        fOutCol.width = Math.max(0, fOutColDrag.x - fOutCol.x - 1)
                     }
-                    onReleased: drag.target = null
+                    onReleased:
+                    {
+                        drag.target = null
+                        widgetRoot.storeColumnsWidths()
+                    }
                 }
             }
 
@@ -351,7 +417,7 @@ Column
             {
                 id: durColDrag
                 height: parent.height
-                width: 1
+                width: screenPixelDensity * UISettings.scalingFactor * 0.6
                 color: UISettings.fgMedium
 
                 MouseArea
@@ -368,9 +434,13 @@ Column
                     {
                         if (drag.target == null)
                             return
-                        durCol.width = durColDrag.x - durCol.x - 1
+                        durCol.width = Math.max(0, durColDrag.x - durCol.x - 1)
                     }
-                    onReleased: drag.target = null
+                    onReleased:
+                    {
+                        drag.target = null
+                        widgetRoot.storeColumnsWidths()
+                    }
                 }
             }
 
@@ -499,6 +569,7 @@ Column
                             csDragItem.itemLabel = csDelegate.func.name
                             csDragItem.itemIcon = functionManager.functionIcon(csDelegate.func.type)
                             cStepsList.dragActive = true
+                            UISettings.internalDragActive = true
                         }
                         else
                         {
@@ -519,12 +590,12 @@ Column
                         stepDuration: TimeUtils.timeToQlcString(model.duration, widgetRoot.tempoType)
                         stepNote: model.note
 
-                        col1Width: numCol.width
-                        col2Width: nameCol.width
-                        col3Width: fInCol.width
-                        col4Width: holdCol.width
-                        col5Width: fOutCol.width
-                        col6Width: durCol.width
+                        col1Width: numCol.width + 1
+                        col2Width: nameCol.width + 1
+                        col3Width: fInCol.width + 1
+                        col4Width: holdCol.width + 1
+                        col5Width: fOutCol.width + 1
+                        col6Width: durCol.width + 1
 
                         isPrinting: widgetRoot.isPrinting
                         indexInList: index
@@ -545,6 +616,21 @@ Column
                     } // ChaserStepDelegate
                 } // MouseArea
             } // Item
+
+        footer: Item
+        {
+            width: cStepsList.width
+            height: UISettings.listItemHeight
+
+            // bottom line drag highlight for dropping after last step
+            Rectangle
+            {
+                visible: cStepsList.dragInsertIndex === cStepsList.count
+                width: parent.width
+                height: 2
+                color: UISettings.selection
+            }
+        }
 
         GenericMultiDragItem
         {
@@ -590,13 +676,20 @@ Column
 
                 cStepsList.dragInsertIndex = -1
                 cStepsList.dragActive = false
+                UISettings.internalDragActive = false
             }
             onPositionChanged: (drag) =>
             {
                 var idx = cStepsList.indexAt(drag.x, drag.y + cStepsList.contentY)
-                var item = cStepsList.itemAt(drag.x, drag.y)
+
+                if (idx === -1)
+                {
+                    cStepsList.dragInsertIndex = cStepsList.count
+                    return
+                }
+
+                var item = cStepsList.itemAtIndex(idx)
                 var itemY = item.mapToItem(cStepsList, 0, 0).y
-                //console.log("Item index:" + idx)
 
                 if (drag.y < (itemY + item.height) / 2)
                     cStepsList.dragInsertIndex = idx
@@ -604,6 +697,15 @@ Column
                     cStepsList.dragInsertIndex = idx + 1
             }
         }
+        MouseArea
+        {
+            parent: cStepsList
+            anchors.bottom: parent.bottom
+            width: parent.width
+            height: Math.max(0, parent.height - parent.contentHeight)
+            onClicked: ceSelector.resetSelection(cStepsList.model)
+        }
+
         ScrollBar.vertical: CustomScrollBar { }
     } // end of ListView
 }

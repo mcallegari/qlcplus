@@ -31,6 +31,8 @@ AudioRendererQt6::AudioRendererQt6(QString device, Doc *doc, QObject *parent)
     , m_audioSink(NULL)
     , m_output(NULL)
     , m_device(device)
+    , m_bytesWritten(0)
+    , m_processedUsecsBase(0)
 {
     QSettings settings;
     QString devName = "";
@@ -138,25 +140,69 @@ QList<AudioDeviceInfo> AudioRendererQt6::getDevicesInfo()
 
 qint64 AudioRendererQt6::writeAudio(unsigned char *data, qint64 maxSize)
 {
-    qsizetype bFree = m_audioSink->bytesFree();
-
-    if (m_audioSink == NULL || bFree < maxSize)
+    if (m_audioSink == NULL || m_output == NULL)
         return 0;
 
-    //qDebug() << "writeAudio called !! - " << maxSize << m_outputBuffer.length() << bFree;
+    // Write only as much as currently fits in the device buffer. The base
+    // renderer keeps track of the leftover (pendingAudioBytes) and retries,
+    // so partial writes keep a small buffer steadily topped up without
+    // stalling on the whole 8KB chunk.
+    const qint64 toWrite = qMin<qint64>(maxSize, m_audioSink->bytesFree());
+    if (toWrite <= 0)
+        return 0;
 
-    m_outputBuffer.append((char *)data, maxSize);
+    qint64 written = m_output->write((const char *)data, toWrite);
 
-    if (m_outputBuffer.length() >= bFree)
+    if (written != toWrite)
+        qDebug() << "[writeAudio] expected to write" << toWrite << "but wrote" << written;
+
+    if (written > 0)
+        m_bytesWritten += written;
+
+    return qMax<qint64>(0, written);
+}
+
+bool AudioRendererQt6::backendDrainedAtEos() const
+{
+    if (m_audioSink == NULL)
+        return true;
+
+    const qint64 frameBytes = qMax<qint64>(1, m_format.bytesPerFrame());
+    const qint64 bytesPerSecond = qint64(m_format.bytesPerFrame()) * qint64(m_format.sampleRate());
+    if (bytesPerSecond <= 0)
+        return (m_audioSink->state() == QAudio::IdleState);
+
+    qint64 processedUsecs = m_audioSink->processedUSecs() - m_processedUsecsBase;
+    if (processedUsecs < 0)
+        processedUsecs = 0;
+    const qint64 processedBytes = (processedUsecs * bytesPerSecond) / 1000000;
+    const qint64 bytesStillInPipeline = qMax<qint64>(0, m_bytesWritten - processedBytes);
+    const bool sinkIdle = (m_audioSink->state() == QAudio::IdleState);
+    const bool qtBufferEmpty = (m_audioSink->bufferSize() > 0 &&
+                                m_audioSink->bytesFree() >= m_audioSink->bufferSize());
+    const bool nearDrained = (bytesStillInPipeline <= frameBytes);
+    const bool drained = sinkIdle || (qtBufferEmpty && nearDrained);
+
+#if 0
+    static int eosDbgCounter = 0;
+    if (drained || ((eosDbgCounter++ % 50) == 0))
     {
-       qint64 written = m_output->write(m_outputBuffer.data(), bFree);
-
-        if (written != bFree)
-            qDebug() << "[writeAudio] expected to write" << bFree << "but wrote" << written;
-
-        m_outputBuffer.remove(0, written);
+        qDebug() << "[AudioRendererQt6::backendDrainedAtEos]"
+                 << "written:" << m_bytesWritten
+                 << "processedBytes:" << processedBytes
+                 << "pending:" << bytesStillInPipeline
+                 << "processedUSecs:" << processedUsecs
+                 << "bufferSize:" << m_audioSink->bufferSize()
+                 << "bytesFree:" << m_audioSink->bytesFree()
+                 << "state:" << m_audioSink->state()
+                 << "frameBytes:" << frameBytes
+                 << "qtBufferEmpty:" << qtBufferEmpty
+                 << "nearDrained:" << nearDrained
+                 << "error:" << m_audioSink->error();
     }
-    return maxSize;
+#endif
+
+    return drained;
 }
 
 void AudioRendererQt6::drain()
@@ -193,8 +239,22 @@ void AudioRendererQt6::run()
             return;
         }
 
-        m_audioSink->setBufferSize(8192 * 8);
+        // Size the output buffer from the actual format so playback starts
+        // with a small, low-latency buffer instead of a fixed 64KB (~370ms
+        // at 44.1kHz/16bit/stereo). Configurable via QSettings.
+        QSettings settings;
+        int bufferMs = settings.value(SETTINGS_AUDIO_OUTPUT_BUFFER,
+                                      DEFAULT_AUDIO_OUTPUT_BUFFER_MS).toInt();
+        if (bufferMs < 10)
+            bufferMs = 10;
+
+        const qint64 bytesPerSecond = qint64(m_format.bytesPerFrame()) * qint64(m_format.sampleRate());
+        if (bytesPerSecond > 0)
+            m_audioSink->setBufferSize((bytesPerSecond * bufferMs) / 1000);
+
         m_output = m_audioSink->start();
+        m_bytesWritten = 0;
+        m_processedUsecsBase = m_audioSink->processedUSecs();
 
         if (m_audioSink->error() != QAudio::NoError)
         {

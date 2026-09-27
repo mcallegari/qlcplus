@@ -85,14 +85,14 @@ public:
     void setAlgorithmIndex(int algoIndex);
 
     /** Return the accepted colors of the current algorithm */
-    int algoColorsCount();
+    int algoColorsCount() const;
 
     QVariantList algoColors();
 
-    Q_INVOKABLE QColor colorAtIndex(int index);
+    Q_INVOKABLE QColor colorAtIndex(int index) const;
     Q_INVOKABLE void setColorAtIndex(int index, QColor color);
     Q_INVOKABLE void resetColorAtIndex(int index);
-    Q_INVOKABLE bool hasColorAtIndex(int index);
+    Q_INVOKABLE bool hasColorAtIndex(int index) const;
 
     QString algoText() const;
     void setAlgoText(QString text);

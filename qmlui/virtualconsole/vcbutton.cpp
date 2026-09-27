@@ -94,10 +94,16 @@ void VCButton::render(QQuickView *view, QQuickItem *parent)
     if (component->isError())
     {
         qDebug() << component->errors();
+        delete component;
         return;
     }
 
     m_item = qobject_cast<QQuickItem*>(component->create());
+    if (m_item == nullptr)
+        qWarning() << Q_FUNC_INFO << "Unable to create button component" << component->errors();
+    delete component;
+    if (m_item == nullptr)
+        return;
 
     m_item->setParentItem(parent);
     m_item->setProperty("buttonObj", QVariant::fromValue(this));
@@ -271,7 +277,7 @@ void VCButton::slotFunctionRunning(quint32 fid)
     {
         if (state() == Inactive)
             setState(Monitoring);
-        //emit functionStarting(this, m_functionID);
+        emit functionStarting(this, m_functionID);
     }
 }
 
@@ -359,6 +365,17 @@ void VCButton::setState(ButtonState state)
     emit stateChanged(m_state);
 
     updateFeedback();
+}
+
+void VCButton::setVisible(bool isVisible)
+{
+    // A Flash button relies on a release event to unflash. When it gets hidden
+    // (e.g. its multipage frame switches page) while active, that release never
+    // comes, leaving the button stuck on and the function flashed. Release it.
+    if (isVisible == false && actionType() == Flash && state() == Active)
+        requestStateChange(false);
+
+    VCWidget::setVisible(isVisible);
 }
 
 void VCButton::requestStateChange(bool pressed)

@@ -29,35 +29,56 @@
 #include <QUdpSocket>
 #include <QThread>
 #include <QHash>
+#include <QPointer>
+#include <QStringList>
 
 #include "tardis.h"
 
 class Doc;
 class SimpleCrypt;
 class NetworkPacketizer;
+class VirtualConsole;
+class SimpleDesk;
+class WebAccessQml;
 
 typedef struct
 {
-    /** Flag to recognize a host authenticated to the QLC+ network */
+    QString sessionId;
     bool isAuthenticated;
-    /** The unique host name in the QLC+ network */
+    int accessMask;
     QString hostName;
-    /** The TCP socket for unicast client/server communication */
-    QTcpSocket *tcpSocket;
+    QHostAddress peerAddress;
+    quint16 peerPort;
+    QPointer<QTcpSocket> tcpSocket;
 } NetworkHost;
+
+struct NativeAccessRequest
+{
+    QString sessionId;
+    QString clientName;
+    QHostAddress peerAddress;
+    quint16 peerPort = 0;
+    QPointer<QTcpSocket> socket;
+};
 
 class NetworkManager final : public QObject
 {
     Q_OBJECT
 
     Q_PROPERTY(QString hostName READ hostName WRITE setHostName NOTIFY hostNameChanged)
-    Q_PROPERTY(bool serverStarted READ serverStarted WRITE setServerStarted NOTIFY serverStartedChanged)
+    Q_PROPERTY(bool serverStarted READ serverStarted NOTIFY serverStartedChanged)
+    Q_PROPERTY(bool nativeServerStarted READ nativeServerStarted NOTIFY serverStartedChanged)
+    Q_PROPERTY(bool webServerStarted READ webServerStarted NOTIFY serverStartedChanged)
+    Q_PROPERTY(int serverType READ serverType WRITE setServerType NOTIFY serverTypeChanged)
+    Q_PROPERTY(bool startAutomatically READ startAutomatically WRITE setStartAutomatically NOTIFY startAutomaticallyChanged)
+    Q_PROPERTY(QString serverPassword READ serverPassword WRITE setServerPassword NOTIFY serverPasswordChanged)
     Q_PROPERTY(QVariant serverList READ serverList NOTIFY serverListChanged)
     Q_PROPERTY(int clientStatus READ clientStatus WRITE setClientStatus NOTIFY clientStatusChanged)
     Q_PROPERTY(int connectionsCount READ connectionsCount NOTIFY connectionsCountChanged)
 
 public:
-    explicit NetworkManager(QObject *parent = nullptr, Doc *doc = nullptr);
+    explicit NetworkManager(QObject *parent = nullptr, Doc *doc = nullptr,
+                            VirtualConsole *vc = nullptr, SimpleDesk *sd = nullptr);
     ~NetworkManager();
 
     enum HostType
@@ -67,11 +88,55 @@ public:
         ClientHostType
     };
 
+    /** Types of server that can be enabled. These are flags,
+     *  so both servers can run at the same time */
+    enum ServerType
+    {
+        NoServer     = 0,
+        NativeServer = 1 << 0,
+        WebServer    = 1 << 1
+    };
+    Q_ENUM(ServerType)
+
     /** Get/Set the name of the host within the QLC+ network */
     QString hostName() const;
     void setHostName(QString hostName);
 
-    int connectionsCount();
+    /** Get/Set the mask of the enabled server types */
+    int serverType() const;
+    void setServerType(int typeMask);
+
+    /** Enable/disable a single server type. If the currently
+     *  enabled servers are running, $type is started/stopped as well */
+    Q_INVOKABLE void enableServerType(int type, bool enable);
+
+    /** Start $type if it is stopped, stop it otherwise. The enabled
+     *  server types mask is updated accordingly, so that the autostart
+     *  option follows what the user actually started.
+     *  Return true if $type is running when returning */
+    Q_INVOKABLE bool toggleServerType(int type);
+
+    bool startAutomatically() const;
+    void setStartAutomatically(bool startAutomatically);
+
+    QString serverPassword() const;
+    void setServerPassword(QString password);
+
+    /** Store $key in the global QLC+ settings, encrypted with the QLC+
+     *  master key, and make it the key in use. Running servers are
+     *  restarted, since the key is the session shared secret */
+    Q_INVOKABLE bool saveEncryptionKey(QString key);
+
+    void setWebServerConfiguration(int portNumber, bool enableAuth, const QString &passwordFile);
+
+    /** Force the given server types to be always enabled and running,
+     *  regardless of the workspace network settings.
+     *  This is used by the command line options */
+    void setForcedServerTypes(int typeMask);
+    void setAllowAllNative(bool allow);
+    bool allowAllNative() const;
+
+    int connectionsCount() const;
 
 public slots:
     void sendAction(int code, TardisAction action);
@@ -79,11 +144,22 @@ public slots:
 protected:
     QString defaultName();
 
+    /** Return the 64 bit key currently in use: the user encryption key
+     *  if set, otherwise the QLC+ master key. It is both the packets
+     *  cypher key and the secret exchanged on authentication */
+    quint64 sessionKey() const;
+
+    /** Feed the session key to the encryption engine */
+    void applyEncryptionKey();
+
     /** Send the content of $packet using the provided $socket */
     bool sendTCPPacket(QTcpSocket *socket, QByteArray &packet, bool encrypt);
 
 signals:
     void hostNameChanged(QString hostName);
+    void serverTypeChanged(int type);
+    void startAutomaticallyChanged(bool startAutomatically);
+    void serverPasswordChanged(QString password);
     void connectionsCountChanged();
     void actionReady(int code, quint32 id, QVariant value);
 
@@ -94,15 +170,32 @@ protected slots:
     /** Async event raised when unicast packets are received */
     void slotProcessTCPPackets();
 
+    void slotDocLoaded();
+
+    quint64 actionKey(int code, quint32 objID) const;
+    void markActionSource(int code, quint32 objID, QTcpSocket *socket);
+    bool shouldSkipEcho(const QTcpSocket *socket, int code, quint32 objID);
+
 private:
     /** Reference to the QLC+ Doc */
     Doc *m_doc;
+    VirtualConsole *m_virtualConsole;
+    SimpleDesk *m_simpleDesk;
 
     /** Global flag to enable/disable packets encryption */
     bool m_encryptPackets;
 
     /** The host name in the QLC+ network */
     QString m_hostName;
+
+    /** Mask of the enabled server types: Native and/or Web */
+    int m_serverType;
+
+    /** Whether the selected server should autostart on workspace load */
+    bool m_startAutomatically;
+
+    /** Native server password */
+    QString m_serverPassword;
 
     /** The type of this host */
     HostType m_hostType;
@@ -117,26 +210,79 @@ private:
      *  according to the QLC+ network protocol */
     NetworkPacketizer* m_packetizer;
 
+    /** Runtime instance of the web server */
+    WebAccessQml *m_webAccess;
+
+    /** Web server runtime options */
+    int m_webServerPort;
+    bool m_webServerAuth;
+    QString m_webServerPasswordFile;
+
     /*********************************************************************
      * Server
      *********************************************************************/
 public:
+    /** Start/stop every server type currently enabled.
+     *  Return true if at least one server changed state */
     Q_INVOKABLE bool startServer();
     Q_INVOKABLE bool stopServer();
 
-    Q_INVOKABLE bool setClientAccess(QString hostName, bool allow, int accessMask);
-    Q_INVOKABLE bool sendWorkspaceToClient(QString hostName, QString filename);
+    /** Start/stop a single server type, no matter if it is enabled or not */
+    Q_INVOKABLE bool startServerType(int type);
+    Q_INVOKABLE bool stopServerType(int type);
 
-    /** Get/Set the status of a QLC+ server instance */
+    /** Grant or deny access to the client identified by $sessionId.
+     *  If $remember is true, the client is added to the session allow list,
+     *  so it is granted $accessMask automatically on the next connections,
+     *  with no user interaction, until QLC+ is closed */
+    Q_INVOKABLE bool setClientAccess(QString sessionId, bool allow, int accessMask,
+                                     bool remember = false);
+    Q_INVOKABLE bool sendWorkspaceToClient(QString sessionId, QString filename);
+
+    /** Tell every connected client that this server is about to replace its
+     *  workspace, so they can clear their contents before the new project
+     *  data (or a stream of actions on it) starts to arrive */
+    void notifyProjectChanging();
+
+    /** Tell every connected client that a new workspace is fully loaded and
+     *  can be requested. The project is not pushed: each client asks for it
+     *  when ready, so a busy or detached client is not forced to reload */
+    void notifyProjectLoaded();
+
+    /** Return true if at least one server instance is running */
     bool serverStarted() const;
-    void setServerStarted(bool serverStarted);
+
+    /** Get the running status of each server type */
+    bool nativeServerStarted() const;
+    bool webServerStarted() const;
 
 protected:
-    QHostAddress getHostFromName(QString name);
+    NetworkHost *hostForSocket(const QTcpSocket *socket) const;
+    int requiredAccessMask(int actionCode) const;
+    void queueAccessRequest(NetworkHost *host);
+
+    /** Return the key identifying $host in the session allow list */
+    QString allowListKey(const NetworkHost *host) const;
+
+    /** Authorize $host with $accessMask without asking the user.
+     *  Return true if the authentication reply has been sent */
+    bool autoAuthorizeHost(NetworkHost *host, int accessMask);
+
+    void showNextAccessRequest();
+
+    /** Update the mask of the running servers and notify the changes */
+    void setServerStartedMask(int mask);
 
 signals:
     void serverStartedChanged(bool serverStarted);
-    void clientAccessRequest(QString hostName);
+    void clientAccessRequest(QString sessionId, QString hostName,
+                             QString peerAddress, quint16 peerPort);
+    void clientAccessRequestCancelled(QString sessionId);
+    void clientAutoAuthorized(QString sessionId);
+
+    /** Emitted on a server when a client asks for the current workspace.
+     *  The App answers it, since it owns the project file name */
+    void clientProjectRequest(QString sessionId);
 
 protected slots:
     /** Event raised when an incoming connection is requested on
@@ -148,11 +294,29 @@ private:
     /** Instance of a TCP server used by a QLC+ server */
     QTcpServer *m_tcpServer;
 
-    /** Flag that indicates if a server instance is running */
-    bool m_serverStarted;
+    /** Mask of the server types currently running */
+    int m_serverStartedMask;
 
-    /** Map of the QLC+ hosts detected on the network */
-    QHash<QHostAddress, NetworkHost *> m_hostsMap;
+    /** One entry per TCP connection. Peer address and name are metadata only. */
+    QHash<QString, NetworkHost *> m_hostsMap;
+    QList<NativeAccessRequest> m_pendingAccessRequests;
+    NativeAccessRequest m_activeAccessRequest;
+    bool m_allowAllNative = false;
+    /** Clients the user chose to always allow, mapped to the granted access
+     *  mask. Keys are built by allowListKey(). This is deliberately not
+     *  persisted: it lives as long as this QLC+ instance */
+    QHash<QString, int> m_allowedClients;
+    /** Incoming TCP data not yet forming a complete packet, per socket.
+     *  TCP is a stream: a packet can be split across several readyRead
+     *  signals, so the leftover must be kept until the rest arrives */
+    QHash<QTcpSocket *, QByteArray> m_rxBuffers;
+    /** Socket currently being processed on server RX path (used to avoid echoing back) */
+    QTcpSocket *m_currentRxSocket = nullptr;
+    /** Tracks the source socket of recently received actions, to suppress delayed echo */
+    QHash<quint64, QPointer<QTcpSocket>> m_recentActionSources;
+    /** Mask of the server types forced from the command line, kept
+     *  enabled regardless of the workspace network settings */
+    int m_forcedServerTypes = NoServer;
 
     /*********************************************************************
      * Client
@@ -171,6 +335,9 @@ public:
     Q_INVOKABLE bool connectClient(QString ipAddress);
     Q_INVOKABLE bool disconnectClient();
 
+    /** Ask the connected server to send its current workspace */
+    Q_INVOKABLE bool requestProjectFromServer();
+
     QVariant serverList() const;
 
     /** Get/Set the connection status of a QLC+ client instance */
@@ -182,6 +349,11 @@ signals:
     void serverListChanged();
     void accessMaskChanged(int mask);
     void requestProjectLoad(QByteArray &data);
+    void storeAutostartProject(QString fileName);
+
+    /** Emitted on a client when the server announces it is replacing its
+     *  workspace. The client is expected to clear its own contents */
+    void requestProjectClear();
 
 private:
     /** The socket used to send/receive unicast TCP packets */

@@ -127,7 +127,7 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
             item->setPath(label);
             m_itemsPathMap[label] = item;
         }
-        int addIndex = getItemInsertIndex(label);
+        int addIndex = getItemInsertIndex(label, flags);
         beginInsertRows(QModelIndex(), addIndex, addIndex);
         m_items.insert(addIndex, item);
         endInsertRows();
@@ -152,7 +152,7 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
                 qDebug() << "Tree" << this << "connected to tree" << item->children();
             }
 
-            int addIndex = getNodeInsertIndex(label);
+            int addIndex = getNodeInsertIndex(pathList.at(0));
             beginInsertRows(QModelIndex(), addIndex, addIndex);
             m_items.insert(addIndex, item);
             endInsertRows();
@@ -161,7 +161,7 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
 
         if (pathList.count() == 1)
         {
-            if (item->addChild(label, data, m_sorting, "", flags) == true)
+            if (item->addChild(label, data, m_roles, m_sorting, "", flags) == true)
             {
                 connect(item->children(), SIGNAL(roleChanged(TreeModelItem*,int,const QVariant&)),
                         this, SLOT(slotRoleChanged(TreeModelItem*,int,const QVariant&)));
@@ -171,7 +171,7 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
         else
         {
             QString newPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
-            if (item->addChild(label, data, m_sorting, newPath, flags) == true)
+            if (item->addChild(label, data, m_roles, m_sorting, newPath, flags) == true)
             {
                 connect(item->children(), SIGNAL(roleChanged(TreeModelItem*,int,const QVariant&)),
                         this, SLOT(slotRoleChanged(TreeModelItem*,int,const QVariant&)));
@@ -183,7 +183,7 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
     return item;
 }
 
-TreeModelItem *TreeModel::itemAtPath(QString path)
+TreeModelItem *TreeModel::itemAtPath(const QString& path) const
 {
     if (path.isEmpty())
         return nullptr;
@@ -211,7 +211,7 @@ TreeModelItem *TreeModel::itemAtPath(QString path)
     return item->children()->itemAtPath(subPath);
 }
 
-bool TreeModel::removeItem(QString path)
+bool TreeModel::removeItem(const QString& path)
 {
     if (path.isEmpty())
         return false;
@@ -299,7 +299,7 @@ void TreeModel::setItemRoleData(TreeModelItem *item, const QVariant &value, int 
     setData(mIndex, value, role);
 }
 
-QList<TreeModelItem *> TreeModel::items()
+QList<TreeModelItem *> TreeModel::items() const
 {
     return m_items;
 }
@@ -325,7 +325,7 @@ void TreeModel::setPathData(QString path, QVariantList data)
     }
 }
 
-int TreeModel::roleIndex(QString role)
+int TreeModel::roleIndex(const QString& role) const
 {
     return roleNames().key(role.toLatin1(), -1);
 }
@@ -381,16 +381,34 @@ bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int rol
         return false;
 
     TreeModelItem *item = m_items.at(itemRow);
+    const QString oldLabel = item->label();
+    const QString oldPath = item->path();
 
     //qDebug() << "Setting role" << role << "on row" << itemRow << "with value" << value;
 
     switch(role)
     {
         case LabelRole:
+        {
             item->setLabel(value.toString());
+            QString oldKey = oldPath.isEmpty() ? oldLabel : oldPath;
+            if (m_itemsPathMap.value(oldKey, nullptr) == item)
+            {
+                m_itemsPathMap.remove(oldKey);
+                m_itemsPathMap[value.toString()] = item;
+            }
+        }
         break;
         case PathRole:
+        {
             item->setPath(value.toString());
+            QString oldKey = oldPath.isEmpty() ? oldLabel : oldPath;
+            if (m_itemsPathMap.value(oldKey, nullptr) == item)
+            {
+                m_itemsPathMap.remove(oldKey);
+                m_itemsPathMap[value.toString()] = item;
+            }
+        }
         break;
         case IsExpandedRole:
             item->setFlag(Expanded, value.toBool());
@@ -446,9 +464,9 @@ void TreeModel::slotRoleChanged(TreeModelItem *item, int role, const QVariant &v
         emit roleChanged(item, role, value);
 }
 
-void TreeModel::printTree(int tab)
+void TreeModel::printTree(int tab) const
 {
-    for (TreeModelItem *item : m_items)
+    for (const TreeModelItem *item : m_items)
     {
         item->printItem(tab);
         if (item->hasChildren())
@@ -456,37 +474,48 @@ void TreeModel::printTree(int tab)
     }
 }
 
-int TreeModel::getItemInsertIndex(QString label)
+int TreeModel::getItemInsertIndex(const QString& label, int flags) const
 {
     if (m_sorting == true)
     {
-        int index = 0;
-        for (int i = 0; i < m_items.count(); i++)
+        bool incomingIsFolder = (flags & EmptyNode);
+        for (int index = 0; index < m_items.count(); ++index)
         {
-            if (m_items.at(i)->hasChildren() == false)
+            TreeModelItem *current = m_items.at(index);
+            bool currentIsFolder = current->hasChildren() || (current->flags() & EmptyNode);
+
+            if (incomingIsFolder)
             {
-                if (QString::localeAwareCompare(m_items.at(i)->label(), label) > 0)
+                if (currentIsFolder == false)
+                    return index;
+                if (QString::localeAwareCompare(current->label(), label) > 0)
                     return index;
             }
-            index++;
+            else
+            {
+                if (currentIsFolder)
+                    continue;
+                if (QString::localeAwareCompare(current->label(), label) > 0)
+                    return index;
+            }
         }
     }
     return rowCount();
 }
 
-int TreeModel::getNodeInsertIndex(QString label)
+int TreeModel::getNodeInsertIndex(const QString& label) const
 {
     if (m_sorting == true)
     {
-        int index = 0;
-        for (int i = 0; i < m_items.count(); i++)
+        for (int index = 0; index < m_items.count(); ++index)
         {
-            if (m_items.at(i)->hasChildren() == true)
-            {
-                if (QString::localeAwareCompare(m_items.at(i)->label(), label) > 0)
-                    return index;
-                index++;
-            }
+            TreeModelItem *current = m_items.at(index);
+            bool currentIsFolder = current->hasChildren() || (current->flags() & EmptyNode);
+            if (currentIsFolder == false)
+                return index;
+
+            if (QString::localeAwareCompare(current->label(), label) > 0)
+                return index;
         }
     }
     return rowCount();
@@ -521,4 +550,3 @@ QHash<int, QByteArray> TreeModel::roleNames() const
 
     return roles;
 }
-

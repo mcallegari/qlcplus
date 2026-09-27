@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.2.2 GIT</Version>
+  <Author>saimyx</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED PMB-8 COB QCL 30W Bar</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Strobe OFF</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Preset Colors">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="80" Max="89" Preset="ColorMacro" Res1="#ff8c00">Dark orange</Capability>
+  <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#adff2f">Green yellow</Capability>
+  <Capability Min="100" Max="109" Preset="ColorMacro" Res1="#fa8072">Salmon</Capability>
+  <Capability Min="110" Max="119" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
+  <Capability Min="120" Max="129" Preset="ColorMacro" Res1="#90ee90">Light green</Capability>
+  <Capability Min="130" Max="139" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="140" Max="149" Preset="ColorMacro" Res1="#9a5c00">Straw</Capability>
+  <Capability Min="150" Max="159" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="160" Max="169" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
+  <Capability Min="170" Max="179" Preset="ColorMacro" Res1="#00008b">Dark blue</Capability>
+  <Capability Min="180" Max="189" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="190" Max="255">Full ON</Capability>
+ </Channel>
+ <Channel Name="Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="39">Auto program 1, with increasing speed</Capability>
+  <Capability Min="40" Max="69">Auto program 2, with increasing speed</Capability>
+  <Capability Min="70" Max="99">Auto program 3, with increasing speed</Capability>
+  <Capability Min="100" Max="129">Auto program 4, with increasing speed</Capability>
+  <Capability Min="130" Max="159">Sound program 1, with increasing speed</Capability>
+  <Capability Min="160" Max="189">Sound program 2, with increasing speed</Capability>
+  <Capability Min="190" Max="219">Sound program 3, with increasing speed</Capability>
+  <Capability Min="220" Max="255">Sound program 4, with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Color temperature">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="39">1800K</Capability>
+  <Capability Min="40" Max="69">2200K</Capability>
+  <Capability Min="70" Max="99">2700K</Capability>
+  <Capability Min="100" Max="129">3200K</Capability>
+  <Capability Min="130" Max="159">4300K</Capability>
+  <Capability Min="160" Max="189">5600K</Capability>
+  <Capability Min="190" Max="219">6500K</Capability>
+  <Capability Min="220" Max="255">8000K</Capability>
+ </Channel>
+ <Channel Name="Sound control/Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="5">Sound-controlled mode (15 colors)</Capability>
+  <Capability Min="6" Max="10">No function</Capability>
+  <Capability Min="11" Max="255">Strobe with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Preset Colors LED 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="80" Max="89" Preset="ColorMacro" Res1="#ff8c00">Dark orange</Capability>
+  <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#adff2f">Green yellow</Capability>
+  <Capability Min="100" Max="109" Preset="ColorMacro" Res1="#fa8072">Salmon</Capability>
+  <Capability Min="110" Max="119" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
+  <Capability Min="120" Max="129" Preset="ColorMacro" Res1="#90ee90">Light green</Capability>
+  <Capability Min="130" Max="139" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="140" Max="149" Preset="ColorMacro" Res1="#9a5c00">Straw</Capability>
+  <Capability Min="150" Max="159" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="160" Max="169" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
+  <Capability Min="170" Max="179" Preset="ColorMacro" Res1="#00008b">Dark blue</Capability>
+  <Capability Min="180" Max="189" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="190" Max="255">Full ON</Capability>
+ </Channel>
+ <Channel Name="Preset Colors LED 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="80" Max="89" Preset="ColorMacro" Res1="#ff8c00">Dark orange</Capability>
+  <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#adff2f">Green yellow</Capability>
+  <Capability Min="100" Max="109" Preset="ColorMacro" Res1="#fa8072">Salmon</Capability>
+  <Capability Min="110" Max="119" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
+  <Capability Min="120" Max="129" Preset="ColorMacro" Res1="#90ee90">Light green</Capability>
+  <Capability Min="130" Max="139" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="140" Max="149" Preset="ColorMacro" Res1="#9a5c00">Straw</Capability>
+  <Capability Min="150" Max="159" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="160" Max="169" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
+  <Capability Min="170" Max="179" Preset="ColorMacro" Res1="#00008b">Dark blue</Capability>
+  <Capability Min="180" Max="189" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="190" Max="255">Full ON</Capability>
+ </Channel>
+ <Channel Name="Preset Colors LED 3">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="80" Max="89" Preset="ColorMacro" Res1="#ff8c00">Dark orange</Capability>
+  <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#adff2f">Green yellow</Capability>
+  <Capability Min="100" Max="109" Preset="ColorMacro" Res1="#fa8072">Salmon</Capability>
+  <Capability Min="110" Max="119" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
+  <Capability Min="120" Max="129" Preset="ColorMacro" Res1="#90ee90">Light green</Capability>
+  <Capability Min="130" Max="139" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="140" Max="149" Preset="ColorMacro" Res1="#9a5c00">Straw</Capability>
+  <Capability Min="150" Max="159" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="160" Max="169" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
+  <Capability Min="170" Max="179" Preset="ColorMacro" Res1="#00008b">Dark blue</Capability>
+  <Capability Min="180" Max="189" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="190" Max="255">Full ON</Capability>
+ </Channel>
+ <Channel Name="Preset Colors LED 4">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="80" Max="89" Preset="ColorMacro" Res1="#ff8c00">Dark orange</Capability>
+  <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#adff2f">Green yellow</Capability>
+  <Capability Min="100" Max="109" Preset="ColorMacro" Res1="#fa8072">Salmon</Capability>
+  <Capability Min="110" Max="119" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
+  <Capability Min="120" Max="129" Preset="ColorMacro" Res1="#90ee90">Light green</Capability>
+  <Capability Min="130" Max="139" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="140" Max="149" Preset="ColorMacro" Res1="#9a5c00">Straw</Capability>
+  <Capability Min="150" Max="159" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="160" Max="169" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
+  <Capability Min="170" Max="179" Preset="ColorMacro" Res1="#00008b">Dark blue</Capability>
+  <Capability Min="180" Max="189" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="190" Max="255">Full ON</Capability>
+ </Channel>
+ <Channel Name="Preset Colors LED 5">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="80" Max="89" Preset="ColorMacro" Res1="#ff8c00">Dark orange</Capability>
+  <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#adff2f">Green yellow</Capability>
+  <Capability Min="100" Max="109" Preset="ColorMacro" Res1="#fa8072">Salmon</Capability>
+  <Capability Min="110" Max="119" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
+  <Capability Min="120" Max="129" Preset="ColorMacro" Res1="#90ee90">Light green</Capability>
+  <Capability Min="130" Max="139" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="140" Max="149" Preset="ColorMacro" Res1="#9a5c00">Straw</Capability>
+  <Capability Min="150" Max="159" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="160" Max="169" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
+  <Capability Min="170" Max="179" Preset="ColorMacro" Res1="#00008b">Dark blue</Capability>
+  <Capability Min="180" Max="189" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="190" Max="255">Full ON</Capability>
+ </Channel>
+ <Channel Name="Preset Colors LED 6">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="80" Max="89" Preset="ColorMacro" Res1="#ff8c00">Dark orange</Capability>
+  <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#adff2f">Green yellow</Capability>
+  <Capability Min="100" Max="109" Preset="ColorMacro" Res1="#fa8072">Salmon</Capability>
+  <Capability Min="110" Max="119" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
+  <Capability Min="120" Max="129" Preset="ColorMacro" Res1="#90ee90">Light green</Capability>
+  <Capability Min="130" Max="139" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="140" Max="149" Preset="ColorMacro" Res1="#9a5c00">Straw</Capability>
+  <Capability Min="150" Max="159" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="160" Max="169" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
+  <Capability Min="170" Max="179" Preset="ColorMacro" Res1="#00008b">Dark blue</Capability>
+  <Capability Min="180" Max="189" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="190" Max="255">Full ON</Capability>
+ </Channel>
+ <Channel Name="Preset Colors LED 7">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="80" Max="89" Preset="ColorMacro" Res1="#ff8c00">Dark orange</Capability>
+  <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#adff2f">Green yellow</Capability>
+  <Capability Min="100" Max="109" Preset="ColorMacro" Res1="#fa8072">Salmon</Capability>
+  <Capability Min="110" Max="119" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
+  <Capability Min="120" Max="129" Preset="ColorMacro" Res1="#90ee90">Light green</Capability>
+  <Capability Min="130" Max="139" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="140" Max="149" Preset="ColorMacro" Res1="#9a5c00">Straw</Capability>
+  <Capability Min="150" Max="159" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="160" Max="169" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
+  <Capability Min="170" Max="179" Preset="ColorMacro" Res1="#00008b">Dark blue</Capability>
+  <Capability Min="180" Max="189" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="190" Max="255">Full ON</Capability>
+ </Channel>
+ <Channel Name="Preset Colors LED 8">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="80" Max="89" Preset="ColorMacro" Res1="#ff8c00">Dark orange</Capability>
+  <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#adff2f">Green yellow</Capability>
+  <Capability Min="100" Max="109" Preset="ColorMacro" Res1="#fa8072">Salmon</Capability>
+  <Capability Min="110" Max="119" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
+  <Capability Min="120" Max="129" Preset="ColorMacro" Res1="#90ee90">Light green</Capability>
+  <Capability Min="130" Max="139" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="140" Max="149" Preset="ColorMacro" Res1="#9a5c00">Straw</Capability>
+  <Capability Min="150" Max="159" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="160" Max="169" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
+  <Capability Min="170" Max="179" Preset="ColorMacro" Res1="#00008b">Dark blue</Capability>
+  <Capability Min="180" Max="189" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="190" Max="255">Full ON</Capability>
+ </Channel>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="White 1" Preset="IntensityWhite"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="White 2" Preset="IntensityWhite"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="White 3" Preset="IntensityWhite"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="White 4" Preset="IntensityWhite"/>
+ <Channel Name="Red 5" Preset="IntensityRed"/>
+ <Channel Name="Green 5" Preset="IntensityGreen"/>
+ <Channel Name="Blue 5" Preset="IntensityBlue"/>
+ <Channel Name="White 5" Preset="IntensityWhite"/>
+ <Channel Name="Red 6" Preset="IntensityRed"/>
+ <Channel Name="Green 6" Preset="IntensityGreen"/>
+ <Channel Name="Blue 6" Preset="IntensityBlue"/>
+ <Channel Name="White 6" Preset="IntensityWhite"/>
+ <Channel Name="Red 7" Preset="IntensityRed"/>
+ <Channel Name="Green 7" Preset="IntensityGreen"/>
+ <Channel Name="Blue 7" Preset="IntensityBlue"/>
+ <Channel Name="White 7" Preset="IntensityWhite"/>
+ <Channel Name="Red 8" Preset="IntensityRed"/>
+ <Channel Name="Green 8" Preset="IntensityGreen"/>
+ <Channel Name="Blue 8" Preset="IntensityBlue"/>
+ <Channel Name="White 8" Preset="IntensityWhite"/>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Preset Colors</Channel>
+  <Channel Number="3">Programs</Channel>
+  <Channel Number="4">Color temperature</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Master Dimmer</Channel>
+  <Channel Number="5">Sound control/Strobe</Channel>
+ </Mode>
+ <Mode Name="12 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Preset Colors LED 1</Channel>
+  <Channel Number="3">Preset Colors LED 2</Channel>
+  <Channel Number="4">Preset Colors LED 3</Channel>
+  <Channel Number="5">Preset Colors LED 4</Channel>
+  <Channel Number="6">Preset Colors LED 5</Channel>
+  <Channel Number="7">Preset Colors LED 6</Channel>
+  <Channel Number="8">Preset Colors LED 7</Channel>
+  <Channel Number="9">Preset Colors LED 8</Channel>
+  <Channel Number="10">Programs</Channel>
+  <Channel Number="11">Color temperature</Channel>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="32 Channel">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">White 1</Channel>
+  <Channel Number="4">Red 2</Channel>
+  <Channel Number="5">Green 2</Channel>
+  <Channel Number="6">Blue 2</Channel>
+  <Channel Number="7">White 2</Channel>
+  <Channel Number="8">Red 3</Channel>
+  <Channel Number="9">Green 3</Channel>
+  <Channel Number="10">Blue 3</Channel>
+  <Channel Number="11">White 3</Channel>
+  <Channel Number="12">Red 4</Channel>
+  <Channel Number="13">Green 4</Channel>
+  <Channel Number="14">Blue 4</Channel>
+  <Channel Number="15">White 4</Channel>
+  <Channel Number="16">Red 5</Channel>
+  <Channel Number="17">Green 5</Channel>
+  <Channel Number="18">Blue 5</Channel>
+  <Channel Number="19">White 5</Channel>
+  <Channel Number="20">Red 6</Channel>
+  <Channel Number="21">Green 6</Channel>
+  <Channel Number="22">Blue 6</Channel>
+  <Channel Number="23">White 6</Channel>
+  <Channel Number="24">Red 7</Channel>
+  <Channel Number="25">Green 7</Channel>
+  <Channel Number="26">Blue 7</Channel>
+  <Channel Number="27">White 7</Channel>
+  <Channel Number="28">Red 8</Channel>
+  <Channel Number="29">Green 8</Channel>
+  <Channel Number="30">Blue 8</Channel>
+  <Channel Number="31">White 8</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="36 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Red 1</Channel>
+  <Channel Number="3">Green 1</Channel>
+  <Channel Number="4">Blue 1</Channel>
+  <Channel Number="5">White 1</Channel>
+  <Channel Number="6">Red 2</Channel>
+  <Channel Number="7">Green 2</Channel>
+  <Channel Number="8">Blue 2</Channel>
+  <Channel Number="9">White 2</Channel>
+  <Channel Number="10">Red 3</Channel>
+  <Channel Number="11">Green 3</Channel>
+  <Channel Number="12">Blue 3</Channel>
+  <Channel Number="13">White 3</Channel>
+  <Channel Number="14">Red 4</Channel>
+  <Channel Number="15">Green 4</Channel>
+  <Channel Number="16">Blue 4</Channel>
+  <Channel Number="17">White 4</Channel>
+  <Channel Number="18">Red 5</Channel>
+  <Channel Number="19">Green 5</Channel>
+  <Channel Number="20">Blue 5</Channel>
+  <Channel Number="21">White 5</Channel>
+  <Channel Number="22">Red 6</Channel>
+  <Channel Number="23">Green 6</Channel>
+  <Channel Number="24">Blue 6</Channel>
+  <Channel Number="25">White 6</Channel>
+  <Channel Number="26">Red 7</Channel>
+  <Channel Number="27">Green 7</Channel>
+  <Channel Number="28">Blue 7</Channel>
+  <Channel Number="29">White 7</Channel>
+  <Channel Number="30">Red 8</Channel>
+  <Channel Number="31">Green 8</Channel>
+  <Channel Number="32">Blue 8</Channel>
+  <Channel Number="33">White 8</Channel>
+  <Channel Number="34">Programs</Channel>
+  <Channel Number="35">Color temperature</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+  </Head>
+  <Head>
+   <Channel>22</Channel>
+   <Channel>24</Channel>
+   <Channel>23</Channel>
+   <Channel>25</Channel>
+  </Head>
+  <Head>
+   <Channel>27</Channel>
+   <Channel>26</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="10" Width="980" Height="206" Depth="163"/>
+  <Lens Name="Other" DegreesMin="45" DegreesMax="45"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="8" Height="1"/>
+  <Technical PowerConsumption="240" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

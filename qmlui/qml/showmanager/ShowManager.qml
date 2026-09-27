@@ -236,8 +236,20 @@ Rectangle
                 faSource: FontAwesome.fa_paste
                 faColor: UISettings.fgMain
                 tooltip: qsTr("Paste items in the clipboard at cursor position")
-                counter: showManager.selectedItemsCount
-                onClicked: showManager.pasteFromClipboard()
+                counter: showManager.clipboardItemsCount
+                onClicked:
+                {
+                    if (showManager.pasteFromClipboard() === false)
+                        pasteErrorPopup.open()
+                }
+
+                CustomPopupDialog
+                {
+                    id: pasteErrorPopup
+                    title: qsTr("Paste error")
+                    standardButtons: Dialog.Ok
+                    message: qsTr("It is not possible to paste the items on the selected track at the current cursor position")
+                }
             }
 
             // filler
@@ -269,18 +281,14 @@ Rectangle
                 id: playbackBtn
                 width: parent.height - 6
                 height: width
-                faSource: FontAwesome.fa_play
+                faSource: (showManager.isPlaying && !showManager.isPaused) ? FontAwesome.fa_pause : FontAwesome.fa_play
                 faColor: UISettings.fgMain
-                tooltip: qsTr("Play or resume")
-                checkable: true
+                bgColor: showManager.isPaused ? "green" :
+                         (showManager.isPlaying ? "darkorange" : UISettings.bgLight)
+                tooltip: (showManager.isPlaying && !showManager.isPaused) ? qsTr("Pause") : qsTr("Play or resume")
+                checkable: false
                 enabled: showManager.isEditing
-                onToggled:
-                {
-                    if (checked)
-                        showManager.playShow()
-                    else
-                        showManager.stopShow()
-                }
+                onClicked: showManager.playShow()
             }
             IconButton
             {
@@ -289,14 +297,11 @@ Rectangle
                 height: width
                 faSource: FontAwesome.fa_stop
                 faColor: UISettings.fgMain
+                bgColor: showManager.isPlaying ? "red" : UISettings.bgLight
                 tooltip: qsTr("Stop or rewind")
                 checkable: false
                 enabled: showManager.isEditing
-                onClicked:
-                {
-                    playbackBtn.checked = false
-                    showManager.stopShow()
-                }
+                onClicked: showManager.stopShow()
             }
 
             // filler
@@ -312,6 +317,7 @@ Rectangle
 
             CustomComboBox
             {
+                id: timeDivisionCombo
                 model: [
                     { mLabel: qsTr("Time"), mValue: Show.Time },
                     { mLabel: qsTr("BPM 4/4"), mValue: Show.BPM_4_4 },
@@ -320,7 +326,45 @@ Rectangle
                 ]
                 enabled: showManager.isEditing
                 currValue: showManager.timeDivision
-                onValueChanged: showManager.timeDivision = currentValue
+                onValueChanged:
+                {
+                    if (currValue !== Show.Time &&
+                            showManager.timeDivision === Show.Time &&
+                            showManager.hasBeatBasedItems())
+                    {
+                        beatAlignWarningPopup.pendingDivision = currValue
+                        beatAlignWarningPopup.open()
+                    }
+                    else
+                    {
+                        showManager.timeDivision = currValue
+                    }
+                }
+
+                CustomPopupDialog
+                {
+                    id: beatAlignWarningPopup
+                    title: qsTr("Switch to BPM markers")
+                    message: qsTr("Warning: all beat-based functions will be aligned to the nearest beat")
+                    standardButtons: Dialog.Ok | Dialog.Cancel
+
+                    property var pendingDivision: Show.Time
+
+                    // the OK/Cancel buttons only emit clicked(role) (see
+                    // CustomPopupDialog's footer), while accepted()/rejected()
+                    // only fire when confirming with the Enter key, so both
+                    // paths must be handled to cover mouse and keyboard
+                    onClicked: (role) =>
+                    {
+                        if (role === Dialog.Ok)
+                            showManager.timeDivision = pendingDivision
+                        else
+                            timeDivisionCombo.currValue = showManager.timeDivision
+                        close()
+                    }
+                    onAccepted: showManager.timeDivision = pendingDivision
+                    onRejected: timeDivisionCombo.currValue = showManager.timeDivision
+                }
             }
 
             ZoomItem
@@ -576,17 +620,112 @@ Rectangle
                     }
             }
 
-            HeaderAndCursor
+            /** Vertical grid dividers, drawn with the same chunk strategy
+              * and the same marker calculations of the timeline header:
+              * the Canvas is 3 times the visible area and gets shifted
+              * and repainted while flicking horizontally */
+            Canvas
             {
-                id: gridItem
+                id: gridCanvas
                 visible: showManager.gridEnabled
-                z: 2
+                z: 0
+                x: -itemsArea.width
+                y: 0
+                width: itemsArea.width * 3
+                height: itemsArea.contentHeight
+                antialiasing: true
+                contextType: "2d"
+
+                property real tickSize: showManager.tickSize
+                property int beatsDivision: showManager.beatsDivision
+
+                function updatePosition()
+                {
+                    if (itemsArea.width <= 0)
+                        return
+
+                    var chunk = parseInt(xViewOffset / itemsArea.width) * itemsArea.width
+                    gridCanvas.x = chunk - itemsArea.width
+                    gridCanvas.requestPaint()
+                }
+
+                onTickSizeChanged: requestPaint()
+                onBeatsDivisionChanged: requestPaint()
+                onHeightChanged: requestPaint()
+                onVisibleChanged: if (visible) updatePosition()
+
+                Connections
+                {
+                    target: showMgrContainer
+
+                    function onXViewOffsetChanged()
+                    {
+                        if (itemsArea.width <= 0)
+                            return
+
+                        if (xViewOffset < gridCanvas.x + itemsArea.width ||
+                            xViewOffset > gridCanvas.x + (itemsArea.width * 2))
+                            gridCanvas.updatePosition()
+                    }
+                }
+
+                onPaint:
+                {
+                    var subDividers = showManager.beatsDivision
+
+                    context.globalAlpha = 1.0
+                    context.lineWidth = 1
+                    context.strokeStyle = UISettings.bgLight
+                    context.clearRect(0, 0, width, height)
+
+                    if (tickSize <= 0)
+                        return
+
+                    var divNum = width / tickSize
+                    var absPos = parseInt((x + width) / tickSize) * tickSize
+                    var xPos = absPos - x
+
+                    context.beginPath()
+
+                    // paint dividers from the end to the beginning
+                    for (var i = 0; i < divNum; i++)
+                    {
+                        // don't even bother to paint if we're outside the timeline
+                        if (absPos >= 0)
+                        {
+                            if (subDividers > 1)
+                            {
+                                var subX = xPos - (tickSize / subDividers)
+                                for (var sd = 0; sd < subDividers - 1; sd++)
+                                {
+                                    context.moveTo(subX, 0)
+                                    context.lineTo(subX, height)
+                                    subX -= (tickSize / subDividers)
+                                }
+                            }
+
+                            context.moveTo(xPos, 0)
+                            context.lineTo(xPos, height)
+                        }
+                        absPos -= tickSize
+                        xPos -= tickSize
+                    }
+                    context.closePath()
+                    context.stroke()
+                }
+            }
+
+            /* Snap-to-item guide line */
+            Rectangle
+            {
+                id: snapGuide
+                x: showManager.snapGuideX
+                y: 0
+                z: 10
+                width: 1
                 height: parent.height
-                visibleWidth: itemsArea.width
-                visibleX: xViewOffset
-                headerHeight: parent.height
-                duration: showManager.showDuration
-                showTimeMarkers: false
+                color: "#00FF00"
+                visible: showManager.snapGuideX >= 0
             }
 
             DropArea

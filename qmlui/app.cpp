@@ -26,15 +26,20 @@
 #include <QOpenGLContext>
 #include <QPrintDialog>
 #include <QApplication>
+#include <QLibraryInfo>
 #include <QTranslator>
 #include <QQmlContext>
 #include <QQuickItem>
 #include <QSettings>
 #include <QKeyEvent>
+#include <QMouseEvent>
 #include <QPrinter>
 #include <QPainter>
 #include <QScreen>
+#include <QtMath>
 #include <QFileInfo>
+#include <QFileOpenEvent>
+#include <QDir>
 #include <unistd.h>
 
 #include "app.h"
@@ -50,6 +55,7 @@
 #include "virtualconsole.h"
 #include "fixturebrowser.h"
 #include "fixturemanager.h"
+#include "fixtureremapmanager.h"
 #include "palettemanager.h"
 #include "functionmanager.h"
 #include "fixturegroupeditor.h"
@@ -57,6 +63,7 @@
 
 #include "tardis.h"
 #include "networkmanager.h"
+#include "stagewizard.h"
 
 #include "qlcfixturedefcache.h"
 #include "audioplugincache.h"
@@ -71,11 +78,21 @@
 
 #define MAX_RECENT_FILES    10
 
+/** Screen diagonal (in inches) at or below which the UI is considered
+ *  to be running on a small screen and needs to compact itself */
+#define SMALL_SCREEN_INCHES 7.0
+
+/** Resolution multiplier applied when grabbing an item for printing.
+ *  3x brings a screen resolution item close to a 300DPI page */
+#define PRINT_OVERSAMPLING  3.0
+
 App::App()
     : QQuickView()
     , m_forceQuit(false)
     , m_accessMask(defaultMask())
+    , m_is3dSupported(true)
     , m_translator(nullptr)
+    , m_translator_base(nullptr)
     , m_fixtureBrowser(nullptr)
     , m_fixtureManager(nullptr)
     , m_contextManager(nullptr)
@@ -85,14 +102,18 @@ App::App()
     , m_videoProvider(nullptr)
     , m_networkManager(nullptr)
     , m_uiManager(nullptr)
+    , m_stageWizard(nullptr)
     , m_doc(nullptr)
     , m_docLoaded(false)
     , m_printItem(nullptr)
     , m_fileName(QString())
     , m_importManager(nullptr)
+    , m_fixtureRemapManager(nullptr)
     , m_fixtureEditor(nullptr)
 {
     QSettings settings;
+
+    setResizeMode(QQuickView::SizeRootObjectToView);
 
     updateRecentFilesList();
 
@@ -110,10 +131,21 @@ App::~App()
 {
     QSettings settings;
 
+    stopAllFunctions();
+
+    // exit fullscreen before saving the geometry, otherwise the full screen
+    // rect would be stored and the window would be hard to resize at next startup
+    if (windowState() & Qt::WindowFullScreen)
+        showNormal();
+
+#if defined(Q_OS_ANDROID)
+    settings.setValue(SETTINGS_GEOMETRY, QVariant());
+#else
     if (m_doc->isKiosk() == false && QLCFile::hasWindowManager())
         settings.setValue(SETTINGS_GEOMETRY, geometry());
     else
         settings.setValue(SETTINGS_GEOMETRY, QVariant());
+#endif
 
     /* remove autosave file if present */
     QFile asFile(autoSaveFileName());
@@ -148,6 +180,9 @@ void App::startup()
     if (QFontDatabase::addApplicationFont(":/RobotoMono-Regular.ttf") < 0)
         qWarning() << "Roboto mono cannot be loaded!";
 
+    if (QFontDatabase::addApplicationFont(":/FontAwesome7-Free-Solid-900.otf") < 0)
+        qWarning() << "FontAwesome cannot be loaded!";
+
     rootContext()->setContextProperty("qlcplus", this);
 
     initDoc();
@@ -158,6 +193,7 @@ void App::startup()
     m_fixtureBrowser = new FixtureBrowser(this, m_doc);
     m_fixtureManager = new FixtureManager(this, m_doc);
     m_fixtureGroupEditor = new FixtureGroupEditor(this, m_doc, m_fixtureManager);
+    m_fixtureRemapManager = new FixtureRemapManager(this, m_doc);
     m_functionManager = new FunctionManager(this, m_doc);
     m_simpleDesk = new SimpleDesk(this, m_doc, m_functionManager);
     m_contextManager = new ContextManager(this, m_doc, m_fixtureManager, m_functionManager);
@@ -167,16 +203,32 @@ void App::startup()
     m_showManager = new ShowManager(this, m_doc);
     connect(m_showManager, &ShowManager::itemClicked, m_contextManager, &ContextManager::setLastClickedType);
 
-    m_networkManager = new NetworkManager(this, m_doc);
+    m_networkManager = new NetworkManager(this, m_doc, m_virtualConsole, m_simpleDesk);
     rootContext()->setContextProperty("networkManager", m_networkManager);
 
-    connect(m_networkManager, &NetworkManager::clientAccessRequest, this, &App::slotClientAccessRequest);
+    connect(m_networkManager, &NetworkManager::clientAccessRequest, 
+            this, &App::slotClientAccessRequest);
+    connect(m_networkManager, &NetworkManager::clientAccessRequestCancelled,
+            this, &App::slotClientAccessRequestCancelled);
+    connect(m_networkManager, &NetworkManager::clientAutoAuthorized, this,
+            [this](const QString &sessionId)
+    {
+        m_networkManager->sendWorkspaceToClient(sessionId, fileName());
+    });
     connect(m_networkManager, &NetworkManager::accessMaskChanged, this, &App::setAccessMask);
     connect(m_networkManager, &NetworkManager::requestProjectLoad, this, &App::slotLoadDocFromMemory);
+    connect(m_networkManager, &NetworkManager::requestProjectClear, this, &App::slotClearDocFromNetwork);
+    connect(m_networkManager, &NetworkManager::clientProjectRequest, this, &App::slotClientProjectRequest);
+    connect(m_networkManager, &NetworkManager::storeAutostartProject,
+            this, &App::slotSaveAutostart);
 
     m_tardis = new Tardis(this, m_doc, m_networkManager, m_fixtureManager, m_functionManager,
                           m_contextManager, m_simpleDesk, m_showManager, m_virtualConsole);
     rootContext()->setContextProperty("tardis", m_tardis);
+
+    m_stageWizard = new StageWizard(m_doc, m_fixtureManager, m_functionManager,
+                                    m_virtualConsole, m_contextManager, this);
+    rootContext()->setContextProperty("stageWizard", m_stageWizard);
 
     m_contextManager->registerContext(m_virtualConsole);
     m_contextManager->registerContext(m_simpleDesk);
@@ -194,11 +246,44 @@ void App::startup()
 
     QSettings settings;
     QRect rect(0, 0, 800, 600);
+    bool restoreWindowGeometry = false;
     QVariant var = settings.value(SETTINGS_GEOMETRY);
+#if defined(Q_OS_ANDROID)
+    QScreen *currScreen = screen();
+    rect = currScreen->geometry();
+    setGeometry(rect);
+    show();
+#else
     if (var.isValid())
     {
         //qDebug() << "Restoring window position" << var.toRect();
         rect = var.toRect();
+
+        // Make sure the saved geometry is still valid against the current display
+        // configuration. If the window was closed on a secondary monitor that is no
+        // longer connected, the stored rect would place it off-screen, making it
+        // impossible to move back. Consider it valid only if a meaningful portion of
+        // the window (enough to grab the title bar) overlaps a connected screen.
+        bool geometryValid = false;
+        for (QScreen *displayScreen : QGuiApplication::screens())
+        {
+            QRect overlap = displayScreen->availableGeometry().intersected(rect);
+            if (overlap.width() >= 100 && overlap.height() >= 30)
+            {
+                geometryValid = true;
+                break;
+            }
+        }
+
+        if (geometryValid == false)
+        {
+            qDebug() << "Saved geometry" << rect << "is off-screen. Restoring on the current display";
+            QRect available = screen()->availableGeometry();
+            rect.setSize(rect.size().boundedTo(available.size()));
+            rect.moveCenter(available.center());
+        }
+
+        restoreWindowGeometry = true;
         setGeometry(rect);
         show();
     }
@@ -209,6 +294,7 @@ void App::startup()
         setGeometry(rect);
         showMaximized();
     }
+#endif
 
     slotScreenChanged(screen());
     m_uiManager->initialize();
@@ -217,8 +303,8 @@ void App::startup()
     // and here we go!
     setSource(QUrl("qrc:/MainView.qml"));
 
-    // set geometry once again
-    setGeometry(rect);
+    if (restoreWindowGeometry)
+        setGeometry(rect);
 }
 
 void App::toggleFullscreen()
@@ -247,16 +333,28 @@ void App::setLanguage(QString locale)
         QCoreApplication::removeTranslator(m_translator);
         delete m_translator;
     }
+    if (m_translator_base != nullptr)
+    {
+        QCoreApplication::removeTranslator(m_translator_base);
+        delete m_translator_base;
+    }
 
     QString translationPath = QLCFile::systemDirectory(TRANSLATIONDIR).absolutePath();
 
     if (locale.isEmpty() == true)
         locale = QLocale::system().name();
 
-    QString file(QString("%1_%2").arg("qlcplus").arg(locale));
     m_translator = new QTranslator(QCoreApplication::instance());
-    if (m_translator->load(file, translationPath) == true)
+    if (m_translator->load("qlcplus_" + locale, translationPath) == true)
         QCoreApplication::installTranslator(m_translator);
+
+    m_translator_base = new QTranslator(QCoreApplication::instance());
+#if defined(Q_OS_MACOS) || defined(APPIMAGE)
+    if (m_translator_base->load("qtbase_" + locale, translationPath))
+#else
+    if (m_translator_base->load("qt_" + locale, QLibraryInfo::path(QLibraryInfo::TranslationsPath)))
+#endif
+        QCoreApplication::installTranslator(m_translator_base);
 
     QSettings settings;
     settings.setValue(SETTINGS_LANGUAGE, locale);
@@ -274,6 +372,16 @@ qreal App::pixelDensity() const
     return m_pixelDensity;
 }
 
+qreal App::screenDiagonal() const
+{
+    return m_screenDiagonal;
+}
+
+bool App::smallScreen() const
+{
+    return m_screenDiagonal > 0 && m_screenDiagonal <= SMALL_SCREEN_INCHES;
+}
+
 int App::accessMask() const
 {
     return m_accessMask;
@@ -281,7 +389,12 @@ int App::accessMask() const
 
 bool App::is3DSupported() const
 {
-    return true;
+    return m_is3dSupported;
+}
+
+void App::set3dSupported(bool enable)
+{
+    m_is3dSupported = enable;
 }
 
 void App::aboutQt()
@@ -292,6 +405,7 @@ void App::aboutQt()
 void App::exit(bool force)
 {
     m_forceQuit = force;
+    stopAllFunctions();
     QApplication::quit();
 }
 
@@ -312,6 +426,16 @@ int App::defaultMask() const
 
 void App::keyPressEvent(QKeyEvent *e)
 {
+    // If a text input item (e.g. an inline name being edited) currently has
+    // focus, let it handle the key press first (e.g. Delete/Backspace to edit
+    // text) instead of triggering global shortcuts like function/item deletion
+    QQuickItem *focusItem = activeFocusItem();
+    if (focusItem && (focusItem->flags() & QQuickItem::ItemAcceptsInputMethod))
+    {
+        QQuickView::keyPressEvent(e);
+        return;
+    }
+
     if (m_contextManager)
         m_contextManager->handleKeyPress(e);
 
@@ -324,6 +448,14 @@ void App::keyReleaseEvent(QKeyEvent *e)
         m_contextManager->handleKeyRelease(e);
 
     QQuickView::keyReleaseEvent(e);
+}
+
+void App::mousePressEvent(QMouseEvent *e)
+{
+    if (m_contextManager)
+        m_contextManager->setLastClickedType(App::NoDragItem);
+
+    QQuickView::mousePressEvent(e);
 }
 
 bool App::event(QEvent *event)
@@ -351,6 +483,26 @@ bool App::eventFilter(QObject *obj, QEvent *event)
             return true;
         }
     }
+    else if (event->type() == QEvent::FileOpen)
+    {
+        // On macOS, opening a .qxw/.qxf file from Finder (double click,
+        // "Open With", or a Dock drop) doesn't come in through argv: the OS
+        // delivers it as a FileOpen event to the application instead, which
+        // is why it needs to be caught here rather than in QCommandLineParser.
+        QFileOpenEvent *foe = static_cast<QFileOpenEvent *>(event);
+        QString filename = foe->file();
+        if (filename.isEmpty())
+            filename = foe->url().toLocalFile();
+
+        if (filename.isEmpty() == false)
+        {
+            if (filename.endsWith(KExtFixture))
+                loadFixture(filename);
+            else
+                loadWorkspace(filename);
+        }
+        return true;
+    }
 
     return QQuickView::eventFilter(obj, event);
 }
@@ -366,24 +518,88 @@ void App::slotScreenChanged(QScreen *screen)
                      screen->orientation() == Qt::InvertedLandscapeOrientation) ? true : false;
     qreal sSize = isLandscape ? screen->size().height() : screen->size().width();
     m_pixelDensity = qMax(screen->physicalDotsPerInch() *  0.039370, sSize / 220.0);
+
+    /* Determine the physical diagonal size of the screen, in inches.
+     * QScreen::physicalSize is the most accurate source, but some platforms
+     * (and virtual/remote displays) report a bogus or null size, so fall back
+     * to the pixel geometry divided by the reported DPI */
+    qreal diagonal = 0;
+    QSizeF physSize = screen->physicalSize();
+    if (physSize.width() > 1 && physSize.height() > 1)
+    {
+        // physicalSize is in millimeters
+        diagonal = qSqrt((physSize.width() * physSize.width()) +
+                         (physSize.height() * physSize.height())) / 25.4;
+    }
+    else if (screen->physicalDotsPerInch() > 0)
+    {
+        QSize pxSize = screen->size();
+        diagonal = qSqrt((qreal(pxSize.width()) * pxSize.width()) +
+                         (qreal(pxSize.height()) * pxSize.height())) / screen->physicalDotsPerInch();
+    }
+
+    // note: no qFuzzyCompare here, since m_screenDiagonal starts at 0
+    if (qAbs(diagonal - m_screenDiagonal) > 0.01)
+    {
+        m_screenDiagonal = diagonal;
+        emit screenDiagonalChanged();
+    }
+
     qDebug() << "Screen changed to" << screen->name() << ", pixel density:" << m_pixelDensity
-             << ", physical size:" << screen->physicalSize();
+             << ", geometry:" << screen->size() << ", physical size:" << screen->physicalSize() << isLandscape
+             << ", diagonal (inches):" << m_screenDiagonal << ", small screen:" << smallScreen();
     rootContext()->setContextProperty("screenPixelDensity", m_pixelDensity);
 }
 
 void App::slotClosing()
 {
+    stopAllFunctions();
+
     if (m_contextManager)
     {
         delete m_contextManager;
         m_contextManager = nullptr;
     }
+
+    QCoreApplication::quit();
+    //QTimer::singleShot(2000, []() { QCoreApplication::exit(0); });
 }
 
-void App::slotClientAccessRequest(QString name)
+void App::slotClientAccessRequest(QString sessionId, QString name,
+                                  QString peerAddress, quint16 peerPort)
 {
     QMetaObject::invokeMethod(rootObject(), "openAccessRequest",
-                              Q_ARG(QVariant, name));
+                              Q_ARG(QVariant, sessionId), Q_ARG(QVariant, name),
+                              Q_ARG(QVariant, peerAddress), Q_ARG(QVariant, peerPort));
+}
+
+void App::slotClientAccessRequestCancelled(QString sessionId)
+{
+    QMetaObject::invokeMethod(rootObject(), "closeAccessRequest",
+                              Q_ARG(QVariant, sessionId));
+}
+
+void App::slotClientProjectRequest(QString sessionId)
+{
+    /* The workspace is served from a file. If the current project has never
+     * been saved, or has pending changes, dump it to a temporary file first,
+     * otherwise the client would get a stale (or missing) project */
+    QString fileName = m_fileName;
+
+    if (fileName.isEmpty() || m_doc->isModified())
+    {
+        fileName = QString("%1/%2").arg(QDir::tempPath()).arg("qlcplus_netproject.qxw");
+        if (saveXML(fileName, true) != QFile::NoError)
+        {
+            qWarning() << Q_FUNC_INFO << "Unable to serve the project to" << sessionId;
+            return;
+        }
+    }
+
+    qDebug() << Q_FUNC_INFO << "Serving" << fileName << "to session" << sessionId;
+
+    if (m_networkManager->sendWorkspaceToClient(sessionId, fileName) == false)
+        qWarning() << Q_FUNC_INFO << "Failed to send the workspace to session" << sessionId;
 }
 
 void App::slotAccessMaskChanged(int mask)
@@ -407,6 +623,11 @@ VirtualConsole *App::virtualConsole() const
 SimpleDesk *App::simpleDesk() const
 {
     return m_simpleDesk;
+}
+
+NetworkManager *App::networkManager() const
+{
+    return m_networkManager;
 }
 
 bool App::docLoaded()
@@ -495,6 +716,10 @@ void App::clearDocument()
     m_showManager->resetContents();
     m_virtualConsole->resetContents();
 
+    // Drop the preview items *before* the Doc is emptied: they hold references
+    // to fixtures that clearContents() is about to delete
+    m_contextManager->resetViewItems();
+
     m_doc->masterTimer()->stop();
     m_doc->clearContents();
 
@@ -515,6 +740,10 @@ void App::stopAllFunctions()
 {
     // first, gracefully stop via Function Manager (if that's the case)
     m_functionManager->setPreviewEnabled(false);
+
+    // close any fullscreen video windows before stopping functions
+    if (m_videoProvider)
+        m_videoProvider->shutdown();
 
     // then, brutally kill the rest (could be started from VC, etc)
     m_doc->masterTimer()->stopAllFunctions();
@@ -542,7 +771,31 @@ void App::printItem(QQuickItem *item)
         return;
 
     m_printItem = item;
-    m_printerImage = item->grabToImage();
+
+    // Grab the item at a multiple of its on-screen size, otherwise the capture
+    // carries only screen resolution pixels (~96DPI) and looks blurry once
+    // blown up to a 300DPI page. The factor is clamped so the offscreen
+    // surface never exceeds what the GPU can allocate (GL_MAX_TEXTURE_SIZE is
+    // commonly 16384), which would silently return an empty grab.
+    const qreal maxDimension = 16384.0;
+    qreal factor = PRINT_OVERSAMPLING;
+
+    if (item->width() > 0)
+        factor = qMin(factor, maxDimension / item->width());
+    if (item->height() > 0)
+        factor = qMin(factor, maxDimension / item->height());
+    factor = qMax(factor, 1.0);
+
+    QSize targetSize(qRound(item->width() * factor), qRound(item->height() * factor));
+
+    m_printerImage = item->grabToImage(targetSize);
+    if (m_printerImage.isNull())
+    {
+        qWarning() << "Failed to grab item for printing";
+        m_printItem = nullptr;
+        return;
+    }
+
     connect(m_printerImage.data(), &QQuickItemGrabResult::ready, this, &App::slotItemReadyForPrinting);
 }
 
@@ -552,41 +805,49 @@ void App::slotItemReadyForPrinting()
     QPrintDialog *dlg = new QPrintDialog(&printer);
     if (dlg->exec() == QDialog::Accepted)
     {
-        QRectF pageRect = printer.pageLayout().paintRect();
-        QSize imgSize = m_printerImage->image().size();
-        int totalHeight = imgSize.height();
-        int yOffset = 0;
-
-        qDebug() << "Page size:" << pageRect << ", image size:" << imgSize;
-        QPainter painter(&printer);
-        painter.setRenderHint(QPainter::Antialiasing, false);
-        painter.setRenderHint(QPainter::SmoothPixmapTransform);
-
+        // the page rectangle must be expressed in device pixels, since it is
+        // used together with image pixels below. paintRect() would return
+        // points instead, which are a much coarser unit
+        QRect pageRect = printer.pageLayout().paintRectPixels(printer.resolution());
         QImage img = m_printerImage->image();
-        int actualWidth = imgSize.width();
 
-        // if the grabbed image is larger than the page, fit it to the page width
-        if (pageRect.width() < imgSize.width())
+        qDebug() << "Page size:" << pageRect << ", image size:" << img.size();
+
+        if (img.isNull() == false && pageRect.isEmpty() == false)
         {
-            img = m_printerImage->image().scaledToWidth(pageRect.width(), Qt::SmoothTransformation);
-            actualWidth = pageRect.width();
-        }
+            QPainter painter(&printer);
+            painter.setRenderHint(QPainter::Antialiasing, true);
+            painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
 
-        // handle multi-page printing
-        while (totalHeight > 0)
-        {
-            painter.drawImage(QPoint(0, 0), img, QRectF(0, yOffset, actualWidth, pageRect.height()));
-            yOffset += pageRect.height();
-            totalHeight -= pageRect.height();
-            if (totalHeight > 0)
-                printer.newPage();
-        }
+            // scale factor to map image pixels to page pixels. Shrink an image
+            // wider than the page, but never enlarge a narrower one
+            qreal scale = qMin(qreal(1.0), pageRect.width() / qreal(img.width()));
 
-        painter.end();
+            // number of image rows that fit on a single page
+            int sliceHeight = qMax(1, int(pageRect.height() / scale));
+
+            // handle multi-page printing. Offsets are in image coordinates and
+            // the painter does the scaling, so the full grabbed resolution is
+            // handed to the print device rather than a pre-downscaled copy
+            for (int yOffset = 0; yOffset < img.height(); yOffset += sliceHeight)
+            {
+                int height = qMin(sliceHeight, img.height() - yOffset);
+                QRectF srcRect(0, yOffset, img.width(), height);
+                QRectF dstRect(0, 0, img.width() * scale, height * scale);
+
+                painter.drawImage(dstRect, img, srcRect);
+
+                if (yOffset + sliceHeight < img.height())
+                    printer.newPage();
+            }
+
+            painter.end();
+        }
     }
 
     m_printerImage.clear();
-    m_printItem->setProperty("isPrinting", false);
+    if (m_printItem != nullptr)
+        m_printItem->setProperty("isPrinting", false);
     m_printItem = nullptr;
 }
 
@@ -678,15 +939,25 @@ void App::setWorkingPath(QString workingPath)
 
 bool App::newWorkspace()
 {
+    /* Warn the connected clients before dropping everything */
+    m_networkManager->notifyProjectChanging();
+
     clearDocument();
     m_fixtureManager->slotDocLoaded();
     m_functionManager->slotDocLoaded();
     m_contextManager->resetContexts();
+
+    /* Let the connected clients pick up the empty workspace */
+    m_networkManager->notifyProjectLoaded();
+
     return true;
 }
 
 bool App::loadWorkspace(const QString &fileName)
 {
+    /* Warn the connected clients before dropping everything */
+    m_networkManager->notifyProjectChanging();
+
     m_contextManager->resetContexts();
 
     /* Clear existing document data */
@@ -725,6 +996,9 @@ bool App::loadWorkspace(const QString &fileName)
 
         m_doc->inputOutputMap()->startUniverses();
 
+        /* The workspace is complete: let the connected clients request it */
+        m_networkManager->notifyProjectLoaded();
+
         return true;
     }
     return false;
@@ -734,6 +1008,8 @@ void App::slotLoadDocFromMemory(QByteArray &xmlData)
 {
     if (xmlData.isEmpty())
         return;
+
+    m_contextManager->resetContexts();
 
     /* Clear existing document data */
     clearDocument();
@@ -765,12 +1041,29 @@ void App::slotLoadDocFromMemory(QByteArray &xmlData)
 
     if (doc.dtdName() == KXMLQLCWorkspace)
     {
-        loadXML(doc, true, true);
+        /* Do not force the Virtual Console: honour the context saved in the
+         * received project. Clients restricted to VC control only are still
+         * switched to it by loadXML itself */
+        loadXML(doc, false, true);
         setDocLoaded(true);
         m_doc->resetModified();
+        m_doc->inputOutputMap()->startUniverses();
+        m_contextManager->resetContexts();
     }
     else
         qDebug() << "XML doesn't have a Workspace tag";
+}
+
+void App::slotClearDocFromNetwork()
+{
+    qDebug() << Q_FUNC_INFO << "Clearing workspace on server request";
+
+    /* Same teardown performed before loading a project: drop the view items
+     * and the Virtual Console contents while the Doc is still populated,
+     * so nothing keeps a reference to what is about to be deleted */
+    m_contextManager->resetContexts();
+    clearDocument();
+    setDocLoaded(false);
 }
 
 void App::slotSaveAutostart(QString fileName)
@@ -933,10 +1226,16 @@ bool App::loadXML(QXmlStreamReader &doc, bool goToConsole, bool fromMemory)
 
 QFile::FileError App::saveXML(const QString& fileName, bool autosave)
 {
+#if defined(Q_OS_ANDROID)
+    const QString outputFileName(fileName);
+#else
     QString tempFileName(fileName);
     tempFileName += ".temp";
-    QFile file(tempFileName);
-    if (file.open(QIODevice::WriteOnly) == false)
+    const QString outputFileName(tempFileName);
+#endif
+
+    QFile file(outputFileName);
+    if (file.open(QIODevice::WriteOnly | QIODevice::Truncate) == false)
         return file.error();
 
     QXmlStreamWriter doc(&file);
@@ -972,8 +1271,22 @@ QFile::FileError App::saveXML(const QString& fileName, bool autosave)
 
     /* End the document and close all the open elements */
     doc.writeEndDocument();
-    file.close();
 
+    if (doc.hasError())
+    {
+        qWarning() << Q_FUNC_INFO << "Error writing XML to" << outputFileName;
+        file.close();
+#if !defined(Q_OS_ANDROID)
+        file.remove();
+#endif
+        return QFile::WriteError;
+    }
+
+    file.close();
+    if (file.error() != QFile::NoError)
+        return file.error();
+
+#if !defined(Q_OS_ANDROID)
     // Save to actual requested file name
     QFile currFile(fileName);
     if (currFile.exists() && !currFile.remove())
@@ -986,6 +1299,7 @@ QFile::FileError App::saveXML(const QString& fileName, bool autosave)
         qWarning() << "Could not rename" << tempFileName << "to" << fileName;
         return file.error();
     }
+#endif
 
     if (!autosave)
     {

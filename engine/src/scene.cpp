@@ -188,12 +188,12 @@ void Scene::unsetValue(quint32 fxi, quint32 ch)
     emit changed(this->id());
 }
 
-uchar Scene::value(quint32 fxi, quint32 ch)
+uchar Scene::value(quint32 fxi, quint32 ch) const
 {
     return m_values.value(SceneValue(fxi, ch, 0), 0);
 }
 
-bool Scene::checkValue(SceneValue val)
+bool Scene::checkValue(const SceneValue& val) const
 {
     return m_values.contains(val);
 }
@@ -218,14 +218,14 @@ QList<quint32> Scene::components() const
     return ids;
 }
 
-QColor Scene::colorValue(quint32 fxi)
+QColor Scene::colorValue(quint32 fxi) const
 {
     int rVal = 0, gVal = 0, bVal = 0;
     int cVal = -1, mVal = -1, yVal = -1;
     bool found = false;
     QColor CMYcol;
 
-    QMap <SceneValue, uchar>::iterator it = m_values.begin();
+    QMap <SceneValue, uchar>::const_iterator it = m_values.begin();
     for (; it != m_values.end(); it++)
     {
         const SceneValue& scv = it.key();
@@ -720,7 +720,7 @@ void Scene::writeDMX(MasterTimer *timer, QList<Universe *> ua)
  * Running
  ****************************************************************************/
 
-void Scene::processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, SceneValue &scv)
+void Scene::processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, const SceneValue &scv)
 {
     Fixture *fixture = doc()->fixture(scv.fxi);
 
@@ -746,52 +746,49 @@ void Scene::processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, S
         m_fadersMap[universe->id()] = fader;
     }
 
-    FadeChannel *fc = fader->getChannelFader(doc(), universe, scv.fxi, scv.channel);
-    int chIndex = fc->channelIndex(scv.channel);
+    const bool doBlend = blendFunctionID() != Function::invalidId();
+    Scene *blendScene = doBlend ? qobject_cast<Scene *>(doc()->function(blendFunctionID())) : NULL;
 
-    /** If a blend Function has been set, check if this channel needs to
-     *  be blended from a previous value. If so, mark it for crossfade
-     *  and set its current value */
-    if (blendFunctionID() != Function::invalidId())
+    fader->updateChannel(doc(), universe, scv.fxi, scv.channel, [&](FadeChannel &fc)
     {
-        Scene *blendScene = qobject_cast<Scene *>(doc()->function(blendFunctionID()));
+        int chIndex = fc.channelIndex(scv.channel);
+
+        /** If a blend Function has been set, check if this channel needs to
+         *  be blended from a previous value. If so, mark it for crossfade
+         *  and set its current value */
         if (blendScene != NULL && blendScene->checkValue(scv))
         {
-            fc->addFlag(FadeChannel::CrossFade);
-            fc->setCurrent(blendScene->value(scv.fxi, scv.channel), chIndex);
+            fc.addFlag(FadeChannel::CrossFade);
+            fc.setCurrent(blendScene->value(scv.fxi, scv.channel), chIndex);
             qDebug() << "----- BLEND from Scene" << blendScene->name()
-                     << ", fixture:" << scv.fxi << ", channel:" << scv.channel << ", value:" << fc->current();
+                     << ", fixture:" << scv.fxi << ", channel:" << scv.channel << ", value:" << fc.current();
         }
-    }
-    else
-    {
-        //qDebug() << "Scene" << name() << "add channel" << scv.channel << "from" << fc->current(chIndex) << "to" << scv.value;
-    }
 
-    fc->setStart(fc->current(chIndex), chIndex);
-    fc->setTarget(scv.value, chIndex);
+        fc.setStart(fc.current(chIndex), chIndex);
+        fc.setTarget(scv.value, chIndex);
 
-    if (fc->canFade() == false)
-    {
-        fc->setFadeTime(0);
-    }
-    else
-    {
-        if (tempoType() == Beats)
+        if (fc.canFade() == false)
         {
-            int fadeInTime = beatsToTime(fadeIn, timer->beatTimeDuration());
-            int beatOffset = timer->nextBeatTimeOffset();
-
-            if (fadeInTime - beatOffset > 0)
-                fc->setFadeTime(fadeInTime - beatOffset);
-            else
-                fc->setFadeTime(fadeInTime);
+            fc.setFadeTime(0);
         }
         else
         {
-            fc->setFadeTime(fadeIn);
+            if (tempoType() == Beats)
+            {
+                int fadeInTime = beatsToTime(fadeIn, timer->beatTimeDuration());
+                int beatOffset = timer->nextBeatTimeOffset();
+
+                if (fadeInTime - beatOffset > 0)
+                    fc.setFadeTime(fadeInTime - beatOffset);
+                else
+                    fc.setFadeTime(fadeInTime);
+            }
+            else
+            {
+                fc.setFadeTime(fadeIn);
+            }
         }
-    }
+    });
 }
 
 void Scene::handleFadersEnd(MasterTimer *timer)

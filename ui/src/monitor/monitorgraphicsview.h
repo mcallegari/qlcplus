@@ -52,14 +52,14 @@ public:
 
     /** Get the currently selected fixture ID.
      *  Fixture::invalidId is returned if none is selected */
-    quint32 selectedFixtureID();
+    quint32 selectedFixtureID() const;
 
     /** Return a list of the fixture IDs in the current view */
     QList <quint32> fixturesID() const;
 
     /** Retrieve the currently selected MonitorFixtureItem.
      *  Return NULL if none */
-    MonitorFixtureItem *getSelectedItem();
+    MonitorFixtureItem *getSelectedItem() const;
 
     /** Set the gel color of the fixture with the given ID */
     void setFixtureGelColor(quint32 id, QColor col);
@@ -98,7 +98,7 @@ public:
     void setBackgroundImage(QString filename);
 
     /** Retrieve the path to the background image currently set */
-    QString backgroundImage() { return m_backgroundImage; }
+    QString backgroundImage() const { return m_backgroundImage; }
 
 protected:
     /** Triggers the whole view repaint and metrics

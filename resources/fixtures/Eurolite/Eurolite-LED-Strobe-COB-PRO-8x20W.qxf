@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.2.1 GIT</Version>
+  <Author>Simeon08</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED Strobe COB PRO 8x20W</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe (Slow to fast)">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="4" Max="255" Preset="StrobeSlowToFast">Strobe (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Running light effect">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="255">Running light effect</Capability>
+ </Channel>
+ <Channel Name="Blinder effect">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="255">Blinder Effect for 2 seconds</Capability>
+ </Channel>
+ <Channel Name="Auto programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="255">Auto programs with increasing speed</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe (Slow to fast)</Channel>
+  <Channel Number="2">Running light effect</Channel>
+  <Channel Number="3">Blinder effect</Channel>
+  <Channel Number="4">Auto programs</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="4800" ColourTemperature="6500"/>
+  <Dimensions Weight="2.35" Width="345" Height="180" Depth="110"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="95" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -23,6 +23,8 @@
 #include "sequence.h"
 #include "chaser.h"
 #include "tardis.h"
+#include "scene.h"
+#include "doc.h"
 
 ChaserEditor::ChaserEditor(QQuickView *view, Doc *doc, QObject *parent)
     : FunctionEditor(view, doc, parent)
@@ -49,6 +51,15 @@ void ChaserEditor::setFunctionID(quint32 ID)
 
     updateStepsList(m_doc, m_chaser, m_stepsList);
     emit stepsListChanged();
+}
+
+bool ChaserEditor::requestDeleteItems()
+{
+    // a Sequence is edited by the SequenceEditor QML, which wraps both
+    // this editor and the bound Scene editor, so it decides what to delete
+    m_editorObjectName = isSequence() ? "sequenceEditorRoot" : "chaserEditorRoot";
+
+    return FunctionEditor::requestDeleteItems();
 }
 
 bool ChaserEditor::isSequence() const
@@ -124,6 +135,12 @@ bool ChaserEditor::addStep(int insertIndex)
 
     if (m_chaser->stepsCount() == 0)
     {
+        if (m_chaser->durationMode() == Chaser::Common && m_chaser->duration() == 0)
+        {
+            Tardis::instance()->enqueueAction(Tardis::FunctionSetDuration, m_chaser->id(), m_chaser->duration(), 1000);
+            m_chaser->setDuration(1000);
+        }
+
         QListIterator <SceneValue> it(currScene->values());
         while (it.hasNext() == true)
         {
@@ -142,13 +159,20 @@ bool ChaserEditor::addStep(int insertIndex)
 
     qDebug() << "Values added: " << step.values.count();
 
-    m_chaser->addStep(step, insertIndex++);
+    // Always append to the chaser so the chaser step order matches the list model,
+    // which also always appends. Inserting at insertIndex would create a mismatch
+    // where m_playbackIndex no longer maps to the correct chaser step.
+    int appendedAt = m_chaser->stepsCount();
+    m_chaser->addStep(step);
 
     Tardis::instance()->enqueueAction(Tardis::ChaserAddStep, m_chaser->id(), QVariant(),
-                                      Tardis::instance()->actionToByteArray(Tardis::ChaserAddStep, m_chaser->id(), insertIndex));
+                                      Tardis::instance()->actionToByteArray(Tardis::ChaserAddStep, m_chaser->id(), appendedAt));
 
     addStepToListModel(m_doc, m_chaser, m_stepsList, &step);
-    //setPlaybackIndex(insertIndex);
+
+    // select the newly added step. The step is always appended to the list model,
+    // so it lives at the last position
+    setPlaybackIndex(m_chaser->stepsCount() - 1);
 
     return true;
 }
@@ -289,8 +313,9 @@ void ChaserEditor::setSequenceStepValue(SceneValue &scv)
     if (m_playbackIndex < 0 || m_playbackIndex >= m_chaser->stepsCount())
         return;
 
-    ChaserStep *cs = m_chaser->stepAt(m_playbackIndex);
-    cs->setValue(scv);
+    ChaserStep step = m_chaser->steps().at(m_playbackIndex);
+    step.setValue(scv);
+    m_chaser->replaceStep(step, m_playbackIndex);
 }
 
 int ChaserEditor::playbackIndex() const
@@ -311,8 +336,29 @@ void ChaserEditor::setPlaybackIndex(int playbackIndex)
 
         if (currScene != nullptr)
         {
+            bool sceneWasRunning = currScene->isRunning();
+            if (sceneWasRunning)
+            {
+                currScene->stop(FunctionParent::master());
+
+                // Remove channels from the previous step absent in the new step
+                // so the fader re-initialises clean when the scene restarts.
+                if (m_playbackIndex >= 0 && m_playbackIndex < m_chaser->stepsCount())
+                {
+                    const QList<SceneValue> &newVals = m_chaser->stepAt(playbackIndex)->values;
+                    for (const SceneValue &sv : currScene->values())
+                    {
+                        if (!newVals.contains(sv))
+                            currScene->unsetValue(sv.fxi, sv.channel);
+                    }
+                }
+            }
+
             for (SceneValue &scv : m_chaser->stepAt(playbackIndex)->values)
                 currScene->setValue(scv);
+
+            if (sceneWasRunning)
+                currScene->start(m_doc->masterTimer(), FunctionParent::master());
         }
     }
 
@@ -732,6 +778,51 @@ void ChaserEditor::setStepsDuration(int stepsDuration)
     m_chaser->setDurationMode(Chaser::SpeedMode(stepsDuration));
 
     emit stepsDurationChanged(stepsDuration);
+    updateStepsList(m_doc, m_chaser, m_stepsList);
+    emit stepsListChanged();
+}
+
+void ChaserEditor::autoSetDurations()
+{
+    if (m_chaser == nullptr || m_chaser->stepsCount() == 0)
+        return;
+
+    if (m_chaser->durationMode() != Chaser::PerStep)
+    {
+        m_chaser->setDurationMode(Chaser::PerStep);
+        emit stepsDurationChanged(Chaser::PerStep);
+    }
+
+    for (int i = 0; i < m_chaser->stepsCount(); i++)
+    {
+        QModelIndex idx = m_stepsList->index(i, 0, QModelIndex());
+        QVariant isSelected = m_stepsList->data(idx, "isSelected");
+        if (!isSelected.isValid() || isSelected.toBool() == false)
+            continue;
+
+        ChaserStep step = m_chaser->steps().at(i);
+        Function *func = m_doc->function(step.fid);
+        if (func == nullptr)
+            continue;
+
+        UIntPair oldDuration(i, step.duration);
+        UIntPair oldHold(i, step.hold);
+
+        step.duration = func->totalDuration();
+        if (step.duration == 0)
+            step.duration = 1000;
+        step.hold = Function::speedSubtract(step.duration, step.fadeIn);
+
+        Tardis::instance()->enqueueAction(Tardis::ChaserSetStepDuration, m_chaser->id(),
+                                          QVariant::fromValue(oldDuration),
+                                          QVariant::fromValue(UIntPair(i, step.duration)));
+        Tardis::instance()->enqueueAction(Tardis::ChaserSetStepHold, m_chaser->id(),
+                                          QVariant::fromValue(oldHold),
+                                          QVariant::fromValue(UIntPair(i, step.hold)));
+
+        m_chaser->replaceStep(step, i);
+    }
+
     updateStepsList(m_doc, m_chaser, m_stepsList);
     emit stepsListChanged();
 }

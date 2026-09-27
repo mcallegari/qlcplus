@@ -107,6 +107,22 @@ Rectangle
             tooltip: qsTr("Edit the selected fixture definition")
             onClicked: qlcplus.editFixture(fixtureBrowser.selectedManufacturer, fixtureBrowser.selectedModel)
         }
+
+        IconButton
+        {
+            id: remapButton
+            width: height
+            height: toolBar.height - 2
+            faSource: FontAwesome.fa_shuffle
+            faColor: "gold"
+            tooltip: qsTr("Remap fixtures...")
+            onClicked:
+            {
+                fixtureRemapManager.reset()
+                fixtureAndFunctions.previousView = fixtureAndFunctions.currentViewQML
+                fixtureAndFunctions.currentViewQML = "qrc:/FixtureRemap.qml"
+            }
+        }
     }
 
     ListView

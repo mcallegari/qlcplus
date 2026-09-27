@@ -312,7 +312,8 @@ int SimpleDesk::getSlidersNumber() const
 
 int SimpleDesk::getCurrentUniverseIndex() const
 {
-    return int(m_universeFilter);
+    const int idx = int(m_universeFilter);
+    return idx < 0 ? 0 : idx;
 }
 
 int SimpleDesk::getCurrentPage() const
@@ -344,7 +345,7 @@ uchar SimpleDesk::getAbsoluteChannelValue(uint address) const
     return value;
 }
 
-bool SimpleDesk::isChannelOverridden(uint address)
+bool SimpleDesk::isChannelOverridden(uint address) const
 {
     QMutexLocker locker(&m_mutex);
     return m_values.contains(address);
@@ -557,7 +558,7 @@ QStringList SimpleDesk::commandHistory() const
  * DMXSource
  ************************************************************************/
 
-FadeChannel *SimpleDesk::getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel)
+FadeChannel *SimpleDesk::getFader(const QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel)
 {
     qDebug() << "[Simple Desk] get fader for universe" << universeID << "fixture" << fixtureID << "channel" << channel;
 

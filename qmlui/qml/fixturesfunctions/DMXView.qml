@@ -57,7 +57,7 @@ Rectangle
         anchors.topMargin: viewMargin
 
         contentHeight: flowLayout.height
-        contentWidth: flowLayout.width
+        contentWidth: Math.max(flowLayout.width, flowLayout.childrenRect.width + (viewMargin * 2))
         //interactive: false
 
         boundsBehavior: Flickable.StopAtBounds
@@ -79,12 +79,6 @@ Rectangle
             function closeTool()
             {
                 channelToolLoader.visible = false
-            }
-
-            function itemWidthChanged(width)
-            {
-                if (fixtureDMXView.contentWidth < width)
-                    fixtureDMXView.contentWidth = width + (viewMargin * 2)
             }
 
             Component.onCompleted: contextManager.enableContext("DMX", true, flowLayout)

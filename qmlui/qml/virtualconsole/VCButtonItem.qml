@@ -32,6 +32,7 @@ VCWidgetItem
     property string activeColor: buttonObj.flashOverrides || buttonObj.flashForceLTP ? "#FF0000" : "#00FF00"
 
     radius: 4
+    border.width: 0
 
     gradient: Gradient
     {
@@ -76,7 +77,7 @@ VCWidgetItem
         width: parent.width - 2
         height: parent.height - 2
         color: "transparent"
-        border.width: (buttonRoot.width > 80) ? 3 : 2
+        border.width: screenPixelDensity * UISettings.scalingFactor * 0.8
         border.color: btnState === VCButton.Active ? activeColor : btnState === VCButton.Monitoring ? "orange" : "#A0A0A0"
         radius: 3
 
@@ -88,7 +89,6 @@ VCWidgetItem
             width: parent.width - 6
             height: parent.height - 6
             radius: 2
-            border.width: 1
             color: "transparent"
             clip: true
 
@@ -107,7 +107,7 @@ VCWidgetItem
                 z: 2
                 width: parent.width - 4
                 height: parent.height
-                font: buttonObj ? buttonObj.font : ""
+                font: buttonObj ? buttonObj.font : Qt.font({ family: UISettings.robotoFontName })
                 text: buttonObj ? buttonObj.caption : ""
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter

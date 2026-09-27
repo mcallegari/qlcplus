@@ -140,6 +140,12 @@ Rectangle
     {
         anchors.fill: parent
 
+        handle: Rectangle
+        {
+            implicitWidth: screenPixelDensity * UISettings.scalingFactor * 0.9
+            color: SplitHandle.hovered || SplitHandle.pressed ? UISettings.highlight : UISettings.bgLighter
+        }
+
         // left view: definition sections
         Flickable
         {
@@ -427,6 +433,7 @@ Rectangle
                                                     cDragItem.itemLabel = cEntryItem.tLabel
                                                     cDragItem.itemIcon = cEntryItem.iSrc
                                                     channelList.dragActive = true
+                                                    UISettings.internalDragActive = true
                                                 }
                                                 else
                                                 {
@@ -435,6 +442,7 @@ Rectangle
                                                     cDragItem.x = 0
                                                     cDragItem.y = 0
                                                     channelList.dragActive = false
+                                                    UISettings.internalDragActive = false
                                                 }
                                             }
 
@@ -651,7 +659,83 @@ Rectangle
                     width: parent.width
                     sectionLabel: qsTr("Aliases")
 
-                    sectionContents: null // TODO
+                    sectionContents:
+                        Column
+                        {
+                            width: aliasSection.width
+
+                            RobotoText
+                            {
+                                width: aliasSection.width
+                                height: UISettings.listItemHeight
+                                wrapText: true
+                                labelColor: UISettings.fgMedium
+                                label: qsTr("Set a capability preset to 'Alias' in the channel editor to make it appear here.")
+                                visible: aliasList.count === 0
+                            }
+
+                            ListView
+                            {
+                                id: aliasList
+                                width: aliasSection.width
+                                height: UISettings.listItemHeight * count
+                                boundsBehavior: Flickable.StopAtBounds
+                                currentIndex: -1
+                                interactive: false
+
+                                model: editorView ? editorView.aliasCapabilities : null
+                                delegate:
+                                    Item
+                                    {
+                                        width: aliasList.width
+                                        height: UISettings.listItemHeight
+
+                                        property QLCChannel cRef: model.cRef
+                                        property int capIndex: model.capIndex
+
+                                        MouseArea
+                                        {
+                                            width: aliasList.width
+                                            height: parent.height
+
+                                            onPressed: aliasList.currentIndex = index
+                                            onDoubleClicked:
+                                            {
+                                                sideEditor.active = false
+                                                sideEditor.itemName = cRef ? cRef.name : ""
+                                                sideEditor.itemIndex = capIndex
+                                                sideEditor.source = "qrc:/AliasEditor.qml"
+                                                sideEditor.active = true
+                                            }
+
+                                            Rectangle
+                                            {
+                                                anchors.fill: parent
+                                                radius: 3
+                                                color: UISettings.highlight
+                                                visible: aliasList.currentIndex === index
+                                            }
+
+                                            IconTextEntry
+                                            {
+                                                width: aliasList.width
+                                                height: UISettings.listItemHeight
+                                                tLabel: model.label + " (" + model.aliasCount + ")"
+                                                faSource: FontAwesome.fa_right_left
+                                                faColor: UISettings.fgMain
+                                            }
+
+                                            Rectangle
+                                            {
+                                                width: parent.width
+                                                height: 1
+                                                y: parent.height - 1
+                                                color: UISettings.fgMedium
+                                            }
+                                        }
+                                    }
+                            } // ListView
+                        } // Column
                 } // SectionBox - Alias
 
             } // Column
@@ -674,6 +758,9 @@ Rectangle
             SplitView.maximumWidth: editorRoot.width * 0.8
 
             property string itemName: ""
+            // extra identifier used by editors that need more than a name
+            // (e.g. the alias editor needs the capability index)
+            property int itemIndex: -1
 
             onLoaded:
             {
@@ -683,7 +770,10 @@ Rectangle
                 item.height = Qt.binding(function() { return sideEditor.height - 20 })
 
                 item.editorView = editorRoot.editorView
-                item.setItemName(itemName)
+                if (item.setItemIndex !== undefined)
+                    item.setItemIndex(itemName, itemIndex)
+                else
+                    item.setItemName(itemName)
             }
         }
     }

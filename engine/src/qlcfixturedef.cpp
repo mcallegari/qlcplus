@@ -255,7 +255,7 @@ bool QLCFixtureDef::addChannel(QLCChannel* channel)
     }
 }
 
-bool QLCFixtureDef::removeChannel(QLCChannel* channel)
+bool QLCFixtureDef::removeChannel(const QLCChannel* channel)
 {
     /* First remove the channel from all modes */
     QListIterator <QLCFixtureMode*> modeit(m_modes);
@@ -313,7 +313,7 @@ bool QLCFixtureDef::addMode(QLCFixtureMode* mode)
     }
 }
 
-bool QLCFixtureDef::removeMode(QLCFixtureMode* mode)
+bool QLCFixtureDef::removeMode(const QLCFixtureMode* mode)
 {
     QMutableListIterator <QLCFixtureMode*> it(m_modes);
     while (it.hasNext() == true)
@@ -365,6 +365,20 @@ QLCPhysical QLCFixtureDef::physical() const
 /****************************************************************************
  * XML operations
  ****************************************************************************/
+
+void QLCFixtureDef::clear()
+{
+    while (m_channels.isEmpty() == false)
+        delete m_channels.takeFirst();
+    while (m_modes.isEmpty() == false)
+        delete m_modes.takeFirst();
+
+    m_manufacturer.clear();
+    m_model.clear();
+    m_author.clear();
+    m_type = Dimmer;
+    m_physical = QLCPhysical();
+}
 
 QFile::FileError QLCFixtureDef::saveXML(const QString& fileName)
 {
@@ -484,6 +498,10 @@ bool QLCFixtureDef::loadXML(QXmlStreamReader& doc)
 
     if (doc.name() == KXMLQLCFixtureDef)
     {
+        // Reset current state before parsing to avoid duplicate append if the same
+        // fixture definition instance is loaded more than once.
+        clear();
+
         while (doc.readNextStartElement())
         {
             if (doc.name() == KXMLQLCCreator)
@@ -562,9 +580,6 @@ bool QLCFixtureDef::loadXML(QXmlStreamReader& doc)
 
     if (retval == true)
         m_isLoaded = true;
-
-    if (m_modes.isEmpty())
-        return false;
 
     return retval;
 }

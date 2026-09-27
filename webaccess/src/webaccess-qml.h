@@ -45,7 +45,7 @@ class QHttpConnection;
 
 class QJsonObject;
 
-class WebAccessQml : public WebAccessBase
+class WebAccessQml final : public WebAccessBase
 {
     Q_OBJECT
 public:
@@ -72,9 +72,11 @@ protected slots:
     void slotButtonStateChanged(int state);
     void slotButtonDisableStateChanged(bool disable);
     void slotLabelDisableStateChanged(bool disable);
+    void slotWidgetVisibilityChanged(bool isVisible);
     void slotSliderValueChanged(int value);
     void slotSliderDisableStateChanged(bool disable);
     void slotSliderOverrideChanged();
+    void slotSliderClickAndGoColorsChanged();
     void slotAudioTriggersToggled();
     void slotAudioTriggersVolumeChanged();
     void slotWidgetDisableStateChanged(bool disable);
@@ -88,26 +90,27 @@ protected slots:
     void slotMatrixColorsChanged();
     void slotMatrixAlgorithmChanged();
     void slotXYPadPositionChanged();
+    void slotXYPadPresetChanged();
     void slotSpeedDialTimeChanged();
     void slotSpeedDialFactorChanged();
     void slotClockTimeChanged(int time);
+    void slotClockTimerRunningChanged(bool running);
     void slotGrandMasterValueChanged(uchar value);
 
 protected:
     QString webFilePath(const QString &relativePath) const override;
-    void sendMatrixState(VCAnimation *animation);
+    void sendMatrixState(const VCAnimation *animation) const;
     void handleAutostartProject(const QString &path) override;
     void handleProjectLoad(const QByteArray &projectXml) override;
-    bool storeFixtureDefinition(const QString &fxName, const QByteArray &fixtureXML) override;
 
     QByteArray getVCJson();
-    QJsonObject baseWidgetToJson(VCWidget *widget);
-    QJsonObject widgetToJson(VCWidget *widget);
-    QJsonObject frameToJson(VCFrame *frame);
-    void collectWidgets(VCFrame *frame, QList<VCWidget *> &list, bool recursive = true);
+    QJsonObject baseWidgetToJson(const VCWidget *widget);
+    QJsonObject widgetToJson(const VCWidget *widget);
+    QJsonObject frameToJson(const VCFrame *frame);
+    void collectWidgets(const VCFrame *frame, QList<VCWidget *> &list, bool recursive = true) const;
 
-    void setupWidgetConnections(VCWidget *widget);
-    QString widgetBackgroundImagePath(VCWidget *widget) const;
+    void setupWidgetConnections(const VCWidget *widget);
+    QString widgetBackgroundImagePath(const VCWidget *widget) const;
 
 protected:
     QSet<quint32> m_connectedWidgets;

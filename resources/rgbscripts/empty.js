@@ -46,11 +46,11 @@ var testAlgo;
       }
       return color;
     }
-  
+
     /**
      * Ingests the colors as received through the parameter
      *
-     * @param rawColors The array of colors 
+     * @param rawColors The array of colors
      */
     algo.rgbMapSetColors = function(rawColors)
     {

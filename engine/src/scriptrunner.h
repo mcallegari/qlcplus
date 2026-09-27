@@ -50,7 +50,7 @@ class ScriptRunner final : public QThread
      * Initialization
      ************************************************************************/
 public:
-    ScriptRunner(Doc *doc, QString &content, QObject *parent = 0);
+    ScriptRunner(Doc *doc, const QString &content, QObject *parent = 0);
     ~ScriptRunner();
 
     /** Start the thread execution and therefore the JavaScript code */
@@ -60,7 +60,7 @@ public:
 
     QStringList collectScriptData();
 
-    int currentWaitTime();
+    int currentWaitTime() const;
 
     bool write(MasterTimer *timer, QList<Universe*> universes);
 
@@ -128,7 +128,7 @@ public slots:
      * @param attributeIndex Index of the requested attribute
      * @return the requested attribute value or 0
      */
-    float getFunctionAttribute(quint32 fID, int attributeIndex);
+    float getFunctionAttribute(quint32 fID, int attributeIndex) const;
 
     /**
      * Handle "setFunctionAttribute" command (int version)
@@ -237,7 +237,7 @@ protected:
 
 private:
     /** Common code to check if script is running and if function exists */
-    Function* getFunctionIfRunning(quint32 fID);
+    Function* getFunctionIfRunning(quint32 fID) const;
 
     /** ScriptRunner function operations enum to handle start/stop/wait commands */
     enum FunctionOperation

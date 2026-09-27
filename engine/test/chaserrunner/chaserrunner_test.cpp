@@ -1377,4 +1377,45 @@ void ChaserRunner_Test::adjustIntensity()
     QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(1.0));
 }
 
+void ChaserRunner_Test::adjustMasterIntensityAcrossRunningCrossfadeSteps()
+{
+    m_chaser->setDirection(Function::Forward);
+    m_chaser->setRunOrder(Function::Loop);
+    m_chaser->setDuration(Function::infiniteSpeed());
+
+    ChaserRunner cr(m_doc, m_chaser);
+    MasterTimer *timer = m_doc->masterTimer();
+
+    cr.adjustStepIntensity(0.75, 0, Chaser::BlendedCrossfade);
+    timer->timerTick();
+    cr.adjustStepIntensity(0.25, 1, Chaser::BlendedCrossfade);
+    timer->timerTick();
+
+    QCOMPARE(cr.runningStepsNumber(), 2);
+    QCOMPARE(cr.m_runnerSteps.size(), 2);
+    QCOMPARE(cr.m_runnerSteps.at(0)->m_index, 0);
+    QCOMPARE(cr.m_runnerSteps.at(1)->m_index, 1);
+    QCOMPARE(cr.m_runnerSteps.at(0)->m_masterIntensity, qreal(1.0));
+    QCOMPARE(cr.m_runnerSteps.at(1)->m_masterIntensity, qreal(1.0));
+    QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(0.75));
+    QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(0.25));
+    QCOMPARE(m_scene1->getAttributeValue(Scene::ParentIntensity), qreal(1.0));
+    QCOMPARE(m_scene2->getAttributeValue(Scene::ParentIntensity), qreal(1.0));
+
+    cr.adjustStepIntensity(0.0);
+
+    QCOMPARE(cr.m_runnerSteps.at(0)->m_masterIntensity, qreal(0.0));
+    QCOMPARE(cr.m_runnerSteps.at(1)->m_masterIntensity, qreal(0.0));
+    QCOMPARE(m_scene1->getAttributeValue(Scene::ParentIntensity), qreal(0.0));
+    QCOMPARE(m_scene2->getAttributeValue(Scene::ParentIntensity), qreal(0.0));
+
+    timer->timerTick();
+
+    QList<Universe *> universes = m_doc->inputOutputMap()->claimUniverses();
+    universes[0]->processFaders(MasterTimer::tick());
+    QCOMPARE(universes[0]->postGMValue(0), uchar(0));
+    QCOMPARE(universes[0]->postGMValue(1), uchar(0));
+    m_doc->inputOutputMap()->releaseUniverses(false);
+}
+
 QTEST_APPLESS_MAIN(ChaserRunner_Test)

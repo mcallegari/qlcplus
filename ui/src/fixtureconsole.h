@@ -101,7 +101,7 @@ public:
     QList <SceneValue> values() const;
 
     /** Return true if at least one channel is checked and selected */
-    bool hasSelections();
+    bool hasSelections() const;
 
     /** Set all channel's values */
     void setValues(const QList <SceneValue>& list, bool fromSelection);

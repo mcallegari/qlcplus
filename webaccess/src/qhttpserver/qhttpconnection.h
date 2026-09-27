@@ -25,6 +25,8 @@
 
 //#include "qhttpserverapi.h"
 #include "qhttpserverfwd.h"
+#include "qhttprequest.h"
+#include "qhttpresponse.h"
 
 #include <QObject>
 

@@ -41,6 +41,12 @@ FixtureGroupEditor::FixtureGroupEditor(QQuickView *view, Doc *doc,
     qmlRegisterUncreatableType<FixtureGroupEditor>("org.qlcplus.classes", 1, 0,  "FixtureGroupEditor", "Can't create a FixtureGroupEditor!");
 
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
+
+    // keep the groups list model in sync with the project, so views
+    // displaying it (e.g. the 2D/3D groups bar) are always up to date
+    connect(m_doc, SIGNAL(fixtureGroupAdded(quint32)), this, SIGNAL(groupsListModelChanged()));
+    connect(m_doc, SIGNAL(fixtureGroupRemoved(quint32)), this, SIGNAL(groupsListModelChanged()));
+    connect(m_doc, SIGNAL(fixtureGroupChanged(quint32)), this, SIGNAL(groupsListModelChanged()));
 }
 
 FixtureGroupEditor::~FixtureGroupEditor()
@@ -58,6 +64,7 @@ QVariant FixtureGroupEditor::groupsListModel()
         grpMap.insert("mIcon", "qrc:/group.svg");
         grpMap.insert("mLabel", grp->name());
         grpMap.insert("mValue", grp->id());
+        grpMap.insert("mCount", grp->fixtureList().count());
         groupsList.append(grpMap);
     }
 

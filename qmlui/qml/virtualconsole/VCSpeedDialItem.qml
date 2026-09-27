@@ -31,12 +31,6 @@ VCWidgetItem
     property VCSpeedDial speedObj: null
     property int vMask: speedObj ? speedObj.visibilityMask : VCSpeedDial.Nothing
 
-    // needed for tapping
-    property double tapTimeValue: 0
-    property int tapCount: 0
-    property double lastTap: 0
-    property var tapHistory: []
-
     property color activeColor: "green"
     property var speedLabels: [ "", "", "1/16", "1/8", "1/4", "1/2", "1", "2", "4", "8", "16" ]
 
@@ -67,32 +61,6 @@ VCWidgetItem
         msSpin.value = value
     }
 
-    function tap()
-    {
-        var currTime = new Date().getTime()
-
-        if (lastTap != 0 && currTime - lastTap < 1500)
-        {
-            var newTime = currTime - lastTap
-
-            tapHistory.push(newTime)
-
-            tapTimeValue = TimeUtils.calculateBPMByTapIntervals(tapHistory)
-
-            if (speedObj)
-                speedObj.currentTime = tapTimeValue
-
-            tapTimer.interval = tapTimeValue
-            tapTimer.restart()
-        }
-        else
-        {
-            lastTap = 0
-            tapHistory = []
-        }
-        lastTap = currTime
-    }
-
     function updateTime()
     {
         var newTime = 0
@@ -114,7 +82,7 @@ VCWidgetItem
         id: tapTimer
         repeat: true
         running: false
-        interval: 500
+        interval: speedObj ? speedObj.tapTimeValue : 500
 
         onTriggered:
         {
@@ -122,6 +90,21 @@ VCWidgetItem
                 tapButton.border.color = "#00FF00"
             else
                 tapButton.border.color = UISettings.bgMedium
+        }
+    }
+
+    Connections
+    {
+        target: speedObj
+        function onTapTimeValueChanged()
+        {
+            if (speedObj.tapTimeValue > 0)
+                tapTimer.restart()
+            else
+            {
+                tapTimer.stop()
+                tapButton.border.color = UISettings.bgMedium
+            }
         }
     }
 
@@ -135,12 +118,11 @@ VCWidgetItem
         // row 1 widget name text box
         Text
         {
-            id: sliderText
             visible: (speedObj && speedObj.caption.length) ? true : false
             Layout.columnSpan: itemsLayout.columns
             Layout.fillWidth: true
             height: UISettings.listItemHeight
-            font: speedObj ? speedObj.font : ""
+            font: speedObj ? speedObj.font : Qt.font({ family: UISettings.robotoFontName })
             text: speedObj ? speedObj.caption : ""
             color: speedObj ? speedObj.foregroundColor : "white"
             horizontalAlignment: Text.AlignHCenter
@@ -151,6 +133,7 @@ VCWidgetItem
         QLCPlusKnob
         {
             property int lastValue: 0
+            property int threshold: 50
 
             Layout.columnSpan: tapButton.visible ? 4 : itemsLayout.columns
             Layout.rowSpan: tapButton.visible ? 2 : 1
@@ -161,18 +144,17 @@ VCWidgetItem
             from: 0
             to: 1000
             wrap: true
-            
-            onMoved: 
+
+            function updateCurrentTime()
             {
                 if (speedObj)
                 {
                     var diff = value - lastValue
-                    var THRESHOLD = 50
 
                     // handle wrapping
-                    if (diff > THRESHOLD)
+                    if (diff > threshold)
                         diff = -stepSize;
-                    else if (diff < (-THRESHOLD))
+                    else if (diff < (-threshold))
                         diff = stepSize;
 
                     lastValue = value
@@ -180,6 +162,8 @@ VCWidgetItem
                     speedObj.currentTime += diff
                 }
             }
+
+            onMoved: updateCurrentTime()
         }
 
         GenericButton
@@ -241,26 +225,26 @@ VCWidgetItem
         GenericButton
         {
             id: tapButton
-            Layout.columnSpan: 2
+            Layout.columnSpan: vMask === VCSpeedDial.Tap ? itemsLayout.columns : 2
             Layout.rowSpan: 2
             Layout.fillHeight: true
+            Layout.fillWidth: true
 
             label: "TAP"
             visible: vMask & VCSpeedDial.Tap
 
-            onClicked:
+            onClicked: function(mouseButton)
             {
                 /* right click resets the current TAP time */
                 if (mouseButton === Qt.RightButton)
                 {
-                    tapTimer.stop()
-                    tapButton.border.color = UISettings.bgMedium
-                    lastTap = 0
-                    tapHistory = []
+                    if (speedObj)
+                        speedObj.resetTap()
                 }
                 else
                 {
-                    speedRoot.tap()
+                    if (speedObj)
+                        speedObj.tap()
                 }
             }
         }
@@ -431,7 +415,7 @@ VCWidgetItem
             onClicked:
             {
                 if (speedObj)
-                    speedObj.applyFunctionsTime()
+                    speedObj.applyFunctionsTime(true)
             }
         }
 

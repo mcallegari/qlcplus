@@ -128,7 +128,7 @@ CustomPopupDialog
         GridLayout
         {
             width: popupRoot.width
-            columns: colorTableList.visible ? 2 : 1
+            columns: hasColorTable ? 2 : 1
 
             GroupBox
             {
@@ -141,7 +141,7 @@ CustomPopupDialog
                 GridLayout
                 {
                     width: parent.width
-                    columns: 3
+                    columns: hasColorTable ? 3 : 2
 
                     // row 1
                     RobotoText

@@ -153,7 +153,7 @@ Rectangle
     {
         id: fieldsRow
         height: stepDelegate.height
-        spacing: 2
+        spacing: 0
 
         RobotoText
         {
@@ -166,7 +166,7 @@ Rectangle
             wrapText: true
             textHAlign: Text.AlignHCenter
         }
-        Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
+        Rectangle { height: parent.height; width: screenPixelDensity * UISettings.scalingFactor * 0.6; color: UISettings.fgMedium }
 
         IconTextEntry
         {
@@ -178,7 +178,7 @@ Rectangle
             tLabel: func ? func.name : ""
             tLabelColor: stepDelegate.labelColor
         }
-        Rectangle { visible: showFunctionName; height: parent.height; width: 1; color: UISettings.fgMedium }
+        Rectangle { visible: showFunctionName; height: parent.height; width: screenPixelDensity * UISettings.scalingFactor * 0.6; color: UISettings.fgMedium }
 
         RobotoText
         {
@@ -191,7 +191,7 @@ Rectangle
             wrapText: true
             textHAlign: Text.AlignHCenter
         }
-        Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
+        Rectangle { height: parent.height; width: screenPixelDensity * UISettings.scalingFactor * 0.6; color: UISettings.fgMedium }
 
         RobotoText
         {
@@ -204,7 +204,7 @@ Rectangle
             wrapText: true
             textHAlign: Text.AlignHCenter
         }
-        Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
+        Rectangle { height: parent.height; width: screenPixelDensity * UISettings.scalingFactor * 0.6; color: UISettings.fgMedium }
 
         RobotoText
         {
@@ -217,7 +217,7 @@ Rectangle
             wrapText: true
             textHAlign: Text.AlignHCenter
         }
-        Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
+        Rectangle { height: parent.height; width: screenPixelDensity * UISettings.scalingFactor * 0.6; color: UISettings.fgMedium }
 
         RobotoText
         {
@@ -230,7 +230,7 @@ Rectangle
             wrapText: true
             textHAlign: Text.AlignHCenter
         }
-        Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
+        Rectangle { height: parent.height; width: screenPixelDensity * UISettings.scalingFactor * 0.6; color: UISettings.fgMedium }
 
         RobotoText
         {

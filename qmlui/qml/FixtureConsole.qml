@@ -50,6 +50,10 @@ Rectangle
     property bool externalChange: false
     property bool multipleSelection: false
 
+    /** Incremented by the Scene console every time the external controller
+     *  mapping changes, to re-evaluate the channel highlights */
+    property int externalMapRevision: 0
+
     signal doubleClicked
     signal clicked
     signal sizeChanged(var w, var h)
@@ -63,24 +67,34 @@ Rectangle
         for (var i = 0; i < values.length; i++)
         {
             //console.log("Value " + i + " = " + values[i]);
-            channelsRpt.itemAt(i).dmxValue = values[i]
+            var valueItem = channelsRpt.itemAt(i)
+            if (valueItem)
+                valueItem.dmxValue = values[i]
         }
         externalChange = false
     }
 
     function setChannelValue(channel, value)
     {
+        var channelItem = channelsRpt.itemAt(channel)
+        if (!channelItem)
+            return
+
         if (showEnablers == true)
-            channelsRpt.itemAt(channel).isEnabled = true
+            channelItem.isEnabled = true
         externalChange = true
-        channelsRpt.itemAt(channel).dmxValue = value
+        channelItem.dmxValue = value
         externalChange = false
     }
 
     function updateChannels()
     {
         for (var i = 0; i < channelsRpt.count; i++)
-            channelsRpt.itemAt(i).updateChannel()
+        {
+            var channelItem = channelsRpt.itemAt(i)
+            if (channelItem)
+                channelItem.updateChannel()
+        }
     }
 
     Column
@@ -147,14 +161,21 @@ Rectangle
                     {
                         id: chDelegate
                         color: isSelected ? UISettings.selection : "transparent"
-                        border.width: 1
-                        border.color: UISettings.borderColorDark
+                        border.width: faderIndex >= 0 ? 2 : 1
+                        border.color: faderIndex >= 0 ? UISettings.highlight : UISettings.borderColorDark
                         width: UISettings.iconSizeDefault
                         height: channelsRow.height
 
                         property real dmxValue
                         property bool isEnabled: showEnablers ? false : true
                         property bool isSelected: false
+
+                        /** Index of the external controller fader mapped to this
+                         *  channel, or -1 when the channel is not controlled */
+                        property int faderIndex:
+                            (sceneConsole && externalMapRevision >= 0 && fixtureObj && sceneEditor)
+                                ? sceneEditor.controlledFaderIndex(fixtureObj.id, index)
+                                : -1
 
                         function updateChannel()
                         {
@@ -186,6 +207,31 @@ Rectangle
                             color: "black"
                             opacity: 0.7
                             visible: showEnablers ? !isEnabled : false
+                        }
+
+                        // external controller fader number badge
+                        Rectangle
+                        {
+                            id: faderBadge
+                            z: 3
+                            visible: chDelegate.faderIndex >= 0
+                            width: UISettings.iconSizeMedium * 0.65
+                            height: width
+                            radius: width / 2
+                            x: (chDelegate.width - width) / 2
+                            y: height / 3
+                            color: UISettings.highlight
+                            border.width: 1
+                            border.color: "white"
+
+                            RobotoText
+                            {
+                                anchors.centerIn: parent
+                                label: chDelegate.faderIndex + 1
+                                fontSize: UISettings.textSizeDefault * 0.7
+                                fontBold: true
+                                labelColor: "white"
+                            }
                         }
 
                         Rectangle
@@ -227,6 +273,9 @@ Rectangle
                                         {
                                             chDelegate.isSelected = !chDelegate.isSelected
                                             sceneEditor.setChannelSelection(fixtureObj.id, index, chDelegate.isSelected);
+
+                                            if (sceneConsole == true)
+                                                functionManager.setChannelValue(fixtureObj.id, index, dmxValue)
                                             return
                                         }
 
@@ -259,7 +308,8 @@ Rectangle
                                     if (fixtureObj)
                                         consoleRoot.requestTool(chColumn, fixtureObj.id, index, dmxValue)
                                 }
-                                Keys.onPressed: (event) => {
+                                Keys.onPressed: (event) =>
+                                {
                                     if (event.key === Qt.Key_Escape)
                                         consoleRoot.closeTool()
                                 }
@@ -310,4 +360,3 @@ Rectangle
         }
     }
 }
-

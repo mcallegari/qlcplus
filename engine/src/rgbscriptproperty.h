@@ -51,7 +51,7 @@ public:
 public:
     QString m_name;
     QString m_displayName;
-    ValueType m_type;
+    RGBScriptProperty::ValueType m_type;
     QStringList m_listValues;
     int m_rangeMinValue;
     int m_rangeMaxValue;

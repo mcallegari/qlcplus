@@ -35,26 +35,11 @@ Rectangle
 
     property string currentContext: ""
 
-    // main mouse area to intercept any click and reset
-    // the last clicked type before it is set (or not)
-    // to specifically delete a project item
-    MouseArea
-    {
-        anchors.fill: parent
-        z: 999
-        acceptedButtons: Qt.AllButtons
-        propagateComposedEvents: true
-        onPressed: (mouse) =>
-        {
-            if (contextManager)
-                contextManager.setLastClickedType(App.NoDragItem)
-            // let this event pass through
-            mouse.accepted = false
-        }
-    }
-
     Component.onCompleted: UISettings.sidePanelWidth = Math.min(width / 3, UISettings.bigItemHeight * 5)
     onWidthChanged: UISettings.sidePanelWidth = Math.min(width / 3, UISettings.bigItemHeight * 5)
+
+    property bool showWizardVisible: false
+    function openShowWizard() { mainView.showWizardVisible = true }
 
     function enableContext(ctx, setChecked)
     {
@@ -108,10 +93,20 @@ Rectangle
         dimScreen.visible = enable
     }
 
-    function openAccessRequest(clientName)
+    function openAccessRequest(sessionId, clientName, peerAddress, peerPort)
     {
+        clientAccessPopup.deciding = false
+        clientAccessPopup.sessionId = sessionId
         clientAccessPopup.clientName = clientName
+        clientAccessPopup.peerAddress = peerAddress
+        clientAccessPopup.peerPort = peerPort
         clientAccessPopup.open()
+    }
+
+    function closeAccessRequest(sessionId)
+    {
+        if (clientAccessPopup.sessionId === sessionId)
+            clientAccessPopup.close()
     }
 
     function saveProject()
@@ -138,7 +133,13 @@ Rectangle
     // Load the "FontAwesome" font for the monochrome icons
     FontLoader
     {
+        id: faFontLoader
         source: "qrc:/FontAwesome7-Free-Solid-900.otf"
+        onStatusChanged:
+        {
+            if (status === FontLoader.Ready)
+                UISettings.fontAwesomeFontName = faFontLoader.name
+        }
     }
 
     Rectangle
@@ -572,6 +573,16 @@ Rectangle
 
     Loader
     {
+        id: showWizardOverlay
+        width: parent.width
+        height: parent.height
+        source: parent.showWizardVisible ? "qrc:/ShowWizard.qml" : ""
+        z: 100
+        onLoaded: if (item) { item.closeRequested.connect(function() { mainView.showWizardVisible = false }); item.open() }
+    }
+
+    Loader
+    {
         id: mainViewLoader
         width: parent.width
         height: parent.height - (mainToolbar.visible ? mainToolbar.height : 0)
@@ -597,6 +608,48 @@ Rectangle
         y: actEntry.height + 1
         visible: false
         z: visible ? 99 : 0
+    }
+
+    /** Allow a project (.qxw/.qxw.gz) or fixture (.qxf/.d4) file to be opened
+      * by dragging it from the OS file manager and dropping it on the window.
+      * Qt Quick delivers drag hover/position events to only the topmost
+      * DropArea under the pointer - "keys" only gates acceptance
+      * (containsDrag/onDropped), not hit testing. Being a full-window
+      * overlay, this would otherwise always win that hit test and starve any
+      * nested DropArea underneath it (e.g. the fixture editor's channel
+      * reordering) of position updates. So it drops below the main view's
+      * content (z < 0) for as long as UISettings.internalDragActive says an
+      * in-app drag is going on anywhere, and only then. */
+    DropArea
+    {
+        id: fileDropArea
+        anchors.fill: parent
+        z: UISettings.internalDragActive ? -1 : 100
+        keys: [ "text/uri-list" ]
+
+        onDropped: function(drop)
+        {
+            if (drop.urls.length)
+                actionsMenu.openFile(drop.urls[0])
+        }
+    }
+
+    Rectangle
+    {
+        anchors.fill: parent
+        z: 100
+        visible: fileDropArea.containsDrag
+        color: Qt.rgba(0, 0, 0, 0.6)
+        border.width: 3
+        border.color: UISettings.activeDropArea
+
+        Text
+        {
+            anchors.centerIn: parent
+            text: qsTr("Drop a project or fixture file to open it")
+            font.pixelSize: UISettings.textSizeDefault * 1.4
+            color: "white"
+        }
     }
 
     /* Rectangle covering the whole window to

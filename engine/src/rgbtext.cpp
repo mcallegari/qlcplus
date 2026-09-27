@@ -331,10 +331,10 @@ bool RGBText::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCRGBTextFont)
         {
-            QFont font;
+            QFont fontObj;
             QString fontName = root.readElementText();
-            if (font.fromString(fontName) == true)
-                setFont(font);
+            if (fontObj.fromString(fontName) == true)
+                setFont(fontObj);
             else
                 qWarning() << Q_FUNC_INFO << "Invalid font:" << fontName;
         }

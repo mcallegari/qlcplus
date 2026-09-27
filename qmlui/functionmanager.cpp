@@ -20,6 +20,7 @@
 #include <QQmlContext>
 #include <QQmlEngine>
 #include <QDebug>
+#include <algorithm>
 
 #include "audioplugincache.h"
 #include "collectioneditor.h"
@@ -55,6 +56,7 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_doc(doc)
     , m_viewPosition(0)
     , m_previewEnabled(false)
+    , m_scenePreviewEnabled(false)
     , m_filter(0)
     , m_searchFilter(QString())
 {
@@ -288,11 +290,23 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
         {
             /* a Sequence depends on a Scene, so let's create
              * a new hidden Scene first */
-            Function *scene = new Scene(m_doc);
+            Scene *scene = new Scene(m_doc);
             scene->setVisible(false);
 
             if (m_doc->addFunction(scene) == true)
             {
+                if (fixturesList.count())
+                {
+                    for (QVariant &fixtureID : fixturesList)
+                    {
+                        Fixture *fixture = m_doc->fixture(fixtureID.toUInt());
+                        if (fixture == nullptr)
+                            continue;
+
+                        scene->addFixture(fixture->id());
+                    }
+                }
+
                 f = new Sequence(m_doc);
                 name = tr("New Sequence");
                 Sequence *sequence = qobject_cast<Sequence *>(f);
@@ -507,15 +521,63 @@ void FunctionManager::setPreviewEnabled(bool enable)
             if (f != nullptr)
             {
                 if (enable == false)
+                {
+                    Tardis::instance()->enqueueAction(Tardis::FunctionStop, f->id(), true, false);
                     f->stop(FunctionParent::master());
+                }
                 else
+                {
+                    Tardis::instance()->enqueueAction(Tardis::FunctionStart, f->id(), false, true);
                     f->start(m_doc->masterTimer(), FunctionParent::master());
+                }
             }
         }
     }
 
     m_previewEnabled = enable;
     emit previewEnabledChanged();
+}
+
+bool FunctionManager::scenePreviewEnabled() const
+{
+    return m_scenePreviewEnabled;
+}
+
+void FunctionManager::setScenePreviewEnabled(bool enable)
+{
+    if (m_scenePreviewEnabled == enable)
+        return;
+
+    m_scenePreviewEnabled = enable;
+
+    // the live preview works by running the edited Scene (or the Sequence
+    // bound Scene): once running, channel edits are written to the output
+    // by setChannelValue
+    Scene *scene = nullptr;
+
+    if (m_currentEditor != nullptr)
+    {
+        if (m_currentEditor->functionType() == Function::SceneType)
+        {
+            scene = qobject_cast<Scene *>(m_doc->function(m_currentEditor->functionID()));
+        }
+        else if (m_currentEditor->functionType() == Function::SequenceType)
+        {
+            Sequence *sequence = qobject_cast<Sequence *>(m_doc->function(m_currentEditor->functionID()));
+            if (sequence != nullptr)
+                scene = qobject_cast<Scene *>(m_doc->function(sequence->boundSceneID()));
+        }
+    }
+
+    if (scene != nullptr)
+    {
+        if (enable)
+            scene->start(m_doc->masterTimer(), FunctionParent::master());
+        else
+            scene->stop(FunctionParent::master());
+    }
+
+    emit scenePreviewEnabledChanged();
 }
 
 void FunctionManager::selectFunctionID(quint32 fID, bool multiSelection)
@@ -534,7 +596,10 @@ void FunctionManager::selectFunctionID(quint32 fID, bool multiSelection)
             {
                 Function *f = m_doc->function(funcID.toUInt());
                 if (f != nullptr)
+                {
+                    Tardis::instance()->enqueueAction(Tardis::FunctionStop, f->id(), true, false);
                     f->stop(FunctionParent::master());
+                }
             }
         }
         m_selectedIDList.clear();
@@ -547,7 +612,10 @@ void FunctionManager::selectFunctionID(quint32 fID, bool multiSelection)
     {
         Function *f = m_doc->function(fID);
         if (f != nullptr)
+        {
+            Tardis::instance()->enqueueAction(Tardis::FunctionStart, f->id(), false, true);
             f->start(m_doc->masterTimer(), FunctionParent::master());
+        }
     }
     if (fID != Function::invalidId())
         m_selectedIDList.append(QVariant(fID));
@@ -581,6 +649,10 @@ QString FunctionManager::getEditorResource(int funcID)
 void FunctionManager::setEditorFunction(quint32 fID, bool requestUI, bool back)
 {
     int previousID = -1;
+
+    // make sure the live preview is stopped when leaving the editor
+    if (m_scenePreviewEnabled)
+        setScenePreviewEnabled(false);
 
     // reset all the editor functions
     if (m_currentEditor != nullptr)
@@ -770,6 +842,21 @@ void FunctionManager::deleteFunction(quint32 fid)
     if (f == nullptr)
         return;
 
+    // if the function being deleted is currently open in an editor,
+    // close the editor first to avoid keeping a dangling reference
+    // (e.g. the RGBMatrix preview timer firing on a deleted function).
+    // The editor is destroyed but the side panel is kept open, going back
+    // to the function list
+    if ((m_currentEditor != nullptr && m_currentEditor->functionID() == fid) ||
+        (m_sceneEditor != nullptr && m_sceneEditor->functionID() == fid))
+    {
+        setEditorFunction(-1, false, false);
+
+        QQuickItem *rightPanel = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("funcRightPanel"));
+        if (rightPanel != nullptr)
+            QMetaObject::invokeMethod(rightPanel, "closeEditor");
+    }
+
     if (f->isRunning())
         f->stopAndWait();
 
@@ -841,11 +928,16 @@ void FunctionManager::moveFunction(quint32 fID, QString newPath)
 
 void FunctionManager::moveFunctions(QString newPath)
 {
+    newPath.replace('/', TreeModel::separator());
+    const QChar sep = TreeModel::separator();
+
+    const bool movingFunctions = !m_selectedIDList.isEmpty();
+    const bool movingFolders = !m_selectedFolderList.isEmpty();
     bool wasEmptyNode = false;
 
     qDebug() << "Moving" << m_selectedIDList.count() << "functions to" << newPath;
 
-    if (m_emptyFolderList.contains(newPath))
+    if (movingFunctions && m_emptyFolderList.contains(newPath))
     {
         m_functionTree->removeItem(newPath);
         m_emptyFolderList.removeAll(newPath);
@@ -863,16 +955,44 @@ void FunctionManager::moveFunctions(QString newPath)
         m_functionTree->setPathData(newPath, folderParams);
     }
 
-    if (m_selectedFolderList.count())
+    if (movingFunctions && !newPath.isEmpty())
     {
-        for (QString &path : m_selectedFolderList)
+        // The drop target and its ancestors are no longer empty.
+        QStringList tokens = newPath.split(sep, Qt::SkipEmptyParts);
+        QString acc;
+        for (const QString &token : tokens)
         {
+            acc = acc.isEmpty() ? token : acc + sep + token;
+            m_emptyFolderList.removeAll(acc);
+        }
+    }
+
+    if (movingFolders)
+    {
+        const QStringList selectedFolders = m_selectedFolderList;
+
+        for (const QString &path : selectedFolders)
+        {
+            if (path.isEmpty())
+                continue;
+
+            // Disallow dropping a folder into itself or any of its descendants.
+            if (path == newPath || (!newPath.isEmpty() && newPath.startsWith(path + sep)))
+                continue;
+
             QStringList tokens = path.split(TreeModel::separator());
+            if (tokens.isEmpty())
+                continue;
+
             QString newAbsPath;
             if (newPath.isEmpty())
                 newAbsPath = tokens.last();
             else
-                newAbsPath = newPath + TreeModel::separator() + tokens.last();
+                newAbsPath = newPath + sep + tokens.last();
+
+            if (newAbsPath == path)
+                continue;
+
             setFolderPath(path, newAbsPath, false);
         }
     }
@@ -888,10 +1008,16 @@ void FunctionManager::cloneFunctions()
         if (func == nullptr)
             continue;
 
-        Function* copy = func->createCopy(m_doc);
+        Function* copy = func->createCopy(m_doc, false);
         if (copy != nullptr)
         {
             copy->setName(copy->name() + tr(" (Copy)"));
+
+            if (m_doc->addFunction(copy) == false)
+            {
+                delete copy;
+                continue;
+            }
 
             /* If the cloned Function is a Sequence,
              * clone the bound Scene too */
@@ -915,6 +1041,14 @@ void FunctionManager::deleteEditorItems(QVariantList list)
 {
     if (m_currentEditor != nullptr)
         m_currentEditor->deleteItems(list);
+}
+
+bool FunctionManager::deleteCurrentEditorItems()
+{
+    if (m_currentEditor == nullptr)
+        return false;
+
+    return m_currentEditor->requestDeleteItems();
 }
 
 void FunctionManager::deleteSequenceFixtures(QVariantList list)
@@ -958,8 +1092,29 @@ bool FunctionManager::renameSelectedItems(QString newName, bool numbering, int s
         if (m_doc->functionByName(fName) != nullptr)
             return false;
 
-        Tardis::instance()->enqueueAction(Tardis::FunctionSetName, f->id(), f->name(), fName);
+        QString oldName = f->name();
+        QString oldTreePath = oldName;
+        QString fPath = f->path(true);
+        if (!fPath.isEmpty())
+        {
+            fPath.replace("/", TreeModel::separator());
+            oldTreePath = QString("%1%2%3").arg(fPath).arg(TreeModel::separator()).arg(oldName);
+        }
+
+        Tardis::instance()->enqueueAction(Tardis::FunctionSetName, f->id(), oldName, fName);
         f->setName(fName);
+
+        if (!oldTreePath.isEmpty() && m_functionTree->removeItem(oldTreePath))
+        {
+            QVariantList params;
+            params.append(QVariant::fromValue(f)); // classRef
+            params.append(App::FunctionDragItem); // type
+
+            QString treePath = f->path(true).replace("/", TreeModel::separator());
+            TreeModelItem *item = m_functionTree->addItem(fName, params, treePath);
+            if (item != nullptr && m_selectedIDList.contains(QVariant(f->id())))
+                item->setFlag(TreeModel::Selected, true);
+        }
     }
 
     return true;
@@ -1029,6 +1184,9 @@ int FunctionManager::selectedFolderCount() const
 
 void FunctionManager::setFolderPath(QString oldAbsPath, QString newPath, bool isRelative)
 {
+    if (oldAbsPath.isEmpty())
+        return;
+
     QStringList tokens = oldAbsPath.split(TreeModel::separator());
     QString newAbsPath;
 
@@ -1052,40 +1210,91 @@ void FunctionManager::setFolderPath(QString oldAbsPath, QString newPath, bool is
 
     qDebug() << "Folder path changed from" << oldAbsPath << "to" << newAbsPath;
 
-    if (m_emptyFolderList.contains(oldAbsPath))
-    {
-        m_emptyFolderList.removeOne(oldAbsPath);
-        m_emptyFolderList.append(newAbsPath);
-    }
-    else
-    {
-        QString oldAbsPathSlashed = oldAbsPath;
-        QString newAbsPathSlashed = newAbsPath;
-        oldAbsPathSlashed.replace(TreeModel::separator(), "/");
-        newAbsPathSlashed.replace(TreeModel::separator(), "/");
+    const QString treePrefix = oldAbsPath + TreeModel::separator();
+    const QString funcOldPrefix = QString(oldAbsPath).replace(TreeModel::separator(), "/");
+    const QString funcNewPrefix = QString(newAbsPath).replace(TreeModel::separator(), "/");
 
-        for (Function *f : m_doc->functions())
+    auto hasTreePrefix = [&oldAbsPath, &treePrefix](const QString &path) {
+        return path == oldAbsPath || path.startsWith(treePrefix);
+    };
+
+    auto hasFuncPrefix = [&funcOldPrefix](const QString &path) {
+        return path == funcOldPrefix || path.startsWith(funcOldPrefix + "/");
+    };
+
+    QStringList movedEmptyFolders;
+    for (int i = 0; i < m_emptyFolderList.count(); ++i)
+    {
+        const QString currentPath = m_emptyFolderList.at(i);
+        if (!hasTreePrefix(currentPath))
+            continue;
+
+        const QString suffix = currentPath.mid(oldAbsPath.length());
+        const QString updatedPath = newAbsPath + suffix;
+        m_emptyFolderList[i] = updatedPath;
+
+        if (!movedEmptyFolders.contains(updatedPath))
+            movedEmptyFolders.append(updatedPath);
+    }
+
+    for (Function *f : m_doc->functions())
+    {
+        QString funcPath = f->path(true);
+        if (!hasFuncPrefix(funcPath))
+            continue;
+
+        QString repPath = funcPath;
+        repPath.replace(0, funcOldPrefix.length(), funcNewPrefix);
+        if (isRelative)
         {
-            QString funcPath = f->path(true);
-            if (funcPath.startsWith(oldAbsPathSlashed))
-            {
-                if (isRelative)
-                {
-                    Tardis::instance()->enqueueAction(Tardis::FunctionSetPath, f->id(), funcPath, newAbsPathSlashed);
-                    f->setPath(newAbsPathSlashed);
-                }
-                else
-                {
-                    QString repPath = funcPath.replace(oldAbsPathSlashed, newAbsPathSlashed);
-                    repPath.replace("/", TreeModel::separator());
-                    moveFunction(f->id(), repPath);
-                }
-            }
+            Tardis::instance()->enqueueAction(Tardis::FunctionSetPath, f->id(), funcPath, repPath);
+            f->setPath(repPath);
+        }
+        else
+        {
+            repPath.replace("/", TreeModel::separator());
+            moveFunction(f->id(), repPath);
         }
     }
 
     if (isRelative == false)
+    {
         m_functionTree->removeItem(oldAbsPath);
+
+        if (!movedEmptyFolders.isEmpty())
+        {
+            std::sort(movedEmptyFolders.begin(), movedEmptyFolders.end(),
+                      [](const QString &left, const QString &right) {
+                return left.count(TreeModel::separator()) < right.count(TreeModel::separator());
+            });
+
+            QVariantList folderParams;
+            folderParams.append(QVariant()); // classRef
+            folderParams.append(App::FolderDragItem); // type
+
+            for (const QString &folderPath : movedEmptyFolders)
+            {
+                QStringList folderTokens = folderPath.split(TreeModel::separator(), Qt::SkipEmptyParts);
+                if (folderTokens.isEmpty())
+                    continue;
+
+                QString folderName = folderTokens.takeLast();
+                QString folderBasePath = folderTokens.join(TreeModel::separator());
+                m_functionTree->addItem(folderName, folderParams, folderBasePath,
+                                        TreeModel::EmptyNode | TreeModel::Expanded);
+            }
+        }
+    }
+
+    for (int i = 0; i < m_selectedFolderList.count(); ++i)
+    {
+        const QString selectedPath = m_selectedFolderList.at(i);
+        if (!hasTreePrefix(selectedPath))
+            continue;
+
+        const QString suffix = selectedPath.mid(oldAbsPath.length());
+        m_selectedFolderList[i] = newAbsPath + suffix;
+    }
 
     //m_functionTree->printTree();
 }
@@ -1146,13 +1355,30 @@ void FunctionManager::deleteSelectedFolders()
         }
         else
         {
+            // Function paths use '/' as separator, while folder paths in the tree
+            // use TreeModel::separator(). Convert before comparing.
+            QString slashedPath = QString(path).replace(TreeModel::separator(), '/');
+
             for (Function *func : m_doc->functions())
             {
                 if (func == nullptr)
                     continue;
 
-                if (func->path(true).startsWith(path))
+                QString funcPath = func->path(true);
+                // Delete a function if it lives in this folder or in any of its subfolders,
+                // matching on a folder boundary to avoid catching sibling folders that
+                // share the same prefix (e.g. "Foo" must not match "Foobar").
+                if (funcPath == slashedPath || funcPath.startsWith(slashedPath + '/'))
                     deleteFunction(func->id());
+            }
+
+            // Empty subfolders nested under the deleted one are not backed by any
+            // function, so remove them from the empty folder list as well.
+            for (int i = m_emptyFolderList.count() - 1; i >= 0; i--)
+            {
+                const QString &emptyPath = m_emptyFolderList.at(i);
+                if (emptyPath.startsWith(path + TreeModel::separator()))
+                    m_emptyFolderList.removeAt(i);
             }
         }
 
@@ -1200,9 +1426,28 @@ void FunctionManager::dumpDmxValues(QList<SceneValue> dumpValues, QList<quint32>
 
     // 2- determine if we're dumping on a new or existing Scene
     Scene *targetScene = nullptr;
+    Sequence *targetSequence = nullptr;
     if (sceneID != Function::invalidId())
     {
-        targetScene = qobject_cast<Scene*>(m_doc->function(sceneID));
+        Function *targetFunction = m_doc->function(sceneID);
+        if (targetFunction == nullptr)
+            return;
+
+        if (targetFunction->type() == Function::SequenceType)
+        {
+            targetSequence = qobject_cast<Sequence*>(targetFunction);
+            if (targetSequence == nullptr)
+                return;
+
+            targetScene = qobject_cast<Scene*>(m_doc->function(targetSequence->boundSceneID()));
+        }
+        else
+        {
+            targetScene = qobject_cast<Scene*>(targetFunction);
+        }
+
+        if (targetScene == nullptr)
+            return;
     }
     else
     {
@@ -1228,8 +1473,8 @@ void FunctionManager::dumpDmxValues(QList<SceneValue> dumpValues, QList<quint32>
         allChannels = true;
     }
 
-    // 4- iterate over all channels of all gathered fixtures
-    // and store values in the target Scene
+    // 4- iterate over all channels of all gathered fixtures and collect values
+    QList<SceneValue> dumpedValues;
     for (Fixture *fixture : fixtureList)
     {
         quint32 baseAddress = fixture->universeAddress();
@@ -1241,8 +1486,12 @@ void FunctionManager::dumpDmxValues(QList<SceneValue> dumpValues, QList<quint32>
                 uchar value = preGMValues.at(baseAddress + chIndex);
                 if (!nonZeroOnly || (nonZeroOnly && value > 0))
                 {
-                    SceneValue scv = SceneValue(fixture->id(), chIndex, value);
-                    targetScene->setValue(scv);
+                    SceneValue scv(fixture->id(), chIndex, value);
+                    int index = dumpedValues.indexOf(scv);
+                    if (index == -1)
+                        dumpedValues.append(scv);
+                    else
+                        dumpedValues.replace(index, scv);
                 }
             }
             else
@@ -1265,15 +1514,40 @@ void FunctionManager::dumpDmxValues(QList<SceneValue> dumpValues, QList<quint32>
                 if (channelMask & chTypeBit)
                 {
                     uchar value = preGMValues.at(baseAddress + chIndex);
-                    SceneValue scv = SceneValue(fixture->id(), chIndex, value);
+                    SceneValue scv(fixture->id(), chIndex, value);
                     int matchVal = dumpValues.indexOf(scv);
                     if (matchVal != -1)
                         scv.value = dumpValues.at(matchVal).value;
 
-                    targetScene->setValue(scv);
+                    int index = dumpedValues.indexOf(scv);
+                    if (index == -1)
+                        dumpedValues.append(scv);
+                    else
+                        dumpedValues.replace(index, scv);
                 }
             }
         }
+    }
+
+    for (SceneValue &scv : dumpedValues)
+        targetScene->setValue(scv);
+
+    if (targetSequence != nullptr)
+    {
+        int targetStepIndex = -1;
+        if (m_currentEditor != nullptr && m_currentEditor->functionType() == Function::SequenceType &&
+            m_currentEditor->functionID() == targetSequence->id())
+        {
+            ChaserEditor *chaserEditor = qobject_cast<ChaserEditor*>(m_currentEditor);
+            if (chaserEditor != nullptr)
+            {
+                targetStepIndex = chaserEditor->playbackIndex();
+                if (targetStepIndex < 0 || targetStepIndex >= targetSequence->stepsCount())
+                    targetStepIndex = (targetSequence->stepsCount() > 0) ? 0 : -1;
+            }
+        }
+
+        targetSequence->applyDumpValues(dumpedValues, targetStepIndex);
     }
 
     // 5- add Scene to the project, if needed
@@ -1289,6 +1563,7 @@ void FunctionManager::dumpDmxValues(QList<SceneValue> dumpValues, QList<quint32>
             setPreviewEnabled(false);
             Tardis::instance()->enqueueAction(Tardis::FunctionCreate, targetScene->id(), QVariant(),
                                               Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, targetScene->id()));
+            emit sceneCountChanged();
         }
         else
             delete targetScene;
@@ -1406,6 +1681,7 @@ void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value
     FunctionEditor *editor = m_currentEditor;
     SceneValue scv(fxID, channel, value);
     QVariant currentVal, newVal;
+    bool sequenceMirrorUpdate = false;
 
     if (editor == nullptr)
         return;
@@ -1413,10 +1689,16 @@ void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value
     if (editor->functionType() == Function::SequenceType)
     {
         ChaserEditor *cEditor = qobject_cast<ChaserEditor *>(editor);
-        cEditor->setSequenceStepValue(scv);
+        if (cEditor != nullptr)
+            cEditor->setSequenceStepValue(scv);
+
+        // Keep the Sequence bound Scene in sync with the edited step so
+        // SceneEditor views (like the bottom fixture console) update live.
         editor = m_sceneEditor;
+        sequenceMirrorUpdate = true;
     }
-    else if (editor->functionType() == Function::SceneType)
+
+    if (editor != nullptr && editor->functionType() == Function::SceneType)
     {
         Scene *scene = qobject_cast<Scene *>(m_doc->function(editor->functionID()));
         if (scene == nullptr)
@@ -1426,7 +1708,8 @@ void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value
 
         if (scene->checkValue(scv) == false)
         {
-            Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(), QVariant(), newVal);
+            if (sequenceMirrorUpdate == false)
+                Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(), QVariant(), newVal);
             scene->setValue(fxID, channel, value);
         }
         else
@@ -1436,7 +1719,8 @@ void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value
 
             if (currentVal != newVal || value != currDmxValue)
             {
-                Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(), currentVal, newVal);
+                if (sequenceMirrorUpdate == false)
+                    Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(), currentVal, newVal);
                 if (scene->isRunning())
                     scene->setValue(scv, false, false);
                 else
@@ -1486,7 +1770,27 @@ void FunctionManager::addFunctionTreeItem(Function *func)
 
 void FunctionManager::updateFunctionsTree()
 {
+    auto caseInsensitiveLess = [](const QString &left, const QString &right) {
+        return QString::localeAwareCompare(left.toCaseFolded(), right.toCaseFolded()) < 0;
+    };
+
+    auto functionLess = [&caseInsensitiveLess](Function *left, Function *right) {
+        if (left == nullptr || right == nullptr)
+            return left != nullptr;
+
+        QString leftPath = left->path(true);
+        QString rightPath = right->path(true);
+        if (leftPath.compare(rightPath, Qt::CaseInsensitive) != 0)
+            return caseInsensitiveLess(leftPath, rightPath);
+
+        return caseInsensitiveLess(left->name(), right->name());
+    };
+
     QStringList pathsList;
+    QList<Function *> sortedFunctions = m_doc->functions();
+    std::sort(sortedFunctions.begin(), sortedFunctions.end(), functionLess);
+    QStringList sortedEmptyFolders = m_emptyFolderList;
+    std::sort(sortedEmptyFolders.begin(), sortedEmptyFolders.end(), caseInsensitiveLess);
 
     storeExpandedPaths();
 
@@ -1496,7 +1800,7 @@ void FunctionManager::updateFunctionsTree()
 
     m_functionTree->clear();
 
-    for (Function *func : m_doc->functions()) // C++11
+    for (Function *func : sortedFunctions)
     {
         QString fPath = func->path(true);
         if (pathsList.contains(fPath) == false)
@@ -1514,9 +1818,11 @@ void FunctionManager::updateFunctionsTree()
         m_functionTree->setPathData(treePath, folderParams);
     }
 
-    for (QString &folderPath : m_emptyFolderList)
+    for (QString &folderPath : sortedEmptyFolders)
     {
         QStringList tokens = folderPath.split(TreeModel::separator());
+        if (tokens.isEmpty())
+            continue;
         QString fName = tokens.last();
         QString basePath;
         if (tokens.count() > 1)

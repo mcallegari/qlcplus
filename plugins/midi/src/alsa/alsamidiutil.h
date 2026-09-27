@@ -21,6 +21,7 @@
 #define ALSAMIDIUTIL_H
 
 #include <QVariant>
+#include <QString>
 
 struct _snd_seq;
 typedef _snd_seq snd_seq_t;
@@ -38,6 +39,8 @@ public:
     static QVariant addressToVariant(const snd_seq_addr_t* addr);
     static bool variantToAddress(const QVariant& var, snd_seq_addr_t* addr);
     static QString extractName(snd_seq_t* alsa, const snd_seq_addr_t* addr);
+    static QString extractUsbPath(snd_seq_t* alsa, int client);
+    static QVariant buildUid(snd_seq_t* alsa, const snd_seq_addr_t* addr);
 };
 
 #endif

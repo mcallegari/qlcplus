@@ -522,7 +522,7 @@ void RGBMatrixEditor::updateColors()
                 m_previewHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1),
                         m_matrix->algorithm());
             }
-            else 
+            else
             {
                 QPixmap pm(50, 26);
                 pm.fill(m_matrix->getColor(0));
@@ -566,7 +566,7 @@ void RGBMatrixEditor::updateColors()
  */
 void RGBMatrixEditor::resetProperties(QLayoutItem *item)
 {
-    if (item->layout()) 
+    if (item->layout())
     {
         // Process all child items recursively.
         for (int i = item->layout()->count() - 1; i >= 0; i--)

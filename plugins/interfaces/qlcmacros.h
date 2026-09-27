@@ -81,7 +81,8 @@
  * of 0 - 20.
  */
 #define SCALE(x, src_min, src_max, dest_min, dest_max) \
-      dest_min + ((x - src_min) * ((dest_max - dest_min) / (src_max - src_min)))
+    (((src_max) == (src_min)) ? (dest_min) : \
+     ((dest_min) + (((x) - (src_min)) * ((dest_max) - (dest_min))) / ((src_max) - (src_min))))
 
 
 #define MS_PER_SECOND (1000)                //! Milliseconds in a second

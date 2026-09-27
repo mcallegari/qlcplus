@@ -32,7 +32,7 @@
 #include "mastertimer.h"
 #include "universe.h"
 
-ScriptRunner::ScriptRunner(Doc *doc, QString &content, QObject *parent)
+ScriptRunner::ScriptRunner(Doc *doc, const QString &content, QObject *parent)
     : QThread(parent)
     , m_doc(doc)
     , m_content(content)
@@ -138,7 +138,7 @@ QStringList ScriptRunner::collectScriptData()
     return syntaxErrorList;
 }
 
-int ScriptRunner::currentWaitTime()
+int ScriptRunner::currentWaitTime() const
 {
     return m_waitCount * MasterTimer::tick();
 }
@@ -163,13 +163,17 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
                 m_fadersMap[val.m_universe] = fader;
             }
 
-            FadeChannel *fc = fader->getChannelFader(m_doc, universes[val.m_universe], val.m_fixtureID, val.m_channel);
-
-            fc->setStart(fc->current());
-            fc->setTarget(val.m_value);
-            fc->setFadeTime(val.m_fadeTime);
-            fc->setElapsed(0);
-            fc->setReady(false);
+            const uchar targetValue = val.m_value;
+            const uint fadeTime = val.m_fadeTime;
+            fader->updateChannel(m_doc, universes[val.m_universe], val.m_fixtureID, val.m_channel,
+                                 [targetValue, fadeTime](FadeChannel &fc)
+            {
+                fc.setStart(fc.current());
+                fc.setTarget(targetValue);
+                fc.setFadeTime(fadeTime);
+                fc.setElapsed(0);
+                fc.setReady(false);
+            });
         }
     }
     // if we don't have to wait and there are some functions in the queue
@@ -224,9 +228,11 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
         }
     }
 
-    // If the JS call method has ended on its own, the thread
-    // has finished, therefore there's nothing else to run here
-    if (m_running == false)
+    // If the JS call method has ended on its own, the thread has finished.
+    // Keep running until every queued operation has been dispatched, otherwise
+    // commands issued right before the script fell off the end would be lost
+    if (m_running == false && m_functionQueue.isEmpty() &&
+        m_waitFunctionId == Function::invalidId())
         return false;
 
     return true;
@@ -265,7 +271,6 @@ void ScriptRunner::run()
     if (script.isCallable() == false)
     {
         qDebug() << "ERROR. No function method found.";
-        return;
     }
     else
     {
@@ -276,13 +281,14 @@ void ScriptRunner::run()
             qWarning() << msg.arg(ret.property("lineNumber").toInt())
                              .arg(ret.toString());
         }
+
+        qDebug() << "[ScriptRunner] Code executed";
     }
 
-    qDebug() << "[ScriptRunner] Code executed";
-
-    // this thread is done. Wait for the calling Script to stop
-    while (m_running)
-        msleep(50);
+    // Signal write() that the JS code is done. Note that this must not stop
+    // the Script right away: pending queued operations are dispatched by
+    // write() on the MasterTimer thread and have to be flushed first
+    m_running = false;
 }
 
 /************************************************************************
@@ -353,7 +359,7 @@ bool ScriptRunner::stopOnExit(bool value)
     return true;
 }
 
-Function* ScriptRunner::getFunctionIfRunning(quint32 fID)
+Function* ScriptRunner::getFunctionIfRunning(quint32 fID) const
 {
     if (m_running == false)
         return NULL;
@@ -399,7 +405,7 @@ bool ScriptRunner::isFunctionRunning(quint32 fID)
     return function == NULL ? false : function->isRunning();
 }
 
-float ScriptRunner::getFunctionAttribute(quint32 fID, int attributeIndex)
+float ScriptRunner::getFunctionAttribute(quint32 fID, int attributeIndex) const
 {
     Function *function = getFunctionIfRunning(fID);
     return function == NULL ? 0 : function->getAttributeValue(attributeIndex);

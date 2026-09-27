@@ -27,22 +27,22 @@ DECLARE_FRAG_COLOR
 
 void main()
 {
-	vec2 halfpixel = pixelSize.xy;
-	vec2 uv = fsUv;
+    vec2 halfpixel = pixelSize.xy;
+    vec2 uv = fsUv;
 
-	vec4 sum = vec4(0.0, 0.0, 0.0, 0.0);
+    vec4 sum = vec4(0.0, 0.0, 0.0, 0.0);
 
-	sum += (2.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2(-halfpixel.x,  0.0) );
-	sum += (2.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2( 0.0,          halfpixel.y) );
-	sum += (2.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2( halfpixel.x,  0.0) );
-	sum += (2.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2( 0.0,         -halfpixel.y) );
+    sum += (2.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2(-halfpixel.x,  0.0) );
+    sum += (2.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2( 0.0,          halfpixel.y) );
+    sum += (2.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2( halfpixel.x,  0.0) );
+    sum += (2.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2( 0.0,         -halfpixel.y) );
 
-	sum += (1.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2(-halfpixel.x, -halfpixel.y) );
-	sum += (1.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2(-halfpixel.x,  halfpixel.y) );
-	sum += (1.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2( halfpixel.x, -halfpixel.y) );
-	sum += (1.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2( halfpixel.x,  halfpixel.y) );
+    sum += (1.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2(-halfpixel.x, -halfpixel.y) );
+    sum += (1.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2(-halfpixel.x,  halfpixel.y) );
+    sum += (1.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2( halfpixel.x, -halfpixel.y) );
+    sum += (1.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2( halfpixel.x,  halfpixel.y) );
 
-	sum += (4.0 / 16.0) * SAMPLE_TEX2D(tex, uv);
+    sum += (4.0 / 16.0) * SAMPLE_TEX2D(tex, uv);
 
-	MGL_FRAG_COLOR = intensity.x * sum;
+    MGL_FRAG_COLOR = intensity.x * sum;
 }

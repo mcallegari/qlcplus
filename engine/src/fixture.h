@@ -91,7 +91,7 @@ public:
     ~Fixture();
 
     /** Less-than operator for qSort() */
-    bool operator<(const Fixture& fxi);
+    bool operator<(const Fixture& fxi) const;
 
 signals:
     /** Emitted whenever a Fixture property is changed */
@@ -159,7 +159,7 @@ public:
      *
      * @return Fixture type
      */
-    QString typeString();
+    QString typeString() const;
 
     QLCFixtureDef::FixtureType type() const;
 
@@ -306,7 +306,7 @@ public:
     void setChannelCanFade(int idx, bool canFade);
 
     /** Check if a channel can be faded or not */
-    bool channelCanFade(int index);
+    bool channelCanFade(int index) const;
 
     /** Set a list of channel indices that are forced to be HTP */
     void setForcedHTPChannels(QList<int> indices);
@@ -329,7 +329,7 @@ public:
 
 protected:
     /** Find and store channel numbers (pan, tilt, intensity) */
-    void findChannels();
+    void findChannels() const;
 
 protected:
     /** DMX address & universe */
@@ -471,8 +471,8 @@ public:
     Q_ENUM(Components)
 
 protected:
-    QString componentsToString(Components comp, bool is16bit);
-    Components stringToComponents(QString str, bool &is16bit);
+    static QString componentsToString(Components comp, bool is16bit);
+    static Components stringToComponents(const QString& str, bool &is16bit);
 
 public:
     /** Creates and returns a definition for a generic RGB panel row */

@@ -34,6 +34,11 @@
 
 #define SETTINGS_AUDIO_OUTPUT_DEVICE "audio/output"
 
+/** Output buffer length in milliseconds. Lower values reduce playback
+ *  startup latency but increase the risk of underruns on slow systems. */
+#define SETTINGS_AUDIO_OUTPUT_BUFFER "audio/outputBufferMs"
+#define DEFAULT_AUDIO_OUTPUT_BUFFER_MS 100
+
 typedef struct
 {
     QString deviceName;
@@ -94,10 +99,10 @@ public:
     void adjustIntensity(qreal fraction);
 
     /* Get/Set the looping flag */
-    bool isLooped();
+    bool isLooped() const;
     void setLooped(bool looped);
 
-    bool isEos();
+    bool isEos() const;
 
 private:
     bool m_looped;
@@ -138,6 +143,12 @@ protected:
      * Subclass should reimplement this function.
      */
     virtual qint64 writeAudio(unsigned char *data, qint64 maxSize) = 0;
+
+    /*!
+     * Backend-specific EOS gate. Called after decoder EOF with no pending source
+     * bytes. Return true only when backend output is drained.
+     */
+    virtual bool backendDrainedAtEos() const;
 
 private:
     /** Reference to the decoder to be used as data source */

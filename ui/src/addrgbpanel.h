@@ -53,24 +53,24 @@ public:
     };
 
     enum Direction {
-    	Undefined,
-		Horizontal,
-		Vertical
+        Undefined,
+        Horizontal,
+        Vertical
     };
 
-    QString name();
-    int universeIndex();
-    int address();
-    int columns();
-    int rows();
-    quint32 physicalWidth();
-    quint32 physicalHeight();
-    Orientation orientation();
-    Type type();
-    Direction direction();
-    Fixture::Components components();
-    bool is16Bit();
-    bool crossUniverse();
+    QString name() const;
+    int universeIndex() const;
+    int address() const;
+    int columns() const;
+    int rows() const;
+    quint32 physicalWidth() const;
+    quint32 physicalHeight() const;
+    Orientation orientation() const;
+    Type type() const;
+    Direction direction() const;
+    Fixture::Components components() const;
+    bool is16Bit() const;
+    bool crossUniverse() const;
 
 private:
     /** Check if an address is available for contiguous channels.

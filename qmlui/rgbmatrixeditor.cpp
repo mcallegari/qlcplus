@@ -161,7 +161,7 @@ void RGBMatrixEditor::setAlgorithmIndex(int algoIndex)
     emit algoColorsChanged();
 }
 
-int RGBMatrixEditor::algoColorsCount()
+int RGBMatrixEditor::algoColorsCount() const
 {
     if (m_matrix == nullptr || m_matrix->algorithm() == nullptr)
         return 0;
@@ -186,7 +186,7 @@ QVariantList RGBMatrixEditor::algoColors()
     return m_algoColors;
 }
 
-QColor RGBMatrixEditor::colorAtIndex(int index)
+QColor RGBMatrixEditor::colorAtIndex(int index) const
 {
     if (m_matrix == nullptr || m_matrix->algorithm() == nullptr)
         return QColor();
@@ -225,7 +225,7 @@ void RGBMatrixEditor::resetColorAtIndex(int index)
         m_previewStepHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1), m_matrix->algorithm());
 }
 
-bool RGBMatrixEditor::hasColorAtIndex(int index)
+bool RGBMatrixEditor::hasColorAtIndex(int index) const
 {
     if (m_matrix == nullptr || m_matrix->getColor(index).isValid() == false)
         return false;

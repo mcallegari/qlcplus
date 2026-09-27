@@ -112,7 +112,7 @@ public:
     int getCurrentUniverseIndex() const;
     int getCurrentPage() const;
     uchar getAbsoluteChannelValue(uint address) const;
-    bool isChannelOverridden(uint address);
+    bool isChannelOverridden(uint address) const;
     void setAbsoluteChannelValue(uint address, uchar value);
     void resetAbsoluteChannel(uint address);
 
@@ -193,7 +193,7 @@ public:
     void writeDMX(MasterTimer* timer, QList<Universe*> ua) override;
 
 private:
-    FadeChannel *getFader(QList<Universe *> universes, quint32 universeID,
+    FadeChannel *getFader(const QList<Universe *> universes, quint32 universeID,
                           quint32 fixtureID, quint32 channel);
 
 private:

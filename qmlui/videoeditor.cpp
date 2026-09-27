@@ -209,7 +209,7 @@ void VideoEditor::setFullscreen(bool fullscreen)
     emit fullscreenChanged(fullscreen);
 }
 
-bool VideoEditor::isLooped()
+bool VideoEditor::isLooped() const
 {
     if (m_video != nullptr)
         return m_video->runOrder() == Video::Loop;

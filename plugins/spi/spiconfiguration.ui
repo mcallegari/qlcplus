@@ -51,22 +51,22 @@
     <widget class="QComboBox" name="m_freqCombo">
      <item>
       <property name="text">
-       <string>1Mhz</string>
+       <string>1 MHz</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>2Mhz</string>
+       <string>2 MHz</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>4MHz</string>
+       <string>4 MHz</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>8MHz</string>
+       <string>8 MHz</string>
       </property>
      </item>
     </widget>

@@ -70,6 +70,7 @@ class FunctionManager final : public QObject
     Q_PROPERTY(QStringList videoExtensions READ videoExtensions CONSTANT)
 
     Q_PROPERTY(bool previewEnabled READ previewEnabled WRITE setPreviewEnabled NOTIFY previewEnabledChanged)
+    Q_PROPERTY(bool scenePreviewEnabled READ scenePreviewEnabled WRITE setScenePreviewEnabled NOTIFY scenePreviewEnabledChanged)
 
 public:
     FunctionManager(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -127,9 +128,20 @@ public:
 
     Q_INVOKABLE QString functionPath(quint32 id);
 
+    /** Rebuild the functions tree. Public/invokable so it can be triggered after
+     *  functions are added or re-pathed outside this manager (e.g. the Stage
+     *  Wizard). */
+    Q_INVOKABLE void updateFunctionsTree();
+
     /** Enable/disable the Function preview feature */
     bool previewEnabled() const;
     void setPreviewEnabled(bool enable);
+
+    /** Enable/disable the live preview of the channel values being edited
+     *  on a Scene/Sequence. When enabled, the edited Scene (or the Sequence
+     *  bound Scene) is started, so channel changes are sent to the output */
+    bool scenePreviewEnabled() const;
+    void setScenePreviewEnabled(bool enable);
 
     /** Add $fID to the list of the currently selected Function IDs,
      *  considering $multiSelection as an append/replace action */
@@ -163,6 +175,12 @@ public:
      *  such as Functions, Fixtures, etc. as long as they have an ID.
      *  This happens AFTER a popup confirmation */
     Q_INVOKABLE void deleteEditorItems(QVariantList list);
+
+    /** Ask the currently open Function editor to delete its selected items.
+     *  The editor raises its own confirmation popup, so this happens
+     *  BEFORE any actual deletion.
+     *  Returns true if an editor handled the request */
+    bool deleteCurrentEditorItems();
 
     /** Specific method to delete fixtures from the currently edited Sequence.
      *  This happens AFTER a popup confirmation */
@@ -198,7 +216,6 @@ public:
 protected:
     quint32 addFunctiontoDoc(Function *func, QString name, bool select);
     void addFunctionTreeItem(Function *func);
-    void updateFunctionsTree();
     void clearTree();
     void moveFunction(quint32 fID, QString newPath);
     void storeExpandedPaths();
@@ -219,6 +236,7 @@ signals:
     void videoCountChanged();
     void selectedFunctionCountChanged(int count);
     void previewEnabledChanged();
+    void scenePreviewEnabledChanged();
     void isEditingChanged(bool editing);
     void viewPositionChanged(int viewPosition);
 
@@ -238,6 +256,10 @@ private:
 
     /** Flag that hold if Functions preview is enabled or not */
     bool m_previewEnabled;
+
+    /** Flag that holds if the live preview of the edited Scene/Sequence
+     *  channel values is enabled or not */
+    bool m_scenePreviewEnabled;
 
     /** List of the Function IDs currently selected
      *  and previewed, if preview is enabled */

@@ -58,6 +58,9 @@ EFXFixture::EFXFixture(const EFX* parent)
     , m_firstLsbChannel(QLCChannel::invalid())
     , m_secondMsbChannel(QLCChannel::invalid())
     , m_secondLsbChannel(QLCChannel::invalid())
+
+    , m_intensityMsbChannel(QLCChannel::invalid())
+    , m_intensityLsbChannel(QLCChannel::invalid())
 {
     Q_ASSERT(parent != NULL);
 
@@ -157,7 +160,7 @@ EFXFixture::Mode EFXFixture::mode() const
     return m_mode;
 }
 
-quint32 EFXFixture::universe()
+quint32 EFXFixture::universe() const
 {
     return m_universe;
 }
@@ -207,7 +210,7 @@ void EFXFixture::durationChanged()
     }
 }
 
-QStringList EFXFixture::modeList()
+QStringList EFXFixture::modeList() const
 {
     Fixture* fxi = doc()->fixture(head().fxi);
     Q_ASSERT(fxi != NULL);
@@ -411,6 +414,17 @@ void EFXFixture::start(QSharedPointer<GenericFader> fader)
             {
                 fader->setHandleSecondary(false);
             }
+
+            /* When dimmer control is enabled, cache the intensity channel too so
+               the EFX can drive the dimmer from the tilt (see nextStep). */
+            if (m_parent->dimmerControlEnabled())
+            {
+                m_intensityMsbChannel = fxi->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, head().head);
+                if (m_intensityMsbChannel != QLCChannel::invalid())
+                    m_intensityLsbChannel = fxi->channelNumber(QLCChannel::Intensity, QLCChannel::LSB, head().head);
+                else
+                    m_intensityMsbChannel = fxi->masterIntensityChannel();
+            }
         }
         break;
 
@@ -503,6 +517,12 @@ void EFXFixture::nextStep(QList<Universe *> universes, QSharedPointer<GenericFad
     {
         case PanTilt:
             setPointPanTilt(universes, fader, valX, valY);
+            /* When dimmer control is enabled, drive the dimmer from the EFX cycle
+               angle, phased by this fixture's StartOffset. See EFX::dimmerLevel(). */
+            if (m_parent->dimmerControlEnabled())
+                setPointIntensity(universes, fader,
+                                  m_parent->dimmerLevel(m_parent->convertOffset(m_startOffset),
+                                                        m_currentAngle));
         break;
 
         case RGB:
@@ -516,13 +536,13 @@ void EFXFixture::nextStep(QList<Universe *> universes, QSharedPointer<GenericFad
     }
 }
 
-void EFXFixture::updateFaderValues(FadeChannel *fc, quint32 value)
+void EFXFixture::updateFaderValues(FadeChannel &fc, quint32 value)
 {
-    fc->setStart(fc->current());
-    fc->setTarget(value);
-    fc->setElapsed(0);
-    fc->setReady(false);
-    fc->setFadeTime(0);
+    fc.setStart(fc.current());
+    fc.setTarget(value);
+    fc.setElapsed(0);
+    fc.setReady(false);
+    fc.setFadeTime(0);
 }
 
 void EFXFixture::setPointPanTilt(QList<Universe *> universes, QSharedPointer<GenericFader> fader,
@@ -546,46 +566,62 @@ void EFXFixture::setPointPanTilt(QList<Universe *> universes, QSharedPointer<Gen
     if (m_firstMsbChannel != QLCChannel::invalid())
     {
         quint32 panValue = quint32(pan);
-        FadeChannel *fc = fader->getChannelFader(doc(), uni, head().fxi, m_firstMsbChannel);
         if (m_firstLsbChannel != QLCChannel::invalid())
         {
             if (fader->handleSecondary())
             {
-                fc = fader->getChannelFader(doc(), uni, head().fxi, m_firstLsbChannel);
+                fader->updateChannel(doc(), uni, head().fxi, m_firstMsbChannel, [](FadeChannel &) {});
                 panValue = (panValue << 8) + quint32((pan - floor(pan)) * float(UCHAR_MAX));
             }
             else
             {
-                FadeChannel *lsbFc = fader->getChannelFader(doc(), uni, head().fxi, m_firstLsbChannel);
-                updateFaderValues(lsbFc, quint32((pan - floor(pan)) * float(UCHAR_MAX)));
+                const quint32 lsbValue = quint32((pan - floor(pan)) * float(UCHAR_MAX));
+                fader->updateChannel(doc(), uni, head().fxi, m_firstLsbChannel, [this, lsbValue](FadeChannel &fc)
+                {
+                    updateFaderValues(fc, lsbValue);
+                });
             }
         }
-        if (m_parent->isRelative())
-            fc->addFlag(FadeChannel::Relative);
+        const quint32 panChannel = (m_firstLsbChannel != QLCChannel::invalid() && fader->handleSecondary())
+                                   ? m_firstLsbChannel
+                                   : m_firstMsbChannel;
+        fader->updateChannel(doc(), uni, head().fxi, panChannel, [this, panValue](FadeChannel &fc)
+        {
+            if (m_parent->isRelative())
+                fc.addFlag(FadeChannel::Relative);
 
-        updateFaderValues(fc, panValue);
+            updateFaderValues(fc, panValue);
+        });
     }
     if (m_secondMsbChannel != QLCChannel::invalid())
     {
         quint32 tiltValue = quint32(tilt);
-        FadeChannel *fc = fader->getChannelFader(doc(), uni, head().fxi, m_secondMsbChannel);
         if (m_secondLsbChannel != QLCChannel::invalid())
         {
             if (fader->handleSecondary())
             {
-                fc = fader->getChannelFader(doc(), uni, head().fxi, m_secondLsbChannel);
+                fader->updateChannel(doc(), uni, head().fxi, m_secondMsbChannel, [](FadeChannel &) {});
                 tiltValue = (tiltValue << 8) + quint32((tilt - floor(tilt)) * float(UCHAR_MAX));
             }
             else
             {
-                FadeChannel *lsbFc = fader->getChannelFader(doc(), uni, head().fxi, m_secondLsbChannel);
-                updateFaderValues(lsbFc, quint32((tilt - floor(tilt)) * float(UCHAR_MAX)));
+                const quint32 lsbValue = quint32((tilt - floor(tilt)) * float(UCHAR_MAX));
+                fader->updateChannel(doc(), uni, head().fxi, m_secondLsbChannel, [this, lsbValue](FadeChannel &fc)
+                {
+                    updateFaderValues(fc, lsbValue);
+                });
             }
         }
-        if (m_parent->isRelative())
-            fc->addFlag(FadeChannel::Relative);
+        const quint32 tiltChannel = (m_secondLsbChannel != QLCChannel::invalid() && fader->handleSecondary())
+                                    ? m_secondLsbChannel
+                                    : m_secondMsbChannel;
+        fader->updateChannel(doc(), uni, head().fxi, tiltChannel, [this, tiltValue](FadeChannel &fc)
+        {
+            if (m_parent->isRelative())
+                fc.addFlag(FadeChannel::Relative);
 
-        updateFaderValues(fc, tiltValue);
+            updateFaderValues(fc, tiltValue);
+        });
     }
 }
 
@@ -600,18 +636,51 @@ void EFXFixture::setPointDimmer(QList<Universe *> universes, QSharedPointer<Gene
     if (m_firstMsbChannel != QLCChannel::invalid())
     {
         quint32 dimmerValue = quint32(dimmer);
-        FadeChannel *fc = fader->getChannelFader(doc(), uni, head().fxi, m_firstMsbChannel);
-
         if (m_firstLsbChannel != QLCChannel::invalid())
         {
             if (fader->handleSecondary())
             {
-                fc = fader->getChannelFader(doc(), uni, head().fxi, m_firstLsbChannel);
+                fader->updateChannel(doc(), uni, head().fxi, m_firstMsbChannel, [](FadeChannel &) {});
                 dimmerValue = (dimmerValue << 8) + quint32((dimmer - floor(dimmer)) * float(UCHAR_MAX));
             }
         }
-        updateFaderValues(fc, dimmerValue);
+
+        const quint32 dimmerChannel = (m_firstLsbChannel != QLCChannel::invalid() && fader->handleSecondary())
+                                      ? m_firstLsbChannel
+                                      : m_firstMsbChannel;
+        fader->updateChannel(doc(), uni, head().fxi, dimmerChannel, [this, dimmerValue](FadeChannel &fc)
+        {
+            updateFaderValues(fc, dimmerValue);
+        });
     }
+}
+
+void EFXFixture::setPointIntensity(QList<Universe *> universes, QSharedPointer<GenericFader> fader, float dimmer)
+{
+    if (fader.isNull())
+        return;
+
+    if (m_intensityMsbChannel == QLCChannel::invalid())
+        return;
+
+    Universe *uni = universes[universe()];
+
+    /* Scale the 0.0 - 1.0 dimmer level to a 16bit-capable DMX value */
+    quint32 value = quint32(dimmer * float(UCHAR_MAX));
+
+    quint32 intChannel = m_intensityMsbChannel;
+    if (m_intensityLsbChannel != QLCChannel::invalid() && fader->handleSecondary())
+    {
+        fader->updateChannel(doc(), uni, head().fxi, m_intensityMsbChannel, [](FadeChannel &) {});
+        value = (value << 8) + quint32((dimmer * float(UCHAR_MAX) - floor(dimmer * float(UCHAR_MAX))) * float(UCHAR_MAX));
+        intChannel = m_intensityLsbChannel;
+    }
+
+    fader->updateChannel(doc(), uni, head().fxi, intChannel, [this, value](FadeChannel &fc)
+    {
+        fc.setFadeTime(0);
+        updateFaderValues(fc, value);
+    });
 }
 
 void EFXFixture::setPointRGB(QList<Universe *> universes, QSharedPointer<GenericFader> fader, float x, float y)
@@ -629,13 +698,17 @@ void EFXFixture::setPointRGB(QList<Universe *> universes, QSharedPointer<Generic
     if (rgbChannels.size() >= 3 && !fader.isNull())
     {
         QColor pixel = m_rgbGradient.pixel(x, y);
-
-        FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), rgbChannels[0]);
-        updateFaderValues(fc, pixel.red());
-        fc = fader->getChannelFader(doc(), uni, fxi->id(), rgbChannels[1]);
-        updateFaderValues(fc, pixel.green());
-        fc = fader->getChannelFader(doc(), uni, fxi->id(), rgbChannels[2]);
-        updateFaderValues(fc, pixel.blue());
+        fader->updateChannel(doc(), uni, fxi->id(), rgbChannels[0], [this, pixel](FadeChannel &fc)
+        {
+            updateFaderValues(fc, pixel.red());
+        });
+        fader->updateChannel(doc(), uni, fxi->id(), rgbChannels[1], [this, pixel](FadeChannel &fc)
+        {
+            updateFaderValues(fc, pixel.green());
+        });
+        fader->updateChannel(doc(), uni, fxi->id(), rgbChannels[2], [this, pixel](FadeChannel &fc)
+        {
+            updateFaderValues(fc, pixel.blue());
+        });
     }
 }
-

@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.2.2 GIT</Version>
+  <Author>Giacomo Gorini</Author>
+ </Creator>
+ <Manufacturer>Robert Juliat</Manufacturer>
+ <Model>Dalis 860</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="Royal blue" Preset="IntensityIndigo"/>
+ <Channel Name="Royal blue fine" Preset="IntensityIndigoFine"/>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Cyan fine" Preset="IntensityCyanFine"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Amber fine" Preset="IntensityAmberFine"/>
+ <Channel Name="White cool" Preset="IntensityWhite"/>
+ <Channel Name="White cool fine" Preset="IntensityWhiteFine"/>
+ <Channel Name="Warm white" Preset="IntensityYellow"/>
+ <Channel Name="Warm white fine" Preset="IntensityYellowFine"/>
+ <Channel Name="Strobe duration">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="FastToSlow">Strobe OFF</Capability>
+  <Capability Min="1" Max="255">Strobe ON 1&gt;85 ms</Capability>
+ </Channel>
+ <Channel Name="Strobe speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Frequency 5.8&gt; 11.5 Hz</Capability>
+ </Channel>
+ <Channel Name="Response time" Default="255">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="250" Preset="FastToSlow">Dim timing 0.1&gt;4 s</Capability>
+  <Capability Min="251" Max="255">OFF</Capability>
+ </Channel>
+ <Channel Name="Control mode" Default="255">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="0">RDM On</Capability>
+  <Capability Min="1" Max="255">RDM Off</Capability>
+ </Channel>
+ <Channel Name="Dimmer 1" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer Fine 1" Preset="IntensityDimmerFine"/>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Red Fine 1" Preset="IntensityRedFine"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Green Fine 1" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Blue Fine 1" Preset="IntensityBlueFine"/>
+ <Channel Name="Royal Blue 1" Preset="IntensityIndigo"/>
+ <Channel Name="Royal Blue Fine 1" Preset="IntensityIndigoFine"/>
+ <Channel Name="Cyan 1" Preset="IntensityCyan"/>
+ <Channel Name="Cyan Fine 1" Preset="IntensityCyanFine"/>
+ <Channel Name="Amber 1" Preset="IntensityAmber"/>
+ <Channel Name="Amber Fine 1" Preset="IntensityAmberFine"/>
+ <Channel Name="Cool White 1" Preset="IntensityWhite"/>
+ <Channel Name="Cool White Fine 1" Preset="IntensityWhiteFine"/>
+ <Channel Name="Warm White 1" Preset="IntensityYellow"/>
+ <Channel Name="Warm White Fine 1" Preset="IntensityYellowFine"/>
+ <Channel Name="Dimmer 2" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer Fine 2" Preset="IntensityDimmerFine"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Red Fine 2" Preset="IntensityRedFine"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Green Fine 2" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue Fine 2" Preset="IntensityBlueFine"/>
+ <Channel Name="Royal Blue 2" Preset="IntensityIndigo"/>
+ <Channel Name="Royal Blue Fine 2" Preset="IntensityIndigoFine"/>
+ <Channel Name="Cyan 2" Preset="IntensityCyan"/>
+ <Channel Name="Cyan Fine 2" Preset="IntensityCyanFine"/>
+ <Channel Name="Amber 2" Preset="IntensityAmber"/>
+ <Channel Name="Amber Fine 2" Preset="IntensityAmberFine"/>
+ <Channel Name="Cool White 2" Preset="IntensityWhite"/>
+ <Channel Name="Cool White Fine 2" Preset="IntensityWhiteFine"/>
+ <Channel Name="Warm White 2" Preset="IntensityYellow"/>
+ <Channel Name="Warm White Fine 2" Preset="IntensityYellowFine"/>
+ <Channel Name="Dimmer 3" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer Fine 3" Preset="IntensityDimmerFine"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Red Fine 3" Preset="IntensityRedFine"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Green Fine 3" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Blue Fine 3" Preset="IntensityBlueFine"/>
+ <Channel Name="Royal Blue 3" Preset="IntensityIndigo"/>
+ <Channel Name="Royal Blue Fine 3" Preset="IntensityIndigoFine"/>
+ <Channel Name="Cyan 3" Preset="IntensityCyan"/>
+ <Channel Name="Cyan Fine 3" Preset="IntensityCyanFine"/>
+ <Channel Name="Amber 3" Preset="IntensityAmber"/>
+ <Channel Name="Amber Fine 3" Preset="IntensityAmberFine"/>
+ <Channel Name="Cool White 3" Preset="IntensityWhite"/>
+ <Channel Name="Cool White Fine 3" Preset="IntensityWhiteFine"/>
+ <Channel Name="Warm White 3" Preset="IntensityYellow"/>
+ <Channel Name="Warm White Fine 3" Preset="IntensityYellowFine"/>
+ <Channel Name="Dimmer 4" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer Fine 4" Preset="IntensityDimmerFine"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Red Fine 4" Preset="IntensityRedFine"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Green Fine 4" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="Blue Fine 4" Preset="IntensityBlueFine"/>
+ <Channel Name="Royal Blue 4" Preset="IntensityIndigo"/>
+ <Channel Name="Royal Blue Fine 4" Preset="IntensityIndigoFine"/>
+ <Channel Name="Cyan 4" Preset="IntensityCyan"/>
+ <Channel Name="Cyan Fine 4" Preset="IntensityCyanFine"/>
+ <Channel Name="Amber 4" Preset="IntensityAmber"/>
+ <Channel Name="Amber Fine 4" Preset="IntensityAmberFine"/>
+ <Channel Name="Cool White 4" Preset="IntensityWhite"/>
+ <Channel Name="Cool White Fine 4" Preset="IntensityWhiteFine"/>
+ <Channel Name="Warm White 4" Preset="IntensityYellow"/>
+ <Channel Name="Warm White Fine 4" Preset="IntensityYellowFine"/>
+ <Channel Name="CCT">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">Colour temperature: 2200 K --&gt; 6500 K</Capability>
+ </Channel>
+ <Channel Name="Colour Presets">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="9">L203: 1/4 CTB (E-color 203)</Capability>
+  <Capability Min="10" Max="14">L202: 1/2 CTB (E-color 202)</Capability>
+  <Capability Min="15" Max="19">L201: Full CTB (E-color 201)</Capability>
+  <Capability Min="20" Max="24">L200: Double CTB (E-color 200)</Capability>
+  <Capability Min="25" Max="29">L204: Full CTO (E-color 204)</Capability>
+  <Capability Min="30" Max="34">L205: Half CTO (E-color 205)</Capability>
+  <Capability Min="35" Max="39">E-Color 242: Fluorescent 4300K (L242 Fluorescent 4300K)</Capability>
+  <Capability Min="40" Max="44">E-Color 241: Fluorescent 5700K (L241 Fluorescent 5700K)</Capability>
+  <Capability Min="45" Max="49">E-Color 174: Dark steel blue (L161 Slate blue)</Capability>
+  <Capability Min="50" Max="54">E-Color 161: Slate blue (L161 Slate blue)</Capability>
+  <Capability Min="55" Max="59">E-Color 165: Daylight blue (L165 Daylight blue)</Capability>
+  <Capability Min="60" Max="64">E-Color 353: Lighter blue (L353 Lighter blue)</Capability>
+  <Capability Min="65" Max="69">Supergel 68: Parry sky blue (L68 Sky blue)</Capability>
+  <Capability Min="70" Max="74">Supergel 79: Bright blue (L79 Just blue)</Capability>
+  <Capability Min="75" Max="79">Supergel 82: Surprise blue (L723 Surprise blue)</Capability>
+  <Capability Min="80" Max="84">E-Color 119: Dark blue (L119 Dark blue)</Capability>
+  <Capability Min="85" Max="89">E-Color 363: Special medium blue (L363 Special medium blue)</Capability>
+  <Capability Min="90" Max="94">E-Color 122: Fern green (L122 Fern green)</Capability>
+  <Capability Min="95" Max="99">E-Color 124: Dark green (L124 Dark green)</Capability>
+  <Capability Min="100" Max="104">E-Color 138: Pale green (L138 Pale green)</Capability>
+  <Capability Min="105" Max="109">E-Color 134: Golden amber (L134 Golden amber)</Capability>
+  <Capability Min="110" Max="114">E-Color 147: Apricot (L147 Apricot)</Capability>
+  <Capability Min="115" Max="119">E-Color 101: Yellow (L101 yellow)</Capability>
+  <Capability Min="120" Max="124">E-Color 105: Orange (L105 orange)</Capability>
+  <Capability Min="125" Max="129">E-Color 344: Violet (L328 Follies pink)</Capability>
+  <Capability Min="130" Max="134">E-Color 180: Dark lavender (L706 King fals lavender)</Capability>
+  <Capability Min="135" Max="139">E-Color 106: Primary red (L182 Light red)</Capability>
+  <Capability Min="140" Max="199">Not used</Capability>
+  <Capability Min="200" Max="204">White: 6500 Kelvin</Capability>
+  <Capability Min="205" Max="209">White: 6000 Kelvin</Capability>
+  <Capability Min="210" Max="214">White: 5600 Kelvin</Capability>
+  <Capability Min="215" Max="219">White: 4200 Kelvin</Capability>
+  <Capability Min="220" Max="224">White: 4000 Kelvin</Capability>
+  <Capability Min="225" Max="229">White: 3500 Kelvin</Capability>
+  <Capability Min="230" Max="234">White: 3200 Kelvin</Capability>
+  <Capability Min="235" Max="239">White: 3000 Kelvin</Capability>
+  <Capability Min="240" Max="244">White: 2700 Kelvin</Capability>
+  <Capability Min="245" Max="249">White: 2200 Kelvin</Capability>
+  <Capability Min="250" Max="255">CCT channel activated</Capability>
+ </Channel>
+ <Mode Name="1 Full 4 Groups 16bit">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Red 1</Channel>
+  <Channel Number="3">Red Fine 1</Channel>
+  <Channel Number="4">Green 1</Channel>
+  <Channel Number="5">Green Fine 1</Channel>
+  <Channel Number="6">Blue 1</Channel>
+  <Channel Number="7">Blue Fine 1</Channel>
+  <Channel Number="8">Royal Blue 1</Channel>
+  <Channel Number="9">Royal Blue Fine 1</Channel>
+  <Channel Number="10">Cyan 1</Channel>
+  <Channel Number="11">Cyan Fine 1</Channel>
+  <Channel Number="12">Amber 1</Channel>
+  <Channel Number="13">Amber Fine 1</Channel>
+  <Channel Number="14">Cool White 1</Channel>
+  <Channel Number="15">Cool White Fine 1</Channel>
+  <Channel Number="16">Warm White 1</Channel>
+  <Channel Number="17">Warm White Fine 1</Channel>
+  <Channel Number="18">Red 2</Channel>
+  <Channel Number="19">Red Fine 2</Channel>
+  <Channel Number="20">Green 2</Channel>
+  <Channel Number="21">Green Fine 2</Channel>
+  <Channel Number="22">Blue 2</Channel>
+  <Channel Number="23">Blue Fine 2</Channel>
+  <Channel Number="24">Royal Blue 2</Channel>
+  <Channel Number="25">Royal Blue Fine 2</Channel>
+  <Channel Number="26">Cyan 2</Channel>
+  <Channel Number="27">Cyan Fine 2</Channel>
+  <Channel Number="28">Amber 2</Channel>
+  <Channel Number="29">Amber Fine 2</Channel>
+  <Channel Number="30">Cool White 2</Channel>
+  <Channel Number="31">Cool White Fine 2</Channel>
+  <Channel Number="32">Warm White 2</Channel>
+  <Channel Number="33">Warm White Fine 2</Channel>
+  <Channel Number="34">Red 3</Channel>
+  <Channel Number="35">Red Fine 3</Channel>
+  <Channel Number="36">Green 3</Channel>
+  <Channel Number="37">Green Fine 3</Channel>
+  <Channel Number="38">Blue 3</Channel>
+  <Channel Number="39">Blue Fine 3</Channel>
+  <Channel Number="40">Royal Blue 3</Channel>
+  <Channel Number="41">Royal Blue Fine 3</Channel>
+  <Channel Number="42">Cyan 3</Channel>
+  <Channel Number="43">Cyan Fine 3</Channel>
+  <Channel Number="44">Amber 3</Channel>
+  <Channel Number="45">Amber Fine 3</Channel>
+  <Channel Number="46">Cool White 3</Channel>
+  <Channel Number="47">Cool White Fine 3</Channel>
+  <Channel Number="48">Warm White 3</Channel>
+  <Channel Number="49">Warm White Fine 3</Channel>
+  <Channel Number="50">Red 4</Channel>
+  <Channel Number="51">Red Fine 4</Channel>
+  <Channel Number="52">Green 4</Channel>
+  <Channel Number="53">Green Fine 4</Channel>
+  <Channel Number="54">Blue 4</Channel>
+  <Channel Number="55">Blue Fine 4</Channel>
+  <Channel Number="56">Royal Blue 4</Channel>
+  <Channel Number="57">Royal Blue Fine 4</Channel>
+  <Channel Number="58">Cyan 4</Channel>
+  <Channel Number="59">Cyan Fine 4</Channel>
+  <Channel Number="60">Amber 4</Channel>
+  <Channel Number="61">Amber Fine 4</Channel>
+  <Channel Number="62">Cool White 4</Channel>
+  <Channel Number="63">Cool White Fine 4</Channel>
+  <Channel Number="64">Warm White 4</Channel>
+  <Channel Number="65">Warm White Fine 4</Channel>
+  <Channel Number="66">Strobe duration</Channel>
+  <Channel Number="67">Strobe speed</Channel>
+  <Channel Number="68">Response time</Channel>
+  <Channel Number="69">Control mode</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+  </Head>
+  <Head>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+  </Head>
+  <Head>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+   <Channel>64</Channel>
+   <Channel>65</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="2 Full 1 Group 16bit">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Red fine</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Green fine</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">Blue fine</Channel>
+  <Channel Number="8">Royal blue</Channel>
+  <Channel Number="9">Royal blue fine</Channel>
+  <Channel Number="10">Cyan</Channel>
+  <Channel Number="11">Cyan fine</Channel>
+  <Channel Number="12">Amber</Channel>
+  <Channel Number="13">Amber fine</Channel>
+  <Channel Number="14">White cool</Channel>
+  <Channel Number="15">White cool fine</Channel>
+  <Channel Number="16">Warm white</Channel>
+  <Channel Number="17">Warm white fine</Channel>
+  <Channel Number="18">Strobe duration</Channel>
+  <Channel Number="19">Strobe speed</Channel>
+  <Channel Number="20">Response time</Channel>
+  <Channel Number="21">Control mode</Channel>
+ </Mode>
+ <Mode Name="3 Full 1 Group 8bit">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Royal blue</Channel>
+  <Channel Number="5">Cyan</Channel>
+  <Channel Number="6">Amber</Channel>
+  <Channel Number="7">White cool</Channel>
+  <Channel Number="8">Warm white</Channel>
+  <Channel Number="9">Strobe duration</Channel>
+  <Channel Number="10">Strobe speed</Channel>
+  <Channel Number="11">Response time</Channel>
+  <Channel Number="12">Control mode</Channel>
+ </Mode>
+ <Mode Name="4 Presets 16bit">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Colour Presets</Channel>
+  <Channel Number="3">CCT</Channel>
+  <Channel Number="4">Strobe duration</Channel>
+  <Channel Number="5">Strobe speed</Channel>
+  <Channel Number="6">Response time</Channel>
+  <Channel Number="7">Control mode</Channel>
+ </Mode>
+ <Mode Name="5 Presets 8bit">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Colour Presets</Channel>
+  <Channel Number="2">CCT</Channel>
+  <Channel Number="3">Strobe duration</Channel>
+  <Channel Number="4">Strobe speed</Channel>
+  <Channel Number="5">Response time</Channel>
+  <Channel Number="6">Control mode</Channel>
+ </Mode>
+ <Mode Name="6 Full 4 Groups Individual 16bit">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Dimmer Fine 1</Channel>
+  <Channel Number="2">Red 1</Channel>
+  <Channel Number="3">Red Fine 1</Channel>
+  <Channel Number="4">Green 1</Channel>
+  <Channel Number="5">Green Fine 1</Channel>
+  <Channel Number="6">Blue 1</Channel>
+  <Channel Number="7">Blue Fine 1</Channel>
+  <Channel Number="8">Royal Blue 1</Channel>
+  <Channel Number="9">Royal Blue Fine 1</Channel>
+  <Channel Number="10">Cyan 1</Channel>
+  <Channel Number="11">Cyan Fine 1</Channel>
+  <Channel Number="12">Amber 1</Channel>
+  <Channel Number="13">Amber Fine 1</Channel>
+  <Channel Number="14">Cool White 1</Channel>
+  <Channel Number="15">Cool White Fine 1</Channel>
+  <Channel Number="16">Warm White 1</Channel>
+  <Channel Number="17">Warm White Fine 1</Channel>
+  <Channel Number="18">Dimmer 2</Channel>
+  <Channel Number="19">Dimmer Fine 2</Channel>
+  <Channel Number="20">Red 2</Channel>
+  <Channel Number="21">Red Fine 2</Channel>
+  <Channel Number="22">Green 2</Channel>
+  <Channel Number="23">Green Fine 2</Channel>
+  <Channel Number="24">Blue 2</Channel>
+  <Channel Number="25">Blue Fine 2</Channel>
+  <Channel Number="26">Royal Blue 2</Channel>
+  <Channel Number="27">Royal Blue Fine 2</Channel>
+  <Channel Number="28">Cyan 2</Channel>
+  <Channel Number="29">Cyan Fine 2</Channel>
+  <Channel Number="30">Amber 2</Channel>
+  <Channel Number="31">Amber Fine 2</Channel>
+  <Channel Number="32">Cool White 2</Channel>
+  <Channel Number="33">Cool White Fine 2</Channel>
+  <Channel Number="34">Warm White 2</Channel>
+  <Channel Number="35">Warm White Fine 2</Channel>
+  <Channel Number="36">Dimmer 3</Channel>
+  <Channel Number="37">Dimmer Fine 3</Channel>
+  <Channel Number="38">Red 3</Channel>
+  <Channel Number="39">Red Fine 3</Channel>
+  <Channel Number="40">Green 3</Channel>
+  <Channel Number="41">Green Fine 3</Channel>
+  <Channel Number="42">Blue 3</Channel>
+  <Channel Number="43">Blue Fine 3</Channel>
+  <Channel Number="44">Royal Blue 3</Channel>
+  <Channel Number="45">Royal Blue Fine 3</Channel>
+  <Channel Number="46">Cyan 3</Channel>
+  <Channel Number="47">Cyan Fine 3</Channel>
+  <Channel Number="48">Amber 3</Channel>
+  <Channel Number="49">Amber Fine 3</Channel>
+  <Channel Number="50">Cool White 3</Channel>
+  <Channel Number="51">Cool White Fine 3</Channel>
+  <Channel Number="52">Warm White 3</Channel>
+  <Channel Number="53">Warm White Fine 3</Channel>
+  <Channel Number="54">Dimmer 4</Channel>
+  <Channel Number="55">Dimmer Fine 4</Channel>
+  <Channel Number="56">Red 4</Channel>
+  <Channel Number="57">Red Fine 4</Channel>
+  <Channel Number="58">Green 4</Channel>
+  <Channel Number="59">Green Fine 4</Channel>
+  <Channel Number="60">Blue 4</Channel>
+  <Channel Number="61">Blue Fine 4</Channel>
+  <Channel Number="62">Royal Blue 4</Channel>
+  <Channel Number="63">Royal Blue Fine 4</Channel>
+  <Channel Number="64">Cyan 4</Channel>
+  <Channel Number="65">Cyan Fine 4</Channel>
+  <Channel Number="66">Amber 4</Channel>
+  <Channel Number="67">Amber Fine 4</Channel>
+  <Channel Number="68">Cool White 4</Channel>
+  <Channel Number="69">Cool White Fine 4</Channel>
+  <Channel Number="70">Warm White 4</Channel>
+  <Channel Number="71">Warm White Fine 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+  </Head>
+  <Head>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+   <Channel>64</Channel>
+   <Channel>65</Channel>
+   <Channel>66</Channel>
+   <Channel>67</Channel>
+   <Channel>68</Channel>
+   <Channel>69</Channel>
+   <Channel>70</Channel>
+   <Channel>71</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="20000" ColourTemperature="6500"/>
+  <Dimensions Weight="11" Width="1005" Height="159" Depth="143"/>
+  <Lens Name="Other" DegreesMin="90" DegreesMax="90"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="2"/>
+  <Technical PowerConsumption="290" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

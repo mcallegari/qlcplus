@@ -39,12 +39,15 @@ class VirtualConsole;
 class FunctionManager;
 class QXmlStreamReader;
 class FixtureGroupEditor;
+class FixtureRemapManager;
 class InputOutputManager;
 class ImportManager;
 class NetworkManager;
 class VideoProvider;
 class FixtureEditor;
+class StageWizard;
 class Tardis;
+class QMouseEvent;
 
 #define SETTINGS_LANGUAGE "ui/language"
 
@@ -64,6 +67,8 @@ class App final : public QQuickView
     Q_PROPERTY(QString appName READ appName CONSTANT)
     Q_PROPERTY(QString appVersion READ appVersion CONSTANT)
     Q_PROPERTY(bool is3DSupported READ is3DSupported CONSTANT)
+    Q_PROPERTY(qreal screenDiagonal READ screenDiagonal NOTIFY screenDiagonalChanged)
+    Q_PROPERTY(bool smallScreen READ smallScreen NOTIFY screenDiagonalChanged)
 
 public:
     App();
@@ -172,12 +177,21 @@ public:
     /** Return the number of pixels in 1mm */
     qreal pixelDensity() const;
 
+    /** Return the physical diagonal size of the current screen, in inches */
+    qreal screenDiagonal() const;
+
+    /** Return true if the current screen is a small one (7 inches or below),
+     *  where the UI needs to compact itself to save space */
+    bool smallScreen() const;
+
     /** Get/Set the UI access mask */
     int defaultMask() const;
     void setAccessMask(int mask);
     int accessMask() const;
 
+    /** Get/Set the 3D support status */
     bool is3DSupported() const;
+    void set3dSupported(bool enable);
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
@@ -189,18 +203,26 @@ protected:
 protected:
     void keyPressEvent(QKeyEvent * e) override;
     void keyReleaseEvent(QKeyEvent * e) override;
+    void mousePressEvent(QMouseEvent *e) override;
     bool event(QEvent *event) override;
 
 protected slots:
     void slotSceneGraphInitialized();
     void slotScreenChanged(QScreen *screen);
     void slotClosing();
-    void slotClientAccessRequest(QString name);
+    void slotClientAccessRequest(QString sessionId, QString name,
+                                 QString peerAddress, quint16 peerPort);
+    void slotClientAccessRequestCancelled(QString sessionId);
+
+    /** Serve the current workspace to a client that requested it */
+    void slotClientProjectRequest(QString sessionId);
+
     void slotAccessMaskChanged(int mask);
     void slotDocAutosave();
 
 signals:
     void accessMaskChanged(int mask);
+    void screenDiagonalChanged();
 
 private:
     /** Flag to quit the application forcefully */
@@ -209,10 +231,17 @@ private:
     /** The number of pixels in one millimeter */
     qreal m_pixelDensity;
 
+    /** The physical diagonal size of the current screen, in inches */
+    qreal m_screenDiagonal = 0;
+
     /** Bitmask to enable/disable UI functionalities */
     int m_accessMask;
 
+    /** 3D support flag */
+    bool m_is3dSupported;
+
     QTranslator *m_translator;
+    QTranslator *m_translator_base;
 
     FixtureBrowser *m_fixtureBrowser;
     FixtureManager *m_fixtureManager;
@@ -228,6 +257,7 @@ private:
     VideoProvider *m_videoProvider;
     NetworkManager *m_networkManager;
     UiManager *m_uiManager;
+    StageWizard *m_stageWizard;
     Tardis *m_tardis;
 
     /*********************************************************************
@@ -242,6 +272,9 @@ public:
 
     /** Return the QML Simple Desk instance */
     SimpleDesk *simpleDesk() const;
+
+    /** Return the network manager instance */
+    NetworkManager *networkManager() const;
 
     /** Return if the current Doc instance has been loaded */
     bool docLoaded();
@@ -358,6 +391,11 @@ signals:
 
 public slots:
     void slotLoadDocFromMemory(QByteArray &xmlData);
+
+    /** Clear the whole workspace on request of the connected server, which
+     *  is about to replace its own project */
+    void slotClearDocFromNetwork();
+
     void slotSaveAutostart(QString fileName);
 
 private:
@@ -380,6 +418,7 @@ public:
 
 private:
     ImportManager *m_importManager;
+    FixtureRemapManager *m_fixtureRemapManager;
 
     /*********************************************************************
      * Fixture editor

@@ -57,15 +57,15 @@ public:
 
     /** Return the number of universes added to the tree during the last
      *  updateTree call */
-    int universeCount();
+    int universeCount() const;
 
     /** Return the number of fixtures added to the tree during the last
      *  updateTree call */
-    int fixturesCount();
+    int fixturesCount() const;
 
     /** Return the number of channels added to the tree during the last
      *  updateTree call */
-    int channelsCount();
+    int channelsCount() const;
 
 protected slots:
     void slotItemExpanded();
@@ -98,7 +98,7 @@ public:
 
     void setFlags(quint32 flags);
 
-    quint32 flags();
+    quint32 flags() const;
 
 private:
     int m_uniColumn;

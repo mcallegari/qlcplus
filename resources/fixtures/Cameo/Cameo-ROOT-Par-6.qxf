@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>5.1.0 GIT</Version>
+  <Version>5.2.2 GIT</Version>
   <Author>Florian Faber, Jakob Frank</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
@@ -157,37 +157,68 @@
   <Capability Min="208" Max="213">User Color_2</Capability>
   <Capability Min="214" Max="219">User Color_3</Capability>
   <Capability Min="220" Max="225">User Color_4</Capability>
-  <Capability Min="226" Max="255">no function</Capability>
+  <Capability Min="226" Max="255">UV</Capability>
  </Channel>
- <Mode Name="3-Channel">
-  <Channel Number="0" ActsOn="2">Master Dimmer</Channel>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Color Presets &amp; Color Jumping &amp; Color Fading &amp; User Colors</Channel>
+ </Mode>
+ <Mode Name="3 Channel with DMX delay">
+  <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Color Presets &amp; Color Jumping &amp; Color Fading &amp; User Colors</Channel>
   <Channel Number="2">DMX Delay</Channel>
  </Mode>
- <Mode Name="5-Channel 1">
-  <Channel Number="0" ActsOn="4">Master Dimmer</Channel>
+ <Mode Name="4 Channel 1">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe functions</Channel>
+  <Channel Number="2">Color Presets &amp; Color Jumping &amp; Color Fading &amp; User Colors</Channel>
+  <Channel Number="3">Sound (triggers Strobe, Color Jumping &amp; Fading)</Channel>
+ </Mode>
+ <Mode Name="5 Channel 1 with DMX delay">
+  <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Strobe functions</Channel>
   <Channel Number="2">Color Presets &amp; Color Jumping &amp; Color Fading &amp; User Colors</Channel>
   <Channel Number="3">Sound (triggers Strobe, Color Jumping &amp; Fading)</Channel>
   <Channel Number="4">DMX Delay</Channel>
  </Mode>
- <Mode Name="5-Channel 2 (compatibility for ROOT PAR 4)">
-  <Channel Number="0" ActsOn="4">Red</Channel>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Mode Name="5 Channel 2 (compatibility for ROOT PAR 4) with DMX delay">
+  <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">White</Channel>
   <Channel Number="4">DMX Delay</Channel>
  </Mode>
- <Mode Name="6-Channel">
-  <Channel Number="0" ActsOn="5">Master Dimmer</Channel>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Chase of Ch 4 and Ch 5</Channel>
+  <Channel Number="3">Color Presets 1 &amp; Color Jumping &amp; Color Fading &amp; User Colors</Channel>
+  <Channel Number="4">Color Presets 2 &amp; Color Jumping &amp; Color Fading &amp; User Colors</Channel>
+ </Mode>
+ <Mode Name="6 Channel with DMX delay">
+  <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Chase of Ch 4 and Ch 5</Channel>
   <Channel Number="3">Color Presets 1 &amp; Color Jumping &amp; Color Fading &amp; User Colors</Channel>
   <Channel Number="4">Color Presets 2 &amp; Color Jumping &amp; Color Fading &amp; User Colors</Channel>
   <Channel Number="5">DMX Delay</Channel>
  </Mode>
- <Mode Name="7-Channel">
-  <Channel Number="0" ActsOn="6">Red</Channel>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+ </Mode>
+ <Mode Name="7 Channel with DMX delay">
+  <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">White</Channel>
@@ -195,8 +226,18 @@
   <Channel Number="5">UV</Channel>
   <Channel Number="6">DMX Delay</Channel>
  </Mode>
- <Mode Name="9-Channel">
-  <Channel Number="0" ActsOn="8">Master Dimmer</Channel>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">Amber</Channel>
+  <Channel Number="7">UV</Channel>
+ </Mode>
+ <Mode Name="9 Channel with DMX delay">
+  <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Red</Channel>
   <Channel Number="3">Green</Channel>
@@ -206,8 +247,21 @@
   <Channel Number="7">UV</Channel>
   <Channel Number="8">DMX Delay</Channel>
  </Mode>
- <Mode Name="12-Channel">
-  <Channel Number="0" ActsOn="11">Master Dimmer</Channel>
+ <Mode Name="11 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Master dimmer fine</Channel>
+  <Channel Number="2">Strobe functions</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">Amber</Channel>
+  <Channel Number="8">UV</Channel>
+  <Channel Number="9">Color Presets &amp; Color Jumping &amp; Color Fading &amp; User Colors (override RGBWA+UV)</Channel>
+  <Channel Number="10">Sound (triggers Strobe, Color Jumping &amp; Fading)</Channel>
+ </Mode>
+ <Mode Name="12 Channel with DMX delay">
+  <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Master dimmer fine</Channel>
   <Channel Number="2">Strobe functions</Channel>
   <Channel Number="3">Red</Channel>

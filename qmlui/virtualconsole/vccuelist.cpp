@@ -96,10 +96,16 @@ void VCCueList::render(QQuickView *view, QQuickItem *parent)
     if (component->isError())
     {
         qDebug() << component->errors();
+        delete component;
         return;
     }
 
     m_item = qobject_cast<QQuickItem*>(component->create());
+    if (m_item == nullptr)
+        qWarning() << Q_FUNC_INFO << "Unable to create cue list component" << component->errors();
+    delete component;
+    if (m_item == nullptr)
+        return;
 
     m_item->setParentItem(parent);
     m_item->setProperty("cueListObj", QVariant::fromValue(this));
@@ -135,6 +141,7 @@ bool VCCueList::copyFrom(const VCWidget *widget)
 
     setPlaybackLayout(cuelist->playbackLayout());
     setNextPrevBehavior(cuelist->nextPrevBehavior());
+    setColumnsWidths(cuelist->columnsWidths());
 
     /* Common stuff */
     return VCWidget::copyFrom(widget);
@@ -245,6 +252,8 @@ void VCCueList::setSideFaderLevel(int level)
 {
     if (level == m_sideFaderLevel)
         return;
+
+    Tardis::instance()->enqueueAction(Tardis::VCCueListSideFaderLevel, id(), m_sideFaderLevel, level);
 
     m_sideFaderLevel = level;
 
@@ -361,7 +370,7 @@ FunctionParent VCCueList::functionParent() const
     return FunctionParent(FunctionParent::ManualVCWidget, id());
 }
 
-Chaser *VCCueList::chaser()
+Chaser *VCCueList::chaser() const
 {
     if (m_chaserID == Function::invalidId())
         return nullptr;
@@ -446,6 +455,20 @@ void VCCueList::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fInt
         return;
 
     stopChaser();
+}
+
+QVariantList VCCueList::columnsWidths() const
+{
+    return m_columnsWidths;
+}
+
+void VCCueList::setColumnsWidths(QVariantList widths)
+{
+    if (m_columnsWidths == widths)
+        return;
+
+    m_columnsWidths = widths;
+    emit columnsWidthsChanged();
 }
 
 quint32 VCCueList::chaserID() const
@@ -618,18 +641,22 @@ void VCCueList::setPlaybackIndex(int playbackIndex)
     if (m_playbackIndex == playbackIndex)
         return;
 
+    int previousIndex = m_playbackIndex;
+
     m_playbackIndex = playbackIndex;
     emit playbackIndexChanged(playbackIndex);
 
     Chaser *ch = chaser();
-    if (ch == nullptr)
-        return;
+    if (ch != nullptr)
+    {
+        m_nextStepIndex = playbackIndex >= 0 ? ch->computeNextStep(playbackIndex) : -1;
+        emit nextStepIndexChanged();
+    }
 
-    m_nextStepIndex = playbackIndex >= 0 ? ch->computeNextStep(playbackIndex) : -1;
-    emit nextStepIndexChanged();
+    Tardis::instance()->enqueueAction(Tardis::VCCueListSetIndex, id(), previousIndex, playbackIndex);
 }
 
-VCCueList::PlaybackStatus VCCueList::playbackStatus()
+VCCueList::PlaybackStatus VCCueList::playbackStatus() const
 {
     Chaser *ch = chaser();
 
@@ -733,6 +760,8 @@ void VCCueList::playClicked()
     if (ch == nullptr)
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::VCCueListPlayClicked, id(), QVariant(), QVariant());
+
     if (ch->isRunning())
     {
         if (playbackLayout() == PlayPauseStop)
@@ -765,6 +794,8 @@ void VCCueList::stopClicked()
     if (ch == nullptr)
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::VCCueListStopClicked, id(), QVariant(), QVariant());
+
     if (ch->isRunning())
     {
         if (playbackLayout() == PlayPauseStop)
@@ -788,6 +819,8 @@ void VCCueList::previousClicked()
     Chaser *ch = chaser();
     if (ch == nullptr)
         return;
+
+    Tardis::instance()->enqueueAction(Tardis::VCCueListPreviousClicked, id(), QVariant(), QVariant());
 
     if (ch->isRunning())
     {
@@ -829,6 +862,8 @@ void VCCueList::nextClicked()
     Chaser *ch = chaser();
     if (ch == nullptr)
         return;
+
+    Tardis::instance()->enqueueAction(Tardis::VCCueListNextClicked, id(), QVariant(), QVariant());
 
     if (ch->isRunning())
     {
@@ -1052,6 +1087,15 @@ bool VCCueList::loadXML(QXmlStreamReader &root)
         {
             root.skipCurrentElement();
         }
+        else if (root.name() == KXMLQLCVCCueListColumnsWidths)
+        {
+            QVariantList widths;
+            QStringList wList = root.readElementText().split(",");
+            for (QString wStr : wList)
+                widths.append(wStr.toDouble());
+
+            setColumnsWidths(widths);
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown VC Cue list tag:" << root.name().toString();
@@ -1091,6 +1135,16 @@ bool VCCueList::saveXML(QXmlStreamWriter *doc) const
     /* Crossfade cue list */
     if (sideFaderMode() != None)
         doc->writeTextElement(KXMLQLCVCCueListSlidersMode, faderModeToString(sideFaderMode()));
+
+    /* Steps list columns widths */
+    if (!m_columnsWidths.isEmpty())
+    {
+        QStringList wList;
+        for (QVariant w : m_columnsWidths)
+            wList.append(QString::number(w.toDouble(), 'f', 2));
+
+        doc->writeTextElement(KXMLQLCVCCueListColumnsWidths, wList.join(","));
+    }
 
     /* Input controls */
     saveXMLInputControl(doc, INPUT_NEXT_STEP_ID, false, KXMLQLCVCCueListNext);

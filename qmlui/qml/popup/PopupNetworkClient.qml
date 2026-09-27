@@ -136,7 +136,7 @@ CustomPopupDialog
                     {
                         id: serverDelegate
                         Layout.columnSpan: 2
-                        width: parent.width
+                        width: serverRepeater.width
                         height: UISettings.listItemHeight
                         color: index === selectedIndex ? UISettings.highlight : UISettings.bgLight
 
@@ -144,6 +144,7 @@ CustomPopupDialog
                         {
                             id: serverName
                             height: UISettings.listItemHeight
+                            width: parent.width
                             tLabel: modelData.name + " (" + modelData.address + ")"
                             faSource: FontAwesome.fa_server
                             faColor: UISettings.fgMain

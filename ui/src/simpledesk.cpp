@@ -370,22 +370,22 @@ void SimpleDesk::slotDocChanged()
     m_docChanged = true;
 }
 
-int SimpleDesk::getSlidersNumber()
+int SimpleDesk::getSlidersNumber() const
 {
     return m_channelsPerPage;
 }
 
-int SimpleDesk::getCurrentUniverseIndex()
+int SimpleDesk::getCurrentUniverseIndex() const
 {
     return m_currentUniverse;
 }
 
-int SimpleDesk::getCurrentPage()
+int SimpleDesk::getCurrentPage() const
 {
     return m_universePageSpin->value();
 }
 
-uchar SimpleDesk::getAbsoluteChannelValue(uint address)
+uchar SimpleDesk::getAbsoluteChannelValue(uint address) const
 {
     if (m_engine->hasChannel(address))
     {
@@ -404,7 +404,7 @@ uchar SimpleDesk::getAbsoluteChannelValue(uint address)
     }
 }
 
-bool SimpleDesk::isChannelOverridden(uint address)
+bool SimpleDesk::isChannelOverridden(uint address) const
 {
     return m_engine->hasChannel(address);
 }

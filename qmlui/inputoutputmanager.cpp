@@ -25,6 +25,8 @@
 #include "inputprofileeditor.h"
 #include "monitorproperties.h"
 #include "audioplugincache.h"
+#include "audiorenderer.h"
+#include "audiocapture.h"
 #include "qlcioplugin.h"
 #include "outputpatch.h"
 #include "inputpatch.h"
@@ -37,6 +39,8 @@ InputOutputManager::InputOutputManager(QQuickView *view, Doc *doc, QObject *pare
     : PreviewContext(view, doc, "IOMGR", parent)
     , m_selectedUniverseIndex(-1)
     , m_blackout(false)
+    , m_inputCapture(nullptr)
+    , m_audioInputLevel(0)
     , m_profileEditor(nullptr)
     , m_editProfile(nullptr)
     , m_beatType("INTERNAL")
@@ -391,6 +395,110 @@ void InputOutputManager::setAudioOutput(QString privateName)
     emit audioOutputDeviceChanged();
 }
 
+int InputOutputManager::audioInputSampleRate() const
+{
+    QSettings settings;
+    return settings.value(SETTINGS_AUDIO_INPUT_SRATE, AUDIO_DEFAULT_SAMPLE_RATE).toInt();
+}
+
+void InputOutputManager::setAudioInputSampleRate(int sampleRate)
+{
+    if (sampleRate == audioInputSampleRate())
+        return;
+
+    QSettings settings;
+    if (sampleRate == AUDIO_DEFAULT_SAMPLE_RATE)
+        settings.remove(SETTINGS_AUDIO_INPUT_SRATE);
+    else
+        settings.setValue(SETTINGS_AUDIO_INPUT_SRATE, sampleRate);
+
+    enableAudioInputPreview(false);
+    m_doc->destroyAudioCapture();
+    emit audioInputSampleRateChanged();
+}
+
+int InputOutputManager::audioInputChannels() const
+{
+    QSettings settings;
+    return settings.value(SETTINGS_AUDIO_INPUT_CHANNELS, AUDIO_DEFAULT_CHANNELS).toInt();
+}
+
+void InputOutputManager::setAudioInputChannels(int channels)
+{
+    if (channels == audioInputChannels())
+        return;
+
+    QSettings settings;
+    if (channels == AUDIO_DEFAULT_CHANNELS)
+        settings.remove(SETTINGS_AUDIO_INPUT_CHANNELS);
+    else
+        settings.setValue(SETTINGS_AUDIO_INPUT_CHANNELS, channels);
+
+    enableAudioInputPreview(false);
+    m_doc->destroyAudioCapture();
+    emit audioInputChannelsChanged();
+}
+
+int InputOutputManager::audioOutputBuffer() const
+{
+    QSettings settings;
+    return settings.value(SETTINGS_AUDIO_OUTPUT_BUFFER, DEFAULT_AUDIO_OUTPUT_BUFFER_MS).toInt();
+}
+
+void InputOutputManager::setAudioOutputBuffer(int bufferMs)
+{
+    if (bufferMs == audioOutputBuffer())
+        return;
+
+    QSettings settings;
+    if (bufferMs == DEFAULT_AUDIO_OUTPUT_BUFFER_MS)
+        settings.remove(SETTINGS_AUDIO_OUTPUT_BUFFER);
+    else
+        settings.setValue(SETTINGS_AUDIO_OUTPUT_BUFFER, bufferMs);
+
+    emit audioOutputBufferChanged();
+}
+
+int InputOutputManager::audioInputLevel() const
+{
+    return m_audioInputLevel;
+}
+
+void InputOutputManager::enableAudioInputPreview(bool enable)
+{
+    QSharedPointer<AudioCapture> capture(m_doc->audioInputCapture());
+    m_inputCapture = capture.data();
+
+    if (m_inputCapture == nullptr)
+        return;
+
+    if (enable == true)
+    {
+        connect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
+                this, SLOT(slotAudioInputLevelChanged(double*,int,double,quint32)));
+        m_inputCapture->registerBandsNumber(FREQ_SUBBANDS_DEFAULT_NUMBER);
+    }
+    else
+    {
+        m_inputCapture->unregisterBandsNumber(FREQ_SUBBANDS_DEFAULT_NUMBER);
+        disconnect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
+                   this, SLOT(slotAudioInputLevelChanged(double*,int,double,quint32)));
+
+        m_audioInputLevel = 0;
+        emit audioInputLevelChanged();
+    }
+}
+
+void InputOutputManager::slotAudioInputLevelChanged(double *spectrumBands, int size, double maxMagnitude, quint32 power)
+{
+    Q_UNUSED(spectrumBands)
+    Q_UNUSED(size)
+    Q_UNUSED(maxMagnitude)
+
+    m_audioInputLevel = int(power);
+    emit audioInputLevelChanged();
+}
+
 /*********************************************************************
  * IO Patches
  *********************************************************************/
@@ -477,21 +585,65 @@ QVariant InputOutputManager::universeOutputSources(int universe)
     return QVariant::fromValue(outputSources);
 }
 
+QVariant InputOutputManager::universeFeedbackSources(int universe)
+{
+    QVariantList feedbackSources;
+
+    InputPatch *ip = m_ioMap->inputPatch(universe);
+    if (ip == nullptr)
+        return QVariant::fromValue(feedbackSources);
+
+    QString pluginName = ip->pluginName();
+
+    QString currPlugin;
+    int currLine = -1;
+    OutputPatch *fp = m_ioMap->feedbackPatch(universe);
+    if (fp != nullptr)
+    {
+        currPlugin = fp->pluginName();
+        currLine = fp->output();
+    }
+
+    QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
+    int i = 0;
+    foreach (QString pLine, m_ioMap->pluginOutputs(pluginName))
+    {
+        quint32 uni = m_ioMap->outputMapping(pluginName, i);
+        if (uni == InputOutputMap::invalidUniverse() ||
+           (uni == (quint32)universe || (plugin && plugin->capabilities() & QLCIOPlugin::Infinite)))
+        {
+            QVariantMap lineMap;
+            lineMap.insert("universe", universe);
+            lineMap.insert("name", pLine);
+            lineMap.insert("line", i);
+            lineMap.insert("plugin", pluginName);
+            lineMap.insert("checked", (pluginName == currPlugin && i == currLine) ? true : false);
+            feedbackSources.append(lineMap);
+        }
+        i++;
+    }
+
+    return QVariant::fromValue(feedbackSources);
+}
+
 void InputOutputManager::setOutputPatch(int universe, QString plugin, QString line, int index)
 {
-    m_ioMap->setOutputPatch(universe, plugin, "", line.toUInt(), false, index);
+    m_ioMap->setOutputPatch(universe, plugin, "", "", line.toUInt(), false, index);
+    m_doc->setModified();
     emit outputCanConfigureChanged();
 }
 
 void InputOutputManager::removeOutputPatch(int universe, int index)
 {
-    m_ioMap->setOutputPatch(universe, KOutputNone, "", QLCIOPlugin::invalidLine(), false, index);
+    m_ioMap->setOutputPatch(universe, KOutputNone, "", "", QLCIOPlugin::invalidLine(), false, index);
+    m_doc->setModified();
     emit outputCanConfigureChanged();
 }
 
 void InputOutputManager::addInputPatch(int universe, QString plugin, QString line)
 {
-    m_ioMap->setInputPatch(universe, plugin, "", line.toUInt());
+    m_ioMap->setInputPatch(universe, plugin, "", "", line.toUInt());
+    m_doc->setModified();
     emit inputCanConfigureChanged();
 }
 
@@ -513,7 +665,8 @@ bool InputOutputManager::setFeedbackPatch(int universe, bool enable)
         {
             if (pLine == inputName)
             {
-                m_ioMap->setOutputPatch(universe, patch->pluginName(), "", i, true);
+                m_ioMap->setOutputPatch(universe, patch->pluginName(), "", "", i, true);
+                m_doc->setModified();
                 found = true;
                 break;
             }
@@ -523,20 +676,31 @@ bool InputOutputManager::setFeedbackPatch(int universe, bool enable)
     }
     else
     {
-        m_ioMap->setOutputPatch(universe, KInputNone, "", QLCIOPlugin::invalidLine(), true);
+        m_ioMap->setOutputPatch(universe, KInputNone, "", "", QLCIOPlugin::invalidLine(), true);
+        m_doc->setModified();
     }
     return true;
 }
 
+void InputOutputManager::setFeedbackLine(int universe, QString plugin, int line)
+{
+    m_ioMap->setOutputPatch(universe, plugin, "", "", (quint32)line, true);
+    m_doc->setModified();
+}
+
 void InputOutputManager::removeInputPatch(int universe)
 {
-    m_ioMap->setInputPatch(universe, KInputNone, "", QLCIOPlugin::invalidLine());
+    m_ioMap->setInputPatch(universe, KInputNone, "", "", QLCIOPlugin::invalidLine());
+    if (m_ioMap->feedbackPatch(universe) != nullptr)
+        m_ioMap->setOutputPatch(universe, KOutputNone, "", "", QLCIOPlugin::invalidLine(), true);
+    m_doc->setModified();
     emit inputCanConfigureChanged();
 }
 
 void InputOutputManager::setInputProfile(int universe, QString profileName)
 {
     m_ioMap->setInputProfile(universe, profileName);
+    m_doc->setModified();
 }
 
 void InputOutputManager::configurePlugin(bool input)
@@ -544,27 +708,37 @@ void InputOutputManager::configurePlugin(bool input)
     if (m_selectedUniverseIndex == -1)
         return;
 
-    QLCIOPlugin *plugin = nullptr;
-
     if (input)
     {
         InputPatch *patch = m_ioMap->inputPatch(m_selectedUniverseIndex);
 
         if (patch == nullptr || patch->plugin() == nullptr)
             return;
-        plugin = patch->plugin();
+
+        m_ioMap->configurePlugin(patch->plugin()->name());
     }
     else
     {
-        OutputPatch *patch = m_ioMap->outputPatch(m_selectedUniverseIndex);
+        // an output universe can have multiple patches, so open the
+        // configuration dialog of every patched plugin, once each
+        QStringList configured;
 
-        if (patch == nullptr || patch->plugin() == nullptr)
-            return;
-        plugin = patch->plugin();
+        for (int i = 0; i < m_ioMap->outputPatchesCount(m_selectedUniverseIndex); i++)
+        {
+            OutputPatch *patch = m_ioMap->outputPatch(m_selectedUniverseIndex, i);
+
+            if (patch == nullptr || patch->plugin() == nullptr)
+                continue;
+
+            QString pluginName = patch->plugin()->name();
+
+            if (configured.contains(pluginName))
+                continue;
+
+            configured.append(pluginName);
+            m_ioMap->configurePlugin(pluginName);
+        }
     }
-
-    if (plugin)
-        m_ioMap->configurePlugin(plugin->name());
 }
 
 bool InputOutputManager::inputCanConfigure() const
@@ -585,12 +759,18 @@ bool InputOutputManager::outputCanConfigure() const
     if (m_selectedUniverseIndex == -1)
         return false;
 
-    OutputPatch *patch = m_ioMap->outputPatch(m_selectedUniverseIndex);
+    for (int i = 0; i < m_ioMap->outputPatchesCount(m_selectedUniverseIndex); i++)
+    {
+        OutputPatch *patch = m_ioMap->outputPatch(m_selectedUniverseIndex, i);
 
-    if (patch == nullptr || patch->plugin() == nullptr)
-        return false;
+        if (patch == nullptr || patch->plugin() == nullptr)
+            continue;
 
-    return patch->plugin()->canConfigure();
+        if (patch->plugin()->canConfigure())
+            return true;
+    }
+
+    return false;
 }
 
 int InputOutputManager::outputPatchesCount(int universe) const
@@ -609,16 +789,10 @@ QString InputOutputManager::profileUserFolder()
 
 void InputOutputManager::createInputProfile()
 {
-    if (m_editProfile != nullptr)
-        delete m_editProfile;
-
+    finishInputProfile();
     m_editProfile = new QLCInputProfile();
-
-    if (m_profileEditor == nullptr)
-    {
-        m_profileEditor = new InputProfileEditor(m_editProfile, m_doc);
-        view()->rootContext()->setContextProperty("profileEditor", m_profileEditor);
-    }
+    m_profileEditor = new InputProfileEditor(m_editProfile, m_doc);
+    view()->rootContext()->setContextProperty("profileEditor", m_profileEditor);
 }
 
 bool InputOutputManager::editInputProfile(QString name)
@@ -627,19 +801,13 @@ bool InputOutputManager::editInputProfile(QString name)
     if (ip == nullptr)
         return false;
 
-    // create a copy first
-    if (m_editProfile != nullptr)
-        delete m_editProfile;
-
+    finishInputProfile();
     m_editProfile = ip->createCopy();
 
     qDebug() << "Profile TYPE:" << m_editProfile->type();
 
-    if (m_profileEditor == nullptr)
-    {
-        m_profileEditor = new InputProfileEditor(m_editProfile, m_doc);
-        view()->rootContext()->setContextProperty("profileEditor", m_profileEditor);
-    }
+    m_profileEditor = new InputProfileEditor(m_editProfile, m_doc);
+    view()->rootContext()->setContextProperty("profileEditor", m_profileEditor);
 
     qDebug() << "Edit profile" << ip->path();
 
@@ -659,11 +827,18 @@ bool InputOutputManager::saveInputProfile()
 
     bool profileExists = QFileInfo::exists(absPath);
 
-    m_editProfile->saveXML(absPath);
-    m_profileEditor->setModified(false);
+    if (m_editProfile->saveXML(absPath) == false)
+        return false;
+
+    if (m_profileEditor != nullptr)
+        m_profileEditor->setModified(false);
 
     if (profileExists == false)
-        m_doc->inputOutputMap()->addProfile(m_editProfile);
+    {
+        // Keep InputOutputMap ownership separate from the editor's working copy.
+        if (m_doc->inputOutputMap()->profile(m_editProfile->name()) == nullptr)
+            m_doc->inputOutputMap()->addProfile(m_editProfile->createCopy());
+    }
 
     return true;
 }
@@ -869,5 +1044,4 @@ void InputOutputManager::setBpmNumber(int bpmNumber)
     m_ioMap->setBpmNumber(bpmNumber);
     emit bpmNumberChanged(bpmNumber);
 }
-
 

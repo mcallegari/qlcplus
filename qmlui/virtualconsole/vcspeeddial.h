@@ -37,6 +37,7 @@
 #define KXMLQLCVCSpeedDialMultDivResetKey   QStringLiteral("MultDivResetKey")
 #define KXMLQLCVCSpeedDialApplyKey          QStringLiteral("ApplyKey")
 #define KXMLQLCVCSpeedDialResetFactorOnDialChange QStringLiteral("ResetFactorOnDialChange")
+#define KXMLQLCVCSpeedDialControlBPM        QStringLiteral("ControlBPM")
 #define KXMLQLCVCSpeedDialVisibilityMask    QStringLiteral("Visibility")
 #define KXMLQLCVCSpeedDialTime              QStringLiteral("Time")
 #define KXMLQLCVCSpeedDialFunction          QStringLiteral("Function")
@@ -50,7 +51,9 @@ class VCSpeedDial : public VCWidget
     Q_PROPERTY(uint timeMaximumValue READ timeMaximumValue WRITE setTimeMaximumValue NOTIFY timeMaximumValueChanged FINAL)
     Q_PROPERTY(uint currentTime READ currentTime WRITE setCurrentTime NOTIFY currentTimeChanged FINAL)
     Q_PROPERTY(bool resetOnDialChange READ resetOnDialChange WRITE setResetOnDialChange NOTIFY resetOnDialChangeChanged FINAL)
+    Q_PROPERTY(bool controlBPM READ controlBPM WRITE setControlBPM NOTIFY controlBPMChanged FINAL)
     Q_PROPERTY(SpeedMultiplier currentFactor READ currentFactor WRITE setCurrentFactor NOTIFY currentFactorChanged FINAL)
+    Q_PROPERTY(int tapTimeValue READ tapTimeValue NOTIFY tapTimeValueChanged FINAL)
 
     Q_PROPERTY(QVariant functionsList READ functionsList NOTIFY functionsListChanged)
     Q_PROPERTY(QVariantList presetsList READ presetsList NOTIFY presetsListChanged)
@@ -164,32 +167,40 @@ public:
     bool resetOnDialChange() const;
     void setResetOnDialChange(bool newResetOnDialChange);
 
+    /* Get/Set a flag to make the Tap button control the global BPM rate */
+    bool controlBPM() const;
+    void setControlBPM(bool newControlBPM);
+
 signals:
     void timeMinimumValueChanged();
     void timeMaximumValueChanged();
     void currentTimeChanged();
     void resetOnDialChangeChanged();
+    void controlBPMChanged();
 
 private:
     uint m_timeMinimumValue;
     uint m_timeMaximumValue;
     uint m_currentTime;
     bool m_resetOnDialChange;
+    bool m_controlBPM;
 
     /*********************************************************************
      * Speed factor
      *********************************************************************/
 public:
     /** Get/Set the speed factor to be applied to controlled Functions */
-    SpeedMultiplier currentFactor();
+    SpeedMultiplier currentFactor() const;
     void setCurrentFactor(SpeedMultiplier factor);
 
     Q_INVOKABLE void increaseSpeedFactor();
     Q_INVOKABLE void decreaseSpeedFactor();
 
     /** This is where the speed magic happens. Current multiplier/divisor
-     *  or absolute time is applied to the controlled Functions */
-    Q_INVOKABLE void applyFunctionsTime();
+     *  or absolute time is applied to the controlled Functions.
+     *  When $enqueue is true (explicit user/external Apply), the action is
+     *  forwarded to Tardis to be replicated on connected peers. */
+    Q_INVOKABLE void applyFunctionsTime(bool enqueue = false);
 
 signals:
     void currentFactorChanged();
@@ -234,7 +245,7 @@ private:
      *********************************************************************/
 public:
     /** Return a list suitable for the QML UI */
-    QVariantList presetsList();
+    QVariantList presetsList() const;
 
     /** Add a preset and return its assigned ID */
     Q_INVOKABLE int addPreset(QString name, int value);
@@ -253,6 +264,26 @@ private:
 private:
     quint8 m_lastAssignedPresetId;
     QList<class VCSpeedDialPreset*> m_presets;
+
+    /*********************************************************************
+     * Tap
+     *********************************************************************/
+public:
+    int tapTimeValue() const;
+
+    Q_INVOKABLE void tap();
+    Q_INVOKABLE void resetTap();
+
+signals:
+    void tapTimeValueChanged();
+
+private:
+    static int calculateBPMByTapIntervals(QList<int> &tapHistory);
+
+private:
+    QList<int> m_tapHistory;
+    qint64 m_lastTap;
+    int m_tapTimeValue;
 
     /*********************************************************************
      * External input

@@ -187,6 +187,16 @@ public:
     virtual QStringList outputs();
 
     /**
+     * Get a list of stable output line UIDs used for project XML persistence.
+     * UIDs must be in the same order as outputs(). Plugins that can provide a
+     * hardware-stable identifier (e.g. USB path) should override this; the
+     * default returns the same list as outputs().
+     *
+     * @return A list of stable UIDs, one per output line
+     */
+    virtual QStringList outputsUID();
+
+    /**
      * Provide an informational text regarding the specified output line.
      * This text is shown to the user.
      *
@@ -241,6 +251,16 @@ public:
      * @return A list of available input names
      */
     virtual QStringList inputs();
+
+    /**
+     * Get a list of stable input line UIDs used for project XML persistence.
+     * UIDs must be in the same order as inputs(). Plugins that can provide a
+     * hardware-stable identifier (e.g. USB path) should override this; the
+     * default returns the same list as inputs().
+     *
+     * @return A list of stable UIDs, one per input line
+     */
+    virtual QStringList inputsUID();
 
     /**
      * Provide an informational text regarding the specified input line.

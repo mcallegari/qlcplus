@@ -47,7 +47,30 @@ VideoProvider::~VideoProvider()
     m_videoMap.clear();
 }
 
-QQuickView *VideoProvider::fullscreenContext()
+void VideoProvider::shutdown()
+{
+    for (VideoContent *vc : std::as_const(m_videoMap))
+    {
+        if (vc)
+        {
+            vc->stopContent();
+            vc->destroyContext();
+        }
+    }
+    if (m_fullscreenContext)
+    {
+        m_fullscreenContext->close();
+        m_fullscreenContext->deleteLater();
+        m_fullscreenContext = nullptr;
+    }
+}
+
+QQuickView *VideoProvider::view() const
+{
+    return m_view;
+}
+
+QQuickView *VideoProvider::fullscreenContext() const
 {
     return m_fullscreenContext;
 }
@@ -98,7 +121,12 @@ void VideoProvider::slotRequestPlayback()
 
 void VideoProvider::slotRequestPause(bool enable)
 {
-    Q_UNUSED(enable)
+    Video *video = qobject_cast<Video *>(sender());
+    if (video == nullptr)
+        return;
+
+    if (m_videoMap.contains(video->id()))
+        m_videoMap[video->id()]->pauseContent(enable);
 }
 
 void VideoProvider::slotRequestStop()
@@ -123,8 +151,7 @@ VideoContent::VideoContent(Video *video, VideoProvider *parent)
 {
     Q_ASSERT(video != nullptr);
 
-    if (video->fullscreen() == false)
-        slotDetectResolution();
+    slotDetectResolution();
 
     connect(m_video, SIGNAL(sourceChanged(QString)),
             this, SLOT(slotDetectResolution()));
@@ -139,16 +166,20 @@ quint32 VideoContent::id() const
 
 void VideoContent::destroyContext()
 {
+    // close() can emit closing() synchronously and invalidate m_viewContext.
+    QPointer<QQuickView> context = m_viewContext;
+    m_viewContext = nullptr;
+
     if (m_video->fullscreen())
     {
         m_provider->setFullscreenContext(nullptr);
     }
-    else if (m_viewContext)
+    else if (context)
     {
-        m_viewContext->deleteLater();
+        context->close();
+        if (context)
+            context->deleteLater();
     }
-
-    m_viewContext = nullptr;
 }
 
 void VideoContent::playContent()
@@ -200,15 +231,31 @@ void VideoContent::playContent()
         m_viewContext->rootContext()->setContextProperty("videoContent", this);
     }
 
+    uint fadeIn  = m_video->overrideFadeInSpeed()  != Function::defaultSpeed() ? m_video->overrideFadeInSpeed()  : m_video->fadeInSpeed();
+    uint fadeOut = m_video->overrideFadeOutSpeed() != Function::defaultSpeed() ? m_video->overrideFadeOutSpeed() : m_video->fadeOutSpeed();
+    if (fadeIn == Function::defaultSpeed() || fadeIn == Function::infiniteSpeed())
+        fadeIn = 0;
+    if (fadeOut == Function::defaultSpeed() || fadeOut == Function::infiniteSpeed())
+        fadeOut = 0;
+
+    QQuickItem *root = m_viewContext->rootObject();
+    if (root == nullptr)
+        return;
+
     if (m_video->isPicture())
     {
-        QMetaObject::invokeMethod(m_viewContext->rootObject(), "addPicture",
-                                  Q_ARG(QVariant, QVariant::fromValue(m_video)));
+        QMetaObject::invokeMethod(root, "addPicture",
+                                  Q_ARG(QVariant, QVariant::fromValue(m_video)),
+                                  Q_ARG(QVariant, (int)fadeIn),
+                                  Q_ARG(QVariant, (int)fadeOut));
     }
     else
     {
-        QMetaObject::invokeMethod(m_viewContext->rootObject(), "addVideo",
-                                  Q_ARG(QVariant, QVariant::fromValue(m_video)));
+        QMetaObject::invokeMethod(root, "addVideo",
+                                  Q_ARG(QVariant, QVariant::fromValue(m_video)),
+                                  Q_ARG(QVariant, (int)fadeIn),
+                                  Q_ARG(QVariant, (int)fadeOut),
+                                  Q_ARG(QVariant, (int)m_video->elapsed()));
     }
 
     m_viewContext->setFlags(m_viewContext->flags() | Qt::WindowStaysOnTopHint);
@@ -221,7 +268,27 @@ void VideoContent::playContent()
         m_viewContext->showFullScreen();
     }
     else
+    {
         m_viewContext->show();
+        // Restore focus to the main QLC+ window so that VC interactions
+        // (e.g. a slider that started this video) remain active.
+        if (m_provider->view() != nullptr)
+            m_provider->view()->requestActivate();
+    }
+}
+
+void VideoContent::pauseContent(bool enable)
+{
+    if (m_viewContext == nullptr)
+        return;
+
+    QQuickItem *root = m_viewContext->rootObject();
+    if (root == nullptr)
+        return;
+
+    QMetaObject::invokeMethod(root, "pauseContent",
+                              Q_ARG(QVariant, m_video->id()),
+                              Q_ARG(QVariant, enable));
 }
 
 void VideoContent::stopContent()
@@ -229,7 +296,11 @@ void VideoContent::stopContent()
     if (m_viewContext == nullptr)
         return;
 
-    QMetaObject::invokeMethod(m_viewContext->rootObject(), "removeContent",
+    QQuickItem *root = m_viewContext->rootObject();
+    if (root == nullptr)
+        return;
+
+    QMetaObject::invokeMethod(root, "removeContent",
                               Q_ARG(QVariant, m_video->id()));
 }
 
@@ -239,7 +310,11 @@ void VideoContent::slotDetectResolution()
 
     if (m_video->isPicture())
     {
-        QPixmap img(sourceURL);
+        QString localPath = sourceURL;
+        if (sourceURL.contains("://"))
+            localPath = QUrl(sourceURL).toLocalFile();
+
+        QPixmap img(localPath);
         if (!img.isNull())
         {
             m_video->setResolution(img.size());
@@ -263,8 +338,11 @@ void VideoContent::slotDetectResolution()
     }
 }
 
-QVariant VideoContent::getAttribute(quint32 id, const char *propName)
+QVariant VideoContent::getAttribute(quint32 id, const char *propName) const
 {
+    if (m_viewContext == nullptr)
+        return QVariant();
+
     QQuickItem *item = qobject_cast<QQuickItem*>(m_viewContext->findChild<QQuickItem*>(QString("media-%1").arg(id)));
     if (item)
         return item->property(propName);
@@ -274,6 +352,9 @@ QVariant VideoContent::getAttribute(quint32 id, const char *propName)
 
 void VideoContent::updateAttribute(quint32 id, const char *propName, QVariant value)
 {
+    if (m_viewContext == nullptr)
+        return;
+
     QQuickItem *item = qobject_cast<QQuickItem*>(m_viewContext->findChild<QQuickItem*>(QString("media-%1").arg(id)));
     if (item)
         item->setProperty(propName, value);
@@ -311,6 +392,8 @@ void VideoContent::slotAttributeChanged(int attrIndex, qreal value)
         break;
         case Video::XPosition:
         {
+            if (m_viewContext == nullptr)
+                break;
             qreal xDelta = qreal(m_viewContext->width()) * (value / 100.0);
             QVariant var = getAttribute(m_video->id(), "geometry");
             QRect currGeom = var.isNull() ? m_geometry : var.toRect();
@@ -321,6 +404,8 @@ void VideoContent::slotAttributeChanged(int attrIndex, qreal value)
         break;
         case Video::YPosition:
         {
+            if (m_viewContext == nullptr)
+                break;
             qreal yDelta = qreal(m_viewContext->height()) * (value / 100.0);
             QVariant var = getAttribute(m_video->id(), "geometry");
             QRect currGeom = var.isNull() ? m_geometry : var.toRect();
@@ -376,5 +461,21 @@ void VideoContent::slotMetaDataChanged()
 
 void VideoContent::slotWindowClosing()
 {
-    stopContent();
+    // The window is being closed manually (e.g. window manager close button).
+    // The QQuickView only hides on close(), it does not tear down the QML
+    // scene graph, so the MediaPlayer would keep playing in the background.
+    // Stop the QML content explicitly while the root object is still valid.
+    if (m_viewContext)
+    {
+        QQuickItem *root = m_viewContext->rootObject();
+        if (root)
+            QMetaObject::invokeMethod(root, "stopAllPlayback");
+    }
+
+    m_viewContext = nullptr;
+
+    // Window teardown can race with scene graph/root object destruction.
+    // Request function stop through the engine path instead of touching QML.
+    if (m_video && m_video->isRunning())
+        m_video->stopFromUI();
 }

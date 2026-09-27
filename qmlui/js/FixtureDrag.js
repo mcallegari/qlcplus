@@ -47,7 +47,7 @@ function createItem()
     if (itemComponent.status === Component.Ready && draggedItem == null)
     {
         draggedItem = itemComponent.createObject(mainView,
-                  {"x": posnInWindow.x, "y": posnInWindow.y, "z": 10,
+                  {"x": posnInWindow.x, "y": posnInWindow.y, "z": 200,
                    "manufacturer": manufacturer, "model": model,
                    "address": address, "universe": universeIndex,
                    "channels": channels, "quantity": quantity, "gap": gap });
@@ -90,14 +90,52 @@ function endDrag(mouse)
         return false;
 
     var currContext = previewLoader.item.contextName;
-    var offset = 0;
+    var x, y;
     console.log("[FixtureDrag] Current context: " + currContext);
 
-    if (currContext === "2D")
-        offset = View2D.gridPosition.x;
+    // Show Wizard: hit-test the drop point against the group boxes. The wizard
+    // arms a pending target group, then we patch the fixture at 0,0; the wizard
+    // auto-assigns the newly patched fixture to that box via Doc::fixtureAdded.
+    if (currContext === "WIZARD")
+    {
+        var dropP = draggedItem.mapToItem(null,
+                              draggedItem.width / 2,
+                              draggedItem.height / 2);
+        // contextItem is the wizard step which hit-tests the boxes and arms the
+        // pending target group, then patches + assigns the fixture itself.
+        var hit = previewLoader.item.contextItem.dropFixtureAt(dropP.x, dropP.y,
+                              manufacturer, model, mode, name,
+                              universeIndex, draggedItem.address, channels, quantity, gap);
+        draggedItem.destroy();
+        draggedItem = null;
+        return hit;
+    }
 
-    var x = draggedItem.x - leftSidePanel.width - offset;
-    var y = draggedItem.y - previewLoader.y - viewToolbar.height;
+    if (currContext === "2D")
+    {
+        var twoDView = previewLoader.item.contextItem; // Flickable
+        var p = draggedItem.mapToItem(twoDView.contentItem,
+                              draggedItem.width / 2,
+                              draggedItem.height / 2); // or 0,0 for top-left
+
+        x = p.x - View2D.gridPosition.x; // == twoDContents.xOffset
+        y = p.y - View2D.gridPosition.y; // == twoDContents.yOffset
+    }
+    else
+    {
+        x = draggedItem.x - leftSidePanel.width;
+        y = draggedItem.y - previewLoader.y - viewToolbar.height;
+    }
+
+    // Handle remap view: add fixture(s) to the target list instead of the project
+    if (currContext === "REMAP")
+    {
+        fixtureRemapManager.addTargetFixture(manufacturer, model, mode, name,
+                                           universeIndex, address, quantity, gap);
+        draggedItem.destroy();
+        draggedItem = null;
+        return true;
+    }
 
     console.log("[FixtureDrag] Item x: " + x + ", y: " + y);
 

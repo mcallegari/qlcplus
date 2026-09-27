@@ -43,21 +43,26 @@ PaletteManager::PaletteManager(QQuickView *view, Doc *doc,
     listRoles << "paletteID" << "isSelected";
     m_paletteList->setRoleNames(listRoles);
 
-    m_dimmerCount = m_colorCount = m_positionCount = 0;
+    m_dimmerCount = m_colorCount = m_positionCount = m_position3DCount = 0;
 
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
+
+    // Refresh the list when palettes are added/removed outside this manager
+    // (e.g. by the Stage Wizard).
+    connect(m_doc, &Doc::paletteAdded,   this, [this]() { updatePaletteList(); });
+    connect(m_doc, &Doc::paletteRemoved, this, [this]() { updatePaletteList(); });
 }
 
 PaletteManager::~PaletteManager()
 {
 }
 
-QVariant PaletteManager::paletteList()
+QVariant PaletteManager::paletteList() const
 {
     return QVariant::fromValue(m_paletteList);
 }
 
-QLCPalette *PaletteManager::getPalette(quint32 id)
+QLCPalette *PaletteManager::getPalette(quint32 id) const
 {
     QLCPalette *palette = m_doc->palette(id);
     QQmlEngine::setObjectOwnership(palette, QQmlEngine::CppOwnership);
@@ -127,7 +132,24 @@ quint32 PaletteManager::createPalette(QLCPalette *palette, QString name)
     return newPalette->id();
 }
 
-void PaletteManager::previewPalette(QLCPalette *palette)
+quint32 PaletteManager::createPosition3DPalette(QString name, float x, float y, float z)
+{
+    QLCPalette *newPalette = new QLCPalette(QLCPalette::Position3D);
+    newPalette->setName(name);
+    newPalette->setValue(x, y, z);
+
+    if (m_doc->addPalette(newPalette) == false)
+    {
+        qWarning() << "Failed to add Position3D palette";
+        delete newPalette;
+        return QLCPalette::invalidId();
+    }
+
+    updatePaletteList();
+    return newPalette->id();
+}
+
+void PaletteManager::previewPalette(const QLCPalette *palette)
 {
     if (palette == nullptr)
         return;
@@ -141,7 +163,10 @@ void PaletteManager::updatePalette(QLCPalette *palette, QVariant value1)
         return;
 
     qDebug() << "[PaletteManager] Single value" << value1;
+    QVariantList prevValues = palette->values();
     palette->setValue(value1);
+    if (prevValues != palette->values() && palette->isTemporary() == false)
+        m_doc->setModified();
 }
 
 void PaletteManager::updatePalette(QLCPalette *palette, QVariant value1, QVariant value2)
@@ -150,7 +175,22 @@ void PaletteManager::updatePalette(QLCPalette *palette, QVariant value1, QVarian
         return;
 
     qDebug() << "[PaletteManager] Double value" << value1 << value2;
+    QVariantList prevValues = palette->values();
     palette->setValue(value1, value2);
+    if (prevValues != palette->values() && palette->isTemporary() == false)
+        m_doc->setModified();
+}
+
+void PaletteManager::updatePalette(QLCPalette *palette, QVariant value1, QVariant value2, QVariant value3)
+{
+    if (palette == nullptr)
+        return;
+
+    qDebug() << "[PaletteManager] Triple value" << value1 << value2 << value3;
+    QVariantList prevValues = palette->values();
+    palette->setValue(value1, value2, value3);
+    if (prevValues != palette->values() && palette->isTemporary() == false)
+        m_doc->setModified();
 }
 
 void PaletteManager::deletePalettes(QVariantList list)
@@ -195,6 +235,13 @@ void PaletteManager::setTypeFilter(quint32 filter)
     emit typeFilterChanged();
 }
 
+void PaletteManager::setTypeFilter(int type, bool enable)
+{
+    quint32 newFilter = enable ? (m_typeFilter | quint32(type))
+                               : (m_typeFilter & ~quint32(type));
+    setTypeFilter(newFilter);
+}
+
 QString PaletteManager::searchFilter() const
 {
     return m_searchFilter;
@@ -216,7 +263,7 @@ void PaletteManager::setSearchFilter(QString searchFilter)
     emit searchFilterChanged();
 }
 
-QStringList PaletteManager::selectedItemNames(QVariantList list)
+QStringList PaletteManager::selectedItemNames(QVariantList list) const
 {
     QStringList names;
 
@@ -234,10 +281,22 @@ QStringList PaletteManager::selectedItemNames(QVariantList list)
 void PaletteManager::updatePaletteList()
 {
     m_paletteList->clear();
-    m_dimmerCount = m_colorCount = m_positionCount = 0;
+    m_dimmerCount = m_colorCount = m_positionCount = m_position3DCount = 0;
 
     for (QLCPalette *palette : m_doc->palettes())
     {
+        // counts are always over all palettes, independent of the active filter
+        switch (palette->type())
+        {
+            case QLCPalette::Dimmer:     m_dimmerCount++;     break;
+            case QLCPalette::Color:      m_colorCount++;      break;
+            case QLCPalette::Pan:
+            case QLCPalette::Tilt:
+            case QLCPalette::PanTilt:    m_positionCount++;   break;
+            case QLCPalette::Position3D: m_position3DCount++; break;
+            default: break;
+        }
+
         if ((m_typeFilter == QLCPalette::Undefined || m_typeFilter & palette->type()) &&
             (m_searchFilter.length() < SEARCH_MIN_CHARS || palette->name().toLower().contains(m_searchFilter)))
         {
@@ -245,28 +304,13 @@ void PaletteManager::updatePaletteList()
             funcMap.insert("paletteID", palette->id());
             funcMap.insert("isSelected", false);
             m_paletteList->addDataMap(funcMap);
-
-            switch (palette->type())
-            {
-                case QLCPalette::Dimmer:
-                    m_dimmerCount++;
-                break;
-                case QLCPalette::Color:
-                    m_colorCount++;
-                break;
-                case QLCPalette::Pan:
-                case QLCPalette::Tilt:
-                case QLCPalette::PanTilt:
-                    m_positionCount++;
-                break;
-                default: break;
-            }
         }
     }
 
     emit dimmerCountChanged();
     emit colorCountChanged();
     emit positionCountChanged();
+    emit position3DCountChanged();
 
     emit paletteListChanged();
 }
@@ -275,5 +319,3 @@ void PaletteManager::slotDocLoaded()
 {
     updatePaletteList();
 }
-
-

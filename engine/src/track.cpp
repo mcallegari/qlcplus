@@ -67,7 +67,7 @@ quint32 Track::invalidId()
     return UINT_MAX;
 }
 
-quint32 Track::showId()
+quint32 Track::showId() const
 {
     return m_showId;
 }
@@ -100,7 +100,7 @@ void Track::setSceneID(quint32 id)
     m_sceneID = id;
 }
 
-quint32 Track::getSceneID()
+quint32 Track::getSceneID() const
 {
     return m_sceneID;
 }
@@ -118,7 +118,7 @@ void Track::setMute(bool state)
     emit muteChanged(state);
 }
 
-bool Track::isMute()
+bool Track::isMute() const
 {
     return m_isMute;
 }
@@ -148,7 +148,7 @@ bool Track::addShowFunction(ShowFunction *func)
     return true;
 }
 
-ShowFunction *Track::showFunction(quint32 id)
+ShowFunction *Track::showFunction(quint32 id) const
 {
     foreach (ShowFunction *sf, m_functions)
         if (sf->id() == id)
@@ -177,7 +177,7 @@ QList <ShowFunction *> Track::showFunctions() const
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
-bool Track::saveXML(QXmlStreamWriter *doc)
+bool Track::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 

@@ -79,15 +79,15 @@ public:
     /** Set the show time division type (Time, BPM) */
     void setTimeDivision(Show::TimeDivision type, int BPM);
 
-    Show::TimeDivision timeDivisionType();
+    Show::TimeDivision timeDivisionType() const;
     void setTimeDivisionType(Show::TimeDivision type);
-    int beatsDivision();
+    int beatsDivision() const;
 
-    int timeDivisionBPM();
+    int timeDivisionBPM() const;
     void setTimeDivisionBPM(int BPM);
 
     static QString tempoToString(Show::TimeDivision type);
-    static Show::TimeDivision stringToTempo(QString tempo);
+    static Show::TimeDivision stringToTempo(const QString& tempo);
 
 private:
     TimeDivision m_timeDivisionType;
@@ -119,13 +119,13 @@ public:
     Track *track(quint32 id) const;
 
     /** Get a reference to a Track from the provided Scene ID */
-    Track *getTrackFromSceneID(quint32 id);
+    Track *getTrackFromSceneID(quint32 id) const;
 
     /** Get a reference to a Track from the provided ShowFunction ID */
-    Track *getTrackFromShowFunctionID(quint32 id);
+    Track *getTrackFromShowFunctionID(quint32 id) const;
 
     /** Get the number of tracks in the Show */
-    int getTracksCount();
+    int getTracksCount() const;
 
     /** Move a track ID up or down */
     void moveTrack(Track *track, int direction);
@@ -152,7 +152,7 @@ public:
     quint32 getLatestShowFunctionId();
 
     /** Get a reference to a ShowFunction from the provided uinique ID */
-    ShowFunction *showFunction(quint32 id);
+    ShowFunction *showFunction(quint32 id) const;
 
 protected:
     /** Latest assigned unique ShowFunction ID */

@@ -153,7 +153,7 @@ private:
     void selectGroup(quint32 id);
 
     /** Get a CSS style sheet & HTML header for fixture info */
-    QString fixtureInfoStyleSheetHeader();
+    QString fixtureInfoStyleSheetHeader() const;
 
     /**
      * Get the fixture instance's status info for Fixture Manager
@@ -163,7 +163,7 @@ private:
     QString fixtureInfo(const Fixture *fixture) const;
 
     /** Get a CSS style sheet & HTML header for channels group info */
-    QString channelsGroupInfoStyleSheetHeader();
+    QString channelsGroupInfoStyleSheetHeader() const;
 
     /**
      * Get the channels group instance's status info for Fixture Manager

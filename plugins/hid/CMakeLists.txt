@@ -57,7 +57,7 @@ if(APPLE)
         macx/hidapi.cpp
         macx/hidosxjoystick.cpp macx/hidosxjoystick.h
     )
-    
+
     target_include_directories(${module_name} PRIVATE
         macx
     )

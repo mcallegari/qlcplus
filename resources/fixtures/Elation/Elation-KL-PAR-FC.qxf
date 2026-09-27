@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.2.1 GIT</Version>
+  <Author>Michel Sliepenbeek</Author>
+ </Creator>
+ <Manufacturer>Elation</Manufacturer>
+ <Model>KL PAR FC</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer Fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Shutter Closed</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">No Function (Shutter Open)</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe Effect. Slow to Fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">No Function (Shutter Open)</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Pulse Effect (In Sequence)</Capability>
+  <Capability Min="160" Max="255" Preset="ShutterOpen">No Function (Shutter Open)</Capability>
+ </Channel>
+ <Channel Name="CTO">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="23">OPEN</Capability>
+  <Capability Min="24" Max="85">CTO 2400K - 8500K</Capability>
+  <Capability Min="86" Max="255">8500K</Capability>
+ </Channel>
+ <Channel Name="Colour Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Open</Capability>
+  <Capability Min="1" Max="179">Virtual Swatch Book</Capability>
+  <Capability Min="180" Max="201">Clockwise, Fast to Slow</Capability>
+  <Capability Min="202" Max="207">Stop</Capability>
+  <Capability Min="208" Max="229">Counter-Clockwise, Slow to Fast</Capability>
+  <Capability Min="230" Max="234">Open</Capability>
+  <Capability Min="235" Max="239">Fast</Capability>
+  <Capability Min="240" Max="244">Medium</Capability>
+  <Capability Min="245" Max="249">Slow</Capability>
+  <Capability Min="250" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="29">Idle</Capability>
+  <Capability Min="30" Max="39">Fan Mode Auto</Capability>
+  <Capability Min="40" Max="49">Fan Mode Silent</Capability>
+  <Capability Min="50" Max="59">Fan Mode High</Capability>
+  <Capability Min="60" Max="99">Idle</Capability>
+  <Capability Min="100" Max="100">Refresh Rate 900</Capability>
+  <Capability Min="101" Max="101">Refresh Rate 910</Capability>
+  <Capability Min="102" Max="102">Refresh Rate 920</Capability>
+  <Capability Min="103" Max="103">Refresh Rate 930</Capability>
+  <Capability Min="104" Max="104">Refresh Rate 940</Capability>
+  <Capability Min="105" Max="105">Refresh Rate 950</Capability>
+  <Capability Min="106" Max="106">Refresh Rate 960</Capability>
+  <Capability Min="107" Max="107">Refresh Rate 970</Capability>
+  <Capability Min="108" Max="108">Refresh Rate 980</Capability>
+  <Capability Min="109" Max="109">Refresh Rate 990</Capability>
+  <Capability Min="110" Max="110">Refresh Rate 1000</Capability>
+  <Capability Min="111" Max="111">Refresh Rate 1010</Capability>
+  <Capability Min="112" Max="112">Refresh Rate 1020</Capability>
+  <Capability Min="113" Max="113">Refresh Rate 1030</Capability>
+  <Capability Min="114" Max="114">Refresh Rate 1040</Capability>
+  <Capability Min="115" Max="115">Refresh Rate 1050</Capability>
+  <Capability Min="116" Max="116">Refresh Rate 1060</Capability>
+  <Capability Min="117" Max="117">Refresh Rate 1070</Capability>
+  <Capability Min="118" Max="118">Refresh Rate 1080</Capability>
+  <Capability Min="119" Max="119">Refresh Rate 1090</Capability>
+  <Capability Min="120" Max="120">Refresh Rate 1100</Capability>
+  <Capability Min="121" Max="121">Refresh Rate1110</Capability>
+  <Capability Min="122" Max="122">Refresh Rate1120</Capability>
+  <Capability Min="123" Max="123">Refresh Rate1130</Capability>
+  <Capability Min="124" Max="124">Refresh Rate1140</Capability>
+  <Capability Min="125" Max="125">Refresh Rate1150</Capability>
+  <Capability Min="126" Max="126">Refresh Rate1160</Capability>
+  <Capability Min="127" Max="127">Refresh Rate1170</Capability>
+  <Capability Min="128" Max="128">Refresh Rate1180</Capability>
+  <Capability Min="129" Max="129">Refresh Rate1190</Capability>
+  <Capability Min="130" Max="130">Refresh Rate1200</Capability>
+  <Capability Min="131" Max="131">Refresh Rate 1210</Capability>
+  <Capability Min="132" Max="132">Refresh Rate 1220</Capability>
+  <Capability Min="133" Max="133">Refresh Rate 1230</Capability>
+  <Capability Min="134" Max="134">Refresh Rate 1240</Capability>
+  <Capability Min="135" Max="135">Refresh Rate 1250</Capability>
+  <Capability Min="136" Max="136">Refresh Rate 1260</Capability>
+  <Capability Min="137" Max="137">Refresh Rate 1270</Capability>
+  <Capability Min="138" Max="138">Refresh Rate 1280</Capability>
+  <Capability Min="139" Max="139">Refresh Rate 1290</Capability>
+  <Capability Min="140" Max="140">Refresh Rate 1300</Capability>
+  <Capability Min="141" Max="141">Refresh Rate 1310</Capability>
+  <Capability Min="142" Max="142">Refresh Rate 1320</Capability>
+  <Capability Min="143" Max="143">Refresh Rate 1330</Capability>
+  <Capability Min="144" Max="144">Refresh Rate 1340</Capability>
+  <Capability Min="145" Max="145">Refresh Rate 1350</Capability>
+  <Capability Min="146" Max="146">Refresh Rate 1360</Capability>
+  <Capability Min="147" Max="147">Refresh Rate 1370</Capability>
+  <Capability Min="148" Max="148">Refresh Rate 1380</Capability>
+  <Capability Min="149" Max="149">Refresh Rate 1390</Capability>
+  <Capability Min="150" Max="150">Refresh Rate 1400</Capability>
+  <Capability Min="151" Max="151">Refresh Rate 1410</Capability>
+  <Capability Min="152" Max="152">Refresh Rate 1420</Capability>
+  <Capability Min="153" Max="153">Refresh Rate 1430</Capability>
+  <Capability Min="154" Max="154">Refresh Rate 1440</Capability>
+  <Capability Min="155" Max="155">Refresh Rate 1450</Capability>
+  <Capability Min="156" Max="156">Refresh Rate 1460</Capability>
+  <Capability Min="157" Max="157">Refresh Rate 1470</Capability>
+  <Capability Min="158" Max="158">Refresh Rate 1480</Capability>
+  <Capability Min="159" Max="159">Refresh Rate 1490</Capability>
+  <Capability Min="160" Max="160">Refresh Rate 1500</Capability>
+  <Capability Min="161" Max="161">Refresh Rate 2500</Capability>
+  <Capability Min="162" Max="162">Refresh Rate 4000</Capability>
+  <Capability Min="163" Max="163">Refresh Rate 5000</Capability>
+  <Capability Min="164" Max="164">Refresh Rate 6000</Capability>
+  <Capability Min="165" Max="165">Refresh Rate 10.000</Capability>
+  <Capability Min="166" Max="166">Refresh Rate 15.000</Capability>
+  <Capability Min="167" Max="167">Refresh Rate 20.000</Capability>
+  <Capability Min="168" Max="168">Refresh Rate 25.000</Capability>
+  <Capability Min="169" Max="200">Idle</Capability>
+  <Capability Min="201" Max="210">Dimmer Curve Linear (Default)</Capability>
+  <Capability Min="211" Max="220">Dimmer Curve Square</Capability>
+  <Capability Min="221" Max="230">Dimmer Curve Inverse Square</Capability>
+  <Capability Min="231" Max="240">Dimmer Curve S-Curve</Capability>
+  <Capability Min="241" Max="255">Idle</Capability>
+ </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Cyan fine" Preset="IntensityCyanFine"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Magenta fine" Preset="IntensityMagentaFine"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="Yellow fine" Preset="IntensityYellowFine"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="Mint" Preset="IntensityLime"/>
+ <Channel Name="Mint fine" Preset="IntensityLimeFine"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Amber fine" Preset="IntensityAmberFine"/>
+ <Channel Name="Green Shift">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Idle</Capability>
+  <Capability Min="1" Max="127">Full Minus Green to Neutral</Capability>
+  <Capability Min="128" Max="128">Neutral White</Capability>
+  <Capability Min="129" Max="255">Neutral to Full Plus Green</Capability>
+ </Channel>
+ <Channel Name="Dim Modes">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="20">Standard</Capability>
+  <Capability Min="21" Max="40">Stage</Capability>
+  <Capability Min="41" Max="60">TV</Capability>
+  <Capability Min="61" Max="80">Architectural</Capability>
+  <Capability Min="81" Max="100">Theatre</Capability>
+  <Capability Min="101" Max="120">Stage 2</Capability>
+  <Capability Min="121" Max="121">Dimmer Delay 0 s</Capability>
+  <Capability Min="122" Max="122">Dimmer Delay 0. 1 s</Capability>
+  <Capability Min="123" Max="123">Dimmer Delay 0. 2 s</Capability>
+  <Capability Min="124" Max="124">Dimmer Delay 0. 3 s</Capability>
+  <Capability Min="125" Max="125">Dimmer Delay 0. 4 s</Capability>
+  <Capability Min="126" Max="126">Dimmer Delay 0. 5 s</Capability>
+  <Capability Min="127" Max="127">Dimmer Delay 0. 6 s</Capability>
+  <Capability Min="128" Max="128">Dimmer Delay 0. 7 s</Capability>
+  <Capability Min="129" Max="129">Dimmer Delay 0. 8 s</Capability>
+  <Capability Min="130" Max="130">Dimmer Delay 0. 9 s</Capability>
+  <Capability Min="131" Max="131">Dimmer Delay 1. 0 s</Capability>
+  <Capability Min="132" Max="132">Dimmer Delay 1. 5 s</Capability>
+  <Capability Min="133" Max="133">Dimmer Delay 2. 0 s</Capability>
+  <Capability Min="134" Max="134">Dimmer Delay 3. 0 s</Capability>
+  <Capability Min="135" Max="135">Dimmer Delay 4. 0 s</Capability>
+  <Capability Min="136" Max="136">Dimmer Delay 5. 0 s</Capability>
+  <Capability Min="137" Max="137">Dimmer Delay 6. 0 s</Capability>
+  <Capability Min="138" Max="138">Dimmer Delay 7. 0 s</Capability>
+  <Capability Min="139" Max="139">Dimmer Delay 8. 0 s</Capability>
+  <Capability Min="140" Max="140">Dimmer Delay 9. 0s</Capability>
+  <Capability Min="141" Max="141">Dimmer Delay 10. 0 s</Capability>
+  <Capability Min="142" Max="255">Idle</Capability>
+ </Channel>
+ <Mode Name="Dimmer 1CH">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+ <Mode Name="Dimmer Colour 6CH">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer Fine</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">CTO</Channel>
+  <Channel Number="4">Colour Wheel</Channel>
+  <Channel Number="5">Control</Channel>
+ </Mode>
+ <Mode Name="Extended 18 CH">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer Fine</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Red fine</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Green fine</Channel>
+  <Channel Number="7">Blue</Channel>
+  <Channel Number="8">Blue fine</Channel>
+  <Channel Number="9">Mint</Channel>
+  <Channel Number="10">Mint fine</Channel>
+  <Channel Number="11">Amber</Channel>
+  <Channel Number="12">Amber fine</Channel>
+  <Channel Number="13">CTO</Channel>
+  <Channel Number="14">Colour Wheel</Channel>
+  <Channel Number="15">Green Shift</Channel>
+  <Channel Number="16">Dim Modes</Channel>
+  <Channel Number="17">Control</Channel>
+ </Mode>
+ <Mode Name="Standard 11 CH">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer Fine</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+  <Channel Number="6">Mint</Channel>
+  <Channel Number="7">Amber</Channel>
+  <Channel Number="8">CTO</Channel>
+  <Channel Number="9">Colour Wheel</Channel>
+  <Channel Number="10">Control</Channel>
+ </Mode>
+ <Mode Name="CMY Extended 14 CH">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer Fine</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Cyan</Channel>
+  <Channel Number="4">Cyan fine</Channel>
+  <Channel Number="5">Magenta</Channel>
+  <Channel Number="6">Magenta fine</Channel>
+  <Channel Number="7">Yellow</Channel>
+  <Channel Number="8">Yellow fine</Channel>
+  <Channel Number="9">CTO</Channel>
+  <Channel Number="10">Colour Wheel</Channel>
+  <Channel Number="11">Green Shift</Channel>
+  <Channel Number="12">Dim Modes</Channel>
+  <Channel Number="13">Control</Channel>
+ </Mode>
+ <Mode Name="CMY 9 CH">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer Fine</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Cyan</Channel>
+  <Channel Number="4">Magenta</Channel>
+  <Channel Number="5">Yellow</Channel>
+  <Channel Number="6">CTO</Channel>
+  <Channel Number="7">Colour Wheel</Channel>
+  <Channel Number="8">Control</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="11000" ColourTemperature="6500"/>
+  <Dimensions Weight="7.25" Width="304" Height="380" Depth="354"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="280" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

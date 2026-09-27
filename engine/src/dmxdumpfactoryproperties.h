@@ -49,6 +49,12 @@ public:
     /** Set a flag to dump only the channels with non zero values. */
     void setNonZeroValuesMode(bool mode);
 
+    /** Resize the channels mask to hold $universes universes.
+     *  Existing selections are preserved. This must be called
+     *  whenever the number of universes in the project changes,
+     *  otherwise the mask would be indexed out of its boundaries */
+    void setUniversesCount(int universes);
+
     /** Return the current map of the selected DMX channels to dump.
      *  The array has size = universes * 512 */
     QByteArray channelsMask() const;
@@ -96,16 +102,16 @@ public:
 
     /** Select the type of dump that will be performed.
      *  See TargetType. */
-    void setSelectedTarget(TargetType type);
+    void setSelectedTarget(DmxDumpFactoryProperties::TargetType type);
 
     /** Return the current target that will be used in
      *  the dump process */
-    TargetType selectedTarget() const;
+    DmxDumpFactoryProperties::TargetType selectedTarget() const;
 
 private:
     /** Variable holding the type of dump going to
      *  be performed. See TargetType */
-    TargetType m_selectedTarget;
+    DmxDumpFactoryProperties::TargetType m_selectedTarget;
 
     /** A list of the Chaser IDs on which the dumped
      *  Scene will be added */

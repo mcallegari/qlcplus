@@ -57,6 +57,10 @@ void MainViewDMX::enableContext(bool enable)
 void MainViewDMX::setUniverseFilter(quint32 universeFilter)
 {
     PreviewContext::setUniverseFilter(universeFilter);
+
+    if (!isEnabled())
+        return;
+
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
     while (it.hasNext())
     {
@@ -108,8 +112,9 @@ void MainViewDMX::createFixtureItem(quint32 fxID)
 
     newFixtureItem->setParentItem(contextItem());
     newFixtureItem->setProperty("fixtureObj", QVariant::fromValue(fixture));
-    if (itemFlags & MonitorProperties::HiddenFlag)
-        newFixtureItem->setProperty("visible", false);
+    bool isVisible = !(itemFlags & MonitorProperties::HiddenFlag) &&
+                     (m_universeFilter == Universe::invalid() || fixture->universe() == m_universeFilter);
+    newFixtureItem->setProperty("visible", isVisible);
 
     // and finally add the new item to the items map
     m_itemsMap[fxID] = newFixtureItem;
@@ -143,8 +148,14 @@ void MainViewDMX::updateFixture(Fixture *fixture)
     QByteArray fxValues = fixture->channelValues();
     QVariantList dmxValues;
 
-    for (int i = 0; i < (int)fixture->channels(); i++)
-        dmxValues.append(QString::number((uchar)fxValues.at(i)));
+    int channelsCount = (int)fixture->channels();
+    int valuesCount = fxValues.size();
+
+    for (int i = 0; i < channelsCount; i++)
+    {
+        uchar value = i < valuesCount ? (uchar)fxValues.at(i) : 0;
+        dmxValues.append(QString::number(value));
+    }
 
     QQuickItem *fxItem = m_itemsMap[fixture->id()];
     fxItem->setProperty("values", QVariant::fromValue(dmxValues));
@@ -231,5 +242,3 @@ void MainViewDMX::slotAliasChanged()
     QQuickItem *fxItem = m_itemsMap[fixture->id()];
     QMetaObject::invokeMethod(fxItem, "updateChannels");
 }
-
-

@@ -20,13 +20,19 @@
 #ifndef VCXYPAD_H
 #define VCXYPAD_H
 
+#include <QVector3D>
+#include <QPointer>
+#include <QHash>
+
 #include "vcwidget.h"
 #include "dmxsource.h"
+#include "grouphead.h"
 
 #define KXMLQLCVCXYPad  QStringLiteral("XYPad")
 
 class ListModel;
 class TreeModel;
+class EFX;
 
 class VCXYPad : public VCWidget, public DMXSource
 {
@@ -39,9 +45,19 @@ class VCXYPad : public VCWidget, public DMXSource
     Q_PROPERTY(QPointF horizontalRange READ horizontalRange WRITE setHorizontalRange NOTIFY horizontalRangeChanged FINAL)
     Q_PROPERTY(QPointF verticalRange READ verticalRange WRITE setVerticalRange NOTIFY verticalRangeChanged FINAL)
 
+    Q_PROPERTY(bool floorControl READ floorControl WRITE setFloorControl NOTIFY floorControlChanged FINAL)
+    Q_PROPERTY(QVector3D floorPosition READ floorPosition WRITE setFloorPosition NOTIFY floorPositionChanged FINAL)
+    Q_PROPERTY(QVector3D floorSize READ floorSize NOTIFY floorSizeChanged FINAL)
+    Q_PROPERTY(QRectF floorRangeArea READ floorRangeArea NOTIFY floorRangeAreaChanged FINAL)
+    Q_PROPERTY(qreal floorHeightMax READ floorHeightMax CONSTANT)
+    Q_PROPERTY(qreal floorHeightStep READ floorHeightStep CONSTANT)
+
     Q_PROPERTY(QVariant fixtureList READ fixtureList NOTIFY fixtureListChanged)
+    Q_PROPERTY(QVariantList fixturePositions READ fixturePositions NOTIFY fixturePositionsChanged)
     Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
     Q_PROPERTY(QString searchFilter READ searchFilter WRITE setSearchFilter NOTIFY searchFilterChanged)
+    Q_PROPERTY(QVariantList presetsList READ presetsList NOTIFY presetsListChanged)
+    Q_PROPERTY(int activePresetId READ activePresetId NOTIFY activePresetIdChanged)
 
     /*********************************************************************
      * Initialization
@@ -61,9 +77,14 @@ public:
 
     /** @reimp */
     QString propertiesResource() const override;
+    QString presetsResource() const override;
+    bool supportsPresets() const override;
 
     /** @reimp */
     VCWidget *createCopy(VCWidget *parent) const override;
+
+    /** @reimp */
+    void remapChannels(const QMap<SceneValue, SceneValue> &remapMap) override;
 
 protected:
     /** @reimp */
@@ -103,12 +124,43 @@ public:
     QPointF verticalRange() const;
     void setVerticalRange(QPointF newVerticalRange);
 
+    /** Get/Set the "floor control" mode. When enabled, the pad area no longer
+     *  represents the fixtures Pan/Tilt degrees, but the stage floor on the
+     *  X/Z plane. Moving the cursor makes the enabled fixtures point at the
+     *  matching floor coordinate, and a side fader raises the target height
+     *  on the Y axis. */
+    bool floorControl() const;
+    void setFloorControl(bool enable);
+
+    /** Get/Set the currently targeted 3D point, in metres.
+     *  X/Z are relative to the environment origin (0,0 = stage front-left
+     *  corner), Y is the height above the floor. */
+    QVector3D floorPosition() const;
+    void setFloorPosition(QVector3D newFloorPosition);
+
+    /** Return the environment size in metres, used to map the pad area
+     *  to the stage floor in floor control mode */
+    QVector3D floorSize() const;
+
+    /** Return the reachable portion of the stage floor in metres, obtained
+     *  by mapping the range window onto the environment size. X/width follow
+     *  the horizontal range, Y/height the vertical one. */
+    QRectF floorRangeArea() const;
+
+    /** Boundaries of the floor control height fader, in metres */
+    qreal floorHeightMax() const;
+    qreal floorHeightStep() const;
+
 signals:
     void invertedAppearanceChanged();
     void displayModeChanged();
     void currentPositionChanged();
     void horizontalRangeChanged();
     void verticalRangeChanged();
+    void floorControlChanged();
+    void floorPositionChanged();
+    void floorSizeChanged();
+    void floorRangeAreaChanged();
 
 private:
     bool m_invertedAppearance;
@@ -118,6 +170,15 @@ private:
     QPointF m_horizontalRange;
     QPointF m_verticalRange;
     bool m_positionChanged;
+
+    bool m_floorControl;
+    QVector3D m_floorPosition;
+
+    /** Flag raised while a position change is driven by external input, so
+     *  that setCurrentPosition doesn't echo a feedback straight back to the
+     *  controller. Any other position change (UI drag, preset, undo) will
+     *  re-sync the controllers instead. */
+    bool m_handlingExternalInput = false;
 
     /** Cached MSB/LSB values for an
      *  efficient DMX computation */
@@ -157,9 +218,17 @@ public:
         GroupHead m_head;
         quint32 m_universe;
         quint32 m_fixtureAddress;
+
+        /** ID of the FixtureGroup this entry represents. When valid, the
+         *  entry is a whole group rather than a single head, and m_head is
+         *  unused: the group is resolved to its heads at DMX write time, so
+         *  that adding/removing fixtures from the group is picked up. */
+        quint32 m_groupID;
     } XYPadFixture;
 
-    /** Add a Fixture Group or a Universe to this XY Pad */
+    /** Add a Fixture Group or a Universe to this XY Pad.
+     *  A Universe is expanded to its fixtures, while a Fixture Group is kept
+     *  as a single entry and also gets a matching FixtureGroup preset. */
     Q_INVOKABLE void addGroup(QVariant reference);
 
     /** Add a Fixture to this XY Pad */
@@ -171,11 +240,39 @@ public:
     /** Remove a Fixture from this XY Pad */
     Q_INVOKABLE void removeHeads(QVariantList heads);
 
+    /** Return a map with the current Pan/Tilt range of the given $heads.
+     *  The displayed min/max values follow the current display mode and,
+     *  for a mix of fixtures, the maximum allowed value is the smallest
+     *  among the selection. */
+    Q_INVOKABLE QVariantMap headsRangeInfo(QVariantList heads);
+
+    /** Apply the given Pan/Tilt range (expressed in the current display
+     *  mode units) and reverse flags to the given $heads */
+    Q_INVOKABLE void setHeadsRange(QVariantList heads, int xMin, int xMax, bool xReverse,
+                                   int yMin, int yMax, bool yReverse);
+
+    /** Add presets */
+    Q_INVOKABLE int addPositionPreset();
+    Q_INVOKABLE int addFunctionPreset(quint32 functionID);
+    Q_INVOKABLE int addFixtureGroupPreset(QVariant reference);
+    Q_INVOKABLE int addFixtureGroupHeadPreset(int fixtureID, int headIndex);
+
+    /** Remove/reorder/edit presets */
+    Q_INVOKABLE void removePreset(quint8 presetId);
+    Q_INVOKABLE int movePresetUp(quint8 presetId);
+    Q_INVOKABLE int movePresetDown(quint8 presetId);
+    Q_INVOKABLE void setPresetName(quint8 presetId, QString name);
+    Q_INVOKABLE void applyPreset(quint8 presetId);
+
     /** Get the fixture list for the UI */
     QVariant fixtureList() const;
 
     /** Returns the data model to display a tree of FixtureGroups/Fixtures */
     QVariant groupsTreeModel();
+    QVariantList fixturePositions() const;
+
+    QVariantList presetsList() const;
+    int activePresetId() const;
 
     /** Get/Set a string to filter Group/Fixture/Channel names */
     QString searchFilter() const;
@@ -186,16 +283,30 @@ protected:
     void computeRange(XYPadFixture &fixture);
     void updateFixtureList();
 
+    /** Returns true if a group with the given $groupID is already in the pad */
+    bool hasGroup(quint32 groupID) const;
+
+    /** Resolve an entry to the heads it drives: a single head for a fixture
+     *  entry, the current member heads for a group entry */
+    QList<GroupHead> entryHeads(const XYPadFixture &fixture) const;
+
 signals:
     /** Notify the listeners that the fixture list model has changed */
     void fixtureListChanged();
+    /** Notify listeners that fixture preview positions changed */
+    void fixturePositionsChanged();
     /** Notify the listeners that the fixture tree model has changed */
     void groupsTreeModelChanged();
     /** Notify the listeners that the search filter has changed */
     void searchFilterChanged();
+    /** Notify listeners that presets data changed */
+    void presetsListChanged();
+    /** Notify listeners that the active preset changed */
+    void activePresetIdChanged();
 
 private:
     QList <XYPadFixture> m_fixtures;
+    QVariantList m_fixturePositions;
 
     /** Reference to a ListModel representing the fixtures list for the QML UI */
     ListModel *m_fixtureList;
@@ -203,6 +314,63 @@ private:
     TreeModel *m_fixtureTree;
     /** A string to filter the displayed tree items */
     QString m_searchFilter;
+
+    /*********************************************************************
+     * Presets
+     *********************************************************************/
+private:
+    QList<class VCXYPadPreset*> presets() const;
+    class VCXYPadPreset *findPreset(quint8 presetId) const;
+    void refreshPresetExternalControls();
+    void clearPresets();
+    void addPresetInternal(class VCXYPadPreset *preset);
+    bool hasHead(const GroupHead &head) const;
+    QList<GroupHead> uniqueHeadsInPad(const QList<GroupHead> &heads) const;
+
+    /** Resolve the heads selected by a Fixture Group preset. A preset that
+     *  references a group resolves it every time, so that changes to the
+     *  group membership are picked up; otherwise the stored head list is
+     *  returned as-is. */
+    QList<GroupHead> presetHeads(const class VCXYPadPreset *preset) const;
+    bool sceneHasPanTilt(quint32 functionID) const;
+    bool activatePreset(VCXYPadPreset *preset);
+    void deactivatePreset(VCXYPadPreset *preset);
+    void setActivePresetId(int presetId);
+
+    /** Request the attribute overrides used to squeeze a running EFX preset
+     *  into the pad range window. Does nothing if $function is not an EFX */
+    void attachEFX(class Function *function);
+
+    /** Release the attribute overrides acquired by attachEFX */
+    void detachEFX();
+
+    /** Return the range window as a normalized (0-255) rectangle */
+    QRectF efxGeometry() const;
+
+    /** Resize/reposition the running EFX preset, if any, so that it fits
+     *  the current range window */
+    void updateEFXGeometry();
+
+private slots:
+    /** Forget the EFX reference when the pattern is stopped from elsewhere */
+    void slotEFXStopped(quint32 fid);
+
+private:
+    quint8 m_lastAssignedPresetId;
+    QList<class VCXYPadPreset*> m_presets;
+    int m_activePresetId;
+
+    /** Reference to the EFX started by the active preset, if any. It is used
+     *  to resize the pattern when the range window is changed. Guarded, so
+     *  that deleting the Function while the pad is alive doesn't leave a
+     *  dangling pointer behind */
+    QPointer<EFX> m_efx;
+
+    /** IDs of the EFX attribute overrides owned by this pad */
+    int m_efxStartXOverrideId;
+    int m_efxStartYOverrideId;
+    int m_efxWidthOverrideId;
+    int m_efxHeightOverrideId;
 
     /*********************************************************************
      * DMXSource
@@ -213,6 +381,21 @@ public:
 
 private:
     void updateChannel(FadeChannel *fc, uchar value);
+
+    /** Write the Pan/Tilt values that make the enabled fixtures point at
+     *  the current floor position. Used when floor control is enabled. */
+    void writeDMXFloor(QList<Universe *> universes);
+
+    /** On fixtures with more than 360° of Pan travel, the same direction can
+     *  be reached at several Pan angles (e.g. 30° and 390° on a 540° head).
+     *  Pick the one closest to where the fixture is already pointing, so that
+     *  dragging across the stage keeps moving the head the short way instead
+     *  of sweeping it back through the centre. Tilt is never altered. */
+    qreal resolvePanDegrees(const Fixture *fixture, qreal panDeg);
+
+    /** Last Pan angle (degrees) commanded per fixture in floor mode, used to
+     *  resolve the wrap-around ambiguity above */
+    QHash<quint32, qreal> m_lastFloorPan;
 
 public slots:
     void slotUniverseWritten(quint32 idx, const QByteArray& universeData);
@@ -237,11 +420,21 @@ public slots:
      *********************************************************************/
 public:
     bool loadXMLFixture(QXmlStreamReader &root);
+    bool loadXMLGroup(QXmlStreamReader &root);
 
     /** @reimp */
     bool loadXML(QXmlStreamReader &root) override;
 
     bool saveXMLFixture(QXmlStreamWriter *doc, const XYPadFixture &fxItem) const;
+
+private:
+    /** Read the Axis children of a Fixture/Group node into $fxItem */
+    void loadXMLAxes(QXmlStreamReader &root, XYPadFixture &fxItem);
+
+    /** Write an Axis element, but only if the axis differs from the
+     *  default full range (0.0 - 1.0, not reversed) */
+    void saveXMLAxis(QXmlStreamWriter *doc, const QString &axisID,
+                     qreal min, qreal max, bool reverse) const;
 
     /** @reimp */
     bool saveXML(QXmlStreamWriter *doc) const override;

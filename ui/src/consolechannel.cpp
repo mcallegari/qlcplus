@@ -329,7 +329,7 @@ void ConsoleChannel::showResetButton(bool show)
     }
 }
 
-bool ConsoleChannel::hasResetButton()
+bool ConsoleChannel::hasResetButton() const
 {
     return m_resetButton != NULL ? true : false;
 }
@@ -669,7 +669,7 @@ void ConsoleChannel::slotClickAndGoLevelAndPresetChanged(uchar level, QImage img
  * Selection
  *************************************************************************/
 
-bool ConsoleChannel::isSelected()
+bool ConsoleChannel::isSelected() const
 {
     return m_selected;
 }

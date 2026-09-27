@@ -158,7 +158,7 @@ void ClickAndGoWidget::setLevelHighLimit(int max)
     this->m_levelHighLimit = max;
 }
 
-int ClickAndGoWidget::getType()
+int ClickAndGoWidget::getType() const
 {
     return m_type;
 }
@@ -206,7 +206,7 @@ ClickAndGoWidget::ClickAndGo ClickAndGoWidget::stringToClickAndGoType(QString st
     return None;
 }
 
-QColor ClickAndGoWidget::getColorAt(uchar pos)
+QColor ClickAndGoWidget::getColorAt(uchar pos) const
 {
     if (m_linearColor == true)
     {
@@ -216,7 +216,7 @@ QColor ClickAndGoWidget::getColorAt(uchar pos)
     return QColor(0,0,0);
 }
 
-QImage ClickAndGoWidget::getImageFromValue(uchar value)
+QImage ClickAndGoWidget::getImageFromValue(uchar value) const
 {
     /** If the widget type is a Preset, return directly
      *  the pre-loaded resource */

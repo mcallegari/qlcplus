@@ -23,6 +23,14 @@
 #include "unixpeperonidevice.h"
 #include "peperonidefs.h"
 
+namespace
+{
+constexpr unsigned char kVendorInterfaceOutRequestType =
+    static_cast<unsigned char>(static_cast<unsigned char>(LIBUSB_REQUEST_TYPE_VENDOR) |
+                               static_cast<unsigned char>(LIBUSB_RECIPIENT_INTERFACE) |
+                               static_cast<unsigned char>(LIBUSB_ENDPOINT_OUT));
+}
+
 UnixPeperoniDevice::UnixPeperoniDevice(const QVariant& uid, const QString& name,
                                        struct libusb_device* device,
                                        const struct libusb_device_descriptor* desc,
@@ -84,9 +92,7 @@ void UnixPeperoniDevice::open()
 
     /* Set DMX startcode */
     r = libusb_control_transfer(m_handle,
-                        LIBUSB_REQUEST_TYPE_VENDOR |
-                            LIBUSB_RECIPIENT_INTERFACE |
-                            LIBUSB_ENDPOINT_OUT,
+                        kVendorInterfaceOutRequestType,
                         PEPERONI_TX_STARTCODE,   // Set DMX startcode
                         0,                       // Standard startcode is 0
                         0,                       // No index
@@ -153,9 +159,7 @@ void UnixPeperoniDevice::writeUniverse(const QByteArray& universe)
     {
 #endif
         r = libusb_control_transfer(m_handle,
-                                    LIBUSB_REQUEST_TYPE_VENDOR |
-                                        LIBUSB_RECIPIENT_INTERFACE |
-                                        LIBUSB_ENDPOINT_OUT,
+                                    kVendorInterfaceOutRequestType,
                                     PEPERONI_TX_MEM_REQUEST, // We are WRITING DMX data
                                     m_blockingControlWrite,  // Block during frame send?
                                     0,                       // Start at DMX address 0

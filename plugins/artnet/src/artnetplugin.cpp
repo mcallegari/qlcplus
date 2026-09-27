@@ -362,6 +362,8 @@ void ArtNetPlugin::setParameter(quint32 universe, quint32 line, Capability type,
             unset = controller->setOutputUniverse(universe, value.toUInt());
         else if (name == ARTNET_TRANSMITMODE)
             unset = controller->setTransmissionMode(universe, ArtNetController::stringToTransmissionMode(value.toString()));
+        else if (name == PLUGIN_UNIVERSECHANNELS)
+            unset = false;
         else
         {
             qWarning() << Q_FUNC_INFO << name << "is not a valid ArtNet output parameter";

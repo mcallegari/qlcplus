@@ -572,7 +572,7 @@ private:
      *********************************************************************/
 public:
     /** Get/Set a generic UI property specific to this Function */
-    QVariant uiStateValue(QString property);
+    QVariant uiStateValue(QString property) const;
     void setUiStateValue(QString property, QVariant value);
 
     /** Get the whole UI state map */

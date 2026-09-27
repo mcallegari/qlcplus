@@ -55,6 +55,8 @@
 #define KXMLQLCRGBMatrixControlModeDimmer   QStringLiteral("Dimmer")
 #define KXMLQLCRGBMatrixControlModeShutter  QStringLiteral("Shutter")
 
+static const int RGBMatrixColorMask = 0x00FFFFFF;
+
 /****************************************************************************
  * Initialization
  ****************************************************************************/
@@ -73,6 +75,8 @@ RGBMatrix::RGBMatrix(Doc *doc)
     , m_stepHandler(new RGBMatrixStep())
     , m_stepsCount(0)
     , m_stepBeatDuration(0)
+    , m_continuousPhase(0.0)
+    , m_applyingStyleAttributes(false)
     , m_controlMode(RGBMatrix::ControlModeRgb)
 {
     setName(tr("New RGB Matrix"));
@@ -80,6 +84,17 @@ RGBMatrix::RGBMatrix(Doc *doc)
 
     m_rgbColors.fill(QColor(), RGBAlgorithmColorDisplayCount);
     setColor(0, Qt::red);
+
+    /** Register the fixed attributes before loading an algorithm, so that
+     *  the attributes exposed by a Script are always appended after them */
+    for (int i = 0; i < ColorAttributeCount; ++i)
+    {
+        registerAttribute(tr("Color %1").arg(i + 1), LastWins | Single, -1.0, 16777215.0,
+                          getColor(i).isValid() ? int(getColor(i).rgb() & RGBMatrixColorMask) : -1);
+    }
+
+    int algoCount = RGBAlgorithm::algorithms(doc).count();
+    registerAttribute(tr("Pattern"), LastWins | Single, 0.0, algoCount > 0 ? algoCount - 1 : 0, 0);
 
     setAlgorithm(RGBAlgorithm::algorithm(doc, "Stripes"));
 }
@@ -95,6 +110,16 @@ RGBMatrix::~RGBMatrix()
 QIcon RGBMatrix::getIcon() const
 {
     return QIcon(":/rgbmatrix.png");
+}
+
+int RGBMatrix::algorithmIndex() const
+{
+    if (m_algorithm == NULL || doc() == NULL)
+        return 0;
+
+    QStringList algoList = RGBAlgorithm::algorithms(doc());
+    int idx = algoList.indexOf(m_algorithm->name());
+    return idx >= 0 ? idx : 0;
 }
 
 void RGBMatrix::setTotalDuration(quint32 msec)
@@ -218,6 +243,11 @@ void RGBMatrix::setAlgorithm(RGBAlgorithm *algo)
 {
     {
         QMutexLocker algorithmLocker(&m_algorithmMutex);
+
+        /** Unregister the attributes of the outgoing algorithm while it is
+         *  still around, since their names come from its properties */
+        unregisterScriptPropertyAttributes();
+
         delete m_algorithm;
         m_algorithm = algo;
 
@@ -247,6 +277,12 @@ void RGBMatrix::setAlgorithm(RGBAlgorithm *algo)
         }
     }
     m_stepsCount = algorithmStepsCount();
+
+    /** Expose the properties of the new algorithm as Function attributes */
+    registerScriptPropertyAttributes();
+
+    if (m_applyingStyleAttributes == false)
+        Function::adjustAttribute(algorithmIndex(), PatternAttr);
 
     emit changed(id());
 }
@@ -326,6 +362,10 @@ void RGBMatrix::setColor(int i, QColor c)
         }
     }
     setMapColors(m_algorithm);
+
+    if (m_applyingStyleAttributes == false && i >= 0 && i < ColorAttributeCount)
+        Function::adjustAttribute(c.isValid() ? int(c.rgb() & RGBMatrixColorMask) : -1, Color1Attr + i);
+
     emit changed(id());
 }
 
@@ -386,6 +426,10 @@ void RGBMatrix::setMapColors(RGBAlgorithm *algorithm)
 void RGBMatrix::setProperty(QString propName, QString value)
 {
     QMutexLocker algoLocker(&m_algorithmMutex);
+
+    // Remember the old step count before changing it (used to scale the step index)
+    int oldStepsCount = m_stepsCount;
+
     m_properties[propName] = value;
     if (m_algorithm != NULL && m_algorithm->type() == RGBAlgorithm::Script)
     {
@@ -397,6 +441,31 @@ void RGBMatrix::setProperty(QString propName, QString value)
             setColor(i, QColor::fromRgb(colors.at(i)));
     }
     m_stepsCount = algorithmStepsCount();
+
+    // Scale currentStepIndex to the new step count to preserve the phase.
+    // We use m_continuousPhase (a continuous 0.0-1.0 value) instead of the discrete
+    // stepIndex to avoid accumulating rounding errors over multiple speed changes.
+    // Analogous to EFXFixture::durationChanged() using m_currentAngle.
+    if (m_stepHandler != NULL && m_stepsCount > 0 && oldStepsCount != m_stepsCount)
+    {
+        // If m_continuousPhase is not up to date yet (first change),
+        // compute it from the current stepIndex
+        if (oldStepsCount > 0)
+        {
+            int currentStepIndex = m_stepHandler->currentStepIndex();
+            m_continuousPhase = double(currentStepIndex) / double(oldStepsCount);
+        }
+
+        // Rescale the phase to the new step count (preserve the continuous phase,
+        // not the discrete index)
+        int newStepIndex = int(round(m_continuousPhase * double(m_stepsCount)));
+        // Make sure it stays within range
+        if (newStepIndex >= m_stepsCount)
+            newStepIndex = m_stepsCount - 1;
+        if (newStepIndex < 0)
+            newStepIndex = 0;
+        m_stepHandler->setCurrentStepIndex(newStepIndex);
+    }
 }
 
 QString RGBMatrix::property(QString propName)
@@ -611,6 +680,10 @@ void RGBMatrix::preRun(MasterTimer *timer)
             // Copy direction from parent class direction
             m_stepHandler->initializeDirection(direction(), m_rgbColors[0], m_rgbColors[1], m_stepsCount, m_runAlgorithm);
 
+            // Update continuous phase when starting playback
+            if (m_stepsCount > 0)
+                m_continuousPhase = double(m_stepHandler->currentStepIndex()) / double(m_stepsCount);
+
             if (m_runAlgorithm->type() == RGBAlgorithm::Script)
             {
                 RGBScript *script = static_cast<RGBScript*> (m_runAlgorithm);
@@ -760,6 +833,11 @@ void RGBMatrix::roundCheck()
     if (m_stepHandler->checkNextStep(runOrder(), m_rgbColors[0], m_rgbColors[1], m_stepsCount) == false)
         stop(FunctionParent::master());
 
+    // Update continuous phase based on current step index (prevents cumulative rounding errors)
+    // This is analogous to how EFX uses m_currentAngle for phase scaling
+    if (m_stepsCount > 0)
+        m_continuousPhase = double(m_stepHandler->currentStepIndex()) / double(m_stepsCount);
+
     m_roundTime.restart();
 
     if (tempoType() == Beats)
@@ -768,11 +846,11 @@ void RGBMatrix::roundCheck()
         roundElapsed(duration());
 }
 
-FadeChannel *RGBMatrix::getFader(Universe *universe, quint32 fixtureID, quint32 channel)
+QSharedPointer<GenericFader> RGBMatrix::getFader(Universe *universe)
 {
     // get the universe Fader first. If doesn't exist, create it
     if (universe == NULL)
-        return NULL;
+        return QSharedPointer<GenericFader>();
 
     QSharedPointer<GenericFader> fader = m_fadersMap.value(universe->id(), QSharedPointer<GenericFader>());
     if (fader.isNull())
@@ -785,20 +863,28 @@ FadeChannel *RGBMatrix::getFader(Universe *universe, quint32 fixtureID, quint32 
         m_fadersMap[universe->id()] = fader;
     }
 
-    return fader->getChannelFader(doc(), universe, fixtureID, channel);
+    return fader;
 }
 
-void RGBMatrix::updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime)
+void RGBMatrix::updateFaderValues(FadeChannel &fc, uchar value, uint fadeTime)
 {
-    fc->setStart(fc->current());
-    fc->setTarget(value);
-    fc->setElapsed(0);
-    fc->setReady(false);
+    // If the channel is already fading towards the requested value, let it
+    // continue undisturbed. Restarting start/elapsed on every step (even when
+    // the target doesn't change) would keep resetting the fade before it can
+    // ever reach its target, which is especially noticeable when the fade out
+    // time is longer than the step duration
+    if (fc.target() == value)
+        return;
+
+    fc.setStart(fc.current());
+    fc.setTarget(value);
+    fc.setElapsed(0);
+    fc.setReady(false);
     // fade in/out depends on target value
     if (value == 0)
-        fc->setFadeTime(fadeOutSpeed());
+        fc.setFadeTime(fadeOutSpeed());
     else
-        fc->setFadeTime(fadeTime);
+        fc.setFadeTime(fadeTime);
 }
 
 void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QList<Universe *> universes)
@@ -891,7 +977,14 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QL
             if (headDim != QLCChannel::invalid() && headDim != masterDim)
             {
                 channelList.append(headDim);
-                valueList.append(rgbToGrey(col) == 0 ? 0 : 255);
+                // If a master dimmer is present, it carries the greyscale fade and the
+                // per-head dimmer is just opened fully (on/off). With no master dimmer
+                // (e.g. generic single-channel dimmers), the head dimmer must carry the
+                // greyscale value itself, otherwise it would only ever output 0 or 255.
+                if (masterDim != QLCChannel::invalid())
+                    valueList.append(rgbToGrey(col) == 0 ? 0 : 255);
+                else
+                    valueList.append(rgbToGrey(col));
             }
         }
         else
@@ -914,18 +1007,36 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QL
                 continue;
 
             quint32 universeIndex = floor((absAddress + channelList.at(i)) / 512);
+            Universe *universe = universes.at(universeIndex);
+            QSharedPointer<GenericFader> fader = getFader(universe);
+            if (fader.isNull())
+                continue;
 
-            FadeChannel *fc = getFader(universes.at(universeIndex), grpHead.fxi, channelList.at(i));
-            updateFaderValues(fc, valueList.at(i), fadeTime);
+            const quint32 fixtureID = grpHead.fxi;
+            const quint32 channel = channelList.at(i);
+            const uchar value = valueList.at(i);
+            fader->updateChannel(doc(), universe, fixtureID, channel, [this, value, fadeTime](FadeChannel &fc)
+            {
+                updateFaderValues(fc, value, fadeTime);
+            });
         }
     }
 }
 
 uchar RGBMatrix::rgbToGrey(uint col)
 {
+    uchar r = qRed(col);
+    uchar g = qGreen(col);
+    uchar b = qBlue(col);
+
+    // Special case: if R=G=B (grayscale), return the value directly.
+    // This avoids floating-point precision issues.
+    if (r == g && g == b)
+        return r;
+
     // the weights are taken from
     // https://en.wikipedia.org/wiki/YUV#SDTV_with_BT.601
-    return (0.299 * qRed(col) + 0.587 * qGreen(col) + 0.114 * qBlue(col));
+    return uchar(round(0.299 * r + 0.587 * g + 0.114 * b));
 }
 
 /*********************************************************************
@@ -944,8 +1055,181 @@ int RGBMatrix::adjustAttribute(qreal fraction, int attributeId)
                 fader->adjustIntensity(getAttributeValue(Function::Intensity));
         }
     }
+    else if (attrIndex >= Color1Attr && attrIndex <= ColorLastAttr)
+    {
+        applyColorAttribute(attrIndex - Color1Attr, getAttributeValue(attrIndex));
+    }
+    else if (attrIndex == PatternAttr)
+    {
+        applyPatternAttribute(getAttributeValue(PatternAttr));
+    }
+    else if (attrIndex >= ScriptPropertyAttr)
+    {
+        applyScriptPropertyAttribute(attrIndex - ScriptPropertyAttr, getAttributeValue(attrIndex));
+    }
 
     return attrIndex;
+}
+
+void RGBMatrix::applyStyleAttributes()
+{
+    for (int i = 0; i < ColorAttributeCount; ++i)
+        applyColorAttribute(i, getAttributeValue(Color1Attr + i));
+
+    applyPatternAttribute(getAttributeValue(PatternAttr));
+
+    for (int i = 0; i < scriptPropertyAttributes().count(); i++)
+        applyScriptPropertyAttribute(i, getAttributeValue(ScriptPropertyAttr + i));
+}
+
+QList<RGBScriptProperty> RGBMatrix::scriptPropertyAttributes() const
+{
+    QList<RGBScriptProperty> list;
+
+    if (m_algorithm == NULL || m_algorithm->type() != RGBAlgorithm::Script)
+        return list;
+
+    RGBScript *script = static_cast<RGBScript*> (m_algorithm);
+
+    foreach (RGBScriptProperty prop, script->properties())
+    {
+        /** Only the properties that a slider can drive are exposed:
+         *  a list needs at least two values to pick from, a range needs
+         *  a meaningful span and a string cannot be controlled at all */
+        if (prop.m_type == RGBScriptProperty::List)
+        {
+            if (prop.m_listValues.count() > 1)
+                list.append(prop);
+        }
+        else if (prop.m_type == RGBScriptProperty::Range)
+        {
+            if (prop.m_rangeMaxValue > prop.m_rangeMinValue)
+                list.append(prop);
+        }
+        else if (prop.m_type == RGBScriptProperty::Float)
+        {
+            list.append(prop);
+        }
+    }
+
+    return list;
+}
+
+QString RGBMatrix::scriptPropertyAttributeName(const RGBScriptProperty &prop)
+{
+    return prop.m_displayName.isEmpty() ? prop.m_name : prop.m_displayName;
+}
+
+void RGBMatrix::unregisterScriptPropertyAttributes()
+{
+    foreach (RGBScriptProperty prop, scriptPropertyAttributes())
+        unregisterAttribute(scriptPropertyAttributeName(prop));
+}
+
+void RGBMatrix::registerScriptPropertyAttributes()
+{
+    QMutexLocker algorithmLocker(&m_algorithmMutex);
+
+    foreach (RGBScriptProperty prop, scriptPropertyAttributes())
+    {
+        qreal min = 0.0;
+        qreal max = 1.0;
+
+        if (prop.m_type == RGBScriptProperty::List)
+            max = prop.m_listValues.count() - 1;
+        else if (prop.m_type == RGBScriptProperty::Range)
+        {
+            min = prop.m_rangeMinValue;
+            max = prop.m_rangeMaxValue;
+        }
+        /** Scripts don't declare a range for float properties,
+         *  so 0.0 - 1.0 is assumed */
+
+        /** A list property holds a string, so the attribute value is the
+         *  index of the current value in the values list */
+        QString current = property(prop.m_name);
+        qreal value = prop.m_type == RGBScriptProperty::List ?
+                      qMax(0, prop.m_listValues.indexOf(current)) : current.toDouble();
+
+        registerAttribute(scriptPropertyAttributeName(prop), LastWins | Single,
+                          min, max, qBound(min, value, max));
+    }
+}
+
+void RGBMatrix::applyScriptPropertyAttribute(int attrIndex, qreal value)
+{
+    QList<RGBScriptProperty> props = scriptPropertyAttributes();
+    if (attrIndex < 0 || attrIndex >= props.count())
+        return;
+
+    const RGBScriptProperty prop = props.at(attrIndex);
+    QString strValue;
+
+    switch (prop.m_type)
+    {
+        case RGBScriptProperty::List:
+            strValue = prop.m_listValues.at(qBound(0, int(qRound(value)), prop.m_listValues.count() - 1));
+        break;
+        case RGBScriptProperty::Float:
+            strValue = QString::number(value);
+        break;
+        default:
+            strValue = QString::number(qRound(value));
+        break;
+    }
+
+    if (property(prop.m_name) != strValue)
+        setProperty(prop.m_name, strValue);
+}
+
+void RGBMatrix::applyColorAttribute(int colorIndex, qreal packedColor)
+{
+    if (colorIndex < 0 || colorIndex >= ColorAttributeCount)
+        return;
+
+    int packed = qRound(packedColor);
+    QColor targetColor = packed < 0 ? QColor() :
+                                      QColor::fromRgb(static_cast<QRgb>((packed & RGBMatrixColorMask) | 0xFF000000));
+    if (getColor(colorIndex) == targetColor)
+        return;
+
+    bool previous = m_applyingStyleAttributes;
+    m_applyingStyleAttributes = true;
+    setColor(colorIndex, targetColor);
+    m_applyingStyleAttributes = previous;
+}
+
+void RGBMatrix::applyPatternAttribute(qreal patternIndex)
+{
+    if (doc() == NULL)
+        return;
+
+    QStringList algoList = RGBAlgorithm::algorithms(doc());
+    if (algoList.isEmpty())
+        return;
+
+    int idx = qRound(patternIndex);
+    if (idx < 0)
+        idx = 0;
+    else if (idx >= algoList.count())
+        idx = algoList.count() - 1;
+
+    RGBAlgorithm *algo = RGBAlgorithm::algorithm(doc(), algoList.at(idx));
+    if (algo == NULL)
+        return;
+
+    if (m_algorithm != NULL && m_algorithm->name() == algo->name())
+    {
+        delete algo;
+        return;
+    }
+
+    algo->setColors(getColors());
+
+    bool previous = m_applyingStyleAttributes;
+    m_applyingStyleAttributes = true;
+    setAlgorithm(algo);
+    m_applyingStyleAttributes = previous;
 }
 
 /*************************************************************************
@@ -1054,7 +1338,7 @@ int RGBMatrixStep::currentStepIndex() const
     return m_currentStepIndex;
 }
 
-void RGBMatrixStep::calculateColorDelta(QColor startColor, QColor endColor, RGBAlgorithm *algorithm)
+void RGBMatrixStep::calculateColorDelta(const QColor& startColor, const QColor& endColor, const RGBAlgorithm *algorithm)
 {
     m_crDelta = 0;
     m_cgDelta = 0;
@@ -1099,7 +1383,7 @@ void RGBMatrixStep::updateStepColor(int stepIndex, QColor startColor, int stepsC
     //qDebug() << "RGBMatrix step" << stepIndex << ", color:" << QString::number(m_stepColor.rgb(), 16);
 }
 
-void RGBMatrixStep::initializeDirection(Function::Direction direction, QColor startColor, QColor endColor, int stepsCount, RGBAlgorithm *algorithm)
+void RGBMatrixStep::initializeDirection(Function::Direction direction, const QColor& startColor, const QColor& endColor, int stepsCount, const RGBAlgorithm *algorithm)
 {
     m_direction = direction;
 
@@ -1207,4 +1491,3 @@ bool RGBMatrixStep::checkNextStep(Function::RunOrder order,
 
     return true;
 }
-

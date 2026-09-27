@@ -218,6 +218,7 @@ Rectangle
                     tooltip: qsTr("Add a new fixture group")
                     onClicked: contextManager.createFixtureGroup()
                 }
+
                 IconButton
                 {
                     id: delItemButton
@@ -231,7 +232,7 @@ Rectangle
                     onClicked:
                     {
                         if (gfhcDragItem.itemsList.length === 0)
-                            return;
+                            return
 
                         var fxDeleteList = []
                         var fxGroupDeleteList = []
@@ -269,7 +270,7 @@ Rectangle
 
                 IconButton
                 {
-                    visible: !allowEditing
+                    visible: !allowEditing || fixtureManager.propertyEditEnabled
                     z: 2
                     width: height
                     height: topBar.height - 2
@@ -278,7 +279,8 @@ Rectangle
                     tooltip: qsTr("Apply changes to fixtures of the same type")
                     checkable: true
 
-                    onToggled: modelProvider.applyToSameType(checked)
+                    onToggled: modelProvider ? modelProvider.applyToSameType(checked) :
+                                               fixtureManager.applyToSameType(checked)
                 }
 
                 // Spacer
@@ -533,7 +535,7 @@ Rectangle
                                     gfhcDragItem.parent = mainView
                                     gfhcDragItem.x = posnInWindow.x - (gfhcDragItem.width / 4)
                                     gfhcDragItem.y = posnInWindow.y - (gfhcDragItem.height / 4)
-                                    if (!qItem.isSelected)
+                                    if (!qItem.isSelected || gfhcDragItem.itemsList.indexOf(qItem) === -1)
                                     {
                                         if ((mouseMods & Qt.ControlModifier) == 0)
                                             gfhcDragItem.itemsList = []
@@ -586,8 +588,15 @@ Rectangle
                                     updateButtons(qItem.itemType, itemID)
                                 break;
                                 case App.DoubleClicked:
-                                    if (allowEditing == false && qItem.itemType === App.FixtureDragItem)
+                                    if (qItem === item && model.hasChildren)
+                                    {
+                                        item.isExpanded = !item.isExpanded
+                                        model.isExpanded = item.isExpanded
+                                    }
+                                    else if (allowEditing == false && qItem.itemType === App.FixtureDragItem)
+                                    {
                                         fgmContainer.doubleClicked(iID, qItem.itemType)
+                                    }
                                 break;
                                 case App.DragStarted:
                                     if (qItem === item && !model.isSelected)
@@ -598,6 +607,7 @@ Rectangle
                                     }
 
                                     groupListView.dragActive = true
+                                    UISettings.internalDragActive = true
                                 break;
                                 case App.DragFinished:
                                     gfhcDragItem.Drag.drop()
@@ -605,6 +615,7 @@ Rectangle
                                     gfhcDragItem.x = 0
                                     gfhcDragItem.y = 0
                                     groupListView.dragActive = false
+                                    UISettings.internalDragActive = false
                                     //gfhcDragItem.itemsList = []
                                 break;
                             }

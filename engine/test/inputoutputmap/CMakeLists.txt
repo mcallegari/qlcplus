@@ -3,6 +3,7 @@ set(module_name "inputoutputmap_test")
 add_executable(${module_name} WIN32
     ../common/resource_paths.h
     ${module_name}.cpp ${module_name}.h
+    ../iopluginstub/iopluginstub.cpp
 )
 target_include_directories(${module_name} PRIVATE
     ../../../plugins/interfaces

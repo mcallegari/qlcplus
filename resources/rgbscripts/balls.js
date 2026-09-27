@@ -48,7 +48,7 @@ var testAlgo;
     algo.presetIndex = 0;
 
     algo.initialized = false;
-    
+
     var util = new Object;
     util.colorArray = new Array(algo.acceptColors);
 
@@ -80,7 +80,7 @@ var testAlgo;
       var color = util.colorArray[idx];
       return color;
     }
-    
+
     algo.setPreset = function(_preset)
     {
       algo.acceptColors = 0;
@@ -115,7 +115,7 @@ var testAlgo;
       else if (algo.presetIndex === 1) { return "Random"; }
       else { return "Rainbow"; }
     };
-  
+
     algo.rgbMapSetColors = function(rawColors)
     {
       if (! Array.isArray(rawColors))

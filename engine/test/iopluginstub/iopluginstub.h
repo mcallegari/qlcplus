@@ -26,7 +26,7 @@
 
 #include "qlcioplugin.h"
 
-class IOPluginStub : public QLCIOPlugin
+class IOPluginStub final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)

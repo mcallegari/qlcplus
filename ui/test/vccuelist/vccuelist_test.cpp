@@ -22,6 +22,7 @@
 #include <QXmlStreamWriter>
 #include <QTreeWidgetItem>
 #include <QTreeWidget>
+#include <QSignalSpy>
 #include <QtTest>
 
 #define protected public
@@ -30,9 +31,13 @@
 #include "genericfader.h"
 #include "chaserrunner.h"
 #include "mastertimer.h"
+#include "universe.h"
 #include "vccuelist.h"
 #include "vcwidget.h"
+#include "vcslider.h"
+#include "vcsliderproperties.h"
 #include "vcframe.h"
+#include "vcsoloframe.h"
 
 #include "qlcfixturedefcache.h"
 #include "qlcinputsource.h"
@@ -865,6 +870,99 @@ void VCCueList_Test::keyboardNextPrevious()
     timer->timerTick();
     //QVERIFY(cl.m_runner == NULL);
     QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), 0);
+}
+
+void VCCueList_Test::submasterWorksAfterSliderModeRoundTrip()
+{
+    VirtualConsole *vc = VirtualConsole::instance();
+    QVERIFY(vc != NULL);
+
+    VCFrame *contents = vc->contents();
+    QVERIFY(contents != NULL);
+
+    VCSoloFrame *frame = new VCSoloFrame(contents, m_doc, true);
+    vc->setupWidget(frame, contents);
+
+    VCCueList *cl = new VCCueList(frame, m_doc);
+    vc->setupWidget(cl, frame);
+    cl->setSideFaderMode(VCCueList::Crossfade);
+
+    VCSlider *slider = new VCSlider(frame, m_doc);
+    vc->setupWidget(slider, frame);
+    slider->setSliderMode(VCSlider::Submaster);
+    slider->setLevelValue(UCHAR_MAX);
+    slider->setSliderValue(UCHAR_MAX);
+
+    Fixture *fxi = new Fixture(m_doc);
+    fxi->setUniverse(0);
+    fxi->setAddress(0);
+    fxi->setChannels(1);
+    m_doc->addFixture(fxi);
+
+    Scene *scene = new Scene(m_doc);
+    scene->setValue(fxi->id(), 0, UCHAR_MAX);
+    m_doc->addFunction(scene);
+
+    Chaser *chaser = new Chaser(m_doc);
+    chaser->setDuration(Function::infiniteSpeed());
+    chaser->addStep(ChaserStep(scene->id()));
+    m_doc->addFunction(chaser);
+
+    cl->setChaser(chaser->id());
+
+    MasterTimer *timer = m_doc->masterTimer();
+    QList<Universe *> universes;
+    QSignalSpy submasterSpy(slider, SIGNAL(submasterValueChanged(qreal)));
+
+    m_doc->setMode(Doc::Operate);
+    cl->slotPlayback();
+    timer->timerTick();
+
+    slider->m_slider->setSliderDown(true);
+    slider->m_slider->setValue(127);
+    slider->m_slider->setSliderDown(false);
+    QVERIFY(submasterSpy.count() > 0);
+    submasterSpy.clear();
+
+    universes = m_doc->inputOutputMap()->claimUniverses();
+    universes[0]->processFaders(MasterTimer::tick());
+    QCOMPARE(universes[0]->postGMValue(0), uchar(127));
+    m_doc->inputOutputMap()->releaseUniverses(false);
+
+    QVERIFY(cl->m_intensityOverrideId != Function::invalidAttributeId());
+    chaser->stop(FunctionParent::master());
+    timer->timerTick();
+    QVERIFY(chaser->m_overrideMap.isEmpty());
+    QCOMPARE(cl->m_intensityOverrideId, Function::invalidAttributeId());
+    m_doc->setMode(Doc::Design);
+
+    {
+        VCSliderProperties prop(slider, m_doc);
+        prop.slotModePlaybackClicked();
+        prop.accept();
+    }
+    QCOMPARE(slider->sliderMode(), VCSlider::Playback);
+
+    {
+        VCSliderProperties prop(slider, m_doc);
+        prop.slotModeSubmasterClicked();
+        prop.accept();
+    }
+    QCOMPARE(slider->sliderMode(), VCSlider::Submaster);
+
+    m_doc->setMode(Doc::Operate);
+    cl->slotPlayback();
+    timer->timerTick();
+
+    slider->m_slider->setSliderDown(true);
+    slider->m_slider->setValue(127);
+    slider->m_slider->setSliderDown(false);
+    QVERIFY(submasterSpy.count() > 0);
+
+    universes = m_doc->inputOutputMap()->claimUniverses();
+    universes[0]->processFaders(MasterTimer::tick());
+    QCOMPARE(universes[0]->postGMValue(0), uchar(127));
+    m_doc->inputOutputMap()->releaseUniverses(false);
 }
 
 void VCCueList_Test::input()

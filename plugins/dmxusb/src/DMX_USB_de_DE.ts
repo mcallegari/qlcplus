@@ -134,7 +134,7 @@
     <message>
         <location filename="dmxusbopenrx.cpp" line="160"/>
         <source>System Timer Accuracy</source>
-        <translation>System-Timer-Genauigkeit</translation>
+        <translation>System-Takt-Präzision</translation>
     </message>
 </context>
 <context>
@@ -172,7 +172,7 @@
     <message>
         <location filename="enttecdmxusbopen.cpp" line="133"/>
         <source>System Timer Accuracy</source>
-        <translation>System-Timer-Genauigkeit</translation>
+        <translation>System-Takt-Präzision</translation>
     </message>
 </context>
 <context>

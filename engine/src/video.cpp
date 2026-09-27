@@ -174,7 +174,7 @@ quint32 Video::totalDuration()
     return (quint32)m_videoDuration;
 }
 
-QSize Video::resolution()
+QSize Video::resolution() const
 {
     return m_resolution;
 }
@@ -185,7 +185,7 @@ void Video::setResolution(QSize size)
     emit metaDataChanged("Resolution", QVariant(m_resolution));
 }
 
-QRect Video::customGeometry()
+QRect Video::customGeometry() const
 {
     return m_customGeometry;
 }
@@ -233,7 +233,7 @@ void Video::setAudioCodec(QString codec)
     emit metaDataChanged("AudioCodec", QVariant(m_audioCodec));
 }
 
-QString Video::audioCodec()
+QString Video::audioCodec() const
 {
     return m_audioCodec;
 }
@@ -244,7 +244,7 @@ void Video::setVideoCodec(QString codec)
     emit metaDataChanged("VideoCodec", QVariant(m_videoCodec));
 }
 
-QString Video::videoCodec()
+QString Video::videoCodec() const
 {
     return m_videoCodec;
 }
@@ -259,7 +259,6 @@ bool Video::setSourceUrl(QString filename)
     if (m_defaultPictureCaps.contains(fileExt))
     {
         m_isPicture = true;
-        setZIndex(2);
     }
 
     if (m_sourceUrl.contains("://"))
@@ -290,7 +289,7 @@ bool Video::isPicture() const
     return m_isPicture;
 }
 
-QString Video::sourceUrl()
+QString Video::sourceUrl() const
 {
     return m_sourceUrl;
 }
@@ -301,7 +300,7 @@ void Video::setScreen(int index)
     emit changed(id());
 }
 
-int Video::screen()
+int Video::screen() const
 {
     return m_screen;
 }
@@ -315,12 +314,12 @@ void Video::setFullscreen(bool enable)
     emit changed(id());
 }
 
-qreal Video::intensity()
+qreal Video::intensity() const
 {
     return getAttributeValue(Intensity);
 }
 
-bool Video::fullscreen()
+bool Video::fullscreen() const
 {
     return m_fullscreen;
 }
@@ -347,6 +346,12 @@ int Video::adjustAttribute(qreal fraction, int attributeId)
 void Video::slotFunctionRemoved(quint32 fid)
 {
     Q_UNUSED(fid)
+}
+
+void Video::stopFromUI()
+{
+    if (isRunning())
+        stop(FunctionParent::master());
 }
 
 /*********************************************************************

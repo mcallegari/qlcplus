@@ -18,10 +18,18 @@
 */
 
 #include <QQmlEngine>
+#include <algorithm>
+#include <QDir>
+#include <QFileInfo>
+#include <QRegularExpression>
+#include <QSet>
+#include <QVector>
 
 #include "qlcfixturedef.h"
 #include "qlccapability.h"
-
+#include "qlcconfig.h"
+#include "qlcfile.h"
+#include "colorfilters.h"
 #include "channeledit.h"
 
 ChannelEdit::ChannelEdit(QLCChannel *channel, QObject *parent)
@@ -46,6 +54,234 @@ ChannelEdit::ChannelEdit(QLCChannel *channel, QObject *parent)
 
 ChannelEdit::~ChannelEdit()
 {
+}
+
+QString ChannelEdit::normalizeWords(const QString &input) const
+{
+    QString normalized = input.toLower();
+    normalized.replace(QRegularExpression(QStringLiteral("[^\\p{L}\\p{N}]+")), QStringLiteral(" "));
+    return normalized.simplified();
+}
+
+bool ChannelEdit::isEntirelyLowercase(const QString &text) const
+{
+    bool hasLetters = false;
+
+    for (const QChar &ch : text)
+    {
+        if (!ch.isLetter())
+            continue;
+
+        hasLetters = true;
+        if (ch != ch.toLower())
+            return false;
+    }
+
+    return hasLetters;
+}
+
+QString ChannelEdit::titleCaseWords(const QString &text) const
+{
+    QString title = text;
+    bool wordStart = true;
+
+    for (int i = 0; i < title.length(); i++)
+    {
+        QChar ch = title.at(i);
+        if (ch.isLetterOrNumber())
+        {
+            if (wordStart && ch.isLetter())
+                title[i] = ch.toUpper();
+            wordStart = false;
+        }
+        else
+        {
+            wordStart = true;
+        }
+    }
+
+    return title;
+}
+
+int ChannelEdit::fuzzyScore(const QString &a, const QString &b) const
+{
+    if (a == b)
+        return 1000;
+
+    const int maxLen = qMax(a.length(), b.length());
+    if (maxLen == 0)
+        return 1000;
+
+    QVector<int> prev(b.length() + 1, 0);
+    QVector<int> curr(b.length() + 1, 0);
+
+    for (int j = 0; j <= b.length(); j++)
+        prev[j] = j;
+
+    for (int i = 1; i <= a.length(); i++)
+    {
+        curr[0] = i;
+        for (int j = 1; j <= b.length(); j++)
+        {
+            const int cost = (a.at(i - 1) == b.at(j - 1)) ? 0 : 1;
+            curr[j] = qMin(qMin(curr[j - 1] + 1, prev[j] + 1), prev[j - 1] + cost);
+        }
+        prev = curr;
+    }
+
+    const int dist = prev[b.length()];
+    return ((maxLen - dist) * 1000) / maxLen;
+}
+
+QList<QColor> ChannelEdit::detectNamedColors(const QString &description, const QVariantList &namedColors) const
+{
+    QList<QColor> detected;
+    if (namedColors.isEmpty())
+        return detected;
+
+    struct ColorEntry
+    {
+        QString name;
+        QString normalized;
+        QString compact;
+        QColor rgb;
+    };
+    QVector<ColorEntry> colors;
+    colors.reserve(namedColors.count());
+
+    for (const QVariant &entryVar : namedColors)
+    {
+        const QVariantMap entry = entryVar.toMap();
+        const QString name = entry.value(QStringLiteral("name")).toString().trimmed();
+        const QColor rgb = entry.value(QStringLiteral("rgb")).value<QColor>();
+        if (name.isEmpty() || !rgb.isValid())
+            continue;
+
+        const QString normalizedName = normalizeWords(name);
+        if (normalizedName.isEmpty())
+            continue;
+
+        QString compact = normalizedName;
+        compact.remove(QLatin1Char(' '));
+        colors.append({ name, normalizedName, compact, rgb });
+    }
+
+    const QString normalizedDesc = normalizeWords(description);
+    if (normalizedDesc.isEmpty() || colors.isEmpty())
+        return detected;
+
+    QSet<QString> selectedNames;
+    QString remainingDesc = normalizedDesc;
+
+    struct ExactMatch
+    {
+        int startPos;
+        int endPos;
+        int len;
+        int colorIndex;
+    };
+    QList<ExactMatch> exactMatches;
+
+    for (int i = 0; i < colors.count(); i++)
+    {
+        QString pattern = QRegularExpression::escape(colors.at(i).normalized);
+        pattern.replace(QStringLiteral("\\ "), QStringLiteral("\\s+"));
+        QRegularExpression re(QStringLiteral("\\b%1\\b").arg(pattern));
+
+        auto matches = re.globalMatch(remainingDesc);
+        while (matches.hasNext())
+        {
+            const auto match = matches.next();
+            exactMatches.append({ int(match.capturedStart()), int(match.capturedEnd()),
+                                  int(colors.at(i).normalized.length()), i });
+        }
+    }
+
+    std::sort(exactMatches.begin(), exactMatches.end(), [](const ExactMatch &a, const ExactMatch &b) {
+        if (a.startPos != b.startPos)
+            return a.startPos < b.startPos;
+        return a.len > b.len;
+    });
+
+    QList<QPair<int, int> > occupiedRanges;
+    for (const ExactMatch &match : exactMatches)
+    {
+        bool overlaps = false;
+        for (const auto &range : occupiedRanges)
+        {
+            if (match.startPos < range.second && match.endPos > range.first)
+            {
+                overlaps = true;
+                break;
+            }
+        }
+        if (overlaps)
+            continue;
+
+        const ColorEntry &color = colors.at(match.colorIndex);
+        if (selectedNames.contains(color.name))
+            continue;
+
+        selectedNames.insert(color.name);
+        detected.append(color.rgb);
+        occupiedRanges.append(qMakePair(match.startPos, match.endPos));
+        remainingDesc.replace(match.startPos, match.endPos - match.startPos,
+                              QString(match.endPos - match.startPos, QLatin1Char(' ')));
+
+        if (detected.count() >= 2)
+            return detected;
+    }
+
+    const QString unmatchedDesc = remainingDesc.simplified();
+    if (unmatchedDesc.isEmpty())
+        return detected;
+
+    QStringList chunks;
+    const QStringList tokens = unmatchedDesc.split(QLatin1Char(' '), Qt::SkipEmptyParts);
+    chunks.reserve(tokens.count() * 2);
+    for (int i = 0; i < tokens.count(); i++)
+    {
+        chunks.append(tokens.at(i));
+        if (i + 1 < tokens.count())
+            chunks.append(tokens.at(i) + QLatin1Char(' ') + tokens.at(i + 1));
+    }
+
+    // Simple fuzzy fallback on 1-2 word chunks
+    for (const QString &chunk : chunks)
+    {
+        QString compactChunk = chunk;
+        compactChunk.remove(QLatin1Char(' '));
+        if (compactChunk.length() < 3)
+            continue;
+        const bool chunkHasDigits = chunk.contains(QRegularExpression(QStringLiteral("\\d")));
+
+        int bestIndex = -1;
+        int bestScore = 0;
+        for (int i = 0; i < colors.count(); i++)
+        {
+            if (selectedNames.contains(colors.at(i).name))
+                continue;
+            if (!chunkHasDigits && colors.at(i).normalized.contains(QRegularExpression(QStringLiteral("\\s\\d+$"))))
+                continue;
+
+            const int score = fuzzyScore(compactChunk, colors.at(i).compact);
+            if (score > bestScore)
+            {
+                bestScore = score;
+                bestIndex = i;
+            }
+        }
+        if (bestIndex < 0 || bestScore < 850)
+            continue;
+
+        const ColorEntry &color = colors.at(bestIndex);
+        selectedNames.insert(color.name);
+        detected.append(color.rgb);
+        if (detected.count() >= 2)
+            break;
+    }
+
+    return detected;
 }
 
 QLCChannel *ChannelEdit::channel()
@@ -349,4 +585,59 @@ void ChannelEdit::checkCapabilities()
                 allocation[i] = true;
         }
     }
+}
+
+void ChannelEdit::autoPatchColorCapabilities()
+{
+    if (m_channel == nullptr || m_channel->group() != QLCChannel::Colour)
+        return;
+
+    QVariantList namedColors;
+    QDir filtersDir = QLCFile::systemDirectory(QString(COLORFILTERSDIR), QString(KExtColorFilters));
+    QString namedRgbPath = filtersDir.filePath(QStringLiteral("namedrgb.qxcf"));
+    if (!QFileInfo::exists(namedRgbPath))
+    {
+        QStringList matches = filtersDir.entryList(QStringList() << QStringLiteral("*namedrgb*.qxcf"),
+                                                   QDir::Files | QDir::Readable);
+        if (!matches.isEmpty())
+            namedRgbPath = filtersDir.filePath(matches.first());
+    }
+    if (QFileInfo::exists(namedRgbPath))
+    {
+        ColorFilters namedRGB;
+        if (namedRGB.loadXML(namedRgbPath) == QFile::NoError)
+            namedColors = namedRGB.filtersList();
+    }
+
+    bool changed = false;
+
+    for (QLCCapability *cap : m_channel->capabilities())
+    {
+        if (cap == nullptr)
+            continue;
+
+        if (isEntirelyLowercase(cap->name()))
+        {
+            cap->setName(titleCaseWords(cap->name()));
+            changed = true;
+        }
+
+        const QList<QColor> colors = detectNamedColors(cap->name(), namedColors);
+        if (colors.count() >= 2)
+        {
+            cap->setPreset(QLCCapability::ColorDoubleMacro);
+            cap->setResource(0, colors.at(0));
+            cap->setResource(1, colors.at(1));
+            changed = true;
+        }
+        else if (colors.count() == 1)
+        {
+            cap->setPreset(QLCCapability::ColorMacro);
+            cap->setResource(0, colors.at(0));
+            changed = true;
+        }
+    }
+
+    if (changed)
+        emit channelChanged();
 }

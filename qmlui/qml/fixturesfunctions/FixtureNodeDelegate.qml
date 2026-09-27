@@ -57,6 +57,8 @@ Column
     function getItemAtPos(x, y)
     {
         var child = nodeChildrenView.itemAt(x, y)
+        if (!child || !child.item)
+            return null
         if (child.item.hasOwnProperty("nodePath"))
             return child.item.getItemAtPos(x, y - child.item.y)
 
@@ -99,11 +101,12 @@ Column
 
             CustomCheckBox
             {
+                id: fxCheckBox
                 visible: isCheckable
                 implicitWidth: UISettings.listItemHeight
                 implicitHeight: implicitWidth
                 checked: isChecked
-                onCheckedChanged: nodeContainer.mouseEvent(App.Checked, -1, -1, nodeContainer, 0)
+                onClicked: nodeContainer.mouseEvent(App.Checked, -1, checked, nodeContainer, 0)
             }
 
             Image
@@ -143,6 +146,9 @@ Column
             {
                 id: nodeLabel
                 Layout.fillWidth: true
+                // names longer than the column would otherwise be painted
+                // over the neighbouring items
+                clip: true
                 text: textLabel
                 originalText: text
 
@@ -204,8 +210,8 @@ Column
 
                         if (fixtureManager.setFixtureModeIndex(itemID, index) === false)
                         {
-                            // show error popup on failure
-                            fmGenericPopup.message = qsTr("Mode <" + currentText + "> overlaps with another fixture!")
+                            // show error popup on overlapping
+                            fmGenericPopup.message = textLabel + " <" + currentText + "> " + qsTr("mode overlaps with another fixture!")
                             fmGenericPopup.open()
                             currentIndex = fixtureManager.fixtureModeIndex(itemID)
                         }
@@ -254,6 +260,27 @@ Column
                                 fixtureManager.setItemRoleData(itemID, -1, "flags", (itemFlags & ~MonitorProperties.HiddenFlag))
                             else
                                 fixtureManager.setItemRoleData(itemID, -1, "flags", itemFlags | MonitorProperties.HiddenFlag)
+                        }
+                    }
+
+                    IconButton
+                    {
+                        height: parent.height - 2
+                        width: height
+                        border.width: 0
+                        faSource: checked ? FontAwesome.fa_lock : FontAwesome.fa_lock_open
+                        faColor: checked ? "#00FF00" : UISettings.fgMedium
+                        bgColor: "transparent"
+                        checkedColor: "transparent"
+                        checkable: true
+                        checked: itemFlags & MonitorProperties.LockedFlag ? true : false
+                        tooltip: qsTr("Lock/Unlock position")
+                        onToggled:
+                        {
+                            if (itemFlags & MonitorProperties.LockedFlag)
+                                fixtureManager.setItemRoleData(itemID, -1, "flags", (itemFlags & ~MonitorProperties.LockedFlag))
+                            else
+                                fixtureManager.setItemRoleData(itemID, -1, "flags", itemFlags | MonitorProperties.LockedFlag)
                         }
                     }
 
@@ -321,7 +348,8 @@ Column
 
         MouseArea
         {
-            width: showFlags ? fxModes.x : parent.width
+            x: fxCheckBox.visible ? fxCheckBox.width : 0
+            width: (showFlags ? fxModes.x : parent.width) - x
             height: parent.height
 
             property bool dragActive: drag.active
@@ -346,7 +374,6 @@ Column
             onDoubleClicked: (mouse) =>
             {
                 nodeContainer.mouseEvent(App.DoubleClicked, itemID, -1, nodeContainer, mouse.modifiers)
-                isExpanded = !isExpanded
             }
         }
     }

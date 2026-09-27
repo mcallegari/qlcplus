@@ -22,6 +22,7 @@
 #define MASTERTIMER_PRIVATE_H
 
 #include <QThread>
+#include <atomic>
 
 #if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
 #include <mach/clock.h>
@@ -51,7 +52,7 @@ private:
 #endif
 
 private:
-    bool m_run;
+    std::atomic<bool> m_run;
 #if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
     clock_serv_t cclock;
 #endif

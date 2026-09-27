@@ -1,0 +1,10 @@
+qlcplus (5.3.0) stable; urgency=low
+
+  * First QLC+ 5 debian package
+  * Installs as /usr/bin/qlcplus5, with its own engine library
+    (libqlcplusengine5.so) and I/O plugins directory (plugins/qlcplus5),
+    so that it can be installed alongside QLC+ 4
+  * Resources (fixtures, gobos, input profiles, RGB scripts, ...) are
+    shared with QLC+ 4 through the qlcplus-data package
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 08 Aug 2026 10:47:15 +0200

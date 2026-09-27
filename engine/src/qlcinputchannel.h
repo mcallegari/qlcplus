@@ -59,7 +59,7 @@ class QLCInputChannel final : public QObject
     Q_DISABLE_COPY(QLCInputChannel)
 
     Q_PROPERTY(Type type READ type WRITE setType NOTIFY typeChanged FINAL)
-    Q_PROPERTY(QString typeString READ typeString CONSTANT)
+    Q_PROPERTY(QString typeString READ typeString NOTIFY typeChanged FINAL)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged FINAL)
 
     Q_PROPERTY(bool sendExtraPress READ sendExtraPress WRITE setSendExtraPress NOTIFY sendExtraPressChanged FINAL)
@@ -109,7 +109,7 @@ public:
 
     /** Convert the given QLCInputChannel::Type to a QString */
     static QString typeToString(Type type);
-    QString typeString();
+    QString typeString() const;
 
     /** Convert the given QString to a QLCInputChannel::Type */
     static Type stringToType(const QString& type);

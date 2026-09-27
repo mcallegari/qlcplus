@@ -9,7 +9,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleExecutable</key>
-	<string>qlcplus-qml</string>
+	<string>qlcplus5</string>
 	<key>CFBundleIdentifier</key>
 	<string>org.qlcplus.${PRODUCT_NAME:rfc1034identifier}</string>
 	<key>CFBundleDisplayName</key>

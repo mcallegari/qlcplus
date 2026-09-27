@@ -415,7 +415,7 @@ bool Script::waiting()
     return false;
 }
 
-quint32 Script::getValueFromString(QString str, bool *ok)
+quint32 Script::getValueFromString(const QString& str, bool *ok)
 {
     if (str.startsWith("random") == false)
     {
@@ -423,8 +423,8 @@ quint32 Script::getValueFromString(QString str, bool *ok)
         return Function::stringToSpeed(str);
     }
 
-    QString strippedStr = str.remove("random(");
-    strippedStr.remove(")");
+    QString strippedStr = str;
+    strippedStr.remove("random(").remove(")");
     if (strippedStr.contains(",") == false)
         return -1;
 
@@ -552,7 +552,7 @@ QString Script::handleStopOnExit(const QList<QStringList>& tokens)
         return QString("Too many arguments");
 
     bool flag = QVariant(tokens[0][1]).toBool();
-    
+
     m_stopOnExit = flag;
 
     return QString();
@@ -798,9 +798,11 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Univers
                     m_fadersMap[universe] = fader;
                 }
 
-                FadeChannel *fc = fader->getChannelFader(doc, universes[universe], fxi->id(), ch);
-                fc->setTarget(value);
-                fc->setFadeTime(time);
+                fader->updateChannel(doc, universes[universe], fxi->id(), ch, [value, time](FadeChannel &fc)
+                {
+                    fc.setTarget(value);
+                    fc.setFadeTime(time);
+                });
 
                 return QString();
             }
@@ -995,4 +997,3 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
 
     return tokens;
 }
-

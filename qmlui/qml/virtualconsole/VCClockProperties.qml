@@ -32,6 +32,8 @@ Rectangle
     property VCClock widgetRef: null
 
     property int gridItemsHeight: UISettings.listItemHeight
+    property bool countdownMode: widgetRef ? widgetRef.clockType === VCClock.Countdown : false
+    property bool stopwatchMode: widgetRef ? widgetRef.clockType === VCClock.Stopwatch : false
 
     Column
     {
@@ -120,6 +122,7 @@ Rectangle
         SectionBox
         {
             id: scheduleProps
+            visible: !stopwatchMode
             sectionLabel: qsTr("Schedule")
 
             sectionContents:
@@ -168,7 +171,7 @@ Rectangle
                     {
                         id: schListView
                         width: parent.width
-                        height: model ? model.length * 180 : 0
+                        height: model ? model.length * (countdownMode ? (gridItemsHeight + 8) : 180) : 0
                         boundsBehavior: Flickable.StopAtBounds
 
                         model: widgetRef ? widgetRef.scheduleList : null
@@ -183,6 +186,8 @@ Rectangle
                                 property VCClockSchedule schedule: modelData
                                 property QLCFunction func
 
+                                Component.onCompleted: func = functionManager.getFunction(schedule.functionID)
+
                                 // row 1
                                 IconTextEntry
                                 {
@@ -190,16 +195,11 @@ Rectangle
                                     Layout.fillWidth: true
                                     height: gridItemsHeight
 
-                                    Component.onCompleted:
-                                    {
-                                        func = functionManager.getFunction(schedule.functionID)
-                                        tLabel = func.name
-                                        functionType = func.type
-                                    }
+                                    tLabel: func ? func.name : ""
+                                    functionType: func ? func.type : -1
 
                                     IconButton
                                     {
-                                        id: fontButton
                                         height: gridItemsHeight
                                         width: height
                                         anchors.top: parent.top
@@ -217,11 +217,13 @@ Rectangle
                                 // row 2
                                 RobotoText
                                 {
+                                    visible: !countdownMode
                                     height: gridItemsHeight
                                     label: qsTr("Start time")
                                 }
                                 DayTimeTool
                                 {
+                                    visible: !countdownMode
                                     Layout.fillWidth: true
                                     height: gridItemsHeight
                                     timeValue: schedule ? schedule.startTime : 0
@@ -229,6 +231,7 @@ Rectangle
                                 }
                                 Rectangle
                                 {
+                                    visible: !countdownMode
                                     width: gridItemsHeight
                                     height: width
                                     color: "transparent"
@@ -237,12 +240,14 @@ Rectangle
                                 // row 3
                                 RobotoText
                                 {
+                                    visible: !countdownMode
                                     height: gridItemsHeight
                                     label: qsTr("Stop time")
                                 }
 
                                 DayTimeTool
                                 {
+                                    visible: !countdownMode
                                     Layout.fillWidth: true
                                     enabled: stEnableCheck.checked
                                     timeValue: schedule ? schedule.stopTime : 0
@@ -259,6 +264,7 @@ Rectangle
                                 }
                                 CustomCheckBox
                                 {
+                                    visible: !countdownMode
                                     implicitWidth: gridItemsHeight
                                     implicitHeight: implicitWidth
                                     id: stEnableCheck
@@ -269,12 +275,14 @@ Rectangle
                                 // row 4
                                 RobotoText
                                 {
+                                    visible: !countdownMode
                                     height: gridItemsHeight
                                     label: qsTr("Days")
                                 }
 
                                 Row
                                 {
+                                    visible: !countdownMode
                                     spacing: 5
 
                                     RobotoText { height: UISettings.listItemHeight; label: qsTr("M", "As in Monday") }
@@ -371,6 +379,7 @@ Rectangle
 
                                 IconButton
                                 {
+                                    visible: !countdownMode
                                     width: gridItemsHeight
                                     height: width
                                     faSource: FontAwesome.fa_repeat
@@ -388,6 +397,7 @@ Rectangle
                                 // items divider
                                 Rectangle
                                 {
+                                    visible: !countdownMode
                                     Layout.columnSpan: 3
                                     Layout.fillWidth: true
                                     height: 1

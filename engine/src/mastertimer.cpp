@@ -98,6 +98,13 @@ void MasterTimer::stop()
     Q_ASSERT(d_ptr != NULL);
     stopAllFunctions();
     d_ptr->stop();
+
+    /* After the timer thread has fully stopped, clear any remaining function
+     * pointers to prevent dangling references if a function slipped through
+     * the stopAllFunctions/startQueue race window. */
+    QMutexLocker locker(&m_functionListMutex);
+    m_functionList.clear();
+    m_startQueue.clear();
 }
 
 void MasterTimer::timerTick()

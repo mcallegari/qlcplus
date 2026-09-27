@@ -121,12 +121,12 @@ public:
     /**
      * Get the value of one fixture channel
      */
-    uchar value(quint32 fxi, quint32 ch);
+    uchar value(quint32 fxi, quint32 ch) const;
 
     /**
      * Verify if the given value belongs to the Scene
      */
-    bool checkValue(SceneValue val);
+    bool checkValue(const SceneValue& val) const;
 
     /**
      * Get a list of values in this scene
@@ -141,7 +141,7 @@ public:
      * A fixture ID can be specified to retrieve a single fixture color.
      * If none, an empty color will be returned.
      */
-    QColor colorValue(quint32 fxi = Fixture::invalidId());
+    QColor colorValue(quint32 fxi = Fixture::invalidId()) const;
 
     /**
      * Clear all values
@@ -272,7 +272,7 @@ public:
 
 private:
     /** Internal helper method to abtract Scene value processing */
-    void processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, SceneValue &scv);
+    void processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, const SceneValue &scv);
 
     /** Check whether a fade out is needed and cleanup faders */
     void handleFadersEnd(MasterTimer* timer);

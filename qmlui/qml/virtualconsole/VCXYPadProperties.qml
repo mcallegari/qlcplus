@@ -39,6 +39,126 @@ Rectangle
         id: fxSelector
     }
 
+    Connections
+    {
+        target: widgetRef
+
+        /* Switching units rebuilds the fixture list from scratch, so the
+           previous selection no longer refers to anything */
+        function onDisplayModeChanged()
+        {
+            if (widgetRef)
+                fxSelector.resetSelection(widgetRef.fixtureList)
+        }
+    }
+
+    CustomPopupDialog
+    {
+        id: rangePopup
+        width: mainView.width / 3
+        title: qsTr("Set Pan/Tilt range")
+
+        property string units: "%"
+
+        function loadRange()
+        {
+            var info = widgetRef.headsRangeInfo(fxSelector.itemsList())
+            if (info.units === undefined)
+                return false
+
+            units = info.units
+            xMinSpin.to = info.xMaxValue
+            xMaxSpin.to = info.xMaxValue
+            yMinSpin.to = info.yMaxValue
+            yMaxSpin.to = info.yMaxValue
+            xMinSpin.value = info.xMin
+            xMaxSpin.value = info.xMax
+            xReverseCheck.checked = info.xReverse
+            yMinSpin.value = info.yMin
+            yMaxSpin.value = info.yMax
+            yReverseCheck.checked = info.yReverse
+            return true
+        }
+
+        onAccepted:
+        {
+            widgetRef.setHeadsRange(fxSelector.itemsList(),
+                                    xMinSpin.value, xMaxSpin.value, xReverseCheck.checked,
+                                    yMinSpin.value, yMaxSpin.value, yReverseCheck.checked)
+        }
+
+        contentItem:
+            GridLayout
+            {
+                width: parent.width
+                columns: 4
+                columnSpacing: 5
+                rowSpacing: 4
+
+                // header row
+                RobotoText { label: qsTr("Axis") }
+                RobotoText { label: qsTr("Minimum"); Layout.fillWidth: true }
+                RobotoText { label: qsTr("Maximum"); Layout.fillWidth: true }
+                RobotoText { label: qsTr("Reverse") }
+
+                // Pan row
+                RobotoText { label: qsTr("Pan") }
+
+                CustomSpinBox
+                {
+                    id: xMinSpin
+                    Layout.fillWidth: true
+                    from: 0
+                    suffix: rangePopup.units
+                    onValueModified: if (value >= xMaxSpin.value) xMaxSpin.value = value + 1
+                }
+
+                CustomSpinBox
+                {
+                    id: xMaxSpin
+                    Layout.fillWidth: true
+                    from: 0
+                    suffix: rangePopup.units
+                    onValueModified: if (value <= xMinSpin.value) xMinSpin.value = value - 1
+                }
+
+                CustomCheckBox
+                {
+                    id: xReverseCheck
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                }
+
+                // Tilt row
+                RobotoText { label: qsTr("Tilt") }
+
+                CustomSpinBox
+                {
+                    id: yMinSpin
+                    Layout.fillWidth: true
+                    from: 0
+                    suffix: rangePopup.units
+                    onValueModified: if (value >= yMaxSpin.value) yMaxSpin.value = value + 1
+                }
+
+                CustomSpinBox
+                {
+                    id: yMaxSpin
+                    Layout.fillWidth: true
+                    from: 0
+                    suffix: rangePopup.units
+                    onValueModified: if (value <= yMinSpin.value) yMinSpin.value = value - 1
+                }
+
+                CustomCheckBox
+                {
+                    id: yReverseCheck
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                }
+            }
+    }
+
     Column
     {
         id: xyPadPropsColumn
@@ -72,72 +192,23 @@ Rectangle
                     checked: widgetRef ? widgetRef.invertedAppearance : false
                     onClicked: if (widgetRef) widgetRef.invertedAppearance = checked
                 }
-              } // GridLayout
-        } // SectionBox
 
-        SectionBox
-        {
-            sectionLabel: qsTr("Range Display Mode")
-
-            sectionContents:
-              GridLayout
-              {
-                width: parent.width
-                columns: 6
-                columnSpacing: 5
-                rowSpacing: 4
-
-                ButtonGroup { id: rangeModeGroup }
-
-                // row 1
-                CustomCheckBox
-                {
-                    implicitWidth: UISettings.iconSizeMedium
-                    implicitHeight: implicitWidth
-                    ButtonGroup.group: rangeModeGroup
-                    checked: widgetRef ? widgetRef.displayMode === VCXYPad.Degrees : true
-                    onClicked: if (checked && widgetRef) widgetRef.displayMode = VCXYPad.Degrees
-                }
-
+                // row 2
                 RobotoText
                 {
                     height: gridItemsHeight
                     Layout.fillWidth: true
-                    label: qsTr("Degrees")
+                    label: qsTr("Floor control")
                 }
 
                 CustomCheckBox
                 {
                     implicitWidth: UISettings.iconSizeMedium
                     implicitHeight: implicitWidth
-                    ButtonGroup.group: rangeModeGroup
-                    checked: widgetRef ? widgetRef.displayMode === VCXYPad.Percentage : true
-                    onClicked: if (checked && widgetRef) widgetRef.displayMode = VCXYPad.Percentage
+                    checked: widgetRef ? widgetRef.floorControl : false
+                    tooltip: qsTr("Point the fixtures at a position on the stage floor")
+                    onClicked: if (widgetRef) widgetRef.floorControl = checked
                 }
-
-                RobotoText
-                {
-                    height: gridItemsHeight
-                    Layout.fillWidth: true
-                    label: qsTr("Percentage")
-                }
-
-                CustomCheckBox
-                {
-                    implicitWidth: UISettings.iconSizeMedium
-                    implicitHeight: implicitWidth
-                    ButtonGroup.group: rangeModeGroup
-                    checked: widgetRef ? widgetRef.displayMode === VCXYPad.DMX : true
-                    onClicked: if (checked && widgetRef) widgetRef.displayMode = VCXYPad.DMX
-                }
-
-                RobotoText
-                {
-                    height: gridItemsHeight
-                    Layout.fillWidth: true
-                    label: qsTr("DMX")
-                }
-
               } // GridLayout
         } // SectionBox
 
@@ -162,18 +233,79 @@ Rectangle
                         color: UISettings.bgMedium
                         height: UISettings.listItemHeight
 
+                        /* Cycles the units used to show and edit the
+                           per-fixture Pan/Tilt ranges: degrees, percentage
+                           and DMX values */
+                        Rectangle
+                        {
+                            id: displayModeButton
+                            anchors.left: parent.left
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.leftMargin: 3
+                            width: UISettings.iconSizeDefault * 1.4
+                            height: parent.height - 2
+                            border.width: 2
+                            border.color: "white"
+                            radius: 5
+                            color: UISettings.sectionHeader
+
+                            RobotoText
+                            {
+                                height: parent.height
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                label: widgetRef ? (widgetRef.displayMode === VCXYPad.Percentage ? "%" :
+                                                    widgetRef.displayMode === VCXYPad.DMX ? "DMX" : "°")
+                                                 : "°"
+                                fontSize: UISettings.textSizeDefault
+                                fontBold: true
+                            }
+
+                            MouseArea
+                            {
+                                id: displayModeMouse
+                                anchors.fill: parent
+                                hoverEnabled: true
+                                onClicked:
+                                {
+                                    if (!widgetRef)
+                                        return
+
+                                    switch (widgetRef.displayMode)
+                                    {
+                                        case VCXYPad.Degrees:
+                                            widgetRef.displayMode = VCXYPad.Percentage
+                                        break
+                                        case VCXYPad.Percentage:
+                                            widgetRef.displayMode = VCXYPad.DMX
+                                        break
+                                        default:
+                                            widgetRef.displayMode = VCXYPad.Degrees
+                                        break
+                                    }
+                                }
+                            }
+
+                            ToolTip
+                            {
+                                visible: displayModeMouse.containsMouse
+                                text: qsTr("Show the Pan/Tilt ranges in degrees, percentage or DMX values")
+                                delay: 1000
+                                timeout: 5000
+                            }
+                        }
+
                         IconButton
                         {
                             id: addFixture
                             anchors.top: parent.top
-                            anchors.right: removeFixture.left
+                            anchors.right: editFixture.left
 
                             width: height
                             height: parent.height
                             faSource: FontAwesome.fa_plus
                             faColor: "limegreen"
                             checkable: true
-                            tooltip: qsTr("Add a fixture/head")
+                            tooltip: qsTr("Add a fixture/head or a group. A dropped group also gets its own preset")
                             onCheckedChanged:
                             {
                                 if (checked)
@@ -194,6 +326,25 @@ Rectangle
                         }
                         IconButton
                         {
+                            id: editFixture
+                            anchors.top: parent.top
+                            anchors.right: removeFixture.left
+                            width: height
+                            height: parent.height
+                            faSource: FontAwesome.fa_pencil
+                            faColor: UISettings.fgMain
+                            enabled: fxSelector.itemsCount > 0
+                            tooltip: qsTr("Set the Pan/Tilt range of the selected fixture head(s)")
+                            onClicked:
+                            {
+                                if (fxSelector.itemsCount === 0)
+                                    return
+                                if (rangePopup.loadRange())
+                                    rangePopup.open()
+                            }
+                        }
+                        IconButton
+                        {
                             id: removeFixture
                             anchors.top: parent.top
                             anchors.right: parent.right
@@ -201,6 +352,7 @@ Rectangle
                             height: parent.height
                             faSource: FontAwesome.fa_minus
                             faColor: "crimson"
+                            enabled: fxSelector.itemsCount > 0
                             tooltip: qsTr("Remove the selected fixture head(s)")
                             onClicked: widgetRef.removeHeads(fxSelector.itemsList())
                         }
@@ -295,12 +447,13 @@ Rectangle
                                     //width: fixtureListView.width
                                     height: UISettings.listItemHeight
 
-                                    /* Head name */
-                                    RobotoText
+                                    /* Head or group name */
+                                    IconTextEntry
                                     {
                                         width: fxNameCol.width
                                         height: UISettings.listItemHeight
-                                        label: model.name
+                                        iSrc: model.isGroup ? "qrc:/group.svg" : "qrc:/movinghead.svg"
+                                        tLabel: model.name
 
                                         Rectangle
                                         {
@@ -362,7 +515,7 @@ Rectangle
                             id: ntText
                             visible: false
                             anchors.centerIn: parent
-                            label: qsTr("Add a new fixture")
+                            label: qsTr("Add a new fixture or group")
                         }
 
                         DropArea

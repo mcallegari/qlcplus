@@ -18,11 +18,14 @@
 */
 
 #include <QDebug>
+#include <QtGlobal>
 
 #include "inputprofileeditor.h"
 #include "qlcinputchannel.h"
 #include "inputoutputmap.h"
 #include "doc.h"
+
+#define kDetectionHistoryLength 3
 
 InputProfileEditor::InputProfileEditor(QLCInputProfile *profile, Doc *doc,
                                        QObject *parent)
@@ -37,6 +40,36 @@ InputProfileEditor::InputProfileEditor(QLCInputProfile *profile, Doc *doc,
 
 InputProfileEditor::~InputProfileEditor()
 {
+}
+
+QString InputProfileEditor::defaultChannelName(const QLCInputChannel::Type type, quint32 channel, const QString &key) const
+{
+    if (key.isEmpty() == false)
+        return key;
+
+    if (type == QLCInputChannel::Slider)
+        return tr("Slider %1").arg(channel + 1);
+
+    return tr("Button %1").arg(channel + 1);
+}
+
+void InputProfileEditor::appendRollingValue(QVector<uchar> &history, const uchar value) const
+{
+    history.push_back(value);
+    if (history.length() > kDetectionHistoryLength)
+        history.removeFirst();
+}
+
+bool InputProfileEditor::shouldPromoteToSlider(const QVector<uchar> &history) const
+{
+    if (history.length() < 2)
+        return false;
+
+    const int previousValue = history[history.length() - 2];
+    const int currentValue = history.last();
+    const int interval = qAbs(currentValue - previousValue);
+
+    return interval < 255;
 }
 
 bool InputProfileEditor::modified() const
@@ -82,7 +115,7 @@ void InputProfileEditor::setModel(const QString &newModel)
     emit modelChanged();
 }
 
-QLCInputProfile::Type InputProfileEditor::type()
+QLCInputProfile::Type InputProfileEditor::type() const
 {
     return m_profile == nullptr ? QLCInputProfile::MIDI : m_profile->type();
 }
@@ -97,7 +130,7 @@ void InputProfileEditor::setType(const QLCInputProfile::Type &newType)
     emit typeChanged();
 }
 
-bool InputProfileEditor::midiNoteOff()
+bool InputProfileEditor::midiNoteOff() const
 {
     return m_profile == nullptr ? 0 : m_profile->midiSendNoteOff();
 }
@@ -117,19 +150,20 @@ void InputProfileEditor::toggleDetection()
 
     if (m_detection == false)
     {
+        m_channelsMap.clear();
         /* Listen to input data */
-        connect(m_doc->inputOutputMap(), &InputOutputMap::inputValueChanged,
-                this, &InputProfileEditor::slotInputValueChanged);
+        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)),
+                this, SLOT(slotInputValueChanged(quint32, quint32, uchar, const QString&)));
     }
     else
     {
-        disconnect(m_doc->inputOutputMap(), &InputOutputMap::inputValueChanged,
-                   this, &InputProfileEditor::slotInputValueChanged);
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)),
+                this, SLOT(slotInputValueChanged(quint32, quint32, uchar, const QString&)));
     }
     m_detection = !m_detection;
 }
 
-QVariant InputProfileEditor::channels()
+QVariant InputProfileEditor::channels() const
 {
     if (m_profile == nullptr)
         return QVariant();
@@ -150,7 +184,49 @@ QVariant InputProfileEditor::channels()
     return QVariant::fromValue(chList);
 }
 
-QVariantList InputProfileEditor::channelTypeModel()
+QVariant InputProfileEditor::colorTable() const
+{
+    if (m_profile == nullptr)
+        return QVariant();
+
+    QVariantList colorList;
+
+    QMapIterator <uchar, QPair<QString, QColor>> it(m_profile->colorTable());
+    while (it.hasNext() == true)
+    {
+        it.next();
+        QVariantMap colorMap;
+        colorMap.insert("value", it.key());
+        colorMap.insert("label", it.value().first);
+        colorMap.insert("color", it.value().second.name());
+        colorList.append(colorMap);
+    }
+
+    return QVariant::fromValue(colorList);
+}
+
+QVariant InputProfileEditor::midiChannelTable() const
+{
+    if (m_profile == nullptr)
+        return QVariant();
+
+    QVariantList midiList;
+
+    QMapIterator <uchar, QString> it(m_profile->midiChannelTable());
+    while (it.hasNext() == true)
+    {
+        it.next();
+        QVariantMap midiMap;
+        midiMap.insert("value", it.key());
+        midiMap.insert("channel", int(it.key()) + 1);
+        midiMap.insert("label", it.value());
+        midiList.append(midiMap);
+    }
+
+    return QVariant::fromValue(midiList);
+}
+
+QVariantList InputProfileEditor::channelTypeModel() const
 {
     QVariantList types;
 
@@ -185,10 +261,12 @@ int InputProfileEditor::saveChannel(int originalChannelNumber, int channelNumber
 {
     if (m_profile == nullptr)
         return -3;
+    if (m_editChannel == nullptr)
+        return -4;
 
     if (originalChannelNumber >= 0 && originalChannelNumber != channelNumber)
     {
-        QLCInputChannel *ich = m_profile->channel(originalChannelNumber);
+        QLCInputChannel *ich = m_profile->channel(channelNumber);
         if (ich != nullptr)
             return -1;
     }
@@ -212,11 +290,60 @@ bool InputProfileEditor::removeChannel(int channelNumber)
 
     if (m_profile->removeChannel(channelNumber))
     {
+        setModified();
         emit channelsChanged();
         return true;
     }
 
     return false;
+}
+
+void InputProfileEditor::addColor(int value, const QString &label, const QColor &color)
+{
+    if (m_profile == nullptr)
+        return;
+    if (value < 0 || value > 255)
+        return;
+
+    m_profile->addColor(static_cast<uchar>(value), label, color);
+    setModified();
+    emit colorTableChanged();
+}
+
+void InputProfileEditor::removeColor(int value)
+{
+    if (m_profile == nullptr)
+        return;
+    if (value < 0 || value > 255)
+        return;
+
+    m_profile->removeColor(static_cast<uchar>(value));
+    setModified();
+    emit colorTableChanged();
+}
+
+void InputProfileEditor::addMidiChannel(int channel, const QString &label)
+{
+    if (m_profile == nullptr)
+        return;
+    if (channel < 0 || channel > 15)
+        return;
+
+    m_profile->addMidiChannel(static_cast<uchar>(channel), label);
+    setModified();
+    emit midiChannelTableChanged();
+}
+
+void InputProfileEditor::removeMidiChannel(int channel)
+{
+    if (m_profile == nullptr)
+        return;
+    if (channel < 0 || channel > 15)
+        return;
+
+    m_profile->removeMidiChannel(static_cast<uchar>(channel));
+    setModified();
+    emit midiChannelTableChanged();
 }
 
 void InputProfileEditor::slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString &key)
@@ -225,38 +352,32 @@ void InputProfileEditor::slotInputValueChanged(quint32 universe, quint32 channel
 
     //qDebug() << "Got input value" << universe << channel << value << key;
     QLCInputChannel *ich = m_profile->channel(channel);
+    const bool alreadyMapped = (ich != nullptr);
     if (ich == nullptr)
     {
         ich = new QLCInputChannel();
-        if (key.isEmpty())
-            ich->setName(tr("Button %1").arg(channel + 1));
-        else
-            ich->setName(key);
+        ich->setName(defaultChannelName(QLCInputChannel::Button, channel, key));
         ich->setType(QLCInputChannel::Button);
         m_profile->insertChannel(channel, ich);
-        m_channelsMap[channel].push_back(value);
+        appendRollingValue(m_channelsMap[channel], value);
         emit channelsChanged();
     }
     else
     {
-        QVector<uchar> vect = m_channelsMap[channel];
-        if (vect.length() < 3)
+        QVector<uchar> &vect = m_channelsMap[channel];
+        appendRollingValue(vect, value);
+
+        if (ich->type() == QLCInputChannel::Button)
         {
-            if (!vect.contains(value))
-                m_channelsMap[channel].push_back(value);
-        }
-        else if (vect.length() == 3)
-        {
-            if (ich->type() == QLCInputChannel::Button)
+            if (shouldPromoteToSlider(vect))
             {
                 ich->setType(QLCInputChannel::Slider);
-                if (key.isEmpty())
-                    ich->setName(tr("Slider %1").arg(channel + 1));
-                else
-                    ich->setName(key);
+                ich->setName(defaultChannelName(QLCInputChannel::Slider, channel, key));
                 emit channelsChanged();
             }
         }
     }
-}
 
+    emit inputSignalReceived(int(channel) + 1, alreadyMapped);
+    setModified();
+}

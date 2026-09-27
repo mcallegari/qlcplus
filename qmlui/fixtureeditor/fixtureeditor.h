@@ -66,6 +66,10 @@ protected slots:
     void slotReloadFixture(QLCFixtureDef *def);
 
 private:
+    QMap<quint32, QString> collectFixturesForDefinition(const QString &manufacturer, const QString &model) const;
+    void applyDefinitionToFixtures(const QString &manufacturer, const QString &model,
+                                   const QMap<quint32, QString> &fixturesToModeNames);
+
     /** Reference to the QML view root */
     QQuickView *m_view;
     /** Reference to the project workspace */

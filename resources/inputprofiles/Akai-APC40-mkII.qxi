@@ -414,11 +414,11 @@
  </Channel>
  <Channel Number="224">
   <Name>Bank select RIGHT</Name>
-  <Type>Button</Type>
+  <Type>Next Page</Type>
  </Channel>
  <Channel Number="225">
   <Name>Bank select LEFT</Name>
-  <Type>Button</Type>
+  <Type>Previous Page</Type>
  </Channel>
  <Channel Number="226">
   <Name>Shift</Name>

@@ -18,7 +18,7 @@
 */
 
 #if defined(WIN32) || defined(Q_OS_WIN)
-#	include <Windows.h>
+#   include <Windows.h>
 #else
 #   include <unistd.h>
 #endif
@@ -119,6 +119,20 @@ QStringList MidiPlugin::outputs()
     QListIterator <MidiOutputDevice*> it(m_enumerator->outputDevices());
     while (it.hasNext() == true)
         list << it.next()->name();
+
+    return list;
+}
+
+QStringList MidiPlugin::outputsUID()
+{
+    QStringList list;
+
+    QListIterator <MidiOutputDevice*> it(m_enumerator->outputDevices());
+    while (it.hasNext() == true)
+    {
+        MidiOutputDevice* dev = it.next();
+        list << dev->uid().toString();
+    }
 
     return list;
 }
@@ -238,6 +252,20 @@ QStringList MidiPlugin::inputs()
     QListIterator <MidiInputDevice*> it(m_enumerator->inputDevices());
     while (it.hasNext() == true)
         list << it.next()->name();
+
+    return list;
+}
+
+QStringList MidiPlugin::inputsUID()
+{
+    QStringList list;
+
+    QListIterator <MidiInputDevice*> it(m_enumerator->inputDevices());
+    while (it.hasNext() == true)
+    {
+        MidiInputDevice* dev = it.next();
+        list << dev->uid().toString();
+    }
 
     return list;
 }

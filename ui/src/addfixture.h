@@ -89,7 +89,7 @@ public:
     quint32 channels() const;
 
     /** Get if the entered address is valid or not */
-    bool invalidAddress();
+    bool invalidAddress() const;
 
 protected:
     const Doc* m_doc;

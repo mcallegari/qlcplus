@@ -158,17 +158,25 @@ function qlcStringToTime(str, type)
     {
         var tokens = str.split(" ");
 
-        finalTime = parseInt(tokens[0]) * 1000;
-
-        if (tokens.length > 1)
+        for (var t = 0; t < tokens.length; t++)
         {
-            if (tokens[0] === " 1/8") { finalTime += 125; }
-            else if (tokens[0] === " 1/4") { finalTime += 250; }
-            else if (tokens[0] === " 3/8") { finalTime += 375; }
-            else if (tokens[0] === " 1/2") { finalTime += 500; }
-            else if (tokens[0] === " 5/8") { finalTime += 625; }
-            else if (tokens[0] === " 3/4") { finalTime += 750; }
-            else if (tokens[0] === " 7/8") { finalTime += 875; }
+            var token = tokens[t];
+            if (token === "") continue;
+
+            if (token.indexOf("/") !== -1)
+            {
+                if      (token === "1/8") { finalTime += 125; }
+                else if (token === "1/4") { finalTime += 250; }
+                else if (token === "3/8") { finalTime += 375; }
+                else if (token === "1/2") { finalTime += 500; }
+                else if (token === "5/8") { finalTime += 625; }
+                else if (token === "3/4") { finalTime += 750; }
+                else if (token === "7/8") { finalTime += 875; }
+            }
+            else
+            {
+                finalTime += parseInt(token) * 1000;
+            }
         }
     }
 
@@ -273,6 +281,8 @@ function posToMs(x, timescale, tickSize)
   */
 function posToBeat(x, tickSize, beatsDivision)
 {
+    if (!beatsDivision)
+        return 0
     return Math.round(x / (tickSize / beatsDivision)) * 1000
 }
 
@@ -306,6 +316,8 @@ function timeToBeatPosition(currentTime, tickSize, bpmNumber, beatsDivision)
 
 function beatsToSize(time, tickSize, beatsDivision)
 {
+    if (!beatsDivision)
+        return 0;
     return (tickSize / beatsDivision) * (time / 1000);
 }
 
@@ -321,10 +333,36 @@ function timeToBeatSize(time, bpmNumber, beatsDivision, tickSize)
     return (tickSize * time) / barDuration;
 }
 
+/**
+  * Return a value in pixels representing a "beats as ms" value
+  * (1000 units per beat, as stored by a beat tempo Function/ShowFunction)
+  * over a Time (milliseconds) based timeline, at the given BPM.
+  */
+function beatsToTimeSize(beatsMs, bpmNumber, timescale, tickSize)
+{
+    if (!bpmNumber)
+        return 0;
+    var realMs = (beatsMs / 1000) * (60000 / bpmNumber);
+    return timeToSize(realMs, timescale, tickSize);
+}
+
+/**
+  * Inverse of beatsToTimeSize: return a "beats as ms" value (1000 units
+  * per beat) for the given pixel position over a Time (milliseconds)
+  * based timeline, at the given BPM.
+  */
+function posToBeatsMsOnTimeline(x, timescale, tickSize, bpmNumber)
+{
+    if (!bpmNumber)
+        return 0;
+    var realMs = posToMs(x, timescale, tickSize);
+    return (realMs / (60000 / bpmNumber)) * 1000;
+}
+
 
 /**
  * Return the average time between two taps given by a list of tap times.
- * It caculates the linear regression of the recorded tap times. The slope of the resulting 
+ * It caculates the linear regression of the recorded tap times. The slope of the resulting
  * linear function represents the average time between two taps.
  */
 function calculateBPMByTapIntervals(tapHistory)
@@ -340,10 +378,10 @@ function calculateBPMByTapIntervals(tapHistory)
 
     // Find the median time between taps, assume that the tempo is +-40% of this
     var tapHistoryMedian = tapHistorySorted[Math.floor(tapHistorySorted.length/2)]
-    
+
     // init needed variables
     var n = 1, tapx = 0, tapy = 0, sum_x = 0, sum_y = 0, sum_xx = 0, sum_xy = 0
-    
+
     for (var i = 0; i < tapHistory.length; i++)
     {
         var intervalMs = tapHistory[i]
@@ -354,7 +392,7 @@ function calculateBPMByTapIntervals(tapHistory)
         sum_x += tapx
         sum_y += tapy
         sum_xx += tapx * tapx
-        sum_xy += tapx * tapy                 
+        sum_xy += tapx * tapy
     }
 
     return (n * sum_xy - sum_x * sum_y) / (n * sum_xx - sum_x * sum_x)

@@ -37,7 +37,7 @@ QImage Gradient::getRGBGradient(const int width, const int height)
 {
     initialize();
 
-    return m_rgb.scaled (width, height);
+    return m_rgb.scaled(width, height);
 }
 
 void Gradient::fillWithGradient(int r, int g, int b, QPainter *painter, int x)

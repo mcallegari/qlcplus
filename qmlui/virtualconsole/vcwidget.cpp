@@ -58,6 +58,11 @@ bool VCWidget::supportsPresets() const
     return false;
 }
 
+void VCWidget::remapChannels(const QMap<SceneValue, SceneValue> &remapMap)
+{
+    Q_UNUSED(remapMap)
+}
+
 QString VCWidget::presetsResource() const
 {
     return QString();
@@ -108,11 +113,11 @@ bool VCWidget::copyFrom(const VCWidget* widget)
     if (widget == nullptr)
         return false;
 
-    m_backgroundImage = widget->m_backgroundImage;
-
     m_hasCustomBackgroundColor = widget->m_hasCustomBackgroundColor;
     if (m_hasCustomBackgroundColor == true)
         setBackgroundColor(widget->backgroundColor());
+
+    m_backgroundImage = widget->m_backgroundImage;
 
     m_hasCustomForegroundColor = widget->m_hasCustomForegroundColor;
     if (m_hasCustomForegroundColor == true)
@@ -440,7 +445,6 @@ void VCWidget::setBackgroundImage(QString path)
 
     enqueueTardisAction(Tardis::VCWidgetBackgroundImage, m_backgroundImage, path);
 
-    m_hasCustomBackgroundColor = false;
     m_backgroundImage = path;
 
     emit backgroundImageChanged(path);
@@ -797,63 +801,72 @@ void VCWidget::addInputSource(QSharedPointer<QLCInputSource> const& source)
 
     m_inputSources.append(source);
 
+    applyInputProfileSettings(source);
+
+    emit inputSourcesListChanged();
+}
+
+void VCWidget::applyInputProfileSettings(QSharedPointer<QLCInputSource> const& source)
+{
+    if (source.isNull())
+        return;
+
     // now check if the source is defined in the associated universe
     // profile and if it has specific settings
     InputPatch *ip = m_doc->inputOutputMap()->inputPatch(source->universe());
-    if (ip != nullptr && ip->profile() != nullptr)
+    if (ip == nullptr || ip->profile() == nullptr)
+        return;
+
+    // Do not care about the page since input profiles don't do either
+    QLCInputChannel *ich = ip->profile()->channel(source->channel() & 0x0000FFFF);
+    if (ich == nullptr)
+        return;
+
+    QLCInputProfile *profile = ip->profile();
+
+    // retrieve plugin specific params for feedback
+    if (source->feedbackExtraParams(QLCInputFeedback::LowerValue).toInt() == -1)
+        source->setFeedbackExtraParams(QLCInputFeedback::LowerValue, profile->channelExtraParams(ich));
+    if (source->feedbackExtraParams(QLCInputFeedback::UpperValue).toInt() == -1 ||
+        !source->feedbackExtraParams(QLCInputFeedback::UpperValue).isValid())
+        source->setFeedbackExtraParams(QLCInputFeedback::UpperValue, profile->channelExtraParams(ich));
+    if (source->feedbackExtraParams(QLCInputFeedback::MonitorValue).toInt() == -1)
+        source->setFeedbackExtraParams(QLCInputFeedback::MonitorValue, profile->channelExtraParams(ich));
+
+    if (ich->movementType() == QLCInputChannel::Relative)
     {
-        // Do not care about the page since input profiles don't do either
-        QLCInputChannel *ich = ip->profile()->channel(source->channel() & 0x0000FFFF);
-        if (ich != nullptr)
-        {
-            QLCInputProfile *profile = ip->profile();
-
-            // retrieve plugin specific params for feedback
-            if (source->feedbackExtraParams(QLCInputFeedback::LowerValue).toInt() == -1)
-                source->setFeedbackExtraParams(QLCInputFeedback::LowerValue, profile->channelExtraParams(ich));
-            if (source->feedbackExtraParams(QLCInputFeedback::UpperValue).toInt() == -1)
-                source->setFeedbackExtraParams(QLCInputFeedback::UpperValue, profile->channelExtraParams(ich));
-            if (source->feedbackExtraParams(QLCInputFeedback::MonitorValue).toInt() == -1)
-                source->setFeedbackExtraParams(QLCInputFeedback::MonitorValue, profile->channelExtraParams(ich));
-
-            if (ich->movementType() == QLCInputChannel::Relative)
-            {
-                source->setWorkingMode(QLCInputSource::Relative);
-                source->setSensitivity(ich->movementSensitivity());
-                connect(source.data(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                        this, SLOT(slotInputSourceValueChanged(quint32,quint32,uchar)));
-            }
-            else if (ich->type() == QLCInputChannel::Encoder)
-            {
-                source->setWorkingMode(QLCInputSource::Encoder);
-                source->setSensitivity(ich->movementSensitivity());
-                connect(source.data(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                        this, SLOT(slotInputSourceValueChanged(quint32,quint32,uchar)));
-            }
-            else if (ich->type() == QLCInputChannel::Button)
-            {
-                if (ich->sendExtraPress() == true)
-                {
-                    source->setSendExtraPressRelease(true);
-                    connect(source.data(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                            this, SLOT(slotInputSourceValueChanged(quint32,quint32,uchar)));
-                }
-
-                // user custom feedback have precedence over input profile custom feedback
-                uchar lower = source->feedbackValue(QLCInputFeedback::LowerValue) != 0 ?
-                                  source->feedbackValue(QLCInputFeedback::LowerValue) :
-                                  ich->lowerValue();
-                uchar upper = source->feedbackValue(QLCInputFeedback::UpperValue) != UCHAR_MAX ?
-                                  source->feedbackValue(QLCInputFeedback::UpperValue) :
-                                  ich->upperValue();
-
-                source->setFeedbackValue(QLCInputFeedback::LowerValue, lower);
-                source->setFeedbackValue(QLCInputFeedback::UpperValue, upper);
-            }
-        }
+        source->setWorkingMode(QLCInputSource::Relative);
+        source->setSensitivity(ich->movementSensitivity());
+        connect(source.data(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                this, SLOT(slotInputSourceValueChanged(quint32,quint32,uchar)));
     }
+    else if (ich->type() == QLCInputChannel::Encoder)
+    {
+        source->setWorkingMode(QLCInputSource::Encoder);
+        source->setSensitivity(ich->movementSensitivity());
+        connect(source.data(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                this, SLOT(slotInputSourceValueChanged(quint32,quint32,uchar)));
+    }
+    else if (ich->type() == QLCInputChannel::Button)
+    {
+        if (ich->sendExtraPress() == true)
+        {
+            source->setSendExtraPressRelease(true);
+            connect(source.data(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                    this, SLOT(slotInputSourceValueChanged(quint32,quint32,uchar)));
+        }
 
-    emit inputSourcesListChanged();
+        // user custom feedback have precedence over input profile custom feedback
+        uchar lower = source->feedbackValue(QLCInputFeedback::LowerValue) != 0 ?
+                          source->feedbackValue(QLCInputFeedback::LowerValue) :
+                          ich->lowerValue();
+        uchar upper = source->feedbackValue(QLCInputFeedback::UpperValue) != UCHAR_MAX ?
+                          source->feedbackValue(QLCInputFeedback::UpperValue) :
+                          ich->upperValue();
+
+        source->setFeedbackValue(QLCInputFeedback::LowerValue, lower);
+        source->setFeedbackValue(QLCInputFeedback::UpperValue, upper);
+    }
 }
 
 bool VCWidget::updateInputSource(QSharedPointer<QLCInputSource> const& source, quint32 universe, quint32 channel)
@@ -864,6 +877,14 @@ bool VCWidget::updateInputSource(QSharedPointer<QLCInputSource> const& source, q
     source->setUniverse(universe);
     source->setChannel(channel);
     source->setPage(page());
+
+    // The source's universe/channel are now valid: look up the input profile
+    // to populate feedback extra params (e.g. OSC path), feedback values,
+    // working mode and connections, just like addInputSource() does.
+    applyInputProfileSettings(source);
+
+    // TODO: tardis
+    setDocModified();
 
     emit inputSourcesListChanged();
 
@@ -893,7 +914,7 @@ bool VCWidget::updateInputSourceFeedbackValues(quint32 universe, quint32 channel
     source->setFeedbackValue(QLCInputFeedback::MonitorValue, monitor);
 
     // TODO: tardis
-    m_doc->setModified();
+    setDocModified();
 
     updateFeedback();
 
@@ -911,7 +932,7 @@ bool VCWidget::updateInputSourceExtraParams(quint32 universe, quint32 channel, i
     source->setFeedbackExtraParams(QLCInputFeedback::MonitorValue, monitor - 1);
 
     // TODO: tardis
-    m_doc->setModified();
+    setDocModified();
 
     updateFeedback();
 
@@ -929,10 +950,26 @@ void VCWidget::deleteInputSurce(quint32 id, quint32 universe, quint32 channel)
             m_inputSources.takeAt(i);
             source.clear();
 
+            // TODO: tardis
+            setDocModified();
+
             emit inputSourcesListChanged();
             break;
         }
     }
+}
+
+void VCWidget::deleteAllInputSources()
+{
+    m_inputSources.clear();
+
+    emit inputSourcesListChanged();
+}
+
+void VCWidget::remapInputSources(int pgNum)
+{
+    for (QSharedPointer<QLCInputSource> &source : m_inputSources) // C++11
+        source->setPage(pgNum);
 }
 
 QList<QSharedPointer<QLCInputSource> > VCWidget::inputSources() const
@@ -1024,7 +1061,8 @@ void VCWidget::slotInputSourceValueChanged(quint32 universe, quint32 channel, uc
 
 void VCWidget::sendFeedback(int value, quint8 id, SourceValueType type)
 {
-    if (isDisabled())
+    // do not send feedback if widget is disabled or hidden
+    if (isDisabled() || !isVisible())
         return;
 
     for (QSharedPointer<QLCInputSource> &source : m_inputSources) // C++11
@@ -1085,6 +1123,14 @@ void VCWidget::addKeySequence(const QKeySequence &keySequence, const quint32 &id
 void VCWidget::deleteKeySequence(const QKeySequence &keySequence)
 {
     m_keySequenceMap.remove(keySequence);
+    setDocModified();
+
+    emit inputSourcesListChanged();
+}
+
+void VCWidget::deleteAllKeySequences()
+{
+    m_keySequenceMap.clear();
     setDocModified();
 
     emit inputSourcesListChanged();

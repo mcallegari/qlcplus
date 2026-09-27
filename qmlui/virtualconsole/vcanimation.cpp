@@ -23,28 +23,49 @@
 
 #include "doc.h"
 #include "rgbmatrix.h"
+#include "rgbtext.h"
+#include "rgbscriptscache.h"
 #include "vcanimation.h"
+#include "tardis.h"
 
-#define INPUT_FADER_ID 0
+#define INPUT_FADER_ID          0
+#define INPUT_PRESETS_BASE_ID   30
 
 VCAnimation::VCAnimation(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
     , m_functionID(Function::invalidId())
-    , m_matrix(nullptr)
     , m_faderLevel(0)
     , m_instantChanges(true)
+    , m_localAlgorithmIndex(0)
+    , m_algorithmOverrideID(Function::invalidAttributeId())
+    , m_lastAssignedControlId(INPUT_PRESETS_BASE_ID - 1)
+    , m_activePresetId(-1)
 {
     setType(VCWidget::AnimationWidget);
 
     registerExternalControl(INPUT_FADER_ID, tr("Intensity"), true);
 
     m_visibilityMask = defaultVisibilityMask();
+
+    for (int i = 0; i < RGBAlgorithmColorDisplayCount; ++i)
+    {
+        m_localColors[i] = QColor();
+        m_colorOverrideIDs[i] = Function::invalidAttributeId();
+    }
 }
 
 VCAnimation::~VCAnimation()
 {
-    if (m_matrix)
-        delete m_matrix;
+    RGBMatrix *matrix = currentMatrix();
+    if (matrix != nullptr)
+    {
+        releaseStyleOverrides(matrix);
+        releaseIntensityOverride(matrix);
+        matrix->stop(functionParent());
+        matrix->applyStyleAttributes();
+    }
+
+    clearControls();
 
     if (m_item)
         delete m_item;
@@ -71,10 +92,16 @@ void VCAnimation::render(QQuickView *view, QQuickItem *parent)
     if (component->isError())
     {
         qDebug() << component->errors();
+        delete component;
         return;
     }
 
     m_item = qobject_cast<QQuickItem*>(component->create());
+    if (m_item == nullptr)
+        qWarning() << Q_FUNC_INFO << "Unable to create animation component" << component->errors();
+    delete component;
+    if (m_item == nullptr)
+        return;
 
     m_item->setParentItem(parent);
     m_item->setProperty("animationObj", QVariant::fromValue(this));
@@ -83,6 +110,16 @@ void VCAnimation::render(QQuickView *view, QQuickItem *parent)
 QString VCAnimation::propertiesResource() const
 {
     return QString("qrc:/VCAnimationProperties.qml");
+}
+
+bool VCAnimation::supportsPresets() const
+{
+    return true;
+}
+
+QString VCAnimation::presetsResource() const
+{
+    return QString("qrc:/VCAnimationPresets.qml");
 }
 
 VCWidget *VCAnimation::createCopy(VCWidget *parent) const
@@ -111,6 +148,12 @@ bool VCAnimation::copyFrom(const VCWidget *widget)
     setVisibilityMask(animation->visibilityMask());
 
     /* Copy object lists */
+    clearControls();
+    for (VCAnimationPreset *control : animation->controls())
+        addControlInternal(new VCAnimationPreset(*control));
+    m_lastAssignedControlId = animation->m_lastAssignedControlId;
+    setActivePresetId(-1);
+    emit presetsListChanged();
 
     /* Common stuff */
     return VCWidget::copyFrom(widget);
@@ -158,21 +201,47 @@ void VCAnimation::setFunctionID(quint32 newFunctionID)
     if (m_functionID == newFunctionID)
         return;
 
+    RGBMatrix *oldMatrix = currentMatrix();
+    if (oldMatrix != nullptr)
+    {
+        releaseStyleOverrides(oldMatrix);
+        releaseIntensityOverride(oldMatrix);
+        oldMatrix->stop(functionParent());
+        oldMatrix->applyStyleAttributes();
+    }
+
     RGBMatrix *matrix = qobject_cast<RGBMatrix*>(m_doc->function(newFunctionID));
-    if (matrix == NULL)
-        return;
+    if (matrix == nullptr)
+    {
+        m_functionID = Function::invalidId();
+        for (int i = 0; i < RGBAlgorithmColorDisplayCount; ++i)
+            m_localColors[i] = QColor();
+        m_localAlgorithmIndex = 0;
+    }
+    else
+    {
+        m_functionID = newFunctionID;
+        for (int i = 0; i < RGBAlgorithmColorDisplayCount; ++i)
+            m_localColors[i] = matrix->getColor(i);
+        m_localAlgorithmIndex = matrix->algorithmIndex();
+    }
 
-    if (m_matrix != nullptr)
-        delete m_matrix;
-
-    Function *func = matrix->createCopy(m_doc, false);
-    m_matrix = qobject_cast<RGBMatrix*>(func);
-
-    m_functionID = newFunctionID;
+    for (int i = 0; i < RGBAlgorithmColorDisplayCount; ++i)
+        m_colorOverrideIDs[i] = Function::invalidAttributeId();
+    m_algorithmOverrideID = Function::invalidAttributeId();
+    if (m_faderLevel != 0)
+    {
+        m_faderLevel = 0;
+        emit faderLevelChanged();
+    }
 
     emit functionIDChanged();
     emit color1Changed();
     emit color2Changed();
+    emit color3Changed();
+    emit color4Changed();
+    emit color5Changed();
+    emit colorsChanged();
     emit algorithmIndexChanged();
 }
 
@@ -186,26 +255,29 @@ void VCAnimation::setFaderLevel(int level)
     if (m_faderLevel == level)
         return;
 
-    if (m_matrix == NULL)
+    RGBMatrix *matrix = currentMatrix();
+    if (matrix == nullptr)
         return;
+
+    Tardis::instance()->enqueueAction(Tardis::VCAnimationSetFaderLevel, id(), m_faderLevel, level);
 
     if (level == 0)
     {
         // Make sure we ignore the fade out time
-        adjustFunctionIntensity(m_matrix, 0);
-        if (m_matrix->stopped() == false)
-        {
-            m_matrix->stop(functionParent());
-            resetIntensityOverrideAttribute();
-        }
+        adjustFunctionIntensity(matrix, 0);
+        releaseIntensityOverride(matrix);
+        releaseStyleOverrides(matrix);
+        matrix->stop(functionParent());
+        matrix->applyStyleAttributes();
     }
     else
     {
         qreal pIntensity = qreal(level) / qreal(UCHAR_MAX);
         emit functionStarting(this, m_functionID, pIntensity);
-        adjustFunctionIntensity(m_matrix, pIntensity * intensity());
-        if (m_matrix->stopped() == true)
-            m_matrix->start(m_doc->masterTimer(), functionParent());
+        applyStyleOverrides(matrix);
+        adjustFunctionIntensity(matrix, pIntensity * intensity());
+        if (matrix->stopped() == true)
+            matrix->start(m_doc->masterTimer(), functionParent());
     }
 
     m_faderLevel = level;
@@ -233,105 +305,184 @@ void VCAnimation::setInstantChanges(bool newInstantChanges)
 
 QColor VCAnimation::getColor1() const
 {
-    if (m_matrix == NULL)
-        return QColor();
-
-    return m_matrix->getColor(0);
+    return m_localColors[0];
 }
 
 void VCAnimation::setColor1(QColor color)
 {
-    if (m_matrix == NULL)
+    if (m_localColors[0] == color)
         return;
 
-    if (m_matrix->getColor(0) != color)
+    Tardis::instance()->enqueueAction(Tardis::VCAnimationSetColor1, id(), m_localColors[0], color);
+    m_localColors[0] = color;
+
+    if (m_faderLevel > 0)
     {
-        m_matrix->setColor(0, color);
-        if (instantChanges())
-            m_matrix->updateColorDelta();
-        emit color1Changed();
+        RGBMatrix *matrix = currentMatrix();
+        if (matrix != nullptr)
+            applyStyleOverrides(matrix);
     }
+
+    emit color1Changed();
+    emit colorsChanged();
 }
 
 QColor VCAnimation::getColor2() const
 {
-    if (m_matrix == NULL)
-        return QColor();
-
-    return m_matrix->getColor(1);
+    return m_localColors[1];
 }
 
 void VCAnimation::setColor2(QColor color)
 {
-    if (m_matrix == NULL)
+    if (m_localColors[1] == color)
         return;
 
-    if (m_matrix->getColor(1) != color)
+    Tardis::instance()->enqueueAction(Tardis::VCAnimationSetColor2, id(), m_localColors[1], color);
+    m_localColors[1] = color;
+
+    if (m_faderLevel > 0)
     {
-        m_matrix->setColor(1, color);
-        if (instantChanges())
-            m_matrix->updateColorDelta();
-        emit color2Changed();
+        RGBMatrix *matrix = currentMatrix();
+        if (matrix != nullptr)
+            applyStyleOverrides(matrix);
     }
+
+    emit color2Changed();
+    emit colorsChanged();
 }
 
 QColor VCAnimation::getColor3() const
 {
-    if (m_matrix == NULL)
-        return QColor();
-
-    return m_matrix->getColor(2);
+    return m_localColors[2];
 }
 
 void VCAnimation::setColor3(QColor color)
 {
-    if (m_matrix == NULL)
+    if (m_localColors[2] == color)
         return;
 
-    if (m_matrix->getColor(2) != color)
+    Tardis::instance()->enqueueAction(Tardis::VCAnimationSetColor3, id(), m_localColors[2], color);
+    m_localColors[2] = color;
+
+    if (m_faderLevel > 0)
     {
-        m_matrix->setColor(2, color);
-        emit color3Changed();
+        RGBMatrix *matrix = currentMatrix();
+        if (matrix != nullptr)
+            applyStyleOverrides(matrix);
     }
+
+    emit color3Changed();
+    emit colorsChanged();
 }
 
 QColor VCAnimation::getColor4() const
 {
-    if (m_matrix == NULL)
-        return QColor();
-
-    return m_matrix->getColor(3);
+    return m_localColors[3];
 }
 
 void VCAnimation::setColor4(QColor color)
 {
-    if (m_matrix == NULL)
+    if (m_localColors[3] == color)
         return;
 
-    if (m_matrix->getColor(3) != color)
+    Tardis::instance()->enqueueAction(Tardis::VCAnimationSetColor4, id(), m_localColors[3], color);
+    m_localColors[3] = color;
+
+    if (m_faderLevel > 0)
     {
-        m_matrix->setColor(3, color);
-        emit color4Changed();
+        RGBMatrix *matrix = currentMatrix();
+        if (matrix != nullptr)
+            applyStyleOverrides(matrix);
     }
+
+    emit color4Changed();
+    emit colorsChanged();
 }
 
 QColor VCAnimation::getColor5() const
 {
-    if (m_matrix == NULL)
-        return QColor();
-
-    return m_matrix->getColor(4);
+    return m_localColors[4];
 }
 
 void VCAnimation::setColor5(QColor color)
 {
-    if (m_matrix == NULL)
+    if (m_localColors[4] == color)
         return;
 
-    if (m_matrix->getColor(4) != color)
+    Tardis::instance()->enqueueAction(Tardis::VCAnimationSetColor5, id(), m_localColors[4], color);
+    m_localColors[4] = color;
+
+    if (m_faderLevel > 0)
     {
-        m_matrix->setColor(4, color);
-        emit color5Changed();
+        RGBMatrix *matrix = currentMatrix();
+        if (matrix != nullptr)
+            applyStyleOverrides(matrix);
+    }
+
+    emit color5Changed();
+    emit colorsChanged();
+}
+
+int VCAnimation::colorCount() const
+{
+    if (m_doc == nullptr || m_localAlgorithmIndex < 0)
+        return 0;
+
+    QStringList algoList = algorithms();
+    if (m_localAlgorithmIndex >= algoList.count())
+        return 0;
+
+    RGBAlgorithm *algorithm = RGBAlgorithm::algorithm(m_doc, algoList.at(m_localAlgorithmIndex));
+    if (algorithm == nullptr)
+        return 0;
+
+    int acceptedColors = qBound(0, algorithm->acceptColors(), RGBAlgorithmColorDisplayCount);
+    delete algorithm;
+    return acceptedColors;
+}
+
+QVariantList VCAnimation::colors() const
+{
+    QVariantList ret;
+    ret.reserve(RGBAlgorithmColorDisplayCount);
+
+    for (int i = 0; i < RGBAlgorithmColorDisplayCount; ++i)
+        ret << m_localColors[i];
+
+    return ret;
+}
+
+QColor VCAnimation::colorAt(int index) const
+{
+    if (index < 0 || index >= RGBAlgorithmColorDisplayCount)
+        return QColor();
+
+    return m_localColors[index];
+}
+
+void VCAnimation::setColorAt(int index, QColor color)
+{
+    switch (index)
+    {
+    case 0: setColor1(color); break;
+    case 1: setColor2(color); break;
+    case 2: setColor3(color); break;
+    case 3: setColor4(color); break;
+    case 4: setColor5(color); break;
+    default:
+        if (index < 0 || index >= RGBAlgorithmColorDisplayCount || m_localColors[index] == color)
+            return;
+
+        m_localColors[index] = color;
+        if (m_faderLevel > 0)
+        {
+            RGBMatrix *matrix = currentMatrix();
+            if (matrix != nullptr)
+                applyStyleOverrides(matrix);
+        }
+
+        emit colorsChanged();
+        break;
     }
 }
 
@@ -342,36 +493,432 @@ QStringList VCAnimation::algorithms() const
 
 int VCAnimation::algorithmIndex() const
 {
-    if (m_matrix == NULL)
-        return 0;
-
-    QStringList algoList = algorithms();
-    return algoList.indexOf(m_matrix->algorithm()->name());
+    return m_localAlgorithmIndex;
 }
 
 void VCAnimation::setAlgorithmIndex(int index)
 {
-    if (m_matrix == NULL)
-        return;
-
     QStringList algoList = algorithms();
-    if (index < 0 || index >= algorithms().count())
+    if (index < 0 || index >= algoList.count() || m_localAlgorithmIndex == index)
         return;
 
-    RGBAlgorithm *algo = RGBAlgorithm::algorithm(m_doc, algoList.at(index));
-    if (algo != nullptr)
+    Tardis::instance()->enqueueAction(Tardis::VCAnimationSetAlgorithmIndex, id(), m_localAlgorithmIndex, index);
+    m_localAlgorithmIndex = index;
+
+    if (m_faderLevel > 0)
     {
-        /** if we're setting the same algorithm, then there's nothing to do */
-        if (m_matrix->algorithm() != nullptr && m_matrix->algorithm()->name() == algo->name())
-            return;
-        algo->setColors(m_matrix->getColors());
+        RGBMatrix *matrix = currentMatrix();
+        if (matrix != nullptr)
+            applyStyleOverrides(matrix);
     }
 
-    m_matrix->setAlgorithm(algo);
-    if (instantChanges())
-        m_matrix->updateColorDelta();
-
     emit algorithmIndexChanged();
+}
+
+/*********************************************************************
+ * Custom controls / presets
+ *********************************************************************/
+
+QList<VCAnimationPreset *> VCAnimation::controls() const
+{
+    QList<VCAnimationPreset *> list = m_controls;
+    std::sort(list.begin(), list.end(), VCAnimationPreset::compare);
+    return list;
+}
+
+VCAnimationPreset *VCAnimation::findControl(quint8 controlId) const
+{
+    for (VCAnimationPreset *control : m_controls)
+    {
+        if (control->m_id == controlId)
+            return control;
+    }
+    return nullptr;
+}
+
+void VCAnimation::addControlInternal(VCAnimationPreset *control)
+{
+    if (control == nullptr)
+        return;
+
+    m_controls.append(control);
+    if (control->m_id > m_lastAssignedControlId)
+        m_lastAssignedControlId = control->m_id;
+
+    registerExternalControl(control->m_id,
+                            tr("Preset: %1").arg(control->m_resource.isEmpty()
+                                                 ? VCAnimationPreset::typeToString(control->m_type)
+                                                 : control->m_resource),
+                            control->widgetType() == VCAnimationPreset::Button);
+}
+
+void VCAnimation::clearControls()
+{
+    for (const VCAnimationPreset *control : m_controls)
+        unregisterExternalControl(control->m_id);
+
+    qDeleteAll(m_controls);
+    m_controls.clear();
+}
+
+void VCAnimation::refreshPresetExternalControls()
+{
+    for (const VCAnimationPreset *control : m_controls)
+    {
+        unregisterExternalControl(control->m_id);
+        registerExternalControl(control->m_id,
+                                tr("Preset: %1").arg(control->m_resource.isEmpty()
+                                                     ? VCAnimationPreset::typeToString(control->m_type)
+                                                     : control->m_resource),
+                                control->widgetType() == VCAnimationPreset::Button);
+    }
+}
+
+void VCAnimation::setActivePresetId(int presetId)
+{
+    if (m_activePresetId == presetId)
+        return;
+
+    m_activePresetId = presetId;
+    emit activePresetIdChanged();
+    emit presetsListChanged();
+}
+
+QVariantList VCAnimation::presetsList() const
+{
+    QVariantList list;
+
+    for (const VCAnimationPreset *control : controls())
+    {
+        QVariantMap entry;
+        entry.insert("id", control->m_id);
+        entry.insert("type", int(control->m_type));
+        entry.insert("typeString", VCAnimationPreset::typeToString(control->m_type));
+        bool isKnob = control->widgetType() == VCAnimationPreset::Knob;
+        entry.insert("isKnob", isKnob);
+        entry.insert("colorIndex", control->colorIndex());
+        entry.insert("color", control->m_color);
+        entry.insert("resource", control->m_resource);
+        entry.insert("active", control->m_id == m_activePresetId);
+
+        /* For knobs, expose a tooltip describing the RGB channel they control
+         * (matches the legacy VCMatrix knob tooltips) */
+        if (isKnob)
+        {
+            QString channel;
+            if (control->m_color == Qt::red)
+                channel = tr("Red");
+            else if (control->m_color == Qt::green)
+                channel = tr("Green");
+            else if (control->m_color == Qt::blue)
+                channel = tr("Blue");
+
+            entry.insert("tooltip", tr("Color %1 %2 component")
+                                    .arg(control->colorIndex() + 1).arg(channel));
+        }
+
+        list.append(entry);
+    }
+
+    return list;
+}
+
+int VCAnimation::activePresetId() const
+{
+    return m_activePresetId;
+}
+
+int VCAnimation::addColorPreset(int colorIndex, QColor color)
+{
+    if (colorIndex < 0 || colorIndex >= RGBAlgorithmColorDisplayCount || !color.isValid())
+        return -1;
+
+    quint8 newId = ++m_lastAssignedControlId;
+    VCAnimationPreset *control = new VCAnimationPreset(newId);
+    control->m_type = VCAnimationPreset::ControlType(int(VCAnimationPreset::Color1) + colorIndex);
+    control->m_color = color;
+    addControlInternal(control);
+
+    emit presetsListChanged();
+    return newId;
+}
+
+int VCAnimation::addColorKnobsPreset(int colorIndex)
+{
+    if (colorIndex < 0 || colorIndex >= RGBAlgorithmColorDisplayCount)
+        return -1;
+
+    int lastId = -1;
+    const QList<QColor> channels = { Qt::red, Qt::green, Qt::blue };
+    for (const QColor &channel : channels)
+    {
+        quint8 newId = ++m_lastAssignedControlId;
+        VCAnimationPreset *control = new VCAnimationPreset(newId);
+        control->m_type = VCAnimationPreset::ControlType(int(VCAnimationPreset::Color1Knob) + colorIndex);
+        control->m_color = channel;
+        addControlInternal(control);
+        lastId = newId;
+    }
+
+    emit presetsListChanged();
+    return lastId;
+}
+
+int VCAnimation::addTextPreset(QString text)
+{
+    if (text.isEmpty())
+        return -1;
+
+    quint8 newId = ++m_lastAssignedControlId;
+    VCAnimationPreset *control = new VCAnimationPreset(newId);
+    control->m_type = VCAnimationPreset::Text;
+    control->m_resource = text;
+    addControlInternal(control);
+
+    emit presetsListChanged();
+    return newId;
+}
+
+QStringList VCAnimation::scriptAlgorithms() const
+{
+    QStringList scripts;
+
+    for (const QString &algoName : algorithms())
+    {
+        RGBScript *script = m_doc->rgbScriptsCache()->script(algoName);
+        if (script == nullptr)
+            continue;
+
+        // a valid script entry from the cache means this is a Script algorithm
+        scripts.append(algoName);
+        delete script;
+    }
+
+    return scripts;
+}
+
+QVariantList VCAnimation::algorithmProperties(QString algoName) const
+{
+    QVariantList list;
+
+    RGBScript *script = m_doc->rgbScriptsCache()->script(algoName);
+    if (script == nullptr)
+        return list;
+
+    for (const RGBScriptProperty &prop : script->properties())
+    {
+        QVariantMap entry;
+        entry.insert("name", prop.m_name);
+        entry.insert("displayName", prop.m_displayName);
+        entry.insert("value", script->property(prop.m_name));
+
+        switch (prop.m_type)
+        {
+        case RGBScriptProperty::List:
+            entry.insert("type", QStringLiteral("List"));
+            entry.insert("listValues", prop.m_listValues);
+            break;
+        case RGBScriptProperty::Range:
+            entry.insert("type", QStringLiteral("Range"));
+            entry.insert("min", prop.m_rangeMinValue);
+            entry.insert("max", prop.m_rangeMaxValue);
+            break;
+        case RGBScriptProperty::Float:
+            entry.insert("type", QStringLiteral("Float"));
+            break;
+        case RGBScriptProperty::String:
+            entry.insert("type", QStringLiteral("String"));
+            break;
+        default:
+            continue;
+        }
+
+        list.append(entry);
+    }
+
+    delete script;
+    return list;
+}
+
+int VCAnimation::addAlgorithmPreset(QString algoName, QVariantMap properties)
+{
+    if (algoName.isEmpty() || algorithms().indexOf(algoName) < 0)
+        return -1;
+
+    quint8 newId = ++m_lastAssignedControlId;
+    VCAnimationPreset *control = new VCAnimationPreset(newId);
+    control->m_type = VCAnimationPreset::Animation;
+    control->m_resource = algoName;
+
+    QMapIterator<QString, QVariant> it(properties);
+    while (it.hasNext())
+    {
+        it.next();
+        QString value = it.value().toString();
+        if (!value.isEmpty())
+            control->m_properties.insert(it.key(), value);
+    }
+
+    addControlInternal(control);
+
+    emit presetsListChanged();
+    return newId;
+}
+
+void VCAnimation::removePreset(quint8 presetId)
+{
+    for (int i = 0; i < m_controls.count(); ++i)
+    {
+        if (m_controls.at(i)->m_id != presetId)
+            continue;
+
+        unregisterExternalControl(presetId);
+
+        if (presetId == m_activePresetId)
+            setActivePresetId(-1);
+
+        delete m_controls.takeAt(i);
+        emit presetsListChanged();
+        return;
+    }
+}
+
+int VCAnimation::movePresetUp(quint8 presetId)
+{
+    QList<VCAnimationPreset *> list = controls();
+    int index = -1;
+    for (int i = 0; i < list.count(); ++i)
+    {
+        if (list.at(i)->m_id == presetId)
+        {
+            index = i;
+            break;
+        }
+    }
+
+    if (index <= 0)
+        return presetId;
+
+    std::swap(list[index]->m_id, list[index - 1]->m_id);
+    refreshPresetExternalControls();
+    emit presetsListChanged();
+    return list[index - 1]->m_id;
+}
+
+int VCAnimation::movePresetDown(quint8 presetId)
+{
+    QList<VCAnimationPreset *> list = controls();
+    int index = -1;
+    for (int i = 0; i < list.count(); ++i)
+    {
+        if (list.at(i)->m_id == presetId)
+        {
+            index = i;
+            break;
+        }
+    }
+
+    if (index < 0 || index >= list.count() - 1)
+        return presetId;
+
+    std::swap(list[index]->m_id, list[index + 1]->m_id);
+    refreshPresetExternalControls();
+    emit presetsListChanged();
+    return list[index + 1]->m_id;
+}
+
+void VCAnimation::applyPreset(quint8 presetId)
+{
+    VCAnimationPreset *control = findControl(presetId);
+    if (control == nullptr)
+        return;
+
+    Tardis::instance()->enqueueAction(Tardis::VCAnimationActivatePreset, id(), QVariant(), presetId);
+
+    switch (control->m_type)
+    {
+    case VCAnimationPreset::Color1:
+    case VCAnimationPreset::Color2:
+    case VCAnimationPreset::Color3:
+    case VCAnimationPreset::Color4:
+    case VCAnimationPreset::Color5:
+        setColorAt(control->colorIndex(), control->m_color);
+        break;
+
+    case VCAnimationPreset::Color1Reset:
+    case VCAnimationPreset::Color2Reset:
+    case VCAnimationPreset::Color3Reset:
+    case VCAnimationPreset::Color4Reset:
+    case VCAnimationPreset::Color5Reset:
+        setColorAt(control->colorIndex(), QColor());
+        break;
+
+    case VCAnimationPreset::Animation:
+    {
+        QStringList algoList = algorithms();
+        int algoIndex = algoList.indexOf(control->m_resource);
+        if (algoIndex >= 0)
+            setAlgorithmIndex(algoIndex);
+
+        if (m_faderLevel > 0)
+            applyAlgorithmContent(currentMatrix(), control);
+        break;
+    }
+
+    case VCAnimationPreset::Text:
+    {
+        QStringList algoList = algorithms();
+        int algoIndex = algoList.indexOf("Text");
+        if (algoIndex >= 0)
+            setAlgorithmIndex(algoIndex);
+
+        if (m_faderLevel > 0)
+            applyAlgorithmContent(currentMatrix(), control);
+        break;
+    }
+
+    default:
+        // Knobs are applied through setPresetKnobValue()
+        return;
+    }
+
+    setActivePresetId(presetId);
+}
+
+void VCAnimation::setPresetKnobValue(quint8 presetId, int value)
+{
+    VCAnimationPreset *control = findControl(presetId);
+    if (control == nullptr || control->widgetType() != VCAnimationPreset::Knob)
+        return;
+
+    int colorIndex = control->colorIndex();
+    if (colorIndex < 0)
+        return;
+
+    QColor current = colorAt(colorIndex);
+    QRgb base = current.isValid() ? current.rgb() : qRgb(0, 0, 0);
+    QRgb knobColor = control->valueToRgb(quint8(qBound(0, value, 255)));
+    QRgb mask = control->m_color.rgb();
+    QRgb result = (base & ~mask) | (knobColor & mask);
+
+    setColorAt(colorIndex, QColor::fromRgb(result));
+}
+
+int VCAnimation::presetKnobValue(quint8 presetId) const
+{
+    VCAnimationPreset *control = findControl(presetId);
+    if (control == nullptr || control->widgetType() != VCAnimationPreset::Knob)
+        return 0;
+
+    int colorIndex = control->colorIndex();
+    if (colorIndex < 0)
+        return 0;
+
+    QColor current = m_localColors[colorIndex];
+    if (!current.isValid())
+        return 0;
+
+    return control->rgbToValue(current.rgb());
 }
 
 void VCAnimation::updateFeedback()
@@ -382,7 +929,122 @@ void VCAnimation::updateFeedback()
 void VCAnimation::slotInputValueChanged(quint8 id, uchar value)
 {
     if (id == INPUT_FADER_ID)
+    {
         setFaderLevel(value);
+        return;
+    }
+
+    VCAnimationPreset *control = findControl(id);
+    if (control == nullptr)
+        return;
+
+    if (control->widgetType() == VCAnimationPreset::Knob)
+        setPresetKnobValue(id, value);
+    else if (value > 0)
+        applyPreset(id);
+}
+
+RGBMatrix *VCAnimation::currentMatrix() const
+{
+    if (m_functionID == Function::invalidId())
+        return nullptr;
+
+    return qobject_cast<RGBMatrix *>(m_doc->function(m_functionID));
+}
+
+void VCAnimation::applyStyleOverrides(RGBMatrix *matrix)
+{
+    if (matrix == nullptr)
+        return;
+
+    for (int i = 0; i < RGBAlgorithmColorDisplayCount; ++i)
+    {
+        int attrIndex = RGBMatrix::Color1Attr + i;
+        int colorValue = packColorForOverride(m_localColors[i]);
+        if (m_colorOverrideIDs[i] == Function::invalidAttributeId())
+            m_colorOverrideIDs[i] = matrix->requestAttributeOverride(attrIndex, colorValue);
+        else
+            matrix->adjustAttribute(colorValue, m_colorOverrideIDs[i]);
+    }
+
+    if (m_algorithmOverrideID == Function::invalidAttributeId())
+        m_algorithmOverrideID = matrix->requestAttributeOverride(RGBMatrix::PatternAttr, m_localAlgorithmIndex);
+    else
+        matrix->adjustAttribute(m_localAlgorithmIndex, m_algorithmOverrideID);
+}
+
+void VCAnimation::applyAlgorithmContent(RGBMatrix *matrix, VCAnimationPreset *control)
+{
+    if (matrix == nullptr || control == nullptr)
+        return;
+
+    /* The attribute-override channel can only carry the algorithm index and
+     * colors. Text content and Script properties must be pushed onto the
+     * matrix algorithm directly. setAlgorithmIndex() already selected the
+     * right algorithm through the PatternAttr override. */
+    RGBAlgorithm *algorithm = matrix->algorithm();
+    if (algorithm == nullptr)
+        return;
+
+    if (control->m_type == VCAnimationPreset::Text && algorithm->type() == RGBAlgorithm::Text)
+    {
+        RGBText *textAlgo = static_cast<RGBText *>(algorithm);
+        textAlgo->setText(control->m_resource);
+    }
+    else if (control->m_type == VCAnimationPreset::Animation
+             && algorithm->type() == RGBAlgorithm::Script
+             && !control->m_properties.isEmpty())
+    {
+        QMapIterator<QString, QString> it(control->m_properties);
+        while (it.hasNext())
+        {
+            it.next();
+            matrix->setProperty(it.key(), it.value());
+        }
+    }
+
+    matrix->updateColorDelta();
+}
+
+void VCAnimation::releaseStyleOverrides(RGBMatrix *matrix)
+{
+    if (matrix == nullptr)
+        return;
+
+    bool released = false;
+    for (int i = 0; i < RGBAlgorithmColorDisplayCount; ++i)
+    {
+        if (m_colorOverrideIDs[i] == Function::invalidAttributeId())
+            continue;
+
+        matrix->releaseAttributeOverride(m_colorOverrideIDs[i]);
+        m_colorOverrideIDs[i] = Function::invalidAttributeId();
+        released = true;
+    }
+
+    if (m_algorithmOverrideID != Function::invalidAttributeId())
+    {
+        matrix->releaseAttributeOverride(m_algorithmOverrideID);
+        m_algorithmOverrideID = Function::invalidAttributeId();
+        released = true;
+    }
+
+    if (released)
+        matrix->applyStyleAttributes();
+}
+
+void VCAnimation::releaseIntensityOverride(RGBMatrix *matrix)
+{
+    if (matrix == nullptr || m_intensityOverrideId == Function::invalidAttributeId())
+        return;
+
+    matrix->releaseAttributeOverride(m_intensityOverrideId);
+    resetIntensityOverrideAttribute();
+}
+
+int VCAnimation::packColorForOverride(const QColor &color)
+{
+    return color.isValid() ? int(color.rgb() & 0x00FFFFFF) : -1;
 }
 
 /*********************************************************************
@@ -401,6 +1063,10 @@ bool VCAnimation::loadXML(QXmlStreamReader &root)
 
     /* Widget commons */
     loadXMLCommon(root);
+
+    clearControls();
+    m_lastAssignedControlId = INPUT_PRESETS_BASE_ID - 1;
+    setActivePresetId(-1);
 
     while (root.readNextStartElement())
     {
@@ -431,12 +1097,22 @@ bool VCAnimation::loadXML(QXmlStreamReader &root)
         {
             loadXMLInputSource(root, INPUT_FADER_ID);
         }
+        else if (root.name() == KXMLQLCVCAnimationPreset)
+        {
+            VCAnimationPreset *control = new VCAnimationPreset(0xff);
+            if (control->loadXML(root))
+                addControlInternal(control);
+            else
+                delete control;
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown animation tag:" << root.name().toString();
             root.skipCurrentElement();
         }
     }
+
+    emit presetsListChanged();
 
     return true;
 }
@@ -470,6 +1146,10 @@ bool VCAnimation::saveXML(QXmlStreamWriter *doc) const
 
     /* External control */
     saveXMLInputControl(doc, INPUT_FADER_ID, false);
+
+    /* Custom controls / presets */
+    for (const VCAnimationPreset *control : controls())
+        control->saveXML(doc);
 
     /* Write the <end> tag */
     doc->writeEndElement();

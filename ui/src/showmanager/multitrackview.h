@@ -99,7 +99,7 @@ private:
      *  If trk is NULL, this function returns the currently
      *  selected track.
      */
-    int getTrackIndex(Track *trk) const;
+    int getTrackIndex(const Track *trk) const;
 
     void setItemCommonProperties(ShowItem *item, ShowFunction *func, int trackNum);
 

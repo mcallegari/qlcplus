@@ -1,4 +1,4 @@
-set(module_name "qlcplus-qml")
+set(module_name "qlcplus5")
 
 set(TS_FILES
     qlcplus_ca_ES.ts
@@ -26,6 +26,8 @@ set(SRC_FILES
     contextmanager.cpp contextmanager.h
     efxeditor.cpp efxeditor.h
     fixturebrowser.cpp fixturebrowser.h
+    fixtureremapmanager.cpp fixtureremapmanager.h
+    fixtureeditor/aliasedit.cpp fixtureeditor/aliasedit.h
     fixtureeditor/channeledit.cpp fixtureeditor/channeledit.h
     fixtureeditor/editorview.cpp fixtureeditor/editorview.h
     fixtureeditor/fixtureeditor.cpp fixtureeditor/fixtureeditor.h
@@ -64,6 +66,7 @@ set(SRC_FILES
     videoprovider.cpp videoprovider.h
     waveformimageprovider.cpp waveformimageprovider.h
     virtualconsole/vcanimation.cpp virtualconsole/vcanimation.h
+    virtualconsole/vcanimationpreset.cpp virtualconsole/vcanimationpreset.h
     virtualconsole/vcaudiotriggers.cpp virtualconsole/vcaudiotriggers.h
     virtualconsole/vcbutton.cpp virtualconsole/vcbutton.h
     virtualconsole/vcclock.cpp virtualconsole/vcclock.h
@@ -75,9 +78,16 @@ set(SRC_FILES
     virtualconsole/vcsoloframe.cpp virtualconsole/vcsoloframe.h
     virtualconsole/vcwidget.cpp virtualconsole/vcwidget.h
     virtualconsole/vcxypad.cpp virtualconsole/vcxypad.h
+    virtualconsole/vcxypadpreset.cpp virtualconsole/vcxypadpreset.h
     virtualconsole/vcspeeddial.cpp virtualconsole/vcspeeddial.h
     virtualconsole/vcspeeddialpreset.cpp virtualconsole/vcspeeddialpreset.h
     virtualconsole/virtualconsole.cpp virtualconsole/virtualconsole.h
+    stagewizard/stagewizard.cpp stagewizard/stagewizard.h
+    stagewizard/stagewizard_placement.cpp
+    stagewizard/stagewizard_functions.cpp
+    stagewizard/stagewizard_colors.cpp
+    stagewizard/stagewizard_vc.cpp
+    stagewizard/stagewizard_controller.cpp
 )
 
 # This is most of the Android deployment code
@@ -86,7 +96,9 @@ if(ANDROID)
     set_target_properties(${module_name} PROPERTIES
         QT_ANDROID_PACKAGE_SOURCE_DIR "${ANDROID_PACKAGE_STAGING_DIR}"
         QT_ANDROID_APP_ICON "@drawable/ic_launcher"
-        QT_ANDROID_PACKAGE_NAME "org.qlcplus"
+        QT_ANDROID_PACKAGE_NAME "org.qlcplus.android"
+        QT_ANDROID_VERSION_CODE 1               # Version code. Update at each release
+        QT_ANDROID_VERSION_NAME "${APPVERSION}" # Version visible to users
         OUTPUT_NAME "QLC+"
     )
 
@@ -116,6 +128,7 @@ target_include_directories(${module_name} PRIVATE
     fixtureeditor
     tardis
     virtualconsole
+    stagewizard
 )
 target_include_directories(${module_name} PUBLIC ${FFTW3_INCLUDE_DIRS})
 
@@ -125,7 +138,7 @@ target_compile_definitions(${module_name} PRIVATE
 )
 
 # Workaround a nasty Debian/Ubuntu Qt3d packaging issue where
-# a non existent path would break the cmake initialization 
+# a non existent path would break the cmake initialization
 set(_qt6_3d_modules 3DCore 3DInput 3DLogic 3DQuick 3DQuickExtras 3DRender 3DExtras)
 set(_qt6_3d_link "")
 foreach(_m IN LISTS _qt6_3d_modules)
@@ -227,6 +240,7 @@ if(lupdate_only)
         qml/inputoutput/*.qml
         qml/popup/*.qml
         qml/showmanager/*.qml
+        qml/stagewizard/*.qml
         qml/virtualconsole/*.qml
     )
 endif()

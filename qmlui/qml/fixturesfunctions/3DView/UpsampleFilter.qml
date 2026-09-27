@@ -31,9 +31,9 @@ TechniqueFilter
 
     parameters: [
         Parameter { name: "tex"; value: inTex },
-        Parameter { name: "pixelSize"; value: pixelSize },  
-        Parameter { name: "intensity"; value: {return index.x * View3D.smokeAmount * 0.8 } }  
-    ] 
+        Parameter { name: "pixelSize"; value: pixelSize },
+        Parameter { name: "intensity"; value: {return index.x * View3D.smokeAmount * 0.8 } }
+    ]
 
     RenderStateSet
     {

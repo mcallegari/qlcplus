@@ -102,7 +102,7 @@ protected:
      *********************************************************************/
 public:
     /** Returns if this frame has chidren widgets */
-    bool hasChildren();
+    bool hasChildren() const;
 
     /** Returns a list of the children widgets with the specified
      *  $recursive method */
@@ -227,13 +227,18 @@ public:
     void setPagesLoop(bool pagesLoop);
     bool pagesLoop() const;
 
-    QStringList pageLabels();
+    QStringList pageLabels() const;
     Q_INVOKABLE void setShortcutName(int pageIndex, QString name);
 
     Q_INVOKABLE void gotoPreviousPage();
     Q_INVOKABLE void gotoNextPage();
     Q_INVOKABLE void gotoPage(int pageIndex);
     Q_INVOKABLE void cloneFirstPage();
+
+protected:
+    /** Make sure the label and shortcut control for the first
+     *  page (index 0) are registered */
+    void ensureFirstPage();
 
 signals:
     void multiPageModeChanged(bool multiPageMode);
@@ -290,8 +295,18 @@ protected slots:
     /*********************************************************************
      * Submasters
      *********************************************************************/
+public:
+    /** @reimp */
+    void adjustIntensity(qreal intensity) override;
+
 protected slots:
-    void slotSubmasterValueChanged(qreal value);
+    void slotSubmasterValueChanged(qreal submasterValue);
+
+private:
+    void applySubmasterValue(qreal submasterValue, VCWidget *submaster = nullptr);
+
+private:
+    qreal m_submasterValue;
 
     /*********************************************************************
      * External input

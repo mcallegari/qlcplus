@@ -124,7 +124,7 @@ var testAlgo;
         return newRGB;
       }
     };
-    
+
     util.mergeRgb = function(rgb1, rgb2)
     {
       if (rgb1 === 0) {
@@ -140,11 +140,11 @@ var testAlgo;
       var r2 = (rgb2 >> 16) & 0x00FF;
       var g2 = (rgb2 >> 8) & 0x00FF;
       var b2 = rgb2 & 0x00FF;
-      
+
       var r = Math.max(r1, r2);
       var g = Math.max(g1, g2);
       var b = Math.max(b1, b2);
-      
+
       return ((r << 16) + (g << 8) + b);
     }
 

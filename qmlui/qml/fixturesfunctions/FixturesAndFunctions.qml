@@ -32,6 +32,7 @@ Rectangle
 
     // will be set later depending on currentView
     property string currentViewQML: ""
+    property string previousView: ""
 
     // string holding the current view. Used by the C++ code
     // for dynamic items creation
@@ -74,10 +75,14 @@ Rectangle
         {
             item.visible = true
             if (setChecked)
+            {
                 item.checked = true
+                // The checked change drives loadContext(), which updates
+                // both currentViewQML and currentSubContext consistently.
+                return
+            }
         }
         settingsButton.checked = false
-        contextManager.currentSubContext = ctx
     }
 
     function loadContext(checked, qmlres, ctx)

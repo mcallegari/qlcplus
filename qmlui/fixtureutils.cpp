@@ -18,6 +18,7 @@
 */
 
 #include <QDebug>
+#include <Qt3DCore/QTransform>
 
 #include "monitorproperties.h"
 #include "qlcfixturemode.h"
@@ -44,6 +45,28 @@
 
 #define MIN_GOBO_SPEED      500 // ms
 #define MAX_GOBO_SPEED      5000 // ms
+
+QString FixtureUtils::fixtureLightResource(const Fixture *fixture)
+{
+    if (fixture == nullptr)
+        return QString();
+
+    switch (fixture->type())
+    {
+        case QLCFixtureDef::MovingHead:     return QStringLiteral("moving_head.dae");
+        case QLCFixtureDef::ColorChanger:
+        case QLCFixtureDef::Dimmer:         return QStringLiteral("par.dae");
+        case QLCFixtureDef::Scanner:        return QStringLiteral("scanner.dae");
+        case QLCFixtureDef::Strobe:         return QStringLiteral("strobe.dae");
+        case QLCFixtureDef::Hazer:          return QStringLiteral("hazer.dae");
+        case QLCFixtureDef::Smoke:          return QStringLiteral("smoke.dae");
+        // LED bars are built procedurally from the fixture's own layout, so they
+        // have no mesh file: their drawn size IS their declared physical size.
+        case QLCFixtureDef::LEDBarBeams:
+        case QLCFixtureDef::LEDBarPixels:
+        default:                            return QString();
+    }
+}
 
 FixtureUtils::FixtureUtils()
 {
@@ -76,7 +99,7 @@ quint16 FixtureUtils::itemLinkedIndex(quint32 itemID)
     return (itemID & ((1 << FIXTURE_LINKED_BITS) - 1));
 }
 
-QPointF FixtureUtils::item2DPosition(MonitorProperties *monProps, int pointOfView,
+QPointF FixtureUtils::item2DPosition(const MonitorProperties *monProps, int pointOfView,
                                      QVector3D pos)
 {
     QPointF point(0, 0);
@@ -126,7 +149,7 @@ float FixtureUtils::item2DRotation(int pointOfView, QVector3D rot)
     return 0;
 }
 
-QSizeF FixtureUtils::item2DDimension(QLCFixtureMode *fxMode, int pointOfView)
+QSizeF FixtureUtils::item2DDimension(const QLCFixtureMode *fxMode, int pointOfView)
 {
     QSizeF size(300, 300);
 
@@ -198,7 +221,7 @@ void FixtureUtils::alignItem(QVector3D refPos, QVector3D &origPos, int pointOfVi
     }
 }
 
-QVector3D FixtureUtils::item3DPosition(MonitorProperties *monProps, QPointF point, float thirdVal)
+QVector3D FixtureUtils::item3DPosition(const MonitorProperties *monProps, QPointF point, float thirdVal)
 {
     QVector3D pos(point.x(), point.y(), thirdVal);
 
@@ -382,6 +405,31 @@ QColor FixtureUtils::applyColorFilter(QColor source, QColor filter)
                   source.blueF() * filter.blueF() * 255.0);
 }
 
+bool FixtureUtils::lightProperties(const MonitorProperties *monProps, const Fixture *fixture,
+                                   int headIndex, QVector3D &lightPos, QMatrix4x4 &lightMatrix)
+{
+    QMatrix4x4 rotMatrix;
+    if (!MonitorProperties::fixtureBeamPosition(monProps, fixture, headIndex, lightPos, rotMatrix))
+        return false;
+
+    QVector4D xb = rotMatrix * QVector4D(1, 0, 0, 0);
+    QVector4D yb = rotMatrix * QVector4D(0, 1, 0, 0);
+    QVector4D zb = rotMatrix * QVector4D(0, 0, 1, 0);
+
+    QVector3D xa = QVector3D(xb.x(), xb.y(), xb.z()).normalized();
+    QVector3D ya = QVector3D(yb.x(), yb.y(), yb.z()).normalized();
+    QVector3D za = QVector3D(zb.x(), zb.y(), zb.z()).normalized();
+
+    lightMatrix = QMatrix4x4(
+        xa.x(), xa.y(), xa.z(), 0,
+        ya.x(), ya.y(), ya.z(), 0,
+        za.x(), za.y(), za.z(), 0,
+        0, 0, 0, 1
+    ).transposed();
+
+    return true;
+}
+
 void FixtureUtils::positionTimings(const QLCChannel *ch, uchar value, int &panDuration, int &tiltDuration)
 {
     panDuration = -1;
@@ -553,4 +601,3 @@ int FixtureUtils::shutterTimings(const QLCChannel *ch, uchar value, int &highTim
 
     return capPreset;
 }
-

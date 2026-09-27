@@ -52,8 +52,8 @@ void EFXPreviewArea_Test::setPoints()
     area.resize(size);
     QCOMPARE(area.m_original, poly);
     QCOMPARE(area.m_scaled[0].toPoint(), QPoint(0, 0));
-    QCOMPARE(area.m_scaled[1].toPoint(), QPoint(8, 8));
-    QCOMPARE(area.m_scaled[2].toPoint(), QPoint(16, 16));
+    QCOMPARE(area.m_scaled[1].toPoint(), QPoint(7, 7));
+    QCOMPARE(area.m_scaled[2].toPoint(), QPoint(15, 15));
     QCOMPARE(area.m_scaled[3].toPoint(), QPoint(100, 100));
     QCOMPARE(area.m_scaled[4].toPoint(), QPoint(200, 200));
 }

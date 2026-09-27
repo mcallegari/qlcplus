@@ -60,6 +60,26 @@ const SPEED_VIS = {
 
 const SPEED_LABELS = ["", "", "1/16", "1/8", "1/4", "1/2", "1", "2", "4", "8", "16"];
 
+const FUNCTION_TYPE_ICONS = {
+  Scene: "scene",
+  Chaser: "chaser",
+  EFX: "efx",
+  Collection: "collection",
+  Script: "script",
+  RGBMatrix: "rgbmatrix",
+  Show: "showmanager",
+  Sequence: "sequence",
+  Audio: "audio",
+  Video: "video",
+};
+
+const XYPAD_PRESET_ICONS = {
+  Position: "position",
+  EFX: "efx",
+  Scene: "scene",
+  FixtureGroup: "group",
+};
+
 const FA = {
   collapse: "\uf424",
   expand: "\uf422",
@@ -166,6 +186,56 @@ function updatePagesCompact() {
   pagesWrap.classList.toggle("is-compact", needsCompact);
 }
 
+function isSliderTouchTarget(target) {
+  if (!target || typeof target.closest !== "function") return false;
+  const range = target.closest('input[type="range"]');
+  if (!range) return false;
+  return !!range.closest(".vc-slider, .vc-audio, .vc-matrix, .vc-xypad, .cue-side-slider");
+}
+
+function isTouchLikeEnvironment() {
+  return !!("ontouchstart" in window || (navigator && navigator.maxTouchPoints > 0));
+}
+
+function isNoLongPressTarget(target) {
+  if (!target || typeof target.closest !== "function") return false;
+  return !!target.closest(
+    ".vc-button, .nav-btn, .page-tab, .topbar, .vc-frame-header, .vc-label, .vc-stage button, button, a, .vc-xypad, .xypad-area, .xypad-range, .xypad-slider"
+  );
+}
+
+function readRootCssNumber(name, fallback) {
+  const value = parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name));
+  return Number.isFinite(value) ? value : fallback;
+}
+
+function getResponsiveUiScale() {
+  const width = window.innerWidth || document.documentElement.clientWidth || 0;
+  const phoneScale = readRootCssNumber("--ui-scale-phone", 1);
+  const tabletScale = readRootCssNumber("--ui-scale-tablet", 1);
+  const tabletWideScale = readRootCssNumber("--ui-scale-tablet-wide", 1);
+  if (width <= 700) return phoneScale;
+  if (width <= 900) return tabletScale;
+  if (width <= 1280) return tabletWideScale;
+  return 1;
+}
+
+function getEffectiveIconSize() {
+  const cssIconSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--icon-size-default"));
+  if (Number.isFinite(cssIconSize)) return cssIconSize;
+  const density = readRootCssNumber("--pd", state.pixelDensity || 1);
+  return density * 10 * getResponsiveUiScale();
+}
+
+function getUnifiedSliderThumbSize() {
+  const iconSize = getEffectiveIconSize();
+  const scale = readRootCssNumber("--slider-thumb-scale", 1.0);
+  const aspect = readRootCssNumber("--slider-thumb-aspect", 0.75);
+  const width = Math.max(6, iconSize * scale);
+  const height = Math.max(6, width * aspect);
+  return { width, height };
+}
+
 function sendMessage(msg) {
   if (!state.socket || state.socket.readyState !== 1) return;
   state.socket.send(msg);
@@ -185,6 +255,17 @@ function formatTime(seconds) {
   const m = String(Math.floor((s % 3600) / 60)).padStart(2, "0");
   const sec = String(s % 60).padStart(2, "0");
   return `${h}:${m}:${sec}`;
+}
+
+function formatTimerTenths(milliseconds) {
+  const ms = Math.max(0, parseInt(milliseconds, 10) || 0);
+  const totalTenths = Math.floor(ms / 100);
+  const tenths = totalTenths % 10;
+  const totalSeconds = Math.floor(totalTenths / 10);
+  const h = String(Math.floor(totalSeconds / 3600)).padStart(2, "0");
+  const m = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0");
+  const sec = String(totalSeconds % 60).padStart(2, "0");
+  return `${h}:${m}:${sec}.${tenths}`;
 }
 
 function sliderDisplayValue(widget, value) {
@@ -287,6 +368,14 @@ function splitMilliseconds(value) {
   return { hours, minutes, seconds, ms };
 }
 
+function parseSpinTextValue(rawValue, max) {
+  const txt = String(rawValue ?? "");
+  const match = txt.match(/-?\d+/);
+  const num = match ? parseInt(match[0], 10) : 0;
+  const val = Number.isFinite(num) ? num : 0;
+  return Math.max(0, Math.min(max, val));
+}
+
 function applyFont(el, font) {
   if (!font) return;
   if (font.family) el.style.fontFamily = font.family;
@@ -333,7 +422,7 @@ function lightenColor(hex, factor) {
 function renderButton(widget) {
   const btn = applyWidgetBase(document.createElement("div"), widget);
   btn.classList.add("vc-button");
-  btn.textContent = widget.caption || "Button";
+  btn.textContent = widget.caption ?? "";
   btn.dataset.action = widget.actionType ?? 0;
   const bg = widget.bgColor || "#3a3a3a";
   const bgLight = lightenColor(bg, 1.3);
@@ -440,6 +529,9 @@ function renderSlider(widget) {
   caption.className = "slider-caption";
   caption.textContent = widget.caption || "";
 
+  const controls = document.createElement("div");
+  controls.className = "slider-controls";
+
   let resetBtn = null;
   if (widget.monitor) {
     resetBtn = document.createElement("button");
@@ -449,10 +541,192 @@ function renderSlider(widget) {
       sendWidgetCommand(widget.id, "SLIDER_OVERRIDE", 0);
     });
     if (widget.isOverriding) resetBtn.classList.add("is-overriding");
+    controls.appendChild(resetBtn);
+  }
+
+  const cngType = widget.clickAndGoType || "None";
+  const cngPresets = Array.isArray(widget.cngPresets) ? widget.cngPresets : [];
+  const hasClickAndGoPresets = cngType === "Preset" && cngPresets.length > 0;
+  const hasClickAndGoColors = cngType === "Colors";
+  const hasClickAndGo = hasClickAndGoPresets || hasClickAndGoColors;
+  let cngBtn = null;
+  let cngPanel = null;
+  let updateClickAndGo = null;
+  let cngPreview = null;
+
+  if (hasClickAndGo) {
+    cngBtn = document.createElement("button");
+    cngBtn.type = "button";
+    cngBtn.className = "slider-cng-btn";
+    cngBtn.title = "Click & Go";
+    cngBtn.innerHTML = `<span class="slider-cng-preview"></span>`;
+    controls.appendChild(cngBtn);
+    cngPreview = cngBtn.querySelector(".slider-cng-preview");
+  }
+
+  if (hasClickAndGoPresets) {
+    cngPanel = document.createElement("div");
+    cngPanel.className = "slider-cng-panel";
+    root.appendChild(cngPanel);
+
+    const cngEntries = [];
+    const rangeLow = parseInt(widget.rangeLow ?? 0, 10);
+    const rangeHigh = parseInt(widget.rangeHigh ?? 255, 10);
+
+    const createPresetSwatch = (preset) => {
+      const swatch = document.createElement("span");
+      swatch.className = "slider-cng-swatch";
+      const color1 = preset.color1 || "";
+      const color2 = preset.color2 || "";
+      const resource = preset.resource || "";
+      if (color1 && color2) {
+        swatch.style.background = `linear-gradient(90deg, ${color1} 0%, ${color1} 50%, ${color2} 50%, ${color2} 100%)`;
+      } else if (color1) {
+        swatch.style.background = color1;
+      } else if (resource) {
+        swatch.classList.add("is-resource");
+        // Native PresetsTool uses a light item background. Keep the same
+        // contrast so dark gobo SVGs are visible.
+        swatch.style.background = "#ffffff";
+        const img = document.createElement("img");
+        img.className = "slider-cng-image";
+        img.src = resource;
+        img.alt = "";
+        swatch.appendChild(img);
+      } else {
+        swatch.textContent = "•";
+      }
+      return swatch;
+    };
+
+    cngPresets.forEach((preset) => {
+      const minVal = parseInt(preset.min, 10);
+      const maxVal = parseInt(preset.max, 10);
+      if (Number.isNaN(minVal) || Number.isNaN(maxVal)) return;
+      if (maxVal < rangeLow || minVal > rangeHigh) return;
+
+      const presetValue = parseInt(preset.value, 10);
+      const value = Number.isNaN(presetValue) ? minVal : presetValue;
+      const item = document.createElement("button");
+      item.type = "button";
+      item.className = "slider-cng-item";
+      item.appendChild(createPresetSwatch(preset));
+
+      const name = document.createElement("span");
+      name.className = "slider-cng-name";
+      name.textContent = preset.name || `${minVal}-${maxVal}`;
+      item.appendChild(name);
+
+      item.addEventListener("click", (ev) => {
+        ev.preventDefault();
+        sendWidgetCommand(widget.id, "CNG_PRESET", value);
+        widget.value = value;
+        if (updateClickAndGo) updateClickAndGo(value);
+        cngPanel.classList.remove("is-open");
+        cngBtn.classList.remove("is-open");
+      });
+
+      cngPanel.appendChild(item);
+      cngEntries.push({ item, min: minVal, max: maxVal, value, preset });
+    });
+
+    if (cngEntries.length > 0) {
+      updateClickAndGo = (rawValue) => {
+        const currentValue = parseInt(rawValue, 10);
+        const value = Number.isNaN(currentValue) ? parseInt(widget.value ?? 0, 10) : currentValue;
+        let active = null;
+        cngEntries.forEach((entry) => {
+          const isActive = value >= entry.min && value <= entry.max;
+          entry.item.classList.toggle("is-active", isActive);
+          if (isActive && active === null) active = entry;
+        });
+
+        if (!cngPreview) return;
+        cngPreview.innerHTML = "";
+        if (active) {
+          cngPreview.appendChild(createPresetSwatch(active.preset));
+          cngBtn.title = active.preset.name || "Click & Go";
+        } else {
+          cngBtn.title = "Click & Go";
+        }
+      };
+
+      cngBtn.addEventListener("click", (ev) => {
+        ev.preventDefault();
+        const nextOpen = !cngPanel.classList.contains("is-open");
+        cngPanel.classList.toggle("is-open", nextOpen);
+        cngBtn.classList.toggle("is-open", nextOpen);
+        if (nextOpen && updateClickAndGo) {
+          updateClickAndGo(widget.value);
+        }
+      });
+    } else {
+      cngBtn.remove();
+      cngPanel.remove();
+      cngBtn = null;
+      cngPanel = null;
+    }
+  }
+  if (hasClickAndGoColors && cngPreview) {
+    const normalizeHexColor = (raw, fallback = "#000000") => {
+      if (typeof raw !== "string") return fallback;
+      const color = raw.trim().toLowerCase();
+      return /^#[0-9a-f]{6}$/.test(color) ? color : fallback;
+    };
+
+    let primaryColor = normalizeHexColor(widget.cngPrimaryColor, "#000000");
+
+    const updateColorPreview = () => {
+      const swatch = document.createElement("span");
+      swatch.className = "slider-cng-swatch";
+      swatch.style.background = primaryColor;
+      cngPreview.innerHTML = "";
+      cngPreview.appendChild(swatch);
+      cngBtn.title = "Click & Go colors";
+    };
+
+    const colorInput = document.createElement("input");
+    colorInput.type = "color";
+    colorInput.className = "slider-cng-native-color";
+    colorInput.value = primaryColor;
+    root.appendChild(colorInput);
+
+    const applyColorInput = (send) => {
+      primaryColor = normalizeHexColor(colorInput.value, primaryColor);
+      widget.cngPrimaryColor = primaryColor;
+      widget.cngSecondaryColor = "#000000";
+      updateColorPreview();
+      if (send) {
+        sendWidgetCommand(widget.id, "CNG_COLORS", primaryColor, "#000000");
+      }
+    };
+
+    colorInput.addEventListener("input", () => applyColorInput(true));
+    colorInput.addEventListener("change", () => applyColorInput(true));
+
+    cngBtn.addEventListener("click", (ev) => {
+      ev.preventDefault();
+      colorInput.value = primaryColor;
+      colorInput.click();
+    });
+
+    updateClickAndGo = () => {
+      primaryColor = normalizeHexColor(widget.cngPrimaryColor, primaryColor);
+      colorInput.value = primaryColor;
+      updateColorPreview();
+    };
+    updateColorPreview();
+  }
+
+  const hasControls = controls.children.length > 0;
+  if (hasControls) {
+    controls.classList.add("has-controls");
+    root.classList.add("has-controls");
   }
 
   const trackWrap = document.createElement("div");
   trackWrap.className = "slider-track";
+  if (widget.inverted && !isKnob) trackWrap.style.rotate = "180deg";
 
   if (!isKnob) {
     input = document.createElement("input");
@@ -471,27 +745,64 @@ function renderSlider(widget) {
     const val = parseInt(input.value, 10);
     const fill = maxVal > minVal ? ((val - minVal) / (maxVal - minVal)) * 100 : 0;
     input.style.setProperty("--slider-fill", `${fill}%`);
-    let thumbGradient = "linear-gradient(0deg, #cccccc 0%, #555555 45%, #000000 50%, #555555 55%, #888888 100%)";
+    let thumbGradient = "linear-gradient(180deg, #cccccc 0%, #555555 45%, #000000 50%, #555555 55%, #888888 100%)";
     if (widget.sliderMode === "Submaster") {
-      thumbGradient = "linear-gradient(0deg, #4c4c4c 0%, #2c2c2c 45%, #000000 50%, #111111 55%, #131313 100%)";
+      thumbGradient = "linear-gradient(180deg, #4c4c4c 0%, #2c2c2c 45%, #000000 50%, #111111 55%, #131313 100%)";
     } else if (widget.sliderMode === "GrandMaster") {
-      thumbGradient = "linear-gradient(0deg, #a81919 0%, #db2020 45%, #000000 50%, #db2020 55%, #a81919 100%)";
+      thumbGradient = "linear-gradient(180deg, #a81919 0%, #db2020 45%, #000000 50%, #db2020 55%, #a81919 100%)";
     }
     input.style.setProperty("--slider-thumb-gradient", thumbGradient);
-    const iconSize = state.pixelDensity * 10;
-    const sliderWidth = widget.geometry.w;
-    const thumbWidth = Math.min(sliderWidth, iconSize * 0.75);
-    const thumbHeight = Math.min(iconSize, sliderWidth);
-    input.style.setProperty("--slider-thumb-width", `${thumbHeight}px`);
-    input.style.setProperty("--slider-thumb-height", `${thumbWidth}px`);
+    const thumbSize = getUnifiedSliderThumbSize();
+    input.style.setProperty("--slider-thumb-width", `${thumbSize.width}px`);
+    input.style.setProperty("--slider-thumb-height", `${thumbSize.height}px`);
+
+    const applyRangeValue = (rawValue, send) => {
+      const currentVal = parseInt(widget.value, 10);
+      const fallbackVal = parseInt(input.value, 10);
+      const previousVal = Number.isNaN(currentVal) ? fallbackVal : currentVal;
+      const parsed = parseInt(rawValue, 10);
+      const nextVal = Number.isNaN(parsed) ? previousVal : Math.max(minVal, Math.min(maxVal, parsed));
+      input.value = nextVal;
+      valueLabel.textContent = sliderDisplayValue(widget, nextVal);
+      const fill = maxVal > minVal ? ((nextVal - minVal) / (maxVal - minVal)) * 100 : 0;
+      input.style.setProperty("--slider-fill", `${fill}%`);
+      widget.value = nextVal;
+      if (send && nextVal !== previousVal)
+        sendWidgetValue(widget.id, nextVal);
+      return nextVal;
+    };
 
     input.addEventListener("input", () => {
-      const val = parseInt(input.value, 10);
-      valueLabel.textContent = sliderDisplayValue(widget, val);
-      const fill = maxVal > minVal ? ((val - minVal) / (maxVal - minVal)) * 100 : 0;
-      input.style.setProperty("--slider-fill", `${fill}%`);
-      sendWidgetValue(widget.id, val);
+      applyRangeValue(input.value, true);
     });
+
+    const onRangeWheel = (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      const dir = ev.deltaY < 0 ? 1 : -1;
+      const curr = parseInt(input.value, 10);
+      applyRangeValue((Number.isNaN(curr) ? minVal : curr) + dir, true);
+    };
+
+    // Always consume wheel over slider widget to avoid page scrolling,
+    // especially when already at min/max value.
+    input.addEventListener("wheel", onRangeWheel, { passive: false });
+    trackWrap.addEventListener(
+      "wheel",
+      (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+      },
+      { passive: false }
+    );
+    root.addEventListener(
+      "wheel",
+      (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+      },
+      { passive: false }
+    );
 
     trackWrap.appendChild(input);
   } else {
@@ -513,6 +824,7 @@ function renderSlider(widget) {
     const setKnobValue = (value, send) => {
       const next = clampValue(Math.round(value));
       knobState.value = next;
+      widget.value = next;
       valueLabel.textContent = sliderDisplayValue(widget, next);
       updateKnobAngle(next);
       if (send) sendWidgetValue(widget.id, next);
@@ -567,16 +879,29 @@ function renderSlider(widget) {
     });
     dialKnob.addEventListener("wheel", (ev) => {
       ev.preventDefault();
+      ev.stopPropagation();
       const dir = ev.deltaY < 0 ? 1 : -1;
       setKnobValue(knobState.value + dir, true);
-    });
+    }, { passive: false });
 
     setKnobValue(knobState.value, false);
   }
 
   root.append(valueLabel, trackWrap, caption);
-  if (resetBtn) root.appendChild(resetBtn);
-  state.widgets[widget.id] = { type: "slider", el: root, input, valueLabel, resetBtn, data: widget, knobState };
+  if (hasControls) root.appendChild(controls);
+  if (updateClickAndGo) updateClickAndGo(widget.value);
+  state.widgets[widget.id] = {
+    type: "slider",
+    el: root,
+    input,
+    valueLabel,
+    resetBtn,
+    cngBtn,
+    cngPanel,
+    updateClickAndGo,
+    data: widget,
+    knobState,
+  };
   requestAnimationFrame(() => {
     const trackHeight = trackWrap.clientHeight || 40;
     if (input) input.style.setProperty("--slider-length", `${trackHeight}px`);
@@ -592,6 +917,8 @@ function renderSlider(widget) {
 function renderXYPad(widget) {
   const root = applyWidgetBase(document.createElement("div"), widget);
   root.classList.add("vc-xypad");
+  const presets = Array.isArray(widget.presetsList) ? widget.presetsList : [];
+  let presetsRow = null;
 
   const grid = document.createElement("div");
   grid.className = "xypad-grid";
@@ -899,15 +1226,18 @@ function renderXYPad(widget) {
     syncRangeInputs();
     setActiveRangeHandle("h", "min");
     setActiveRangeHandle("v", "min");
+    updateXYPadLayout();
     updateRangeWindow();
     setHandle(pos.x, pos.y);
   });
 
   const resizeObserver = new ResizeObserver(() => {
+    updateXYPadLayout();
     updateRangeWindow();
     setHandle(currentPos.x, currentPos.y);
   });
   resizeObserver.observe(area);
+  resizeObserver.observe(root);
 
   grid.append(
     makeSpacer(),
@@ -922,15 +1252,65 @@ function renderXYPad(widget) {
   );
 
   root.appendChild(grid);
+  const presetButtons = [];
+  if (presets.length > 0) {
+    presetsRow = document.createElement("div");
+    presetsRow.className = "xypad-presets";
+
+    presets.forEach((preset) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "xypad-preset";
+
+      const icon = document.createElement("img");
+      icon.className = "xypad-preset-icon";
+      icon.src = `/qrc/${XYPAD_PRESET_ICONS[preset.typeString] || "xypad"}.svg`;
+      icon.alt = preset.typeString || "Preset";
+
+      const name = document.createElement("span");
+      name.className = "xypad-preset-name";
+      name.textContent = preset.name || `Preset ${preset.id}`;
+
+      if (preset.color) btn.style.setProperty("--preset-color", preset.color);
+      btn.title = preset.typeString ? `${preset.typeString}: ${name.textContent}` : name.textContent;
+      btn.append(icon, name);
+      btn.addEventListener("click", () => {
+        sendWidgetCommand(widget.id, "XYPAD_PRESET", preset.id);
+        updateXYPadPresetState(widget.id, preset.id);
+      });
+
+      presetButtons.push({ id: parseInt(preset.id, 10), el: btn });
+      presetsRow.appendChild(btn);
+    });
+
+    root.appendChild(presetsRow);
+  }
+
+  function updateXYPadLayout() {
+    if (!presetsRow) return;
+
+    const listItemHeight =
+      parseFloat(window.getComputedStyle(document.documentElement).getPropertyValue("--list-item-height")) || 28;
+    const maxPresetsHeight = listItemHeight * 2 + 8;
+    const minGridHeight = Math.max(listItemHeight * 4, 96);
+    const rootHeight = root.clientHeight || widget.geometry?.h || 0;
+    const targetHeight = Math.max(0, Math.min(maxPresetsHeight, rootHeight - minGridHeight - 2));
+
+    presetsRow.style.maxHeight = `${targetHeight}px`;
+    presetsRow.style.display = targetHeight > 0 ? "flex" : "none";
+  }
+
   state.widgets[widget.id] = {
     type: "xypad",
     el: root,
     handle,
     data: widget,
+    presets: presetButtons,
     setHandle,
     updateRangeWindow,
     rangeInputs: { rangeTopMin, rangeTopMax, rangeLeftMin, rangeLeftMax },
   };
+  updateXYPadPresetState(widget.id, widget.activePresetId);
   return root;
 }
 
@@ -996,12 +1376,11 @@ function renderAudioTriggers(widget) {
   fader.style.setProperty("--slider-fill", `${(fader.value / 100) * 100}%`);
   fader.style.setProperty(
     "--slider-thumb-gradient",
-    "linear-gradient(0deg, #cccccc 0%, #555555 45%, #000000 50%, #555555 55%, #888888 100%)"
+    "linear-gradient(180deg, #cccccc 0%, #555555 45%, #000000 50%, #555555 55%, #888888 100%)"
   );
-  const iconSize = state.pixelDensity * 10;
-  const thumbWidth = iconSize * 0.75;
-  fader.style.setProperty("--slider-thumb-width", `${iconSize}px`);
-  fader.style.setProperty("--slider-thumb-height", `${thumbWidth}px`);
+  const audioThumbSize = getUnifiedSliderThumbSize();
+  fader.style.setProperty("--slider-thumb-width", `${audioThumbSize.width}px`);
+  fader.style.setProperty("--slider-thumb-height", `${audioThumbSize.height}px`);
   fader.addEventListener("input", () => {
     const value = parseInt(fader.value, 10);
     fader.style.setProperty("--slider-fill", `${(value / 100) * 100}%`);
@@ -1048,14 +1427,11 @@ function renderMatrix(widget) {
     fader.style.setProperty("--slider-fill", `${(fader.value / 255) * 100}%`);
     fader.style.setProperty(
       "--slider-thumb-gradient",
-      "linear-gradient(0deg, #cccccc 0%, #555555 45%, #000000 50%, #555555 55%, #888888 100%)"
+      "linear-gradient(180deg, #cccccc 0%, #555555 45%, #000000 50%, #555555 55%, #888888 100%)"
     );
-    const iconSize = state.pixelDensity * 10;
-    const width = widget.geometry?.w ?? iconSize;
-    const thumbWidth = Math.min(width, iconSize * 0.75);
-    const thumbHeight = Math.min(iconSize, width);
-    fader.style.setProperty("--slider-thumb-width", `${thumbHeight}px`);
-    fader.style.setProperty("--slider-thumb-height", `${thumbWidth}px`);
+    const matrixThumbSize = getUnifiedSliderThumbSize();
+    fader.style.setProperty("--slider-thumb-width", `${matrixThumbSize.width}px`);
+    fader.style.setProperty("--slider-thumb-height", `${matrixThumbSize.height}px`);
     fader.addEventListener("input", () => {
       const value = parseInt(fader.value, 10);
       const fill = (value / 255) * 100;
@@ -1093,7 +1469,7 @@ function renderMatrix(widget) {
       const input = document.createElement("input");
       input.type = "color";
       input.className = "animation-color";
-      input.value = widget[c.key] || "#ffffff";
+      input.value = widget[c.key] || "#000000";
       input.addEventListener("input", () => {
         sendWidgetCommand(widget.id, c.cmd, input.value);
       });
@@ -1180,9 +1556,45 @@ function renderSpeed(widget) {
     rowIndex += 1;
   }
 
+  // Calculate rows needed for dial/beats/tap area matching QML GridLayout flow
   dialRowStart = rowIndex;
-  rows.push("1fr", "1fr");
-  rowIndex += 2;
+  let controlsAreaRows = 0;
+
+  if (showDial && showTap && showBeats) {
+    // QML: Dial(4col,2row) + Beats on right + TAP(2col,2row) below + remaining Beats
+    // Rows: Dial+4beats(2 rows) + TAP+4beats(2 rows) = 4 rows
+    controlsAreaRows = 4;
+  } else if (showDial && showBeats && !showTap) {
+    // QML: Dial(4col,1row) + Beats(8 buttons in 2 rows below)
+    // Rows: 1 + 2 = 3 rows
+    controlsAreaRows = 3;
+  } else if (showDial && showTap && !showBeats) {
+    // QML: Dial(4col,2row) side-by-side with TAP(2col,2row)
+    // Rows: 2 rows
+    controlsAreaRows = 2;
+  } else if (showDial && !showBeats && !showTap) {
+    // QML: Just Dial(4col,1row)
+    // Rows: 1 row
+    controlsAreaRows = 1;
+  } else if (!showDial && showBeats && showTap) {
+    // No dial: Beats(4 buttons) side-by-side with TAP(2col,2row), then 4 more beats
+    // But TAP is 2 rows, beats need 2 rows total
+    // Rows: 2 rows (beats row 1 + TAP, beats row 2)
+    controlsAreaRows = 2;
+  } else if (!showDial && showBeats && !showTap) {
+    // No dial: Just beats (8 buttons in 2 rows)
+    // Rows: 2 rows
+    controlsAreaRows = 2;
+  } else if (!showDial && showTap && !showBeats) {
+    // No dial, no beats: Just TAP(2 rows)
+    // Rows: 2 rows
+    controlsAreaRows = 2;
+  }
+
+  for (let i = 0; i < controlsAreaRows; i++) {
+    rows.push("1fr");
+  }
+  rowIndex += controlsAreaRows;
 
   if (showTime) {
     rows.push("var(--list-item-height)");
@@ -1218,6 +1630,7 @@ function renderSpeed(widget) {
     dial: null,
     beatButtons: {},
     timeInputs: {},
+    timeSpins: {},
     multiplierLabel: null,
     presets: [],
     tap: null,
@@ -1227,7 +1640,9 @@ function renderSpeed(widget) {
     const dialWrap = document.createElement("div");
     dialWrap.className = "speed-dial";
     dialWrap.style.gridColumn = `1 / span ${showTap ? 4 : columns}`;
-    dialWrap.style.gridRow = `${dialRowStart} / span 2`;
+    // Match native QML: dial spans 2 rows when TAP is visible, 1 row otherwise
+    const dialRowSpan = showTap ? 2 : 1;
+    dialWrap.style.gridRow = `${dialRowStart} / span ${dialRowSpan}`;
 
     const dialKnob = document.createElement("div");
     dialKnob.className = "speed-dial-knob";
@@ -1327,16 +1742,67 @@ function renderSpeed(widget) {
   };
 
   if (showBeats) {
-    const beatDefs = [
-      { label: "1/16", value: 2, row: dialRowStart, col: 1 },
-      { label: "1/8", value: 3, row: dialRowStart, col: 2 },
-      { label: "1/4", value: 4, row: dialRowStart, col: 3 },
-      { label: "1/2", value: 5, row: dialRowStart, col: 4 },
-      { label: "2", value: 7, row: dialRowStart + 1, col: 1 },
-      { label: "4", value: 8, row: dialRowStart + 1, col: 2 },
-      { label: "8", value: 9, row: dialRowStart + 1, col: 3 },
-      { label: "16", value: 10, row: dialRowStart + 1, col: 4 },
-    ];
+    let beatDefs;
+    if (showDial && showTap) {
+      // Dial visible, TAP visible (6 columns):
+      // Row N: Dial (1-4), 1/16 (5), 1/8 (6)
+      // Row N+1: Dial (1-4), 1/4 (5), 1/2 (6)
+      // Row N+2: TAP (1-2), 2 (3), 4 (4), 8 (5), 16 (6)
+      beatDefs = [
+        { label: "1/16", value: 2, row: dialRowStart, col: 5 },
+        { label: "1/8", value: 3, row: dialRowStart, col: 6 },
+        { label: "1/4", value: 4, row: dialRowStart + 1, col: 5 },
+        { label: "1/2", value: 5, row: dialRowStart + 1, col: 6 },
+        { label: "2", value: 7, row: dialRowStart + 2, col: 3 },
+        { label: "4", value: 8, row: dialRowStart + 2, col: 4 },
+        { label: "8", value: 9, row: dialRowStart + 2, col: 5 },
+        { label: "16", value: 10, row: dialRowStart + 2, col: 6 },
+      ];
+    } else if (showDial && !showTap) {
+      // Dial visible, TAP NOT visible (4 columns):
+      // Row N: Dial (1-4)
+      // Row N+1: 1/16 (1), 1/8 (2), 1/4 (3), 1/2 (4)
+      // Row N+2: 2 (1), 4 (2), 8 (3), 16 (4)
+      beatDefs = [
+        { label: "1/16", value: 2, row: dialRowStart + 1, col: 1 },
+        { label: "1/8", value: 3, row: dialRowStart + 1, col: 2 },
+        { label: "1/4", value: 4, row: dialRowStart + 1, col: 3 },
+        { label: "1/2", value: 5, row: dialRowStart + 1, col: 4 },
+        { label: "2", value: 7, row: dialRowStart + 2, col: 1 },
+        { label: "4", value: 8, row: dialRowStart + 2, col: 2 },
+        { label: "8", value: 9, row: dialRowStart + 2, col: 3 },
+        { label: "16", value: 10, row: dialRowStart + 2, col: 4 },
+      ];
+    } else if (!showDial && showTap) {
+      // No dial, TAP visible (6 columns):
+      // Beats flow naturally, TAP takes 2 columns
+      // Row N: 1/16 (1), 1/8 (2), 1/4 (3), 1/2 (4), TAP (5-6, rowspan 2)
+      // Row N+1: 2 (1), 4 (2), 8 (3), 16 (4), [TAP continues]
+      beatDefs = [
+        { label: "1/16", value: 2, row: dialRowStart, col: 1 },
+        { label: "1/8", value: 3, row: dialRowStart, col: 2 },
+        { label: "1/4", value: 4, row: dialRowStart, col: 3 },
+        { label: "1/2", value: 5, row: dialRowStart, col: 4 },
+        { label: "2", value: 7, row: dialRowStart + 1, col: 1 },
+        { label: "4", value: 8, row: dialRowStart + 1, col: 2 },
+        { label: "8", value: 9, row: dialRowStart + 1, col: 3 },
+        { label: "16", value: 10, row: dialRowStart + 1, col: 4 },
+      ];
+    } else {
+      // No dial, no TAP (4 columns):
+      // Row N: 1/16 (1), 1/8 (2), 1/4 (3), 1/2 (4)
+      // Row N+1: 2 (1), 4 (2), 8 (3), 16 (4)
+      beatDefs = [
+        { label: "1/16", value: 2, row: dialRowStart, col: 1 },
+        { label: "1/8", value: 3, row: dialRowStart, col: 2 },
+        { label: "1/4", value: 4, row: dialRowStart, col: 3 },
+        { label: "1/2", value: 5, row: dialRowStart, col: 4 },
+        { label: "2", value: 7, row: dialRowStart + 1, col: 1 },
+        { label: "4", value: 8, row: dialRowStart + 1, col: 2 },
+        { label: "8", value: 9, row: dialRowStart + 1, col: 3 },
+        { label: "16", value: 10, row: dialRowStart + 1, col: 4 },
+      ];
+    }
 
     beatDefs.forEach((beat) => {
       const btn = makeSpeedButton(beat.label);
@@ -1355,8 +1821,23 @@ function renderSpeed(widget) {
   if (showTap) {
     const tapBtn = makeSpeedButton("TAP");
     tapBtn.classList.add("speed-tap");
-    tapBtn.style.gridColumn = `${columns - 1} / span 2`;
-    tapBtn.style.gridRow = `${dialRowStart} / span 2`;
+    if (showDial && showBeats) {
+      // Dial + Beats + TAP: TAP goes to rows 4-5, columns 1-2
+      tapBtn.style.gridColumn = `1 / span 2`;
+      tapBtn.style.gridRow = `${dialRowStart + 2} / span 2`;
+    } else if (showDial && !showBeats) {
+      // Dial + TAP (no beats): TAP goes to the right of the dial
+      tapBtn.style.gridColumn = `5 / span 2`;
+      tapBtn.style.gridRow = `${dialRowStart} / span 2`;
+    } else if (!showDial && showBeats) {
+      // No dial, Beats + TAP: TAP goes to the right
+      tapBtn.style.gridColumn = `5 / span 2`;
+      tapBtn.style.gridRow = `${dialRowStart} / span 2`;
+    } else {
+      // No dial, no beats, just TAP: spans all columns
+      tapBtn.style.gridColumn = `1 / span ${columns}`;
+      tapBtn.style.gridRow = `${dialRowStart} / span 2`;
+    }
     grid.appendChild(tapBtn);
 
     const tapState = {
@@ -1420,17 +1901,119 @@ function renderSpeed(widget) {
     timeRow.style.gridColumn = `1 / span ${columns}`;
     timeRow.style.gridRow = `${timeRowIndex}`;
 
+    const commitTime = () => {
+      Object.values(speedState.timeSpins).forEach((spin) => {
+        spin.syncFromInput(spin.editing ? false : true);
+      });
+
+      const h = speedState.timeSpins.hours?.value ?? 0;
+      const m = speedState.timeSpins.minutes?.value ?? 0;
+      const s = speedState.timeSpins.seconds?.value ?? 0;
+      const ms = speedState.timeSpins.ms?.value ?? 0;
+      const total = Math.max(0, h * 3600000 + m * 60000 + s * 1000 + ms);
+      widget.currentTime = total;
+      updateSpeedState(widget.id, total, widget.currentFactor ?? 0);
+      sendWidgetCommand(widget.id, "SPEED_TIME", total);
+    };
+
     const makeSpin = (key, suffix, max) => {
       const wrap = document.createElement("div");
       wrap.className = "speed-spin";
+
       const input = document.createElement("input");
-      input.type = "number";
-      input.min = "0";
-      input.max = String(max);
-      input.step = "1";
-      const label = document.createElement("span");
-      label.textContent = suffix;
-      wrap.append(input, label);
+      input.className = "speed-spin-input";
+      input.type = "text";
+      input.inputMode = "numeric";
+      input.autocomplete = "off";
+      input.spellcheck = false;
+
+      const controls = document.createElement("div");
+      controls.className = "speed-spin-controls";
+      const upBtn = document.createElement("button");
+      upBtn.type = "button";
+      upBtn.className = "speed-spin-btn speed-spin-up";
+      upBtn.innerHTML = "&#9650;";
+      const downBtn = document.createElement("button");
+      downBtn.type = "button";
+      downBtn.className = "speed-spin-btn speed-spin-down";
+      downBtn.innerHTML = "&#9660;";
+      controls.append(upBtn, downBtn);
+      wrap.append(input, controls);
+
+      const spin = {
+        key,
+        suffix,
+        max,
+        input,
+        value: 0,
+        editing: false,
+        setValue(rawValue, showSuffix = true) {
+          this.value = parseSpinTextValue(rawValue, this.max);
+          this.input.value = showSuffix ? `${this.value}${this.suffix}` : `${this.value}`;
+        },
+        syncFromInput(showSuffix = true) {
+          this.setValue(this.input.value, showSuffix);
+          return this.value;
+        },
+        step(delta) {
+          this.syncFromInput(false);
+          this.setValue(this.value + delta, true);
+          commitTime();
+        },
+      };
+
+      const onWheel = (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        spin.step(ev.deltaY < 0 ? 1 : -1);
+      };
+
+      wrap.addEventListener("wheel", onWheel, { passive: false });
+      input.addEventListener("wheel", onWheel, { passive: false });
+      upBtn.addEventListener("wheel", onWheel, { passive: false });
+      downBtn.addEventListener("wheel", onWheel, { passive: false });
+
+      upBtn.addEventListener("click", () => spin.step(1));
+      downBtn.addEventListener("click", () => spin.step(-1));
+
+      input.addEventListener("focus", () => {
+        spin.editing = true;
+        spin.syncFromInput(false);
+        input.select();
+      });
+
+      input.addEventListener("blur", () => {
+        spin.editing = false;
+        spin.syncFromInput(true);
+        commitTime();
+      });
+
+      input.addEventListener("input", () => {
+        if (!spin.editing) return;
+        const parsed = parseSpinTextValue(input.value, max);
+        spin.value = parsed;
+        input.value = String(parsed);
+      });
+
+      input.addEventListener("keydown", (ev) => {
+        if (ev.key === "ArrowUp") {
+          ev.preventDefault();
+          spin.step(1);
+        } else if (ev.key === "ArrowDown") {
+          ev.preventDefault();
+          spin.step(-1);
+        } else if (ev.key === "Enter") {
+          ev.preventDefault();
+          input.blur();
+        } else if (ev.key === "Escape") {
+          ev.preventDefault();
+          spin.setValue(spin.value, true);
+          input.blur();
+        }
+      });
+
+      spin.setValue(0, true);
+      speedState.timeSpins[key] = spin;
       speedState.timeInputs[key] = input;
       return wrap;
     };
@@ -1439,22 +2022,6 @@ function renderSpeed(widget) {
     if (mask & SPEED_VIS.Minutes) timeRow.appendChild(makeSpin("minutes", "m", 59));
     if (mask & SPEED_VIS.Seconds) timeRow.appendChild(makeSpin("seconds", "s", 59));
     if (mask & SPEED_VIS.Milliseconds) timeRow.appendChild(makeSpin("ms", "ms", 999));
-
-    const commitTime = () => {
-      const h = parseInt(speedState.timeInputs.hours?.value || "0", 10);
-      const m = parseInt(speedState.timeInputs.minutes?.value || "0", 10);
-      const s = parseInt(speedState.timeInputs.seconds?.value || "0", 10);
-      const ms = parseInt(speedState.timeInputs.ms?.value || "0", 10);
-      const total = Math.max(0, h * 3600000 + m * 60000 + s * 1000 + ms);
-      widget.currentTime = total;
-      updateSpeedState(widget.id, total, widget.currentFactor ?? 0);
-      sendWidgetCommand(widget.id, "SPEED_TIME", total);
-    };
-
-    Object.values(speedState.timeInputs).forEach((input) => {
-      input.addEventListener("change", commitTime);
-      input.addEventListener("input", commitTime);
-    });
 
     grid.appendChild(timeRow);
   }
@@ -1526,37 +2093,76 @@ function renderClock(widget) {
   const root = applyWidgetBase(document.createElement("div"), widget);
   root.classList.add("vc-clock");
 
+  const content = document.createElement("div");
+  content.className = "clock-content";
+
   const display = document.createElement("div");
-  display.textContent = formatTime(widget.currentTime || 0);
-  root.appendChild(display);
+  display.className = "clock-display";
+  content.appendChild(display);
 
-  let timer = null;
-  let running = false;
-  let counter = widget.clockType === 2 ? widget.targetTime : 0;
+  if (widget.clockType === 0) {
+    const daysMask = parseInt(widget.scheduledDaysMask, 10) || 0;
+    if (daysMask > 0) {
+      const daysRow = document.createElement("div");
+      daysRow.className = "clock-days";
+      const dayLabels = ["M", "T", "W", "T", "F", "S", "S"];
+      dayLabels.forEach((label, idx) => {
+        const day = document.createElement("span");
+        day.className = "clock-day";
+        if ((daysMask & (1 << idx)) !== 0) day.classList.add("is-active");
+        day.textContent = label;
+        daysRow.appendChild(day);
+      });
+      content.appendChild(daysRow);
+    }
+  }
+  root.appendChild(content);
 
-  if (widget.clockType !== 0) {
+  const widgetState = {
+    type: "clock",
+    el: root,
+    display,
+    data: widget,
+    clockState: {
+      counter: parseInt(widget.currentTime, 10) || 0,
+      running: !!widget.running,
+      ticker: null,
+      lastTick: 0,
+    },
+  };
+
+  if (widget.clockType === 0) {
+    display.textContent = formatTime(widget.currentTime || 0);
+  } else {
+    display.textContent = formatTimerTenths(widgetState.clockState.counter);
     root.style.cursor = "pointer";
     root.addEventListener("click", () => {
-      running = !running;
-      if (running && !timer) {
-        timer = setInterval(() => {
-          if (widget.clockType === 1) counter += 1;
-          else counter = Math.max(0, counter - 1);
-          display.textContent = formatTime(counter);
-        }, 1000);
-      } else if (!running && timer) {
-        clearInterval(timer);
-        timer = null;
+      const desiredRunning = !widgetState.clockState.running;
+      widgetState.clockState.running = desiredRunning;
+      display.textContent = formatTimerTenths(clockDisplayMilliseconds(widgetState));
+      if (desiredRunning) {
+        startClockTicker(widgetState);
+      } else {
+        stopClockTicker(widgetState);
       }
+      sendWidgetCommand(widget.id, "CLOCK_PLAY", desiredRunning ? 1 : 0);
     });
     root.addEventListener("contextmenu", (ev) => {
       ev.preventDefault();
-      counter = widget.clockType === 2 ? widget.targetTime : 0;
-      display.textContent = formatTime(counter);
+      widgetState.clockState.running = false;
+      stopClockTicker(widgetState);
+      widgetState.clockState.counter = widget.clockType === 2
+        ? (parseInt(widget.targetTime, 10) || 0)
+        : 0;
+      display.textContent = formatTimerTenths(clockDisplayMilliseconds(widgetState));
+      sendWidgetCommand(widget.id, "CLOCK_RESET");
     });
   }
 
-  state.widgets[widget.id] = { type: "clock", el: root, display, data: widget };
+  state.widgets[widget.id] = widgetState;
+  if (widget.clockType !== 0) {
+    updateClock(widget.id, widgetState.clockState.counter, widgetState.clockState.running ? "1" : "0");
+  }
   return root;
 }
 
@@ -1612,7 +2218,21 @@ function renderCueList(widget) {
     idx.textContent = index + 1;
     const name = document.createElement("td");
     name.className = "cue-name";
-    name.textContent = step.funcName || `Function ${step.funcID || ""}`;
+    const funcCell = document.createElement("div");
+    funcCell.className = "cue-func-cell";
+    const typeIcon = FUNCTION_TYPE_ICONS[step.funcType];
+    if (typeIcon) {
+      const icon = document.createElement("img");
+      icon.className = "cue-func-icon";
+      icon.src = `/qrc/${typeIcon}.svg`;
+      icon.alt = step.funcType || "";
+      funcCell.appendChild(icon);
+    }
+    const nameText = document.createElement("span");
+    nameText.className = "cue-func-name";
+    nameText.textContent = step.funcName || `Function ${step.funcID || ""}`;
+    funcCell.appendChild(nameText);
+    name.appendChild(funcCell);
     const fadeIn = document.createElement("td");
     fadeIn.className = "cue-time";
     fadeIn.textContent = timeToQlcString(step.fadeIn ?? 0);
@@ -1699,12 +2319,9 @@ function renderCueList(widget) {
     const padding = state.pixelDensity * 4;
     const sfLength = Math.max(40, widget.geometry.h - listItemHeight * labelsCount - padding);
     sfInput.style.setProperty("--slider-length", `${sfLength}px`);
-    const iconSize = state.pixelDensity * 10;
-    const sideWidth = iconSize * 1.2;
-    const thumbWidth = Math.min(iconSize, sideWidth);
-    const thumbHeight = Math.min(sideWidth, iconSize * 0.75);
-    sfInput.style.setProperty("--slider-thumb-width", `${thumbHeight}px`);
-    sfInput.style.setProperty("--slider-thumb-height", `${thumbWidth}px`);
+    const sideThumbSize = getUnifiedSliderThumbSize();
+    sfInput.style.setProperty("--slider-thumb-width", `${sideThumbSize.width}px`);
+    sfInput.style.setProperty("--slider-thumb-height", `${sideThumbSize.height}px`);
     sfInput.style.setProperty("--slider-fill-color", "#38b0ff");
     sfInput.style.setProperty("--slider-empty-color", "#888888");
     const sfMin = parseInt(sfInput.min, 10);
@@ -1805,13 +2422,26 @@ function renderFrame(widget, isSolo) {
     }
 
     if (widget.multiPageMode) {
+      const resolveFrameData = () => {
+        const live = state.widgets[widget.id];
+        return live?.data || widget;
+      };
+
+      const applyAndSendPage = (pageIndex) => {
+        applyFramePage(widget.id, pageIndex);
+        sendWidgetCommand(widget.id, "PAGE", pageIndex);
+      };
+
       const prevBtn = document.createElement("button");
       prevBtn.className = "frame-btn";
       prevBtn.innerHTML = `<span class="fa-icon">${FA.angleLeft}</span>`;
       prevBtn.addEventListener("click", () => {
-        const nextPage = Math.max(0, (widget.currentPage || 0) - 1);
-        applyFramePage(widget.id, nextPage);
-        sendWidgetCommand(widget.id, "PREV_PG");
+        const frameData = resolveFrameData();
+        const totalPages = Math.max(1, parseInt(frameData.totalPages || 1, 10) || 1);
+        const currentPage = parseInt(frameData.currentPage || 0, 10) || 0;
+        let nextPage = currentPage - 1;
+        if (nextPage < 0) nextPage = frameData.pagesLoop ? totalPages - 1 : 0;
+        applyAndSendPage(nextPage);
       });
 
       pageSelect = document.createElement("select");
@@ -1826,18 +2456,20 @@ function renderFrame(widget, isSolo) {
       pageSelect.value = widget.currentPage;
       pageSelect.addEventListener("change", () => {
         const nextPage = parseInt(pageSelect.value, 10);
-        applyFramePage(widget.id, nextPage);
-        sendWidgetCommand(widget.id, "PAGE", nextPage);
+        if (!Number.isNaN(nextPage)) applyAndSendPage(nextPage);
       });
 
       const nextBtn = document.createElement("button");
       nextBtn.className = "frame-btn";
       nextBtn.innerHTML = `<span class="fa-icon">${FA.angleRight}</span>`;
       nextBtn.addEventListener("click", () => {
-        const maxPage = Math.max(0, (widget.totalPages || 1) - 1);
-        const nextPage = Math.min(maxPage, (widget.currentPage || 0) + 1);
-        applyFramePage(widget.id, nextPage);
-        sendWidgetCommand(widget.id, "NEXT_PG");
+        const frameData = resolveFrameData();
+        const totalPages = Math.max(1, parseInt(frameData.totalPages || 1, 10) || 1);
+        const maxPage = totalPages - 1;
+        const currentPage = parseInt(frameData.currentPage || 0, 10) || 0;
+        let nextPage = currentPage + 1;
+        if (nextPage > maxPage) nextPage = frameData.pagesLoop ? 0 : maxPage;
+        applyAndSendPage(nextPage);
       });
       controls.append(prevBtn, pageSelect, nextBtn);
     }
@@ -1909,53 +2541,78 @@ function renderWidget(widget) {
   }
 }
 
+function refreshContainerLayout(container) {
+  if (!container) return;
+
+  const widgets = container.querySelectorAll(".vc-widget");
+  widgets.forEach((child) => {
+    if (!isElementVisible(child)) return;
+    const isDisabled = child.dataset.disabled === "true";
+    child.classList.toggle("is-disabled", isDisabled);
+  });
+
+  const sliders = container.querySelectorAll(".vc-slider");
+  sliders.forEach((slider) => {
+    if (!isElementVisible(slider)) return;
+    const track = slider.querySelector(".slider-track");
+    const isKnob = slider.classList.contains("knob");
+    if (isKnob) {
+      if (!track) return;
+      const trackHeight = track.clientHeight || 40;
+      const trackWidth = track.clientWidth || trackHeight;
+      const knobSize = Math.max(40, Math.min(trackWidth, trackHeight));
+      track.style.setProperty("--knob-size", `${knobSize}px`);
+      return;
+    }
+    const input = slider.querySelector('input[type="range"]');
+    if (!track || !input) return;
+    const trackHeight = track.clientHeight || 40;
+    input.style.setProperty("--slider-length", `${trackHeight}px`);
+  });
+
+  const faders = container.querySelectorAll(".animation-fader input[type=\"range\"]");
+  faders.forEach((fader) => {
+    if (!isElementVisible(fader)) return;
+    const wrap = fader.parentElement;
+    if (!wrap) return;
+    const height = wrap.clientHeight || 40;
+    fader.style.setProperty("--slider-length", `${height}px`);
+  });
+}
+
+function scheduleContainerLayoutRefresh(container) {
+  if (!container) return;
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      refreshContainerLayout(container);
+    });
+  });
+}
+
 function applyFramePage(id, pageIndex) {
   const widget = state.widgets[id];
   if (!widget || !widget.content) return;
 
-  widget.data.currentPage = pageIndex;
+  let targetPage = Number(pageIndex);
+  if (!Number.isFinite(targetPage)) return;
+  const totalPages = parseInt(widget.data?.totalPages ?? "0", 10);
+  if (!Number.isNaN(totalPages) && totalPages > 0) {
+    targetPage = Math.max(0, Math.min(totalPages - 1, targetPage));
+  }
+
+  widget.data.currentPage = targetPage;
   if (widget.pageSelect) {
-    widget.pageSelect.value = pageIndex;
+    widget.pageSelect.value = String(targetPage);
   }
   const children = widget.content.children;
   for (const child of children) {
     const pageAttr = child.dataset.page;
     if (pageAttr === undefined || pageAttr === null) continue;
     const childPage = parseInt(pageAttr, 10);
-    child.style.display = childPage === pageIndex ? "" : "none";
+    child.style.display = childPage === targetPage ? "" : "none";
   }
 
-  requestAnimationFrame(() => {
-    const visible = widget.content.querySelectorAll(".vc-widget:not([style*=\"display: none\"])");
-    visible.forEach((child) => {
-      const isDisabled = child.dataset.disabled === "true";
-      child.classList.toggle("is-disabled", isDisabled);
-    });
-    const sliders = widget.content.querySelectorAll(".vc-slider");
-    sliders.forEach((slider) => {
-      const track = slider.querySelector(".slider-track");
-      const isKnob = slider.classList.contains("knob");
-      if (isKnob) {
-        if (!track) return;
-        const trackHeight = track.clientHeight || 40;
-        const trackWidth = track.clientWidth || trackHeight;
-        const knobSize = Math.max(40, Math.min(trackWidth, trackHeight));
-        track.style.setProperty("--knob-size", `${knobSize}px`);
-        return;
-      }
-      const input = slider.querySelector('input[type="range"]');
-      if (!track || !input) return;
-      const trackHeight = track.clientHeight || 40;
-      input.style.setProperty("--slider-length", `${trackHeight}px`);
-    });
-    const faders = widget.content.querySelectorAll(".animation-fader input[type=\"range\"]");
-    faders.forEach((fader) => {
-      const wrap = fader.parentElement;
-      if (!wrap) return;
-      const height = wrap.clientHeight || 40;
-      fader.style.setProperty("--slider-length", `${height}px`);
-    });
-  });
+  scheduleContainerLayoutRefresh(widget.content);
 }
 
 function renderPages(vcData) {
@@ -2051,7 +2708,8 @@ function updateSlider(id, value, displayValue) {
   const widget = state.widgets[id];
   if (!widget) return;
   const val = parseInt(value, 10);
-  widget.valueLabel.textContent = displayValue || sliderDisplayValue(widget.data, val);
+  widget.data.value = val;
+  widget.valueLabel.textContent = sliderDisplayValue(widget.data, val);
   if (widget.input) {
     widget.input.value = value;
     const min = parseInt(widget.input.min, 10);
@@ -2065,6 +2723,9 @@ function updateSlider(id, value, displayValue) {
     const angle = ratio * 360;
     widget.knobState.value = val;
     widget.knobState.indicator.style.setProperty("--dial-angle", `${angle}deg`);
+  }
+  if (typeof widget.updateClickAndGo === "function") {
+    widget.updateClickAndGo(val);
   }
 }
 
@@ -2200,7 +2861,13 @@ function updateSpeedState(id, time, factor) {
   widget.data.currentTime = parseInt(time, 10) || 0;
   widget.data.currentFactor = parseInt(factor, 10) || 0;
 
-  if (widget.timeInputs) {
+  if (widget.timeSpins && Object.keys(widget.timeSpins).length > 0) {
+    const parts = splitMilliseconds(widget.data.currentTime);
+    if (widget.timeSpins.hours) widget.timeSpins.hours.setValue(parts.hours, !widget.timeSpins.hours.editing);
+    if (widget.timeSpins.minutes) widget.timeSpins.minutes.setValue(parts.minutes, !widget.timeSpins.minutes.editing);
+    if (widget.timeSpins.seconds) widget.timeSpins.seconds.setValue(parts.seconds, !widget.timeSpins.seconds.editing);
+    if (widget.timeSpins.ms) widget.timeSpins.ms.setValue(parts.ms, !widget.timeSpins.ms.editing);
+  } else if (widget.timeInputs) {
     const parts = splitMilliseconds(widget.data.currentTime);
     if (widget.timeInputs.hours) widget.timeInputs.hours.value = parts.hours;
     if (widget.timeInputs.minutes) widget.timeInputs.minutes.value = parts.minutes;
@@ -2228,6 +2895,20 @@ function updateSpeedState(id, time, factor) {
   }
 }
 
+function updateXYPadPresetState(id, presetId) {
+  const widget = state.widgets[id];
+  if (!widget || widget.type !== "xypad") return;
+
+  const parsedPresetId = parseInt(presetId, 10);
+  widget.data.activePresetId = Number.isNaN(parsedPresetId) ? -1 : parsedPresetId;
+
+  if (Array.isArray(widget.presets)) {
+    widget.presets.forEach((preset) => {
+      preset.el.classList.toggle("is-active", preset.id === widget.data.activePresetId);
+    });
+  }
+}
+
 function isElementVisible(el) {
   if (!el || !el.isConnected) return false;
   const style = window.getComputedStyle(el);
@@ -2235,14 +2916,81 @@ function isElementVisible(el) {
   return el.getClientRects().length > 0;
 }
 
-function updateClock(id, time) {
+function startClockTicker(widget) {
+  if (!widget?.clockState || widget.clockState.ticker) return;
+
+  widget.clockState.lastTick = Date.now();
+  widget.clockState.ticker = setInterval(() => {
+    if (!widget.clockState.running) return;
+
+    const now = Date.now();
+    const elapsed = now - widget.clockState.lastTick;
+    widget.clockState.lastTick = now;
+
+    if (widget.data.clockType === 1) {
+      widget.clockState.counter += elapsed;
+    } else {
+      widget.clockState.counter = Math.max(0, widget.clockState.counter - elapsed);
+      if (widget.clockState.counter <= 0) {
+        widget.clockState.running = false;
+        stopClockTicker(widget);
+      }
+    }
+
+    widget.display.textContent = formatTimerTenths(clockDisplayMilliseconds(widget));
+  }, 100);
+}
+
+function stopClockTicker(widget) {
+  if (!widget?.clockState?.ticker) return;
+  clearInterval(widget.clockState.ticker);
+  widget.clockState.ticker = null;
+}
+
+function clockDisplayMilliseconds(widget) {
+  if (!widget?.clockState) return 0;
+  const raw = Math.max(0, parseInt(widget.clockState.counter, 10) || 0);
+  // In running countdown mode, show tenths as 9->0 instead of 0->9.
+  if (widget.data.clockType === 2 && widget.clockState.running && raw > 0) {
+    return raw - 1;
+  }
+  return raw;
+}
+
+function updateClock(id, time, runningState) {
   const widget = state.widgets[id];
   if (!widget) return;
   if (!isElementVisible(widget.el)) {
     return;
   }
   if (widget.data.clockType === 0) {
-    widget.display.textContent = formatTime(parseInt(time, 10));
+    widget.data.currentTime = parseInt(time, 10) || 0;
+    widget.display.textContent = formatTime(widget.data.currentTime);
+    return;
+  }
+
+  if (!widget.clockState) {
+    widget.clockState = {
+      counter: 0,
+      running: false,
+      ticker: null,
+      lastTick: 0,
+    };
+  }
+
+  widget.clockState.counter = parseInt(time, 10) || 0;
+  widget.data.currentTime = widget.clockState.counter;
+
+  if (typeof runningState !== "undefined") {
+    widget.clockState.running = runningState === true || runningState === "1" || runningState === "true";
+    widget.data.running = widget.clockState.running;
+  }
+
+  widget.display.textContent = formatTimerTenths(clockDisplayMilliseconds(widget));
+  if (widget.clockState.running) {
+    startClockTicker(widget);
+  } else {
+    stopClockTicker(widget);
   }
 }
 
@@ -2306,9 +3054,31 @@ function handleSocketMessage(ev) {
       }
       break;
     }
+    case "WIDGET_VISIBLE": {
+      const widget = state.widgets[id];
+      if (!widget) break;
+      const isVisible = msg[2] === "1" || msg[2] === "true";
+      widget.data.visible = isVisible;
+      widget.el.style.display = isVisible ? "" : "none";
+      if (isVisible) {
+        const container = widget.el.closest(".vc-frame-content") || widget.el.parentElement;
+        scheduleContainerLayoutRefresh(container);
+      }
+      break;
+    }
     case "SLIDER":
       updateSlider(id, msg[2], msg[3]);
       break;
+    case "CNG_COLORS": {
+      const widget = state.widgets[id];
+      if (!widget) break;
+      widget.data.cngPrimaryColor = msg[2] || "";
+      widget.data.cngSecondaryColor = msg[3] || "";
+      if (typeof widget.updateClickAndGo === "function") {
+        widget.updateClickAndGo();
+      }
+      break;
+    }
     case "SLIDER_OVERRIDE":
       updateSliderOverride(id, msg[2] === "1" || msg[2] === "true");
       break;
@@ -2342,9 +3112,12 @@ function handleSocketMessage(ev) {
       }
       break;
     }
-    case "FRAME":
-      applyFramePage(id, parseInt(msg[2], 10));
+    case "FRAME": {
+      const pageIndex = parseInt(msg[2], 10);
+      if (Number.isNaN(pageIndex)) break;
+      applyFramePage(id, pageIndex);
       break;
+    }
     case "MATRIX_STATE":
       updateMatrixState(id, msg[2], msg[3], msg.slice(4));
       break;
@@ -2353,11 +3126,14 @@ function handleSocketMessage(ev) {
       if (widget?.setHandle) widget.setHandle(parseFloat(msg[2]), parseFloat(msg[3]));
       break;
     }
+    case "XYPAD_PRESET":
+      updateXYPadPresetState(id, msg[2]);
+      break;
     case "SPEED_STATE":
       updateSpeedState(id, msg[2], msg[3]);
       break;
     case "CLOCK":
-      updateClock(id, msg[2]);
+      updateClock(id, msg[2], msg[3]);
       break;
     default:
       break;
@@ -2407,6 +3183,10 @@ window.addEventListener("load", () => {
   window.addEventListener("resize", () => {
     updateWebPixelDensity();
     updatePagesCompact();
+  });
+  document.addEventListener("contextmenu", (ev) => {
+    if (!isTouchLikeEnvironment()) return;
+    if (isSliderTouchTarget(ev.target) || isNoLongPressTarget(ev.target)) ev.preventDefault();
   });
   document.getElementById("loadProjectBtn").addEventListener("click", () => {
     document.getElementById("loadTrigger").click();

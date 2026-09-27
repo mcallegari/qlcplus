@@ -307,3 +307,17 @@ void FunctionEditor::deleteItems(QVariantList list)
     Q_UNUSED(list)
 }
 
+bool FunctionEditor::requestDeleteItems()
+{
+    if (m_editorObjectName.isEmpty() || m_view == nullptr)
+        return false;
+
+    QQuickItem *editorItem = qobject_cast<QQuickItem *>
+            (m_view->rootObject()->findChild<QObject *>(m_editorObjectName));
+
+    if (editorItem == nullptr)
+        return false;
+
+    return QMetaObject::invokeMethod(editorItem, "deleteSelectedItems");
+}
+

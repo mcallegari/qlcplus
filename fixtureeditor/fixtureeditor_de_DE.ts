@@ -2,29 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="de_DE">
 <context>
-    <name>AboutBox</name>
-    <message>
-        <source>About Q Light Controller Plus</source>
-        <translation type="vanished">Über Q Light Controller Plus</translation>
-    </message>
-    <message>
-        <source>Contributors</source>
-        <translation type="vanished">Mitwirkende</translation>
-    </message>
-    <message>
-        <source>This application is licensed under the terms of the Apache 2.0 license.</source>
-        <translation type="vanished">Dieses Programm ist unter den Bedingungen der Apache-Lizenz Version 2.0 lizensiert.</translation>
-    </message>
-    <message>
-        <source>and contributors:</source>
-        <translation type="vanished">und Mitwirkende:</translation>
-    </message>
-    <message>
-        <source>Website: %1</source>
-        <translation type="vanished">Webseite: %1</translation>
-    </message>
-</context>
-<context>
     <name>AddChannelsDialog</name>
     <message>
         <location filename="addchannelsdialog.ui" line="33"/>
@@ -59,7 +36,7 @@
     <message>
         <location filename="app.cpp" line="150"/>
         <source>Fixture loading failed</source>
-        <translation>Laden fehlgeschlagen</translation>
+        <translation>Laden der Gerätedefinition fehlgeschlagen</translation>
     </message>
     <message>
         <location filename="app.cpp" line="151"/>
@@ -72,29 +49,14 @@
         <translation>&amp;Neu</translation>
     </message>
     <message>
-        <source>CTRL+N</source>
-        <comment>File|New</comment>
-        <translation type="vanished">CTRL+N</translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="251"/>
         <source>&amp;Open</source>
         <translation>&amp;Öffnen</translation>
     </message>
     <message>
-        <source>CTRL+O</source>
-        <comment>File|Open</comment>
-        <translation type="vanished">CTRL+O</translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="257"/>
         <source>&amp;Save</source>
         <translation>&amp;Speichern</translation>
-    </message>
-    <message>
-        <source>CTRL+S</source>
-        <comment>File|Save</comment>
-        <translation type="vanished">CTRL+S</translation>
     </message>
     <message>
         <location filename="app.cpp" line="263"/>
@@ -103,29 +65,14 @@
         <translation>Speichern &amp;unter…</translation>
     </message>
     <message>
-        <source>CTRL+SHIFT+S</source>
-        <comment>File|Save As...</comment>
-        <translation type="vanished">CTRL+SHIFT+S</translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="269"/>
         <source>&amp;Quit</source>
         <translation>&amp;Beenden</translation>
     </message>
     <message>
-        <source>CTRL+Q</source>
-        <comment>File|Quit</comment>
-        <translation type="vanished">CTRL+Q</translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="276"/>
         <source>Index</source>
         <translation>Handbuch</translation>
-    </message>
-    <message>
-        <source>SHIFT+F1</source>
-        <comment>Help|Index</comment>
-        <translation type="vanished">F1</translation>
     </message>
     <message>
         <location filename="app.cpp" line="282"/>
@@ -203,7 +150,7 @@
     <message>
         <location filename="capabilitywizard.ui" line="114"/>
         <source>The common base name for all capabilities. Use hash &apos;#&apos; to create a running number.</source>
-        <translation>Der gemeinsame Basisname für alle Funktionen. Verwende die Raute &apos;#&apos;, um eine Nummerierung zu erstellen.</translation>
+        <translation>Der gemeinsame Basisname für alle Funktionen. Verwende die Raute „#“, um eine Nummerierung zu erstellen.</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="117"/>
@@ -616,7 +563,7 @@
     <message>
         <location filename="editphysical.ui" line="164"/>
         <source>Power Consumption</source>
-        <translation>Leistung</translation>
+        <translation>Leistungsaufnahme</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="174"/>
@@ -844,7 +791,7 @@
 &quot;%1&quot;
 before closing?</source>
         <translation>Willst du die Änderungen am Gerät
-&quot;%1&quot;
+„%1“
 vor dem Schließen speichern?</translation>
     </message>
     <message>
@@ -902,7 +849,7 @@ Kann Gerät nicht speichern.</translation>
         <location filename="fixtureeditor.cpp" line="448"/>
         <location filename="fixtureeditor.cpp" line="546"/>
         <source>A channel by the name &quot;%1&quot; already exists!</source>
-        <translation>Ein Kanal mit dem Namen &quot;%1&quot; existiert bereits!</translation>
+        <translation>Ein Kanal mit dem Namen „%1“ existiert bereits!</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="455"/>

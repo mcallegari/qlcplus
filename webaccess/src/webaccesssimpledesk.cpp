@@ -31,7 +31,7 @@ WebAccessSimpleDesk::WebAccessSimpleDesk(QObject *parent) :
 {
 }
 
-QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
+QString WebAccessSimpleDesk::getHTML(const Doc *doc, const SimpleDesk *sd)
 {
     if ((doc == NULL) || (sd == NULL))
         return QString("");
@@ -77,7 +77,8 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
     QStringList uniList = doc->inputOutputMap()->universeNames();
     for (int i = 0; i < uniList.count(); i++)
     {
-        bodyHTML += "<option value=\"" + QString::number(i) + "\">" + uniList.at(i) + "</option>\n";
+        bodyHTML += "<option value=\"" + QString::number(i) + "\">" +
+                    uniList.at(i).toHtmlEscaped() + "</option>\n";
     }
     bodyHTML += "</select></div>\n";
     bodyHTML += "</div>\n";
@@ -89,7 +90,7 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
     return str;
 }
 
-QString WebAccessSimpleDesk::getChannelsMessage(Doc *doc, SimpleDesk *sd,
+QString WebAccessSimpleDesk::getChannelsMessage(const Doc *doc, const SimpleDesk *sd,
                                                 quint32 universe, int startAddr, int chNumber)
 {
     if ((doc == NULL) || (sd == NULL))

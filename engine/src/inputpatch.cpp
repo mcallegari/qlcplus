@@ -177,6 +177,15 @@ QString InputPatch::inputName() const
         return KInputNone;
 }
 
+QString InputPatch::inputUID() const
+{
+    if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine() &&
+            m_pluginLine < quint32(m_plugin->inputs().count()))
+        return m_plugin->inputsUID()[m_pluginLine];
+    else
+        return KInputNone;
+}
+
 QLCInputProfile* InputPatch::profile() const
 {
     return m_profile;

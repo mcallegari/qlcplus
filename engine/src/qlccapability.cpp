@@ -40,7 +40,7 @@ QLCCapability::QLCCapability(uchar min, uchar max, const QString& name, QObject 
     , m_min(min)
     , m_max(max)
     , m_name(name)
-    , m_warning(NoWarning)
+    , m_warning(WarningType::NoWarning)
 {
 }
 
@@ -84,6 +84,11 @@ QLCCapability::Preset QLCCapability::stringToPreset(const QString &preset)
 QLCCapability::Preset QLCCapability::preset() const
 {
     return m_preset;
+}
+
+int QLCCapability::presetInt() const
+{
+    return int(m_preset);
 }
 
 void QLCCapability::setPreset(QLCCapability::Preset preset)
@@ -215,7 +220,7 @@ void QLCCapability::setWarning(QLCCapability::WarningType type)
     emit warningChanged();
 }
 
-QVariant QLCCapability::resource(int index)
+QVariant QLCCapability::resource(int index) const
 {
     if (index < 0 || index >= m_resources.count())
         return QVariant();
@@ -233,12 +238,12 @@ void QLCCapability::setResource(int index, QVariant value)
         m_resources.append(value);
 }
 
-QVariantList QLCCapability::resources()
+QVariantList QLCCapability::resources() const
 {
     return m_resources;
 }
 
-bool QLCCapability::overlaps(const QLCCapability *cap)
+bool QLCCapability::overlaps(const QLCCapability *cap) const
 {
     if (m_min >= cap->min() && m_min <= cap->max())
         return true;
@@ -254,7 +259,7 @@ bool QLCCapability::overlaps(const QLCCapability *cap)
  * Aliases
  ********************************************************************/
 
-QList<AliasInfo> QLCCapability::aliasList()
+QList<AliasInfo> QLCCapability::aliasList() const
 {
     return m_aliases;
 }
@@ -264,7 +269,7 @@ void QLCCapability::addAlias(AliasInfo alias)
     m_aliases.append(alias);
 }
 
-void QLCCapability::removeAlias(AliasInfo alias)
+void QLCCapability::removeAlias(const AliasInfo& alias)
 {
     for (int i = 0; i < m_aliases.count(); i++)
     {
@@ -291,7 +296,7 @@ void QLCCapability::replaceAliases(QList<AliasInfo> list)
  * Save & Load
  ************************************************************************/
 
-bool QLCCapability::saveXML(QXmlStreamWriter *doc)
+bool QLCCapability::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 

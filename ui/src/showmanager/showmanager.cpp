@@ -446,7 +446,7 @@ void ShowManager::showSceneEditor(Scene *scene)
 {
     if (m_sceneEditor != NULL)
     {
-        emit functionManagerActive(false);       
+        emit functionManagerActive(false);
         m_splitter->widget(1)->layout()->removeWidget(m_sceneEditor);
         m_splitter->widget(1)->hide();
         delete m_sceneEditor;

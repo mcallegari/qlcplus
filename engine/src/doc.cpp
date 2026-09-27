@@ -84,7 +84,7 @@ Doc::Doc(QObject* parent, int universes)
 #if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
     qsrand(QTime::currentTime().msec());
 #endif
-    
+
     m_autosaveTimer.setInterval(AUTOSAVE_TIMEOUT * 1000);
     m_autosaveTimer.setSingleShot(true);
 
@@ -183,6 +183,7 @@ void Doc::clearContents()
     m_orderedGroups.clear();
 
     m_latestFunctionId = 0;
+    m_startupFunctionId = Function::invalidId();
     m_latestFixtureId = 0;
     m_latestFixtureGroupId = 0;
     m_latestChannelsGroupId = 0;
@@ -948,6 +949,7 @@ bool Doc::addPalette(QLCPalette *palette, quint32 id)
     else
     {
         palette->setID(id);
+        palette->setTemporary(false);
         m_palettes[id] = palette;
 
         emit paletteAdded(id);
@@ -1106,7 +1108,7 @@ Function* Doc::function(quint32 id) const
     return m_functions.value(id, NULL);
 }
 
-quint32 Doc::nextFunctionID()
+quint32 Doc::nextFunctionID() const
 {
     quint32 tmpFID = m_latestFunctionId;
     while (m_functions.contains(tmpFID) == true ||
@@ -1123,7 +1125,7 @@ void Doc::setStartupFunction(quint32 fid)
     m_startupFunctionId = fid;
 }
 
-quint32 Doc::startupFunction()
+quint32 Doc::startupFunction() const
 {
     return m_startupFunctionId;
 }
@@ -1318,7 +1320,7 @@ bool Doc::loadXML(QXmlStreamReader &doc, bool loadIO)
     return true;
 }
 
-bool Doc::saveXML(QXmlStreamWriter *doc)
+bool Doc::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -1335,8 +1337,8 @@ bool Doc::saveXML(QXmlStreamWriter *doc)
     while (fxit.hasNext() == true)
     {
         Fixture *fxi(fxit.next());
-        Q_ASSERT(fxi != NULL);
-        fxi->saveXML(doc);
+        if (fxi != NULL)
+            fxi->saveXML(doc);
     }
 
     /* Write fixture groups into an XML document */
@@ -1344,8 +1346,8 @@ bool Doc::saveXML(QXmlStreamWriter *doc)
     while (grpit.hasNext() == true)
     {
         FixtureGroup *grp(grpit.next());
-        Q_ASSERT(grp != NULL);
-        grp->saveXML(doc);
+        if (grp != NULL)
+            grp->saveXML(doc);
     }
 
     /* Write channel groups into an XML document */
@@ -1353,8 +1355,8 @@ bool Doc::saveXML(QXmlStreamWriter *doc)
     while (chanGroups.hasNext() == true)
     {
         ChannelsGroup *grp(chanGroups.next());
-        Q_ASSERT(grp != NULL);
-        grp->saveXML(doc);
+        if (grp != NULL)
+            grp->saveXML(doc);
     }
 
     /* Write palettes into an XML document */
@@ -1362,8 +1364,8 @@ bool Doc::saveXML(QXmlStreamWriter *doc)
     while (paletteIt.hasNext() == true)
     {
         QLCPalette *palette(paletteIt.next());
-        Q_ASSERT(palette != NULL);
-        palette->saveXML(doc);
+        if (palette != NULL)
+            palette->saveXML(doc);
     }
 
     /* Write functions into an XML document */
@@ -1371,8 +1373,8 @@ bool Doc::saveXML(QXmlStreamWriter *doc)
     while (funcit.hasNext() == true)
     {
         Function *func(funcit.next());
-        Q_ASSERT(func != NULL);
-        func->saveXML(doc);
+        if (func != NULL)
+            func->saveXML(doc);
     }
 
     if (m_monitorProps != NULL)
@@ -1398,7 +1400,7 @@ void Doc::clearErrorLog()
     m_errorLog = "";
 }
 
-QString Doc::errorLog()
+QString Doc::errorLog() const
 {
     return m_errorLog;
 }

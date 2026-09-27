@@ -47,18 +47,18 @@ class WebAccessNetwork final : public QObject
 public:
     WebAccessNetwork(QObject *parent = 0);
 
-    void resetInterface(InterfaceInfo *iface);
+    void resetInterface(InterfaceInfo *iface) const;
     void appendInterface(InterfaceInfo iface);
-    QString getInterfaceHTML(InterfaceInfo *iface);
+    QString getInterfaceHTML(const InterfaceInfo *iface) const;
     QString getNetworkHTML();
     QString getHTML();
 
     bool updateNetworkSettings(QStringList cmdList);
-    bool createWiFiHotspot(QString SSID, QString password);
-    bool deleteWiFiHotspot();
+    bool createWiFiHotspot(QString SSID, QString password) const;
+    bool deleteWiFiHotspot() const;
 
 protected:
-    QStringList getNmcliOutput(QStringList args, bool verbose = false);
+    QStringList getNmcliOutput(QStringList args, bool verbose = false) const;
     void refreshConnectionsList();
 
 protected:

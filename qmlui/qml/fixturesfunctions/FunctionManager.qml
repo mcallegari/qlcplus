@@ -268,7 +268,7 @@ Rectangle
           height: fmContainer.height - topBar.height - (searchBox.visible ? searchBox.height : 0)
           z: 4
           boundsBehavior: Flickable.StopAtBounds
-          cacheBuffer: contentHeight
+          cacheBuffer: Math.max(height, 0)
           Layout.fillHeight: true
 
           Component.onCompleted: contentY = functionManager.viewPosition
@@ -281,7 +281,8 @@ Rectangle
                   Loader
                   {
                       width: functionsListView.width
-                      source: hasChildren ? "qrc:/TreeNodeDelegate.qml" : "qrc:/FunctionDelegate.qml"
+                      source: (type === App.FunctionDragItem && !hasChildren) ?
+                                  "qrc:/FunctionDelegate.qml" : "qrc:/TreeNodeDelegate.qml"
 
                       onLoaded:
                       {
@@ -298,7 +299,7 @@ Rectangle
                           {
                               item.nodePath = Qt.binding(function() { return path })
                               item.isExpanded = Qt.binding(function() { return isExpanded })
-                              item.nodeChildren = childrenModel
+                              item.nodeChildren = Qt.binding(function() { return childrenModel })
                               item.dropKeys = "function"
                           }
                       }
@@ -355,6 +356,7 @@ Rectangle
                                     else
                                         fDragItem.itemIcon = ""
                                     functionsListView.dragActive = true
+                                    UISettings.internalDragActive = true
                                 break;
                                 case App.DragFinished:
                                     fDragItem.Drag.drop()
@@ -362,6 +364,7 @@ Rectangle
                                     fDragItem.x = 0
                                     fDragItem.y = 0
                                     functionsListView.dragActive = false
+                                    UISettings.internalDragActive = false
                                 break;
                               }
                           }

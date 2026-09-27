@@ -49,7 +49,7 @@ private slots:
     void slotYSpinValueChanged(int value);
 
     void slotRightClicked();
-    void slotLeftClicked(); 
+    void slotLeftClicked();
     void slotUpClicked();
     void slotDownClicked();
     void slotRemoveFixtureClicked();

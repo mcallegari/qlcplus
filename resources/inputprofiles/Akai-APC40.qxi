@@ -139,11 +139,11 @@
  </Channel>
  <Channel Number="188">
   <Name>Left Arrow</Name>
-  <Type>Button</Type>
+  <Type>Previous Page</Type>
  </Channel>
  <Channel Number="189">
   <Name>Right Arrow</Name>
-  <Type>Button</Type>
+  <Type>Next Page</Type>
  </Channel>
  <Channel Number="190">
   <Name>Detail View</Name>

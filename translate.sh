@@ -5,15 +5,58 @@ set -euo pipefail
 #   ./translate.sh update
 #   ./translate.sh release [qmlui|ui]
 #   ./translate.sh create <ll_CC> [qmlui|ui]
+#   ./translate.sh report [qmlui|ui]
 
 which_qt() {
   local base="$1"
-  command -v "$base" 2>/dev/null || command -v "${base}-qt6" 2>/dev/null || command -v "${base}-qt5" 2>/dev/null || true
+  # Explicit override via env var (LRELEASE / LUPDATE)
+  local override_var; override_var="$(echo "$base" | tr '[:lower:]' '[:upper:]')"
+  if [ -n "${!override_var:-}" ]; then echo "${!override_var}"; return 0; fi
+
+  # Search PATH under the common tool names
+  command -v "$base" 2>/dev/null && return 0
+  command -v "${base}-qt6" 2>/dev/null && return 0
+  command -v "${base}-qt5" 2>/dev/null && return 0
+  command -v "${base}6" 2>/dev/null && return 0
+
+  # Fall back to well-known Qt bin dirs (e.g. keg-only Homebrew installs)
+  local qt_paths=(
+    /usr/lib/qt6/bin
+    /usr/lib64/qt6/bin
+    /usr/lib/x86_64-linux-gnu/qt6/bin
+    /usr/local/opt/qt@6/bin    # Homebrew on Intel macOS
+    /opt/homebrew/opt/qt@6/bin # Homebrew on Apple Silicon
+  )
+  local d name
+  for d in "${qt_paths[@]}"; do
+    for name in "$base" "${base}-qt6" "${base}6"; do
+      [ -x "$d/$name" ] && { echo "$d/$name"; return 0; }
+    done
+  done
+
+  return 1
 }
-LRELEASE="$(which_qt lrelease)"
-LUPDATE="$(which_qt lupdate)"
-: "${LRELEASE:?lrelease not found}"
-: "${LUPDATE:?lupdate not found}"
+
+LRELEASE="$(which_qt lrelease)" || {
+  cat >&2 <<EOF
+Error: Could not find lrelease. Please install the Qt Linguist tools package.
+
+Common package names:
+  - Debian/Ubuntu: qttools6-dev-tools or qttools5-dev-tools
+  - Fedora:        qt6-linguist or qt5-linguist
+  - Arch Linux:    qt6-tools or qt5-tools
+  - macOS (Homebrew): qt or qt@5
+
+You can also set the LRELEASE environment variable to point to the lrelease executable.
+Example: LRELEASE=/path/to/lrelease ./translate.sh update
+EOF
+  exit 1
+}
+
+LUPDATE="$(which_qt lupdate)" || {
+  echo "Error: Could not find lupdate. Please install the Qt Linguist tools package (see lrelease hint above)." >&2
+  exit 1
+}
 
 ACTION="${1:-}"
 UI_LANGS="de_DE es_ES fr_FR it_IT nl_NL cz_CZ pt_BR ca_ES ja_JP"
@@ -26,6 +69,7 @@ Usage:
   $0 update
   $0 release [qmlui|ui]
   $0 create <ll_CC> [qmlui|ui]
+  $0 report [qmlui|ui]
 EOF
 }
 
@@ -69,7 +113,7 @@ case "$ACTION" in
         done
         [[ $ts_found -eq 0 ]] && continue
         echo "Updating: $d"
-        "$LUPDATE" "$d" -ts "$d"/*.ts
+        "$LUPDATE" "$d" -no-obsolete -ts "$d"/*.ts
       done
     echo "Update complete."
     ;;
@@ -151,6 +195,42 @@ case "$ACTION" in
     [[ $created_any -eq 0 ]] && echo "Nothing to create (no basenames discovered)."
     echo "Create complete."
     rm -f "$refs_tmp" "$pairs_tmp"
+    ;;
+
+  report)
+    # Report the number of unfinished translations per .ts file.
+    # Files with 0 unfinished entries are not listed.
+    # Optional flavor filter: 'qmlui' (only qmlui/) or 'ui' (everything else).
+    FLAVOR="${2:-}"
+    [[ -z "$FLAVOR" || "$FLAVOR" == "ui" || "$FLAVOR" == "qmlui" ]] \
+      || die "Flavor must be 'ui' or 'qmlui'"
+
+    total=0
+    files_with_unfinished=0
+    while IFS= read -r -d '' f; do
+      d="$(dirname "$f")"
+      # skip CMake build dirs
+      is_cmake_build_dir "$d" && continue
+      # apply flavor filter
+      case "$FLAVOR" in
+        qmlui) [[ "$f" == ./qmlui/* ]] || continue ;;
+        ui)    [[ "$f" == ./qmlui/* ]] && continue ;;
+      esac
+      count="$(grep -c 'type="unfinished"' "$f" 2>/dev/null || true)"
+      [[ -z "$count" ]] && count=0
+      if [[ "$count" -gt 0 ]]; then
+        printf '%6d  %s\n' "$count" "${f#./}"
+        total=$(( total + count ))
+        files_with_unfinished=$(( files_with_unfinished + 1 ))
+      fi
+    done < <(find . -type f -name "*.ts" -print0 | sort -z)
+
+    if [[ $files_with_unfinished -eq 0 ]]; then
+      echo "No unfinished translations found."
+    else
+      echo "-----"
+      printf '%6d  total unfinished in %d file(s)\n' "$total" "$files_with_unfinished"
+    fi
     ;;
 
   ""|-h|--help)

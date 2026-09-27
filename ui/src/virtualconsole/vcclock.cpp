@@ -98,7 +98,7 @@ void VCClock::slotModeChanged(Doc::Mode mode)
                     break;
                 }
             }
-            // if no event is found after the current time, it means the next schedule 
+            // if no event is found after the current time, it means the next schedule
             // will happen the day after so it's the first in the list
             if (m_scheduleIndex == -1)
                 m_scheduleIndex = 0;

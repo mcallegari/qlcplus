@@ -111,7 +111,7 @@ private:
      * Range window
      *************************************************************************/
 public:
-    QRectF rangeWindow();
+    QRectF rangeWindow() const;
 
     void setRangeWindow(QRectF rect);
 

@@ -20,17 +20,24 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QQmlEngine>
+#include <qmath.h>
 
 #include "vcaudiotriggers.h"
 #include "fixturemanager.h"
+#include "virtualconsole.h"
 #include "treemodelitem.h"
 #include "fixtureutils.h"
 #include "audiocapture.h"
 #include "genericfader.h"
 #include "fadechannel.h"
+#include "vcspeeddial.h"
 #include "qlcmacros.h"
+#include "vccuelist.h"
+#include "vcbutton.h"
+#include "vcslider.h"
 #include "app.h"
 #include "doc.h"
+#include "tardis.h"
 
 #define INPUT_ENABLE_CAPTURE    0
 #define INPUT_VOLUME_CONTROL    1
@@ -50,8 +57,9 @@
 #define KXMLQLCAudioBarMaxThreshold QStringLiteral("MaxThreshold")
 #define KXMLQLCAudioBarDivisor      QStringLiteral("Divisor")
 
-VCAudioTriggers::VCAudioTriggers(Doc *doc, QObject *parent)
+VCAudioTriggers::VCAudioTriggers(Doc *doc, VirtualConsole *vc, QObject *parent)
     : VCWidget(doc, parent)
+    , m_vc(vc)
     , m_captureEnabled(false)
     , m_volumeLevel(100)
     , m_selectedBar(-1)
@@ -104,10 +112,16 @@ void VCAudioTriggers::render(QQuickView *view, QQuickItem *parent)
     if (component->isError())
     {
         qDebug() << component->errors();
+        delete component;
         return;
     }
 
     m_item = qobject_cast<QQuickItem*>(component->create());
+    if (m_item == nullptr)
+        qWarning() << Q_FUNC_INFO << "Unable to create audio triggers component" << component->errors();
+    delete component;
+    if (m_item == nullptr)
+        return;
 
     m_item->setParentItem(parent);
     m_item->setProperty("audioTriggerObj", QVariant::fromValue(this));
@@ -122,7 +136,7 @@ VCWidget *VCAudioTriggers::createCopy(VCWidget *parent) const
 {
     Q_ASSERT(parent != nullptr);
 
-    VCAudioTriggers *audioTrigger = new VCAudioTriggers(m_doc, parent);
+    VCAudioTriggers *audioTrigger = new VCAudioTriggers(m_doc, m_vc, parent);
     if (audioTrigger->copyFrom(this) == false)
     {
         delete audioTrigger;
@@ -130,6 +144,25 @@ VCWidget *VCAudioTriggers::createCopy(VCWidget *parent) const
     }
 
     return audioTrigger;
+}
+
+void VCAudioTriggers::remapChannels(const QMap<SceneValue, SceneValue> &remapMap)
+{
+    for (AudioBar &bar : m_spectrumBars)
+    {
+        if (bar.m_type == DMXBar)
+        {
+            QList<SceneValue> newList;
+            for (const SceneValue &val : bar.m_dmxChannels)
+            {
+                SceneValue key(val.fxi, val.channel);
+                if (remapMap.contains(key))
+                    newList.append(remapMap.value(key));
+            }
+            bar.m_dmxChannels = newList;
+            rebuildBarAbsDmxChannels(bar);
+        }
+    }
 }
 
 bool VCAudioTriggers::captureEnabled() const
@@ -141,6 +174,8 @@ void VCAudioTriggers::setCaptureEnabled(bool enable)
 {
     if (enable == m_captureEnabled)
         return;
+
+    Tardis::instance()->enqueueAction(Tardis::VCAudioTriggersSetCaptureEnabled, id(), m_captureEnabled, enable);
 
     m_captureEnabled = enable;
 
@@ -162,7 +197,7 @@ void VCAudioTriggers::setCaptureEnabled(bool enable)
 
         for (AudioBar &bar : m_spectrumBars)
         {
-            if (bar.m_type == DMXBar)
+            if (bar.m_type == VCAudioTriggers::BarType::DMXBar)
             {
                 m_doc->masterTimer()->registerDMXSource(this);
                 break;
@@ -203,11 +238,15 @@ void VCAudioTriggers::setVolumeLevel(uchar level)
     if (level == m_volumeLevel)
         return;
 
+    uchar previousLevel = m_volumeLevel;
+
     m_volumeLevel = level;
 
     m_doc->audioInputCapture()->setVolume(intensity() * qreal(level) / 100.0);
 
     emit volumeLevelChanged();
+
+    Tardis::instance()->enqueueAction(Tardis::VCAudioTriggersSetLevel, id(), previousLevel, level);
 }
 
 int VCAudioTriggers::barsNumber() const
@@ -240,8 +279,32 @@ void VCAudioTriggers::setBarsNumber(int num)
     m_audioLevels.clear();
     m_audioLevels.resize(m_spectrumBars.count());
 
+    if (m_selectedBar >= m_spectrumBars.count())
+    {
+        m_selectedBar = -1;
+        emit selectedBarChanged();
+    }
+
     emit barsNumberChanged();
     emit barsInfoChanged();
+}
+
+int VCAudioTriggers::selectedBar() const
+{
+    return m_selectedBar;
+}
+
+void VCAudioTriggers::setSelectedBar(int index)
+{
+    if (index < -1 || index >= m_spectrumBars.count())
+        index = -1;
+
+    if (index == m_selectedBar)
+        return;
+
+    m_selectedBar = index;
+    updateFixtureTree();
+    emit selectedBarChanged();
 }
 
 QVariantList VCAudioTriggers::audioLevels() const
@@ -270,16 +333,16 @@ FunctionParent VCAudioTriggers::functionParent() const
 
 void VCAudioTriggers::selectBarForEditing(int index)
 {
-    m_selectedBar = index;
-    updateFixtureTree();
+    setSelectedBar(index);
 }
 
 QVariantList VCAudioTriggers::barsInfo() const
 {
     QVariantList bList;
-
-    double freqIncr = (double)m_inputCapture->maxFrequency() / (barsNumber() - 1);
-    double freqCount = 0.0;
+    const int spectrumBars = barsNumber() - 1; // exclude volume bar
+    const double minFreq = AudioCapture::minFrequency();
+    const double maxFreq = m_inputCapture ? m_inputCapture->maxFrequency() : AudioCapture::maxFrequency();
+    const double logRange = (spectrumBars > 0 && maxFreq > minFreq) ? qLn(maxFreq / minFreq) : 0.0;
 
     int index = 0;
     for (const AudioBar &bar : m_spectrumBars)
@@ -292,22 +355,46 @@ QVariantList VCAudioTriggers::barsInfo() const
         }
         else
         {
+            const int bandIndex = index - 1;
+            double bandStartFreq = minFreq;
+            double bandEndFreq = maxFreq;
+            if (logRange > 0.0)
+            {
+                bandStartFreq = minFreq * qExp(logRange * (double(bandIndex) / double(spectrumBars)));
+                bandEndFreq = minFreq * qExp(logRange * (double(bandIndex + 1) / double(spectrumBars)));
+            }
+
+            int bandStartHz = qCeil(bandStartFreq);
+            int bandEndHz = (bandIndex == spectrumBars - 1) ? int(maxFreq) : (qCeil(bandEndFreq) - 1);
+            if (bandEndHz <= bandStartHz)
+                bandEndHz = bandStartHz;
+
             barMap.insert("bLabel", QString("#%1 (%2Hz - %3Hz)").arg(index)
-                                       .arg(qCeil(freqCount)).arg(qFloor(freqCount + freqIncr)));
-            freqCount += freqIncr;
+                                       .arg(bandStartHz).arg(bandEndHz));
         }
 
         barMap.insert("index", index);
         barMap.insert("type", bar.m_type);
 
-        if (bar.m_type == VCAudioTriggers::DMXBar)
+        if (bar.m_type == VCAudioTriggers::BarType::DMXBar)
+        {
             barMap.insert("intVal", bar.m_dmxChannels.count());
-        else if (bar.m_type == VCAudioTriggers::FunctionBar)
-            barMap.insert("intVal", bar.m_functionId);
-        else if (bar.m_type == VCAudioTriggers::VCWidgetBar)
-            barMap.insert("intVal", bar.m_widgetId);
+        }
+        else if (bar.m_type == VCAudioTriggers::BarType::FunctionBar)
+        {
+            barMap.insert("intVal", bar.m_functionId == Function::invalidId() ? -1 : int(bar.m_functionId));
+        }
+        else if (bar.m_type == VCAudioTriggers::BarType::VCWidgetBar)
+        {
+            barMap.insert("intVal", bar.m_widgetId == VCWidget::invalidId() ? -1 : int(bar.m_widgetId));
+            VCWidget *widget = m_vc ? m_vc->widget(bar.m_widgetId) : nullptr;
+            barMap.insert("strVal", widget ? widget->caption() : tr("No widget assigned"));
+            barMap.insert("iconVal", widget ? VCWidget::typeToIcon(widget->type()) : QString());
+        }
         else
+        {
             barMap.insert("intVal", 0);
+        }
 
         barMap.insert("minThreshold", qRound(SCALE(float(bar.m_minThreshold), 0.0, 255.0, 0.0, 100.0)));
         barMap.insert("maxThreshold", qRound(SCALE(float(bar.m_maxThreshold), 0.0, 255.0, 0.0, 100.0)));
@@ -334,7 +421,9 @@ void VCAudioTriggers::setBarType(BarType type)
     bar.m_function = nullptr;
     bar.m_widgetId = VCWidget::invalidId();
     bar.m_widget = nullptr;
-    
+    bar.m_tapped = false;
+    bar.m_skippedBeats = 0;
+
     // set the type
     bar.m_type = type;
 
@@ -372,11 +461,10 @@ void VCAudioTriggers::setBarWidget(quint32 widgetId)
 
     AudioBar &bar = m_spectrumBars[m_selectedBar];
     bar.m_widgetId = widgetId;
-    /* TODO
-    bar.m_widget = (widgetId != VCWidget::invalidId())
-                       ? VirtualConsole::instance()->widget(widgetId)
-                       : nullptr;
-    */
+    bar.m_tapped = false;
+    bar.m_skippedBeats = 0;
+    updateBarWidgetReference(bar);
+    emit barsInfoChanged();
 }
 
 void VCAudioTriggers::setBarDmxChannels(QList<SceneValue> list)
@@ -385,18 +473,111 @@ void VCAudioTriggers::setBarDmxChannels(QList<SceneValue> list)
         return;
 
     AudioBar &bar = m_spectrumBars[m_selectedBar];
-    bar.m_dmxChannels.clear();
+    bar.m_dmxChannels = list;
+    rebuildBarAbsDmxChannels(bar);
+    emit barsInfoChanged();
+}
+
+void VCAudioTriggers::rebuildBarAbsDmxChannels(AudioBar &bar) const
+{
     bar.m_absDmxChannels.clear();
 
-    for (SceneValue &scv : list)
+    for (const SceneValue &scv : bar.m_dmxChannels)
     {
-        bar.m_dmxChannels.append(scv);
-
         if (Fixture *fx = m_doc->fixture(scv.fxi))
         {
             const quint32 absAddr = fx->universeAddress() + scv.channel;
             bar.m_absDmxChannels.append(int(absAddr));
         }
+    }
+}
+
+void VCAudioTriggers::updateBarWidgetReference(AudioBar &bar) const
+{
+    if (bar.m_widgetId == VCWidget::invalidId())
+    {
+        bar.m_widget = nullptr;
+        return;
+    }
+
+    bar.m_widget = m_vc ? m_vc->widget(bar.m_widgetId) : nullptr;
+}
+
+void VCAudioTriggers::checkWidgetFunctionality(AudioBar &bar) const
+{
+    if (bar.m_widgetId == VCWidget::invalidId())
+        return;
+
+    updateBarWidgetReference(bar);
+    VCWidget *widget = bar.m_widget;
+    if (widget == nullptr)
+        return;
+
+    switch (widget->type())
+    {
+        case VCWidget::ButtonWidget:
+        {
+            VCButton *button = qobject_cast<VCButton *>(widget);
+            if (button == nullptr)
+                return;
+
+            if (bar.m_value >= bar.m_maxThreshold && button->state() == VCButton::Inactive)
+                button->requestStateChange(true);
+            else if (bar.m_value < bar.m_minThreshold && button->state() != VCButton::Inactive)
+                button->requestStateChange(false);
+        }
+        break;
+        case VCWidget::SliderWidget:
+        {
+            VCSlider *slider = qobject_cast<VCSlider *>(widget);
+            if (slider != nullptr)
+                slider->setValue(bar.m_value, true, true);
+        }
+        break;
+        case VCWidget::SpeedWidget:
+        {
+            VCSpeedDial *speedDial = qobject_cast<VCSpeedDial *>(widget);
+            if (speedDial == nullptr)
+                return;
+
+            int divisor = qMax(1, bar.m_divisor);
+            if (bar.m_value >= bar.m_maxThreshold && !bar.m_tapped)
+            {
+                if (bar.m_skippedBeats == 0)
+                    speedDial->tap();
+
+                bar.m_tapped = true;
+                bar.m_skippedBeats = (bar.m_skippedBeats + 1) % divisor;
+            }
+            else if (bar.m_value < bar.m_minThreshold)
+            {
+                bar.m_tapped = false;
+            }
+        }
+        break;
+        case VCWidget::CueListWidget:
+        {
+            VCCueList *cueList = qobject_cast<VCCueList *>(widget);
+            if (cueList == nullptr)
+                return;
+
+            int divisor = qMax(1, bar.m_divisor);
+            if (bar.m_value >= bar.m_maxThreshold && !bar.m_tapped)
+            {
+                if (bar.m_skippedBeats == 0)
+                    cueList->nextClicked();
+
+                bar.m_tapped = true;
+                bar.m_skippedBeats = (bar.m_skippedBeats + 1) % divisor;
+            }
+            else if (bar.m_value < bar.m_minThreshold)
+            {
+                bar.m_tapped = false;
+            }
+        }
+        break;
+        default:
+        break;
     }
 }
 
@@ -414,62 +595,63 @@ void VCAudioTriggers::slotSpectrumDataChanged(double *spectrumBands,
     m_audioLevels.clear();
     m_audioLevels.reserve(size + 1);
 
-    // --- 1) Volume (index 0) normalized to 0..255
-    //      'power' comes from AudioCapture::processData() as an aggregated value;
-    //      map it to [0,1] by clamping against 0x7FFF (15-bit) for a stable UI scale.
-    //      If you want it "hotter", tweak kPowerMax.
+    // Keep the same volume conversion used by the widgets implementation.
     static constexpr double kPowerMax = 32767.0; // 0x7FFF
-    const double vol01 = qBound(0.0, double(power) / kPowerMax, 1.0);
-    const int    vol255 = int(vol01 * 255.0 + 0.5);
+    const int vol255 = qBound(0, int((double(power) * 255.0 / kPowerMax) + 0.5), 255);
 
     m_spectrumBars[0].m_value = uchar(vol255);
     m_audioLevels.append(vol255);
 
-    // --- 2) Spectrum bands normalized to 0..255 by current-frame maxMagnitude
-    //      Optional gamma for nicer perception; 1.0 = linear, <1 brightens, >1 darkens.
+    // Optional perceptual shaping. 1.0 = linear.
     static constexpr double kGamma = 1.0;
-
-    if (maxMagnitude <= 0.0)
-    {
-        // No usable energy: zero all bands
-        for (int i = 0; i < size; ++i)
-        {
-            m_spectrumBars[i + 1].m_value = 0;
-            m_audioLevels.append(0);
-        }
-        emit audioLevelsChanged();
-        return;
-    }
+    static constexpr double kAlpha = 0.25; // 0..1, higher = snappier
 
     for (int i = 0; i < size; ++i)
     {
         // Normalize this band to [0..1]
-        double v = spectrumBands[i] / maxMagnitude;
-        v = qBound(0.0, v, 1.0);
+        double v = 0.0;
+        if (maxMagnitude > 0.0)
+            v = qBound(0.0, spectrumBands[i] / maxMagnitude, 1.0);
 
-        // Perceptual shaping
+        // Perceptual shaping and temporal smoothing
         if (kGamma != 1.0)
             v = qPow(v, kGamma);
 
-        static constexpr double kAlpha = 0.25; // 0..1, higher = snappier
-        double old01 = m_spectrumBars[i + 1].m_value / 255.0;
+        const double old01 = m_spectrumBars[i + 1].m_value / 255.0;
         v = kAlpha * v + (1.0 - kAlpha) * old01;
-        const int v255 = int(v * 255.0 + 0.5);
+        const int bandValue = qBound(0, int(v * 255.0 + 0.5), 255);
 
         // Store in bars (for DMX) and in UI list (index aligned: +1 for volume)
-        m_spectrumBars[i + 1].m_value = uchar(v255);        
-        m_audioLevels.append(v255);
+        m_spectrumBars[i + 1].m_value = uchar(bandValue);
+        m_audioLevels.append(bandValue);
     }
 
     for (int i = 0; i < m_spectrumBars.count(); i++)
     {
         AudioBar &bar = m_spectrumBars[i];
-        if (bar.m_function != nullptr)
+        switch (bar.m_type)
         {
-            if (bar.m_value >= bar.m_maxThreshold)
-                bar.m_function->start(m_doc->masterTimer(), functionParent());
-            else if (bar.m_value < bar.m_minThreshold)
-                bar.m_function->stop(functionParent());
+            case FunctionBar:
+            {
+                if (bar.m_function == nullptr && bar.m_functionId != Function::invalidId())
+                    bar.m_function = m_doc->function(bar.m_functionId);
+
+                if (bar.m_function != nullptr)
+                {
+                    if (bar.m_value >= bar.m_maxThreshold)
+                        bar.m_function->start(m_doc->masterTimer(), functionParent());
+                    else if (bar.m_value < bar.m_minThreshold)
+                        bar.m_function->stop(functionParent());
+                }
+            }
+            break;
+            case VCWidgetBar:
+                checkWidgetFunctionality(bar);
+            break;
+            case DMXBar:
+            case None:
+            default:
+            break;
         }
     }
 
@@ -482,7 +664,7 @@ void VCAudioTriggers::slotSpectrumDataChanged(double *spectrumBands,
 
 void VCAudioTriggers::updateFixtureTree()
 {
-    if (m_fixtureTree == nullptr)
+    if (m_fixtureTree == nullptr || m_selectedBar < 0 || m_selectedBar >= m_spectrumBars.count())
         return;
 
     m_fixtureTree->clear();
@@ -527,8 +709,9 @@ void VCAudioTriggers::setSearchFilter(QString searchFilter)
 
     m_searchFilter = searchFilter;
 
-    if (searchFilter.length() >= SEARCH_MIN_CHARS ||
+    if ((searchFilter.length() >= SEARCH_MIN_CHARS ||
         (currLen >= SEARCH_MIN_CHARS && searchFilter.length() < SEARCH_MIN_CHARS))
+        && m_selectedBar >= 0 && m_selectedBar < m_spectrumBars.count())
     {
         FixtureManager::updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter,
                                          FixtureManager::ShowCheckBoxes | FixtureManager::ShowGroups | FixtureManager::ShowChannels,
@@ -547,8 +730,10 @@ void VCAudioTriggers::applyToSameType(bool enable)
 void VCAudioTriggers::checkFixtureTree(TreeModel *tree, Fixture *sourceFixture,
                                       quint32 channelIndex, bool checked)
 {
-    if (tree == nullptr)
+    if (tree == nullptr || m_selectedBar < 0 || m_selectedBar >= m_spectrumBars.count())
         return;
+
+    AudioBar &bar = m_spectrumBars[m_selectedBar];
 
     for (TreeModelItem *item : tree->items())
     {
@@ -576,12 +761,12 @@ void VCAudioTriggers::checkFixtureTree(TreeModel *tree, Fixture *sourceFixture,
 
                 if (checked)
                 {
-                    if (m_spectrumBars[m_selectedBar].m_dmxChannels.contains(scv) == false)
-                        m_spectrumBars[m_selectedBar].m_dmxChannels.append(scv);
+                    if (bar.m_dmxChannels.contains(scv) == false)
+                        bar.m_dmxChannels.append(scv);
                 }
                 else
                 {
-                    m_spectrumBars[m_selectedBar].m_dmxChannels.removeAll(scv);
+                    bar.m_dmxChannels.removeAll(scv);
                 }
             }
         }
@@ -593,7 +778,7 @@ void VCAudioTriggers::checkFixtureTree(TreeModel *tree, Fixture *sourceFixture,
 
 void VCAudioTriggers::slotTreeDataChanged(TreeModelItem *item, int role, const QVariant &value)
 {
-    if (m_isUpdating)
+    if (m_isUpdating || m_selectedBar < 0 || m_selectedBar >= m_spectrumBars.count())
         return;
 
     qDebug() << "VCAudioTriggers tree data changed" << value.toInt();
@@ -617,6 +802,7 @@ void VCAudioTriggers::slotTreeDataChanged(TreeModelItem *item, int role, const Q
         return;
 
     bool checked = value.toInt() == 0 ? false : true;
+    AudioBar &bar = m_spectrumBars[m_selectedBar];
 
     if (m_applyToSameType)
     {
@@ -630,14 +816,17 @@ void VCAudioTriggers::slotTreeDataChanged(TreeModelItem *item, int role, const Q
 
         if (checked)
         {
-            if (m_spectrumBars[m_selectedBar].m_dmxChannels.contains(scv) == false)
-                m_spectrumBars[m_selectedBar].m_dmxChannels.append(scv);
+            if (bar.m_dmxChannels.contains(scv) == false)
+                bar.m_dmxChannels.append(scv);
         }
         else
         {
-            m_spectrumBars[m_selectedBar].m_dmxChannels.removeAll(scv);
+            bar.m_dmxChannels.removeAll(scv);
         }
     }
+
+    rebuildBarAbsDmxChannels(bar);
+    emit barsInfoChanged();
 }
 
 /*********************************************************************
@@ -658,7 +847,7 @@ void VCAudioTriggers::slotInputValueChanged(quint8 id, uchar value)
             setCaptureEnabled(value ? true : false);
         break;
         case INPUT_VOLUME_CONTROL:
-            setVolumeLevel(SCALE(value, 0, 255, 0, 100));
+            setVolumeLevel(SCALE(value, 0.0, 255.0, 0.0, 100.0));
         break;
     }
 }
@@ -676,7 +865,7 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
 
     for (AudioBar &bar : m_spectrumBars)
     {
-        if (bar.m_type == DMXBar)
+        if (bar.m_type == VCAudioTriggers::BarType::DMXBar)
         {
             for (int i = 0; i < bar.m_absDmxChannels.count(); i++)
             {
@@ -733,11 +922,11 @@ bool VCAudioTriggers::loadBarXML(QXmlStreamReader &root)
     bar.m_type = BarType(attrs.value(KXMLQLCAudioBarType).toString().toInt());
     bar.m_minThreshold = attrs.value(KXMLQLCAudioBarMinThreshold).toString().toInt();
     bar.m_maxThreshold = attrs.value(KXMLQLCAudioBarMaxThreshold).toString().toInt();
-    bar.m_divisor = attrs.value(KXMLQLCAudioBarDivisor).toString().toInt();
+    bar.m_divisor = qMax(1, attrs.value(KXMLQLCAudioBarDivisor).toString().toInt());
 
     switch (bar.m_type)
     {
-        case FunctionBar:
+        case VCAudioTriggers::BarType::FunctionBar:
         {
             if (attrs.hasAttribute(KXMLQLCAudioBarFunction))
             {
@@ -748,16 +937,19 @@ bool VCAudioTriggers::loadBarXML(QXmlStreamReader &root)
             }
         }
         break;
-        case VCWidgetBar:
+        case VCAudioTriggers::BarType::VCWidgetBar:
         {
             if (attrs.hasAttribute(KXMLQLCAudioBarWidget))
             {
                 quint32 wid = attrs.value(KXMLQLCAudioBarWidget).toString().toUInt();
                 bar.m_widgetId = wid;
+                bar.m_widget = nullptr;
+                bar.m_tapped = false;
+                bar.m_skippedBeats = 0;
             }
         }
         break;
-        case DMXBar:
+        case VCAudioTriggers::BarType::DMXBar:
         {
             QXmlStreamReader::TokenType tType = root.readNext();
 
@@ -815,7 +1007,7 @@ bool VCAudioTriggers::saveBarXML(QXmlStreamWriter *doc, int index) const
     doc->writeAttribute(KXMLQLCAudioBarDivisor, QString::number(bar.m_divisor));
     doc->writeAttribute(KXMLQLCAudioBarIndex, QString::number(index));
 
-    if (bar.m_type == DMXBar && bar.m_dmxChannels.count() > 0)
+    if (bar.m_type == VCAudioTriggers::BarType::DMXBar && bar.m_dmxChannels.count() > 0)
     {
         QString chans;
         foreach (SceneValue scv, bar.m_dmxChannels)
@@ -829,11 +1021,11 @@ bool VCAudioTriggers::saveBarXML(QXmlStreamWriter *doc, int index) const
             doc->writeTextElement(KXMLQLCAudioBarDMXChannels, chans);
         }
     }
-    else if (bar.m_type == FunctionBar && bar.m_functionId != Function::invalidId())
+    else if (bar.m_type == VCAudioTriggers::BarType::FunctionBar && bar.m_functionId != Function::invalidId())
     {
         doc->writeAttribute(KXMLQLCAudioBarFunction, QString::number(bar.m_functionId));
     }
-    else if (bar.m_type == VCWidgetBar && bar.m_widgetId != VCWidget::invalidId())
+    else if (bar.m_type == VCAudioTriggers::BarType::VCWidgetBar && bar.m_widgetId != VCWidget::invalidId())
     {
         doc->writeAttribute(KXMLQLCAudioBarWidget, QString::number(bar.m_widgetId));
     }
@@ -924,7 +1116,7 @@ bool VCAudioTriggers::saveXML(QXmlStreamWriter *doc) const
     int barIndex = 0;
     for (const AudioBar &bar : m_spectrumBars)
     {
-        if (bar.m_type != None)
+        if (bar.m_type != VCAudioTriggers::BarType::None)
             saveBarXML(doc, barIndex);
         barIndex++;
     }

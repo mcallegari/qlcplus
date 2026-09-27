@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.3.0 GIT</Version>
+  <Author>Nate Doyon</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Kinta HP</Model>
+ <Type>Flower</Type>
+ <Channel Name="Auto Program">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="250">Automatic program</Capability>
+  <Capability Min="251" Max="255" Preset="Alias">Sound-active mode
+   <Alias Mode="12 Channel" Channel="Program Speed" With="Sound Sensitivity"/>
+   <Alias Mode="3 Channel" Channel="Program Speed" With="Sound Sensitivity"/>
+  </Capability>
+ </Channel>
+ <Channel Name="Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Sound Sensitivity">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Low to high</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="Orange" Preset="IntensityAmber"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeSlowToFast">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Motor Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Index 1 to 360 deg</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">CW fast to slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">CCW slow to fast</Capability>
+ </Channel>
+ <Mode Name="12 Channel">
+  <Channel Number="0">Auto Program</Channel>
+  <Channel Number="1" ActsOn="0">Program Speed</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">Magenta</Channel>
+  <Channel Number="7">Cyan</Channel>
+  <Channel Number="8">Yellow</Channel>
+  <Channel Number="9">Orange</Channel>
+  <Channel Number="10">Strobe</Channel>
+  <Channel Number="11">Motor Rotation</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Auto Program</Channel>
+  <Channel Number="1">Program Speed</Channel>
+  <Channel Number="2">Motor Rotation</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.3" Width="220" Height="240" Depth="230"/>
+  <Lens Name="PC" DegreesMin="118" DegreesMax="118"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="34" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -48,6 +48,12 @@ class GPIOPlugin final : public QLCIOPlugin
      * Initialization
      *********************************************************************/
 public:
+    struct ChipInfo
+    {
+        QString path;
+        QString name;
+    };
+
     /** @reimp */
     virtual ~GPIOPlugin();
 
@@ -64,6 +70,7 @@ public:
     QString pluginInfo() const override;
 
     std::string chipName() const;
+    QList<ChipInfo> availableChips() const;
     void setChipName(QString name);
 
     void updateLinesList();

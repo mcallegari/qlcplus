@@ -68,7 +68,7 @@ public slots:
      * Capabilities
      *********************************************************************/
 public:
-    QStringList getCapabilities();
+    QStringList getCapabilities() const;
 
     /*********************************************************************
      * Properties
@@ -96,12 +96,12 @@ public:
     /**
      * Retrieve the source file name used by this Audio object
      */
-    QString getSourceFileName();
+    QString getSourceFileName() const;
 
     /**
      * Retrieve the currently associated audio decoder
      */
-    AudioDecoder* getAudioDecoder();
+    AudioDecoder* getAudioDecoder() const;
 
     /**
      * Set a specific audio device for rendering. If empty
@@ -116,7 +116,7 @@ public:
     /**
      * Retrieve the audio device set for this function
      */
-    QString audioDevice();
+    QString audioDevice() const;
 
     int adjustAttribute(qreal fraction, int attributeId) override;
 

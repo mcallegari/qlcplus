@@ -47,6 +47,7 @@ private slots:
     void yPhase();
     void fixtures();
     void propagationMode();
+    void dimmerEnvelope();
 
     void previewCircle();
     void previewEight();

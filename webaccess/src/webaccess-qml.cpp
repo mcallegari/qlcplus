@@ -23,6 +23,7 @@
 #include <QJsonObject>
 #include <QCoreApplication>
 #include <QDir>
+#include <QFile>
 #include <QFileInfo>
 #include <qmath.h>
 
@@ -50,6 +51,9 @@
 #include "function.h"
 #include "chaser.h"
 #include "doc.h"
+#include "fixture.h"
+#include "qlcchannel.h"
+#include "qlccapability.h"
 #include "listmodel.h"
 #include "simpledesk.h"
 
@@ -85,6 +89,123 @@ static QString colorToString(const QColor &color)
     if (!color.isValid())
         return QString();
     return color.name();
+}
+
+static QString mimeTypeForPath(const QString &path);
+
+static void setFramePageCompat(VCFrame *frame, int page)
+{
+    if (frame == nullptr)
+        return;
+
+    if (QMetaObject::invokeMethod(frame, "gotoPage", Q_ARG(int, page)))
+        return;
+
+    if (QMetaObject::invokeMethod(frame, "slotSetPage", Q_ARG(int, page)))
+        return;
+
+    frame->setProperty("currentPage", page);
+}
+
+static QString resourcePathToWebUrl(const QString &path)
+{
+    if (path.startsWith(":/"))
+        return QString("/qrc/%1").arg(path.mid(2));
+    if (path.startsWith("qrc:/"))
+        return QString("/qrc/%1").arg(path.mid(5));
+    if (QFile::exists(path))
+    {
+        QFile resFile(path);
+        if (resFile.open(QIODevice::ReadOnly))
+        {
+            const QByteArray content = resFile.readAll();
+            resFile.close();
+            if (content.isEmpty() == false)
+            {
+                return QString("data:%1;base64,%2")
+                        .arg(mimeTypeForPath(path))
+                        .arg(QString::fromLatin1(content.toBase64()));
+            }
+        }
+    }
+    return path;
+}
+
+static QColor variantToColor(const QVariant &value)
+{
+    QColor color = value.value<QColor>();
+    if (color.isValid())
+        return color;
+    return QColor(value.toString());
+}
+
+static QJsonObject clickAndGoCapabilityToJson(const QLCCapability *cap)
+{
+    QJsonObject obj;
+    if (cap == nullptr)
+        return obj;
+
+    obj["name"] = cap->name();
+    obj["min"] = int(cap->min());
+    obj["max"] = int(cap->max());
+    obj["value"] = int(cap->middle());
+    obj["presetType"] = int(cap->presetType());
+
+    switch (cap->presetType())
+    {
+        case QLCCapability::SingleColor:
+        {
+            const QColor color1 = variantToColor(cap->resource(0));
+            obj["color1"] = colorToString(color1);
+        }
+        break;
+        case QLCCapability::DoubleColor:
+        {
+            const QColor color1 = variantToColor(cap->resource(0));
+            const QColor color2 = variantToColor(cap->resource(1));
+            obj["color1"] = colorToString(color1);
+            obj["color2"] = colorToString(color2);
+        }
+        break;
+        case QLCCapability::Picture:
+        {
+            const QString resourcePath = cap->resource(0).toString();
+            obj["resource"] = resourcePathToWebUrl(resourcePath);
+        }
+        break;
+        default:
+        break;
+    }
+
+    return obj;
+}
+
+static QJsonArray sliderClickAndGoPresetsToJson(const VCSlider *slider, const Doc *doc)
+{
+    QJsonArray array;
+    if (slider == nullptr || doc == nullptr || slider->clickAndGoType() != VCSlider::CnGPreset)
+        return array;
+
+    const QVariantList channels = const_cast<VCSlider*>(slider)->clickAndGoPresetsList();
+    if (channels.isEmpty())
+        return array;
+
+    const QVariantMap firstChannel = channels.first().toMap();
+    const quint32 fixtureID = firstChannel.value("fixtureID").toUInt();
+    const int channelIdx = firstChannel.value("channelIdx").toInt();
+
+    Fixture *fixture = doc->fixture(fixtureID);
+    if (fixture == nullptr)
+        return array;
+
+    const QLCChannel *channel = fixture->channel(channelIdx);
+    if (channel == nullptr)
+        return array;
+
+    for (const QLCCapability *cap : channel->capabilities())
+        array.append(clickAndGoCapabilityToJson(cap));
+
+    return array;
 }
 
 static QJsonObject loadUiStyleJson()
@@ -136,19 +257,40 @@ static QString mimeTypeForPath(const QString &path)
     return "application/octet-stream";
 }
 
-static bool isWidgetVisibleForWeb(VCWidget *widget, VirtualConsole *vc)
+static int clockScheduledDaysMask(const VCClock *clock)
+{
+    if (clock == nullptr || clock->clockType() != VCClock::Clock)
+        return 0;
+
+    int mask = 0;
+    const QList<VCClockSchedule*> schedules = clock->schedules();
+    for (VCClockSchedule *sch : schedules)
+    {
+        if (sch == nullptr)
+            continue;
+
+        const int weekMask = sch->weekFlags() & 0x7F;
+        // Show day initials only for specific-day schedules.
+        if (weekMask != 0 && weekMask != 0x7F)
+            mask |= weekMask;
+    }
+
+    return mask;
+}
+
+static bool isWidgetVisibleForWeb(const VCWidget *widget, const VirtualConsole *vc)
 {
     if (widget == nullptr || vc == nullptr)
         return false;
     if (widget->isVisible() == false)
         return false;
 
-    QObject *obj = widget;
+    const QObject *obj = widget;
     const VCPage *pageParent = nullptr;
     while (obj != nullptr)
     {
-        VCWidget *childWidget = qobject_cast<VCWidget *>(obj);
-        VCFrame *frameParent = qobject_cast<VCFrame *>(obj->parent());
+        const VCWidget *childWidget = qobject_cast<const VCWidget *>(obj);
+        const VCFrame *frameParent = qobject_cast<const VCFrame *>(obj->parent());
         if (childWidget != nullptr && frameParent != nullptr && frameParent->multiPageMode())
         {
             if (childWidget->page() != frameParent->currentPage())
@@ -167,7 +309,7 @@ static bool isWidgetVisibleForWeb(VCWidget *widget, VirtualConsole *vc)
 
     return true;
 }
-
+/*
 static void logWidgetTree(VCWidget *widget, int depth)
 {
     if (widget == nullptr)
@@ -193,13 +335,15 @@ static void logWidgetTree(VCWidget *widget, int depth)
     for (VCWidget *child : children)
         logWidgetTree(child, depth + 1);
 }
-
-static QString getSimpleDeskQmlHtml(Doc *doc, SimpleDesk *sd)
+*/
+static QString getSimpleDeskQmlHtml(const Doc *doc, const SimpleDesk *sd)
 {
     if (doc == nullptr || sd == nullptr)
         return QString();
 
     int uni = sd->getCurrentUniverseIndex() + 1;
+    if (uni < 1)
+        uni = 1;
     int page = sd->getCurrentPage();
 
     QString JScode = "<script src=\"simpledesk-v5.js\"></script>\n";
@@ -233,8 +377,10 @@ static QString getSimpleDeskQmlHtml(Doc *doc, SimpleDesk *sd)
 
     bodyHTML += "</select>\n"
                 "</div>\n"
-                "<button class=\"nav-btn\" id=\"resetUniverseBtn\" type=\"button\">"
-                + QObject::tr("Reset universe") + "</button>\n"
+                "<button class=\"nav-btn\" id=\"resetUniverseBtn\" type=\"button\" "
+                "title=\"" + QObject::tr("Reset the selected universe") + "\" "
+                "aria-label=\"" + QObject::tr("Reset the selected universe") + "\">"
+                "<span class=\"fa-icon\">&#xf00d;</span></button>\n"
                 "<div class=\"sd-section\">\n"
                 "<div class=\"sd-label\">" + QObject::tr("Faders") + "</div>\n"
                 "<select class=\"sd-select\" id=\"fadersSelect\">\n"
@@ -258,6 +404,7 @@ static QString getSimpleDeskQmlHtml(Doc *doc, SimpleDesk *sd)
                 "<a class=\"nav-btn\" href=\"/\">" + QObject::tr("Back") + "</a>\n"
                 "<a class=\"nav-btn\" href=\"/keypad.html\">DMX Keypad</a>\n"
                 "</div>\n"
+                "<div class=\"status disconnected\" id=\"wsStatus\" aria-label=\"Disconnected\" title=\"Disconnected\"></div>\n"
                 "</div>\n"
                 "</header>\n"
                 "<main class=\"sd-stage\">\n"
@@ -341,21 +488,6 @@ void WebAccessQml::slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp)
 void WebAccessQml::handleProjectLoad(const QByteArray &projectXml)
 {
     emit loadProject(projectXml);
-}
-
-bool WebAccessQml::storeFixtureDefinition(const QString &fxName, const QByteArray &fixtureXML)
-{
-    QString fxPath = QString("%1/%2/%3").arg(getenv("HOME")).arg(USERQLCPLUSDIR).arg(fxName);
-    QFile fxFile(fxPath);
-    if (fxFile.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        fxFile.write(fixtureXML);
-        fxFile.close();
-        return true;
-    }
-
-    qWarning() << Q_FUNC_INFO << "Unable to save file" << fxPath;
-    return false;
 }
 
 void WebAccessQml::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
@@ -642,12 +774,6 @@ void WebAccessQml::slotHandleWebSocketRequest(QHttpConnection *conn, QString dat
         m_sd->setAbsoluteChannelValue(absAddress, uchar(value));
         return;
     }
-    else if (cmdList[0] == "GM_VALUE")
-    {
-        uchar value = cmdList[1].toInt();
-        m_doc->inputOutputMap()->setGrandMasterValue(value);
-        return;
-    }
     else if (cmdList[0] == "POLL")
         return;
 
@@ -659,9 +785,9 @@ void WebAccessQml::slotHandleWebSocketRequest(QHttpConnection *conn, QString dat
 
     quint32 widgetID = cmdList[0].toUInt();
     VCWidget *widget = m_vc->widget(widgetID);
-    uchar value = 0;
+    int value = 0;
     if (cmdList.count() > 1)
-        value = (uchar)cmdList[1].toInt();
+        value = cmdList[1].toInt();
 
     if (widget == nullptr)
         return;
@@ -684,6 +810,20 @@ void WebAccessQml::slotHandleWebSocketRequest(QHttpConnection *conn, QString dat
                 {
                     bool enable = cmdList.count() > 2 ? (cmdList[2].toInt() > 0) : false;
                     slider->setIsOverriding(enable);
+                }
+                else if (cmdList.count() > 2 && cmdList[1] == "CNG_PRESET")
+                {
+                    slider->setClickAndGoPresetValue(cmdList[2].toInt());
+                }
+                else if (cmdList.count() > 3 && cmdList[1] == "CNG_COLORS")
+                {
+                    QColor primary(cmdList[2]);
+                    QColor secondary(cmdList[3]);
+                    if (primary.isValid() == false)
+                        primary = QColor();
+                    if (secondary.isValid() == false)
+                        secondary = QColor();
+                    slider->setClickAndGoColors(primary, secondary);
                 }
                 else
                 {
@@ -756,17 +896,17 @@ void WebAccessQml::slotHandleWebSocketRequest(QHttpConnection *conn, QString dat
                 int nextPage = frame->currentPage() + 1;
                 if (nextPage >= frame->totalPagesNumber())
                     nextPage = frame->pagesLoop() ? 0 : frame->currentPage();
-                frame->setCurrentPage(nextPage);
+                setFramePageCompat(frame, nextPage);
             }
             else if (cmdList[1] == "PREV_PG")
             {
                 int prevPage = frame->currentPage() - 1;
                 if (prevPage < 0)
                     prevPage = frame->pagesLoop() ? frame->totalPagesNumber() - 1 : frame->currentPage();
-                frame->setCurrentPage(prevPage);
+                setFramePageCompat(frame, prevPage);
             }
             else if (cmdList[1] == "PAGE" && cmdList.count() > 2)
-                frame->setCurrentPage(cmdList[2].toInt());
+                setFramePageCompat(frame, cmdList[2].toInt());
             else if (cmdList[1] == "FRAME_DISABLE" && cmdList.count() > 2)
                 frame->setDisabled(cmdList[2] == "1");
             else if (cmdList[1] == "COLLAPSE" && cmdList.count() > 2)
@@ -828,6 +968,12 @@ void WebAccessQml::slotHandleWebSocketRequest(QHttpConnection *conn, QString dat
                 qreal maxVal = cmdList[3].toDouble();
                 xypad->setVerticalRange(QPointF(minVal, maxVal));
             }
+            else if (cmdList[1] == "XYPAD_PRESET")
+            {
+                if (cmdList.count() < 3)
+                    return;
+                xypad->applyPreset(cmdList[2].toUInt());
+            }
         }
         break;
         case VCWidget::SpeedWidget:
@@ -849,6 +995,33 @@ void WebAccessQml::slotHandleWebSocketRequest(QHttpConnection *conn, QString dat
                 dial->setCurrentTime(cmdList[2].toUInt());
             else if (cmdList[1] == "SPEED_FACTOR" && cmdList.count() > 2)
                 dial->setCurrentFactor(static_cast<VCSpeedDial::SpeedMultiplier>(cmdList[2].toInt()));
+        }
+        break;
+        case VCWidget::ClockWidget:
+        {
+            if (cmdList.count() < 2)
+                return;
+
+            VCClock *clock = qobject_cast<VCClock*>(widget);
+            if (clock == nullptr)
+                return;
+
+            if (cmdList[1] == "CLOCK_PLAY")
+            {
+                // Optional desired state (1/0) for reliable start/stop synchronization.
+                bool desiredRunning = !clock->timerRunning();
+                if (cmdList.count() > 2)
+                    desiredRunning = (cmdList[2] == "1" || cmdList[2].compare("true", Qt::CaseInsensitive) == 0);
+
+                if (desiredRunning != clock->timerRunning())
+                    clock->playPauseTimer();
+            }
+            else if (cmdList[1] == "CLOCK_RESET")
+                clock->resetTimer();
+            else if (cmdList[1] == "S") // backward compatibility with legacy web client
+                clock->playPauseTimer();
+            else if (cmdList[1] == "R") // backward compatibility with legacy web client
+                clock->resetTimer();
         }
         break;
         default:
@@ -895,15 +1068,27 @@ void WebAccessQml::slotSelectedPageChanged(int page)
 
 QString WebAccessQml::webFilePath(const QString &relativePath) const
 {
-    QString basePath = QLCFile::systemDirectory(WEBFILESDIR).path();
-    QString fullPath = QString("%1%2%3").arg(basePath).arg(QDir::separator()).arg(relativePath);
-    if (QFile::exists(fullPath))
-        return fullPath;
-
-    QString appDir = QCoreApplication::applicationDirPath();
     QStringList candidates;
-    candidates << QDir::cleanPath(QString("%1/../webaccess/res/%2").arg(appDir).arg(relativePath));
-    candidates << QDir::cleanPath(QString("%1/webaccess/res/%2").arg(QDir::currentPath()).arg(relativePath));
+    candidates << QDir::cleanPath(QString("%1/webaccess/res/%2")
+                                  .arg(QDir::currentPath())
+                                  .arg(relativePath));
+
+    // Development-friendly lookup: walk up from executable directory and
+    // locate a sibling "webaccess/res" folder from any parent.
+    QDir probeDir(QCoreApplication::applicationDirPath());
+    for (int i = 0; i < 6; i++)
+    {
+        candidates << QDir::cleanPath(QString("%1/webaccess/res/%2")
+                                      .arg(probeDir.absolutePath())
+                                      .arg(relativePath));
+        if (probeDir.cdUp() == false)
+            break;
+    }
+
+    candidates << QDir::cleanPath(QString("%1%2%3")
+                                  .arg(QLCFile::systemDirectory(WEBFILESDIR).path())
+                                  .arg(QDir::separator())
+                                  .arg(relativePath));
 
     for (const QString &path : candidates)
     {
@@ -911,10 +1096,10 @@ QString WebAccessQml::webFilePath(const QString &relativePath) const
             return path;
     }
 
-    return fullPath;
+    return candidates.last();
 }
 
-void WebAccessQml::sendMatrixState(VCAnimation *animation)
+void WebAccessQml::sendMatrixState(const VCAnimation *animation) const
 {
     if (animation == nullptr)
         return;
@@ -931,7 +1116,7 @@ void WebAccessQml::sendMatrixState(VCAnimation *animation)
     sendWebSocketMessage(wsMessage);
 }
 
-QString WebAccessQml::widgetBackgroundImagePath(VCWidget *widget) const
+QString WebAccessQml::widgetBackgroundImagePath(const VCWidget *widget) const
 {
     if (widget == nullptr || widget->backgroundImage().isEmpty())
         return QString();
@@ -947,7 +1132,7 @@ QString WebAccessQml::widgetBackgroundImagePath(VCWidget *widget) const
     return imgPath;
 }
 
-QJsonObject WebAccessQml::baseWidgetToJson(VCWidget *widget)
+QJsonObject WebAccessQml::baseWidgetToJson(const VCWidget *widget)
 {
     QJsonObject obj;
     if (widget == nullptr)
@@ -971,7 +1156,7 @@ QJsonObject WebAccessQml::baseWidgetToJson(VCWidget *widget)
     return obj;
 }
 
-QJsonObject WebAccessQml::frameToJson(VCFrame *frame)
+QJsonObject WebAccessQml::frameToJson(const VCFrame *frame)
 {
     QJsonObject obj = baseWidgetToJson(frame);
     obj["showHeader"] = frame->showHeader();
@@ -988,14 +1173,14 @@ QJsonObject WebAccessQml::frameToJson(VCFrame *frame)
 
     QJsonArray children;
     QList<VCWidget *> childList = frame->children(false);
-    for (VCWidget *child : childList)
+    for (const VCWidget *child : childList)
         children.append(widgetToJson(child));
     obj["children"] = children;
 
     return obj;
 }
 
-QJsonObject WebAccessQml::widgetToJson(VCWidget *widget)
+QJsonObject WebAccessQml::widgetToJson(const VCWidget *widget)
 {
     QJsonObject obj = baseWidgetToJson(widget);
     if (widget == nullptr)
@@ -1005,7 +1190,7 @@ QJsonObject WebAccessQml::widgetToJson(VCWidget *widget)
     {
         case VCWidget::ButtonWidget:
         {
-            VCButton *button = qobject_cast<VCButton*>(widget);
+            const VCButton *button = qobject_cast<const VCButton*>(widget);
             obj["state"] = button->state();
             obj["actionType"] = button->actionType();
             obj["functionId"] = int(button->functionID());
@@ -1013,7 +1198,7 @@ QJsonObject WebAccessQml::widgetToJson(VCWidget *widget)
         break;
         case VCWidget::SliderWidget:
         {
-            VCSlider *slider = qobject_cast<VCSlider*>(widget);
+            const VCSlider *slider = qobject_cast<const VCSlider*>(widget);
             obj["value"] = slider->value();
             obj["rangeLow"] = slider->rangeLowLimit();
             obj["rangeHigh"] = slider->rangeHighLimit();
@@ -1023,11 +1208,16 @@ QJsonObject WebAccessQml::widgetToJson(VCWidget *widget)
             obj["inverted"] = slider->invertedAppearance();
             obj["monitor"] = slider->monitorEnabled();
             obj["isOverriding"] = slider->isOverriding();
+            obj["clickAndGoType"] = VCSlider::clickAndGoTypeToString(slider->clickAndGoType());
+            obj["cngPrimaryColor"] = colorToString(slider->cngPrimaryColor());
+            obj["cngSecondaryColor"] = colorToString(slider->cngSecondaryColor());
+            obj["cngPresetResource"] = resourcePathToWebUrl(slider->cngPresetResource());
+            obj["cngPresets"] = sliderClickAndGoPresetsToJson(slider, m_doc);
         }
         break;
         case VCWidget::XYPadWidget:
         {
-            VCXYPad *xypad = qobject_cast<VCXYPad*>(widget);
+            const VCXYPad *xypad = qobject_cast<const VCXYPad*>(widget);
             QPointF pos = xypad->currentPosition();
             QJsonObject posObj;
             posObj["x"] = pos.x();
@@ -1043,14 +1233,16 @@ QJsonObject WebAccessQml::widgetToJson(VCWidget *widget)
             obj["verticalRange"] = vRange;
             obj["invertedAppearance"] = xypad->invertedAppearance();
             obj["displayMode"] = int(xypad->displayMode());
+            obj["presetsList"] = QJsonArray::fromVariantList(xypad->presetsList());
+            obj["activePresetId"] = xypad->activePresetId();
         }
         break;
         case VCWidget::FrameWidget:
         case VCWidget::SoloFrameWidget:
-            return frameToJson(qobject_cast<VCFrame*>(widget));
+            return frameToJson(qobject_cast<const VCFrame*>(widget));
         case VCWidget::CueListWidget:
         {
-            VCCueList *cue = qobject_cast<VCCueList*>(widget);
+            const VCCueList *cue = qobject_cast<const VCCueList*>(widget);
             obj["chaserId"] = int(cue->chaserID());
             obj["nextPrevBehavior"] = int(cue->nextPrevBehavior());
             obj["playbackLayout"] = int(cue->playbackLayout());
@@ -1089,7 +1281,7 @@ QJsonObject WebAccessQml::widgetToJson(VCWidget *widget)
         break;
         case VCWidget::AudioTriggersWidget:
         {
-            VCAudioTriggers *triggers = qobject_cast<VCAudioTriggers*>(widget);
+            const VCAudioTriggers *triggers = qobject_cast<const VCAudioTriggers*>(widget);
             obj["enabled"] = triggers->captureEnabled();
             obj["volume"] = triggers->volumeLevel();
             obj["bars"] = triggers->barsNumber();
@@ -1097,15 +1289,17 @@ QJsonObject WebAccessQml::widgetToJson(VCWidget *widget)
         break;
         case VCWidget::ClockWidget:
         {
-            VCClock *clock = qobject_cast<VCClock*>(widget);
+            const VCClock *clock = qobject_cast<const VCClock*>(widget);
             obj["clockType"] = int(clock->clockType());
             obj["currentTime"] = clock->currentTime();
             obj["targetTime"] = clock->targetTime();
+            obj["running"] = clock->timerRunning();
+            obj["scheduledDaysMask"] = clockScheduledDaysMask(clock);
         }
         break;
         case VCWidget::AnimationWidget:
         {
-            VCAnimation *animation = qobject_cast<VCAnimation*>(widget);
+            const VCAnimation *animation = qobject_cast<const VCAnimation*>(widget);
             obj["visibilityMask"] = int(animation->visibilityMask());
             obj["functionId"] = int(animation->functionID());
             obj["faderLevel"] = animation->faderLevel();
@@ -1124,7 +1318,7 @@ QJsonObject WebAccessQml::widgetToJson(VCWidget *widget)
         break;
         case VCWidget::SpeedWidget:
         {
-            VCSpeedDial *dial = qobject_cast<VCSpeedDial*>(widget);
+            const VCSpeedDial *dial = qobject_cast<const VCSpeedDial*>(widget);
             obj["visibilityMask"] = int(dial->visibilityMask());
             obj["timeMin"] = int(dial->timeMinimumValue());
             obj["timeMax"] = int(dial->timeMaximumValue());
@@ -1141,7 +1335,7 @@ QJsonObject WebAccessQml::widgetToJson(VCWidget *widget)
     return obj;
 }
 
-void WebAccessQml::collectWidgets(VCFrame *frame, QList<VCWidget *> &list, bool recursive)
+void WebAccessQml::collectWidgets(const VCFrame *frame, QList<VCWidget *> &list, bool recursive) const
 {
     if (frame == nullptr)
         return;
@@ -1186,7 +1380,7 @@ QByteArray WebAccessQml::getVCJson()
     return QJsonDocument(root).toJson(QJsonDocument::Compact);
 }
 
-void WebAccessQml::setupWidgetConnections(VCWidget *widget)
+void WebAccessQml::setupWidgetConnections(const VCWidget *widget)
 {
     if (widget == nullptr)
         return;
@@ -1196,11 +1390,14 @@ void WebAccessQml::setupWidgetConnections(VCWidget *widget)
 
     m_connectedWidgets.insert(widget->id());
 
+    connect(widget, SIGNAL(isVisibleChanged(bool)),
+            this, SLOT(slotWidgetVisibilityChanged(bool)));
+
     switch (widget->type())
     {
         case VCWidget::ButtonWidget:
         {
-            VCButton *button = qobject_cast<VCButton*>(widget);
+            const VCButton *button = qobject_cast<const VCButton*>(widget);
             connect(button, SIGNAL(stateChanged(int)),
                     this, SLOT(slotButtonStateChanged(int)));
             connect(button, SIGNAL(disabledStateChanged(bool)),
@@ -1209,25 +1406,29 @@ void WebAccessQml::setupWidgetConnections(VCWidget *widget)
         break;
         case VCWidget::LabelWidget:
         {
-            VCLabel *label = qobject_cast<VCLabel*>(widget);
+            const VCLabel *label = qobject_cast<const VCLabel*>(widget);
             connect(label, SIGNAL(disabledStateChanged(bool)),
                     this, SLOT(slotLabelDisableStateChanged(bool)));
         }
         break;
         case VCWidget::SliderWidget:
         {
-            VCSlider *slider = qobject_cast<VCSlider*>(widget);
+            const VCSlider *slider = qobject_cast<const VCSlider*>(widget);
             connect(slider, SIGNAL(valueChanged(int)),
                     this, SLOT(slotSliderValueChanged(int)));
             connect(slider, SIGNAL(disabledStateChanged(bool)),
                     this, SLOT(slotSliderDisableStateChanged(bool)));
             connect(slider, SIGNAL(isOverridingChanged()),
                     this, SLOT(slotSliderOverrideChanged()));
+            connect(slider, SIGNAL(cngPrimaryColorChanged(QColor)),
+                    this, SLOT(slotSliderClickAndGoColorsChanged()));
+            connect(slider, SIGNAL(cngSecondaryColorChanged(QColor)),
+                    this, SLOT(slotSliderClickAndGoColorsChanged()));
         }
         break;
         case VCWidget::AudioTriggersWidget:
         {
-            VCAudioTriggers *triggers = qobject_cast<VCAudioTriggers*>(widget);
+            const VCAudioTriggers *triggers = qobject_cast<const VCAudioTriggers*>(widget);
             connect(triggers, SIGNAL(captureEnabledChanged()),
                     this, SLOT(slotAudioTriggersToggled()));
             connect(triggers, SIGNAL(volumeLevelChanged()),
@@ -1238,10 +1439,12 @@ void WebAccessQml::setupWidgetConnections(VCWidget *widget)
         break;
         case VCWidget::CueListWidget:
         {
-            VCCueList *cue = qobject_cast<VCCueList*>(widget);
+            const VCCueList *cue = qobject_cast<const VCCueList*>(widget);
             connect(cue, SIGNAL(playbackIndexChanged(int)),
                     this, SLOT(slotCueIndexChanged(int)));
             connect(cue, SIGNAL(playbackStatusChanged()),
+                    this, SLOT(slotCuePlaybackStateChanged()));
+            connect(cue, SIGNAL(nextStepIndexChanged()),
                     this, SLOT(slotCuePlaybackStateChanged()));
             connect(cue, SIGNAL(sideFaderLevelChanged()),
                     this, SLOT(slotCueSideFaderLevelChanged()));
@@ -1252,7 +1455,7 @@ void WebAccessQml::setupWidgetConnections(VCWidget *widget)
         case VCWidget::FrameWidget:
         case VCWidget::SoloFrameWidget:
         {
-            VCFrame *frame = qobject_cast<VCFrame*>(widget);
+            const VCFrame *frame = qobject_cast<const VCFrame*>(widget);
             connect(frame, SIGNAL(currentPageChanged(int)),
                     this, SLOT(slotFramePageChanged(int)));
             connect(frame, SIGNAL(disabledStateChanged(bool)),
@@ -1265,7 +1468,7 @@ void WebAccessQml::setupWidgetConnections(VCWidget *widget)
         break;
         case VCWidget::AnimationWidget:
         {
-            VCAnimation *animation = qobject_cast<VCAnimation*>(widget);
+            const VCAnimation *animation = qobject_cast<const VCAnimation*>(widget);
             connect(animation, SIGNAL(faderLevelChanged()),
                     this, SLOT(slotMatrixFaderChanged()));
             connect(animation, SIGNAL(color1Changed()),
@@ -1286,16 +1489,18 @@ void WebAccessQml::setupWidgetConnections(VCWidget *widget)
         break;
         case VCWidget::XYPadWidget:
         {
-            VCXYPad *xypad = qobject_cast<VCXYPad*>(widget);
+            const VCXYPad *xypad = qobject_cast<const VCXYPad*>(widget);
             connect(xypad, SIGNAL(currentPositionChanged()),
                     this, SLOT(slotXYPadPositionChanged()));
+            connect(xypad, SIGNAL(activePresetIdChanged()),
+                    this, SLOT(slotXYPadPresetChanged()));
             connect(xypad, SIGNAL(disabledStateChanged(bool)),
                     this, SLOT(slotWidgetDisableStateChanged(bool)));
         }
         break;
         case VCWidget::SpeedWidget:
         {
-            VCSpeedDial *dial = qobject_cast<VCSpeedDial*>(widget);
+            const VCSpeedDial *dial = qobject_cast<const VCSpeedDial*>(widget);
             connect(dial, SIGNAL(currentTimeChanged()),
                     this, SLOT(slotSpeedDialTimeChanged()));
             connect(dial, SIGNAL(currentFactorChanged()),
@@ -1306,9 +1511,11 @@ void WebAccessQml::setupWidgetConnections(VCWidget *widget)
         break;
         case VCWidget::ClockWidget:
         {
-            VCClock *clock = qobject_cast<VCClock*>(widget);
+            const VCClock *clock = qobject_cast<const VCClock*>(widget);
             connect(clock, SIGNAL(currentTimeChanged(int)),
                     this, SLOT(slotClockTimeChanged(int)));
+            connect(clock, SIGNAL(timerRunningChanged(bool)),
+                    this, SLOT(slotClockTimerRunningChanged(bool)));
             connect(clock, SIGNAL(disabledStateChanged(bool)),
                     this, SLOT(slotWidgetDisableStateChanged(bool)));
         }
@@ -1349,6 +1556,16 @@ void WebAccessQml::slotLabelDisableStateChanged(bool disable)
     sendWebSocketMessage(wsMessage);
 }
 
+void WebAccessQml::slotWidgetVisibilityChanged(bool isVisible)
+{
+    VCWidget *widget = qobject_cast<VCWidget *>(sender());
+    if (widget == nullptr)
+        return;
+
+    QString wsMessage = QString("%1|WIDGET_VISIBLE|%2").arg(widget->id()).arg(isVisible);
+    sendWebSocketMessage(wsMessage);
+}
+
 void WebAccessQml::slotSliderValueChanged(int value)
 {
     VCSlider *slider = qobject_cast<VCSlider *>(sender());
@@ -1376,6 +1593,19 @@ void WebAccessQml::slotSliderOverrideChanged()
         return;
 
     QString wsMessage = QString("%1|SLIDER_OVERRIDE|%2").arg(slider->id()).arg(slider->isOverriding());
+    sendWebSocketMessage(wsMessage);
+}
+
+void WebAccessQml::slotSliderClickAndGoColorsChanged()
+{
+    VCSlider *slider = qobject_cast<VCSlider *>(sender());
+    if (slider == nullptr)
+        return;
+
+    QString wsMessage = QString("%1|CNG_COLORS|%2|%3")
+            .arg(slider->id())
+            .arg(colorToString(slider->cngPrimaryColor()))
+            .arg(colorToString(slider->cngSecondaryColor()));
     sendWebSocketMessage(wsMessage);
 }
 
@@ -1513,6 +1743,16 @@ void WebAccessQml::slotXYPadPositionChanged()
     sendWebSocketMessage(wsMessage);
 }
 
+void WebAccessQml::slotXYPadPresetChanged()
+{
+    VCXYPad *xypad = qobject_cast<VCXYPad *>(sender());
+    if (xypad == nullptr)
+        return;
+
+    QString wsMessage = QString("%1|XYPAD_PRESET|%2").arg(xypad->id()).arg(xypad->activePresetId());
+    sendWebSocketMessage(wsMessage);
+}
+
 void WebAccessQml::slotSpeedDialTimeChanged()
 {
     VCSpeedDial *dial = qobject_cast<VCSpeedDial *>(sender());
@@ -1547,7 +1787,40 @@ void WebAccessQml::slotClockTimeChanged(int time)
     if (isWidgetVisibleForWeb(clock, m_vc) == false)
         return;
 
-    QString wsMessage = QString("%1|CLOCK|%2").arg(clock->id()).arg(time);
+    if (clock->clockType() == VCClock::Clock)
+    {
+        QString wsMessage = QString("%1|CLOCK|%2").arg(clock->id()).arg(time);
+        sendWebSocketMessage(wsMessage);
+        return;
+    }
+
+    // For stopwatch/countdown send only second references.
+    if (time != 0 && (time % 1000) != 0)
+        return;
+
+    QString wsMessage = QString("%1|CLOCK|%2|%3")
+            .arg(clock->id())
+            .arg(time)
+            .arg(clock->timerRunning() ? 1 : 0);
+    sendWebSocketMessage(wsMessage);
+}
+
+void WebAccessQml::slotClockTimerRunningChanged(bool running)
+{
+    Q_UNUSED(running)
+    VCClock *clock = qobject_cast<VCClock *>(sender());
+    if (clock == nullptr)
+        return;
+    if (isWidgetVisibleForWeb(clock, m_vc) == false)
+        return;
+
+    if (clock->clockType() == VCClock::Clock)
+        return;
+
+    QString wsMessage = QString("%1|CLOCK|%2|%3")
+            .arg(clock->id())
+            .arg(clock->currentTime())
+            .arg(clock->timerRunning() ? 1 : 0);
     sendWebSocketMessage(wsMessage);
 }
 

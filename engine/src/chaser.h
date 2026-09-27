@@ -228,7 +228,7 @@ public:
     /** Set an action to be performed on steps.
      *  Depending on the action type, it might be applied immediately
      *  or deferred to the next write() call */
-    void setAction(ChaserAction &action);
+    void setAction(const ChaserAction &action);
 
     /** Get the current step number */
     int currentStepIndex() const;

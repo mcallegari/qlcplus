@@ -205,9 +205,8 @@ CustomPopupDialog
                                         }
                                     break;
                                     case App.Checked:
-                                        console.log("Item checked " + iType)
                                         if (qItem === item)
-                                            item.isChecked = iType
+                                            model.isChecked = iType
                                     break;
                                 }
                             }
@@ -249,8 +248,8 @@ CustomPopupDialog
                                 {
                                     console.log("Item path: " + path + ",label: " + label)
                                     item.itemType = App.FolderDragItem
-                                    item.nodePath = path
-                                    item.isExpanded = isExpanded
+                                    item.nodePath = Qt.binding(function() { return path })
+                                    item.isExpanded = Qt.binding(function() { return isExpanded })
                                     item.nodeChildren = childrenModel
                                     item.dropKeys = "function"
                                 }
@@ -276,6 +275,10 @@ CustomPopupDialog
                                                 if (model.hasChildren)
                                                     model.isExpanded = item.isExpanded
                                             }
+                                        break;
+                                        case App.DoubleClicked:
+                                            if (qItem === item && model.hasChildren)
+                                                model.isExpanded = !model.isExpanded
                                         break;
                                         case App.Checked:
                                             if (qItem === item)

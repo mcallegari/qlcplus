@@ -19,6 +19,7 @@
 
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <QElapsedTimer>
 #include <QDebug>
 #include <math.h>
 
@@ -85,7 +86,13 @@ Universe::~Universe()
             usleep(10000);
 
         m_running = false;
-        wait(1000);
+        if (!wait(2000))
+        {
+            qCritical() << Q_FUNC_INFO << "Universe" << m_id
+                        << "thread did not stop within 2 seconds, forcing termination";
+            terminate();
+            wait();
+        }
     }
 
     delete m_inputPatch;
@@ -122,17 +129,17 @@ quint32 Universe::id() const
     return m_id;
 }
 
-ushort Universe::usedChannels()
+ushort Universe::usedChannels() const
 {
     return m_usedChannels;
 }
 
-ushort Universe::totalChannels()
+ushort Universe::totalChannels() const
 {
     return m_totalChannels;
 }
 
-bool Universe::hasChanged()
+bool Universe::hasChanged() const
 {
     bool changed =
         memcmp(m_lastPostGMValues->constData(), m_postGMValues->constData(), m_usedChannels) != 0;
@@ -305,16 +312,20 @@ void Universe::setFaderFadeOut(int fadeTime)
 
 void Universe::tick()
 {
-    m_semaphore.release(1);
+    // Keep at most one pending tick to avoid queueing stale work when running late.
+    if (m_semaphore.available() == 0)
+        m_semaphore.release(1);
 }
 
-void Universe::processFaders()
+void Universe::processFaders(uint elapsedMs)
 {
     flushInput();
     zeroIntensityChannels();
 
+    QList<QSharedPointer<GenericFader>> activeFaders;
     {
         QMutexLocker fadersLocker(&m_fadersMutex);
+        activeFaders.reserve(m_faders.size());
         QMutableListIterator<QSharedPointer<GenericFader> > it(m_faders);
         while (it.hasNext())
         {
@@ -335,23 +346,27 @@ void Universe::processFaders()
             if (fader->isEnabled() == false)
                 continue;
 
-            //qDebug() << "Processing fader" << fader->name() << fader->channelsCount();
-            fader->write(this);
+            activeFaders.append(fader);
         }
     }
 
+    foreach (const QSharedPointer<GenericFader> &fader, activeFaders)
+        fader->write(this, elapsedMs);
+
     bool dataChanged = hasChanged();
-    const QByteArray postGM = m_postGMValues->mid(0, m_usedChannels);
+    const QByteArray postGM = QByteArray::fromRawData(m_postGMValues->constData(), m_usedChannels);
     dumpOutput(postGM, dataChanged);
 
     if (dataChanged)
-        emit universeWritten(id(), postGM);
+        emit universeWritten(id(), QByteArray(postGM.constData(), postGM.size()));
 }
 
 void Universe::run()
 {
     m_running = true;
     int timeout = int(MasterTimer::tick()) * 2;
+    QElapsedTimer elapsedTimer;
+    elapsedTimer.start();
 
     qDebug() << "Universe thread started" << id();
 
@@ -366,7 +381,13 @@ void Universe::run()
         if (m_faders.count())
             qDebug() << "<<<<<<<< UNIVERSE TICK - id" << id() << "faders:" << m_faders.count();
 #endif
-        processFaders();
+        const qint64 elapsedNs = elapsedTimer.nsecsElapsed();
+        elapsedTimer.restart();
+        uint elapsedMs = uint((elapsedNs + 500000) / 1000000);
+        if (elapsedMs == 0)
+            elapsedMs = 1;
+
+        processFaders(elapsedMs);
     }
 
     qDebug() << "Universe thread stopped" << id();
@@ -497,7 +518,7 @@ const QByteArray Universe::preGMValues() const
 
 uchar Universe::preGMValue(int address) const
 {
-    if (address >= m_preGMValues->size())
+    if (address < 0 || address >= m_preGMValues->size())
         return 0U;
 
     return static_cast<uchar>(m_preGMValues->at(address));
@@ -556,7 +577,7 @@ void Universe::updatePostGMValue(int channel)
  * Patches
  ************************************************************************/
 
-bool Universe::isPatched()
+bool Universe::isPatched() const
 {
     if (m_inputPatch != NULL || m_outputPatchList.count() || m_fbPatch != NULL)
         return true;
@@ -730,8 +751,6 @@ void Universe::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
     {
         if (universe == m_id)
         {
-            qDebug() << "write" << channel << value;
-
             if (channel >= UNIVERSE_SIZE)
                 return;
 
@@ -831,7 +850,7 @@ void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, Cha
     }
 }
 
-uchar Universe::channelCapabilities(ushort channel)
+uchar Universe::channelCapabilities(ushort channel) const
 {
     if (channel >= (ushort)m_channelsMask->length())
         return Undefined;
@@ -933,7 +952,6 @@ bool Universe::write(int address, uchar value, bool forceLTP)
     {
         if (forceLTP == false && value < (uchar)m_preGMValues->at(address))
         {
-            qDebug() << "[Universe] HTP check not passed" << address << value;
             return false;
         }
     }
@@ -1019,18 +1037,19 @@ bool Universe::writeBlended(int address, quint32 value, int channelCount, Univer
         {
             if ((m_channelsMask->at(address) & HTP) && value < currentValue)
             {
-                qDebug() << "[Universe] HTP check not passed" << address << value;
                 return false;
             }
         }
         break;
         case MaskBlend:
         {
+            const float maxValue = (channelCount == 1)
+                                   ? 255.0f
+                                   : (channelCount == 2 ? 65535.0f : float(pow(255.0f, channelCount)));
             if (value)
             {
-                qDebug() << "Current value" << currentValue << "value" << value;
                 if (currentValue)
-                    value = float(currentValue) * (float(value) / pow(255.0, channelCount));
+                    value = float(currentValue) * (float(value) / maxValue);
                 else
                     value = 0;
             }
@@ -1038,8 +1057,11 @@ bool Universe::writeBlended(int address, quint32 value, int channelCount, Univer
         break;
         case AdditiveBlend:
         {
+            const float maxValue = (channelCount == 1)
+                                   ? 255.0f
+                                   : (channelCount == 2 ? 65535.0f : float(pow(255.0f, channelCount)));
             //qDebug() << "Universe write additive channel" << channel << ", value:" << currVal << "+" << value;
-            value = fmin(float(currentValue + value), pow(255.0, channelCount));
+            value = fmin(float(currentValue + value), maxValue);
         }
         break;
         case SubtractiveBlend:
@@ -1102,19 +1124,24 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
             QString plugin = KInputNone;
             quint32 inputLine = QLCIOPlugin::invalidLine();
             QString inputUID;
+            QString inputName;
             QString profile = KInputNone;
 
             if (pAttrs.hasAttribute(KXMLQLCUniversePlugin))
                 plugin = pAttrs.value(KXMLQLCUniversePlugin).toString();
             if (pAttrs.hasAttribute(KXMLQLCUniverseLineUID))
                 inputUID = pAttrs.value(KXMLQLCUniverseLineUID).toString();
+            if (pAttrs.hasAttribute(KXMLQLCUniverseLineName))
+                inputName = pAttrs.value(KXMLQLCUniverseLineName).toString();
+            else if (pAttrs.hasAttribute(KXMLQLCUniverseLineUID))
+                inputName = inputUID; // backward compat: old files stored name in UID attribute
             if (pAttrs.hasAttribute(KXMLQLCUniverseLine))
                 inputLine = pAttrs.value(KXMLQLCUniverseLine).toString().toUInt();
             if (pAttrs.hasAttribute(KXMLQLCUniverseProfileName))
                 profile = pAttrs.value(KXMLQLCUniverseProfileName).toString();
 
             // apply the parameters just loaded
-            ioMap->setInputPatch(index, plugin, inputUID, inputLine, profile);
+            ioMap->setInputPatch(index, plugin, inputUID, inputName, inputLine, profile);
 
             QXmlStreamReader::TokenType tType = root.readNext();
             if (tType == QXmlStreamReader::Characters)
@@ -1132,17 +1159,22 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
         {
             QString plugin = KOutputNone;
             QString outputUID;
+            QString outputName;
             quint32 outputLine = QLCIOPlugin::invalidLine();
 
             if (pAttrs.hasAttribute(KXMLQLCUniversePlugin))
                 plugin = pAttrs.value(KXMLQLCUniversePlugin).toString();
             if (pAttrs.hasAttribute(KXMLQLCUniverseLineUID))
                 outputUID = pAttrs.value(KXMLQLCUniverseLineUID).toString();
+            if (pAttrs.hasAttribute(KXMLQLCUniverseLineName))
+                outputName = pAttrs.value(KXMLQLCUniverseLineName).toString();
+            else if (pAttrs.hasAttribute(KXMLQLCUniverseLineUID))
+                outputName = outputUID; // backward compat: old files stored name in UID attribute
             if (pAttrs.hasAttribute(KXMLQLCUniverseLine))
                 outputLine = pAttrs.value(KXMLQLCUniverseLine).toString().toUInt();
 
             // apply the parameters just loaded
-            ioMap->setOutputPatch(index, plugin, outputUID, outputLine, false, outputIndex);
+            ioMap->setOutputPatch(index, plugin, outputUID, outputName, outputLine, false, outputIndex);
 
             QXmlStreamReader::TokenType tType = root.readNext();
             if (tType == QXmlStreamReader::Characters)
@@ -1162,17 +1194,22 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
         {
             QString plugin = KOutputNone;
             QString outputUID;
+            QString outputName;
             quint32 output = QLCIOPlugin::invalidLine();
 
             if (pAttrs.hasAttribute(KXMLQLCUniversePlugin))
                 plugin = pAttrs.value(KXMLQLCUniversePlugin).toString();
             if (pAttrs.hasAttribute(KXMLQLCUniverseLineUID))
                 outputUID = pAttrs.value(KXMLQLCUniverseLineUID).toString();
+            if (pAttrs.hasAttribute(KXMLQLCUniverseLineName))
+                outputName = pAttrs.value(KXMLQLCUniverseLineName).toString();
+            else if (pAttrs.hasAttribute(KXMLQLCUniverseLineUID))
+                outputName = outputUID; // backward compat: old files stored name in UID attribute
             if (pAttrs.hasAttribute(KXMLQLCUniverseLine))
                 output = pAttrs.value(KXMLQLCUniverseLine).toString().toUInt();
 
             // apply the parameters just loaded
-            ioMap->setOutputPatch(index, plugin, outputUID, output, true);
+            ioMap->setOutputPatch(index, plugin, outputUID, outputName, output, true);
 
             QXmlStreamReader::TokenType tType = root.readNext();
             if (tType == QXmlStreamReader::Characters)
@@ -1245,17 +1282,20 @@ bool Universe::saveXML(QXmlStreamWriter *doc) const
 
     if (inputPatch() != NULL)
     {
-        savePatchXML(doc, KXMLQLCUniverseInputPatch, inputPatch()->pluginName(), inputPatch()->inputName(),
+        savePatchXML(doc, KXMLQLCUniverseInputPatch, inputPatch()->pluginName(),
+            inputPatch()->inputName(), inputPatch()->inputUID(),
             inputPatch()->input(), inputPatch()->profileName(), inputPatch()->getPluginParameters());
     }
     foreach (OutputPatch *op, m_outputPatchList)
     {
-        savePatchXML(doc, KXMLQLCUniverseOutputPatch, op->pluginName(), op->outputName(),
+        savePatchXML(doc, KXMLQLCUniverseOutputPatch, op->pluginName(),
+            op->outputName(), op->outputUID(),
             op->output(), "", op->getPluginParameters());
     }
     if (feedbackPatch() != NULL)
     {
-        savePatchXML(doc, KXMLQLCUniverseFeedbackPatch, feedbackPatch()->pluginName(), feedbackPatch()->outputName(),
+        savePatchXML(doc, KXMLQLCUniverseFeedbackPatch, feedbackPatch()->pluginName(),
+            feedbackPatch()->outputName(), feedbackPatch()->outputUID(),
             feedbackPatch()->output(), "", feedbackPatch()->getPluginParameters());
     }
 
@@ -1270,6 +1310,7 @@ void Universe::savePatchXML(
     const QString &tag,
     const QString &pluginName,
     const QString &lineName,
+    const QString &lineUID,
     quint32 line,
     QString profileName,
     QMap<QString, QVariant> parameters) const
@@ -1280,7 +1321,8 @@ void Universe::savePatchXML(
 
     doc->writeStartElement(tag);
     doc->writeAttribute(KXMLQLCUniversePlugin, pluginName);
-    doc->writeAttribute(KXMLQLCUniverseLineUID, lineName);
+    doc->writeAttribute(KXMLQLCUniverseLineName, lineName);
+    doc->writeAttribute(KXMLQLCUniverseLineUID, lineUID);
     doc->writeAttribute(KXMLQLCUniverseLine, QString::number(line));
     if (!profileName.isEmpty() && profileName != KInputNone)
         doc->writeAttribute(KXMLQLCUniverseProfileName, profileName);
@@ -1310,4 +1352,3 @@ bool Universe::savePluginParametersXML(QXmlStreamWriter *doc,
 
     return true;
 }
-

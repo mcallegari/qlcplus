@@ -34,6 +34,7 @@ GridLayout
     property EditorRef editorView: null
     property ChannelEdit editor: null
     property QLCChannel channel: null
+    property string valueUnits: ""
 
     function setItemName(name)
     {
@@ -63,14 +64,13 @@ GridLayout
                 goboPicture.source = "file:///" + editor.getCapabilityValueAt(capIndex, 0)
             break
             case QLCCapability.SingleValue:
-                pValueSpin.value = editor.getCapabilityValueAt(capIndex, 0)
-                pValueSpin.suffix = editor.getCapabilityPresetUnits(capIndex)
+                valueUnits = editor.getCapabilityPresetUnits(capIndex)
+                pValueSpin.realValue = editor.getCapabilityValueAt(capIndex, 0)
             break
             case QLCCapability.DoubleValue:
-                pValueSpin.value = editor.getCapabilityValueAt(capIndex, 0)
-                pValueSpin.suffix = editor.getCapabilityPresetUnits(capIndex)
-                sValueSpin.value = editor.getCapabilityValueAt(capIndex, 1)
-                sValueSpin.suffix = pValueSpin.suffix
+                valueUnits = editor.getCapabilityPresetUnits(capIndex)
+                pValueSpin.realValue = editor.getCapabilityValueAt(capIndex, 0)
+                sValueSpin.realValue = editor.getCapabilityValueAt(capIndex, 1)
             break
             default:
             break
@@ -185,9 +185,39 @@ GridLayout
             faSource: FontAwesome.fa_minus
             faColor: "crimson"
             tooltip: qsTr("Delete the selected capabilities")
+            enabled: editItem.indexInList !== -1
             onClicked: {
+                var removedIndex = editItem.indexInList
                 editItem.visible = false
-                editor.removeCapabilityAtIndex(editItem.indexInList)
+                presetGroupBox.visible = false
+                presetBox.presetType = QLCCapability.None
+                capsList.containedIndex = -1
+                editor.removeCapabilityAtIndex(removedIndex)
+
+                // removing a capability rebuilds the whole model, which resets the
+                // ListView scroll position to the top. Scroll back to where the
+                // removed row used to be, once the model has settled.
+                Qt.callLater(function() {
+                    if (capsList.count === 0)
+                        return
+                    var newIndex = Math.min(removedIndex, capsList.count - 1)
+                    capsList.positionViewAtIndex(newIndex, ListView.Contain)
+                })
+            }
+        }
+
+        IconButton
+        {
+            id: autoPatchColorsButton
+            visible: channel ? channel.group === QLCChannel.Colour : false
+            faSource: FontAwesome.fa_palette
+            faColor: "yellow"
+            tooltip: qsTr("Automatic color assignment")
+            onClicked:
+            {
+                editor.autoPatchColorCapabilities()
+                if (editItem.visible && editItem.indexInList >= 0)
+                    updatePresetBox(editItem.indexInList)
             }
         }
 
@@ -236,18 +266,49 @@ GridLayout
 
                 if (index < 0)
                 {
-                    // hide edit item
+                    // hide edit item and the preset box below the list, giving
+                    // capsList back its full height
                     editItem.visible = false
+                    presetGroupBox.visible = false
                     presetBox.presetType = QLCCapability.None
+                    containedIndex = -1
                     return
                 }
-                else if (index === capsList.count)
+
+                if (index === capsList.count)
                 {
-                    // create a new capability
+                    // create a new capability. This resets the whole model,
+                    // so the actual row editing has to happen once the ListView
+                    // has settled and the new delegate is available
                     editor.addNewCapability()
+                    Qt.callLater(capsList.finishEditRow, index, fieldIndex)
+                    return
                 }
 
+                capsList.finishEditRow(index, fieldIndex)
+            }
+
+            // drives the whole show-the-editor sequence step by step, so that
+            // capsList is only ever repositioned against a height it actually has:
+            // 1) position the clicked row while the list still has its full height
+            //    (presetGroupBox is still hidden at this point)
+            // 2) reveal editItem and the preset box below the list
+            // 3) once that has shrunk the list (next layout pass), position the row
+            //    again against the new, smaller height
+            function finishEditRow(index, fieldIndex)
+            {
+                // make sure the row we're about to edit is visible before
+                // fetching its delegate, otherwise itemAtIndex returns null
+                capsList.positionViewAtIndex(index, ListView.Contain)
+
                 var item = capsList.itemAtIndex(index)
+                if (!item)
+                {
+                    // the delegate isn't ready yet: try again next event loop pass
+                    Qt.callLater(capsList.finishEditRow, index, fieldIndex)
+                    return
+                }
+
                 selectedRow = index
                 editItem.indexInList = index
                 editItem.editCap = item.cap
@@ -258,6 +319,35 @@ GridLayout
                 // setup the capability preset items
                 updatePresetBox(index)
                 editItem.visible = true
+                presetGroupBox.visible = true
+
+                // presetGroupBox just took its row's share of height away from
+                // capsList (Layout.fillHeight), but that resize only lands on the
+                // next layout pass. Re-contain the row once capsList's height has
+                // actually changed to reflect it (see onHeightChanged below).
+                containedIndex = index
+            }
+
+            property int containedIndex: -1
+
+            onHeightChanged:
+            {
+                if (containedIndex < 0)
+                    return
+
+                var visItem = capsList.itemAtIndex(containedIndex)
+                if (!visItem)
+                    return
+
+                // clamp contentY directly from the item's current geometry against
+                // capsList's current (now settled) height, rather than trusting
+                // positionViewAtIndex()'s own "already contained" bookkeeping, which
+                // may not have caught up with the height change in the same tick
+                var itemBottom = visItem.y + visItem.height
+                if (visItem.y < capsList.contentY)
+                    capsList.contentY = visItem.y
+                else if (itemBottom > capsList.contentY + capsList.height)
+                    capsList.contentY = itemBottom - capsList.height
             }
 
             function updateValues(index, min, max, text)
@@ -373,6 +463,7 @@ GridLayout
                         }
                     }
 
+                    // separator
                     Rectangle
                     {
                         width: capsList.width
@@ -384,6 +475,7 @@ GridLayout
                     MouseArea
                     {
                         anchors.fill: parent
+                        enabled: channel.preset === 0
                         onClicked: (mouse) =>
                         {
                             var compIdx = 0
@@ -396,6 +488,14 @@ GridLayout
                                 compIdx = 2
                             capsList.editRow(index, compIdx)
                         }
+                    }
+
+                    Rectangle
+                    {
+                        anchors.fill: parent
+                        visible: channel.preset !== 0
+                        color: "black"
+                        opacity: 0.4
                     }
                 }
 
@@ -411,7 +511,7 @@ GridLayout
                 visible: false || capsList.count === 0
 
                 property QLCCapability editCap: null
-                property int indexInList: 0
+                property int indexInList: -1
 
                 function focusItem(index)
                 {
@@ -490,13 +590,14 @@ GridLayout
     // row 6 - capability preset
     GroupBox
     {
+        id: presetGroupBox
         //title: qsTr("Preset")
         Layout.columnSpan: 2
         Layout.fillWidth: true
         //font.family: UISettings.robotoFontName
         //font.pixelSize: UISettings.textSizeDefault
         //palette.windowText: UISettings.fgMain
-        visible: editItem.visible
+        visible: false
 
         GridLayout
         {
@@ -522,9 +623,9 @@ GridLayout
             GroupBox
             {
                 id: previewBox
-                visible: presetBox.presetType == QLCCapability.SingleColor ||
-                         presetBox.presetType == QLCCapability.DoubleColor ||
-                         presetBox.presetType == QLCCapability.Picture
+                visible: presetBox.presetType === QLCCapability.SingleColor ||
+                         presetBox.presetType === QLCCapability.DoubleColor ||
+                         presetBox.presetType === QLCCapability.Picture
                 title: qsTr("Preview")
                 font.family: UISettings.robotoFontName
                 font.pixelSize: UISettings.textSizeDefault
@@ -534,8 +635,8 @@ GridLayout
                 {
                     IconButton
                     {
-                        visible: presetBox.presetType == QLCCapability.SingleColor ||
-                                 presetBox.presetType == QLCCapability.DoubleColor
+                        visible: presetBox.presetType === QLCCapability.SingleColor ||
+                                 presetBox.presetType === QLCCapability.DoubleColor
                         imgSource: "qrc:/color.svg"
                         tooltip: qsTr("Primary color")
                         width: UISettings.iconSizeMedium
@@ -559,21 +660,22 @@ GridLayout
                                     editor.setCapabilityValueAt(editItem.indexInList, 0, Qt.rgba(r, g, b, 1.0))
                                     updatePresetBox(editItem.indexInList)
                                 }
+                            onClose: visible = false
                         }
                     }
 
                     MultiColorBox
                     {
                         id: colorPreview
-                        visible: presetBox.presetType == QLCCapability.SingleColor ||
-                                 presetBox.presetType == QLCCapability.DoubleColor
+                        visible: presetBox.presetType === QLCCapability.SingleColor ||
+                                 presetBox.presetType === QLCCapability.DoubleColor
                         width: UISettings.mediumItemHeight
                         height: UISettings.mediumItemHeight
                     }
 
                     GenericButton
                     {
-                        visible: presetBox.presetType == QLCCapability.Picture
+                        visible: presetBox.presetType === QLCCapability.Picture
                         width: UISettings.iconSizeMedium
                         height: UISettings.iconSizeMedium
                         label: "..."
@@ -583,7 +685,7 @@ GridLayout
                     Rectangle
                     {
                         id: goboPreview
-                        visible: presetBox.presetType == QLCCapability.Picture
+                        visible: presetBox.presetType === QLCCapability.Picture
                         width: UISettings.mediumItemHeight
                         height: UISettings.mediumItemHeight
                         radius: 2
@@ -598,7 +700,7 @@ GridLayout
 
                     IconButton
                     {
-                        visible: presetBox.presetType == QLCCapability.DoubleColor
+                        visible: presetBox.presetType === QLCCapability.DoubleColor
                         imgSource: "qrc:/color.svg"
                         tooltip: qsTr("Secondary color")
                         width: UISettings.iconSizeMedium
@@ -623,6 +725,7 @@ GridLayout
                                     editor.setCapabilityValueAt(editItem.indexInList, 1, Qt.rgba(r, g, b, 1.0))
                                     updatePresetBox(editItem.indexInList)
                                 }
+                            onClose: visible = false
                         }
                     }
                 }
@@ -631,8 +734,8 @@ GridLayout
             GroupBox
             {
                 id: valuesBox
-                visible: presetBox.presetType == QLCCapability.SingleValue ||
-                         presetBox.presetType == QLCCapability.DoubleValue
+                visible: presetBox.presetType === QLCCapability.SingleValue ||
+                         presetBox.presetType === QLCCapability.DoubleValue
                 title: qsTr("Value(s)")
                 font.family: UISettings.robotoFontName
                 font.pixelSize: UISettings.textSizeDefault
@@ -648,31 +751,37 @@ GridLayout
                         label: qsTr("Value 1")
                     }
 
-                    CustomSpinBox
+                    CustomDoubleSpinBox
                     {
                         id: pValueSpin
                         Layout.fillWidth: true
-                        from: -1000
-                        to: 1000
+                        implicitWidth: UISettings.bigItemHeight * 1.4
+                        realFrom: -1000
+                        realTo: 1000
+                        stepSize: 1
+                        suffix: valueUnits
 
-                        onValueChanged: editor.setCapabilityValueAt(editItem.indexInList, 0, value)
+                        onRealValueChanged: editor.setCapabilityValueAt(editItem.indexInList, 0, realValue)
                     }
 
                     RobotoText
                     {
-                        visible: presetBox.presetType == QLCCapability.DoubleValue
+                        visible: presetBox.presetType === QLCCapability.DoubleValue
                         label: qsTr("Value 2")
                     }
 
-                    CustomSpinBox
+                    CustomDoubleSpinBox
                     {
                         id: sValueSpin
-                        visible: presetBox.presetType == QLCCapability.DoubleValue
+                        visible: presetBox.presetType === QLCCapability.DoubleValue
                         Layout.fillWidth: true
-                        from: -1000
-                        to: 1000
+                        implicitWidth: UISettings.bigItemHeight * 1.4
+                        realFrom: -1000
+                        realTo: 1000
+                        stepSize: 1
+                        suffix: valueUnits
 
-                        onValueChanged: editor.setCapabilityValueAt(editItem.indexInList, 1, value)
+                        onRealValueChanged: editor.setCapabilityValueAt(editItem.indexInList, 1, realValue)
                     }
                 }
             }

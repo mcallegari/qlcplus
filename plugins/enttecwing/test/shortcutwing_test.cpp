@@ -26,12 +26,12 @@
 #include "shortcutwing_test.h"
 
 #define SHC_FIRMWARE 147
-#define SHC_FLAGS (1 << 7) /* Page Up */	\
-		| (1 << 6) /* Page Down */	\
-		| (1 << 5) /* Back */		\
-		| (1 << 4) /* Go */		\
-		| (1 << 0) /* Product (1=PLB, 2=SHC, 3=PGM) */	\
-		| (0 << 0) /* Product */
+#define SHC_FLAGS (1 << 7) /* Page Up */  \
+                | (1 << 6) /* Page Down */  \
+                | (1 << 5) /* Back */  \
+                | (1 << 4) /* Go */  \
+                | (1 << 0) /* Product (1=PLB, 2=SHC, 3=PGM) */  \
+                | (0 << 0) /* Product */
 
 QByteArray ShortcutWing_Test::data()
 {

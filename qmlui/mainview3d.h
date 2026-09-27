@@ -50,11 +50,11 @@ using namespace Qt3DLogic;
 class GoboTextureImage final : public Qt3DRender::QPaintedTextureImage
 {
 public:
-    GoboTextureImage(int w, int h, QString filename);
+    GoboTextureImage(int w, int h, const QString& filename);
 
     /** Get/set the gobo source to use as texture */
     QString source() const;
-    void setSource(QString filename);
+    void setSource(const QString& filename);
 
 protected:
     void paint(QPainter *painter) override;
@@ -87,6 +87,12 @@ typedef struct
     /** Reference to the texture used to render the
      *  currently selected gobo picture */
     GoboTextureImage *m_goboTexture;
+    /** The scene generation this item was created in. Mesh loading is
+     *  asynchronous, so a SceneLoader callback can arrive after the scene
+     *  has been reset (e.g. on project load). Callbacks carrying a stale
+     *  generation must be discarded, otherwise they would resurrect
+     *  already deleted entities */
+    quint32 m_generation;
 } SceneItem;
 
 class MainView3D final : public PreviewContext
@@ -112,9 +118,13 @@ class MainView3D final : public PreviewContext
 
     Q_PROPERTY(QVariant genericItemsList READ genericItemsList NOTIFY genericItemsListChanged)
     Q_PROPERTY(int genericSelectedCount READ genericSelectedCount NOTIFY genericSelectedCountChanged)
+    Q_PROPERTY(bool genericSelectedLocked READ genericSelectedLocked NOTIFY genericSelectedLockedChanged)
     Q_PROPERTY(QVector3D genericItemsPosition READ genericItemsPosition WRITE setGenericItemsPosition NOTIFY genericItemsPositionChanged)
     Q_PROPERTY(QVector3D genericItemsRotation READ genericItemsRotation WRITE setGenericItemsRotation NOTIFY genericItemsRotationChanged)
     Q_PROPERTY(QVector3D genericItemsScale READ genericItemsScale WRITE setGenericItemsScale NOTIFY genericItemsScaleChanged)
+
+    Q_PROPERTY(QVector3D position3DMarker READ position3DMarker WRITE setPosition3DMarker NOTIFY position3DMarkerChanged)
+    Q_PROPERTY(bool position3DMarkerVisible READ position3DMarkerVisible WRITE setPosition3DMarkerVisible NOTIFY position3DMarkerVisibleChanged)
 
 public:
     explicit MainView3D(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -167,9 +177,14 @@ private:
     QQmlComponent *m_fixtureComponent;
     QQmlComponent *m_genericComponent;
     QQmlComponent *m_selectionComponent;
+    QQmlComponent *m_markerComponent;
     QQmlComponent *m_spotlightConeComponent;
     QQmlComponent *m_fillGBufferLayer;
     int m_createItemCount;
+
+    /** Incremented on every scene reset. Used to detect and drop
+     *  asynchronous mesh loading callbacks belonging to a previous scene */
+    quint32 m_sceneGeneration;
 
     QVector3D m_cameraPosition;
     QVector3D m_cameraUpVector;
@@ -191,6 +206,18 @@ public:
 protected slots:
     void slotFrameProcessed();
 
+private:
+    /** Create the QFrameAction (if needed) and attach it to the current
+     *  scene root entity. Called both when the user enables the FPS counter
+     *  and whenever the 3D scene is (re)initialized, so the setting survives
+     *  switching to another view and back. */
+    void attachFrameAction();
+
+    /** Detach and destroy the QFrameAction. Must be called before the scene
+     *  root entity is torn down, otherwise Qt3D would delete the action
+     *  (it gets reparented on addComponent) and leave a dangling pointer. */
+    void detachFrameAction();
+
 signals:
     void frameCountEnabledChanged();
     void FPSChanged(int fps);
@@ -201,6 +228,9 @@ signals:
 private:
     QElapsedTimer m_fpsElapsed;
     QFrameAction *m_frameAction;
+    /** User-requested state of the FPS counter, kept independently from
+     *  m_frameAction so it persists across 3D scene teardown/rebuild */
+    bool m_frameCountEnabled;
     int m_frameCount;
     int m_minFrameCount;
     int m_maxFrameCount;
@@ -221,7 +251,7 @@ public:
     /** Set/update the flags of a fixture item */
     void setFixtureFlags(quint32 itemID, quint32 flags);
 
-    Q_INVOKABLE void initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoader *loader);
+    Q_INVOKABLE void initializeFixture(quint32 itemID, QEntity *fxEntity, const QSceneLoader *loader);
 
     Q_INVOKABLE QString makeShader(QString str);
 
@@ -229,7 +259,7 @@ public:
     void updateFixture(Fixture *fixture, QByteArray &previous);
 
     /** Update a single fixture item for a specific Fixture ID, head index and linked index */
-    void updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 linkedIndex, QByteArray &previous);
+    void updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 linkedIndex, const QByteArray &previous);
 
     /** Update the selection status of a list of Fixture item IDs */
     void updateFixtureSelection(QList<quint32>fixtures);
@@ -246,18 +276,61 @@ public:
     /** Update the scale of a Fixture with the provided $itemID */
     void updateFixtureScale(quint32 itemID, QVector3D origSize);
 
+    /** Loaded mesh bounding-box extents (in metres) for the item with $itemID,
+     *  or a zero vector if the item is not (yet) present in the 3D scene. */
+    QVector3D fixtureExtents(quint32 itemID) const;
+
+    /** Full path of the generic mesh this view uses to draw $fixture, or an
+     *  empty string for fixture types drawn without a mesh (LED bars). The file
+     *  name comes from FixtureUtils::fixtureLightResource(). */
+    QString fixtureMeshPath(const Fixture *fixture) const;
+
+    /** Bounding-box extents (metres) of the mesh file at $meshPath, parsed
+     *  straight from the geometry. Results are cached per path. Returns a zero
+     *  vector when the file cannot be read or holds no vertex data. */
+    QVector3D meshFileExtents(const QString &meshPath) const;
+
+    /** Half-thickness (metres) of the truss bars of the current stage.
+     *
+     *  Read from the live stage entity's `trussHalfSize` QML property, so it
+     *  tracks whatever the stage model declares instead of being duplicated in
+     *  C++. Returns 0 when the current stage has no trusses (or the 3D view has
+     *  never been created), which callers must treat as "no truss to snap to".
+     */
+    Q_INVOKABLE qreal trussHalfSize() const;
+
+    /** Vertical span (metres, monitor space) of the truss bars: the underside
+     *  and the top face. The bars sit ABOVE the environment box, so the
+     *  underside is the grid height and the top is one bar-thickness higher.
+     *  Both are 0 when the current stage has no trusses. */
+    void trussVerticalSpan(qreal &bottomY, qreal &topY) const;
+
+    /** Size (metres) $fixture will actually be DRAWN at.
+     *
+     *  Mirrors what createFixtureItem() + updateFixtureScale() do: the generic
+     *  per-type mesh is fitted into the fixture's declared physical box with a
+     *  single uniform scale, so it keeps its aspect ratio. Callers that need to
+     *  position a fixture against real geometry (the Stage Wizard snapping to a
+     *  truss) must use this, not the declared size — the two differ whenever the
+     *  mesh aspect does not match the declared box.
+     *
+     *  Falls back to the live scene item's extents when the mesh is already
+     *  loaded, and to the declared physical size when there is no mesh at all. */
+    Q_INVOKABLE QVector3D fixtureDrawnSize(quint32 fixtureID) const;
+
     /** Remove a Fixture item with the provided $itemID from the preview */
     void removeFixtureItem(quint32 itemID);
 
     /** Get the Fixture light 3D position for the provided $itemID */
-    QVector3D lightPosition(quint32 itemID);
+    QVector3D lightPosition(quint32 itemID) const;
 
     /** Get the Fixture light matrix for the provided $itemID */
-    QMatrix4x4 lightMatrix(quint32 itemID);
+    QMatrix4x4 lightMatrix(quint32 itemID) const;
 
 protected:
     /** First time 3D view variables initializations */
-    void initialize3DProperties();
+    bool initialize3DProperties();
+    void scheduleInitializeRetry();
 
     /** Bounding box volume calculation methods */
     //void getMeshCorners(QGeometryRenderer *mesh, QVector3D &minCorner, QVector3D &maxCorner);
@@ -268,12 +341,12 @@ protected:
                            QLayer *layer, QEffect *effect,
                            bool calculateVolume, QVector3D translation);
 
-    void walkNode(QNode *e, int depth);
+    void walkNode(QNode *e, int depth) const;
 
 private:
-    Qt3DCore::QTransform *getTransform(QEntity *entity);
-    QMaterial *getMaterial(QEntity *entity);
-    void updateLightMatrix(SceneItem *mesh);
+    Qt3DCore::QTransform *getTransform(const QEntity *entity) const;
+    QMaterial *getMaterial(const QEntity *entity) const;
+    void updateLightMatrix(SceneItem *mesh, quint32 itemID);
 
 private:
     /** Reference to the Scene3D component */
@@ -297,6 +370,11 @@ private:
     /** Cache of the loaded models against bounding volumes */
     QMap<QUrl, BoundingVolume> m_boundingVolumesMap;
 
+    /** Bounding extents (metres) parsed from a mesh FILE, keyed by path. Filled
+     *  lazily by meshFileExtents() so the geometry can be queried even when the
+     *  3D view has never been shown and no scene item exists. */
+    mutable QHash<QString, QVector3D> m_meshFileExtents;
+
     /*********************************************************************
      * Generic items
      *********************************************************************/
@@ -307,8 +385,22 @@ public:
 
     Q_INVOKABLE void setItemSelection(int itemID, bool enable, int keyModifiers);
 
+    /** Select/deselect a generic item by its row $index in the items list model.
+     *  Used to keep the 3D selection in sync with multi-row (range) selections
+     *  performed on the QML list */
+    Q_INVOKABLE void setItemSelectionByIndex(int index, bool enable, int keyModifiers);
+
     /** Get the number of generic items currently selected */
     int genericSelectedCount() const;
+
+    /** Returns true if at least one of the currently selected
+     *  generic items is locked */
+    bool genericSelectedLocked() const;
+
+    /** Lock/unlock the position of the currently selected generic items.
+     *  If any selected item is unlocked, all get locked; otherwise all
+     *  get unlocked */
+    Q_INVOKABLE void toggleGenericItemsLock();
 
     /** Remove the currently selected generic items
      *  from the 3D scene */
@@ -322,17 +414,22 @@ public:
      *  to be displayed in QML */
     QVariant genericItemsList() const;
 
-    void updateGenericItemPosition(quint32 itemID, QVector3D pos);
-    QVector3D genericItemsPosition();
+    void updateGenericItemPosition(quint32 itemID, QVector3D pos) const;
+    QVector3D genericItemsPosition() const;
     void setGenericItemsPosition(QVector3D pos);
 
-    void updateGenericItemRotation(quint32 itemID, QVector3D rot);
-    QVector3D genericItemsRotation();
+    void updateGenericItemRotation(quint32 itemID, QVector3D rot) const;
+    QVector3D genericItemsRotation() const;
     void setGenericItemsRotation(QVector3D rot);
 
-    void updateGenericItemScale(quint32 itemID, QVector3D scale);
-    QVector3D genericItemsScale();
+    void updateGenericItemScale(quint32 itemID, QVector3D scale) const;
+    QVector3D genericItemsScale() const;
     void setGenericItemsScale(QVector3D scale);
+
+    QVector3D position3DMarker() const;
+    Q_INVOKABLE void setPosition3DMarker(QVector3D pos);
+    bool position3DMarkerVisible() const;
+    Q_INVOKABLE void setPosition3DMarkerVisible(bool visible);
 
 protected:
     void updateGenericItemsList();
@@ -340,13 +437,17 @@ protected:
 signals:
     void genericItemsListChanged();
     void genericSelectedCountChanged();
+    void genericSelectedLockedChanged();
     void genericItemsPositionChanged();
     void genericItemsRotationChanged();
     void genericItemsScaleChanged();
+    void position3DMarkerChanged();
+    void position3DMarkerVisibleChanged();
 
 private:
     /** Counter used to give unique IDs to generic items */
     int m_latestGenericID;
+    int m_initRetryCount;
 
     /** QML model for generic items */
     ListModel *m_genericItemsList;
@@ -355,6 +456,10 @@ private:
 
     /** Map of the generic items in the scene */
     QMap<quint32, SceneItem*> m_genericMap;
+
+    QVector3D m_position3DMarker;
+    bool m_position3DMarkerVisible;
+    QEntity *m_markerEntity;
 
     /*********************************************************************
      * Environment
@@ -401,16 +506,16 @@ public:
     float smokeAmount() const;
     void setSmokeAmount(float smokeAmount);
 
-    Q_INVOKABLE void pickEntity(const float &aspect, const QVector2D &ndcMousePos, int modifiers);
+    Q_INVOKABLE void pickEntity(const float &aspect, const QVector2D &ndcMousePos, int modifiers) const;
 
 protected:
     void createStage();
-    QVector3D unprojectToWorld(const float &aspect, const QVector2D &ndcMousePos);
+    QVector3D unprojectToWorld(const float &aspect, const QVector2D &ndcMousePos) const;
     bool rayIntersectsAABB(const QVector3D &rayOrigin, const QVector3D &rayDir,
-                           const QVector3D &center, const QVector3D &extents, float &hitDistance);
+                           const QVector3D &center, const QVector3D &extents, float &hitDistance) const;
 
-    quint32 itemIntersection(QVector3D &rayOrigin, QVector3D &rayDir, int &modifiers,
-                             QMap<quint32, SceneItem *> &map, bool generic);
+    quint32 itemIntersection(const QVector3D &rayOrigin, const QVector3D &rayDir, const int &modifiers,
+                             const QMap<quint32, SceneItem *> &map, bool generic) const;
 
 signals:
     void renderQualityChanged(RenderQuality renderQuality);

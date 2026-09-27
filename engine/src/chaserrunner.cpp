@@ -228,7 +228,7 @@ uint ChaserRunner::stepDuration(int stepIdx) const
  * Step control
  ****************************************************************************/
 
-void ChaserRunner::setAction(ChaserAction &action)
+void ChaserRunner::setAction(const ChaserAction &action)
 {
     // apply the actions that can be applied immediately
     switch (action.m_action)
@@ -423,24 +423,38 @@ void ChaserRunner::adjustStepIntensity(qreal fraction, int requestedStepIndex, i
     int stepIndex = requestedStepIndex;
     if (stepIndex == -1)
     {
-        stepIndex = m_lastRunStepIdx;
         // store the intensity to be applied at the next step startup
         m_pendingAction.m_masterIntensity = fraction;
-    }
 
-    foreach (ChaserRunnerStep *step, m_runnerSteps)
-    {
-        if (stepIndex == step->m_index && step->m_function != NULL)
+        foreach (ChaserRunnerStep *step, m_runnerSteps)
         {
-            if (requestedStepIndex == -1 && step->m_function->type() == Function::SceneType)
+            if (step == NULL || step->m_function == NULL)
+                continue;
+
+            step->m_masterIntensity = fraction;
+            if (step->m_function->type() == Function::SceneType)
             {
                 Scene *scene = qobject_cast<Scene *>(step->m_function);
                 scene->adjustAttribute(fraction, step->m_pIntensityOverrideId);
             }
             else
             {
-                step->m_function->adjustAttribute(fraction, step->m_intensityOverrideId);
+                step->m_function->adjustAttribute(fraction * step->m_stepIntensity, step->m_intensityOverrideId);
             }
+        }
+
+        return;
+    }
+
+    foreach (ChaserRunnerStep *step, m_runnerSteps)
+    {
+        if (stepIndex == step->m_index && step->m_function != NULL)
+        {
+            step->m_stepIntensity = fraction;
+            if (step->m_function->type() == Function::SceneType)
+                step->m_function->adjustAttribute(fraction, step->m_intensityOverrideId);
+            else
+                step->m_function->adjustAttribute(step->m_masterIntensity * fraction, step->m_intensityOverrideId);
             return;
         }
     }
@@ -494,6 +508,11 @@ void ChaserRunner::startNewStep(int index, MasterTimer *timer, qreal mIntensity,
 
     ChaserRunnerStep *newStep = new ChaserRunnerStep();
     newStep->m_index = index;
+    newStep->m_function = func;
+    newStep->m_masterIntensity = mIntensity;
+    newStep->m_stepIntensity = sIntensity;
+    newStep->m_intensityOverrideId = Function::invalidAttributeId();
+    newStep->m_pIntensityOverrideId = Function::invalidAttributeId();
 
     // check if blending between Scenes is needed
     if (m_lastFunctionID != Function::invalidId() &&
@@ -547,8 +566,6 @@ void ChaserRunner::startNewStep(int index, MasterTimer *timer, qreal mIntensity,
     newStep->m_elapsedBeats = 0; //(newStep->m_elapsed / timer->beatTimeDuration()) * 1000;
 
     m_startOffset = 0;
-
-    newStep->m_function = func;
 
     if (m_chaser->type() == Function::SequenceType)
     {

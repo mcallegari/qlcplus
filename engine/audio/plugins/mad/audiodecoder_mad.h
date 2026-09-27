@@ -83,7 +83,7 @@ private:
     void deinit();
     bool findHeader();
     bool findXingHeader(struct mad_bitptr, unsigned int);
-    uint findID3v2(uchar *data, ulong size);
+    uint findID3v2(const uchar *data, ulong size);
 
     QFile m_input;
     bool m_inited, m_eof;

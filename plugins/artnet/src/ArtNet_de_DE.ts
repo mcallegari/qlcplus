@@ -7,7 +7,7 @@
         <location filename="artnetplugin.cpp" line="97"/>
         <source>This plugin provides DMX output for devices supporting the ArtNet communication protocol.</source>
         <oldsource>This plugin provides output for devices supporting the ArtNet communication protocol.</oldsource>
-        <translation>Dieses Plugin bietet Unterstützung für Geräte mit dem ArtNet-Kommunikationsprotokoll.</translation>
+        <translation>Dieses Plugin bietet Unterstützung für Geräte, die das ArtNet-Kommunikationsprotokoll verwenden.</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="144"/>
@@ -59,7 +59,7 @@
     <message>
         <location filename="artnetplugin.cpp" line="303"/>
         <source>Bind failed</source>
-        <translation>Bind fehlgeschlagen</translation>
+        <translation>Verbinden fehlgeschlagen</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="305"/>
@@ -97,7 +97,7 @@
     <message>
         <location filename="configureartnet.ui" line="57"/>
         <source>Interface</source>
-        <translation>Interface</translation>
+        <translation>Schnittstelle (Interface)</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="62"/>
@@ -107,7 +107,7 @@
     <message>
         <location filename="configureartnet.ui" line="67"/>
         <source>IP Address</source>
-        <translation>IP Adresse</translation>
+        <translation>IP-Adresse</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="72"/>

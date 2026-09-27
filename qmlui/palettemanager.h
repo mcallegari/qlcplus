@@ -40,19 +40,20 @@ class PaletteManager final : public QObject
     Q_PROPERTY(int dimmerCount READ dimmerCount NOTIFY dimmerCountChanged)
     Q_PROPERTY(int colorCount READ colorCount NOTIFY colorCountChanged)
     Q_PROPERTY(int positionCount READ positionCount NOTIFY positionCountChanged)
+    Q_PROPERTY(int position3DCount READ position3DCount NOTIFY position3DCountChanged)
 
 public:
     PaletteManager(QQuickView *view, Doc *doc, ContextManager *ctxManager, QObject *parent = nullptr);
     ~PaletteManager();
 
     /** Get a list of Palettes filtered with typeFilter */
-    QVariant paletteList();
+    QVariant paletteList() const;
 
     /** Return a list of Palette names from the give $list of IDs */
-    Q_INVOKABLE QStringList selectedItemNames(QVariantList list);
+    Q_INVOKABLE QStringList selectedItemNames(QVariantList list) const;
 
     /** Get the reference to a QLCPalette from the given ID */
-    Q_INVOKABLE QLCPalette *getPalette(quint32 id);
+    Q_INVOKABLE QLCPalette *getPalette(quint32 id) const;
 
     /** Request a palette for editing.
      * The returned palette is mapped by type on m_editingMap */
@@ -65,14 +66,20 @@ public:
      *  to the current project */
     Q_INVOKABLE quint32 createPalette(QLCPalette *palette, QString name);
 
+    /** Create a new Position3D palette with the given 3D point and add it to the project */
+    Q_INVOKABLE quint32 createPosition3DPalette(QString name, float x, float y, float z);
+
     /** Preview the given palette via Context manager */
-    Q_INVOKABLE void previewPalette(QLCPalette *palette);
+    Q_INVOKABLE void previewPalette(const QLCPalette *palette);
 
     /** Update the give palette with single value (e.g. dimmer, pan, tilt, etc) */
     Q_INVOKABLE void updatePalette(QLCPalette *palette, QVariant value1);
 
     /** Update the give palette with two values (e.g. pan & tilt) */
     Q_INVOKABLE void updatePalette(QLCPalette *palette, QVariant value1, QVariant value2);
+
+    /** Update the give palette with three values (e.g. X, Y, Z) */
+    Q_INVOKABLE void updatePalette(QLCPalette *palette, QVariant value1, QVariant value2, QVariant value3);
 
     /** Delete the selected palettes from the current project */
     Q_INVOKABLE void deletePalettes(QVariantList list);
@@ -83,6 +90,7 @@ public:
     /** Get/Set the type of Palettes to be displayed */
     int typeFilter() const;
     void setTypeFilter(quint32 filter);
+    Q_INVOKABLE void setTypeFilter(int type, bool enable);
 
     /** Get/Set a string to filter Function names */
     QString searchFilter() const;
@@ -91,6 +99,7 @@ public:
     int dimmerCount() const { return m_dimmerCount; }
     int colorCount() const { return m_colorCount; }
     int positionCount() const { return m_positionCount; }
+    int position3DCount() const { return m_position3DCount; }
 
     void updatePaletteList();
 
@@ -102,6 +111,7 @@ signals:
     void dimmerCountChanged();
     void colorCountChanged();
     void positionCountChanged();
+    void position3DCountChanged();
 
 public slots:
     void slotDocLoaded();
@@ -117,7 +127,7 @@ private:
     quint32 m_typeFilter;
     QString m_searchFilter;
 
-    int m_dimmerCount, m_colorCount, m_positionCount;
+    int m_dimmerCount, m_colorCount, m_positionCount, m_position3DCount;
 
     ListModel *m_paletteList;
     // map of type/palette used for editing

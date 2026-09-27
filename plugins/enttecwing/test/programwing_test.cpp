@@ -26,12 +26,12 @@
 #include "programwing_test.h"
 
 #define PRG_FIRMWARE 178
-#define PRG_FLAGS (1 << 7) /* Page Up */	\
-		| (1 << 6) /* Page Down */	\
-		| (1 << 5) /* Back */		\
-		| (1 << 4) /* Go */		\
-		| (1 << 1) /* Product (1=PLB, 2=SHC, 3=PGM) */	\
-		| (1 << 0) /* Product */
+#define PRG_FLAGS (1 << 7) /* Page Up */    \
+                | (1 << 6) /* Page Down */  \
+                | (1 << 5) /* Back */  \
+                | (1 << 4) /* Go */  \
+                | (1 << 1) /* Product (1=PLB, 2=SHC, 3=PGM) */  \
+                | (1 << 0) /* Product */
 
 QByteArray ProgramWing_Test::data()
 {

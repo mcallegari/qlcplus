@@ -48,7 +48,7 @@ void ScriptEditor::setScriptContent(QString scriptContent)
     emit scriptContentChanged(scriptContent);
 }
 
-QString ScriptEditor::syntaxErrors()
+QString ScriptEditor::syntaxErrors() const
 {
     if (m_script == nullptr)
         return QString();

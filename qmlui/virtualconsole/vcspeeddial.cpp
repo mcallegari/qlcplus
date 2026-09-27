@@ -20,13 +20,17 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QQmlEngine>
+#include <QDateTime>
+#include <QtMath>
 
 #include <algorithm>
 
 #include "doc.h"
 #include "qlcmacros.h"
+#include "inputoutputmap.h"
 #include "vcspeeddial.h"
 #include "vcspeeddialpreset.h"
+#include "tardis.h"
 
 #define INPUT_DIAL_ID           0
 #define INPUT_TAP_ID            1
@@ -51,8 +55,11 @@ VCSpeedDial::VCSpeedDial(Doc *doc, QObject *parent)
     , m_timeMaximumValue(1000 * 10)
     , m_currentTime(0)
     , m_resetOnDialChange(false)
+    , m_controlBPM(false)
     , m_currentFactor(One)
     , m_lastAssignedPresetId(15)
+    , m_lastTap(0)
+    , m_tapTimeValue(0)
 {
     setType(VCWidget::SpeedWidget);
 
@@ -103,10 +110,16 @@ void VCSpeedDial::render(QQuickView *view, QQuickItem *parent)
     if (component->isError())
     {
         qDebug() << component->errors();
+        delete component;
         return;
     }
 
     m_item = qobject_cast<QQuickItem*>(component->create());
+    if (m_item == nullptr)
+        qWarning() << Q_FUNC_INFO << "Unable to create speed dial component" << component->errors();
+    delete component;
+    if (m_item == nullptr)
+        return;
 
     m_item->setParentItem(parent);
     m_item->setProperty("speedObj", QVariant::fromValue(this));
@@ -152,6 +165,8 @@ bool VCSpeedDial::copyFrom(const VCWidget *widget)
     setCurrentTime(speedDial->currentTime());
     setTimeMinimumValue(speedDial->timeMinimumValue());
     setTimeMaximumValue(speedDial->timeMaximumValue());
+    setResetOnDialChange(speedDial->resetOnDialChange());
+    setControlBPM(speedDial->controlBPM());
 
     setFunctions(speedDial->functions());
 
@@ -240,6 +255,8 @@ void VCSpeedDial::setCurrentTime(uint newCurrentTime)
     if (m_currentTime == newCurrentTime)
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::VCSpeedDialSetTime, id(), m_currentTime, newCurrentTime);
+
     m_currentTime = newCurrentTime;
 
     if (m_currentTime != 0)
@@ -262,11 +279,25 @@ void VCSpeedDial::setResetOnDialChange(bool newResetOnDialChange)
     emit resetOnDialChangeChanged();
 }
 
+bool VCSpeedDial::controlBPM() const
+{
+    return m_controlBPM;
+}
+
+void VCSpeedDial::setControlBPM(bool newControlBPM)
+{
+    if (m_controlBPM == newControlBPM)
+        return;
+
+    m_controlBPM = newControlBPM;
+    emit controlBPMChanged();
+}
+
 /*********************************************************************
  * Speed factor
  *********************************************************************/
 
-VCSpeedDial::SpeedMultiplier VCSpeedDial::currentFactor()
+VCSpeedDial::SpeedMultiplier VCSpeedDial::currentFactor() const
 {
     return m_currentFactor;
 }
@@ -275,6 +306,8 @@ void VCSpeedDial::setCurrentFactor(SpeedMultiplier factor)
 {
     if (factor == m_currentFactor)
         return;
+
+    Tardis::instance()->enqueueAction(Tardis::VCSpeedDialSetFactor, id(), int(m_currentFactor), int(factor));
 
     m_currentFactor = factor;
 
@@ -368,10 +401,10 @@ QVariant VCSpeedDial::functionsList()
  * Presets
  *********************************************************************/
 
-QVariantList VCSpeedDial::presetsList()
+QVariantList VCSpeedDial::presetsList() const
 {
     QVariantList list;
-    for (VCSpeedDialPreset *preset : presets())
+    for (const VCSpeedDialPreset *preset : presets())
     {
         QVariantMap entry;
         entry.insert("id", preset->m_id);
@@ -498,7 +531,7 @@ void VCSpeedDial::setFunctionSpeed(quint32 fid, int speedType, SpeedMultiplier a
     m_functions[fid] = func;
 }
 
-void VCSpeedDial::applyFunctionsTime()
+void VCSpeedDial::applyFunctionsTime(bool enqueue)
 {
     float factoredTime = m_currentTime * (m_multiplierCache[m_currentFactor] / 1000.0);
 
@@ -517,6 +550,96 @@ void VCSpeedDial::applyFunctionsTime()
                 function->setDuration(factoredTime * (m_multiplierCache[func.m_durationFactor] / 1000.0));
         }
     }
+
+    if (enqueue)
+        Tardis::instance()->enqueueAction(Tardis::VCSpeedDialApply, id(), QVariant(), QVariant());
+}
+
+/*********************************************************************
+ * Tap
+ *********************************************************************/
+
+int VCSpeedDial::tapTimeValue() const
+{
+    return m_tapTimeValue;
+}
+
+void VCSpeedDial::tap()
+{
+    qint64 currTime = QDateTime::currentMSecsSinceEpoch();
+
+    if (m_lastTap != 0 && currTime - m_lastTap < 1500)
+    {
+        int newTime = static_cast<int>(currTime - m_lastTap);
+
+        m_tapHistory.append(newTime);
+
+        int tapTime = calculateBPMByTapIntervals(m_tapHistory);
+
+        setCurrentTime(tapTime);
+
+        if (m_controlBPM && tapTime > 0)
+            m_doc->inputOutputMap()->setBpmNumber(qMin(qRound(60000.0 / tapTime), 1000));
+
+        if (m_tapTimeValue != tapTime)
+        {
+            m_tapTimeValue = tapTime;
+            emit tapTimeValueChanged();
+        }
+    }
+    else
+    {
+        m_lastTap = 0;
+        m_tapHistory.clear();
+    }
+    m_lastTap = currTime;
+}
+
+void VCSpeedDial::resetTap()
+{
+    m_lastTap = 0;
+    m_tapHistory.clear();
+
+    if (m_tapTimeValue != 0)
+    {
+        m_tapTimeValue = 0;
+        emit tapTimeValueChanged();
+    }
+}
+
+int VCSpeedDial::calculateBPMByTapIntervals(QList<int> &tapHistory)
+{
+    // reduce size to only 16 taps
+    while (tapHistory.size() > 16)
+        tapHistory.removeFirst();
+
+    // copy and sort to find median
+    QList<int> sorted = tapHistory;
+    std::sort(sorted.begin(), sorted.end());
+
+    int tapHistoryMedian = sorted[sorted.size() / 2];
+
+    double n = 1, tapx = 0, tapy = 0;
+    double sum_x = 0, sum_y = 0, sum_xx = 0, sum_xy = 0;
+
+    for (int i = 0; i < tapHistory.size(); i++)
+    {
+        int intervalMs = tapHistory[i];
+        n++;
+        // Divide by tapHistoryMedian to determine if a tap was skipped during input
+        tapx += qFloor((tapHistoryMedian / 2.0 + intervalMs) / tapHistoryMedian);
+        tapy += intervalMs;
+        sum_x += tapx;
+        sum_y += tapy;
+        sum_xx += tapx * tapx;
+        sum_xy += tapx * tapy;
+    }
+
+    double denom = n * sum_xx - sum_x * sum_x;
+    if (qFuzzyIsNull(denom))
+        return tapHistory.last();
+
+    return static_cast<int>((n * sum_xy - sum_x * sum_y) / denom);
 }
 
 /*********************************************************************
@@ -562,8 +685,7 @@ void VCSpeedDial::slotInputValueChanged(quint8 id, uchar value)
         }
         break;
         case INPUT_TAP_ID:
-            if (m_item)
-                QMetaObject::invokeMethod(m_item, "tap");
+            tap();
         break;
         case INPUT_MULT_ID:
             increaseSpeedFactor();
@@ -575,7 +697,7 @@ void VCSpeedDial::slotInputValueChanged(quint8 id, uchar value)
             setCurrentFactor(One);
         break;
         case INPUT_APPLY_ID:
-            applyFunctionsTime();
+            applyFunctionsTime(true);
         break;
         case INPUT_1_16X_ID:
             setCurrentFactor(OneSixteenth);
@@ -661,6 +783,10 @@ bool VCSpeedDial::loadXML(QXmlStreamReader &root)
         {
             setResetOnDialChange(root.readElementText() == KXMLQLCTrue);
         }
+        else if (root.name() == KXMLQLCVCSpeedDialControlBPM)
+        {
+            setControlBPM(root.readElementText() == KXMLQLCTrue);
+        }
         else if (root.name() == KXMLQLCVCSpeedDialFunction)
         {
             QXmlStreamAttributes attrs = root.attributes();
@@ -733,6 +859,10 @@ bool VCSpeedDial::saveXML(QXmlStreamWriter *doc) const
     /* Reset factor on dial change */
     if (resetOnDialChange())
         doc->writeTextElement(KXMLQLCVCSpeedDialResetFactorOnDialChange, KXMLQLCTrue);
+
+    /* Tap button controls the global BPM rate */
+    if (controlBPM())
+        doc->writeTextElement(KXMLQLCVCSpeedDialControlBPM, KXMLQLCTrue);
 
     /* Absolute input */
     doc->writeStartElement(KXMLQLCVCSpeedDialAbsoluteValue);

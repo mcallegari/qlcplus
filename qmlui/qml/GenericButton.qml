@@ -32,6 +32,11 @@ Rectangle
 
     property bool useFontawesome: false // false means Roboto, true means FontAwesome
     property int fontSize: UISettings.textSizeDefault
+    property string iconSource: ""
+    property int iconSize: Math.max(12, Math.floor(height * 0.55))
+    property int iconPadding: 6
+    readonly property int contentWidth: Math.ceil(btnText.implicitWidth
+                                                  + (iconSource !== "" ? (iconSize + (iconPadding * 3)) : 0))
     property alias label: btnText.text
     property color bgColor: UISettings.bgControl
     property color fgColor: UISettings.fgMain
@@ -79,12 +84,30 @@ Rectangle
     Text
     {
         id: btnText
-        anchors.fill: parent
+        anchors.left: leftIcon.visible ? leftIcon.right : parent.left
+        anchors.leftMargin: leftIcon.visible ? iconPadding : 0
+        anchors.right: parent.right
+        anchors.rightMargin: leftIcon.visible ? iconPadding : 0
+        anchors.verticalCenter: parent.verticalCenter
         color: fgColor
         font.family: useFontawesome ? UISettings.fontAwesomeFontName : UISettings.robotoFontName
         font.pixelSize: fontSize
-        horizontalAlignment: Text.AlignHCenter
+        horizontalAlignment: leftIcon.visible ? Text.AlignLeft : Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
+        elide: Text.ElideRight
+    }
+
+    Image
+    {
+        id: leftIcon
+        visible: iconSource !== ""
+        anchors.left: parent.left
+        anchors.leftMargin: iconPadding
+        anchors.verticalCenter: parent.verticalCenter
+        width: iconSize
+        height: iconSize
+        source: iconSource
+        sourceSize: Qt.size(iconSize, iconSize)
     }
 
     MouseArea

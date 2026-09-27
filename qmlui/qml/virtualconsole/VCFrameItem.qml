@@ -97,7 +97,7 @@ VCWidgetItem
                     x: 2
                     width: parent.width - 4
                     height: parent.height
-                    font: frameObj ? frameObj.font : ""
+                    font: frameObj ? frameObj.font : Qt.font({ family: UISettings.robotoFontName })
                     text: frameObj ? frameObj.caption : ""
                     verticalAlignment: Text.AlignVCenter
                     color: frameObj ? frameObj.foregroundColor : "white"
@@ -142,7 +142,7 @@ VCWidgetItem
                 CustomComboBox
                 {
                     id: pageSelector
-                    width: UISettings.bigItemHeight
+                    implicitWidth: Math.max(frameHeader.width * 0.25, UISettings.bigItemHeight)
                     height: parent.height
                     textRole: ""
                     model: frameObj ? frameObj.pageLabels : null

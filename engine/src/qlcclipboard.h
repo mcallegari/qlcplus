@@ -55,13 +55,13 @@ public:
     void copyContent(quint32 sourceID, QList <SceneValue> values);
     void copyContent(quint32 sourceID, Function *function);
 
-    bool hasChaserSteps();
-    bool hasSceneValues();
-    bool hasFunction();
+    bool hasChaserSteps() const;
+    bool hasSceneValues() const;
+    bool hasFunction() const;
 
-    QList <ChaserStep> getChaserSteps();
-    QList <SceneValue> getSceneValues();
-    Function *getFunction();
+    QList <ChaserStep> getChaserSteps() const;
+    QList <SceneValue> getSceneValues() const;
+    Function *getFunction() const;
 
 private:
     QList <ChaserStep> m_copySteps;

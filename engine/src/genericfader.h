@@ -23,6 +23,7 @@
 #include <QObject>
 #include <QList>
 #include <QHash>
+#include <QSharedPointer>
 #include <QReadWriteLock>
 
 #include "universe.h"
@@ -66,7 +67,7 @@ public:
 
     /** Get/Set if this fader should handle primary/secondary channels
      *  when a caller requests a FadeChannel */
-    bool handleSecondary();
+    bool handleSecondary() const;
     void setHandleSecondary(bool enable);
 
     /** Build a hash for a fader channel which is unique in a Universe.
@@ -91,7 +92,7 @@ public:
     void replace(const FadeChannel& ch);
 
     /** Remove a channel whose fixture & channel match with $fc's */
-    void remove(FadeChannel *ch);
+    void remove(const FadeChannel *ch);
 
     /** Remove all channels */
     void removeAll();
@@ -116,8 +117,21 @@ public:
      * the given Universe
      *
      * @param universe The universe that receives channel data.
+     * @param elapsedMs Time elapsed from previous write.
      */
-    void write(Universe *universe);
+    void write(Universe *universe, uint elapsedMs);
+
+    /**
+     * Update one channel while holding the internal channel lock.
+     * This avoids exposing raw FadeChannel pointers across threads.
+     */
+    template <typename Updater>
+    void updateChannel(const Doc *doc, Universe *universe, quint32 fixtureID, quint32 channel, Updater &&updater)
+    {
+        QWriteLocker l(&m_channelsLock);
+        FadeChannel &fc = channelFaderLocked(doc, universe, fixtureID, channel);
+        updater(fc);
+    }
 
     /** Get/Set the intensities of all channels in a 0.0 - 1.0 range */
     qreal intensity() const;
@@ -175,6 +189,9 @@ private:
     bool m_deleteRequest;
     Universe::BlendMode m_blendMode;
     bool m_monitoring;
+    QHash<quint32, QSharedPointer<FadeChannel>> m_channelCache;
+
+    FadeChannel &channelFaderLocked(const Doc *doc, Universe *universe, quint32 fixtureID, quint32 channel);
 };
 
 /** @} */

@@ -47,12 +47,13 @@ VCFrame::VCFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
     , m_isCollapsed(false)
     , m_multiPageMode(false)
     , m_currentPage(0)
+    , m_totalPagesNumber(1)
     , m_pagesLoop(false)
     , m_PIN(0)
     , m_validatedPIN(false)
+    , m_submasterValue(1)
 {
     setType(VCWidget::FrameWidget);
-    setTotalPagesNumber(1);
 
     registerExternalControl(INPUT_NEXT_PAGE_ID, tr("Next Page"), true);
     registerExternalControl(INPUT_PREVIOUS_PAGE_ID, tr("Previous Page"), true);
@@ -75,6 +76,7 @@ void VCFrame::initializeProperties()
     setPagesLoop(false);
     m_PIN = 0;
     m_validatedPIN = false;
+    m_submasterValue = 1;
 }
 
 QString VCFrame::defaultCaption() const
@@ -98,10 +100,16 @@ void VCFrame::render(QQuickView *view, QQuickItem *parent)
     if (component->isError())
     {
         qDebug() << component->errors();
+        delete component;
         return;
     }
 
     m_item = qobject_cast<QQuickItem*>(component->create());
+    if (m_item == nullptr)
+        qWarning() << Q_FUNC_INFO << "Unable to create frame component" << component->errors();
+    delete component;
+    if (m_item == nullptr)
+        return;
 
     m_item->setParentItem(parent);
     m_item->setProperty("frameObj", QVariant::fromValue(this));
@@ -189,7 +197,7 @@ bool VCFrame::copyFrom(const VCWidget *widget)
     return VCWidget::copyFrom(widget);
 }
 
-bool VCFrame::hasChildren()
+bool VCFrame::hasChildren() const
 {
     return !m_pagesMap.isEmpty();
 }
@@ -317,7 +325,7 @@ VCWidget *VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         break;
         case AudioTriggersWidget:
         {
-            VCAudioTriggers *audioTrigger = new VCAudioTriggers(m_doc, this);
+            VCAudioTriggers *audioTrigger = new VCAudioTriggers(m_doc, m_vc, this);
             QQmlEngine::setObjectOwnership(audioTrigger, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(audioTrigger);
             Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
@@ -465,6 +473,10 @@ void VCFrame::addWidgetsFromClipboard(QQuickItem *parent, QVariantList idsList, 
         if (widget == nullptr)
             continue;
 
+        // do not allow pasting an item into itself
+        if (widget->id() == this->id())
+            continue;
+
         VCWidget *copy = widget->createCopy(this);
         addWidget(parent, copy, currPos);
 
@@ -475,6 +487,10 @@ void VCFrame::addWidgetsFromClipboard(QQuickItem *parent, QVariantList idsList, 
             currPos.setY(currPos.y() + copy->geometry().height());
         }
     }
+
+    // if this was a cut operation, remove the source widgets
+    // and reset the clipboard
+    m_vc->flushClipboardAfterPaste(this->id());
 }
 
 void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos, int keyModifiers)
@@ -597,6 +613,13 @@ void VCFrame::setupWidget(VCWidget *widget, int page)
         widget->setupLookAndFeel(m_vc->pixelDensity(), page);
 
     addWidgetToPageMap(widget);
+
+    if (widget->type() != VCWidget::SliderWidget ||
+            qobject_cast<VCSlider *>(widget)->sliderMode() != VCSlider::SliderMode::Submaster)
+    {
+        widget->adjustIntensity(m_submasterValue * intensity());
+    }
+
     checkSubmasterConnection(widget);
 }
 
@@ -609,6 +632,12 @@ void VCFrame::checkSubmasterConnection(VCWidget *widget)
         // always connect a slider in case it emits a submaster signal
         connect(slider, SIGNAL(submasterValueChanged(qreal)),
                 this, SLOT(slotSubmasterValueChanged(qreal)));
+
+        if (slider->sliderMode() == VCSlider::SliderMode::Submaster)
+        {
+            qreal value = qreal(slider->value()) / qreal(UCHAR_MAX);
+            applySubmasterValue(value * slider->intensity(), slider);
+        }
     }
 }
 
@@ -737,7 +766,26 @@ void VCFrame::setMultiPageMode(bool multiPageMode)
         return;
 
     m_multiPageMode = multiPageMode;
+
+    // when enabling, make sure the label and shortcut control for the
+    // first page (index 0) exist
+    if (multiPageMode)
+        ensureFirstPage();
+
     emit multiPageModeChanged(multiPageMode);
+    setDocModified();
+}
+
+void VCFrame::ensureFirstPage()
+{
+    if (m_pageLabels.contains(0))
+        return;
+
+    // register the label and shortcut control for the first page (index 0).
+    // Further pages are added on demand by setTotalPagesNumber()
+    m_pageLabels.insert(0, tr("Page 1"));
+    registerExternalControl(INPUT_SHORTCUT_BASE_ID, m_pageLabels.value(0), true);
+    emit pageLabelsChanged();
 }
 
 void VCFrame::setTotalPagesNumber(int num)
@@ -745,9 +793,12 @@ void VCFrame::setTotalPagesNumber(int num)
     if (m_totalPagesNumber == num)
         return;
 
+    // pages rely on the first page (index 0) being registered
+    ensureFirstPage();
+
     if (num < m_totalPagesNumber)
     {
-        for (int i = m_totalPagesNumber - 1; i > num; i--)
+        for (int i = m_totalPagesNumber - 1; i >= num; i--)
         {
             m_pageLabels.remove(i);
             unregisterExternalControl(INPUT_SHORTCUT_BASE_ID + i);
@@ -796,12 +847,10 @@ void VCFrame::setCurrentPage(int pageNum)
         VCWidget *widget = it.key();
         if (page == m_currentPage)
         {
-            widget->setDisabled(false);
             widget->setVisible(true);
         }
         else
         {
-            widget->setDisabled(true);
             widget->setVisible(false);
         }
     }
@@ -827,7 +876,7 @@ bool VCFrame::pagesLoop() const
     return m_pagesLoop;
 }
 
-QStringList VCFrame::pageLabels()
+QStringList VCFrame::pageLabels() const
 {
     return m_pageLabels.values();
 }
@@ -835,6 +884,13 @@ QStringList VCFrame::pageLabels()
 void VCFrame::setShortcutName(int pageIndex, QString name)
 {
     m_pageLabels[pageIndex] = name;
+
+    // Keep the registered external (input/key) control description in sync with
+    // the page name, so a bound input channel shows the current page label.
+    // Re-registering with the same id updates the entry in place; the id is what
+    // input sources reference, so existing bindings are preserved.
+    registerExternalControl(INPUT_SHORTCUT_BASE_ID + pageIndex, name, true);
+
     setDocModified();
 
     emit pageLabelsChanged();
@@ -884,6 +940,8 @@ void VCFrame::cloneFirstPage()
                 VCWidget *newWidget = child->createCopy(this);
                 m_vc->addWidgetToMap(newWidget);
                 newWidget->setPage(pg);
+                newWidget->remapInputSources(pg);
+
                 setupWidget(newWidget, pg);
                 newWidget->render(m_vc->view(), m_item);
             }
@@ -941,16 +999,47 @@ void VCFrame::slotFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensi
  * Submasters
  *********************************************************************/
 
-void VCFrame::slotSubmasterValueChanged(qreal value)
+void VCFrame::adjustIntensity(qreal intensity)
 {
-    qDebug() << Q_FUNC_INFO << "val:" << value;
-    VCSlider *submaster = qobject_cast<VCSlider *>(sender());
+    VCWidget::adjustIntensity(intensity);
+
+    if (isDisabled())
+        return;
+
     QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
         VCWidget* child = it.next();
-        if (child->parent() == this && child != submaster)
-            child->adjustIntensity(value);
+        if (child != nullptr && child->parent() == this)
+        {
+            if (child->type() == WidgetType::SliderWidget)
+            {
+                VCSlider* slider = reinterpret_cast<VCSlider*>(child);
+                if (slider != nullptr && slider->sliderMode() == VCSlider::SliderMode::Submaster)
+                    continue;
+            }
+
+            child->adjustIntensity(m_submasterValue * intensity);
+        }
+    }
+}
+
+void VCFrame::slotSubmasterValueChanged(qreal submasterValue)
+{
+    qDebug() << Q_FUNC_INFO << "val:" << submasterValue;
+    applySubmasterValue(submasterValue, qobject_cast<VCWidget *>(sender()));
+}
+
+void VCFrame::applySubmasterValue(qreal submasterValue, VCWidget *submaster)
+{
+    m_submasterValue = submasterValue;
+
+    QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
+    while (it.hasNext() == true)
+    {
+        VCWidget* child = it.next();
+        if (child != nullptr && child->parent() == this && child != submaster)
+            child->adjustIntensity(submasterValue * intensity());
     }
 }
 
@@ -1122,7 +1211,7 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
     else if (root.name() == KXMLQLCVCAudioTriggers)
     {
         /* Create a new clock into its parent */
-        VCAudioTriggers *audioTrigger = new VCAudioTriggers(m_doc, this);
+        VCAudioTriggers *audioTrigger = new VCAudioTriggers(m_doc, m_vc, this);
         if (audioTrigger->loadXML(root) == false)
             delete audioTrigger;
         else

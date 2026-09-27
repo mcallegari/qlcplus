@@ -80,9 +80,9 @@ var testAlgo;
 
     algo.setLinesSize = function(_size)
     {
-      if (!isNaN(parseInt(_size, 10)) && parseInt(_size, 10) > 0)
-      {
-        algo.linesSize = parseInt(_size, 10);
+      // Only set if the input is valid.
+      if (!(parseInt(_size) === NaN) && parseInt(_size) > 0) {
+        algo.linesSize = parseInt(_size);
         util.initialized = false;
       }
     };
@@ -94,9 +94,9 @@ var testAlgo;
 
     algo.setVariability = function(_var)
     {
-      if (!isNaN(parseInt(_var, 10)) && parseInt(_var, 10) >= 0)
-      {
-        algo.linesVariability = parseInt(_var, 10);
+      // Only set if the input is valid.
+      if (!(parseInt(_var) === NaN) && parseInt(_var) > 0) {
+        algo.linesVariability = _var;
         util.initialized = false;
       }
     };
@@ -690,11 +690,9 @@ var testAlgo;
           } else if (algo.linesBias === 1 || algo.linesBias === 5 || algo.linesBias === 6) {
             // Top bias
             lines[i].yCenter = Math.round(Math.random() * height / 5);
-          } else if (algo.linesBias === 2 || algo.linesBias === 7 || algo.linesBias === 8) {
-            // Bottom bias
+          } else if (algo.linesBias == 2 || algo.linesBias == 7 || algo.linesBias == 8) {
             lines[i].yCenter = (height - 1) - Math.round(Math.random() * height / 5);
           } else {
-            // Random Y
             lines[i].yCenter = Math.round(Math.random() * (height - 1));
           }
 
@@ -709,7 +707,6 @@ var testAlgo;
             // Right bias
             lines[i].xCenter = (width - 1) - Math.round(Math.random() * width / 5);
           } else {
-            // Random X
             lines[i].xCenter = Math.round(Math.random() * (width - 1));
           }
 
@@ -736,19 +733,11 @@ var testAlgo;
               continue;
             }
 
-            // Optimize: Pre-calculate y value to avoid repeated Math.sqrt calls
-            var xSquared = x * x;
-            if (xSquared > radius2) continue; // Skip if outside radius
-            y = Math.sqrt(radius2 - xSquared);
-
-            // Optimize: Inline pixel drawing to reduce function call overhead
-            var cx, cy;
-            if (algo.linesType === 0 || algo.linesType === 2 || algo.linesType === 4 || algo.linesType === 5) {
-              cx = (lines[i].xCenter - x + 0.5) | 0;
-              cy = (lines[i].yCenter + 0.5) | 0;
-              if (cx >= 0 && cx < width && cy >= 0 && cy < height) {
-                util.pixelMap[cy][cx] = color;
-              }
+            if (algo.linesType == 0 || algo.linesType == 2 || algo.linesType == 4 || algo.linesType == 5) {
+              util.drawPixel(lines[i].xCenter - x, lines[i].yCenter, color, width, height);
+            }
+            if (algo.linesType == 0 || algo.linesType == 2 || algo.linesType == 4 || algo.linesType == 6) {
+              util.drawPixel(lines[i].xCenter + x, lines[i].yCenter, color, width, height);
             }
             if (algo.linesType === 0 || algo.linesType === 2 || algo.linesType === 4 || algo.linesType === 6) {
               cx = (lines[i].xCenter + x + 0.5) | 0;
@@ -772,63 +761,33 @@ var testAlgo;
               }
             }
 
-            // Optimize: Inline diagonal pixel drawing
-            if (algo.linesType === 3 || algo.linesType === 4 ||  algo.linesType === 9) {
-              cx = (lines[i].xCenter + x + 0.5) | 0;
-              cy = (lines[i].yCenter - x + 0.5) | 0;
-              if (cx >= 0 && cx < width && cy >= 0 && cy < height) {
-                util.pixelMap[cy][cx] = color;
-              }
+            if (algo.linesType == 3 || algo.linesType == 4 ||  algo.linesType == 9) {
+              util.drawPixel(lines[i].xCenter + x, lines[i].yCenter - x, color, width, height);
             }
-            if (algo.linesType === 3 || algo.linesType === 4 || algo.linesType === 10) {
-              cx = (lines[i].xCenter - x + 0.5) | 0;
-              cy = (lines[i].yCenter - x + 0.5) | 0;
-              if (cx >= 0 && cx < width && cy >= 0 && cy < height) {
-                util.pixelMap[cy][cx] = color;
-              }
+            if (algo.linesType == 3 || algo.linesType == 4 || algo.linesType == 10) {
+              util.drawPixel(lines[i].xCenter - x, lines[i].yCenter - x, color, width, height);
             }
-            if (algo.linesType === 3 || algo.linesType === 4 || algo.linesType === 11) {
-              cx = (lines[i].xCenter + x + 0.5) | 0;
-              cy = (lines[i].yCenter + x + 0.5) | 0;
-              if (cx >= 0 && cx < width && cy >= 0 && cy < height) {
-                util.pixelMap[cy][cx] = color;
-              }
+            if (algo.linesType == 3 || algo.linesType == 4 || algo.linesType == 11) {
+              util.drawPixel(lines[i].xCenter + x, lines[i].yCenter + x, color, width, height);
             }
-            if (algo.linesType === 3 || algo.linesType === 4 || algo.linesType === 12) {
-              cx = (lines[i].xCenter - x + 0.5) | 0;
-              cy = (lines[i].yCenter + x + 0.5) | 0;
-              if (cx >= 0 && cx < width && cy >= 0 && cy < height) {
-                util.pixelMap[cy][cx] = color;
-              }
+            if (algo.linesType == 3 || algo.linesType == 4 || algo.linesType == 12) {
+              util.drawPixel(lines[i].xCenter - x, lines[i].yCenter + x, color, width, height);
             }
           }
         }
 
-        if (algo.linesSizeBehavior !== 2)
-        {
-          lines[i].step++;
-        }
+        lines[i].step++;
+        if (algo.linesSlide > 0) {
+          if ( algo.linesSlide == 1 ) { lines[i].yCenter-- ;}
+          else if ( algo.linesSlide == 2 ) { lines[i].yCenter++ ;}
+          else if ( algo.linesSlide == 3 ) { lines[i].xCenter-- ;}
+          else if ( algo.linesSlide == 4 ) { lines[i].xCenter++ ;}
 
-        if (algo.linesSlide > 0)
-        {
-          lines[i].movementCounter += lines[i].movementSpeed;
-
-          while (lines[i].movementCounter >= 1.0)
-          {
-            if (algo.linesSlide === 1) { lines[i].yCenter--; }
-            else if (algo.linesSlide === 2) { lines[i].yCenter++; }
-            else if (algo.linesSlide === 3) { lines[i].xCenter--; }
-            else if (algo.linesSlide === 4) { lines[i].xCenter++; }
-
-            lines[i].movementCounter -= 1.0;
-          }
-
-          if (algo.linesRollover === 1)
-          {
-            if (lines[i].xCenter < 0) { lines[i].xCenter = width - 1; }
-            if (lines[i].yCenter < 0) { lines[i].yCenter = height - 1; }
-            if (lines[i].xCenter >= width) { lines[i].xCenter = 0; }
-            if (lines[i].yCenter >= height) { lines[i].yCenter = 0; }
+          if ( algo.linesRollover == 1 ) {
+            if ( lines[i].xCenter == 0 ) { lines[i].xCenter = width; }
+            if ( lines[i].yCenter == 0 ) { lines[i].yCenter = height; }
+            if ( lines[i].xCenter >= width ) { lines[i].xCenter = 0; }
+            if ( lines[i].yCenter >= height) { lines[i].yCenter = 0; }
           }
         }
 

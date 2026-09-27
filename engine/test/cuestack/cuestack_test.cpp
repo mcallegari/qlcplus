@@ -611,7 +611,7 @@ void CueStack_Test::flash()
     QCOMPARE(cs.isFlashing(), true);
     cs.writeDMX(m_doc->masterTimer(), ua);
     QVERIFY(cs.m_fadersMap.count() == 1);
-    universe->processFaders();
+    universe->processFaders(MasterTimer::tick());
     QCOMPARE(universe->preGMValues()[0], (char) 255);
     QCOMPARE(universe->preGMValues()[128], (char) 42);
 
@@ -621,7 +621,7 @@ void CueStack_Test::flash()
 
     cs.writeDMX(m_doc->masterTimer(), ua);
     QCOMPARE(m_doc->masterTimer()->m_dmxSourceList.size(), 0);
-    universe->processFaders();
+    universe->processFaders(MasterTimer::tick());
     QCOMPARE(universe->preGMValues()[0], (char) 0);
     QCOMPARE(universe->preGMValues()[128], (char) 0);
     QVERIFY(cs.m_fadersMap.count() == 0);
@@ -793,7 +793,7 @@ void CueStack_Test::switchCue()
     QCOMPARE(fader->channels().size(), 7);
 
     //Universe *universe = ua[0];
-    //universe->processFaders();
+    //universe->processFaders(MasterTimer::tick());
 
     chHash = GenericFader::channelHash(Fixture::invalidId(), 0);
     QCOMPARE(fader->channels()[chHash].start(), uchar(127));

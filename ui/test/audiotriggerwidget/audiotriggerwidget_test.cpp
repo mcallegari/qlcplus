@@ -26,8 +26,8 @@ void AudioTriggerWidget_Test::display()
     double data[2] = { 1.0, 2.0 };
     w.displaySpectrum(data, 2.0, 0x7FFF);
     QCOMPARE(w.m_volumeBarHeight, quint32(200));
-    QCOMPARE(uchar(w.getUcharVolume()), uchar(254));
-    QCOMPARE(uchar(w.getUcharBand(1)), uchar(254));
+    QCOMPARE(uchar(w.getUcharVolume()), uchar(255));
+    QCOMPARE(uchar(w.getUcharBand(1)), uchar(255));
 }
 
 QTEST_MAIN(AudioTriggerWidget_Test)

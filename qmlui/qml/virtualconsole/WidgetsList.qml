@@ -69,6 +69,20 @@ Rectangle
                     drag.target: widgetItem
                     drag.threshold: height / 2
 
+                    // While dragging, keep the reduced icon centered on the
+                    // mouse/finger. drag.target moves the item by its top-left,
+                    // which would otherwise leave the icon offset from the cursor
+                    // by the grab point within the (full width) list row.
+                    onPositionChanged: (mouse) =>
+                    {
+                        if (!widgetItem.reduced)
+                            return
+                        // mouse.x/y are in this MouseArea's coordinates, which is
+                        // also widgetItem's parent, so use them directly
+                        widgetItem.x = mouse.x - widgetItem.width / 2
+                        widgetItem.y = mouse.y - widgetItem.height / 2
+                    }
+
                     onReleased:
                     {
                         if (widgetItem.Drag.target !== null)
@@ -95,7 +109,9 @@ Rectangle
 
                         Drag.active: delegateRoot.drag.active
                         Drag.source: widgetItem
-                        Drag.hotSpot.x: height / 2
+                        // when dragging, the item is reduced to the icon square,
+                        // so center that square (its full size) on the cursor
+                        Drag.hotSpot.x: width / 2
                         Drag.hotSpot.y: height / 2
                         Drag.keys: [ "vcwidget" ]
 

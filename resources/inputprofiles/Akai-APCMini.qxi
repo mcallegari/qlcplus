@@ -312,11 +312,11 @@
  </Channel>
  <Channel Number="194">
   <Name>Left Button</Name>
-  <Type>Button</Type>
+  <Type>Previous Page</Type>
  </Channel>
  <Channel Number="195">
   <Name>Right Button</Name>
-  <Type>Button</Type>
+  <Type>Next Page</Type>
  </Channel>
  <Channel Number="196">
   <Name>Volume Button</Name>

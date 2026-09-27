@@ -125,6 +125,9 @@ public:
     /** Return true if this widget supports presets */
     virtual bool supportsPresets() const;
 
+    /** Remap this widget's channels using the provided $remapMap */
+    virtual void remapChannels(const QMap<SceneValue, SceneValue> &remapMap);
+
     /** Return a QML resource for preset properties */
     virtual QString presetsResource() const;
 
@@ -277,7 +280,7 @@ protected:
      * Visibility state
      *********************************************************************/
 public:
-    void setVisible(bool isVisible);
+    virtual void setVisible(bool isVisible);
 
     bool isVisible() const;
 signals:
@@ -533,6 +536,11 @@ public:
     /** Update an existing input source with the provided $universe and $channel */
     bool updateInputSource(const QSharedPointer<QLCInputSource> &source, quint32 universe, quint32 channel);
 
+    /** Look up the input profile channel matching $source's universe/channel and, if found,
+     *  populate the source's feedback extra params, feedback values, working mode and
+     *  signal connections accordingly. */
+    void applyInputProfileSettings(QSharedPointer<QLCInputSource> const& source);
+
     /** Update the control ID of an existing input source bound to $universe and $channel */
     Q_INVOKABLE bool updateInputSourceControlID(quint32 universe, quint32 channel, quint32 id);
 
@@ -545,6 +553,14 @@ public:
                                                   int lower, int upper, int monitor);
     /** Delete an existing input source from this widget */
     void deleteInputSurce(quint32 id, quint32 universe, quint32 channel);
+
+    /** Delete all existing input source from this widget */
+    void deleteAllInputSources();
+
+    /** Remap all the input sources of this widget to the given page number.
+     *  Used when cloning widgets to the additional pages of a multipage
+     *  frame, so that each cloned widget responds to input only on its page */
+    void remapInputSources(int pgNum);
 
     /** Return a list of references to the input sources currently
      *  added to this widget */
@@ -576,6 +592,9 @@ public:
 
     /** Delete an existing key sequence from this widget */
     void deleteKeySequence(const QKeySequence& keySequence);
+
+    /** Delete all existing key sequences from this widget */
+    void deleteAllKeySequences();
 
     /** Update an existing key sequence with the specified $id */
     void updateKeySequence(QKeySequence oldSequence, QKeySequence newSequence, const quint32 id = 0);

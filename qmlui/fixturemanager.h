@@ -28,12 +28,12 @@
 #include <QDir>
 
 #include "scenevalue.h"
+#include "treemodelitem.h"
 #include "colorfilters.h"
 
 class Doc;
 class Fixture;
 class TreeModel;
-class TreeModelItem;
 class FixtureGroup;
 class MonitorProperties;
 
@@ -186,6 +186,9 @@ public:
     bool propertyEditEnabled();
     void setPropertyEditEnabled(bool enable);
 
+    /** Enable/Disable applying edits to fixtures of the same type and mode */
+    Q_INVOKABLE void applyToSameType(bool enable);
+
     Q_INVOKABLE void setItemRoleData(int itemID, int index, QString role, QVariant value);
 
     void setItemRoleData(int itemID, QVariant value, int role);
@@ -259,7 +262,7 @@ public slots:
 
 private:
     /** Comparison method to sort a Fixture list by DMX address */
-    static bool compareFixtures(Fixture *left, Fixture *right);
+    static bool compareFixtures(const Fixture *left, const Fixture *right);
 
 private:
     /** List of the current Fixture references in Doc */
@@ -268,6 +271,10 @@ private:
     TreeModel *m_fixtureTree;
     /** Current flags being used for filling the tree data */
     int m_treeShowFlags;
+    /** Flag to apply property edits to fixtures of the same type and mode */
+    bool m_applyToSameType;
+    /** Guard flag to avoid recursive propagation while batch-applying edits */
+    bool m_isUpdating;
 
     /*********************************************************************
      * Fixture groups
@@ -532,6 +539,9 @@ public:
 
     /** Assign the currently selected channel modifier to the given fixture's channel */
     Q_INVOKABLE void setChannelModifier(quint32 itemID, quint32 channelIndex);
+
+    /** Assign a channel modifier by name to the given fixture's channel */
+    void setChannelModifierByName(quint32 fixtureID, quint32 channelIndex, const QString &modifierName);
 
     /** Save a channel modifier template with the provided name and values.
      *  Returns true on success, false on error. */

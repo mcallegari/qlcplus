@@ -152,10 +152,16 @@ void VCSlider::render(QQuickView *view, QQuickItem *parent)
     if (component->isError())
     {
         qDebug() << component->errors();
+        delete component;
         return;
     }
 
     m_item = qobject_cast<QQuickItem*>(component->create());
+    if (m_item == nullptr)
+        qWarning() << Q_FUNC_INFO << "Unable to create slider component" << component->errors();
+    delete component;
+    if (m_item == nullptr)
+        return;
 
     m_item->setParentItem(parent);
     m_item->setProperty("sliderObj", QVariant::fromValue(this));
@@ -178,6 +184,21 @@ VCWidget* VCSlider::createCopy(VCWidget* parent) const
     }
 
     return slider;
+}
+
+void VCSlider::remapChannels(const QMap<SceneValue, SceneValue> &remapMap)
+{
+    QList<SceneValue> newChannels;
+
+    for (const SceneValue &val : m_levelChannels)
+    {
+        SceneValue key(val.fxi, val.channel);
+        if (remapMap.contains(key))
+            newChannels.append(remapMap.value(key));
+    }
+
+    m_levelChannels = newChannels;
+    emit channelsCountChanged();
 }
 
 bool VCSlider::copyFrom(const VCWidget *widget)
@@ -269,7 +290,12 @@ void VCSlider::setSliderMode(SliderMode mode)
     switch (mode)
     {
         case Level:
+            setValue(0);
+            m_doc->masterTimer()->registerDMXSource(this);
+        break;
         case Adjust:
+            // channels monitoring is a Level mode only feature
+            setMonitorEnabled(false);
             setValue(0);
             m_doc->masterTimer()->registerDMXSource(this);
         break;
@@ -324,6 +350,8 @@ void VCSlider::setWidgetStyle(SliderWidgetStyle mode)
 {
     if (mode == m_widgetMode)
         return;
+
+    Tardis::instance()->enqueueAction(Tardis::VCSliderSetWidgetStyle, id(), m_widgetMode, mode);
 
     m_widgetMode = mode;
     emit widgetStyleChanged(mode);
@@ -494,7 +522,7 @@ qreal VCSlider::rangeLowLimit() const
 
 void VCSlider::setRangeHighLimit(qreal value)
 {
-    if (value == m_rangeLowLimit)
+    if (value == m_rangeHighLimit)
         return;
 
     Tardis::instance()->enqueueAction(Tardis::VCSliderSetHighLimit, id(), m_rangeHighLimit, value);
@@ -517,6 +545,13 @@ void VCSlider::setMonitorEnabled(bool enable)
         return;
 
     m_monitorEnabled = enable;
+
+    // overriding is meaningful only while monitoring
+    if (enable == false && m_isOverriding)
+    {
+        m_isOverriding = false;
+        emit isOverridingChanged();
+    }
 
     emit monitorEnabledChanged();
 }
@@ -917,10 +952,19 @@ void VCSlider::setControlledFunction(quint32 fid)
     if (m_controlledFunctionId == fid)
         return;
 
+    /* Attaching a function is meaningful only in Adjust mode, so switch
+     * to it right away. Note this is done only when a valid function is
+     * provided, to avoid recursion when Submaster/GrandMaster modes
+     * detach the current function */
+    if (m_doc->function(fid) != nullptr && sliderMode() != Adjust)
+        setSliderMode(Adjust);
+
     Function *current = m_doc->function(m_controlledFunctionId);
     if (current != nullptr)
     {
         /* Get rid of old function connections */
+        disconnect(current, SIGNAL(running(quint32)),
+                this, SLOT(slotControlledFunctionRunning(quint32)));
         disconnect(current, SIGNAL(stopped(quint32)),
                 this, SLOT(slotControlledFunctionStopped(quint32)));
         disconnect(current, SIGNAL(attributeChanged(int,qreal)),
@@ -937,6 +981,8 @@ void VCSlider::setControlledFunction(quint32 fid)
     if (function != nullptr)
     {
         /* Connect to the new function */
+        connect(function, SIGNAL(running(quint32)),
+                this, SLOT(slotControlledFunctionRunning(quint32)));
         connect(function, SIGNAL(stopped(quint32)),
                 this, SLOT(slotControlledFunctionStopped(quint32)));
         connect(function, SIGNAL(attributeChanged(int,qreal)),
@@ -994,7 +1040,14 @@ void VCSlider::slotControlledFunctionAttributeChanged(int attrIndex, qreal fract
     qreal newValue = fraction;
 
     if (attrIndex == Function::Intensity)
-        newValue = qRound(attributeValueToSliderValue(fraction / intensity()));
+    {
+        const qreal widgetIntensity = intensity();
+        if (widgetIntensity <= 0.0)
+            return;
+
+        const qreal normalizedValue = CLAMP(fraction / widgetIntensity, qreal(0.0), qreal(1.0));
+        newValue = qRound(attributeValueToSliderValue(normalizedValue));
+    }
 
     qDebug() << "Function attribute" << m_controlledAttributeIndex << "changed" << fraction << "->" << newValue;
 
@@ -1012,6 +1065,17 @@ void VCSlider::slotControlledFunctionStopped(quint32 fid)
         function->releaseAttributeOverride(m_controlledAttributeId);
         m_controlledAttributeId = Function::invalidAttributeId();
     }
+}
+
+void VCSlider::slotControlledFunctionRunning(quint32 fid)
+{
+    if (fid != controlledFunction())
+        return;
+
+    // When the controlled function starts (externally or otherwise), immediately
+    // apply the override attribute at the current slider value so the function
+    // honours the slider position from the very first tick.
+    m_adjustChangeCounter++;
 }
 
 int VCSlider::controlledAttribute() const
@@ -1033,6 +1097,13 @@ void VCSlider::setControlledAttribute(int attributeIndex)
 
     Tardis::instance()->enqueueAction(Tardis::VCSliderSetControlledAttribute, id(), m_controlledAttributeIndex, attributeIndex);
 
+    // check if the current range is at defaults
+    const qreal oldAttributeMin = m_attributeMinValue;
+    const qreal oldAttributeMax = m_attributeMaxValue;
+    const bool hadFullAttributeRange =
+            qFuzzyCompare(m_rangeLowLimit + 1.0, oldAttributeMin + 1.0) &&
+            qFuzzyCompare(m_rangeHighLimit + 1.0, oldAttributeMax + 1.0);
+
     m_controlledAttributeIndex = attributeIndex;
     qreal newValue = 0;
 
@@ -1049,8 +1120,16 @@ void VCSlider::setControlledAttribute(int attributeIndex)
         newValue = function->getAttributeValue(m_controlledAttributeIndex);
     }
 
-    setRangeLowLimit(qMax(m_attributeMinValue, rangeLowLimit()));
-    setRangeHighLimit(qMin(m_attributeMaxValue, rangeHighLimit()));
+    qreal newRangeLow = m_attributeMinValue;
+    qreal newRangeHigh = m_attributeMaxValue;
+    if (!hadFullAttributeRange)
+    {
+        newRangeLow = qBound(m_attributeMinValue, m_rangeLowLimit, m_attributeMaxValue);
+        newRangeHigh = qBound(m_attributeMinValue, m_rangeHighLimit, m_attributeMaxValue);
+    }
+
+    setRangeLowLimit(newRangeLow);
+    setRangeHighLimit(newRangeHigh);
 
     emit controlledAttributeChanged(attributeIndex);
     emit attributeMinValueChanged();
@@ -1099,6 +1178,8 @@ void VCSlider::flashFunction(bool on)
     }
 
     adjustFunctionAttribute(function, on ? 1.0 : m_adjustFlashPreviousValue);
+
+    Tardis::instance()->enqueueAction(Tardis::VCSliderButtonPress, id(), !on, on);
 }
 
 QStringList VCSlider::availableAttributes() const
@@ -1387,7 +1468,7 @@ void VCSlider::writeDMXAdjust(MasterTimer* timer, QList<Universe *> ua)
 
 void VCSlider::updateFeedback()
 {
-    int fbv = invertedAppearance() ? rangeHighLimit() - m_value : m_value;
+    int fbv = invertedAppearance() ? rangeHighLimit() - m_value + rangeLowLimit() : m_value;
     fbv = int(SCALE(float(fbv), float(rangeLowLimit()),
                     float(rangeHighLimit()), float(0), float(UCHAR_MAX)));
 
@@ -1429,6 +1510,31 @@ void VCSlider::slotInputValueChanged(quint8 id, uchar value)
             flashFunction(value ? true : false);
         break;
     }
+}
+
+void VCSlider::setDisabled(bool disable)
+{
+    // While disabled (e.g. when the containing frame is disabled) input
+    // events are not delivered to this slider, so the cached last input
+    // value gets stale. Reset it so that, once re-enabled, the value
+    // catching feature treats the next external input as a fresh catch
+    // and re-syncs to the controller's current position.
+    if (disable)
+        m_lastInputValue = -1;
+
+    VCWidget::setDisabled(disable);
+}
+
+void VCSlider::setVisible(bool isVisible)
+{
+    // Same rationale as setDisabled(): while not visible (e.g. when on a
+    // non-current page of a multipage frame) input events are not delivered,
+    // so reset the cached last input value to re-sync the value catching
+    // feature to the controller once this slider becomes visible again.
+    if (isVisible == false)
+        m_lastInputValue = -1;
+
+    VCWidget::setVisible(isVisible);
 }
 
 /*********************************************************************

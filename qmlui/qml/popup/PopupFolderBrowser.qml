@@ -96,14 +96,24 @@ CustomPopupDialog
                 Layout.fillWidth: true
                 height: UISettings.listItemHeight * 8
 
+                handle: Rectangle
+                {
+                    implicitWidth: screenPixelDensity * UISettings.scalingFactor * 0.9
+                    color: SplitHandle.hovered || SplitHandle.pressed ? UISettings.highlight : UISettings.bgLighter
+                }
+
                 // List of drives/home
                 ListView
                 {
                     id: drivesList
                     SplitView.preferredWidth: popupRoot.width / 3
                     implicitHeight: UISettings.listItemHeight * 8
+                    boundsBehavior: Flickable.StopAtBounds
+                    clip: true
 
                     model: folderBrowser.drivesModel
+
+                    ScrollBar.vertical: CustomScrollBar { }
 
                     property int selectedIndex: -1
 
@@ -154,6 +164,8 @@ CustomPopupDialog
                     clip: true
 
                     model: folderBrowser.folderModel
+
+                    ScrollBar.vertical: CustomScrollBar { }
 
                     property int selectedIndex: -1
 
@@ -232,6 +244,8 @@ CustomPopupDialog
                     selectByMouse: true
                     selectionColor: UISettings.highlightPressed
                     selectedTextColor: UISettings.fgMain
+
+                    onAccepted: popupRoot.accept()
                 }
             }
 

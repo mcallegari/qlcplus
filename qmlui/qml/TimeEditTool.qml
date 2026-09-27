@@ -178,7 +178,7 @@ GridLayout
         fontSize: btnFontSize
         label: qsTr("Tap")
 
-        onClicked:
+        onClicked: (mouseButton) =>
         {
             /* right click resets the current TAP time */
                 if (mouseButton === Qt.RightButton)
@@ -191,15 +191,15 @@ GridLayout
                 else
                 {
                     var currTime = new Date().getTime()
-                    
+
                     if (lastTap != 0 && currTime - lastTap < 1500)
                     {
                         var newTime = currTime - lastTap
-                        
+
                         tapHistory.push(newTime)
 
                         tapTimeValue = TimeUtils.calculateBPMByTapIntervals(tapHistory)
-                        
+
                         updateTime(tapTimeValue, "")
                         tapTimer.interval = timeValue
                         tapTimer.restart()

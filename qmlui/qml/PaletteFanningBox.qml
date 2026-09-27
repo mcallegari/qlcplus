@@ -33,10 +33,22 @@ Item
     property alias checked: fanningButton.checked
     property alias isPicking: colorPicker.checked
     property bool isEditing: false
-    property QLCPalette palette: null
+    property QLCPalette editingPalette: null
     property int paletteType: QLCPalette.Undefined
 
     signal positionTypeChanged()
+
+    Component.onCompleted:
+    {
+        if (!isEditing && visible && paletteType !== QLCPalette.Undefined)
+            editingPalette = paletteManager.getEditingPalette(paletteType)
+    }
+
+    onPaletteTypeChanged:
+    {
+        if (!isEditing && visible && paletteType !== QLCPalette.Undefined)
+            editingPalette = paletteManager.getEditingPalette(paletteType)
+    }
 
     onVisibleChanged:
     {
@@ -44,81 +56,81 @@ Item
             return
 
         if (visible)
-            palette = paletteManager.getEditingPalette(paletteType)
+            editingPalette = paletteManager.getEditingPalette(paletteType)
     }
 
     Component.onDestruction:
     {
         paletteManager.releaseEditingPalette(paletteType)
-        palette = null
+        editingPalette = null
     }
 
     function updateValue(value)
     {
-        paletteManager.updatePalette(palette, value)
+        paletteManager.updatePalette(editingPalette, value)
     }
 
     function updateValues(val1, val2)
     {
-        paletteManager.updatePalette(palette, val1, val2)
+        paletteManager.updatePalette(editingPalette, val1, val2)
     }
 
     function updatePreview()
     {
-        paletteManager.previewPalette(palette)
+        paletteManager.previewPalette(editingPalette)
     }
 
     function editPalette(ePalette)
     {
         isEditing = true
-        palette = ePalette
+        editingPalette = ePalette
 
-        if (palette.fanningType == QLCPalette.Flat)
+        if (editingPalette.fanningType == QLCPalette.Flat)
             return
 
-        switch (palette.type)
+        switch (editingPalette.type)
         {
             case QLCPalette.Pan:
                 panCheck.checked = true
                 tiltCheck.checked = false
-                valueSpin.value = palette.fanningValue
+                valueSpin.value = editingPalette.fanningValue
             break
             case QLCPalette.Tilt:
                 panCheck.checked = false
                 tiltCheck.checked = true
-                valueSpin.value = palette.fanningValue
+                valueSpin.value = editingPalette.fanningValue
             break
             case QLCPalette.PanTilt:
                 panCheck.checked = true
                 tiltCheck.checked = true
-                valueSpin.value = palette.fanningValue
+                valueSpin.value = editingPalette.fanningValue
             break
             case QLCPalette.Dimmer:
-                valueSpin.value = palette.fanningValue
+                valueSpin.value = editingPalette.fanningValue
             break
             case QLCPalette.Color:
-                colorPreview.color = palette.fanningValue
+                colorPreview.color = editingPalette.fanningValue
             break
         }
     }
 
     function showPalettePopup()
     {
-        palettePopup.paletteObj = palette
+        palettePopup.paletteObj = editingPalette
         palettePopup.open()
         palettePopup.focusEditItem()
     }
 
     function setName(paletteName)
     {
-        if (palette)
-            palette.name = paletteName
+        if (editingPalette)
+            editingPalette.name = paletteName
     }
 
     function setColor(color)
     {
         colorPreview.color = color
-        palette.fanningValue = color
+        editingPalette.fanningValue = color
     }
 
     PopupCreatePalette
@@ -139,6 +151,7 @@ Item
             IconButton
             {
                 id: fanningButton
+                visible: boxRoot.paletteType !== QLCPalette.Shutter
                 width: UISettings.iconSizeMedium
                 height: width
                 imgSource: "qrc:/fanning.svg"
@@ -196,12 +209,12 @@ Item
                         { mLabel: qsTr("Sine"), mIcon: "qrc:/algo-sine.svg", mValue: QLCPalette.Sine }
                     ]
 
-                    currValue: boxRoot.palette ? boxRoot.palette.fanningType : QLCPalette.Flat
+                    currValue: boxRoot.editingPalette ? boxRoot.editingPalette.fanningType : QLCPalette.Flat
                     onValueChanged: (value) =>
                     {
-                        if (boxRoot.palette)
+                        if (boxRoot.editingPalette)
                         {
-                            boxRoot.palette.fanningType = value
+                            boxRoot.editingPalette.fanningType = value
                             boxRoot.updatePreview()
                         }
                     }
@@ -242,12 +255,12 @@ Item
                         { mLabel: qsTr("Z Centered"), mIcon: "qrc:/layout-zcenter.svg", mValue: QLCPalette.ZCentered }
                     ]
 
-                    currValue: boxRoot.palette ? boxRoot.palette.fanningLayout : QLCPalette.XAscending
+                    currValue: boxRoot.editingPalette ? boxRoot.editingPalette.fanningLayout : QLCPalette.XAscending
                     onValueChanged:
                     {
-                        if (boxRoot.palette)
+                        if (boxRoot.editingPalette)
                         {
-                            boxRoot.palette.fanningLayout = value
+                            boxRoot.editingPalette.fanningLayout = value
                             boxRoot.updatePreview()
                         }
                     }
@@ -270,13 +283,13 @@ Item
             {
                 from: 0
                 to: 1000
-                value: boxRoot.palette ? boxRoot.palette.fanningAmount : 100
+                value: boxRoot.editingPalette ? boxRoot.editingPalette.fanningAmount : 100
                 suffix: "%"
                 onValueChanged:
                 {
-                    if (boxRoot.palette)
+                    if (boxRoot.editingPalette)
                     {
-                        boxRoot.palette.fanningAmount = value
+                        boxRoot.editingPalette.fanningAmount = value
                         boxRoot.updatePreview()
                     }
                 }
@@ -305,7 +318,7 @@ Item
                             boxRoot.paletteType = QLCPalette.Tilt
 
                         if (isEditing == false)
-                            boxRoot.palette = paletteManager.getEditingPalette(boxRoot.paletteType)
+                            boxRoot.editingPalette = paletteManager.getEditingPalette(boxRoot.paletteType)
 
                         boxRoot.positionTypeChanged()
 
@@ -331,7 +344,7 @@ Item
                             boxRoot.paletteType = QLCPalette.Pan
 
                         if (isEditing == false)
-                            boxRoot.palette = paletteManager.getEditingPalette(boxRoot.paletteType)
+                            boxRoot.editingPalette = paletteManager.getEditingPalette(boxRoot.paletteType)
 
                         boxRoot.positionTypeChanged()
 
@@ -398,9 +411,9 @@ Item
                 suffix: suffixFromType()
                 onValueChanged:
                 {
-                    if (boxRoot.palette)
+                    if (boxRoot.editingPalette)
                     {
-                        boxRoot.palette.fanningValue = value
+                        boxRoot.editingPalette.fanningValue = value
                         boxRoot.updatePreview()
                     }
                 }

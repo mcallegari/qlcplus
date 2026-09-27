@@ -26,6 +26,7 @@
 #include <QByteArray>
 #include <QThread>
 #include <QSet>
+#include <atomic>
 
 #include "inputpatch.h"
 #include "qlcchannel.h"
@@ -58,6 +59,7 @@ class Doc;
 
 #define KXMLQLCUniversePlugin           QStringLiteral("Plugin")
 #define KXMLQLCUniverseLine             QStringLiteral("Line")
+#define KXMLQLCUniverseLineName         QStringLiteral("Name")
 #define KXMLQLCUniverseLineUID          QStringLiteral("UID")
 #define KXMLQLCUniverseProfileName      QStringLiteral("Profile")
 #define KXMLQLCUniversePluginParameters QStringLiteral("PluginParameters")
@@ -120,17 +122,17 @@ public:
     /**
      * Returns the number of channels used in this universe
      */
-    ushort usedChannels();
+    ushort usedChannels() const;
 
     /**
      * Returns the total number of channels in this universe
      */
-    ushort totalChannels();
+    ushort totalChannels() const;
 
     /**
      * Returns if the universe has changed since the last MasterTimer tick
      */
-    bool hasChanged();
+    bool hasChanged() const;
 
     /**
      * Enable or disable the passthrough mode for this universe
@@ -196,7 +198,7 @@ protected:
 public:
     /** Returns true if this universe is patched with an input, output OR feedback
      *  otherwise returns false */
-    bool isPatched();
+    bool isPatched() const;
 
     /** Sets an input patch for this Universe, and connect to it to receive signals */
     bool setInputPatch(QLCIOPlugin *plugin, quint32 input,
@@ -230,7 +232,7 @@ public:
      * Get the reference to the feedback plugin associated to this universe.
      * If not present NULL is returned.
      */
-    OutputPatch *feedbackPatch() const;
+    Q_INVOKABLE OutputPatch *feedbackPatch() const;
 
     /**
      * This is the actual function that writes data to an output patch
@@ -293,7 +295,7 @@ public:
      *
      * @param channel The channel absolute index in the universe
      */
-    uchar channelCapabilities(ushort channel);
+    uchar channelCapabilities(ushort channel) const;
 
     /**
      * Set the default value of a DMX channel to be considered on reset
@@ -363,7 +365,7 @@ public slots:
     void tick();
 
 protected:
-    void processFaders();
+    void processFaders(uint elapsedMs);
 
     /** DMX writer thread worker method */
     void run() override;
@@ -375,7 +377,7 @@ protected:
     QSemaphore m_semaphore;
 
     /** Indicated if the DMX writer worker thread is running */
-    bool m_running;
+    std::atomic<bool> m_running;
 
     /** IMPORTANT: this is the list of faders that will compose
      *  the Universe values. The order is very important ! */
@@ -615,7 +617,9 @@ public:
      */
     void savePatchXML(QXmlStreamWriter *doc,
         QString const & tag,
-        QString const & pluginName, const QString &lineName,
+        QString const & pluginName,
+        const QString &lineName,
+        const QString &lineUID,
         quint32 line,
         QString profileName,
         QMap<QString, QVariant>parameters) const;
