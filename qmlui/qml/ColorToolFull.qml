@@ -73,58 +73,14 @@ Rectangle
         return Qt.rgba(r, g, b, 1.0)
     }
 
-    // Crosshair tracking
-    property real clickedX: 0
-    property real clickedY: 0
-    property bool settingFromRGB: false
-
     property int slHandleSize: UISettings.listItemHeight * 0.8
 
     signal toolColorChanged(real r, real g, real b, real w, real a, real uv)
     signal released()
 
-    // Helper function to convert RGB to canvas position
-    function rgbToCanvasPos(r, g, b) {
-        var max = Math.max(r, g, b)
-        var min = Math.min(r, g, b)
-        var h = 0
-        var l = (max + min) / 2
-
-        if (max === min) {
-            h = 0
-        } else {
-            var d = max - min
-            if (max === r) {
-                h = (g - b) / d
-                if (g < b) h += 6
-            } else if (max === g) {
-                h = (b - r) / d + 2
-            } else {
-                h = (r - g) / d + 4
-            }
-        }
-
-        var xPos = (h / 6) * 255
-        var yPos = l * 255
-        return { x: xPos, y: yPos }
-    }
-
-    function updateCrosshairFromRGB() {
-        if (!settingFromRGB) {
-            var pos = rgbToCanvasPos(currentRGB.r, currentRGB.g, currentRGB.b)
-            clickedX = Math.max(0, Math.min(255, pos.x))
-            clickedY = Math.max(0, Math.min(255, pos.y))
-        }
-    }
-
     onCurrentRGBChanged:
     {
         htmlText.text = Helpers.getHTMLColor(currentRGB.r * 255, currentRGB.g * 255, currentRGB.b * 255)
-        updateCrosshairFromRGB()
-    }
-
-    Component.onCompleted: {
-        updateCrosshairFromRGB()
     }
 
     Canvas
@@ -209,63 +165,9 @@ Rectangle
                 toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b, currentWAUV.r, currentWAUV.g, currentWAUV.b)
             }
 
-            onPressed: (mouse) => {
-                setPickedColor(mouse)
-                clickedX = mouse.x / colorBox.scale
-                clickedY = mouse.y / colorBox.scale
-            }
-            onPositionChanged: (mouse) => {
-                setPickedColor(mouse)
-                clickedX = mouse.x / colorBox.scale
-                clickedY = mouse.y / colorBox.scale
-            }
+            onPressed: (mouse) => setPickedColor(mouse)
+            onPositionChanged: (mouse) => setPickedColor(mouse)
             onReleased: rootBox.released()
-        }
-
-        // Crosshair markers
-        Item
-        {
-            x: 0
-            y: 0
-            width: colorBox.width
-            height: colorBox.height
-            clip: true
-
-            Rectangle
-            {
-                id: crosshairH
-                x: 0
-                y: clickedY - 1
-                width: colorBox.width
-                height: 2
-                color: "white"
-                opacity: 0.8
-            }
-
-            Rectangle
-            {
-                id: crosshairV
-                x: clickedX - 1
-                y: 0
-                width: 2
-                height: colorBox.height
-                color: "white"
-                opacity: 0.8
-            }
-
-            Rectangle
-            {
-                id: crosshairCenter
-                x: clickedX - 3
-                y: clickedY - 3
-                width: 6
-                height: 6
-                color: "transparent"
-                border.color: "white"
-                border.width: 2
-                radius: 3
-                opacity: 0.8
-            }
         }
     }
 
