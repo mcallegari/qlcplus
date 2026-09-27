@@ -70,24 +70,19 @@ var testAlgo;
   // --- State & helpers ---
   var util = {};
   util.colors = [];
-  util.lastW = 0; util.lastH = 0; util.inited = false;
-  util.phase = [];   // per-pixel phase in [ -1 (inactive) , 0..1 active ]
-  util.hueIx = [];   // per-pixel palette index (0..palette.length-1)
-
-  function ensureState(w,h){
-    if (!util.inited || util.lastW!==w || util.lastH!==h){
-      util.lastW=w; util.lastH=h; util.inited=true;
-      util.phase = new Array(h);
-      util.hueIx = new Array(h);
-      for (var y=0;y<h;y++){
-        util.phase[y] = new Array(w);
-        util.hueIx[y] = new Array(w);
-        for (var x=0;x<w;x++){ util.phase[y][x] = -1; util.hueIx[y][x]=0; }
-      }
-    }
-  }
 
   function makeMap(w,h,fill){ var m=new Array(h); for(var y=0;y<h;y++){ m[y]=new Array(w); for(var x=0;x<w;x++) m[y][x]=fill; } return m; }
+
+  // Deterministic per-pixel pseudo-random hash (0..1), so that rgbMap() output
+  // only depends on (width, height, step) - never on prior calls or
+  // Math.random() - which is required for reproducible color fades.
+  function hash01(x,y,salt){
+    var h = (x*374761393 + y*668265263 + salt*2246822519) >>> 0;
+    h = (h ^ (h >>> 13)) >>> 0;
+    h = (h * 1274126177) >>> 0;
+    h = (h ^ (h >>> 16)) >>> 0;
+    return h / 4294967296;
+  }
 
   function lerp(a,b,t){ return a + (b-a)*t; }
   function clamp01(x){ return (x<0?0:(x>1?1:x)); }
@@ -160,26 +155,32 @@ var testAlgo;
     return (r2<<16)|(g2<<8)|b2;
   }
 
-  function trySpawn(w,h){
-    // Per-pixel spawn probability, scaled by density and speed
-    var base = 0.0025; // baseline ~0.25% per pixel per frame
-    var p = base * (algo.density/10.0) * (0.7 + 0.3*algo.speed/10.0);
-    if (p<=0) return; // no spawns
-    for (var y=0;y<h;y++){
-      for (var x=0;x<w;x++){
-        if (util.phase[y][x] < 0){
-          if (Math.random() < p){
-            util.phase[y][x] = 0.0;
-            util.hueIx[y][x] = Math.floor(Math.random() * 1024) & 1023; // large hue seed
-          }
-        }
-      }
-    }
+  // Cycle length (in steps) for a pixel's twinkle: spawn, attack/decay, then a
+  // random-length dark gap before the next spawn. Longer gap = lower density.
+  function cyclePixel(x,y,width,height,step,phaseStep){
+    // Average number of idle frames between spawns for this pixel, driven by
+    // density: higher density -> shorter gaps -> more twinkles on screen.
+    var densityK = algo.density/10.0;
+    var avgGap = 4 + Math.floor(400 * (1.0 - densityK)); // ~4..404 frames
+    var activeLen = Math.max(2, Math.ceil(1.0/phaseStep)); // frames to finish attack/decay
+    var period = activeLen + Math.max(1, Math.round(avgGap * (0.5 + hash01(x,y,7))));
+
+    // Random per-pixel offset so twinkles don't spawn in lockstep.
+    var offset = Math.floor(hash01(x,y,11) * period);
+    var pos = (step + offset) % period;
+    if (pos >= activeLen) return null; // idle gap, no twinkle active
+
+    var ph = clamp01(pos / (activeLen - 1));
+    var b = attackDecay(ph);
+
+    // choose palette position per pixel seed, drift slowly with y for variety
+    var tpal = hash01(x,y,13);
+    tpal = clamp01(tpal * 0.85 + (y/(height>1?height-1:1))*0.15);
+
+    return { b: b, tpal: tpal };
   }
 
-  algo.rgbMap = function(width, height, _rgb, _step){
-    ensureState(width,height);
-
+  algo.rgbMap = function(width, height, _rgb, step){
     var pal = getPalette();
     var out = makeMap(width,height,0);
 
@@ -188,35 +189,21 @@ var testAlgo;
     var bgColor = scaleColor(0xFFFFFF, bgScale); // neutral gray background
     if (bgScale>0){ for (var y=0;y<height;y++){ for (var x=0;x<width;x++){ out[y][x]=bgColor; } } }
 
-    // advance and render twinkles
-    var phaseStep = 0.06 * (algo.speed/10.0); // higher speed -> faster progression
+    // higher speed -> faster attack/decay progression
+    var phaseStep = 0.06 * (algo.speed/10.0);
     if (phaseStep < 0.01) phaseStep = 0.01;
-
-    // spawn new twinkles
-    trySpawn(width,height);
 
     for (var y=0;y<height;y++){
       for (var x=0;x<width;x++){
-        var ph = util.phase[y][x];
-        if (ph >= 0){
-          ph += phaseStep;
-          var done = (ph >= 1.0);
-          if (done){ util.phase[y][x] = -1; continue; }
-          util.phase[y][x] = ph;
-          var b = attackDecay(ph); // 0..1
+        var tw = cyclePixel(x,y,width,height,step,phaseStep);
+        if (tw === null) continue;
 
-          // choose palette position per pixel seed, drift slowly with y for variety
-          var seed = util.hueIx[y][x];
-          var tpal = ((seed & 1023) / 1023.0);
-          // Small vertical variation
-          tpal = clamp01(tpal * 0.85 + (y/(height>1?height-1:1))*0.15);
-          var baseColor = samplePalette(pal, tpal);
-          // whiten near top and warm on fade
-          var c1 = whitenAtTop(baseColor, b);
-          var c2 = warmOnFade(c1, b, algo.warmth);
-          var col = scaleColor(c2, Math.floor(b*255));
-          out[y][x] = addColor(out[y][x], col);
-        }
+        var baseColor = samplePalette(pal, tw.tpal);
+        // whiten near top and warm on fade
+        var c1 = whitenAtTop(baseColor, tw.b);
+        var c2 = warmOnFade(c1, tw.b, algo.warmth);
+        var col = scaleColor(c2, Math.floor(tw.b*255));
+        out[y][x] = addColor(out[y][x], col);
       }
     }
 
