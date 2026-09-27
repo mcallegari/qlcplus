@@ -38,13 +38,16 @@ EFXEditor::EFXEditor(QQuickView *view, Doc *doc, QObject *parent)
     , m_maxPanDegrees(360.0)
     , m_maxTiltDegrees(270.0)
 {
-    m_view->rootContext()->setContextProperty("efxEditor", this);
     m_editorObjectName = "efxEditorRoot";
 
     m_fixtureList = new ListModel(this);
     QStringList listRoles;
     listRoles << "name" << "fxID" << "head" << "isSelected" << "mode" << "reverse" << "offset";
     m_fixtureList->setRoleNames(listRoles);
+
+    // publish to QML only once fully constructed: bindings of an already
+    // loaded editor view re-evaluate immediately and read the models
+    m_view->rootContext()->setContextProperty("efxEditor", this);
 }
 
 EFXEditor::~EFXEditor()
