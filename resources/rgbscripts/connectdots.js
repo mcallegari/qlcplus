@@ -33,6 +33,9 @@
   limitations under the License.
 */
 
+// Development tool access
+var testAlgo;
+
 (function(){
   var algo = {};
   algo.apiVersion = 3;
@@ -86,6 +89,19 @@
   util.colors = [0xB0B0B0, 0xFFFFFF]; // line, dot
   util.features = [];
   util.lastW = 0; util.lastH = 0; util.frame = 0;
+  util.rngState = 1;
+
+  // Deterministic PRNG (mulberry32), reseeded whenever step wraps back to 0.
+  // Required so that rgbMap(w,h,...,0) is reproducible regardless of how
+  // many times it has been called before, or with which matrix size.
+  function seedRng(seed){ util.rngState = (seed >>> 0) || 1; }
+  function rnd(){
+    util.rngState = (util.rngState + 0x6D2B79F5) >>> 0;
+    var t = util.rngState;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t = (t + Math.imul(t ^ (t >>> 7), t | 61)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  }
 
   algo.rgbMapSetColors = function(raw){ if (raw && raw.length){ var out=[]; for(var i=0;i<algo.acceptColors && i<raw.length;i++){ if (raw[i]===raw[i]) out.push(raw[i]); } if(out.length>0) util.colors=out; } };
   algo.rgbMapGetColors = function(){ return util.colors; };
@@ -138,14 +154,14 @@
   }
 
 
-  function randBetween(a,b){ return a + Math.random()*(b-a); }
-  function newVel(speed){ var ang = Math.random()*Math.PI*2; var v = 0.2 + 0.8*(algo.speed/10.0); var s=v*speed; return {vx:Math.cos(ang)*s, vy:Math.sin(ang)*s}; }
+  function randBetween(a,b){ return a + rnd()*(b-a); }
+  function newVel(speed){ var ang = rnd()*Math.PI*2; var v = 0.2 + 0.8*(algo.speed/10.0); var s=v*speed; return {vx:Math.cos(ang)*s, vy:Math.sin(ang)*s}; }
 
   function spawnFeature(w,h){
     // decide dot count
     var base = algo.baseDots;
     var delta = Math.floor(base * (algo.dotRandPct/100.0));
-    var count = base + Math.floor((Math.random()*2-1)*delta);
+    var count = base + Math.floor((rnd()*2-1)*delta);
     if (count<2) count=2; if (count>200) count=200;
 
     // place around a random center
@@ -155,21 +171,27 @@
 
     var dots = new Array(count);
     for (var i=0;i<count;i++){
-      var r = Math.random()*rad*0.8; var a = Math.random()*Math.PI*2;
+      var r = rnd()*rad*0.8; var a = rnd()*Math.PI*2;
       var x = cx + Math.cos(a)*r; var y = cy + Math.sin(a)*r;
       var vel = newVel(1.0);
-      var seg = Math.floor(20 + Math.random()*60 * (11-algo.speed)/10.0);
+      var seg = Math.floor(20 + rnd()*60 * (11-algo.speed)/10.0);
       dots[i] = {x:x,y:y,vx:vel.vx,vy:vel.vy, seg:seg};
     }
     var baseLife = algo.life;
     var ldelta = Math.floor(baseLife * (algo.lifeRandPct/100.0));
-    var life = baseLife + Math.floor((Math.random()*2-1) * ldelta);
+    var life = baseLife + Math.floor((rnd()*2-1) * ldelta);
     if (life < 5) life = 5;
     return {born:util.frame, life:life, dots:dots};
   }
 
-  function ensureFeatures(w,h){
-    if (util.lastW!==w || util.lastH!==h){ util.features=[]; util.lastW=w; util.lastH=h; util.frame=0; }
+  function ensureFeatures(w,h,step){
+    // Reseed and rebuild from scratch on matrix-size change or whenever the
+    // step sequence restarts, so that rgbMap(w,h,...,0) is reproducible
+    // regardless of prior calls (required for color-fade alignment).
+    if (util.lastW!==w || util.lastH!==h || step===0){
+      seedRng((w*73856093) ^ (h*19349663) ^ 0x9E3779B9);
+      util.features=[]; util.lastW=w; util.lastH=h; util.frame=0;
+    }
     while (util.features.length < algo.featureCount){ util.features.push(spawnFeature(w,h)); }
     if (util.features.length > algo.featureCount){ util.features.length = algo.featureCount; }
   }
@@ -191,7 +213,7 @@
         if (d.x>w-1){ d.x=w-1; d.vx=-Math.abs(d.vx); }
         if (d.y<0){ d.y=0; d.vy=Math.abs(d.vy); }
         if (d.y>h-1){ d.y=h-1; d.vy=-Math.abs(d.vy); }
-        if (d.seg<=0){ var nv=newVel(1.0); d.vx=nv.vx; d.vy=nv.vy; d.seg=Math.floor(20 + Math.random()*60 * (11-algo.speed)/10.0); }
+        if (d.seg<=0){ var nv=newVel(1.0); d.vx=nv.vx; d.vy=nv.vy; d.seg=Math.floor(20 + rnd()*60 * (11-algo.speed)/10.0); }
       }
     }
   }
@@ -236,8 +258,9 @@
     return map;
   }
 
-  algo.rgbMap = function(width,height,_rgb,_step){
-    ensureFeatures(width,height);
+  algo.rgbMap = function(width,height,_rgb,step){
+    void _rgb; // QLC+ API requirement
+    ensureFeatures(width,height,step);
     updateFeatures(width,height);
     var out = render(width,height);
     util.frame += 1;
@@ -245,6 +268,9 @@
   };
 
   algo.rgbMapStepCount = function(_w,_h){ return 4096; };
+
+  // Development tool access
+  testAlgo = algo;
 
   return algo;
 })();
