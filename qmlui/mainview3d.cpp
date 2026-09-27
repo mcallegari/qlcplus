@@ -2394,28 +2394,15 @@ void MainView3D::setGenericItemsPosition(QVector3D pos)
     if (m_genericSelectedItems.isEmpty())
         return;
 
-    if (m_genericSelectedItems.count() == 1)
+    // relative position change
+    for (int &itemID : m_genericSelectedItems)
     {
-        quint32 itemID = m_genericSelectedItems.first();
-
         // do not move locked items
         if (m_monProps->itemFlags(itemID) & MonitorProperties::LockedFlag)
-            return;
+            continue;
 
-        updateGenericItemPosition(itemID, pos);
-    }
-    else
-    {
-        // relative position change
-        for (int &itemID : m_genericSelectedItems)
-        {
-            // do not move locked items
-            if (m_monProps->itemFlags(itemID) & MonitorProperties::LockedFlag)
-                continue;
-
-            QVector3D newPos = m_monProps->itemPosition(itemID) + pos;
-            updateGenericItemPosition(itemID, newPos);
-        }
+        QVector3D newPos = m_monProps->itemPosition(itemID) + pos;
+        updateGenericItemPosition(itemID, newPos);
     }
 
     emit genericItemsPositionChanged();
@@ -2454,29 +2441,22 @@ void MainView3D::setGenericItemsRotation(QVector3D rot)
     if (m_genericSelectedItems.isEmpty())
         return;
 
-    if (m_genericSelectedItems.count() == 1)
+    // relative rotation change
+    for (int &itemID : m_genericSelectedItems)
     {
-        updateGenericItemRotation(m_genericSelectedItems.first(), rot);
-    }
-    else
-    {
-        // relative position change
-        for (int &itemID : m_genericSelectedItems)
-        {
-            QVector3D newRot = m_monProps->itemRotation(itemID) + rot;
+        QVector3D newRot = m_monProps->itemRotation(itemID) + rot;
 
-            // normalize back to a 0-359 range
-            if (newRot.x() < 0) newRot.setX(newRot.x() + 360);
-            else if (newRot.x() >= 360) newRot.setX(newRot.x() - 360);
+        // normalize back to a 0-359 range
+        if (newRot.x() < 0) newRot.setX(newRot.x() + 360);
+        else if (newRot.x() >= 360) newRot.setX(newRot.x() - 360);
 
-            if (newRot.y() < 0) newRot.setY(newRot.y() + 360);
-            else if (newRot.y() >= 360) newRot.setY(newRot.y() - 360);
+        if (newRot.y() < 0) newRot.setY(newRot.y() + 360);
+        else if (newRot.y() >= 360) newRot.setY(newRot.y() - 360);
 
-            if (newRot.z() < 0) newRot.setZ(newRot.z() + 360);
-            else if (newRot.z() >= 360) newRot.setZ(newRot.z() - 360);
+        if (newRot.z() < 0) newRot.setZ(newRot.z() + 360);
+        else if (newRot.z() >= 360) newRot.setZ(newRot.z() - 360);
 
-            updateGenericItemRotation(itemID, newRot);
-        }
+        updateGenericItemRotation(itemID, newRot);
     }
     emit genericItemsRotationChanged();
 }

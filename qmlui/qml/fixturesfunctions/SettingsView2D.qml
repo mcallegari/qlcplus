@@ -73,15 +73,9 @@ Rectangle
             break;
         }
 
-        if (selFixturesCount == 1)
-        {
-            contextManager.fixturesRotation = Qt.vector3d(rot.x, rot.y, rot.z)
-        }
-        else
-        {
-            contextManager.fixturesRotation = Qt.vector3d(rot.x - lastRotation.x, rot.y - lastRotation.y, rot.z - lastRotation.z)
-            lastRotation = Qt.vector3d(rot.x, rot.y, rot.z)
-        }
+        var baseRotation = selFixturesCount == 1 ? fxRotation : lastRotation
+        contextManager.fixturesRotation = Qt.vector3d(rot.x - baseRotation.x, rot.y - baseRotation.y, rot.z - baseRotation.z)
+        lastRotation = Qt.vector3d(rot.x, rot.y, rot.z)
     }
 
     ColorTool
