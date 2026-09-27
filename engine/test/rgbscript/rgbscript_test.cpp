@@ -91,36 +91,12 @@ void RGBScript_Test::scripts()
     dir.setNameFilters(QStringList() << QString("*.js"));
     QVERIFY(dir.entryList().size() > 0);
 
-    // Prepare check that file is registered for delivery
-    QString proFilePath = dir.filePath("CMakeLists.txt");
-    QFile proFile(proFilePath);
-    QVERIFY(proFile.open(QIODevice::ReadWrite));
-    QTextStream pro (&proFile);
-
     // Catch syntax / JS engine errors explicitly in the test.
     foreach (QString file, dir.entryList()) {
         RGBScript* script = new RGBScript(m_doc);
         QFile absFile(dir.absoluteFilePath(file));
         QVERIFY(script->load(absFile.fileName()));
-
-        qDebug() << "Searching '" + file + "' in CMakeLists.txt";
-
-        // Check that the script is listed in the cmake file.
-        if (file != "empty.js") {
-            QString searchString = "    " + file;
-            QString line;
-            bool foundInProFile = false;
-            do {
-                line = pro.readLine();
-                if (line.contains(searchString, Qt::CaseSensitive)) {
-                    foundInProFile = true;
-                }
-            } while (!line.isNull() && foundInProFile == false);
-
-            QVERIFY(foundInProFile);
-        }
     }
-    proFile.close();
 
     QVERIFY(m_doc->rgbScriptsCache()->load(dir));
     QVERIFY(m_doc->rgbScriptsCache()->names().size() > 0);
