@@ -25,6 +25,9 @@
   limitations under the License.
 */
 
+// Development tool access
+var testAlgo;
+
 (function(){
   var algo = {};
   algo.apiVersion = 2;
@@ -188,6 +191,9 @@
   };
 
   algo.rgbMapStepCount = function(width, height){ return 256; };
+
+  // Development tool access
+  testAlgo = algo;
 
   return algo;
 })();
