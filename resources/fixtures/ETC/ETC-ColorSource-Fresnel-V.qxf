@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>5.1.0 GIT</Version>
+  <Version>5.3.0 GIT</Version>
   <Author>Edgar Aichinger</Author>
  </Creator>
  <Manufacturer>ETC</Manufacturer>
@@ -37,6 +37,56 @@
   <Capability Min="249" Max="249">Fast</Capability>
   <Capability Min="250" Max="255">Auto</Capability>
  </Channel>
+ <Channel Name="Intensity Fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Red Fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green Fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue Fine" Preset="IntensityBlueFine"/>
+ <Channel Name="Indigo Fine" Preset="IntensityIndigoFine"/>
+ <Channel Name="Lime Fine" Preset="IntensityLimeFine"/>
+ <Channel Name="Curve">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Incandescent</Capability>
+  <Capability Min="10" Max="19">Linear</Capability>
+  <Capability Min="20" Max="29">Incandescent Red Shift</Capability>
+  <Capability Min="30" Max="39">Linear Red Shift</Capability>
+  <Capability Min="40" Max="49">Quick</Capability>
+  <Capability Min="50" Max="59">Quick Linear</Capability>
+  <Capability Min="60" Max="69">Unregulated</Capability>
+  <Capability Min="70" Max="79">Standard</Capability>
+  <Capability Min="80" Max="255">Reserved</Capability>
+ </Channel>
+ <Channel Name="CCT">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">3200 K</Capability>
+  <Capability Min="1" Max="164">1900–5975 K</Capability>
+  <Capability Min="165" Max="254">6000–10450 K</Capability>
+  <Capability Min="255" Max="255">5600 K</Capability>
+ </Channel>
+ <Channel Name="CCT Coarse">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="254">1900–10450 K</Capability>
+  <Capability Min="255" Max="255">5600 K</Capability>
+ </Channel>
+ <Channel Name="CCT Fine">
+  <Group Byte="1">Colour</Group>
+  <Capability Min="0" Max="254">1900–10450 K</Capability>
+  <Capability Min="255" Max="255">5600 K</Capability>
+ </Channel>
+ <Channel Name="Tint">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Neutral (0)</Capability>
+  <Capability Min="1" Max="1">Full Green (10)</Capability>
+  <Capability Min="2" Max="127">Linear between 10 and 0</Capability>
+  <Capability Min="128" Max="128">Neutral (0)</Capability>
+  <Capability Min="129" Max="254">Linear between 0 and - 10</Capability>
+  <Capability Min="255" Max="255">Full Magenta ( - 10)</Capability>
+ </Channel>
+ <Channel Name="Tune">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="49">Brightest</Capability>
+  <Capability Min="50" Max="99">Best Spectral</Capability>
+  <Capability Min="100" Max="255">Reserved</Capability>
+ </Channel>
  <Mode Name="Standard">
   <Channel Number="0">Intensity</Channel>
   <Channel Number="1">Red</Channel>
@@ -66,10 +116,72 @@
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">Zoom</Channel>
  </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Zoom</Channel>
+ </Mode>
+ <Mode Name="Studio">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">CCT</Channel>
+  <Channel Number="2">Tint</Channel>
+  <Channel Number="3">Tune</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Zoom</Channel>
+  <Channel Number="6">Fan</Channel>
+  <Channel Number="7">Curve</Channel>
+ </Mode>
+ <Mode Name="Standard 16-bit">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Intensity Fine</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Red Fine</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Green Fine</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">Blue Fine</Channel>
+  <Channel Number="8">Strobe</Channel>
+  <Channel Number="9">Zoom</Channel>
+  <Channel Number="10">Fan</Channel>
+  <Channel Number="11">Curve</Channel>
+ </Mode>
+ <Mode Name="Direct 16-bit">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Intensity Fine</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Red Fine</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Green Fine</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">Blue Fine</Channel>
+  <Channel Number="8">Indigo</Channel>
+  <Channel Number="9">Indigo Fine</Channel>
+  <Channel Number="10">Lime</Channel>
+  <Channel Number="11">Lime Fine</Channel>
+  <Channel Number="12">Strobe</Channel>
+  <Channel Number="13">Zoom</Channel>
+  <Channel Number="14">Fan</Channel>
+  <Channel Number="15">Curve</Channel>
+ </Mode>
+ <Mode Name="Studio 16-bit">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Intensity Fine</Channel>
+  <Channel Number="2">CCT Coarse</Channel>
+  <Channel Number="3">CCT Fine</Channel>
+  <Channel Number="4">Tint</Channel>
+  <Channel Number="5">Tune</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Zoom</Channel>
+  <Channel Number="8">Fan</Channel>
+  <Channel Number="9">Curve</Channel>
+ </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="5330" ColourTemperature="0"/>
   <Dimensions Weight="5.24" Width="321" Height="339" Depth="311"/>
-  <Lens Name="Other" DegreesMin="13" DegreesMax="44"/>
+  <Lens Name="Fresnel" DegreesMin="13" DegreesMax="44"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
   <Technical PowerConsumption="147" DmxConnector="5-pin"/>
  </Physical>

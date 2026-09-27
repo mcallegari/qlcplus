@@ -131,6 +131,12 @@ signals:
     void multipleSelectionChanged();
     void showFixtureGroupsChanged();
 
+    /** Emitted when the user requested the deletion of the currently
+     *  selected Functions/Folders (e.g. by pressing the Delete key).
+     *  The UI is expected to ask for confirmation before performing
+     *  the actual deletion, like the Functions Manager toolbar does */
+    void requestFunctionsDeletion();
+
 public slots:
     /** Resets the data structures and update the currently enabled views */
     void resetContexts();

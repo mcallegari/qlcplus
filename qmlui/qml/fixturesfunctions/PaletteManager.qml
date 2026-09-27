@@ -302,6 +302,7 @@ Rectangle
                                 pDragItem.itemLabel = pEntryItem.tLabel
                                 pDragItem.itemIcon = pEntryItem.iSrc
                                 pListView.dragActive = true
+                                UISettings.internalDragActive = true
                             }
                             else
                             {
@@ -310,6 +311,7 @@ Rectangle
                                 pDragItem.x = 0
                                 pDragItem.y = 0
                                 pListView.dragActive = false
+                                UISettings.internalDragActive = false
                             }
                         }
 

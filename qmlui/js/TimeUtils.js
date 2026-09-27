@@ -333,6 +333,32 @@ function timeToBeatSize(time, bpmNumber, beatsDivision, tickSize)
     return (tickSize * time) / barDuration;
 }
 
+/**
+  * Return a value in pixels representing a "beats as ms" value
+  * (1000 units per beat, as stored by a beat tempo Function/ShowFunction)
+  * over a Time (milliseconds) based timeline, at the given BPM.
+  */
+function beatsToTimeSize(beatsMs, bpmNumber, timescale, tickSize)
+{
+    if (!bpmNumber)
+        return 0;
+    var realMs = (beatsMs / 1000) * (60000 / bpmNumber);
+    return timeToSize(realMs, timescale, tickSize);
+}
+
+/**
+  * Inverse of beatsToTimeSize: return a "beats as ms" value (1000 units
+  * per beat) for the given pixel position over a Time (milliseconds)
+  * based timeline, at the given BPM.
+  */
+function posToBeatsMsOnTimeline(x, timescale, tickSize, bpmNumber)
+{
+    if (!bpmNumber)
+        return 0;
+    var realMs = posToMs(x, timescale, tickSize);
+    return (realMs / (60000 / bpmNumber)) * 1000;
+}
+
 
 /**
  * Return the average time between two taps given by a list of tap times.

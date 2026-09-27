@@ -67,6 +67,8 @@ class App final : public QQuickView
     Q_PROPERTY(QString appName READ appName CONSTANT)
     Q_PROPERTY(QString appVersion READ appVersion CONSTANT)
     Q_PROPERTY(bool is3DSupported READ is3DSupported CONSTANT)
+    Q_PROPERTY(qreal screenDiagonal READ screenDiagonal NOTIFY screenDiagonalChanged)
+    Q_PROPERTY(bool smallScreen READ smallScreen NOTIFY screenDiagonalChanged)
 
 public:
     App();
@@ -175,6 +177,13 @@ public:
     /** Return the number of pixels in 1mm */
     qreal pixelDensity() const;
 
+    /** Return the physical diagonal size of the current screen, in inches */
+    qreal screenDiagonal() const;
+
+    /** Return true if the current screen is a small one (7 inches or below),
+     *  where the UI needs to compact itself to save space */
+    bool smallScreen() const;
+
     /** Get/Set the UI access mask */
     int defaultMask() const;
     void setAccessMask(int mask);
@@ -213,6 +222,7 @@ protected slots:
 
 signals:
     void accessMaskChanged(int mask);
+    void screenDiagonalChanged();
 
 private:
     /** Flag to quit the application forcefully */
@@ -220,6 +230,9 @@ private:
 
     /** The number of pixels in one millimeter */
     qreal m_pixelDensity;
+
+    /** The physical diagonal size of the current screen, in inches */
+    qreal m_screenDiagonal = 0;
 
     /** Bitmask to enable/disable UI functionalities */
     int m_accessMask;

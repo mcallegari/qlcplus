@@ -31,11 +31,18 @@ import "."
  *
  *  Sub-menus are shown/hidden through the 'visible' property by the menu
  *  handling them, hence the disabled automatic close policy.
+ *
+ *  A sub-menu must also stack above the menu holding it (the Actions menu is
+ *  at z 99 while open). On a press, Qt hands the event to every open popup,
+ *  topmost first. When the menu closes on a press outside, its entries leave
+ *  the scene and a sub-menu anchored to one of them loses its window. Qt then
+ *  crashes if that sub-menu is still waiting its turn for the same press.
  */
 Popup
 {
     padding: 0
     closePolicy: Popup.NoAutoClose
+    z: 1000
 
     background:
         Rectangle
