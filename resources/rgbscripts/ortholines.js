@@ -28,6 +28,9 @@
   Licensed under the Apache License, Version 2.0
 */
 
+// Development tool access
+var testAlgo;
+
 (function(){
   var algo = {};
   algo.apiVersion = 3;
@@ -371,6 +374,9 @@
   };
 
   algo.rgbMapStepCount = function(_w,_h){ void _w; void _h; return 4096; };
+
+  // Development tool access
+  testAlgo = algo;
 
   return algo;
 })();

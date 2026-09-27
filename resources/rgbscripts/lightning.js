@@ -8,6 +8,9 @@
   License: Apache License, Version 2.0
 */
 
+// Development tool access
+var testAlgo;
+
 (function(){
   var algo = {};
   algo.apiVersion = 2;
@@ -175,6 +178,9 @@
     // One full lightning event length
     return algo.totalLength;
   };
+
+  // Development tool access
+  testAlgo = algo;
 
   return algo;
 })();
