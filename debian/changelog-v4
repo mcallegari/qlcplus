@@ -4,6 +4,9 @@ qlcplus (4.14.5) stable; urgency=low
   * engine: apply submaster updates to all Chaser crossfade steps (thanks to Christoph Müllner)
   * ui: improve Audio editor fileds editing (thanks to Christoph Müllner)
   * Input profiles: added Behringer X-Touch Compact (thanks to Benedict Stein)
+  * Input profiles: added M-VAVE SMC-PAD (thanks to Cristian Deluxe)
+  * RGB scripts: added Aurora, Eyes, Fire, Fireflies, Fire Flicker, Fractal, Lightning, OrthoLines, Sinelon, Spark, Strum (thanks to Branson Matheson)
+  * RGB scripts: added Confetti, ConnectDots, Juggle, Lantern, Meteor, Pacifica, Ripple, Shapes, StagePulse, TwinkleFox, WaterFlow (thanks to Branson Matheson)
   * Fixture update: ETC ColorSource Fresnel V and V MAX (thanks to Edgar Aichinger)
   * New fixture: Shehds 300W LED Beam Wash & Gobo 3in1 with Ring (thanks to Charles Mountford)
   * New fixture: Acme Deluge (thanks to Paul)
@@ -42,6 +45,7 @@ qlcplus (4.14.5) stable; urgency=low
   * New fixture: Eurolite LED Bar 8 Swing QCL (thanks to Hans-Jürgen Tappe)
   * New fixture: ColorKey PartyLight FX (thanks to Frederick Launoy)
   * New fixture: Nicols Moover Spot 120 (thanks to Philippe Thibault)
+  * New fixture: Chauvet MiN Wash (thanks to Cristian Deluxe)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 13 Jun 2026 18:19:20 +0200
 
