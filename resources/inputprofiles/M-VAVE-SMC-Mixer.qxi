@@ -4,10 +4,10 @@
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.14.2 GIT</Version>
-  <Author>massimo</Author>
+  <Author>Massimo Callegari</Author>
  </Creator>
- <Manufacturer>M-Wave</Manufacturer>
- <Model>SMC Mixer</Model>
+ <Manufacturer>M-VAVE</Manufacturer>
+ <Model>SMC-Mixer</Model>
  <Type>MIDI</Type>
  <MIDISendNoteOff>False</MIDISendNoteOff>
  <Channel Number="16">

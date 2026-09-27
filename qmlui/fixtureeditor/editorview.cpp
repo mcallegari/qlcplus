@@ -196,7 +196,7 @@ void EditorView::dismissChannelEditor()
 
     disconnect(m_channelEdit, SIGNAL(channelChanged()), this, SLOT(setModified()));
     disconnect(m_channelEdit, SIGNAL(capabilitiesChanged()), this, SLOT(setModified()));
-    disconnect(m_channelEdit, SIGNAL(capabilitiesChanged()), this, SLOT(updateAliasList()));
+    disconnect(m_channelEdit, &ChannelEdit::capabilitiesChanged, this, &EditorView::updateAliasList);
     delete m_channelEdit;
     m_channelEdit = nullptr;
 }
@@ -228,7 +228,7 @@ ChannelEdit *EditorView::requestChannelEditor(QString name)
     connect(m_channelEdit, SIGNAL(channelChanged()), this, SLOT(setModified()));
     connect(m_channelEdit, SIGNAL(capabilitiesChanged()), this, SLOT(setModified()));
     // capability preset changes may add/remove alias capabilities
-    connect(m_channelEdit, SIGNAL(capabilitiesChanged()), this, SLOT(updateAliasList()));
+    connect(m_channelEdit, &ChannelEdit::capabilitiesChanged, this, &EditorView::updateAliasList);
     return m_channelEdit;
 }
 
@@ -260,6 +260,12 @@ void EditorView::addPresetChannel(QString name, int group)
             break;
             case QLCChannel::UV:
                 channel->setPreset(QLCChannel::IntensityUV);
+            break;
+            case QLCChannel::Lime:
+                channel->setPreset(QLCChannel::IntensityLime);
+            break;
+            case QLCChannel::Indigo:
+                channel->setPreset(QLCChannel::IntensityIndigo);
             break;
             default:
             break;

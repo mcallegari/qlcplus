@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.3.0 GIT</Version>
+  <Author>Wim Van Laer</Author>
+ </Creator>
+ <Manufacturer>Briteq</Manufacturer>
+ <Model>BT-Theatre 150EZ</Model>
+ <Type>Dimmer</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Open (no strobe)</Capability>
+  <Capability Min="6" Max="125" Preset="StrobeSlowToFast">Normal strobe (slow to fast)</Capability>
+  <Capability Min="126" Max="135" Preset="ShutterOpen">Open (no strobe)</Capability>
+  <Capability Min="136" Max="255" Preset="StrobeRandomSlowToFast">Random strobe (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Focus" Preset="BeamZoomSmallBig"/>
+ <Mode Name="1 Channel DIM 8bit">
+  <Channel Number="0">Master dimmer</Channel>
+ </Mode>
+ <Mode Name="2 Channel D+S 8bit">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+ </Mode>
+ <Mode Name="3 Channel D+S+F 8bit">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Focus</Channel>
+ </Mode>
+ <Mode Name="2 Channel DIM 16bit">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Master dimmer fine</Channel>
+ </Mode>
+ <Mode Name="3 Channel D+S 16bit">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Master dimmer fine</Channel>
+  <Channel Number="2">Strobe</Channel>
+ </Mode>
+ <Mode Name="4 Channel D+S+F 16bit">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Master dimmer fine</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Focus</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="9" Width="250" Height="399" Depth="447"/>
+  <Lens Name="Other" DegreesMin="10" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="160" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

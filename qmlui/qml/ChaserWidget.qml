@@ -569,6 +569,7 @@ Column
                             csDragItem.itemLabel = csDelegate.func.name
                             csDragItem.itemIcon = functionManager.functionIcon(csDelegate.func.type)
                             cStepsList.dragActive = true
+                            UISettings.internalDragActive = true
                         }
                         else
                         {
@@ -675,6 +676,7 @@ Column
 
                 cStepsList.dragInsertIndex = -1
                 cStepsList.dragActive = false
+                UISettings.internalDragActive = false
             }
             onPositionChanged: (drag) =>
             {

@@ -134,6 +134,7 @@ Rectangle
                 {
                     id: getUrlDialog
                     title: qsTr("Enter a URL")
+                    onOpened: urlInputBox.selectAndFocus()
 
                     contentItem:
                         CustomTextEdit
@@ -142,7 +143,6 @@ Rectangle
                             implicitWidth: UISettings.bigItemHeight * 3
                             implicitHeight: UISettings.listItemHeight
                             text: "http://"
-                            Component.onCompleted: selectAndFocus()
                         }
 
                     onAccepted: videoEditor.sourceFileName = urlInputBox.text

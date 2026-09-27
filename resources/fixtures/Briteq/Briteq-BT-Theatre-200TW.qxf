@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.3.0 GIT</Version>
+  <Author>Wim Van Laer</Author>
+ </Creator>
+ <Manufacturer>Briteq</Manufacturer>
+ <Model>BT-Theatre 200TW</Model>
+ <Type>Dimmer</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="CCT">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">CCT 2800 to 6000K</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Open (no strobe)</Capability>
+  <Capability Min="6" Max="125" Preset="StrobeSlowToFast">Normal strobe (slow to fast)</Capability>
+  <Capability Min="126" Max="135" Preset="ShutterOpen">Open (no strobe)</Capability>
+  <Capability Min="136" Max="255" Preset="StrobeRandomSlowToFast">Random strobe (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Function">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="20">No function</Capability>
+  <Capability Min="21" Max="25">Dim curve: linear</Capability>
+  <Capability Min="26" Max="30">Dim curve: square</Capability>
+  <Capability Min="31" Max="35">Dim curve: inverse square</Capability>
+  <Capability Min="36" Max="40">Dim curve: s-cuve</Capability>
+  <Capability Min="41" Max="60">No function</Capability>
+  <Capability Min="61" Max="65">Dim behavior: led</Capability>
+  <Capability Min="66" Max="70">Dim behavior: halogen</Capability>
+  <Capability Min="71" Max="90">No function</Capability>
+  <Capability Min="91" Max="95">No dmx: freeze</Capability>
+  <Capability Min="96" Max="100">No dmx: blackout</Capability>
+  <Capability Min="101" Max="105">No dmx: manual</Capability>
+  <Capability Min="106" Max="125">No function</Capability>
+  <Capability Min="126" Max="130">Display: blink on</Capability>
+  <Capability Min="131" Max="135">Display: blink off</Capability>
+  <Capability Min="136" Max="155">No function</Capability>
+  <Capability Min="156" Max="160">Fan: silent</Capability>
+  <Capability Min="161" Max="165">Fan: auto</Capability>
+  <Capability Min="166" Max="170">Fan: high</Capability>
+  <Capability Min="171" Max="190">No function</Capability>
+  <Capability Min="191" Max="195">Pwm = 0.6kHz</Capability>
+  <Capability Min="196" Max="200">Pwm = 1.2kHz</Capability>
+  <Capability Min="201" Max="205">Pwm = 1.8kHz</Capability>
+  <Capability Min="206" Max="210">Pwm = 2.4kHz</Capability>
+  <Capability Min="211" Max="215">Pwm = 3.0kHz</Capability>
+  <Capability Min="216" Max="220">Pwm = 3.6kHz</Capability>
+  <Capability Min="221" Max="225">Pwm = 4.2kHz</Capability>
+  <Capability Min="226" Max="230">Pwm = 4.8kHz</Capability>
+  <Capability Min="231" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="1 Channel 8bit">
+  <Channel Number="0">Master dimmer</Channel>
+ </Mode>
+ <Mode Name="2 Channel 8bit">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">CCT</Channel>
+ </Mode>
+ <Mode Name="3 Channel 16bit">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Master dimmer fine</Channel>
+  <Channel Number="2">CCT</Channel>
+ </Mode>
+ <Mode Name="4 Channel 16bit with shutter">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Master dimmer fine</Channel>
+  <Channel Number="2">CCT</Channel>
+  <Channel Number="3">Strobe</Channel>
+ </Mode>
+ <Mode Name="5 Channel 16bit full">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Master dimmer fine</Channel>
+  <Channel Number="2">CCT</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Function</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.25" Width="223" Height="392" Depth="350"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="360" TiltMax="0"/>
+  <Technical PowerConsumption="105" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

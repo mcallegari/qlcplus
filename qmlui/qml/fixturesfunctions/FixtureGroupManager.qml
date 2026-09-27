@@ -535,7 +535,7 @@ Rectangle
                                     gfhcDragItem.parent = mainView
                                     gfhcDragItem.x = posnInWindow.x - (gfhcDragItem.width / 4)
                                     gfhcDragItem.y = posnInWindow.y - (gfhcDragItem.height / 4)
-                                    if (!qItem.isSelected)
+                                    if (!qItem.isSelected || gfhcDragItem.itemsList.indexOf(qItem) === -1)
                                     {
                                         if ((mouseMods & Qt.ControlModifier) == 0)
                                             gfhcDragItem.itemsList = []
@@ -607,6 +607,7 @@ Rectangle
                                     }
 
                                     groupListView.dragActive = true
+                                    UISettings.internalDragActive = true
                                 break;
                                 case App.DragFinished:
                                     gfhcDragItem.Drag.drop()
@@ -614,6 +615,7 @@ Rectangle
                                     gfhcDragItem.x = 0
                                     gfhcDragItem.y = 0
                                     groupListView.dragActive = false
+                                    UISettings.internalDragActive = false
                                     //gfhcDragItem.itemsList = []
                                 break;
                             }

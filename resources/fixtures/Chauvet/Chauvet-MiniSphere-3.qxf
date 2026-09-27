@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.3.0 GIT</Version>
+  <Author>Nate Doyon</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>MiniSphere 3</Model>
+ <Type>Flower</Type>
+ <Channel Name="Effects">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red rotation</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green rotation</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue rotation</Capability>
+  <Capability Min="40" Max="49" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + Green rotation</Capability>
+  <Capability Min="50" Max="59" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red + Blue rotation</Capability>
+  <Capability Min="60" Max="69" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green + Blue rotation</Capability>
+  <Capability Min="70" Max="79">Red + Green + Blue rotation</Capability>
+  <Capability Min="80" Max="229">Red + Green + Blue chase</Capability>
+  <Capability Min="230" Max="255" Preset="Alias">Automatic Sound
+   <Alias Mode="DMX" Channel="Strobe" With="No function"/>
+   <Alias Mode="DMX" Channel="Effect Speed" With="No function"/>
+   <Alias Mode="DMX" Channel="Rotation Speed" With="No function"/>
+  </Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
+ </Channel>
+ <Channel Name="Effect Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">0~100% (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Rotation Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">0~100% (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="No function" Preset="NoFunction"/>
+ <Mode Name="DMX">
+  <Channel Number="0">Effects</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Effect Speed</Channel>
+  <Channel Number="3">Rotation Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="0.86" Width="180" Height="173" Depth="180"/>
+  <Lens Name="PC" DegreesMin="165" DegreesMax="165"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="36" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>
