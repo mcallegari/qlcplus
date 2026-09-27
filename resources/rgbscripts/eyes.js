@@ -30,8 +30,10 @@
   algo.properties.push("name:eyeSizeMin|type:range|display:Eye Size Min|values:2,20|write:setEyeSizeMin|read:getEyeSizeMin");
   algo.eyeSizeMax = 12;
   algo.properties.push("name:eyeSizeMax|type:range|display:Eye Size Max|values:2,20|write:setEyeSizeMax|read:getEyeSizeMax");
+  // Stored internally as a ratio (0.5..4.0), exposed as an integer percentage
+  // (50..400) since RGBScriptProperty::Range only supports integer bounds.
   algo.eyeSpacingRatio = 1.5;
-  algo.properties.push("name:eyeSpacingRatio|type:range|display:Eye Spacing Ratio|values:0.5,4.0|write:setEyeSpacingRatio|read:getEyeSpacingRatio");
+  algo.properties.push("name:eyeSpacingRatio|type:range|display:Eye Spacing Ratio (%)|values:50,400|write:setEyeSpacingRatio|read:getEyeSpacingRatio");
   algo.minSpacing = 8;
   algo.properties.push("name:minSpacing|type:range|display:Min Pair Spacing|values:2,30|write:setMinSpacing|read:getMinSpacing");
 
@@ -67,8 +69,8 @@
   algo.getEyeSizeMin = function(){ return algo.eyeSizeMin; };
   algo.setEyeSizeMax = function(v){ algo.eyeSizeMax = parseInt(v, 10); };
   algo.getEyeSizeMax = function(){ return algo.eyeSizeMax; };
-  algo.setEyeSpacingRatio = function(v){ algo.eyeSpacingRatio = parseFloat(v); };
-  algo.getEyeSpacingRatio = function(){ return algo.eyeSpacingRatio; };
+  algo.setEyeSpacingRatio = function(v){ algo.eyeSpacingRatio = parseInt(v, 10)/100.0; };
+  algo.getEyeSpacingRatio = function(){ return Math.round(algo.eyeSpacingRatio*100); };
   algo.setMinSpacing = function(v){ algo.minSpacing = parseInt(v, 10); };
   algo.getMinSpacing = function(){ return algo.minSpacing; };
   algo.setBlinkInterval = function(v){ algo.blinkInterval = parseInt(v, 10); };

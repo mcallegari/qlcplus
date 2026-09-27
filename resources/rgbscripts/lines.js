@@ -43,7 +43,9 @@ var testAlgo;
     algo.properties.push("name:linesDistribution|type:list|display:Distribution|values:All,Every 2nd,Every 3rd,Half A,Half B,Center Third,Edges Only|write:setDistribution|read:getDistribution");
     algo.linesMovement = 0;
     algo.properties.push("name:linesMovement|type:list|display:Movement|values:None,Up,Down,Left,Right,Up Loop,Down Loop,Left Loop,Right Loop|write:setMovement|read:getMovement");
-    algo.linesLifecycle = 0;
+    // Backed by linesSizeBehavior + fadeMode (see getLifecycle/setLifecycle);
+    // linesSizeBehavior is initialized below, alongside fadeMode.
+    algo.linesSizeBehavior = 0;
     algo.properties.push("name:linesLifecycle|type:list|display:Lifecycle|values:Grow,Grow Fade In,Grow Fade Out,Shrink,Shrink Fade In,Shrink Fade Out,Static,Static Fade In,Static Fade Out|write:setLifecycle|read:getLifecycle");
     algo.linesPattern = 0;
     algo.properties.push("name:linesPattern|type:list|display:Line Pattern|values:Solid,Dashed,Dotted,Double|write:setPattern|read:getPattern");

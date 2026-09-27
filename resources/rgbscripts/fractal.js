@@ -72,20 +72,10 @@
   algo.rgbMapSetColors = function(c){ if (c && c.length){ util.colors = c; } };
   algo.rgbMapGetColors = function(){ return util.colors; };
 
-  // --- State ---
+  // --- State (baseline values; per-frame values are derived from step) ---
   util.centerX = -0.5; // default Mandelbrot center
   util.centerY = 0.0;
   util.scale = 1.8;     // horizontal half-span; smaller => zoom in
-  util.phase = 0.0;     // evolution phase
-
-  util.lastW = 0; util.lastH = 0;
-
-  function ensureState(width, height){
-    if (util.lastW !== width || util.lastH !== height){
-      util.lastW = width; util.lastH = height;
-      // keep current center/scale when size changes
-    }
-  }
 
   // --- Helpers ---
   function clamp01(x){ return (x<0?0:(x>1?1:x)); }
@@ -106,42 +96,46 @@
   }
 
   // --- Core ---
-  algo.rgbMap = function(width, height, _rgb, _step){
-    void _rgb; void _step; // QLC+ API requirement
-    ensureState(width, height);
+  algo.rgbMap = function(width, height, _rgb, step){
+    void _rgb; // QLC+ API requirement
 
     var sp = algo.speed / 10.0;
+    var s = step || 0;
 
-    // Evolve phase
-    util.phase += 0.06 * (0.5 + sp);
-    if (util.phase > 1000000) util.phase = 0;
+    // Phase, scale and center are all derived directly from the step index
+    // (not accumulated across calls) so that rgbMap(w,h,...,0) is
+    // reproducible regardless of call history or matrix size.
+    var phase = s * 0.06 * (0.5 + sp);
 
-    // Movement (zoom/pan)
+    var scale = util.scale;
     if (algo.mvIndex === 1){ // In
-      util.scale *= (1.0 - 0.06 * sp);
-      if (util.scale < 1e-6) util.scale = 1e-6;
+      scale *= Math.pow(1.0 - 0.06 * sp, s);
+      if (scale < 1e-6) scale = 1e-6;
     } else if (algo.mvIndex === 2){ // Out
-      util.scale *= (1.0 + 0.06 * sp);
-      if (util.scale > 1000) util.scale = 1000;
-    } else if (algo.mvIndex === 3){ // Left
-      util.centerX -= util.scale * 0.10 * sp;
+      scale *= Math.pow(1.0 + 0.06 * sp, s);
+      if (scale > 1000) scale = 1000;
+    }
+
+    var centerX = util.centerX;
+    if (algo.mvIndex === 3){ // Left
+      centerX -= scale * 0.10 * sp * s;
     } else if (algo.mvIndex === 4){ // Right
-      util.centerX += util.scale * 0.10 * sp;
+      centerX += scale * 0.10 * sp * s;
     }
 
     // Center drift (around baseline center)
-    var driftA = (algo.driftAmt / 100.0) * util.scale;
+    var driftA = (algo.driftAmt / 100.0) * scale;
     var driftS = algo.driftSpeed / 10.0;
-    var cx = util.centerX + driftA * 0.7 * Math.sin(util.phase * (0.9 + 0.4*driftS));
-    var cy = util.centerY + driftA * 0.5 * Math.cos(util.phase * (1.1 + 0.6*driftS));
+    var cx = centerX + driftA * 0.7 * Math.sin(phase * (0.9 + 0.4*driftS));
+    var cy = util.centerY + driftA * 0.5 * Math.cos(phase * (1.1 + 0.6*driftS));
 
     // Aspect-correct scales
-    var sx = util.scale;
+    var sx = scale;
     var sy = sx * (height / (width || 1));
 
     // Julia parameter evolves in time
-    var jcx = -0.8 + 0.6 * Math.cos(util.phase * 0.7);
-    var jcy =  0.156 + 0.6 * Math.sin(util.phase * 1.1);
+    var jcx = -0.8 + 0.6 * Math.cos(phase * 0.7);
+    var jcy =  0.156 + 0.6 * Math.sin(phase * 1.1);
 
     var maxIter = algo.iter|0;
 

@@ -91,13 +91,29 @@
   util.arcs = []; // list of active arcs
   util.frame = 0;
   util.lastW = 0; util.lastH = 0;
+  util.rngState = 1;
+
+  // Deterministic PRNG (mulberry32), reseeded whenever step wraps back to 0
+  // or the matrix size changes, so that rgbMap(w,h,...,0) is reproducible
+  // regardless of how many times it was called before (required for
+  // color-fade alignment across matrix sizes).
+  function seedRng(seed){ util.rngState = (seed >>> 0) || 1; }
+  function rnd(){
+    util.rngState = (util.rngState + 0x6D2B79F5) >>> 0;
+    var t = util.rngState;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t = (t + Math.imul(t ^ (t >>> 7), t | 61)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  }
 
   function resetArcs(){ util.arcs = []; util.spawnNextAt = undefined; }
 
-  function ensureState(width, height){
-    if (util.lastW !== width || util.lastH !== height){
+  function ensureState(width, height, step){
+    if (util.lastW !== width || util.lastH !== height || step===0){
+      seedRng((width*73856093) ^ (height*19349663) ^ 0x9E3779B9);
       util.lastW = width; util.lastH = height;
       util.arcs = [];
+      util.frame = 0;
       util.spawnNextAt = undefined;
     }
   }
@@ -118,7 +134,7 @@
     var f = x - i; return lerpColor(cols[i], cols[i+1], f);
   }
 
-  function randRange(a,b){ return a + Math.random()*(b-a); }
+  function randRange(a,b){ return a + rnd()*(b-a); }
   function irand(a,b){ return Math.floor(randRange(a,b+1)); }
 
   // simple hash-based noise for jagged path
@@ -131,8 +147,8 @@
     } else {
       se.f1 = se.sy; se.f2 = se.ey;
     }
-    se.v1 = (Math.random()*2 - 1) * sp;
-    se.v2 = (Math.random()*2 - 1) * sp;
+    se.v1 = (rnd()*2 - 1) * sp;
+    se.v2 = (rnd()*2 - 1) * sp;
   }
 
   function updateElectrodeMotion(se, width, height){
@@ -146,8 +162,8 @@
       if (se.f1 > maxX){ se.f1 = maxX; se.v1 = -Math.abs(se.v1); }
       if (se.f2 < 0){ se.f2 = 0; se.v2 = Math.abs(se.v2); }
       if (se.f2 > maxX){ se.f2 = maxX; se.v2 = -Math.abs(se.v2); }
-      if (Math.random() < flipP){ se.v1 = (Math.random()*2 - 1) * sp; }
-      if (Math.random() < flipP){ se.v2 = (Math.random()*2 - 1) * sp; }
+      if (rnd() < flipP){ se.v1 = (rnd()*2 - 1) * sp; }
+      if (rnd() < flipP){ se.v2 = (rnd()*2 - 1) * sp; }
       se.sx = Math.round(se.f1); se.ex = Math.round(se.f2);
     } else {
       var maxY = height - 1;
@@ -156,8 +172,8 @@
       if (se.f1 > maxY){ se.f1 = maxY; se.v1 = -Math.abs(se.v1); }
       if (se.f2 < 0){ se.f2 = 0; se.v2 = Math.abs(se.v2); }
       if (se.f2 > maxY){ se.f2 = maxY; se.v2 = -Math.abs(se.v2); }
-      if (Math.random() < flipP){ se.v1 = (Math.random()*2 - 1) * sp; }
-      if (Math.random() < flipP){ se.v2 = (Math.random()*2 - 1) * sp; }
+      if (rnd() < flipP){ se.v1 = (rnd()*2 - 1) * sp; }
+      if (rnd() < flipP){ se.v2 = (rnd()*2 - 1) * sp; }
       se.sy = Math.round(se.f1); se.ey = Math.round(se.f2);
     }
   }
@@ -233,7 +249,7 @@
         } else {
           y += irand(-jMag, jMag); if (y<0) y=0; if (y>=height) y=height-1;
         }
-        if (style !== 'spark' && (Math.random() < 0.1)){
+        if (style !== 'spark' && (rnd() < 0.1)){
           if (se.axis==='y'){
             x += irand(-1,1); if (x<0) x=0; if (x>=width) x=width-1;
           } else {
@@ -261,7 +277,7 @@
     else life = 999999; // consistent: effectively infinite, keep endpoints and jitter path
     var se = pickStartEnd(width, height, algo.dirIndex);
     if (style==='consistent') initElectrodeMotion(se, width, height);
-    var seed = Math.random()*6.28318;
+    var seed = rnd()*6.28318;
     var pts = buildPath(width, height, algo.dirIndex, style, se, seed);
     var arc = { style: style, pts: pts, age: 0, life: life, seed: seed, se: se };
     util.arcs.push(arc);
@@ -320,9 +336,9 @@
   }
 
   // --- Core ---
-  algo.rgbMap = function(width, height, _rgb, _step){
-    void _rgb; void _step; // QLC+ API requirement
-    ensureState(width, height);
+  algo.rgbMap = function(width, height, _rgb, step){
+    void _rgb; // QLC+ API requirement
+    ensureState(width, height, step);
     util.frame++;
 
     // Maintain arcs
@@ -337,7 +353,7 @@
         updateElectrodeMotion(A.se, width, height);
         if (typeof A.reboltAt !== 'number') scheduleNextRebolt(A, util.frame);
         if (util.frame >= A.reboltAt){
-          var jv = algo.jump|0; var delta = (Math.random()*2 - 1) * (0.5 + 6.0*(jv/10.0));
+          var jv = algo.jump|0; var delta = (rnd()*2 - 1) * (0.5 + 6.0*(jv/10.0));
           A.seed += delta;
           scheduleNextRebolt(A, util.frame);
         }

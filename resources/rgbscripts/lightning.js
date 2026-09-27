@@ -36,13 +36,14 @@
   util.cycleIndex = 0; // increments each time the algorithm restarts its cycle
 
   // Property setters/getters
+  // initialDuration and totalLength are kept independently settable across
+  // their full declared ranges; rgbMap() itself clamps initialDuration
+  // against totalLength at render time (see idur/total below), so the
+  // setters must not cross-mutate each other's value.
   algo.setInitialDuration = function(v){
     var n = parseInt(v, 10);
     if (!isNaN(n) && n >= 1 && n <= 50) {
       algo.initialDuration = n;
-      if (algo.totalLength <= algo.initialDuration) {
-        algo.totalLength = algo.initialDuration + 1; // ensure some tail exists
-      }
     }
   };
   algo.getInitialDuration = function(){ return algo.initialDuration; };
@@ -51,9 +52,6 @@
     var n = parseInt(v, 10);
     if (!isNaN(n) && n >= 5 && n <= 300) {
       algo.totalLength = n;
-      if (algo.totalLength <= algo.initialDuration) {
-        algo.totalLength = algo.initialDuration + 1;
-      }
     }
   };
   algo.getTotalLength = function(){ return algo.totalLength; };

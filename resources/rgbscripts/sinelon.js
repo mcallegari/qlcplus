@@ -28,6 +28,8 @@
   var util = {};
   util.initialized = false;
   util.map = null;
+  util.lastW = 0;
+  util.lastH = 0;
   util.phase = 0.0;
 
   algo.setSpeed = function(v){ algo.speed = parseInt(v, 10); };
@@ -79,8 +81,10 @@
 
   algo.rgbMap = function(width, height, _rgb, _step){
     void _rgb; void _step; // QLC+ API requirement
-    if (!util.initialized || util.map === null){
+    if (!util.initialized || util.map === null || util.lastW !== width || util.lastH !== height){
       util.map = makeMap(width, height, 0);
+      util.lastW = width;
+      util.lastH = height;
       util.phase = 0.0;
       util.initialized = true;
     }
