@@ -339,6 +339,22 @@ protected:
      */
     quint32 createFixtureId();
 
+    /**
+     * Apply the channel capabilities, default values and modifiers of
+     * $fixture to the universes it is patched on. Channels used by another
+     * fixture are left untouched
+     */
+    void patchFixtureChannels(Fixture *fixture, bool crossUniverse);
+
+    /**
+     * Reset the universe channels at the given absolute $addresses,
+     * unless they are used by a fixture
+     */
+    void unpatchChannels(const QList<quint32> &addresses);
+
+    /** Return the absolute addresses currently occupied by fixture $id */
+    QList<quint32> fixtureAddresses(quint32 id) const;
+
 signals:
     /** Signal that a fixture has been added */
     void fixtureAdded(quint32 fxi_id);

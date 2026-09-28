@@ -42,6 +42,8 @@
 #include "efx.h"
 #include "bus.h"
 #include "doc.h"
+#include "universe.h"
+#include "inputoutputmap.h"
 
 #include "doc_test.h"
 
@@ -1205,6 +1207,65 @@ void Doc_Test::createBusNode(QXmlStreamWriter &doc, quint32 id, quint32 val)
 
     /* End the <Bus> tag */
     doc.writeEndElement();
+}
+
+void Doc_Test::movedFixtureChannels()
+{
+    Fixture *fxi = new Fixture(m_doc);
+    fxi->setAddress(100);
+    fxi->setUniverse(0);
+    fxi->setChannels(1);
+    QVERIFY(m_doc->addFixture(fxi));
+
+    Universe *uni = m_doc->inputOutputMap()->universes().at(0);
+    const uchar intensity = Universe::HTP | Universe::Intensity;
+    QCOMPARE(uni->channelCapabilities(100), intensity);
+    QCOMPARE(uni->channelCapabilities(300), uchar(Universe::Undefined));
+
+    // the channel capabilities must follow the fixture
+    fxi->setAddress(300);
+    QCOMPARE(uni->channelCapabilities(100), uchar(Universe::Undefined));
+    QCOMPARE(uni->channelCapabilities(300), intensity);
+}
+
+void Doc_Test::deletedFixtureChannels()
+{
+    Fixture *fxi = new Fixture(m_doc);
+    fxi->setAddress(10);
+    fxi->setUniverse(0);
+    fxi->setChannels(1);
+    fxi->setForcedLTPChannels(QList<int>() << 0);
+    QVERIFY(m_doc->addFixture(fxi));
+
+    Universe *uni = m_doc->inputOutputMap()->universes().at(0);
+    QCOMPARE(uni->channelCapabilities(10) & Universe::LTP, int(Universe::LTP));
+
+    // an LTP value is kept by the universe until something else changes it
+    uni->write(10, 200);
+    QCOMPARE(uni->preGMValue(10), uchar(200));
+
+    // once the fixture is gone, the channel must be free and at zero
+    QVERIFY(m_doc->deleteFixture(fxi->id()));
+    QCOMPARE(uni->channelCapabilities(10), uchar(Universe::Undefined));
+    QCOMPARE(uni->preGMValue(10), uchar(0));
+}
+
+void Doc_Test::renamedFixtureKeepsValues()
+{
+    Fixture *fxi = new Fixture(m_doc);
+    fxi->setAddress(20);
+    fxi->setUniverse(0);
+    fxi->setChannels(1);
+    fxi->setForcedLTPChannels(QList<int>() << 0);
+    QVERIFY(m_doc->addFixture(fxi));
+
+    Universe *uni = m_doc->inputOutputMap()->universes().at(0);
+    uni->write(20, 150);
+
+    // a change that doesn't move the fixture must not reset its channels
+    fxi->setName("Renamed");
+    QCOMPARE(uni->preGMValue(20), uchar(150));
+    QCOMPARE(uni->channelCapabilities(20) & Universe::LTP, int(Universe::LTP));
 }
 
 QTEST_APPLESS_MAIN(Doc_Test)
