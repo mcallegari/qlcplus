@@ -21,6 +21,7 @@
 #include <QQuickItem>
 #include <QDebug>
 #include <QtMath>
+#include <limits>
 
 #include "contextmanager.h"
 #include "monitorproperties.h"
@@ -1100,12 +1101,12 @@ void ContextManager::setFixturesDistribution(int direction)
     if (m_selectedFixtures.count() < 3)
         return;
 
-    qreal min = 1000000;
-    qreal max = 0;
+    qreal min = std::numeric_limits<qreal>::max();
+    qreal max = std::numeric_limits<qreal>::lowest();
     qreal fixturesSize = 0;
     qreal gap = 0;
     QVector<quint32> sortedIDs;
-    QVector<quint32> sortedPos;
+    QVector<qreal> sortedPos;
 
     /* cycle through selected fixtures and do the following:
      * 1- calculate the total width/height
