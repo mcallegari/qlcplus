@@ -359,6 +359,10 @@ private:
     QMutex m_queueMutex;
     QSemaphore m_queueSem;
 
+    /** Protects the history, its index and count, which are written by
+     *  the Tardis thread and read by undo/redo on the main thread */
+    QMutex m_historyMutex;
+
     /** The actual history of actions */
     QList<TardisAction> m_history;
 
