@@ -148,42 +148,14 @@ void FunctionEditor::setTempoType(int tempoType)
 
     Tardis::instance()->enqueueAction(Tardis::FunctionSetTempoType, m_function->id(), m_function->tempoType(), tempoType);
 
+    // the Function converts its own speeds to the new tempo type
     m_function->setTempoType(Function::TempoType(tempoType));
 
-    int beatDuration = m_doc->masterTimer()->beatTimeDuration();
-
-    // Time -> Beats
-    if (tempoType == Function::Beats)
-    {
-        uint fadeIn = Function::timeToBeats(m_function->fadeInSpeed(), beatDuration);
-        uint fadeOut = Function::timeToBeats(m_function->fadeOutSpeed(), beatDuration);
-        uint duration = Function::timeToBeats(m_function->duration(), beatDuration);
-
-        Tardis::instance()->enqueueAction(Tardis::FunctionSetFadeIn, m_function->id(), m_function->fadeInSpeed(), fadeIn);
-        Tardis::instance()->enqueueAction(Tardis::FunctionSetDuration, m_function->id(), m_function->duration(), duration);
-        Tardis::instance()->enqueueAction(Tardis::FunctionSetFadeOut, m_function->id(), m_function->fadeOutSpeed(), fadeOut);
-
-        m_function->setFadeInSpeed(fadeIn);
-        m_function->setDuration(duration);
-        m_function->setFadeOutSpeed(fadeOut);
-    }
-    // Beats -> Time
-    else
-    {
-        uint fadeIn = Function::beatsToTime(m_function->fadeInSpeed(), beatDuration);
-        uint fadeOut = Function::beatsToTime(m_function->fadeOutSpeed(), beatDuration);
-        uint duration = Function::beatsToTime(m_function->duration(), beatDuration);
-
-        Tardis::instance()->enqueueAction(Tardis::FunctionSetFadeIn, m_function->id(), m_function->fadeInSpeed(), fadeIn);
-        Tardis::instance()->enqueueAction(Tardis::FunctionSetDuration, m_function->id(), m_function->duration(), duration);
-        Tardis::instance()->enqueueAction(Tardis::FunctionSetFadeOut, m_function->id(), m_function->fadeOutSpeed(), fadeOut);
-
-        m_function->setFadeInSpeed(fadeIn);
-        m_function->setDuration(duration);
-        m_function->setFadeOutSpeed(fadeOut);
-    }
-
     emit tempoTypeChanged(tempoType);
+    emit fadeInSpeedChanged(fadeInSpeed());
+    emit holdSpeedChanged(holdSpeed());
+    emit fadeOutSpeedChanged(fadeOutSpeed());
+    emit durationChanged(duration());
 }
 
 int FunctionEditor::fadeInSpeed() const
