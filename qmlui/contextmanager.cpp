@@ -1107,6 +1107,11 @@ void ContextManager::setFixturesDistribution(int direction)
     qreal gap = 0;
     QVector<quint32> sortedIDs;
     QVector<qreal> sortedPos;
+    // grid size in millimeters, used to map 2D positions back to 3D
+    // exactly like FixtureUtils::item2DPosition maps them to 2D
+    float gridUnits = m_monProps->gridUnits() == MonitorProperties::Meters ? 1000.0 : 304.8;
+    qreal gridWidth = m_monProps->gridSize().x() * gridUnits;
+    qreal gridHeight = m_monProps->gridSize().y() * gridUnits;
 
     /* cycle through selected fixtures and do the following:
      * 1- calculate the total width/height
@@ -1183,21 +1188,21 @@ void ContextManager::setFixturesDistribution(int direction)
                 break;
                 case MonitorProperties::RightSideView:
                     if (direction == Qt::Horizontal)
-                        fxPos.setZ(m_monProps->gridSize().z() - newPos);
+                        fxPos.setZ(gridWidth - newPos);
                     else
-                        fxPos.setY(newPos);
+                        fxPos.setY(gridHeight - newPos);
                 break;
                 case MonitorProperties::LeftSideView:
                     if (direction == Qt::Horizontal)
                         fxPos.setZ(newPos);
                     else
-                        fxPos.setY(newPos);
+                        fxPos.setY(gridHeight - newPos);
                 break;
                 default:
                     if (direction == Qt::Horizontal)
                         fxPos.setX(newPos);
                     else
-                        fxPos.setY(newPos);
+                        fxPos.setY(gridHeight - newPos);
                 break;
             }
 
