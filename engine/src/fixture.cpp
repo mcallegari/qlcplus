@@ -546,16 +546,34 @@ void Fixture::setChannelModifier(quint32 idx, ChannelModifier *mod)
     if (mod == NULL)
     {
         m_channelModifiers.remove(idx);
+        m_channelModifierNames.remove(idx);
         return;
     }
 
     qDebug() << Q_FUNC_INFO << idx << mod->name();
     m_channelModifiers[idx] = mod;
+    m_channelModifierNames[idx] = mod->name();
 }
 
 ChannelModifier *Fixture::channelModifier(quint32 idx)
 {
     return m_channelModifiers.value(idx, NULL);
+}
+
+void Fixture::setUnknownChannelModifier(quint32 idx, const QString &name)
+{
+    if (idx >= channels() || name.isEmpty())
+        return;
+
+    /* No modifier instance to apply, but remember the name so that saving
+     * the project doesn't discard the user's setting */
+    m_channelModifiers.remove(idx);
+    m_channelModifierNames[idx] = name;
+}
+
+QString Fixture::channelModifierName(quint32 idx) const
+{
+    return m_channelModifierNames.value(idx, QString());
 }
 
 /*********************************************************************
@@ -1149,7 +1167,7 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc,
     QList<int> forcedHTP;
     QList<int> forcedLTP;
     QList<quint32>modifierIndices;
-    QList<ChannelModifier *>modifierPointers;
+    QStringList modifierNames;
 
     if (xmlDoc.name() != KXMLFixture)
     {
@@ -1236,12 +1254,8 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc,
             {
                 quint32 chIdx = attrs.value(KXMLFixtureChannelIndex).toString().toUInt();
                 QString modName = attrs.value(KXMLFixtureModifierName).toString();
-                ChannelModifier *chMod = doc->modifiersCache()->modifier(modName);
-                if (chMod != NULL)
-                {
-                    modifierIndices.append(chIdx);
-                    modifierPointers.append(chMod);
-                }
+                modifierIndices.append(chIdx);
+                modifierNames.append(modName);
                 xmlDoc.skipCurrentElement();
             }
         }
@@ -1354,7 +1368,26 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc,
     setForcedHTPChannels(forcedHTP);
     setForcedLTPChannels(forcedLTP);
     for (int i = 0; i < modifierIndices.count(); i++)
-        setChannelModifier(modifierIndices.at(i), modifierPointers.at(i));
+    {
+        QString modName = modifierNames.at(i);
+        ChannelModifier *chMod = doc->modifiersCache()->modifier(modName);
+
+        if (chMod != NULL)
+        {
+            setChannelModifier(modifierIndices.at(i), chMod);
+        }
+        else
+        {
+            /* The template is not installed on this system. Keep the name so
+             * that saving the project preserves it, and tell the user about it */
+            setUnknownChannelModifier(modifierIndices.at(i), modName);
+            qWarning() << Q_FUNC_INFO << "Channel modifier" << modName << "of fixture" << name
+                       << "is not available in the modifiers cache";
+            doc->appendToErrorLog(QString("Channel modifier <b>%1</b> of fixture <b>%2</b> "
+                                          "is not available and will have no effect")
+                                  .arg(modName).arg(name));
+        }
+    }
     setID(id);
 
     return true;
@@ -1445,19 +1478,17 @@ bool Fixture::saveXML(QXmlStreamWriter *doc) const
     }
 
     {
-        QMapIterator<quint32, ChannelModifier *> it(m_channelModifiers);
+        QMapIterator<quint32, QString> it(m_channelModifierNames);
         while (it.hasNext())
         {
             it.next();
-            quint32 ch = it.key();
-            ChannelModifier *mod = it.value();
-            if (mod != NULL)
-            {
-                doc->writeStartElement(KXMLFixtureChannelModifier);
-                doc->writeAttribute(KXMLFixtureChannelIndex, QString::number(ch));
-                doc->writeAttribute(KXMLFixtureModifierName, mod->name());
-                doc->writeEndElement();
-            }
+            if (it.value().isEmpty())
+                continue;
+
+            doc->writeStartElement(KXMLFixtureChannelModifier);
+            doc->writeAttribute(KXMLFixtureChannelIndex, QString::number(it.key()));
+            doc->writeAttribute(KXMLFixtureModifierName, it.value());
+            doc->writeEndElement();
         }
     }
 

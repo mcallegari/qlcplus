@@ -28,6 +28,7 @@
 #include "qlccapability.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
+#include "qlcmodifierscache.h"
 
 #include "fixture_test.h"
 #include "fixture.h"
@@ -1015,5 +1016,75 @@ void Fixture_Test::save()
     fxi.setFixtureDefinition(fixtureDef, fixtureMode);
     info = fxi.status();
 }*/
+
+/* A channel modifier template that is not installed on the current system
+ * must not be dropped: the assignment has to survive a load/save cycle,
+ * otherwise opening and saving a project silently destroys it */
+void Fixture_Test::unknownChannelModifier()
+{
+    QVERIFY(m_doc->modifiersCache()->modifier("Nonexistent Template") == NULL);
+
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("Fixture");
+    xmlWriter.writeTextElement("Channels", "18");
+    xmlWriter.writeTextElement("Name", "Foobar");
+    xmlWriter.writeTextElement("Universe", "3");
+    xmlWriter.writeTextElement("Model", "Foobar");
+    xmlWriter.writeTextElement("Mode", "Foobar");
+    xmlWriter.writeTextElement("Manufacturer", "Foobar");
+    xmlWriter.writeTextElement("ID", "43");
+    xmlWriter.writeTextElement("Address", "100");
+    xmlWriter.writeTextElement("ForcedHTP", "3");
+    xmlWriter.writeStartElement("Modifier");
+    xmlWriter.writeAttribute("Channel", "3");
+    xmlWriter.writeAttribute("Name", "Nonexistent Template");
+    xmlWriter.writeEndElement();
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(Fixture::loader(xmlReader, m_doc) == true);
+
+    Fixture *fxi = m_doc->fixture(43);
+    QVERIFY(fxi != NULL);
+    /* No instance to apply, but the name is remembered */
+    QVERIFY(fxi->channelModifier(3) == NULL);
+    QVERIFY(fxi->channelModifierName(3) == "Nonexistent Template");
+
+    QBuffer outBuffer;
+    outBuffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter outWriter(&outBuffer);
+    outWriter.writeStartElement("TestRoot");
+    QVERIFY(fxi->saveXML(&outWriter) == true);
+    outWriter.setDevice(NULL);
+    outBuffer.close();
+
+    outBuffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader outReader(&outBuffer);
+    outReader.readNextStartElement();
+    QVERIFY(outReader.name().toString() == "TestRoot");
+    outReader.readNextStartElement();
+    QVERIFY(outReader.name().toString() == "Fixture");
+
+    bool modifierFound = false;
+    while (outReader.readNextStartElement())
+    {
+        if (outReader.name().toString() == "Modifier")
+        {
+            QVERIFY(outReader.attributes().value("Channel").toString() == "3");
+            QVERIFY(outReader.attributes().value("Name").toString() == "Nonexistent Template");
+            modifierFound = true;
+        }
+        outReader.skipCurrentElement();
+    }
+    QVERIFY(modifierFound == true);
+}
 
 QTEST_APPLESS_MAIN(Fixture_Test)

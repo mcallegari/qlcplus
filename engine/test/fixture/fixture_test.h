@@ -53,6 +53,7 @@ private slots:
     void loadWrongID();
     void loader();
     void save();
+    void unknownChannelModifier();
     //void status();
 
 private:
