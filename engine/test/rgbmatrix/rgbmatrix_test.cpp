@@ -388,4 +388,34 @@ void RGBMatrix_Test::loadSave()
 
 }
 
+void RGBMatrix_Test::groupRemovedWhileRunning()
+{
+    FixtureGroup *grp = new FixtureGroup(m_doc);
+    grp->setSize(QSize(1, 1));
+    m_doc->addFixtureGroup(grp);
+    grp->assignFixture(m_doc->fixtures().first()->id());
+
+    RGBMatrix *mtx = new RGBMatrix(m_doc);
+    mtx->setFixtureGroup(grp->id());
+    m_doc->addFunction(mtx);
+
+    MasterTimer *timer = m_doc->masterTimer();
+    mtx->start(timer, FunctionParent::master());
+    timer->timerTick();
+    timer->timerTick();
+    QVERIFY(mtx->isRunning() == true);
+    QVERIFY(mtx->m_group == grp);
+
+    // the matrix must drop the pointer to the deleted group and stop
+    QVERIFY(m_doc->deleteFixtureGroup(grp->id()));
+    QVERIFY(mtx->m_group == NULL);
+
+    timer->timerTick();
+    timer->timerTick();
+    QVERIFY(mtx->stopped() == true);
+    QVERIFY(mtx->isRunning() == false);
+
+    m_doc->deleteFunction(mtx->id());
+}
+
 QTEST_MAIN(RGBMatrix_Test)

@@ -44,6 +44,7 @@ private slots:
     void previewMaps();
     void property();
     void loadSave();
+    void groupRemovedWhileRunning();
 
 private:
     Doc* m_doc;

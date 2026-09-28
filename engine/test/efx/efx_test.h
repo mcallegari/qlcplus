@@ -89,6 +89,7 @@ private slots:
 
     void preRunPostRun();
     void adjustIntensity();
+    void removeMultiHeadFixture();
 
 private:
     Doc* m_doc;

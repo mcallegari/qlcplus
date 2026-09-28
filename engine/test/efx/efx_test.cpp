@@ -3412,4 +3412,27 @@ void EFX_Test::adjustIntensity()
     e->postRun(m_doc->masterTimer(), ua);
 }
 
+void EFX_Test::removeMultiHeadFixture()
+{
+    EFX *e = new EFX(m_doc);
+
+    for (int h = 0; h < 3; h++)
+    {
+        EFXFixture *ef = new EFXFixture(e);
+        ef->setHead(GroupHead(7, h));
+        QVERIFY(e->addFixture(ef));
+    }
+    EFXFixture *other = new EFXFixture(e);
+    other->setHead(GroupHead(8, 0));
+    QVERIFY(e->addFixture(other));
+    QCOMPARE(e->fixtures().size(), 4);
+
+    // every head of the removed fixture must go
+    e->slotFixtureRemoved(7);
+    QCOMPARE(e->fixtures().size(), 1);
+    QCOMPARE(e->fixtures().at(0), other);
+
+    delete e;
+}
+
 QTEST_APPLESS_MAIN(EFX_Test)
