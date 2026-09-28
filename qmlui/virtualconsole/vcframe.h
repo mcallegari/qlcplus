@@ -62,6 +62,7 @@ class VCFrame : public VCWidget
     Q_PROPERTY(bool pagesLoop READ pagesLoop WRITE setPagesLoop NOTIFY pagesLoopChanged)
     Q_PROPERTY(int currentPage READ currentPage WRITE setCurrentPage NOTIFY currentPageChanged)
     Q_PROPERTY(int totalPagesNumber READ totalPagesNumber WRITE setTotalPagesNumber NOTIFY totalPagesNumberChanged)
+    Q_PROPERTY(int usedPagesNumber READ usedPagesNumber NOTIFY usedPagesNumberChanged)
     Q_PROPERTY(int PIN READ PIN WRITE setPIN NOTIFY PINChanged)
     Q_PROPERTY(QStringList pageLabels READ pageLabels NOTIFY pageLabelsChanged)
 
@@ -224,6 +225,11 @@ public:
     int currentPage() const;
     void setCurrentPage(int pageNum);
 
+    /** Return the number of pages needed by the widgets of this frame,
+     *  i.e. the highest page with a widget, plus one. The total pages
+     *  number can't go below it, to never hide or lose widgets */
+    int usedPagesNumber() const;
+
     void setPagesLoop(bool pagesLoop);
     bool pagesLoop() const;
 
@@ -245,6 +251,7 @@ signals:
     void pagesLoopChanged(bool loop);
     void currentPageChanged(int page);
     void totalPagesNumberChanged(int num);
+    void usedPagesNumberChanged();
     void pageLabelsChanged();
 
 protected:

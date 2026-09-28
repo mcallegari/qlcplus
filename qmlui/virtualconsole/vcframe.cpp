@@ -605,6 +605,8 @@ void VCFrame::deleteChildren()
         m_vc->removeWidgetFromMap(widget);
         delete widget;
     }
+
+    emit usedPagesNumberChanged();
 }
 
 void VCFrame::setupWidget(VCWidget *widget, int page)
@@ -644,6 +646,7 @@ void VCFrame::checkSubmasterConnection(VCWidget *widget)
 void VCFrame::addWidgetToPageMap(VCWidget *widget)
 {
     m_pagesMap.insert(widget, widget->page());
+    emit usedPagesNumberChanged();
 
     // if we're a normal Frame and we have a Solo Frame parent
     // then passthrough the widget functionStarting signal.
@@ -667,6 +670,7 @@ void VCFrame::addWidgetToPageMap(VCWidget *widget)
 void VCFrame::removeWidgetFromPageMap(VCWidget *widget)
 {
     m_pagesMap.remove(widget);
+    emit usedPagesNumberChanged();
 
     // disconnect function start event. See addWidgetToPageMap
     if (xmlTagName() == KXMLQLCVCFrame && hasSoloParent() == true)
@@ -790,8 +794,16 @@ void VCFrame::ensureFirstPage()
 
 void VCFrame::setTotalPagesNumber(int num)
 {
+    // never drop pages that still have widgets: they would stay hidden
+    // in the frame, with their functions and input controls still active
+    num = qMax(num, usedPagesNumber());
+
     if (m_totalPagesNumber == num)
+    {
+        // let a view that requested fewer pages show the actual number
+        emit totalPagesNumberChanged(num);
         return;
+    }
 
     // pages rely on the first page (index 0) being registered
     ensureFirstPage();
@@ -815,9 +827,28 @@ void VCFrame::setTotalPagesNumber(int num)
     }
 
     m_totalPagesNumber = num;
+
+    // the current page might have been removed
+    if (m_currentPage >= m_totalPagesNumber)
+        setCurrentPage(m_totalPagesNumber - 1);
+
     setDocModified();
     emit totalPagesNumberChanged(num);
     emit pageLabelsChanged();
+}
+
+int VCFrame::usedPagesNumber() const
+{
+    int used = 1;
+
+    QMapIterator <VCWidget*, int> it(m_pagesMap);
+    while (it.hasNext() == true)
+    {
+        it.next();
+        used = qMax(used, it.value() + 1);
+    }
+
+    return used;
 }
 
 int VCFrame::totalPagesNumber() const
@@ -1430,6 +1461,11 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
             }
         }
     }
+
+    // projects saved while widgets were left on removed pages:
+    // bring those pages back, so the widgets can be reached again
+    if (usedPagesNumber() > totalPagesNumber())
+        setTotalPagesNumber(usedPagesNumber());
 
     if (multiPageMode() == true)
         setCurrentPage(currentPage);
