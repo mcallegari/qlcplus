@@ -835,6 +835,8 @@ void VCFrame::setTotalPagesNumber(int num)
     setDocModified();
     emit totalPagesNumberChanged(num);
     emit pageLabelsChanged();
+    // a view showing the page labels resets its selection when they change
+    emit currentPageChanged(m_currentPage);
 }
 
 int VCFrame::usedPagesNumber() const
@@ -925,6 +927,8 @@ void VCFrame::setShortcutName(int pageIndex, QString name)
     setDocModified();
 
     emit pageLabelsChanged();
+    // a view showing the page labels resets its selection when they change
+    emit currentPageChanged(m_currentPage);
 }
 
 void VCFrame::gotoPreviousPage()
