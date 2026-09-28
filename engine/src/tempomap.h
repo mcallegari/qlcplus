@@ -147,6 +147,38 @@ public:
      */
     double stepEnd(double startTime, double beats, double fallbackBpm) const;
 
+    /**
+     * A beat count followed on the tempo map by a Function that runs
+     * continuously, like an EFX (see moveBeatCursor())
+     */
+    struct BeatCursor
+    {
+        BeatCursor(double originTime = 0);
+
+        double time;        // the time the cursor was last moved to
+        double beats;       // the beats counted from the origin up to time
+        bool inSegment;     // false until the cursor enters a segment
+        double entryTime;   // where the cursor entered its segment
+        double entryBeats;  // the beats counted at entryTime
+        double correction;  // phase correction eased in over a beat from entryTime
+        double bpm;         // the tempo of the segment
+        double segmentEnd;  // where the segment ends, or -1
+        bool fallback;      // true when the segment runs at the fallback BPM
+    };
+
+    /**
+     * Move $cursor forward to $time and get the beats counted from its
+     * origin.
+     *
+     * Beats are counted continuously at the tempo of each segment. Whenever
+     * the count enters a segment (the one it starts in included), its phase
+     * is eased onto the segment beat grid over a beat, so that its whole
+     * beats land on the grid beats without any jump. A change of
+     * $fallbackBpm before the first section is taken from the last cursor
+     * position, again without jumps.
+     */
+    double moveBeatCursor(BeatCursor &cursor, double time, double fallbackBpm) const;
+
 private:
     struct Segment
     {
@@ -156,6 +188,8 @@ private:
     };
 
     Segment segmentAt(double time, double fallbackBpm) const;
+
+    void enterSegment(BeatCursor &cursor, double fallbackBpm) const;
 
     /*********************************************************************
      * Load & Save

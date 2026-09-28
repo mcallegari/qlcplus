@@ -326,6 +326,68 @@ double TempoMap::stepEnd(double startTime, double beats, double fallbackBpm) con
     }
 }
 
+TempoMap::BeatCursor::BeatCursor(double originTime)
+    : time(originTime)
+    , beats(0)
+    , inSegment(false)
+    , entryTime(originTime)
+    , entryBeats(0)
+    , correction(0)
+    , bpm(0)
+    , segmentEnd(-1)
+    , fallback(false)
+{
+}
+
+void TempoMap::enterSegment(BeatCursor &cursor, double fallbackBpm) const
+{
+    Segment segment = segmentAt(cursor.time, fallbackBpm);
+    double beatMs = 60000.0 / segment.bpm;
+
+    cursor.inSegment = true;
+    cursor.entryTime = cursor.time;
+    cursor.entryBeats = cursor.beats;
+    cursor.bpm = segment.bpm;
+    cursor.segmentEnd = segment.end;
+    cursor.fallback = m_sections.isEmpty() || cursor.time < m_sections.first().startTime;
+
+    // how far the whole beats of the count are from the grid beats
+    double offset = cursor.beats - (cursor.time - segment.origin) / beatMs;
+    cursor.correction = std::round(offset) - offset;
+    if (std::fabs(cursor.correction) * beatMs <= GRID_TOLERANCE_MS)
+        cursor.correction = 0;
+}
+
+double TempoMap::moveBeatCursor(BeatCursor &cursor, double time, double fallbackBpm) const
+{
+    if (time <= cursor.time)
+        return cursor.beats;
+
+    // the fallback tempo changed: go on at the new one from here
+    if (cursor.inSegment && cursor.fallback && fallbackBpm > 0 && fallbackBpm != cursor.bpm)
+        enterSegment(cursor, fallbackBpm);
+
+    while (true)
+    {
+        if (cursor.inSegment == false)
+            enterSegment(cursor, fallbackBpm);
+
+        double end = time;
+        if (cursor.segmentEnd >= 0 && cursor.segmentEnd < time)
+            end = cursor.segmentEnd;
+
+        double progress = (end - cursor.entryTime) * cursor.bpm / 60000.0;
+        cursor.beats = cursor.entryBeats + progress + cursor.correction * qMin(1.0, progress);
+        cursor.time = end;
+
+        if (end >= time)
+            return cursor.beats;
+
+        // on to the next segment
+        cursor.inSegment = false;
+    }
+}
+
 /****************************************************************************
  * Load & Save
  ****************************************************************************/

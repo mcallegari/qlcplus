@@ -27,6 +27,7 @@
 
 #include "efxfixture.h"
 #include "function.h"
+#include "tempomap.h"
 
 class QXmlStreamReader;
 class GenericFader;
@@ -612,6 +613,14 @@ private:
      *  Returns how many 1/1000 beats the EFX has moved on */
     uint advanceBeatClock(MasterTimer *timer);
 
+    /** Advance a Beats tempo EFX started by a Show with tempo sections by
+     *  one tick, on the tempo map. Returns how many 1/1000 beats the EFX
+     *  has moved on */
+    uint advanceTempoMapClock(MasterTimer *timer);
+
+    /** Update m_beatUnits from m_beatPosition and return the difference */
+    uint updateBeatUnits();
+
 private:
     /** Beats elapsed since the EFX was started */
     double m_beatPosition;
@@ -622,6 +631,8 @@ private:
     double m_beatCorrection;
     /** The phase correction applied over the beat following its measure */
     double m_beatCorrectionRate;
+    /** The beat count on the tempo map of a Show with tempo sections */
+    TempoMap::BeatCursor m_beatCursor;
 
     /*********************************************************************
      * Intensity

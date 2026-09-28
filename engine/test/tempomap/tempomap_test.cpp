@@ -20,6 +20,7 @@
 #include <QtTest>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <cmath>
 
 #include "tempomap_test.h"
 #include "tempomap.h"
@@ -339,6 +340,208 @@ void TempoMap_Test::saveLoad()
     QXmlStreamWriter emptyWriter(&emptyBuffer);
     QVERIFY(TempoMap().saveXML(&emptyWriter));
     QCOMPARE(emptyBuffer.size(), qint64(0));
+}
+
+static double moveTo(const TempoMap &map, TempoMap::BeatCursor &cursor, double time, double fallbackBpm)
+{
+    return map.moveBeatCursor(cursor, time, fallbackBpm);
+}
+
+void TempoMap_Test::beatCursorNoSections()
+{
+    TempoMap map;
+    TempoMap::BeatCursor cursor(0);
+
+    // the fallback BPM, on a grid from 0
+    QCOMPARE(moveTo(map, cursor, 1000, 120), 2.0);
+    QCOMPARE(moveTo(map, cursor, 1250, 120), 2.5);
+    // moving back does nothing
+    QCOMPARE(moveTo(map, cursor, 1000, 120), 2.5);
+
+    // started off the grid, 0.2 beats after a beat: the count is eased
+    // onto the grid over a beat, and then its whole beats are grid beats
+    TempoMap::BeatCursor offGrid(100);
+    QVERIFY(moveTo(map, offGrid, 300, 120) < 0.4 + 0.2);
+    for (int t = 600; t <= 3000; t += 100)
+        QVERIFY(qAbs(moveTo(map, offGrid, t, 120) - t / 500.0) < 1e-9);
+}
+
+void TempoMap_Test::beatCursorOnGrid()
+{
+    TempoMap map;
+    map.addSection(TempoSection(0, 60000, 120));
+
+    TempoMap::BeatCursor cursor(1000);
+    for (int t = 1020; t <= 5000; t += 20)
+        QVERIFY(qAbs(moveTo(map, cursor, t, 60) - (t - 1000) / 500.0) < 1e-9);
+}
+
+void TempoMap_Test::beatCursorAdjacentSections()
+{
+    TempoMap map;
+    map.addSection(TempoSection(0, 4000, 120));
+    map.addSection(TempoSection(4000, 20000, 90));
+
+    TempoMap::BeatCursor cursor(0);
+    QCOMPARE(moveTo(map, cursor, 4000, 60), 8.0);
+
+    // the section starts on a beat: the count goes on at 90 BPM, on its grid
+    double beatMs = 60000.0 / 90;
+    for (int i = 1; i <= 6; i++)
+        QVERIFY(qAbs(moveTo(map, cursor, 4000 + i * beatMs, 60) - (8 + i)) < 1e-9);
+}
+
+void TempoMap_Test::beatCursorAdjacentOffGrid()
+{
+    TempoMap map;
+    map.addSection(TempoSection(0, 4250, 120));
+    map.addSection(TempoSection(4250, 20000, 60));
+
+    TempoMap::BeatCursor cursor(0);
+    QCOMPARE(moveTo(map, cursor, 4250, 120), 8.5);
+
+    // halfway through a beat when the next section starts: the half beat
+    // is caught up over the first beat of the section, without any jump
+    QVERIFY(qAbs(moveTo(map, cursor, 4260, 120) - 8.5) < 0.02);
+    QVERIFY(qAbs(moveTo(map, cursor, 5250, 120) - 10.0) < 1e-9);
+    for (int i = 2; i <= 5; i++)
+        QVERIFY(qAbs(moveTo(map, cursor, 4250 + i * 1000, 120) - (9 + i)) < 1e-9);
+}
+
+void TempoMap_Test::beatCursorGap()
+{
+    TempoMap map;
+    map.addSection(TempoSection(0, 2000, 120));
+    map.addSection(TempoSection(5000, 20000, 60));
+
+    // the gap keeps the tempo of the section before it
+    TempoMap::BeatCursor cursor(1000);
+    QCOMPARE(moveTo(map, cursor, 2000, 90), 2.0);
+    QCOMPARE(moveTo(map, cursor, 3500, 90), 5.0);
+    QCOMPARE(moveTo(map, cursor, 5000, 90), 8.0);
+    QCOMPARE(moveTo(map, cursor, 7000, 90), 10.0);
+
+    // the next section starting off the gap grid: eased onto its grid
+    TempoMap offGridMap;
+    offGridMap.addSection(TempoSection(0, 2000, 120));
+    offGridMap.addSection(TempoSection(5100, 20000, 60));
+
+    TempoMap::BeatCursor offGrid(1000);
+    QVERIFY(qAbs(moveTo(offGridMap, offGrid, 5100, 90) - 8.2) < 1e-9);
+    QVERIFY(qAbs(moveTo(offGridMap, offGrid, 6100, 90) - 9.0) < 1e-9);
+    QVERIFY(qAbs(moveTo(offGridMap, offGrid, 8100, 90) - 11.0) < 1e-9);
+}
+
+void TempoMap_Test::beatCursorBeforeFirstSection()
+{
+    TempoMap map;
+    map.addSection(TempoSection(3000, 10000, 60));
+
+    // the fallback BPM up to the section, then the section tempo
+    TempoMap::BeatCursor cursor(1000);
+    QCOMPARE(moveTo(map, cursor, 2000, 120), 2.0);
+    QCOMPARE(moveTo(map, cursor, 3000, 120), 4.0);
+    QCOMPARE(moveTo(map, cursor, 5000, 120), 6.0);
+}
+
+void TempoMap_Test::beatCursorPastLastSection()
+{
+    TempoMap map;
+    map.addSection(TempoSection(0, 2000, 90));
+    double beatMs = 60000.0 / 90;
+
+    // started 0.2 beats after a grid beat, running well past the end of
+    // the last section: 90 BPM on its grid all along
+    TempoMap::BeatCursor cursor(800);
+    moveTo(map, cursor, 800 + beatMs, 120);
+    for (int t = 2000; t <= 12000; t += 500)
+    {
+        double beats = moveTo(map, cursor, t, 120);
+        double offset = beats - t / beatMs;
+        QVERIFY(qAbs(offset - std::round(offset)) < 1e-9);
+    }
+    double before = moveTo(map, cursor, 20000, 120);
+    QVERIFY(qAbs(moveTo(map, cursor, 21000, 120) - before - 1.5) < 1e-9);
+}
+
+void TempoMap_Test::beatCursorFallbackBpmChange()
+{
+    TempoMap map;
+
+    // a BPM change on a beat: the count goes on at the new tempo
+    TempoMap::BeatCursor cursor(0);
+    QCOMPARE(moveTo(map, cursor, 1000, 120), 2.0);
+    QCOMPARE(moveTo(map, cursor, 1000, 60), 2.0);
+    QCOMPARE(moveTo(map, cursor, 2000, 60), 3.0);
+
+    // a BPM change between two beats: no jump, then eased onto the grid
+    TempoMap::BeatCursor offBeat(0);
+    QCOMPARE(moveTo(map, offBeat, 1250, 120), 2.5);
+    QVERIFY(qAbs(moveTo(map, offBeat, 1260, 60) - 2.5) < 0.02);
+    QVERIFY(qAbs(moveTo(map, offBeat, 2250, 60) - 3.25) < 1e-9);
+    QVERIFY(qAbs(moveTo(map, offBeat, 4250, 60) - 5.25) < 1e-9);
+
+    // within a section, the fallback BPM doesn't matter
+    TempoMap sectionMap;
+    sectionMap.addSection(TempoSection(0, 10000, 120));
+    TempoMap::BeatCursor inSection(0);
+    QCOMPARE(moveTo(sectionMap, inSection, 1000, 60), 2.0);
+    QCOMPARE(moveTo(sectionMap, inSection, 2000, 200), 4.0);
+}
+
+static TempoMap complexMap()
+{
+    // a section starting after 0, adjacent sections with an off grid
+    // boundary, a gap, and a last section ending before the run does
+    TempoMap map;
+    map.addSection(TempoSection(1300, 4000, 128));
+    map.addSection(TempoSection(5300, 3000, 97.5));
+    map.addSection(TempoSection(9000, 2500, 174));
+    return map;
+}
+
+void TempoMap_Test::beatCursorSeek()
+{
+    TempoMap map = complexMap();
+
+    // jumping straight to a time counts the same beats as getting there
+    // tick by tick, from any start
+    for (int origin = 0; origin <= 6000; origin += 1500)
+    {
+        TempoMap::BeatCursor ticked(origin);
+        for (int t = origin + 20; t <= 15000; t += 20)
+        {
+            double beats = moveTo(map, ticked, t, 110);
+            if (t % 1000 == 0)
+            {
+                TempoMap::BeatCursor seek(origin);
+                QVERIFY(qAbs(moveTo(map, seek, t, 110) - beats) < 1e-6);
+            }
+        }
+    }
+}
+
+void TempoMap_Test::beatCursorSmooth()
+{
+    TempoMap map = complexMap();
+
+    // the count never jumps: always forward, within half and 1.5 times
+    // the tempo of where it is
+    for (int origin = 0; origin <= 6000; origin += 700)
+    {
+        TempoMap::BeatCursor cursor(origin);
+        double previous = 0;
+        for (int t = origin + 20; t <= 15000; t += 20)
+        {
+            double beats = moveTo(map, cursor, t, 110);
+            double tempoBeats = 20.0 / map.beatDurationAt(t - 20, 110);
+            double tempoBeatsEnd = 20.0 / map.beatDurationAt(t, 110);
+            double step = beats - previous;
+            QVERIFY(step >= 0.5 * qMin(tempoBeats, tempoBeatsEnd) - 1e-9);
+            QVERIFY(step <= 1.5 * qMax(tempoBeats, tempoBeatsEnd) + 1e-9);
+            previous = beats;
+        }
+    }
 }
 
 QTEST_APPLESS_MAIN(TempoMap_Test)

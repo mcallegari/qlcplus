@@ -164,6 +164,12 @@ uint EFX::tempoFadeInSpeed() const
         fadeIn != infiniteSpeed())
     {
         int beatDuration = doc()->masterTimer()->beatTimeDuration();
+
+        // on a Show tempo map, at the tempo where the EFX was started
+        QSharedPointer<const TempoMapClock> clock = tempoMapClock();
+        if (clock.isNull() == false)
+            beatDuration = qRound(clock->map.beatDurationAt(clock->origin, doc()->masterTimer()->bpmNumber()));
+
         if (tempoType() == Beats)
             fadeIn = timeToBeats(fadeIn, beatDuration);
         else
@@ -1187,6 +1193,9 @@ void EFX::preRun(MasterTimer* timer)
     m_beatCorrection = 0;
     m_beatCorrectionRate = 0;
 
+    QSharedPointer<const TempoMapClock> clock = tempoMapClock();
+    m_beatCursor = TempoMap::BeatCursor(clock.isNull() ? 0 : clock->origin);
+
     QListIterator <EFXFixture*> it(m_fixtures);
     while (it.hasNext() == true)
     {
@@ -1207,7 +1216,12 @@ void EFX::write(MasterTimer *timer, QList<Universe*> universes)
     uint increment = MasterTimer::tick();
 
     if (tempoType() == Beats)
-        increment = advanceBeatClock(timer);
+    {
+        if (tempoMapClock().isNull())
+            increment = advanceBeatClock(timer);
+        else
+            increment = advanceTempoMapClock(timer);
+    }
 
     QListIterator <EFXFixture*> it(m_fixtures);
     while (it.hasNext() == true)
@@ -1271,6 +1285,23 @@ uint EFX::advanceBeatClock(MasterTimer *timer)
         m_beatCorrectionRate = m_beatCorrection;
     }
 
+    return updateBeatUnits();
+}
+
+uint EFX::advanceTempoMapClock(MasterTimer *timer)
+{
+    QSharedPointer<const TempoMapClock> clock = tempoMapClock();
+
+    // the Show time at the end of this tick. elapsed() counts from the Show
+    // item start, including a start in the middle of the item
+    double time = double(clock->origin) + elapsed() + MasterTimer::tick();
+    m_beatPosition = clock->map.moveBeatCursor(m_beatCursor, time, timer->bpmNumber());
+
+    return updateBeatUnits();
+}
+
+uint EFX::updateBeatUnits()
+{
     // the epsilon absorbs the rounding errors piled up by the additions
     quint64 units = quint64(m_beatPosition * 1000.0 + 1e-6);
     uint increment = uint(units - m_beatUnits);

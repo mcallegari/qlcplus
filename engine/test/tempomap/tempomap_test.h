@@ -43,6 +43,16 @@ private slots:
     void stepEndGap();
     void stepEndBeforeFirstSection();
     void beatDurationAt();
+    void beatCursorNoSections();
+    void beatCursorOnGrid();
+    void beatCursorAdjacentSections();
+    void beatCursorAdjacentOffGrid();
+    void beatCursorGap();
+    void beatCursorBeforeFirstSection();
+    void beatCursorPastLastSection();
+    void beatCursorFallbackBpmChange();
+    void beatCursorSeek();
+    void beatCursorSmooth();
     void saveLoad();
 };
 
