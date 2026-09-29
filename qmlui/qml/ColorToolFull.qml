@@ -205,7 +205,7 @@ Rectangle
             {
                 id: crosshairH
                 x: 0
-                y: clickedY - 1
+                y: clickedY * colorBox.scale - 1
                 width: colorBox.width
                 height: 2
                 color: "white"
@@ -215,7 +215,7 @@ Rectangle
             Rectangle
             {
                 id: crosshairV
-                x: clickedX - 1
+                x: clickedX * colorBox.scale - 1
                 y: 0
                 width: 2
                 height: colorBox.height
@@ -226,15 +226,19 @@ Rectangle
             Rectangle
             {
                 id: crosshairCenter
-                x: clickedX - 3
-                y: clickedY - 3
-                width: 6
-                height: 6
-                color: "transparent"
-                border.color: "white"
+                x: clickedX * colorBox.scale - 6
+                y: clickedY * colorBox.scale - 6
+                width: 12
+                height: 12
+                radius: 6
+                color: currentRGB
+                // Calculate brightness for contrasting border
+                border.color: {
+                    var brightness = (currentRGB.r * 0.299 + currentRGB.g * 0.587 + currentRGB.b * 0.114)
+                    return brightness > 0.5 ? "black" : "white"
+                }
                 border.width: 2
-                radius: 3
-                opacity: 0.8
+                opacity: 0.9
             }
         }
     }
