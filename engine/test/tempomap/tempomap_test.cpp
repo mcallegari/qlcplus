@@ -292,6 +292,9 @@ void TempoMap_Test::stepEndBeforeFirstSection()
     // no sections at all: the fallback BPM
     TempoMap empty;
     QCOMPARE(empty.stepEnd(0, 2, 120), 1000.0);
+
+    // without sections, the fallback segment has no end, even past 2^32 ms
+    QCOMPARE(empty.stepEnd(4294967000.0, 2, 120), 4294968000.0);
 }
 
 void TempoMap_Test::beatDurationAt()

@@ -259,7 +259,9 @@ TempoMap::Segment TempoMap::segmentAt(double time, double fallbackBpm) const
     Segment segment;
     segment.origin = 0;
     segment.bpm = fallbackBpm > 0 ? fallbackBpm : 120.0;
-    segment.end = m_sections.isEmpty() ? -1 : m_sections.first().startTime;
+    // -1 must stay a double: mixed with the quint32 start time, it would
+    // become UINT_MAX
+    segment.end = m_sections.isEmpty() ? -1.0 : double(m_sections.first().startTime);
 
     for (int i = 0; i < m_sections.count(); i++)
     {
