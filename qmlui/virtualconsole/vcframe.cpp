@@ -116,13 +116,21 @@ void VCFrame::render(QQuickView *view, QQuickItem *parent)
 
     if (m_pagesMap.count() > 0)
     {
-        QString chName = QString("frameDropArea%1").arg(id());
-        QQuickItem *childrenArea = qobject_cast<QQuickItem*>(m_item->findChild<QObject *>(chName));
+        QQuickItem *childrenArea = childrenItem();
 
         QMap <VCWidget *, int>::iterator it = m_pagesMap.begin();
         for (; it != m_pagesMap.end(); it++)
             it.key()->render(view, childrenArea);
     }
+}
+
+QQuickItem *VCFrame::childrenItem() const
+{
+    if (m_item == nullptr)
+        return nullptr;
+
+    QString chName = QString("frameDropArea%1").arg(id());
+    return qobject_cast<QQuickItem*>(m_item->findChild<QObject *>(chName));
 }
 
 QString VCFrame::propertiesResource() const
@@ -164,6 +172,13 @@ bool VCFrame::copyFrom(const VCWidget *widget)
     setTotalPagesNumber(frame->totalPagesNumber());
     setPagesLoop(frame->pagesLoop());
 
+    QMapIterator <int, QString> lit(frame->m_pageLabels);
+    while (lit.hasNext())
+    {
+        lit.next();
+        setShortcutName(lit.key(), lit.value());
+    }
+
     QListIterator <VCWidget*> it(widget->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
@@ -190,11 +205,16 @@ bool VCFrame::copyFrom(const VCWidget *widget)
         }
     }
 
-    if (multiPageMode())
-        setPage(frame->currentPage());
-
     /* Copy common stuff */
-    return VCWidget::copyFrom(widget);
+    if (VCWidget::copyFrom(widget) == false)
+        return false;
+
+    /* Show the same page as the source frame. Note that page() is the page
+     * of this frame within its parent, which is set when the copy is added */
+    if (multiPageMode())
+        setCurrentPage(frame->currentPage());
+
+    return true;
 }
 
 bool VCFrame::hasChildren() const
@@ -405,11 +425,16 @@ void VCFrame::addWidget(QQuickItem *parent, VCWidget *widget, QPoint pos)
 
     QQmlEngine::setObjectOwnership(widget, QQmlEngine::CppOwnership);
     m_vc->addWidgetToMap(widget);
+    /* a copied widget still has the page of the source widget.
+     * Place it on the page currently displayed */
+    widget->setPage(currentPage());
+    widget->setVisible(true);
     Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
                                       Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, widget->id()));
     widget->setGeometry(QRect(pos.x(), pos.y(), widget->geometry().width(), widget->geometry().height()));
     addWidgetToPageMap(widget);
     checkSubmasterConnection(widget);
+    m_vc->mapWidgetInputs(widget);
     widget->render(m_vc->view(), parent);
 }
 
@@ -463,22 +488,55 @@ void VCFrame::addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos
     frame->render(m_vc->view(), parent);
 }
 
+static bool isDescendantOf(const QObject *object, const QObject *ancestor)
+{
+    for (const QObject *p = object; p != nullptr; p = p->parent())
+    {
+        if (p == ancestor)
+            return true;
+    }
+    return false;
+}
+
 void VCFrame::addWidgetsFromClipboard(QQuickItem *parent, QVariantList idsList, QPoint pos)
 {
     QPoint currPos = pos;
+    QList<VCWidget *> sources;
+    QVariantList pastedIDs;
 
     for (QVariant wID : idsList)
     {
         VCWidget *widget = m_vc->widget(wID.toUInt());
-        if (widget == nullptr)
+        if (widget != nullptr)
+            sources.append(widget);
+    }
+
+    for (VCWidget *widget : sources)
+    {
+        // do not allow pasting an item into itself or into one of its children,
+        // since the copy would end up inside the widget being copied
+        if (isDescendantOf(this, widget))
             continue;
 
-        // do not allow pasting an item into itself
-        if (widget->id() == this->id())
+        // children of a frame in the clipboard are copied along with it
+        bool parentInClipboard = false;
+        for (VCWidget *other : sources)
+        {
+            if (other != widget && isDescendantOf(widget, other))
+            {
+                parentInClipboard = true;
+                break;
+            }
+        }
+        if (parentInClipboard)
             continue;
 
         VCWidget *copy = widget->createCopy(this);
+        if (copy == nullptr)
+            continue;
+
         addWidget(parent, copy, currPos);
+        pastedIDs.append(widget->id());
 
         currPos.setX(currPos.x() + copy->geometry().width());
         if (currPos.x() >= geometry().width())
@@ -489,8 +547,8 @@ void VCFrame::addWidgetsFromClipboard(QQuickItem *parent, QVariantList idsList, 
     }
 
     // if this was a cut operation, remove the source widgets
-    // and reset the clipboard
-    m_vc->flushClipboardAfterPaste(this->id());
+    // that have been pasted and reset the clipboard
+    m_vc->flushClipboardAfterPaste(pastedIDs);
 }
 
 void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos, int keyModifiers)
@@ -978,7 +1036,7 @@ void VCFrame::cloneFirstPage()
                 newWidget->remapInputSources(pg);
 
                 setupWidget(newWidget, pg);
-                newWidget->render(m_vc->view(), m_item);
+                newWidget->render(m_vc->view(), childrenItem());
             }
         }
     }
@@ -1164,8 +1222,11 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
             QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
             setupWidget(frame, frame->page());
             m_vc->addWidgetToMap(frame);
-            if (render && m_item)
-                frame->render(m_vc->view(), m_item);
+            if (render)
+            {
+                m_vc->mapWidgetInputs(frame);
+                frame->render(m_vc->view(), childrenItem());
+            }
         }
     }
     else if (root.name() == KXMLQLCVCSoloFrame)
@@ -1179,8 +1240,11 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
             QQmlEngine::setObjectOwnership(soloframe, QQmlEngine::CppOwnership);
             setupWidget(soloframe, soloframe->page());
             m_vc->addWidgetToMap(soloframe);
-            if (render && m_item)
-                soloframe->render(m_vc->view(), m_item);
+            if (render)
+            {
+                m_vc->mapWidgetInputs(soloframe);
+                soloframe->render(m_vc->view(), childrenItem());
+            }
         }
     }
     else if (root.name() == KXMLQLCVCButton)
@@ -1194,8 +1258,11 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
             QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
             setupWidget(button, button->page());
             m_vc->addWidgetToMap(button);
-            if (render && m_item)
-                button->render(m_vc->view(), m_item);
+            if (render)
+            {
+                m_vc->mapWidgetInputs(button);
+                button->render(m_vc->view(), childrenItem());
+            }
         }
     }
     else if (root.name() == KXMLQLCVCLabel)
@@ -1209,8 +1276,11 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
             QQmlEngine::setObjectOwnership(label, QQmlEngine::CppOwnership);
             setupWidget(label, label->page());
             m_vc->addWidgetToMap(label);
-            if (render && m_item)
-                label->render(m_vc->view(), m_item);
+            if (render)
+            {
+                m_vc->mapWidgetInputs(label);
+                label->render(m_vc->view(), childrenItem());
+            }
         }
     }
     else if (root.name() == KXMLQLCVCSlider)
@@ -1224,8 +1294,11 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
             QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
             setupWidget(slider, slider->page());
             m_vc->addWidgetToMap(slider);
-            if (render && m_item)
-                slider->render(m_vc->view(), m_item);
+            if (render)
+            {
+                m_vc->mapWidgetInputs(slider);
+                slider->render(m_vc->view(), childrenItem());
+            }
         }
     }
     else if (root.name() == KXMLQLCVCAnimation)
@@ -1239,8 +1312,11 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
             QQmlEngine::setObjectOwnership(animation, QQmlEngine::CppOwnership);
             setupWidget(animation, animation->page());
             m_vc->addWidgetToMap(animation);
-            if (render && m_item)
-                animation->render(m_vc->view(), m_item);
+            if (render)
+            {
+                m_vc->mapWidgetInputs(animation);
+                animation->render(m_vc->view(), childrenItem());
+            }
         }
     }
     else if (root.name() == KXMLQLCVCAudioTriggers)
@@ -1254,8 +1330,11 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
             QQmlEngine::setObjectOwnership(audioTrigger, QQmlEngine::CppOwnership);
             setupWidget(audioTrigger, audioTrigger->page());
             m_vc->addWidgetToMap(audioTrigger);
-            if (render && m_item)
-                audioTrigger->render(m_vc->view(), m_item);
+            if (render)
+            {
+                m_vc->mapWidgetInputs(audioTrigger);
+                audioTrigger->render(m_vc->view(), childrenItem());
+            }
         }
     }
     else if (root.name() == KXMLQLCVCSpeedDial)
@@ -1269,8 +1348,11 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
             QQmlEngine::setObjectOwnership(speedDial, QQmlEngine::CppOwnership);
             setupWidget(speedDial, speedDial->page());
             m_vc->addWidgetToMap(speedDial);
-            if (render && m_item)
-                speedDial->render(m_vc->view(), m_item);
+            if (render)
+            {
+                m_vc->mapWidgetInputs(speedDial);
+                speedDial->render(m_vc->view(), childrenItem());
+            }
         }
     }
     else if (root.name() == KXMLQLCVCXYPad)
@@ -1284,8 +1366,11 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
             QQmlEngine::setObjectOwnership(xyPad, QQmlEngine::CppOwnership);
             setupWidget(xyPad, xyPad->page());
             m_vc->addWidgetToMap(xyPad);
-            if (render && m_item)
-                xyPad->render(m_vc->view(), m_item);
+            if (render)
+            {
+                m_vc->mapWidgetInputs(xyPad);
+                xyPad->render(m_vc->view(), childrenItem());
+            }
         }
     }
     else if (root.name() == KXMLQLCVCClock)
@@ -1299,8 +1384,11 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
             QQmlEngine::setObjectOwnership(clock, QQmlEngine::CppOwnership);
             setupWidget(clock, clock->page());
             m_vc->addWidgetToMap(clock);
-            if (render && m_item)
-                clock->render(m_vc->view(), m_item);
+            if (render)
+            {
+                m_vc->mapWidgetInputs(clock);
+                clock->render(m_vc->view(), childrenItem());
+            }
         }
     }
     else if (root.name() == KXMLQLCVCCueList)
@@ -1314,8 +1402,11 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
             QQmlEngine::setObjectOwnership(cuelist, QQmlEngine::CppOwnership);
             setupWidget(cuelist, cuelist->page());
             m_vc->addWidgetToMap(cuelist);
-            if (render && m_item)
-                cuelist->render(m_vc->view(), m_item);
+            if (render)
+            {
+                m_vc->mapWidgetInputs(cuelist);
+                cuelist->render(m_vc->view(), childrenItem());
+            }
         }
     }
     else

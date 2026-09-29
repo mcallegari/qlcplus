@@ -150,6 +150,12 @@ void VirtualConsole::resetContents()
 
     m_widgetsMap.clear();
     m_latestWidgetId = 0;
+
+    /* Pages are widgets too: Tardis actions and widget reparenting
+     * look them up by ID, so keep them in the map */
+    foreach (VCPage *page, m_pages)
+        addWidgetToMap(page);
+
     m_selectedPage = 0;
     m_loadStatus = Cleared;
 }
@@ -386,6 +392,7 @@ void VirtualConsole::addPage(int index)
 {
     VCPage *page = new VCPage(m_view, m_doc, this, index, this);
     QQmlEngine::setObjectOwnership(page, QQmlEngine::CppOwnership);
+    addWidgetToMap(page);
     m_contextManager->registerContext(page->previewContext());
     m_pages.insert(index, page);
 
@@ -406,12 +413,15 @@ void VirtualConsole::deletePage(int index)
     if (m_pages.count() == 1)
         return;
 
+    /* reset the selection first, since it might reference
+     * items that are about to be deleted */
+    resetWidgetSelection();
+
     m_pages.at(index)->deleteChildren();
     VCPage *page = m_pages.takeAt(index);
     m_contextManager->unregisterContext(page->previewContext()->name());
+    removeWidgetFromMap(page);
     delete page;
-
-    m_itemsMap.clear();
 
     emit pagesCountChanged();
 
@@ -491,6 +501,10 @@ void VirtualConsole::setSelectedPage(int selectedPage)
 {
     if (m_selectedPage == selectedPage)
         return;
+
+    /* the selected widgets belong to the page being left, so any further
+     * edit operation (paste, cut, delete) would act on hidden widgets */
+    resetWidgetSelection();
 
     m_selectedPage = selectedPage;
     emit selectedPageChanged(selectedPage);
@@ -711,14 +725,9 @@ bool VirtualConsole::reparentWidget(VCWidget *widget, VCFrame *targetFrame) cons
     widget->setParent(targetFrame);
 
     QQuickItem *widgetItem = widget->renderItem();
-    QQuickItem *targetFrameItem = targetFrame->renderItem();
-    if (widgetItem != nullptr && targetFrameItem != nullptr)
-    {
-        QString chName = QString("frameDropArea%1").arg(targetFrame->id());
-        QQuickItem *childrenArea = qobject_cast<QQuickItem*>(targetFrameItem->findChild<QObject *>(chName));
-        if (childrenArea != nullptr)
-            widgetItem->setParentItem(childrenArea);
-    }
+    QQuickItem *childrenArea = targetFrame->childrenItem();
+    if (widgetItem != nullptr && childrenArea != nullptr)
+        widgetItem->setParentItem(childrenArea);
 
     return true;
 }
@@ -918,20 +927,20 @@ void VirtualConsole::deleteVCWidgets(QVariantList IDList)
         if (parentFrame != nullptr)
             parentFrame->removeWidgetFromPageMap(w);
 
-        /* 2- if the widget is a frame, delete also all its children */
+        /* 2- if the widget is a frame, delete also all its children.
+         * No Tardis action is needed for them, since they are saved
+         * together with the frame and restored with it on undo */
         if (w->type() == VCWidget::FrameWidget || w->type() == VCWidget::SoloFrameWidget)
         {
             VCFrame *frame = qobject_cast<VCFrame *>(w);
             for (VCWidget *child : frame->children(true))
             {
-                Tardis::instance()->enqueueAction(Tardis::VCWidgetDelete, w->id(),
-                                                  Tardis::instance()->actionToByteArray(Tardis::VCWidgetDelete, child->id()),
-                                                  QVariant());
                 /* Remove any input source/key sequence binding pointing to the
                  * child, otherwise the page maps would keep dangling pointers */
                 for (VCPage *page : m_pages)
                     page->removeWidgetFromMaps(child);
                 m_widgetsMap.remove(child->id());
+                m_itemsMap.remove(child->id());
             }
         }
 
@@ -946,11 +955,15 @@ void VirtualConsole::deleteVCWidgets(QVariantList IDList)
                                           Tardis::instance()->actionToByteArray(Tardis::VCWidgetDelete, w->id()),
                                           QVariant());
         m_widgetsMap.remove(wID);
+        m_itemsMap.remove(wID);
 
         /* 4- perform the actual widget deletion */
         delete w;
     }
-    m_itemsMap.clear();
+
+    /* the widgets that are still selected keep their selection */
+    emit selectedWidgetChanged();
+    emit selectedWidgetsCountChanged();
 }
 
 VCWidget *VirtualConsole::selectedWidget() const
@@ -1027,7 +1040,6 @@ void VirtualConsole::cutToClipboard()
 void VirtualConsole::pasteFromClipboard()
 {
     VCFrame *frame = nullptr;
-    QQuickItem *renderParent = nullptr;
     QPoint currPos(0, 0);
 
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
@@ -1035,47 +1047,32 @@ void VirtualConsole::pasteFromClipboard()
     {
         it.next();
 
-        VCWidget *widget = m_widgetsMap[it.key()];
+        VCWidget *widget = m_widgetsMap.value(it.key());
+        if (widget == nullptr)
+            continue;
+
         if (widget->type() == VCWidget::FrameWidget ||
             widget->type() == VCWidget::SoloFrameWidget)
         {
             frame = qobject_cast<VCFrame*>(widget);
-            renderParent = it.value();
             // y position below the frame header
             currPos = QPoint(0, pixelDensity() * 7);
             break;
         }
     }
 
-    // no selected frame found ? Paste on current page
+    // no selected frame found ? Paste on the visible area of the current page
     if (frame == nullptr)
     {
         frame = qobject_cast<VCFrame*>(m_pages.at(selectedPage()));
-        renderParent = currentPageItem();
+        QQuickItem *pageItem = currentPageItem();
+        if (pageItem != nullptr)
+            currPos = QPoint(pageItem->property("contentX").toInt(), pageItem->property("contentY").toInt());
     }
 
-    for (QVariant wID : m_clipboardIDList)
-    {
-        VCWidget *cWidget = widget(wID.toUInt());
-        if (cWidget == nullptr)
-            continue;
-
-        // do not allow pasting an item into itself
-        if (cWidget->id() == frame->id())
-            continue;
-
-        VCWidget *copy = cWidget->createCopy(frame);
-        frame->addWidget(renderParent, copy, currPos);
-
-        currPos.setX(currPos.x() + copy->geometry().width());
-        if (currPos.x() >= frame->geometry().width())
-        {
-            currPos.setX(0);
-            currPos.setY(currPos.y() + copy->geometry().height());
-        }
-    }
-
-    flushClipboardAfterPaste(frame->id());
+    // render the widgets where the frame children are, so that they
+    // move and scroll together with the frame
+    frame->addWidgetsFromClipboard(frame->childrenItem(), m_clipboardIDList, currPos);
 }
 
 QVariantList VirtualConsole::clipboardItemsList() const
@@ -1113,22 +1110,15 @@ bool VirtualConsole::clipboardIsCut() const
     return m_clipboardIsCut;
 }
 
-void VirtualConsole::flushClipboardAfterPaste(quint32 targetFrameID)
+void VirtualConsole::flushClipboardAfterPaste(QVariantList pastedIDs)
 {
     if (m_clipboardIsCut == false)
         return;
 
-    // a cut/paste: remove the source widgets and empty the clipboard.
-    // Never delete the frame the widgets have been pasted into
-    QVariantList toDelete;
-    for (QVariant wID : m_clipboardIDList)
-    {
-        if (wID.toUInt() == targetFrameID)
-            continue;
-        toDelete.append(wID);
-    }
-
-    deleteVCWidgets(toDelete);
+    // a cut/paste: remove the source widgets that have been pasted and empty
+    // the clipboard. The ones that could not be pasted (e.g. a frame pasted
+    // into one of its children) are left untouched
+    deleteVCWidgets(pastedIDs);
 
     m_clipboardIDList.clear();
     m_clipboardIsCut = false;
@@ -1242,6 +1232,32 @@ void VirtualConsole::updatePageInputs()
 
         for (QKeySequence &seq : page->pageKeySequences())
             m_pagesKeySequencesMap[i] = seq;
+    }
+}
+
+void VirtualConsole::mapWidgetInputs(VCWidget *widget)
+{
+    if (widget == nullptr)
+        return;
+
+    QList<VCWidget *> widgets;
+    widgets.append(widget);
+
+    VCFrame *frame = qobject_cast<VCFrame *>(widget);
+    if (frame != nullptr)
+        widgets.append(frame->children(true));
+
+    for (VCPage *page : m_pages)
+    {
+        for (VCWidget *w : widgets)
+        {
+            for (QSharedPointer<QLCInputSource> source : w->inputSources())
+                page->mapInputSource(source, w, true);
+
+            QMap <QKeySequence, quint32> kMap = w->keySequenceMap();
+            for (auto it = kMap.constBegin(); it != kMap.constEnd(); ++it)
+                page->mapKeySequence(it.key(), it.value(), w, true);
+        }
     }
 }
 
@@ -1749,6 +1765,17 @@ void VirtualConsole::postLoad()
     QList<VCWidget *> invalidWidgetsList;
     QList<VCWidget *> widgetsList;
 
+    /* Pages might have changed ID while loading, so remove them from the map
+     * and register them again after their children, which keep their ID
+     * in case of conflict */
+    for (auto it = m_widgetsMap.begin(); it != m_widgetsMap.end(); )
+    {
+        if (m_pages.contains(qobject_cast<VCPage *>(it.value())))
+            it = m_widgetsMap.erase(it);
+        else
+            ++it;
+    }
+
     foreach (VCPage *page, m_pages)
         widgetsList.append(page->children(true));
 
@@ -1769,6 +1796,9 @@ void VirtualConsole::postLoad()
     }
     foreach (VCWidget *widget, invalidWidgetsList)
         addWidgetToMap(widget);
+
+    foreach (VCPage *page, m_pages)
+        addWidgetToMap(page);
 
     /** Now for each page, map the children widgets input
      *  sources, to look it up later when input signals start

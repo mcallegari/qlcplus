@@ -84,6 +84,10 @@ public:
     /** @reimp */
     virtual void render(QQuickView *view, QQuickItem *parent) override;
 
+    /** Return the QML item where the children of this frame are rendered,
+     *  or nullptr if this frame has not been rendered */
+    QQuickItem *childrenItem() const;
+
     /** @reimp */
     QString propertiesResource() const override;
 
@@ -129,11 +133,13 @@ public:
     Q_INVOKABLE void addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos,
                                      QSize matrixSize, QSize widgetSize, bool soloFrame = false);
 
-    /** Add a list of widgets previously copied to the VC clipboard
+    /** Add a list of widgets previously copied to the VC clipboard.
+     *  Widgets containing this frame and children of other widgets
+     *  in the list are skipped.
      *
-     *  @param parent the parent item to render the matrix
+     *  @param parent the parent item to render the widgets
      *  @param idsList a list of VC widget IDs
-     *  @param pos the matrix position within this frame
+     *  @param pos the position of the first widget within this frame
      */
     Q_INVOKABLE void addWidgetsFromClipboard(QQuickItem *parent, QVariantList idsList, QPoint pos);
 
