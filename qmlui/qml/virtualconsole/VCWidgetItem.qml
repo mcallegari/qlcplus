@@ -67,6 +67,14 @@ Rectangle
         bgImage.anchors.margins = m
     }
 
+    function restoreGeometryBindings()
+    {
+        x = Qt.binding(function() { return wObj ? wObj.geometry.x : 0 })
+        y = Qt.binding(function() { return wObj ? wObj.geometry.y : 0 })
+        width = Qt.binding(function() { return wObj ? wObj.geometry.width : 100 })
+        height = Qt.binding(function() { return wObj ? wObj.geometry.height : 100 })
+    }
+
     function updateGeometry(d)
     {
         d.target = null
@@ -87,10 +95,7 @@ Rectangle
 
         wObj.geometry = Qt.rect(x, y, width, height)
 
-        x = Qt.binding(function() { return wObj ? wObj.geometry.x : 0 })
-        y = Qt.binding(function() { return wObj ? wObj.geometry.y : 0 })
-        width = Qt.binding(function() { return wObj ? wObj.geometry.width : 100 })
-        height = Qt.binding(function() { return wObj ? wObj.geometry.height : 100 })
+        restoreGeometryBindings()
     }
 
     Image
@@ -123,6 +128,34 @@ Rectangle
             drag.threshold: 10
 
             property bool dragRemapped: false
+            // the item parent before and during a drag operation
+            property Item dragOriginalParent: null
+            property Item dragParent: null
+
+            function finishDrag(drop)
+            {
+                if (dragRemapped == false)
+                    return
+
+                // A drag/drop sequence is always performed within a parent frame,
+                // so the new geometry will be calculated by virtualConsole.moveWidget,
+                // invoked by VCFrameItem DropArea
+                if (drop)
+                    wRoot.Drag.drop()
+
+                // if no frame accepted the drop, put the item back where it was.
+                // The widget geometry has not been changed during the drag
+                if (wRoot.parent === dragParent)
+                    wRoot.parent = dragOriginalParent
+
+                // dragging assigned x and y, so bind them to the widget geometry again
+                wRoot.restoreGeometryBindings()
+
+                drag.target = null
+                dragRemapped = false
+                dragOriginalParent = null
+                dragParent = null
+            }
 
             onPressed: (mouse) =>
             {
@@ -141,9 +174,19 @@ Rectangle
             {
                 if (drag.active && drag.target !== null && dragRemapped == false)
                 {
-                    var remappedPos = wRoot.mapToItem(virtualConsole.currentPageItem(), 0, 0);
-                    wObj.geometry = Qt.rect(remappedPos.x, remappedPos.y, wRoot.width, wRoot.height)
-                    wRoot.parent = virtualConsole.currentPageItem()
+                    // Move the item on top of the page contents while dragging, so it can be
+                    // dropped into any frame. Use the Flickable contents, so that the item
+                    // scrolls with the page. The widget geometry is left untouched until
+                    // the item is dropped
+                    var pageItem = virtualConsole.currentPageItem()
+                    if (pageItem === null)
+                        return
+                    dragParent = pageItem.contentItem ? pageItem.contentItem : pageItem
+                    dragOriginalParent = wRoot.parent
+                    var remappedPos = wRoot.mapToItem(dragParent, 0, 0)
+                    wRoot.parent = dragParent
+                    wRoot.x = remappedPos.x
+                    wRoot.y = remappedPos.y
                     dragRemapped = true
                     if (isSelected == false)
                     {
@@ -155,15 +198,15 @@ Rectangle
 
             onReleased: (mouse) =>
             {
-                if (drag.active && drag.target !== null)
-                {
-                    // A drag/drop sequence is always performed within a parent frame,
-                    // so the new geometry will be calculated by virtualConsole.moveWidget,
-                    // invoked by VCFrameItem DropArea
-                    wRoot.Drag.drop()
-                    drag.target = null
-                    dragRemapped = false
-                }
+                finishDrag(true)
+                drag.target = null
+                virtualConsole.enableFlicking(true)
+            }
+
+            onCanceled:
+            {
+                finishDrag(false)
+                drag.target = null
                 virtualConsole.enableFlicking(true)
             }
         }
