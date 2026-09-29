@@ -3816,4 +3816,31 @@ void EFX_Test::beatsChaserFadeOverride()
     b->stop(FunctionParent::master());
 }
 
+void EFX_Test::convertTempoType()
+{
+    m_doc->masterTimer()->requestBpmNumber(120);
+
+    EFX *e = createEFX(1);
+    e->setFadeInSpeed(500);
+    e->setDuration(4500);
+    e->setFadeOutSpeed(0);
+
+    // at 128 BPM, not the global 120 BPM, rounded to 1/4 beats
+    e->convertTempoType(Function::Beats, 128, 0.25);
+    QCOMPARE(e->tempoType(), Function::Beats);
+    QCOMPARE(e->fadeInSpeed(), uint(1000));
+    QCOMPARE(e->duration(), uint(9500));
+    QCOMPARE(e->loopDuration(), uint(8500));
+    QCOMPARE(e->fadeOutSpeed(), uint(0));
+
+    // already in Beats tempo: nothing changes
+    e->convertTempoType(Function::Beats, 60, 1);
+    QCOMPARE(e->duration(), uint(9500));
+
+    e->convertTempoType(Function::Time, 128, 0.25);
+    QCOMPARE(e->tempoType(), Function::Time);
+    QCOMPARE(e->fadeInSpeed(), uint(469));
+    QCOMPARE(e->duration(), uint(4453));
+}
+
 QTEST_APPLESS_MAIN(EFX_Test)
