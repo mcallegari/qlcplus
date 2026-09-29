@@ -587,33 +587,35 @@ public:
      *********************************************************************/
 public:
     /**
-     * Describe a Chaser tempo conversion before applying it. $options holds:
-     * - chaserIds: the Chasers to convert, or empty for those of the Show
-     *   items in "scope", including those started from Collections
+     * Describe a tempo conversion of Chasers and EFX before applying it.
+     * $options holds:
+     * - chaserIds: the Chasers and EFX to convert, or empty for those of the
+     *   Show items in "scope", including those started from Collections
      * - scope: "selected" for the selected items, "show" for every item of
      *   the Show being edited, "allShows" for every item of every Show.
-     *   Chasers already in the target tempo are skipped
-     * - toBeats: true to convert Time tempo Chasers to Beats, false for the
-     *   reverse
+     *   Functions already in the target tempo are skipped
+     * - toBeats: true to convert Time tempo Functions to Beats, false for
+     *   the reverse
      * - bpmMode: "section" for the tempo of the section under each item, or
      *   "fixed" for the BPM in "bpm"
      * - resolution: the beat rounding when converting to beats
-     * - clone: true to convert copies of the Chasers, used by the items in
-     *   "allItems" (every item of the Show using a Chaser) or the selected
-     *   ones, false to convert the Chasers themselves. A Chaser started
-     *   from a Collection is copied together with the Collections leading
-     *   to it, so the original Collection is left alone. Copies are only
-     *   made in the Show being edited
+     * - clone: true to convert copies of the Functions, used by the items
+     *   in "allItems" (every item of the Show using a Function) or the
+     *   selected ones, false to convert the Functions themselves. A Function
+     *   started from a Collection is copied together with the Collections
+     *   leading to it, so the original Collection is left alone. Copies are
+     *   only made in the Show being edited
      * - perTempo: with clone, one copy per tempo of the items, instead of a
      *   single copy at the first item tempo
      *
      * Returns a map with "valid", "message" (why it can't be applied),
-     * "lines" (a description) and "chaserIds" (the Chasers converted)
+     * "lines" (a description) and "chaserIds" (the Chasers and EFX
+     * converted)
      */
     Q_INVOKABLE QVariantMap tempoConversionPreview(QVariantMap options);
 
-    /** Apply a Chaser tempo conversion described by $options (see
-     *  tempoConversionPreview()), as a single undo step */
+    /** Apply a tempo conversion of Chasers and EFX described by $options
+     *  (see tempoConversionPreview()), as a single undo step */
     Q_INVOKABLE bool applyTempoConversion(QVariantMap options);
 
 private:
@@ -621,10 +623,10 @@ private:
     {
         Show *show;
         ShowFunction *sf;
-        /** Every route from the item to the Chaser, each listing the
-         *  Collections walked through, from the Function the item starts
-         *  down to the one holding the Chaser. Empty when the item starts
-         *  the Chaser directly */
+        /** Every route from the item to the converted Function, each listing
+         *  the Collections walked through, from the Function the item starts
+         *  down to the one holding the converted Function. Empty when the
+         *  item starts it directly */
         QList<QList<Collection *>> paths;
     };
 
@@ -636,50 +638,56 @@ private:
 
     struct TempoConversionPlan
     {
-        Chaser *chaser;
+        /** The Chaser or EFX to convert */
+        Function *function;
         QList<TempoConversionGroup> groups;
         /** The distinct tempos of the items following the conversion */
         QList<double> itemBpms;
         /** The number of items at each of those tempos */
         QMap<double, int> bpmUses;
-        /** The number of items starting the Chaser from a Collection */
+        /** The number of items starting the Function from a Collection */
         int collectionItems;
     };
 
     struct TempoConversionScan
     {
-        /** The number of Chasers found already in the target tempo */
+        /** The number of Functions found already in the target tempo */
         int skipped = 0;
     };
 
-    /** A Chaser found inside the Function a Show item starts, with the
-     *  Collections walked through to reach it */
-    struct ChaserPath
+    /** A Function a tempo conversion applies to (a Chaser or an EFX) found
+     *  inside the Function a Show item starts, with the Collections walked
+     *  through to reach it */
+    struct TempoFunctionPath
     {
-        Chaser *chaser;
+        Function *function;
         QList<Collection *> path;
     };
 
-    /** Append $func to $chasers if it is a Chaser, or the Chasers inside it
-     *  if it is a Collection, looking into nested Collections. $path holds
-     *  the Collections walked through so far, and $visited the Functions of
-     *  that branch, so that a Collection holding itself ends the recursion */
-    void collectChasers(Function *func, QList<ChaserPath> &chasers, QSet<quint32> visited,
-                        const QList<Collection *> &path = QList<Collection *>()) const;
+    /** Returns true if the tempo conversion applies to $func */
+    static bool isTempoConvertible(const Function *func);
 
-    /** A converted Chaser to put in place of the original one, inside the
+    /** Append $func to $functions if the tempo conversion applies to it, or
+     *  the Functions inside it it applies to if it is a Collection, looking
+     *  into nested Collections. $path holds the Collections walked through
+     *  so far, and $visited the Functions of that branch, so that a
+     *  Collection holding itself ends the recursion */
+    void collectTempoFunctions(Function *func, QList<TempoFunctionPath> &functions, QSet<quint32> visited,
+                               const QList<Collection *> &path = QList<Collection *>()) const;
+
+    /** A converted Function to put in place of the original one, inside the
      *  Collections an item goes through to reach it */
     struct TempoCollectionReplacement
     {
         QList<Collection *> path;
-        Chaser *chaser;
+        Function *function;
         Function *copy;
         double bpm;
     };
 
     /** Copy $collection, which is at depth $depth of the path of each of
      *  $replacements, putting in place of the member leading on either the
-     *  converted Chaser or a copy of the next Collection down. Copies
+     *  converted Function or a copy of the next Collection down. Copies
      *  needing the same replacements are shared through $cache, and $bpms
      *  gives the tempos each Collection is copied at, to name the copies of
      *  one Collection apart. Returns the copy, or nullptr on failure.
@@ -695,7 +703,7 @@ private:
                                                     TempoConversionScan *scan = nullptr) const;
 
     /** Convert the stored times of $sf between ms and beats at the global
-     *  BPM, for a Chaser changing tempo type in a Show that doesn't keep
+     *  BPM, for a Function changing tempo type in a Show that doesn't keep
      *  its items in ms. Returns the new times as { start, duration } */
     QPair<quint32, quint32> convertedItemTimes(const ShowFunction *sf, bool toBeats) const;
 

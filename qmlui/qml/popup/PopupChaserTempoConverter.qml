@@ -24,17 +24,17 @@ import QtQuick.Controls
 import org.qlcplus.classes 1.0
 import "."
 
-/** Convert Chasers between Time and Beats tempo at a chosen BPM, in place or
-  * as copies used by the Show items */
+/** Convert Chasers and EFX between Time and Beats tempo at a chosen BPM, in
+  * place or as copies used by the Show items */
 CustomPopupDialog
 {
     id: popupRoot
     width: mainView.width / 2
-    title: qsTr("Convert Chaser tempo")
+    title: qsTr("Convert tempo")
     standardButtons: Dialog.Ok | Dialog.Cancel
 
-    /* The Chasers to convert. Empty means those of the Show items selected
-       in the Show Manager */
+    /* The Chasers and EFX to convert. Empty means those of the Show items
+       selected in the Show Manager */
     property var chaserIds: []
     /* True when converting to Beats tempo */
     property bool toBeats: true
@@ -82,7 +82,7 @@ CustomPopupDialog
             var dials = modeCombo.currValue === 0 ? virtualConsole.speedDialsUsing(fid) : []
             if (dials.length)
                 warnings.push(qsTr("Controlled by the Speed Dial \"%1\", which sets its times in ms: " +
-                                   "on a Beats tempo Chaser they would be read as beats. " +
+                                   "on a Beats tempo Chaser or EFX they would be read as beats. " +
                                    "Consider disconnecting it.").arg(dials.join("\", \"")))
         }
         warningText.text = warnings.join("\n")
@@ -122,8 +122,8 @@ CustomPopupDialog
                     Layout.fillWidth: true
                     Layout.preferredHeight: UISettings.listItemHeight
                     model: [
-                        { mLabel: qsTr("Time tempo Chasers to Beats"), mValue: 1 },
-                        { mLabel: qsTr("Beats tempo Chasers to Time"), mValue: 0 }
+                        { mLabel: qsTr("Time tempo Chasers and EFX to Beats"), mValue: 1 },
+                        { mLabel: qsTr("Beats tempo Chasers and EFX to Time"), mValue: 0 }
                     ]
                     currValue: popupRoot.toBeats ? 1 : 0
                     onValueChanged: (value) =>
@@ -136,7 +136,7 @@ CustomPopupDialog
                 RobotoText
                 {
                     visible: popupRoot.fromShow
-                    label: qsTr("Chasers of")
+                    label: qsTr("Chasers and EFX of")
                 }
 
                 CustomComboBox
@@ -225,7 +225,7 @@ CustomPopupDialog
                     Layout.fillWidth: true
                     Layout.preferredHeight: UISettings.listItemHeight
                     model: [
-                        { mLabel: qsTr("The Chasers themselves"), mValue: 0 },
+                        { mLabel: qsTr("The Chasers and EFX themselves"), mValue: 0 },
                         { mLabel: qsTr("New copies"), mValue: 1 }
                     ]
                     currValue: 0

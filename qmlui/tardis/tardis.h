@@ -123,7 +123,7 @@ public:
         ChaserSetStepHold,
         ChaserSetStepFadeOut,
         ChaserSetStepDuration,
-        ChaserSetState,             // the whole Chaser, as XML (tempo conversion)
+        FunctionSetState,           // a whole Chaser or EFX, as XML (tempo conversion)
 
         /* EFX editing actions */
         EFXAddFixture = 0x1300,

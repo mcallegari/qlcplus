@@ -292,7 +292,7 @@ Rectangle
                 height: width
                 faSource: FontAwesome.fa_right_left
                 faColor: UISettings.fgMain
-                tooltip: qsTr("Convert Chasers between Time and Beats tempo, in the selected items, the whole Show or all Shows")
+                tooltip: qsTr("Convert Chasers and EFX between Time and Beats tempo, in the selected items, the whole Show or all Shows")
                 enabled: showManager.isEditing
                 onClicked:
                 {

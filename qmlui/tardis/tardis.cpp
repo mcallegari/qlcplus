@@ -974,10 +974,10 @@ int Tardis::processAction(TardisAction &action, bool undo)
             chaser->replaceStep(step, int(pairValue.first));
         }
         break;
-        case ChaserSetState:
+        case FunctionSetState:
         {
-            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
-            if (chaser == nullptr)
+            Function *function = m_doc->function(action.m_objID);
+            if (function == nullptr)
                 break;
 
             QBuffer buffer;
@@ -986,19 +986,27 @@ int Tardis::processAction(TardisAction &action, bool undo)
             QXmlStreamReader xmlReader(&buffer);
             xmlReader.readNextStartElement();
 
+            // a fresh Function of the same type to load the state into
+            QScopedPointer<Function> state;
+            if (qobject_cast<Chaser *>(function) != nullptr)
+                state.reset(new Chaser(m_doc));
+            else if (qobject_cast<EFX *>(function) != nullptr)
+                state.reset(new EFX(m_doc));
+            else
+                break;
+
             // the name, path, visibility and blend mode are loaded by
             // Function::loader(), not by loadXML(), and a tempo conversion
-            // doesn't change them, so the Chaser keeps its own
-            Chaser state(m_doc);
-            state.setName(chaser->name());
-            state.setPath(chaser->path(true));
-            state.setVisible(chaser->isVisible());
-            state.setBlendMode(chaser->blendMode());
-            if (state.loadXML(xmlReader))
+            // doesn't change them, so the Function keeps its own
+            state->setName(function->name());
+            state->setPath(function->path(true));
+            state->setVisible(function->isVisible());
+            state->setBlendMode(function->blendMode());
+            if (state->loadXML(xmlReader))
             {
-                chaser->copyFrom(&state);
+                function->copyFrom(state.data());
                 // copyFrom() doesn't notify the tempo change to the editors
-                emit chaser->tempoTypeChanged();
+                emit function->tempoTypeChanged();
             }
         }
         break;
