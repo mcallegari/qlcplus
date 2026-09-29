@@ -48,10 +48,17 @@ void FunctionEditor::setFunctionID(quint32 ID)
         m_function->stop(FunctionParent::master());
     }
 
+    if (m_function != nullptr)
+        disconnect(m_function, &Function::tempoTypeChanged, this, &FunctionEditor::notifySpeedsChanged);
+
     m_functionID = ID;
     m_function = m_doc->function(ID);
     if (m_function != nullptr)
+    {
         m_functionType = m_function->type();
+        // the tempo type can change elsewhere too (e.g. undo)
+        connect(m_function, &Function::tempoTypeChanged, this, &FunctionEditor::notifySpeedsChanged);
+    }
 
     if (wasRunning)
         m_function->start(m_doc->masterTimer(), FunctionParent::master());
@@ -148,10 +155,14 @@ void FunctionEditor::setTempoType(int tempoType)
 
     Tardis::instance()->enqueueAction(Tardis::FunctionSetTempoType, m_function->id(), m_function->tempoType(), tempoType);
 
-    // the Function converts its own speeds to the new tempo type
+    // the Function converts its own speeds to the new tempo type, and
+    // notifies the change (see notifySpeedsChanged())
     m_function->setTempoType(Function::TempoType(tempoType));
+}
 
-    emit tempoTypeChanged(tempoType);
+void FunctionEditor::notifySpeedsChanged()
+{
+    emit tempoTypeChanged(tempoType());
     emit fadeInSpeedChanged(fadeInSpeed());
     emit holdSpeedChanged(holdSpeed());
     emit fadeOutSpeedChanged(fadeOutSpeed());

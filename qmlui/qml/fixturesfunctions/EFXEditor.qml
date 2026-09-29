@@ -1008,6 +1008,7 @@ Rectangle
                                 }
                                 CustomComboBox
                                 {
+                                    id: tempoCombo
                                     Layout.columnSpan: 2
                                     Layout.fillWidth: true
                                     height: UISettings.listItemHeight
@@ -1017,7 +1018,15 @@ Rectangle
                                     ]
 
                                     currValue: efxEditor.tempoType
-                                    onValueChanged: efxEditor.tempoType = value
+                                    onValueChanged: (value) => efxEditor.tempoType = value
+
+                                    // a selection breaks the binding above: follow the
+                                    // changes made elsewhere too (e.g. undo)
+                                    Connections
+                                    {
+                                        target: efxEditor
+                                        function onTempoTypeChanged() { tempoCombo.currValue = efxEditor.tempoType }
+                                    }
                                 }
                             } // GridLayout
                     }
