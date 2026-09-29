@@ -284,11 +284,8 @@ Rectangle
             stepSize: 1
             wheelEnabled: true
             value: currentWAUV.r * 255
-            onMoved: {
-                currentWAUV.r = valueAt(position) / 255
-                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
-                               currentWAUV.r, currentWAUV.g, currentWAUV.b)
-            }
+            onMoved: toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                                  valueAt(position) / 255, currentWAUV.g, currentWAUV.b)
         }
 
         CustomSpinBox
@@ -300,11 +297,8 @@ Rectangle
             from: 0
             to: 255
             value: currentWAUV.r * 255
-            onValueModified: {
-                currentWAUV.r = value / 255
-                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
-                               currentWAUV.r, currentWAUV.g, currentWAUV.b)
-            }
+            onValueModified: toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                                          value / 255, currentWAUV.g, currentWAUV.b)
         }
 
         RobotoText
@@ -324,11 +318,8 @@ Rectangle
             stepSize: 1
             wheelEnabled: true
             value: currentWAUV.g * 255
-            onMoved: {
-                currentWAUV.g = valueAt(position) / 255
-                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
-                               currentWAUV.r, currentWAUV.g, currentWAUV.b)
-            }
+            onMoved: toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                                  currentWAUV.r, valueAt(position) / 255, currentWAUV.b)
         }
 
         CustomSpinBox
@@ -340,11 +331,8 @@ Rectangle
             from: 0
             to: 255
             value: currentWAUV.g * 255
-            onValueModified: {
-                currentWAUV.g = value / 255
-                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
-                               currentWAUV.r, currentWAUV.g, currentWAUV.b)
-            }
+            onValueModified: toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                                          currentWAUV.r, value / 255, currentWAUV.b)
         }
 
         RobotoText
@@ -364,11 +352,8 @@ Rectangle
             stepSize: 1
             wheelEnabled: true
             value: currentWAUV.b * 255
-            onMoved: {
-                currentWAUV.b = valueAt(position) / 255
-                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
-                               currentWAUV.r, currentWAUV.g, currentWAUV.b)
-            }
+            onMoved: toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                                  currentWAUV.r, currentWAUV.g, valueAt(position) / 255)
         }
 
         CustomSpinBox
@@ -380,11 +365,8 @@ Rectangle
             from: 0
             to: 255
             value: currentWAUV.b * 255
-            onValueModified: {
-                currentWAUV.b = value / 255
-                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
-                               currentWAUV.r, currentWAUV.g, currentWAUV.b)
-            }
+            onValueModified: toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                                          currentWAUV.r, currentWAUV.g, value / 255)
         }
     }
 
