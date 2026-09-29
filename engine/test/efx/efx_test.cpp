@@ -3435,4 +3435,39 @@ void EFX_Test::removeMultiHeadFixture()
     delete e;
 }
 
+void EFX_Test::missingFixture()
+{
+    QList<Universe*> ua;
+    ua.append(new Universe(0, new GrandMaster()));
+    MasterTimerStub timer(m_doc, ua);
+
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC250+");
+    QLCFixtureMode* mode = def->mode("Mode 4");
+    Fixture* fxi = new Fixture(m_doc);
+    fxi->setFixtureDefinition(def, mode);
+    fxi->setAddress(0);
+    fxi->setUniverse(0);
+    m_doc->addFixture(fxi);
+
+    EFX *e = new EFX(m_doc);
+    m_doc->addFunction(e);
+
+    // an entry for a fixture that doesn't exist (e.g. it couldn't be loaded)
+    EFXFixture *missing = new EFXFixture(e);
+    missing->setHead(GroupHead(1234, 0));
+    QVERIFY(e->addFixture(missing));
+    QCOMPARE(missing->universe(), Universe::invalid());
+
+    EFXFixture *ef = new EFXFixture(e);
+    ef->setHead(GroupHead(fxi->id(), 0));
+    QVERIFY(e->addFixture(ef));
+
+    // it is skipped, and the other fixture still runs
+    e->preRun(&timer);
+    for (int i = 0; i < 10; i++)
+        e->write(&timer, ua);
+    QCOMPARE(ef->m_elapsed, uint(10 * MasterTimer::tick()));
+    e->postRun(&timer, ua);
+}
+
 QTEST_APPLESS_MAIN(EFX_Test)

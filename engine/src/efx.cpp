@@ -1223,6 +1223,11 @@ void EFX::write(MasterTimer *timer, QList<Universe*> universes)
             EFXFixture *ef = it.next();
             if (ef->isDone() == false)
             {
+                // an entry whose fixture doesn't exist (e.g. it couldn't be
+                // loaded) has no universe
+                if (ef->universe() >= quint32(universes.count()))
+                    continue;
+
                 QSharedPointer<GenericFader> fader = getFader(universes, ef->universe());
                 ef->nextStep(universes, fader);
             }
