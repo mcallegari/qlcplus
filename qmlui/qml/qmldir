@@ -34,6 +34,7 @@ MenuBarEntry 0.1 MenuBarEntry.qml
 MultiColorBox 0.1 MultiColorBox.qml
 QLCPlusFader 0.1 QLCPlusFader.qml
 QLCPlusKnob 0.1 QLCPlusKnob.qml
+RGBMatrixColorRow 0.1 RGBMatrixColorRow.qml
 RobotoText 0.1 RobotoText.qml
 SectionBox 0.1 SectionBox.qml
 SidePanel 0.1 SidePanel.qml
