@@ -41,6 +41,8 @@ Rectangle
     property real tickSize: showManager.tickSize
     property int headerHeight: UISettings.iconSizeMedium
     property real xViewOffset: 0
+    property real vScrollBarWidth: showContents.ScrollBar.vertical && showContents.ScrollBar.vertical.visible ?
+                                   showContents.ScrollBar.vertical.width : 0
 
     property int showID: showManager.currentShowID
     property int selectedTrackIndex: -1
@@ -526,7 +528,9 @@ Rectangle
         // Show Manager itself (a narrow window, a different screen density or a
         // smaller UI scaling factor), which would make this width negative and
         // hand HeaderAndCursor a zero or negative visibleWidth to divide by
-        width: Math.max(0, showMgrContainer.width - trackWidth - verticalDivider.width - rightPanel.width)
+        // The vertical scrollbar of showContents, when displayed, covers the
+        // right edge of the timeline, so it must not count as visible area
+        width: Math.max(0, showMgrContainer.width - trackWidth - verticalDivider.width - rightPanel.width - vScrollBarWidth)
 
         boundsBehavior: Flickable.StopAtBounds
         flickableDirection: Flickable.HorizontalFlick
