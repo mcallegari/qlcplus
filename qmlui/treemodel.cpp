@@ -245,7 +245,7 @@ bool TreeModel::removeItem(const QString& path)
             return false;
 
         QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
-        item->children()->removeItem(subPath);
+        return item->children()->removeItem(subPath);
     }
 
     return true;
