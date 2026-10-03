@@ -724,7 +724,17 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     mesh->m_generation = m_sceneGeneration;
     m_createItemCount++;
 
-    if (fixture->type() == QLCFixtureDef::LEDBarBeams)
+    /* A colour changer with several heads and nothing that moves them (a T-bar
+       of PARs, a multi-head wash bar) lights each head separately, but the PAR
+       mesh has a single emitter, so every head would collapse into one light
+       showing whichever head was written last. Draw one PAR can per head,
+       laid out according to the fixture physical size and emitters layout. */
+    const bool multiPar = fixture->type() == QLCFixtureDef::ColorChanger &&
+        fixture->heads() > 1 &&
+        fixture->channelNumber(QLCChannel::Pan, QLCChannel::MSB) == QLCChannel::invalid() &&
+        fixture->channelNumber(QLCChannel::Tilt, QLCChannel::MSB) == QLCChannel::invalid();
+
+    if (fixture->type() == QLCFixtureDef::LEDBarBeams || multiPar)
     {
         mesh->m_goboTexture = new GoboTextureImage(512, 512, openGobo);
 
@@ -741,6 +751,10 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
             m_createItemCount--;
             return;
         }
+        newItem->setProperty("parBodies", multiPar);
+        if (multiPar)
+            newItem->setProperty("parSource", meshDirectory() + "fixtures" + QDir::separator() +
+                                 FixtureUtils::fixtureLightResource(fixture));
         newItem->setProperty("headsNumber", fixture->heads());
 
         if (fxMode != nullptr)
@@ -805,6 +819,11 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     switch (fixture->type())
     {
         case QLCFixtureDef::ColorChanger:
+            // a multi par is built procedurally, see above
+            if (multiPar)
+                break;
+            newItem->setProperty("meshType", FixtureMeshType::ParMeshType);
+        break;
         case QLCFixtureDef::Dimmer:
             newItem->setProperty("meshType", FixtureMeshType::ParMeshType);
         break;
@@ -830,7 +849,7 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
         break;
     }
 
-    if (meshFile.isEmpty())
+    if (meshFile.isEmpty() || multiPar)
         meshPath.clear();
 
     // at last, add the new fixture to the items map
@@ -1090,6 +1109,57 @@ QEntity *MainView3D::inspectEntity(QEntity *entity, SceneItem *meshRef,
         meshRef->m_headItem = entity;
 
     return baseItem;
+}
+
+QVariantMap MainView3D::setupMeshCell(QSceneLoader *loader)
+{
+    QVariantMap result;
+
+    if (isEnabled() == false || m_sceneRootEntity == nullptr || loader == nullptr)
+        return result;
+
+    QVector<QEntity *> entities = loader->entities();
+    if (entities.isEmpty())
+        return result;
+
+    QLayer *sceneDeferredLayer = m_sceneRootEntity->property("deferredLayer").value<QLayer *>();
+    QEffect *sceneEffect = m_sceneRootEntity->property("geometryPassEffect").value<QEffect *>();
+
+    // inspectEntity() fills a SceneItem with what it finds: use a scratch one,
+    // the cell is not a fixture item of its own
+    SceneItem scratch;
+    scratch.m_rootItem = nullptr;
+    scratch.m_rootTransform = nullptr;
+    scratch.m_armItem = nullptr;
+    scratch.m_headItem = nullptr;
+    scratch.m_selectionBox = nullptr;
+    scratch.m_goboTexture = nullptr;
+    scratch.m_generation = m_sceneGeneration;
+
+    bool calculateVolume = true;
+    if (m_boundingVolumesMap.contains(loader->source()))
+    {
+        scratch.m_volume = m_boundingVolumesMap[loader->source()];
+        calculateVolume = false;
+    }
+
+    inspectEntity(entities[0], &scratch, sceneDeferredLayer, sceneEffect, calculateVolume, QVector3D());
+
+    if (calculateVolume)
+        m_boundingVolumesMap[loader->source()] = scratch.m_volume;
+
+    // same math as updateLightMatrix(): the light leaves from the local offset
+    // of the arm and head nodes, relative to the origin of the mesh
+    QVector3D headOffset;
+    if (scratch.m_armItem != nullptr && getTransform(scratch.m_armItem) != nullptr)
+        headOffset += getTransform(scratch.m_armItem)->translation();
+    if (scratch.m_headItem != nullptr && getTransform(scratch.m_headItem) != nullptr)
+        headOffset += getTransform(scratch.m_headItem)->translation();
+
+    result["extents"] = scratch.m_volume.m_extents;
+    result["center"] = scratch.m_volume.m_center;
+    result["headOffset"] = headOffset;
+    return result;
 }
 
 #ifdef SHOW_FRAMEGRAPH

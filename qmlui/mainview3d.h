@@ -253,6 +253,12 @@ public:
 
     Q_INVOKABLE void initializeFixture(quint32 itemID, QEntity *fxEntity, const QSceneLoader *loader);
 
+    /** Add the mesh loaded by @loader (a sub-mesh of a procedural fixture item,
+     *  e.g. one PAR of a multi par) to the deferred pipeline.
+     *  Returns the mesh "extents" and "center" as a map, or an empty map
+     *  if the mesh is not available yet */
+    Q_INVOKABLE QVariantMap setupMeshCell(QSceneLoader *loader);
+
     Q_INVOKABLE QString makeShader(QString str);
 
     /** Update the fixture preview items when some channels have changed */
