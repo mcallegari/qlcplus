@@ -225,6 +225,7 @@
     <file alias="spotlight_shading.frag">qml/fixturesfunctions/3DView/shaders/spotlight_shading.frag</file>
     <file alias="geo.frag">qml/fixturesfunctions/3DView/shaders/geo.frag</file>
     <file alias="geo.vert">qml/fixturesfunctions/3DView/shaders/geo.vert</file>
+    <file alias="smoke_plume.glsl">qml/fixturesfunctions/3DView/shaders/smoke_plume.glsl</file>
     <file alias="spotlight_scattering.frag">qml/fixturesfunctions/3DView/shaders/spotlight_scattering.frag</file>
     <file alias="spotlight.vert">qml/fixturesfunctions/3DView/shaders/spotlight.vert</file>
     <file alias="output_front_depth.frag">qml/fixturesfunctions/3DView/shaders/output_front_depth.frag</file>
