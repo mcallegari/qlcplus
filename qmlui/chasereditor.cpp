@@ -31,12 +31,15 @@ ChaserEditor::ChaserEditor(QQuickView *view, Doc *doc, QObject *parent)
     , m_chaser(nullptr)
     , m_playbackIndex(-1)
 {
-    m_view->rootContext()->setContextProperty("chaserEditor", this);
 
     m_stepsList = new ListModel(this);
     QStringList listRoles;
     listRoles << "funcID" << "isSelected" << "fadeIn" << "hold" << "fadeOut" << "duration" << "note";
     m_stepsList->setRoleNames(listRoles);
+
+    // publish to QML only once fully constructed: bindings of an already
+    // loaded editor view re-evaluate immediately and read the models
+    m_view->rootContext()->setContextProperty("chaserEditor", this);
 }
 
 void ChaserEditor::setFunctionID(quint32 ID)

@@ -72,7 +72,6 @@ SceneEditor::SceneEditor(QQuickView *view, Doc *doc, QObject *parent)
     , m_tiltDegrees(0)
     , m_positionTimer(nullptr)
 {
-    m_view->rootContext()->setContextProperty("sceneEditor", this);
     m_editorObjectName = "sceneEditorRoot";
     m_source = new GenericDMXSource(m_doc);
     m_highlightSource = new GenericDMXSource(m_doc);
@@ -89,6 +88,10 @@ SceneEditor::SceneEditor(QQuickView *view, Doc *doc, QObject *parent)
     m_positionTimer = new QTimer(this);
     m_positionTimer->setInterval(POSITION_TIMER_INTERVAL);
     connect(m_positionTimer, SIGNAL(timeout()), this, SLOT(slotPositionTimeout()));
+
+    // publish to QML only once fully constructed: bindings of an already
+    // loaded editor view re-evaluate immediately and read the models
+    m_view->rootContext()->setContextProperty("sceneEditor", this);
 }
 
 SceneEditor::~SceneEditor()
