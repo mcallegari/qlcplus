@@ -63,6 +63,8 @@ const QString Script::waitKeyCmd = QStringLiteral("waitkey"); // LEGACY - NOT US
  ****************************************************************************/
 
 Script::Script(Doc* doc) : Function(doc, Function::ScriptType)
+    , m_cachedDuration(0)
+    , m_durationValid(false)
     , m_runner(NULL)
 {
     setName(tr("New Script"));
@@ -79,16 +81,19 @@ QIcon Script::getIcon() const
 
 quint32 Script::totalDuration()
 {
-    quint32 totalDuration = 0;
+    // evaluating the script is expensive: do it only when the data changed
+    if (m_durationValid)
+        return m_cachedDuration;
 
     ScriptRunner *runner = new ScriptRunner(doc(), m_data);
     runner->collectScriptData();
-    totalDuration = runner->currentWaitTime();
-    //runner->deleteLater();
+    m_cachedDuration = runner->currentWaitTime();
+    m_durationValid = true;
+    delete runner;
 
-    qDebug() << "Script total duration:" << totalDuration;
+    qDebug() << "Script total duration:" << m_cachedDuration;
 
-    return totalDuration;
+    return m_cachedDuration;
 }
 
 Function* Script::createCopy(Doc* doc, bool addToDoc)
@@ -131,6 +136,7 @@ bool Script::setData(const QString& str)
         return false;
 
     m_data = str;
+    m_durationValid = false;
 
     Doc* doc = qobject_cast<Doc*> (parent());
     Q_ASSERT(doc != NULL);
@@ -143,6 +149,7 @@ bool Script::appendData(const QString &str)
 {
     //m_data.append(str + QString("\n"));
     m_data.append(convertLine(str + QString("\n")));
+    m_durationValid = false;
 
     return true;
 }
@@ -274,6 +281,7 @@ bool Script::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCScriptCommand)
         {
+            m_durationValid = false;
             if (version == 1)
                 m_data.append(convertLine(QUrl::fromPercentEncoding(root.readElementText().toUtf8()) + QString("\n")));
             else
