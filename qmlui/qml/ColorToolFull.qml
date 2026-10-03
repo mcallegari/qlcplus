@@ -44,6 +44,17 @@ Rectangle
     property bool showUV: (colorsMask & App.UV) || isPaletteEditing
 
     property int slHandleSize: UISettings.listItemHeight * 0.8
+    property real selectedColorX: currentRGB.hsvHue >= 0 ? currentRGB.hsvHue * 252 : 0
+    property real selectedColorY:
+    {
+        var minimum = Math.min(currentRGB.r, currentRGB.g, currentRGB.b)
+        var maximum = Math.max(currentRGB.r, currentRGB.g, currentRGB.b)
+
+        if (minimum <= 1 - maximum)
+            return maximum * 127.5
+
+        return (1 + minimum) * 127.5
+    }
 
     signal toolColorChanged(real r, real g, real b, real w, real a, real uv)
     signal released()
@@ -138,6 +149,30 @@ Rectangle
             onPressed: (mouse) => setPickedColor(mouse)
             onPositionChanged: (mouse) => setPickedColor(mouse)
             onReleased: rootBox.released()
+        }
+
+        Rectangle
+        {
+            width: 14
+            height: width
+            x: rootBox.selectedColorX - (width / 2)
+            y: rootBox.selectedColorY - (height / 2)
+            radius: width / 2
+            color: "transparent"
+            border.width: 2
+            border.color: "white"
+            antialiasing: true
+
+            Rectangle
+            {
+                anchors.fill: parent
+                anchors.margins: 2
+                radius: width / 2
+                color: "transparent"
+                border.width: 1
+                border.color: "black"
+                antialiasing: true
+            }
         }
     }
 
