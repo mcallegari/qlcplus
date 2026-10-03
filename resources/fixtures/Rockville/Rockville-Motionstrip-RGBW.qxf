@@ -3,14 +3,14 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>5.3.0 GIT</Version>
   <Author>Donny Lockart</Author>
  </Creator>
  <Manufacturer>Rockville</Manufacturer>
  <Model>Motionstrip RGBW</Model>
  <Type>LED Bar (Beams)</Type>
- <Channel Name="Pan" Preset="PositionPan"/>
- <Channel Name="Pan speed" Preset="SpeedPanSlowFast"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt speed" Preset="SpeedTiltSlowFast"/>
  <Channel Name="Built-in LED Programs">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="10">Ch5-Ch38</Capability>
@@ -77,8 +77,8 @@
  <Channel Name="Blue 8" Preset="IntensityBlue"/>
  <Channel Name="White 8" Preset="IntensityWhite"/>
  <Mode Name="38 Channel">
-  <Channel Number="0">Pan</Channel>
-  <Channel Number="1">Pan speed</Channel>
+  <Channel Number="0">Tilt</Channel>
+  <Channel Number="1">Tilt speed</Channel>
   <Channel Number="2">Built-in LED Programs</Channel>
   <Channel Number="3">LED Prog. Speed</Channel>
   <Channel Number="4">Master dimmer</Channel>
@@ -165,8 +165,8 @@
   </Head>
  </Mode>
  <Mode Name="9 Channel">
-  <Channel Number="0">Pan</Channel>
-  <Channel Number="1">Pan speed</Channel>
+  <Channel Number="0">Tilt</Channel>
+  <Channel Number="1">Tilt speed</Channel>
   <Channel Number="2">Built-in LED Programs</Channel>
   <Channel Number="3">LED Prog. Speed</Channel>
   <Channel Number="4">Master dimmer</Channel>
@@ -177,7 +177,7 @@
  </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="1452" ColourTemperature="0"/>
-  <Dimensions Weight="5.8" Width="1092" Height="140" Depth="210"/>
+  <Dimensions Weight="5.8" Width="1092" Height="210" Depth="140"/>
   <Lens Name="Other" DegreesMin="5" DegreesMax="5"/>
   <Focus Type="Head" PanMax="270" TiltMax="0"/>
   <Layout Width="8" Height="1"/>
