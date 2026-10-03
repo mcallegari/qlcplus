@@ -28,6 +28,7 @@
 #endif
 
 #include "webaccessauth.h"
+#include "commonjscss.h"
 #include "qlcconfig.h"
 
 #include "qhttprequest.h"
@@ -195,7 +196,7 @@ void WebAccessAuth::sendUnauthorizedResponse(QHttpResponse* res) const
 
     const static QByteArray text = QString(
         "<!DOCTYPE html>\n"
-        "<html>\n"
+        "<html lang=\"" + LANGUAGE_HTML + "\">\n"
         "    <head>\n"
         "        <meta charset=\"utf-8\">\n"
         "        <title>" + QObject::tr("Unauthorized") + "</title>\n"
