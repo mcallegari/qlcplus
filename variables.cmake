@@ -19,7 +19,7 @@ endif()
 
 # Development builds mark the version string as "GIT". Turn this off
 # (-DDEVEL=OFF) when building an official release.
-option(DEVEL "Mark this build as a development (GIT) build" ON)
+option(DEVEL "Mark this build as a development (GIT) build" OFF)
 
 # Unless the build type was set explicitly, follow the DEVEL flag: a
 # development build defaults to Debug, a release build to Release

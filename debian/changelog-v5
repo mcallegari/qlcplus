@@ -7,4 +7,4 @@ qlcplus (5.3.0) stable; urgency=low
   * Resources (fixtures, gobos, input profiles, RGB scripts, ...) are
     shared with QLC+ 4 through the qlcplus-data package
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 08 Aug 2026 10:47:15 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Mon, 05 Oct 2026 10:47:15 +0200
