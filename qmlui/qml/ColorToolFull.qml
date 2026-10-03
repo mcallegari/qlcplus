@@ -142,8 +142,9 @@ Rectangle
                 gSpin.value = g
                 bSpin.value = b*/
 
-                currentRGB = Qt.rgba(r / 255, g / 255, b / 255, 1.0)
-                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b, currentWAUV.r, currentWAUV.g, currentWAUV.b)
+                var pickedRGB = Qt.rgba(r / 255, g / 255, b / 255, 1.0)
+                toolColorChanged(pickedRGB.r, pickedRGB.g, pickedRGB.b,
+                                 currentWAUV.r, currentWAUV.g, currentWAUV.b)
             }
 
             onPressed: (mouse) => setPickedColor(mouse)
@@ -200,8 +201,7 @@ Rectangle
             value: currentRGB.r * 255
             onValueModified:
             {
-                currentRGB = Qt.rgba(value / 255, currentRGB.g, currentRGB.b, 1.0)
-                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                toolColorChanged(value / 255, currentRGB.g, currentRGB.b,
                                  currentWAUV.r, currentWAUV.g, currentWAUV.b)
             }
         }
@@ -222,8 +222,7 @@ Rectangle
             value: currentRGB.g * 255
             onValueModified:
             {
-                currentRGB = Qt.rgba(currentRGB.r, value / 255, currentRGB.b, 1.0)
-                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                toolColorChanged(currentRGB.r, value / 255, currentRGB.b,
                                  currentWAUV.r, currentWAUV.g, currentWAUV.b)
             }
         }
@@ -244,8 +243,7 @@ Rectangle
             value: currentRGB.b * 255
             onValueModified:
             {
-                currentRGB = Qt.rgba(currentRGB.r, currentRGB.g, value / 255, 1.0)
-                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                toolColorChanged(currentRGB.r, currentRGB.g, value / 255,
                                  currentWAUV.r, currentWAUV.g, currentWAUV.b)
             }
         }
