@@ -91,6 +91,17 @@ var testAlgo;
   util.lastW = 0; util.lastH = 0; util.frame = 0;
   util.rngState = 1;
 
+  // polyfill from https://github.com/es-shims/Math.imul
+  if (!Math.imul) {
+    Math.imul = function (a, b) {
+      var ah = (a >>> 16) & 0xffff;
+      var al = a & 0xffff;
+      var bh = (b >>> 16) & 0xffff;
+      var bl = b & 0xffff;
+      return (al * bl) + ((((ah * bl) + (al * bh)) << 16) >>> 0) | 0;
+    };
+  }
+
   // Deterministic PRNG (mulberry32), reseeded whenever step wraps back to 0.
   // Required so that rgbMap(w,h,...,0) is reproducible regardless of how
   // many times it has been called before, or with which matrix size.
