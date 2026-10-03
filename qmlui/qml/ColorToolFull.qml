@@ -44,6 +44,17 @@ Rectangle
     property bool showUV: (colorsMask & App.UV) || isPaletteEditing
 
     property int slHandleSize: UISettings.listItemHeight * 0.8
+    property real selectedColorX: currentRGB.hsvHue >= 0 ? currentRGB.hsvHue * 252 : 0
+    property real selectedColorY:
+    {
+        var minimum = Math.min(currentRGB.r, currentRGB.g, currentRGB.b)
+        var maximum = Math.max(currentRGB.r, currentRGB.g, currentRGB.b)
+
+        if (minimum <= 1 - maximum)
+            return maximum * 127.5
+
+        return (1 + minimum) * 127.5
+    }
 
     signal toolColorChanged(real r, real g, real b, real w, real a, real uv)
     signal released()
@@ -131,13 +142,38 @@ Rectangle
                 gSpin.value = g
                 bSpin.value = b*/
 
-                currentRGB = Qt.rgba(r / 255, g / 255, b / 255, 1.0)
-                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b, currentWAUV.r, currentWAUV.g, currentWAUV.b)
+                var pickedRGB = Qt.rgba(r / 255, g / 255, b / 255, 1.0)
+                toolColorChanged(pickedRGB.r, pickedRGB.g, pickedRGB.b,
+                                 currentWAUV.r, currentWAUV.g, currentWAUV.b)
             }
 
             onPressed: (mouse) => setPickedColor(mouse)
             onPositionChanged: (mouse) => setPickedColor(mouse)
             onReleased: rootBox.released()
+        }
+
+        Rectangle
+        {
+            width: 14
+            height: width
+            x: rootBox.selectedColorX - (width / 2)
+            y: rootBox.selectedColorY - (height / 2)
+            radius: width / 2
+            color: "transparent"
+            border.width: 2
+            border.color: "white"
+            antialiasing: true
+
+            Rectangle
+            {
+                anchors.fill: parent
+                anchors.margins: 2
+                radius: width / 2
+                color: "transparent"
+                border.width: 1
+                border.color: "black"
+                antialiasing: true
+            }
         }
     }
 
@@ -165,8 +201,7 @@ Rectangle
             value: currentRGB.r * 255
             onValueModified:
             {
-                currentRGB = Qt.rgba(value / 255, currentRGB.g, currentRGB.b, 1.0)
-                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                toolColorChanged(value / 255, currentRGB.g, currentRGB.b,
                                  currentWAUV.r, currentWAUV.g, currentWAUV.b)
             }
         }
@@ -187,8 +222,7 @@ Rectangle
             value: currentRGB.g * 255
             onValueModified:
             {
-                currentRGB = Qt.rgba(currentRGB.r, value / 255, currentRGB.b, 1.0)
-                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                toolColorChanged(currentRGB.r, value / 255, currentRGB.b,
                                  currentWAUV.r, currentWAUV.g, currentWAUV.b)
             }
         }
@@ -209,8 +243,7 @@ Rectangle
             value: currentRGB.b * 255
             onValueModified:
             {
-                currentRGB = Qt.rgba(currentRGB.r, currentRGB.g, value / 255, 1.0)
-                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                toolColorChanged(currentRGB.r, currentRGB.g, value / 255,
                                  currentWAUV.r, currentWAUV.g, currentWAUV.b)
             }
         }

@@ -253,6 +253,17 @@ SidePanel
                         }
                     onClose: colorToolButton.checked = false
                 }
+
+                Connections
+                {
+                    target: contextManager
+
+                    function onSelectedFixturesChanged()
+                    {
+                        if (colTool.visible)
+                            contextManager.getCurrentColors(colTool)
+                    }
+                }
             }
 
             IconButton

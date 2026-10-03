@@ -60,6 +60,21 @@ Rectangle
             return Qt.darker(htmlColor, 1 + (0.66 * (index - 2)))
     }
 
+    function colorsMatch(first, second)
+    {
+        return Math.round(first.r * 255) === Math.round(second.r * 255) &&
+               Math.round(first.g * 255) === Math.round(second.g * 255) &&
+               Math.round(first.b * 255) === Math.round(second.b * 255)
+    }
+
+    function selectionBorderColor(selectedColor)
+    {
+        var luminance = (selectedColor.r * 0.299) +
+                        (selectedColor.g * 0.587) +
+                        (selectedColor.b * 0.114)
+        return luminance > 0.5 ? "black" : "white"
+    }
+
     Rectangle
     {
         x: cellSize / 2
@@ -77,9 +92,9 @@ Rectangle
                     {
                         width: cellSize
                         height: cellSize
-                        border.width: 1
-                        border.color: UISettings.borderColorDark
                         color:  getHTMLColor(Math.round(index * 36.4285), Math.round(index * 36.4285), Math.round(index * 36.4285))
+                        border.width: colorsMatch(color, currentRGB) ? 3 : 1
+                        border.color: colorsMatch(color, currentRGB) ? selectionBorderColor(color) : UISettings.borderColorDark
                         MouseArea
                         {
                             anchors.fill: parent
@@ -111,9 +126,9 @@ Rectangle
                     {
                         width: cellSize
                         height: cellSize
-                        border.width: 1
-                        border.color: UISettings.borderColorDark
                         color: getBaseHTMLColor(index)
+                        border.width: colorsMatch(color, currentRGB) ? 3 : 1
+                        border.color: colorsMatch(color, currentRGB) ? selectionBorderColor(color) : UISettings.borderColorDark
 
                         MouseArea
                         {
@@ -155,9 +170,9 @@ Rectangle
                                 {
                                     width: cellSize
                                     height: cellSize
-                                    border.width: 1
-                                    border.color: UISettings.borderColorDark
                                     color: getShadedColor(colIndex, index)
+                                    border.width: colorsMatch(color, currentRGB) ? 3 : 1
+                                    border.color: colorsMatch(color, currentRGB) ? selectionBorderColor(color) : UISettings.borderColorDark
 
                                     MouseArea
                                     {
@@ -198,4 +213,3 @@ Rectangle
 
 
 }
-
