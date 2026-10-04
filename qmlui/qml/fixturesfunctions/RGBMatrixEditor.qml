@@ -818,20 +818,22 @@ Rectangle
                     faSource: FontAwesome.fa_font
                     faColor: "lightcyan"
 
-                    onClicked: fontDialog.visible = true
+                    onClicked:
+                    {
+                        // assign once (no binding) to avoid a loop with onSelectedFontChanged
+                        fontDialog.selectedFont = rgbMatrixEditor.algoTextFont
+                        fontDialog.visible = true
+                    }
 
                     FontDialog
                     {
                         id: fontDialog
                         title: qsTr("Please choose a font")
-                        selectedFont: rgbMatrixEditor.algoTextFont
                         visible: false
 
-                        onAccepted:
-                        {
-                            console.log("Selected font: " + selectedFont)
-                            rgbMatrixEditor.algoTextFont = selectedFont
-                        }
+                        // macOS native dialog has no OK/Cancel buttons, so apply changes live
+                        onSelectedFontChanged: if (visible) rgbMatrixEditor.algoTextFont = selectedFont
+                        onAccepted: rgbMatrixEditor.algoTextFont = selectedFont
                     }
                 }
             }

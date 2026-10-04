@@ -341,23 +341,30 @@ Rectangle
                                 faSource: FontAwesome.fa_font
                                 faColor: "lightcyan"
 
-                                onClicked: fontDialog.visible = true
+                                onClicked:
+                                {
+                                    // assign once (no binding) to avoid a loop with onSelectedFontChanged
+                                    fontDialog.selectedFont = wObj ? wObj.font : Qt.font({ family: UISettings.robotoFontName })
+                                    fontDialog.visible = true
+                                }
 
                                 FontDialog
                                 {
                                     id: fontDialog
                                     title: qsTr("Please choose a font")
-                                    selectedFont: wObj ? wObj.font : Qt.font({ family: UISettings.robotoFontName })
                                     visible: false
 
-                                    onAccepted:
+                                    function applyFont(font)
                                     {
-                                        console.log("Selected font: " + fontDialog.selectedFont)
-                                        if(wObj && selectedWidgetsCount < 2)
-                                            wObj.font = fontDialog.selectedFont
+                                        if (wObj && selectedWidgetsCount < 2)
+                                            wObj.font = font
                                         else
-                                            virtualConsole.setWidgetsFont(fontDialog.selectedFont)
+                                            virtualConsole.setWidgetsFont(font)
                                     }
+
+                                    // macOS native dialog has no OK/Cancel buttons, so apply changes live
+                                    onSelectedFontChanged: if (visible) applyFont(selectedFont)
+                                    onAccepted: applyFont(selectedFont)
                                 }
                             }
                         }

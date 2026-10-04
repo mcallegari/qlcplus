@@ -501,6 +501,9 @@ void VCWidget::setDefaultFontSize(qreal size)
 
 void VCWidget::setFont(const QFont& font)
 {
+    if (m_hasCustomFont && m_font == font)
+        return;
+
     m_hasCustomFont = true;
     enqueueTardisAction(Tardis::VCWidgetFont, m_font, font);
     m_font = font;
