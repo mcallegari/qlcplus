@@ -1355,6 +1355,8 @@ void ContextManager::getCurrentColors(QQuickItem *item) const
 {
     int rgbDiffCount = 0;
     int wauvDiffCount = 0;
+    bool rgbFound = false;
+    bool wauvFound = false;
     QColor rgbColor;
     QColor wauvColor;
 
@@ -1386,10 +1388,16 @@ void ContextManager::getCurrentColors(QQuickItem *item) const
                               fixture->channelValueAt(cmyCh.at(2)), 0);
         }
 
-        if (rgbDiffCount == 0 || itemRgbColor == rgbColor)
-            rgbColor = itemRgbColor;
-        else
-            rgbDiffCount++;
+        if (itemRgbColor.isValid())
+        {
+            if (rgbFound == false)
+            {
+                rgbColor = itemRgbColor;
+                rgbFound = true;
+            }
+            else if (itemRgbColor != rgbColor)
+                rgbDiffCount++;
+        }
 
         quint32 white = fixture->channelNumber(QLCChannel::White, QLCChannel::MSB, headIndex);
         quint32 amber = fixture->channelNumber(QLCChannel::Amber, QLCChannel::MSB, headIndex);
@@ -1402,16 +1410,22 @@ void ContextManager::getCurrentColors(QQuickItem *item) const
         if (UV != QLCChannel::invalid())
             itemWauvColor.setBlue(fixture->channelValueAt(UV));
 
-        if (wauvDiffCount == 0 || itemWauvColor == wauvColor)
-            wauvColor = itemWauvColor;
-        else
-            wauvDiffCount++;
+        if (itemWauvColor.isValid())
+        {
+            if (wauvFound == false)
+            {
+                wauvColor = itemWauvColor;
+                wauvFound = true;
+            }
+            else if (itemWauvColor != wauvColor)
+                wauvDiffCount++;
+        }
     }
 
     QMetaObject::invokeMethod(item, "updateColors",
-                              Q_ARG(QVariant, rgbDiffCount ? false : true),
+                              Q_ARG(QVariant, (rgbFound && rgbDiffCount == 0) ? true : false),
                               Q_ARG(QVariant, rgbColor),
-                              Q_ARG(QVariant, wauvDiffCount ? false : true),
+                              Q_ARG(QVariant, (wauvFound && wauvDiffCount == 0) ? true : false),
                               Q_ARG(QVariant, wauvColor));
 }
 

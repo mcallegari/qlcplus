@@ -129,6 +129,8 @@ Rectangle
         MouseArea
         {
             anchors.fill: parent
+            // don't let a parent Flickable (e.g. the VC page) steal the drag
+            preventStealing: true
 
             function setPickedColor(mouse)
             {
