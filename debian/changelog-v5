@@ -1,10 +1,109 @@
 qlcplus (5.3.0) stable; urgency=low
 
-  * First QLC+ 5 debian package
-  * Installs as /usr/bin/qlcplus5, with its own engine library
-    (libqlcplusengine5.so) and I/O plugins directory (plugins/qlcplus5),
-    so that it can be installed alongside QLC+ 4
-  * Resources (fixtures, gobos, input profiles, RGB scripts, ...) are
-    shared with QLC+ 4 through the qlcplus-data package
+  * qmlui: sync color tools with fixture selection and highlight current colors (#2181)
+  * qmlui: improve 3d rendering of multi-head color changers (e.g. T-Bars)
+  * qmlui: fix TreeModel::removeItem() swallowing recursive removal failures
+  * qmlui: keep the Function tree in sync with renames made elsewhere
+  * qmlui: fix crash when opening a function editor while another of the same type is shown
+  * qmlui: fix relative movement of mixed 3D items selection
+  * inputprofiles: add M-VAVE SMC-PAD (thanks to Cristian Deluxe)
+  * qmlui: fix video editor open (#2158)
+  * qmlui: add Lime, Indigo, RGBL and RGBA to channel wizard
+  * webaccess: improve keypad parsing
+  * qmlui: improve drag from fixture group manager
+  * qmlui: fix Del key press on text edit items
+  * engine: fix and optimize RGBMatrix values update
+  * qmlui: make preset tool window floating
+  * qmlui: add preset tool edge snapping and fix palette preview
+  * qmlui: improve timing tool for beat-based Show (#2151)
+  * qmlui: improve Show manager header time/beat markers
+  * qmlui: fix moving a time-based show item in a beat-based show (#2150)
+  * qmlui: handle drag & drop of project/fixture files on the main window
+  * qmlui: improve beat-based Shows (#2147)
+  * qmlui: remember VC Cue List columns width
+  * qmlui: fix high-resolution wheel zoom in 2D view
+  * qmlui: fix VC widget background color + picture not saved correctly
+  * qmlui: allow to select a different plugin feedback line
+  * qmlui: persist 3D View "Show FPS" setting across view switches
+  * qmlui: improve 3D view zooming
+  * qmlui: in 3D view do not select an item with mouse right button
+  * qmlui: improve CTRL+A shortcut handling
+  * qmlui: improve show items pointer handling
+  * qmlui: handle multiple output plugins configuration
+  * qmlui: handle Show item track move and undo/redo on remote
+  * qmlui: restored XYPad EFX size control
+  * qmlui: fix virtual console page detach
+  * qmlui: handle remote client automatic access grant
+  * qmlui: add VCCueList side fader live action to Tardis
+  * engine: improve loading of definitions without modes
+  * qmlui: improve remote project loading and packets integrity check
+  * qmlui: support concurrent native client sessions
+  * qmlui: improve once again 3D scene reset
+  * qmlui: handle Script stopOnExit(false) properly
+  * qmlui: XYPad handles groups and introduce tracking mode
+  * qmlui: add input control and pan & tilt adjust to Scene Editor
+  * resources: assign prev/next page to input profiles
+  * qmlui: improve input profile editing
+  * qmlui: make servers independent
+  * qmlui: improve VC frame page shortcut drop down width
+  * qmlui: fix VC button flashing across frame pages
+  * qmlui: update external control on page shortcut rename
+  * qmlui: hide fixtures only where needed
+  * qmlui: add a stage wizard
+  * Rename qlcplus-qml -> qlcplus5 on all platforms
+  * qmlui: do not allow VC widget negative Z-Index (#2087)
+  * engine: expose RGBMatrix Script parameters as attributes
+  * qmlui: add an option to show fixture group buttons in 2d/3d view
+  * qmlui: improve universe summary layout and print quality
+  * qmlui: allow to lock/unlock 3d view generic items
+  * qmlui: do not send feedback from another frame page (#2080)
+  * qmlui: improve VC widget input sources removal
+  * engine: fix beat tracker integration, add ported comb-ACF tracker (issue #1881)
+  * qmlui: add cut & paste to virtual console
+  * qmlui: handle Return keypress on PIN request popup
+  * qmlui: add VC widget distribution helpers
+  * qmlui: close open editor on create function undo (#2079)
+  * qmlui: improve function item dragging as well
+  * qmlui: improve VC widget drag and drop (#2068)
+  * qmlui: reload 3d stage on file load (#2074)
+  * qmlui: fix folder open tree adding a chaser step (#2073)
+  * qmlui: improve VC Slider mode switching
+  * qmlui: fix geometry restore on unavailable display
+  * qmlui: restore fixture editor alias editing (#2037)
+  * qmlui: remove empty fixture groups when deleting fixtures (#2063)
+  * qmlui: save and restore Simple Desk scroll position (#2061)
+  * qmlui: VC Speed dial tap button can tap global BPM
+  * qmlui: use CTRL+Tab to cycle fixture groups selection
+  * qmlui: fix VC animation color preset creation with full color picker
+  * qmlui: fix full color picker preview when entering manual values
+  * qmlui: improve VCXYPad feedback and relative movements
+  * engine: improve encoders input handling
+  * qmlui: fix subfolder deletion (#2058)
+  * linux: add Qt translation files to appimage (#2056)
+  * qmlui: tune 3d preview pan/tilt speed to be more reactive
+  * engine: improve EFX dimmer control fade
+  * qmlui, ui: add dimmer control to EFX editor
+  * engine: add EFX dimmer control
+  * qmlui: restore XYPad per-fixture range limit
+  * qmlui: handle Enter keypress on native file dialog (Linux)
+  * qmlui: fix manual closing of a windowed video playback
+  * qmlui: fix resuming video playback in show manager
+  * qmlui: improve VC frame pages creation
+  * qmlui: fix VC slider input catch up also on page change
+  * qmlui: fix VC slider catch up input value when disabled
+  * qmlui: restore VC animation presets
+  * qmlui: do not consider numbering on a single fixture rename (#2049)
+  * qmlui: toggle fullscreen (if active) before quitting (#2051)
+  * qmlui: improve Show Manager copy & paste (#2053)
+  * qmlui: make side panels asynchronous to avoid freezing
+  * engine: fix RGBMatrix dimmer mode not applied correctly to generic dimmers
+  * engine: prevent crash during autosave
+  * qmlui: fix sequence step insertion and Scene preview
+  * qmlui: restore audio input/output configuration
+  * qmlui: add lock flag to prevent dragging fixtures in 2d/3d previews
+  * qmlui: fix 3d marker not visible
+  * qmlui: add channels preview toggle to Sequence editor
+  * qmlui: major update to palettes
+  * webaccess: handle missing widget sub-id queries
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Mon, 05 Oct 2026 10:47:15 +0200

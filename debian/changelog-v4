@@ -3,6 +3,8 @@ qlcplus (4.14.5) stable; urgency=low
   * engine: fix crash with Sequences when removing a fixture (thanks to jpue)
   * engine: apply submaster updates to all Chaser crossfade steps (thanks to Christoph Müllner)
   * ui: improve Audio editor fileds editing (thanks to Christoph Müllner)
+  * ui: fix DMX dump on more than 4 universes (fix #1997)
+  * fixtureeditor: show a warning when no modes are provided (#2095)
   * Input profiles: added Behringer X-Touch Compact (thanks to Benedict Stein)
   * Input profiles: added M-VAVE SMC-PAD (thanks to Cristian Deluxe)
   * RGB scripts: added Aurora, Eyes, Fire, Fireflies, Fire Flicker, Fractal, Lightning, OrthoLines, Sinelon, Spark, Strum (thanks to Branson Matheson)
