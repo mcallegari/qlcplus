@@ -34,7 +34,7 @@ Description: Q Light Controller Plus - architecture independent data
  Software lighting desk for controlling professional lighting fixtures.
  .
  This package contains the fixture definitions, gobos, input profiles, MIDI
- templates and RGB scripts shared by QLC+ 4 and QLC+ 5.
+ templates, RGB scripts, color filters and 3D meshes shared by QLC+ 4 and QLC+ 5.
 
 Package: qlcplus
 Section: misc
