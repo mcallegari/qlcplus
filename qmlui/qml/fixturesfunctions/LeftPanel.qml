@@ -37,6 +37,28 @@ SidePanel
         item.height = Qt.binding(function() { return leftSidePanel.height })
     }
 
+    function refreshVisiblePresetTools()
+    {
+        if (shutterTool.visible)
+            shutterTool.updatePresets(fixtureManager.shutterChannels)
+        if (cWheelTool.visible)
+            cWheelTool.updatePresets(fixtureManager.colorWheelChannels)
+        if (gobosTool.visible)
+            gobosTool.updatePresets(fixtureManager.goboChannels)
+    }
+
+    Connections
+    {
+        target: contextManager
+
+        function onSelectedFixturesChanged()
+        {
+            if (colTool.visible)
+                contextManager.getCurrentColors(colTool)
+            leftSidePanel.refreshVisiblePresetTools()
+        }
+    }
+
     Rectangle
     {
         id: sideBar
@@ -179,7 +201,7 @@ SidePanel
 
                 PresetsTool
                 {
-                    id: cShutterTool
+                    id: shutterTool
                     parent: mainView
                     x: leftSidePanel.width
                     y: UISettings.bigItemHeight
@@ -254,16 +276,6 @@ SidePanel
                     onClose: colorToolButton.checked = false
                 }
 
-                Connections
-                {
-                    target: contextManager
-
-                    function onSelectedFixturesChanged()
-                    {
-                        if (colTool.visible)
-                            contextManager.getCurrentColors(colTool)
-                    }
-                }
             }
 
             IconButton
