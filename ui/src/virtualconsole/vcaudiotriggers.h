@@ -28,6 +28,7 @@
 #include "audiotriggerwidget.h"
 #include "clickandgoslider.h"
 #include "dmxsource.h"
+#include "spectrumgrid.h"
 #include "vcwidget.h"
 
 class QXmlStreamReader;
@@ -40,6 +41,8 @@ class AudioBar;
  */
 
 #define KXMLQLCVCAudioTriggers QStringLiteral("AudioTriggers")
+#define KXMLQLCVCATSpectrumGrid QStringLiteral("SpectrumGrid")
+#define KXMLQLCVCATSpectrumLowBandGamma QStringLiteral("SpectrumLowBandGamma")
 
 class VCAudioTriggers final : public VCWidget, public DMXSource
 {
@@ -80,7 +83,8 @@ signals:
     void captureEnabled(bool enabled);
 
 protected slots:
-    void slotDisplaySpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power);
+    void slotDisplaySpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power,
+                           int spectrumGridMode, double spectrumLowBandGamma);
     void slotVolumeChanged(int volume);
     void slotUpdateVolumeSlider(int volume);
 
@@ -94,6 +98,8 @@ protected:
 
     AudioBar *m_volumeBar;
     QList <AudioBar *> m_spectrumBars;
+    SpectrumGridMode m_spectrumGridMode;
+    double m_spectrumLowBandGamma;
 
     /*********************************************************************
      * DMXSource
@@ -177,6 +183,14 @@ public:
 
     void setSpectrumBarsNumber(int num);
     void setSpectrumBarType(int index, int type);
+
+    SpectrumGridMode spectrumGridMode() const;
+    void setSpectrumGridMode(SpectrumGridMode mode);
+
+    double spectrumLowBandGamma() const;
+    void setSpectrumLowBandGamma(double gamma);
+
+    void updateSpectrumBandLayout();
 
     /*********************************************************************
      * Load & Save
