@@ -19,7 +19,7 @@ endif()
 
 # Development builds mark the version string as "GIT". Turn this off
 # (-DDEVEL=OFF) when building an official release.
-option(DEVEL "Mark this build as a development (GIT) build" OFF)
+option(DEVEL "Mark this build as a development (GIT) build" ON)
 
 # Unless the build type was set explicitly, follow the DEVEL flag: a
 # development build defaults to Debug, a release build to Release
@@ -46,7 +46,7 @@ endif()
 # deliberately left unsuffixed, since they are shared between the two.
 if(qmlui)
     add_definitions(-DQMLUI)
-    set(APPVERSION "5.3.0")
+    set(APPVERSION "5.3.1")
     set(APPBINARY "qlcplus5")
     set(PLUGINSUBDIR "qlcplus5")
 else()

@@ -1,3 +1,7 @@
+qlcplus (5.3.1) stable; urgency=low
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 28 Nov 2026 10:47:15 +0200
+
 qlcplus (5.3.0) stable; urgency=low
 
   * qmlui: sync color tools with fixture selection and highlight current colors (#2181)
