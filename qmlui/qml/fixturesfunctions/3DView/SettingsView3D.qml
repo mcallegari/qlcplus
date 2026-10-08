@@ -233,10 +233,18 @@ Rectangle
                         }
 
                         // row 1
-                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Quality") }
+                        ResponsiveFormLabel
+                        {
+                            height: UISettings.listItemHeight
+                            label: qsTr("Quality")
+                            availableWidth: parent.width
+                            reservedControlWidth: UISettings.bigItemHeight
+                            layoutSpacing: parent.columnSpacing
+                        }
                         CustomComboBox
                         {
                             Layout.fillWidth: true
+                            Layout.minimumWidth: UISettings.bigItemHeight
                             height: UISettings.listItemHeight
                             model: [
                                 { mLabel: qsTr("Low"), mValue: MainView3D.LowQuality },
@@ -249,11 +257,19 @@ Rectangle
                         }
 
                         // row 2
-                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Ambient light") }
+                        ResponsiveFormLabel
+                        {
+                            height: UISettings.listItemHeight
+                            label: qsTr("Ambient light")
+                            availableWidth: parent.width
+                            reservedControlWidth: UISettings.bigItemHeight
+                            layoutSpacing: parent.columnSpacing
+                        }
                         CustomSpinBox
                         {
                             id: ambIntSpin
                             Layout.fillWidth: true
+                            Layout.minimumWidth: UISettings.bigItemHeight
                             height: UISettings.listItemHeight
                             from: 0
                             to: 100
@@ -262,11 +278,19 @@ Rectangle
                         }
 
                         // row 3
-                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Smoke amount") }
+                        ResponsiveFormLabel
+                        {
+                            height: UISettings.listItemHeight
+                            label: qsTr("Smoke amount")
+                            availableWidth: parent.width
+                            reservedControlWidth: UISettings.bigItemHeight
+                            layoutSpacing: parent.columnSpacing
+                        }
                         CustomSpinBox
                         {
                             id: smokeSpin
                             Layout.fillWidth: true
+                            Layout.minimumWidth: UISettings.bigItemHeight
                             height: UISettings.listItemHeight
                             from: 0
                             to: 100
@@ -275,12 +299,20 @@ Rectangle
                         }
 
                         // row 4
-                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Show FPS") }
+                        ResponsiveFormLabel
+                        {
+                            height: UISettings.listItemHeight
+                            label: qsTr("Show FPS")
+                            availableWidth: parent.width
+                            reservedControlWidth: UISettings.bigItemHeight
+                            layoutSpacing: parent.columnSpacing
+                        }
                         CustomCheckBox
                         {
                             implicitHeight: UISettings.listItemHeight
                             implicitWidth: implicitHeight
                             checked: View3D ? View3D.frameCountEnabled : false
+                            Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                             onToggled: View3D.frameCountEnabled = checked
                         }
 
