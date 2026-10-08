@@ -494,6 +494,9 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             case VCWidget::SliderWidget:
             {
                 VCSlider *slider = qobject_cast<VCSlider*>(widget);
+                // like an external input: take over the monitored levels,
+                // otherwise the monitor moves the slider back right away
+                slider->enableOverride();
                 slider->setSliderValue(value, false, true);
                 slider->updateFeedback();
             }

@@ -873,6 +873,17 @@ QKeySequence VCSlider::overrideResetKeySequence() const
     return m_overrideResetKeySequence;
 }
 
+void VCSlider::enableOverride()
+{
+    if (m_monitorEnabled == false || m_isOverriding == true)
+        return;
+
+    if (m_resetButton != nullptr)
+        m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
+    m_isOverriding = true;
+    updateOverrideFeedback(true);
+}
+
 void VCSlider::slotResetButtonClicked()
 {
     m_isOverriding = false;
@@ -1374,13 +1385,8 @@ void VCSlider::setSliderValue(uchar value, bool scale, bool external)
     {
         case Level:
         {
-            if (m_monitorEnabled == true && m_isOverriding == false && m_slider->isSliderDown())
-            {
-                if (m_resetButton != nullptr)
-                    m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
-                m_isOverriding = true;
-                updateOverrideFeedback(true);
-            }
+            if (m_slider->isSliderDown())
+                enableOverride();
             setLevelValue(val, external);
             setClickAndGoWidgetFromLevel(val);
         }
@@ -1588,12 +1594,7 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
                 }
             }
 
-            if (m_monitorEnabled == true && m_isOverriding == false)
-            {
-                m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
-                m_isOverriding = true;
-                updateOverrideFeedback(true);
-            }
+            enableOverride();
 
             if (invertedAppearance())
                 value = UCHAR_MAX - value;
