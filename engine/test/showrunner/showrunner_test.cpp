@@ -20,6 +20,7 @@
 #include <QtTest>
 #define private public
 #include "showrunner.h"
+#include "mastertimer.h"
 #undef private
 #include "show.h"
 #include "track.h"
@@ -198,4 +199,63 @@ void ShowRunner_Test::tempoMapCollection()
     QCOMPARE(chaser->elapsed(), quint32(0));
 }
 
-QTEST_APPLESS_MAIN(ShowRunner_Test)
+void ShowRunner_Test::tempoMapStepEndsWithItem()
+{
+    // a Beats tempo Chaser item, on the tempo grid but not on a tick,
+    // ending exactly where a step ends: the Chaser is stopped with the item,
+    // without starting its next step for a tick before
+    Scene *s1 = new Scene(m_doc);
+    m_doc->addFunction(s1);
+    Scene *s2 = new Scene(m_doc);
+    m_doc->addFunction(s2);
+    Scene *s3 = new Scene(m_doc);
+    m_doc->addFunction(s3);
+
+    Chaser *chaser = new Chaser(m_doc);
+    chaser->setTempoType(Function::Beats);
+    chaser->setRunOrder(Function::Loop);
+    chaser->setDurationMode(Chaser::Common);
+    chaser->setDuration(1000);
+    m_doc->addFunction(chaser);
+    chaser->addStep(s1->id());
+    chaser->addStep(s2->id());
+
+    Show *show = new Show(m_doc);
+    m_doc->addFunction(show);
+    Track *t1 = new Track(Function::invalidId(), show);
+    show->addTrack(t1);
+    Track *t2 = new Track(Function::invalidId(), show);
+    show->addTrack(t2);
+
+    TempoMap map;
+    // the item ends 3 ms after a tick, the case where a step ending on the
+    // tick nearest to its end time was ended a tick before the item
+    map.addSection(TempoSection(3, 60000, 120, 4, "Song"));
+    show->setTempoMap(map);
+
+    ShowFunction *sf = t1->createShowFunction(chaser->id());
+    sf->setStartTime(1003);
+    sf->setDuration(1000);
+    sf = t2->createShowFunction(s3->id());
+    sf->setStartTime(0);
+    sf->setDuration(4000);
+
+    int s1Starts = 0;
+    bool wasRunning = false;
+    show->start(m_doc->masterTimer(), FunctionParent::master());
+    for (int i = 0; i < 150; i++)
+    {
+        m_doc->masterTimer()->timerTick();
+        if (s1->isRunning() && wasRunning == false)
+            s1Starts++;
+        wasRunning = s1->isRunning();
+    }
+    QVERIFY(chaser->isRunning() == false);
+    QCOMPARE(s1Starts, 1);
+
+    show->stop(FunctionParent::master());
+    m_doc->masterTimer()->timerTick();
+    m_doc->masterTimer()->timerTick();
+}
+
+QTEST_GUILESS_MAIN(ShowRunner_Test)

@@ -563,8 +563,12 @@ void ChaserRunner::clearRunningList()
     {
         if (step->m_function)
         {
-            // restore the original Function fade out time
-            step->m_function->setOverrideFadeOutSpeed(stepFadeOut(step->m_index));
+            // restore the original Function fade out time. A step run on
+            // the tempo map was started with a Time tempo, so in ms
+            uint fadeOut = stepFadeOut(step->m_index);
+            if (hasTempoMapClock())
+                fadeOut = clockSpeedToTime(fadeOut, m_clockTime);
+            step->m_function->setOverrideFadeOutSpeed(fadeOut);
             step->m_function->stop(functionParent(), m_chaser->type() == Function::SequenceType);
             m_lastFunctionID = step->m_function->type() == Function::SceneType ? step->m_function->id() : Function::invalidId();
         }
@@ -901,9 +905,13 @@ bool ChaserRunner::write(MasterTimer *timer, QList<Universe *> universes)
 
         if (hasTempoMapClock())
         {
-            // end the step on the tick nearest to its exact end time
+            // end the step on the first tick at or after its exact end
+            // time, as a Show ends its items: a step ending with the item
+            // that runs the Chaser must not start the next one a tick
+            // before the item is stopped. Half a ms absorbs the rounding
+            // of the step end time
             stepDone = step->m_endTime >= 0 &&
-                       m_clockTime + (MasterTimer::tick() / 2.0) >= step->m_endTime;
+                       m_clockTime + 0.5 >= step->m_endTime;
             if (stepDone)
                 m_nextStepStart = step->m_endTime;
         }

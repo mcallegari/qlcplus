@@ -1443,8 +1443,8 @@ void ChaserRunner_Test::tempoMapNoDrift()
     int lastStep = -1;
     int changes = 0;
 
-    // about 3 minutes: every step change must land on the tick nearest to
-    // its beat, however far into the run it is
+    // about 3 minutes: every step change must land on the first tick at or
+    // after its beat, however far into the run it is
     for (int i = 0; i < 9400; i++)
     {
         QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
@@ -1456,7 +1456,8 @@ void ChaserRunner_Test::tempoMapNoDrift()
             {
                 changes++;
                 double expected = changes * beat;
-                QVERIFY2(qAbs(i * 20.0 - expected) <= 10.0,
+                double late = i * 20.0 - expected;
+                QVERIFY2(late > -0.5 && late < 20.0,
                          qPrintable(QString("change %1 at %2 ms, expected %3 ms")
                                     .arg(changes).arg(i * 20).arg(expected)));
             }
@@ -1464,7 +1465,7 @@ void ChaserRunner_Test::tempoMapNoDrift()
         }
     }
 
-    QCOMPARE(changes, int((9400 * 20.0 - 10) / beat));
+    QCOMPARE(changes, int((9399 * 20.0 + 0.5) / beat));
 }
 
 void ChaserRunner_Test::tempoMapOffGridStart()
@@ -1485,10 +1486,29 @@ void ChaserRunner_Test::tempoMapOffGridStart()
     for (; i < 100 && cr.m_lastRunStepIdx == 0; i++)
         cr.write(&timer, QList<Universe*>());
 
-    // the write at 730 + 13 ticks = 990 ms is the one nearest to 1000 ms
-    QCOMPARE(i - 1, 13);
+    // the write at 730 + 14 ticks = 1010 ms is the first one at or after 1000 ms
+    QCOMPARE(i - 1, 14);
     QCOMPARE(cr.m_lastRunStepIdx, 1);
     QCOMPARE(cr.m_runnerSteps.first()->m_endTime, 1500.0);
+}
+
+void ChaserRunner_Test::tempoMapStopFadeOut()
+{
+    TempoMap map;
+    map.addSection(TempoSection(0, 10000, 120));
+    setupTempoMapChaser(m_chaser, map, 0, 4000);
+    m_chaser->setFadeOutMode(Chaser::Common);
+    m_chaser->setFadeOutSpeed(1000);
+
+    ChaserRunner cr(m_doc, m_chaser);
+    MasterTimer timer(m_doc);
+    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QCOMPARE(cr.m_runnerSteps.first()->m_function, m_scene1);
+
+    // stopping the Chaser hands its running step a beat at 120 BPM in ms,
+    // since the step runs with a Time tempo
+    cr.postRun(&timer, QList<Universe*>());
+    QCOMPARE(m_scene1->overrideFadeOutSpeed(), uint(500));
 }
 
 void ChaserRunner_Test::tempoMapSeek()

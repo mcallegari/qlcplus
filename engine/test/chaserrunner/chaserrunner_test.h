@@ -71,6 +71,7 @@ private slots:
 
     void tempoMapNoDrift();
     void tempoMapOffGridStart();
+    void tempoMapStopFadeOut();
     void tempoMapSeek();
     void tempoMapFades();
     void tempoMapNextStep();
