@@ -30,6 +30,8 @@ uniform float ambient;
 
 uniform vec3 eyePosition;
 
+#include "smoke_plume.glsl"
+
 DECLARE_FRAG_COLOR
 
 void main()
@@ -63,6 +65,8 @@ void main()
 
     if(flag < 2.1)
         finalColor += (1.0 - isGuiElement) * ambient * ( albedo.rgb * max(0.0, dot(l, n)) + specular.rgb * pow(max(0.0, dot(r, v) ), shininess));
+
+    finalColor += plumeGlow(eyePosition, position, ambient);
 
     MGL_FRAG_COLOR = vec4(finalColor, 1.0);
 }
