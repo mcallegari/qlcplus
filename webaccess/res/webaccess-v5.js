@@ -3155,7 +3155,7 @@ function startProjectPolling() {
 }
 
 function connect() {
-  const url = `ws://${window.location.host}/qlcplusWS`;
+  const url = `${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/qlcplusWS`;
   state.socket = new WebSocket(url);
 
   state.socket.onopen = () => {
