@@ -28,19 +28,31 @@ Rectangle
 
     property int universeIndex: 0
     property bool isInput: false
+    readonly property int sourcesCount: uniListView.count
+
+    function refreshSources()
+    {
+        uniListView.model = isInput ?
+                    ioManager.universeInputSources(universeIndex) :
+                    ioManager.universeOutputSources(universeIndex)
+    }
+
+    function activateSource(pluginName, available, canConfigure)
+    {
+        if (available === false && canConfigure === true)
+            ioManager.configurePluginByName(pluginName)
+    }
 
     function loadSources(input)
     {
-        if (input === true)
-        {
-            uniListView.model = ioManager.universeInputSources(universeIndex)
-            isInput = true
-        }
-        else
-        {
-            uniListView.model = ioManager.universeOutputSources(universeIndex)
-            isInput = false
-        }
+        isInput = input
+        refreshSources()
+    }
+
+    Connections
+    {
+        target: ioManager
+        function onIoSourcesChanged() { pluginsContainer.refreshSources() }
     }
 
     ListView
@@ -61,12 +73,18 @@ Rectangle
                     width: pluginsContainer.width
                     height: parent.height
 
-                    drag.target: pluginItem
+                    drag.target: pluginItem.sourceAvailable ? pluginItem : null
                     drag.threshold: height / 2
+
+                    onClicked:
+                        pluginsContainer.activateSource(pluginItem.pluginName,
+                                                        pluginItem.sourceAvailable,
+                                                        pluginItem.canConfigure)
 
                     onReleased:
                     {
-                        if (pluginItem.Drag.target !== null)
+                        if (pluginItem.sourceAvailable === true &&
+                            pluginItem.Drag.target !== null)
                         {
                             pluginItem.Drag.drop()
                             if (pluginsContainer.isInput === false)
@@ -92,6 +110,7 @@ Rectangle
                     PluginDragItem
                     {
                         id: pluginItem
+                        objectName: "pluginSource_" + index
                         x: 3
                         color: delegateRoot.pressed ? UISettings.highlightPressed : "transparent"
 
@@ -103,8 +122,11 @@ Rectangle
                         pluginName: modelData.plugin
                         lineName: modelData.name
                         pluginLine: modelData.line
+                        sourceAvailable: modelData.available !== false
+                        canConfigure: modelData.canConfigure === true
+                        statusText: modelData.status || ""
 
-                        Drag.active: delegateRoot.drag.active
+                        Drag.active: sourceAvailable && delegateRoot.drag.active
                         Drag.source: pluginItem
                         //Drag.hotSpot.x: width / 2
                         //Drag.hotSpot.y: height / 2
@@ -123,4 +145,3 @@ Rectangle
             } // Item
     } // ListView
 }
-
