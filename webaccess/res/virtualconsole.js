@@ -360,7 +360,45 @@ function slVchange(id) {
  websocket.send(sldMsg);
 }
 
+// Slider currently held by the user. Value updates coming back from QLC+
+// are deferred until it is released: they echo older positions and, with
+// network latency, would pull the slider back while dragging.
+var heldSliderID = null;
+var pendingSliderValues = {};
+
+function holdSlider(ev) {
+ if (ev.target.type === "range" && ev.target.classList.contains("vVertical"))
+  heldSliderID = ev.target.id;
+}
+
+function applyPendingSliderValue(id) {
+ var pending = pendingSliderValues[id];
+ if (pending) {
+  delete pendingSliderValues[id];
+  wsSetSliderValue(id, pending[0], pending[1]);
+ }
+}
+
+function releaseSlider() {
+ if (heldSliderID === null) return;
+ var id = heldSliderID;
+ heldSliderID = null;
+ applyPendingSliderValue(id);
+}
+
+document.addEventListener("pointerdown", holdSlider, true);
+document.addEventListener("touchstart", holdSlider, true);
+document.addEventListener("pointerup", releaseSlider, true);
+document.addEventListener("pointercancel", releaseSlider, true);
+document.addEventListener("touchend", releaseSlider, true);
+document.addEventListener("touchcancel", releaseSlider, true);
+document.addEventListener("change", releaseSlider, true);
+
 function wsSetSliderValue(id, sliderValue, displayValue) {
+ if (id === heldSliderID || isDragging[id]) {
+  pendingSliderValues[id] = [sliderValue, displayValue];
+  return;
+ }
  var obj = document.getElementById(id);
  obj.value = sliderValue;
  var labelObj = document.getElementById("slv" + id);
@@ -475,6 +513,7 @@ function onMouseUp() {
   document.removeEventListener("mousemove", onMouseMove);
   document.removeEventListener("mouseup", onMouseUp);
   document.removeEventListener("mousedown", onMouseMove);
+  applyPendingSliderValue(selectedID);
 }
 // Initial position
 window.addEventListener("load", (event) => {
