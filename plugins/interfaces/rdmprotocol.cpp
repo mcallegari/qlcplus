@@ -277,11 +277,16 @@ bool RDMProtocol::parsePacket(const QByteArray &buffer, QVariantMap &values)
         i++;
     }
 
+    if (buffer.length() < i + 23)
+        return false;
+
     if (buffer.at(i++) != char(RDM_SC_SUB_MESSAGE))
         return false;
 
     // Data length
     quint8 length = quint8(buffer.at(i++));
+    if (buffer.length() < int(length) + (startCode ? 2 : 1))
+        return false;
 
     // Destination UID and source UID
     quint16 ESTAId;
@@ -325,6 +330,9 @@ bool RDMProtocol::parsePacket(const QByteArray &buffer, QVariantMap &values)
     // Parameter data length
     quint8 PDL = quint8(buffer.at(i++));
 
+    if (buffer.length() < i + PDL + 2)
+        return false;
+
 #ifdef DEBUG_RDM
     qDebug().nospace().noquote() <<
         "[RDM] Data length: " << QString::number(length) <<
@@ -348,6 +356,9 @@ bool RDMProtocol::parsePacket(const QByteArray &buffer, QVariantMap &values)
     {
         case PID_SUPPORTED_PARAMETERS:
         {
+            if (PDL % 2 != 0)
+                return false;
+
             QVector<quint16> pidList;
 #ifdef DEBUG_RDM
             QDebug out = qDebug();
@@ -366,6 +377,9 @@ bool RDMProtocol::parsePacket(const QByteArray &buffer, QVariantMap &values)
         break;
         case PID_DEVICE_INFO:
         {
+            if (PDL < 19)
+                return false;
+
             values.insert("RDM version", byteArrayToShort(buffer, i));
             values.insert("Device model ID", byteArrayToShort(buffer, i + 2));
             values.insert("TYPE", categoryToString(byteArrayToShort(buffer, i + 4)));
@@ -375,7 +389,7 @@ bool RDMProtocol::parsePacket(const QByteArray &buffer, QVariantMap &values)
             values.insert("PERSONALITY_COUNT", quint8(buffer.at(i + 13)));
             values.insert("DMX_START_ADDRESS", byteArrayToShort(buffer, i + 14));
             values.insert("Sub-device count", byteArrayToShort(buffer, i + 16));
-            values.insert("Number of sensors", quint8(buffer.at(i + 20)));
+            values.insert("Number of sensors", quint8(buffer.at(i + 18)));
         }
         break;
         case PID_DEVICE_MODEL_DESCRIPTION:
@@ -391,7 +405,7 @@ bool RDMProtocol::parsePacket(const QByteArray &buffer, QVariantMap &values)
         case PID_PARAMETER_DESCRIPTION:
         {
             if (PDL < 20)
-                break;
+                return false;
 
             values.insert("PID_INFO", byteArrayToShort(buffer, i));
             values.insert("PDL Size", quint8(buffer.at(i + 2)));
@@ -408,12 +422,18 @@ bool RDMProtocol::parsePacket(const QByteArray &buffer, QVariantMap &values)
         break;
         case PID_DMX_PERSONALITY:
         {
+            if (PDL < 2)
+                return false;
+
             values.insert("PERS_CURRENT", quint8(buffer.at(i)));
             values.insert("PERS_COUNT", quint8(buffer.at(i + 1)));
         }
         break;
         case PID_DMX_PERSONALITY_DESCRIPTION:
         {
+            if (PDL < 3)
+                return false;
+
             values.insert("PERS_INDEX", quint8(buffer.at(i)));
             values.insert("PERS_CHANNELS", byteArrayToShort(buffer, i + 1));
             values.insert("PERS_DESC", QString(buffer.mid(i + 3, PDL - 3)));
@@ -421,11 +441,17 @@ bool RDMProtocol::parsePacket(const QByteArray &buffer, QVariantMap &values)
         break;
         case PID_DMX_START_ADDRESS:
         {
+            if (PDL < 2)
+                return false;
+
             values.insert("DMX_START_ADDRESS", byteArrayToShort(buffer, i));
         }
         break;
         case PID_SLOT_INFO:
         {
+            if (PDL % 5 != 0)
+                return false;
+
             QVector<quint16> slotList;
 
             for (int n = 0; n < PDL; n += 5)
@@ -439,6 +465,9 @@ bool RDMProtocol::parsePacket(const QByteArray &buffer, QVariantMap &values)
         break;
         case PID_SLOT_DESCRIPTION:
         {
+            if (PDL < 2)
+                return false;
+
             values.insert("SLOT_ID", byteArrayToShort(buffer, i));
             values.insert("SLOT_DESC", QString(buffer.mid(i + 2, PDL - 2)));
         }
