@@ -121,6 +121,8 @@ add_library(${module_name}
     virtualconsole/vcframepageshortcut.cpp virtualconsole/vcframepageshortcut.h
     virtualconsole/vcframeproperties.cpp virtualconsole/vcframeproperties.h virtualconsole/vcframeproperties.ui
     virtualconsole/vclabel.cpp virtualconsole/vclabel.h
+    virtualconsole/vcaudiotimer.cpp virtualconsole/vcaudiotimer.h
+    virtualconsole/vcpalette.cpp virtualconsole/vcpalette.h
     virtualconsole/vcmatrix.cpp virtualconsole/vcmatrix.h
     virtualconsole/vcmatrixcontrol.cpp virtualconsole/vcmatrixcontrol.h
     virtualconsole/vcmatrixpresetselection.cpp virtualconsole/vcmatrixpresetselection.h virtualconsole/vcmatrixpresetselection.ui
