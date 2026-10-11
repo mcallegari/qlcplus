@@ -522,18 +522,6 @@ jobs:
           arch: 'clang_64'
           modules: 'qt3d qtimageformats qtmultimedia qtserialport qtwebsockets'
 
-      - name: Import macOS signing certificate
-        shell: bash
-        if: false # ${{ env.MACOS_CERT_P12 != '' && env.MACOS_CODESIGN_IDENTITY != '' }}
-        run: |
-          echo "${MACOS_CERT_P12}" | base64 --decode > /tmp/macos_cert.p12
-          security create-keychain -p "${MACOS_KEYCHAIN_PASSWORD}" "${MACOS_KEYCHAIN}"
-          security default-keychain -s "${MACOS_KEYCHAIN}"
-          security unlock-keychain -p "${MACOS_KEYCHAIN_PASSWORD}" "${MACOS_KEYCHAIN}"
-          security import /tmp/macos_cert.p12 -k "${MACOS_KEYCHAIN}" -P "${MACOS_CERT_PASSWORD}" -T /usr/bin/codesign -T /usr/bin/security
-          security set-key-partition-list -S apple-tool:,apple: -s -k "${MACOS_KEYCHAIN_PASSWORD}" "${MACOS_KEYCHAIN}"
-          rm -f /tmp/macos_cert.p12
-
       - name: Setup ccache
         uses: hendrikmuhs/ccache-action@v1.2.23
         with:
@@ -587,6 +575,31 @@ jobs:
           platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/MacOS/qlcplus5
           ${{ env.QTDIR }}/bin/macdeployqt ~/QLC+.app -qmldir=qmlui/qml
 
+      - name: Import macOS signing certificate
+        # done right before signing: a new keychain auto-locks after 5 minutes,
+        # and a locked keychain makes codesign hang waiting for a password prompt
+        shell: bash
+        if: ${{ env.MACOS_CERT_P12 != '' && env.MACOS_CODESIGN_IDENTITY != '' }}
+        run: |-
+          echo "${MACOS_CERT_P12}" | base64 --decode > $RUNNER_TEMP/macos_cert.p12
+          security create-keychain -p "${MACOS_KEYCHAIN_PASSWORD}" "${MACOS_KEYCHAIN}"
+          security set-keychain-settings -lut 3600 "${MACOS_KEYCHAIN}"
+          security unlock-keychain -p "${MACOS_KEYCHAIN_PASSWORD}" "${MACOS_KEYCHAIN}"
+          security list-keychains -d user -s "${MACOS_KEYCHAIN}" $(security list-keychains -d user | tr -d '"')
+          security import $RUNNER_TEMP/macos_cert.p12 -k "${MACOS_KEYCHAIN}" -P "${MACOS_CERT_PASSWORD}" -T /usr/bin/codesign -T /usr/bin/security
+          curl -fsSL https://www.apple.com/certificateauthority/DeveloperIDG2CA.cer -o $RUNNER_TEMP/DeveloperIDG2CA.cer
+          security import $RUNNER_TEMP/DeveloperIDG2CA.cer -k "${MACOS_KEYCHAIN}" || true
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "${MACOS_KEYCHAIN_PASSWORD}" "${MACOS_KEYCHAIN}"
+          rm -f $RUNNER_TEMP/macos_cert.p12 $RUNNER_TEMP/DeveloperIDG2CA.cer
+          security find-identity -v -p codesigning "${MACOS_KEYCHAIN}"
+
+      - name: Sign app bundle
+        shell: bash
+        if: ${{ env.MACOS_CERT_P12 != '' && env.MACOS_CODESIGN_IDENTITY != '' }}
+        timeout-minutes: 20
+        run: |-
+          platforms/macos/sign_app.sh ~/QLC+.app "${MACOS_CODESIGN_IDENTITY}"
+
       - name: Create DMG
         # Use retry loop to work around a race condition on macOS causing
         # 'Resource busy' errors with 'hdiutil'. See
@@ -610,22 +623,35 @@ jobs:
             $OUTDIR/QLC+_${{ matrix.task }}.dmg \
             ~/QLC+.app
 
+      - name: Sign DMG
+        shell: bash
+        if: ${{ env.MACOS_CERT_P12 != '' && env.MACOS_CODESIGN_IDENTITY != '' }}
+        run: |-
+          codesign --force --timestamp --sign "${MACOS_CODESIGN_IDENTITY}" "QLC+_${{ matrix.task }}.dmg"
+
       - name: Notarize and staple DMG
         shell: bash
-        if: false # ${{ env.MACOS_NOTARY_KEY_P8 != '' }}
+        if: ${{ env.MACOS_CERT_P12 != '' && env.MACOS_CODESIGN_IDENTITY != '' && env.MACOS_NOTARY_KEY_P8 != '' }}
+        timeout-minutes: 45
         run: |-
           DMG_PATH="QLC+_${{ matrix.task }}.dmg"
-          echo "${MACOS_NOTARY_KEY_P8}" > /tmp/AuthKey.p8
+          echo "${MACOS_NOTARY_KEY_P8}" > $RUNNER_TEMP/AuthKey.p8
           xcrun notarytool submit \
-            --key /tmp/AuthKey.p8 \
+            --key $RUNNER_TEMP/AuthKey.p8 \
             --key-id "${MACOS_NOTARY_KEY_ID}" \
             --issuer "${MACOS_NOTARY_ISSUER}" \
-            --wait "${DMG_PATH}"
+            --wait --timeout 40m "${DMG_PATH}"
           xcrun stapler staple "${DMG_PATH}"
-          rm -f /tmp/AuthKey.p8
+          rm -f $RUNNER_TEMP/AuthKey.p8
 
       - name: Store DMG artifact
         uses: actions/upload-artifact@v7
         with:
           name: QLC+-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.dmg
           path: QLC+_${{ matrix.task }}.dmg
+
+      - name: Cleanup keychain
+        shell: bash
+        if: ${{ always() && env.MACOS_CERT_P12 != '' }}
+        run: |-
+          security delete-keychain "${MACOS_KEYCHAIN}" || true
