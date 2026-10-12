@@ -233,6 +233,9 @@ public:
     /** @reimpl */
     void writeDMX(MasterTimer* timer, QList<Universe*> universes) override;
 
+    /** @reimp */
+    void setDisabled(bool disable) override;
+
 private:
     /** Map used to lookup a GenericFader instance for a Universe ID */
     QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;

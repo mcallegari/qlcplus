@@ -1810,9 +1810,29 @@ void VCXYPad::slotUniverseWritten(quint32 idx, const QByteArray &universeData)
     emit fixturePositionsChanged();
 }
 
+void VCXYPad::setDisabled(bool disable)
+{
+    // a disabled pad (e.g. inside a disabled frame) must not keep
+    // transmitting the values held by its faders
+    for (QSharedPointer<GenericFader> fader : m_fadersMap)
+    {
+        if (fader.isNull() == false)
+            fader->setEnabled(!disable);
+    }
+
+    VCWidget::setDisabled(disable);
+
+    // re-apply the current position when re-enabled
+    if (disable == false)
+        m_positionChanged = true;
+}
+
 void VCXYPad::writeDMX(MasterTimer *timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer)
+
+    if (isDisabled())
+        return;
 
     if (m_positionChanged == false)
         return;
