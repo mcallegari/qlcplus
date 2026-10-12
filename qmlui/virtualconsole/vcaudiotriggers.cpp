@@ -170,6 +170,18 @@ bool VCAudioTriggers::captureEnabled() const
     return m_captureEnabled;
 }
 
+void VCAudioTriggers::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity, bool excludeMonitored)
+{
+    Q_UNUSED(fid)
+    Q_UNUSED(fIntensity)
+    Q_UNUSED(excludeMonitored)
+
+    // stop capturing when any other widget (e.g. in the same Solo Frame)
+    // starts a Function
+    if (widget != this && m_captureEnabled)
+        setCaptureEnabled(false);
+}
+
 void VCAudioTriggers::setCaptureEnabled(bool enable)
 {
     if (enable == m_captureEnabled)

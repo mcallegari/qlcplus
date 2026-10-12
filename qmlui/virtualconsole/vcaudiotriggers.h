@@ -68,6 +68,9 @@ public:
     /** @reimp */
     void remapChannels(const QMap<SceneValue, SceneValue> &remapMap) override;
 
+    /** @reimp */
+    void notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity, bool excludeMonitored) override;
+
     /** Get/Set the capture enable status of this widget */
     bool captureEnabled() const;
     void setCaptureEnabled(bool enable);
