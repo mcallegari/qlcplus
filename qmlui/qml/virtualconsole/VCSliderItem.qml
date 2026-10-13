@@ -33,6 +33,11 @@ VCWidgetItem
     radius: 2
 
     onSliderObjChanged: setCommonProperties(sliderObj)
+    onSliderValueChanged:
+    {
+        if (colorToolLoader.item && clickAndGoButton.cngType === VCSlider.CnGPreset)
+            colorToolLoader.item.currentValue = sliderValue
+    }
 
     Gradient
     {
@@ -296,7 +301,7 @@ VCWidgetItem
                         return
 
                     if (sliderObj && clickAndGoButton.cngType == VCSlider.CnGPreset)
-                        item.updatePresets(sliderObj.clickAndGoPresetsList)
+                        item.updatePresets(sliderObj.clickAndGoPresetsList, sliderObj.value)
 
                     item.parent = virtualConsole.currentPageItem()
                     var pageItem = item.parent
