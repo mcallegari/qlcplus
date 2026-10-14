@@ -787,10 +787,14 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Univers
             if (address < 512)
             {
                 quint32 universe = fxi->universe();
+                if (universe >= quint32(universes.size()))
+                    return QString("Invalid universe: %1").arg(universe);
+
+                Universe *uni = universes[universe];
                 QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
                 if (fader.isNull())
                 {
-                    fader = universes[universe]->requestFader();
+                    fader = uni->requestFader();
                     fader->adjustIntensity(getAttributeValue(Intensity));
                     fader->setBlendMode(blendMode());
                     fader->setParentFunctionID(this->id());
@@ -798,7 +802,7 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Univers
                     m_fadersMap[universe] = fader;
                 }
 
-                fader->updateChannel(doc, universes[universe], fxi->id(), ch, [value, time](FadeChannel &fc)
+                fader->updateChannel(doc, uni, fxi->id(), ch, [value, time](FadeChannel &fc)
                 {
                     fc.setTarget(value);
                     fc.setFadeTime(time);
