@@ -682,6 +682,7 @@ void App::initDoc()
     m_doc->ioPluginCache()->load(QDir(pluginsPath));
 #else
     m_doc->ioPluginCache()->load(IOPluginCache::systemPluginDirectory());
+    m_doc->ioPluginCache()->load(IOPluginCache::userPluginDirectory());
 #endif
 
     /* Load audio decoder plugins

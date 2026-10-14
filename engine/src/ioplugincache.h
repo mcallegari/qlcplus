@@ -51,6 +51,9 @@ public:
     /** Get the system plugin directory. */
     static QDir systemPluginDirectory();
 
+    /** Get the user plugin directory. */
+    static QDir userPluginDirectory();
+
 signals:
     void pluginConfigurationChanged(QLCIOPlugin* plugin);
     void pluginLoaded(const QString& name);

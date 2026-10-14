@@ -519,6 +519,7 @@ void App::initDoc()
     connect(m_doc->ioPluginCache(), SIGNAL(pluginLoaded(const QString&)),
             this, SLOT(slotSetProgressText(const QString&)));
     m_doc->ioPluginCache()->load(IOPluginCache::systemPluginDirectory());
+    m_doc->ioPluginCache()->load(IOPluginCache::userPluginDirectory());
 
     /* Load audio decoder plugins
      * This doesn't use a AudioPluginCache::systemPluginDirectory() cause

@@ -137,3 +137,9 @@ QDir IOPluginCache::systemPluginDirectory()
     return QLCFile::systemDirectory(PLUGINDIR, KExtPlugin);
 }
 
+QDir IOPluginCache::userPluginDirectory()
+{
+    QString homeDir = QString("%1/%2").arg(QDir::homePath()).arg(USERPLUGINDIR);
+    return QLCFile::userDirectory(QString(USERPLUGINDIR), homeDir,
+                                  QStringList() << QString("*%1").arg(KExtPlugin));
+}

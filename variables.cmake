@@ -355,6 +355,15 @@ if (ANDROID OR IOS)
     set(PLUGINDIR "Plugins")
 endif ()
 
+# User plugins
+if (WIN32)
+    set(USERPLUGINDIR "${USERDATADIR}/Plugins/${PLUGINSUBDIR}")
+elseif (APPLE)
+    set(USERPLUGINDIR "${USERDATADIR}/Plugins/${PLUGINSUBDIR}")
+elseif (UNIX)
+    set(USERPLUGINDIR "${USERDATADIR}/plugins/${PLUGINSUBDIR}")
+endif ()
+
 
 # Audio Plugins
 if (WIN32)

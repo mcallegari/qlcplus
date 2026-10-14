@@ -51,6 +51,7 @@ private slots:
     void loadInputProfiles();
     void inputSourceNames();
     void profileDirectories();
+    void pluginDirectories();
     void claimReleaseDumpReset();
     void blackout();
     void grandMaster();

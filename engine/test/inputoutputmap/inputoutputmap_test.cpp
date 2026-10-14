@@ -23,6 +23,7 @@
 #include "iopluginstub.h"
 #include "inputoutputmap_test.h"
 #include "inputoutputmap.h"
+#include "ioplugincache.h"
 #include "qlcinputsource.h"
 #include "grandmaster.h"
 #include "outputpatch.h"
@@ -628,6 +629,17 @@ void InputOutputMap_Test::profileDirectories()
     QVERIFY(dir.filter() & QDir::Files);
     QVERIFY(dir.nameFilters().contains(QString("*%1").arg(KExtInputProfile)));
     QVERIFY(dir.absolutePath().contains(USERINPUTPROFILEDIR));
+}
+
+void InputOutputMap_Test::pluginDirectories()
+{
+    QDir dir = IOPluginCache::userPluginDirectory();
+#ifndef SKIP_TEST
+    QVERIFY(dir.exists() == true);
+#endif
+    QVERIFY(dir.filter() & QDir::Files);
+    QVERIFY(dir.nameFilters().contains(QString("*%1").arg(KExtPlugin)));
+    QVERIFY(dir.absolutePath().contains(USERPLUGINDIR));
 }
 
 void InputOutputMap_Test::claimReleaseDumpReset()
