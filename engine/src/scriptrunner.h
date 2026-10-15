@@ -24,6 +24,13 @@
 #include <QQueue>
 #include <QPair>
 #include <QMap>
+#include <QHash>
+#include <QSet>
+#include <QMutex>
+#include <QWaitCondition>
+#include <QElapsedTimer>
+#include <atomic>
+#include <functional>
 #include "function.h"
 
 class GenericFader;
@@ -32,6 +39,7 @@ class QJSEngine;
 class QJSValue;
 class Universe;
 class Doc;
+class Fixture;
 
 typedef struct
 {
@@ -42,7 +50,7 @@ typedef struct
     uint m_fadeTime;
 } FixtureValue;
 
-class ScriptRunner final : public QThread
+class ScriptRunner : public QThread
 {
     Q_OBJECT
 
@@ -222,7 +230,7 @@ public slots:
      * @param maxTime Maximum time in milliseconds
      * @return true if successful. False on error.
      */
-    int random(int minTime, int maxTime);
+    int random(uint minTime, uint maxTime);
 
 protected slots:
     /** Triggered when the script's execution pauses to await the starting of a function */
@@ -252,26 +260,103 @@ private:
     /** Common code to enqueue function */
     bool enqueueFunction(quint32 fID, FunctionOperation operation);
 
+    /**
+     * Checks if the global GC interval has elapsed and triggers a garbage
+     * collection pass if one is not already running.
+     */
+    void maybeCollectGarbage();
+
+    // Global timer to track time elapsed since the last GC pass across all wait calls.
+    QElapsedTimer m_gcTimer;
+
+    // Prevents recursive GC calls if collectGarbage() triggers unexpected event loop processing.
+    bool m_gcRunning;
+
+    /**
+     * Blocks the calling (script-interpreter) thread until the provided
+     * condition evaluates to false. Handles periodic GC throttling.
+     */
+    bool waitForCondition(std::function<bool()> isPending);
+
+    /**
+     * Blocks the calling (script-interpreter) thread until the queued
+     * WAIT_START/WAIT_STOP request for fID has actually been resolved
+     * by write() (which runs on the MasterTimer thread).
+     */
+    bool waitForFunctionOperation(quint32 fID, FunctionOperation operation);
+
+    /**
+     * Packs a (universe, fixture, channel) triple into a single 64-bit key
+     * used to de-duplicate queued fixture values (see m_fixtureValueQueue
+     * below). 16 bits for the universe, 24 for the fixture ID and 24 for
+     * the channel is comfortably more range than any of these can
+     * legitimately take in QLC+ today.
+     */
+    static quint64 fixtureValueKey(quint32 universe, quint32 fixtureID, quint32 channel);
+
+    /**
+     * Validates the fixture and channel, returning the Fixture pointer if valid,
+     * or nullptr if invalid. Logs appropriate warnings.
+     */
+    Fixture* validateFixtureChannel(quint32 fxID, quint32 channel);
+
+    /**
+     * Releases everything a run of the script may have allocated or claimed:
+     * the QJSEngine, any Functions this script started, and any GenericFaders
+     * it requested. Safe to call more than once.
+     */
+    void finishAndCleanUp();
+
 private:
     Doc *m_doc;
     QString m_content;
-    bool m_running;
+
+    // Whether the script is currently running. Read from JS-exported slots
+    // and write(), and written from execute()/stop()/run(). std::atomic<bool>
+    // prevents data races without the cost of taking a mutex lock in the
+    // hot path of nearly every method.
+    std::atomic<bool> m_running;
 
     QJSEngine *m_engine;
     // Queue holding the Function IDs to start/stop
     QQueue<QPair<quint32, FunctionOperation>> m_functionQueue;
-    // Queue holding Fixture values to send to Universes
-    QQueue<FixtureValue> m_fixtureValueQueue;
+
+    // Keying by (universe, fixture, channel) bounds the queue size by the
+    // number of distinct channels touched between two ticks rather than by
+    // how many times setFixture() was called.
+    QHash<quint64, FixtureValue> m_fixtureValueQueue;
+
     // Indicate to add (true) or to not add (false) to the Functions started by this script
     bool m_stopOnExit;
-    // IDs of the Functions started by this script
-    QList <quint32> m_startedFunctions;
+
+    // QSet de-duplicates automatically, preventing leaks when scripts call
+    // startFunction() repeatedly on the same Function ID.
+    QSet<quint32> m_startedFunctions;
+
     // Timer ticks to wait before executing the next line
     quint32 m_waitCount;
+
+    // Condition variable used by waitTime() to sleep until write() (on the
+    // MasterTimer thread) decrements m_waitCount to zero, instead of
+    // busy-polling in a tight sleep loop.
+    QWaitCondition m_waitCondition;
+
     // ID of the function that the script is waiting for
     quint32 m_waitFunctionId;
+
     // Map used to lookup a GenericFader instance for a Universe ID
     QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
+
+    // Guards every member above except m_running (which is std::atomic<bool>
+    // - see above). These are written from the script's own thread (run(),
+    // and any of the JS-exported slots above, which execute on that
+    // thread), read and written from write() (which executes on the
+    // MasterTimer thread), and also written from
+    // slotWaitFunctionStarted/Stopped (which execute on whichever thread
+    // this ScriptRunner object itself lives in). None of this was
+    // synchronized before, which is a genuine data race on top of the
+    // functional bugs fixed in later commits.
+    mutable QMutex m_mutex;
 };
 
 #endif

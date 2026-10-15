@@ -21,9 +21,12 @@
 #include <QJSEngine>
 #include <QJSValue>
 #include <QRandomGenerator>
+#include <utility>
 #if !defined(Q_OS_IOS)
 #include <QProcess>
 #endif
+#include <QMutexLocker>
+#include <QElapsedTimer>
 #include <QDebug>
 
 #include "scriptrunner.h"
@@ -32,8 +35,13 @@
 #include "mastertimer.h"
 #include "universe.h"
 
+// How often (in milliseconds) the various wait*() polling loops below are
+// allowed to ask the JS engine to run a garbage collection pass.
+static const int GC_INTERVAL_MS = 5000;
+
 ScriptRunner::ScriptRunner(Doc *doc, const QString &content, QObject *parent)
     : QThread(parent)
+    , m_gcRunning(false)
     , m_doc(doc)
     , m_content(content)
     , m_running(false)
@@ -64,33 +72,70 @@ void ScriptRunner::stop()
     if (m_running == false)
         return;
 
-    if (m_engine)
-    {
-        m_engine->setInterrupted(true);
-        m_engine->deleteLater();
-        m_engine = NULL;
-    }
+    // Flip the flag first, before anything else.
+    // Every blocking loop in this class polls m_running to know when to give up.
+    m_running = false;
 
-    // Stop all functions started by this script
+    // waitTime() can be sleeping on m_waitCondition rather than polling, so
+    // it needs an explicit wake-up here - otherwise a script sitting in a
+    // long waitTime() call wouldn't notice m_running has gone false until
+    // its next periodic wake-up at the latest.
+    m_waitCondition.wakeAll();
+
+    if (m_engine)
+        m_engine->setInterrupted(true);
+
+    // Block until the worker thread (run()) has actually returned before
+    // touching anything it owns. This was missing entirely before - stop()
+    // fired setInterrupted() and immediately deleted the engine via
+    // deleteLater() while the script might still legitimately be executing
+    // native code for a little while longer.
+    wait();
+
+    // Whatever run() didn't already clean up on its own, clean up now.
+    // No-op if run() got there first (the common case).
+    finishAndCleanUp();
+}
+
+void ScriptRunner::finishAndCleanUp()
+{
+    QMutexLocker locker(&m_mutex);
+
+    // Already cleaned up - without this guard, calling this twice would
+    // double-delete m_engine.
+    if (m_engine == NULL && m_startedFunctions.isEmpty() && m_fadersMap.isEmpty())
+        return;
+
+    m_running = false;
+
+    // Delete directly to avoid leaking memory; deleteLater() fails here
+    // because the worker thread does not run a Qt event loop.
+    delete m_engine;
+    m_engine = NULL;
+
+    // Stop all functions started by this script that are not flagged to not stop on exit.
     foreach (quint32 fID, m_startedFunctions)
     {
         Function *function = m_doc->function(fID);
-        if (function == NULL)
-            continue;
-
-        function->stop(FunctionParent::master());
+        if (function != NULL)
+            function->stop(FunctionParent::master());
     }
     m_startedFunctions.clear();
 
     // request to delete all the active faders
-    foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
+    QMapIterator<quint32, QSharedPointer<GenericFader>> it(m_fadersMap);
+    while (it.hasNext())
     {
-        if (!fader.isNull())
-            fader->requestDelete();
+        it.next();
+        it.value()->requestDelete();
     }
     m_fadersMap.clear();
 
-    m_running = false;
+    m_functionQueue.clear();
+    m_fixtureValueQueue.clear();
+    disconnect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)), this, SLOT(slotWaitFunctionStarted(quint32)));
+    disconnect(m_doc->masterTimer(), SIGNAL(functionStopped(quint32)), this, SLOT(slotWaitFunctionStopped(quint32)));
+    m_waitFunctionId = Function::invalidId();
 }
 
 QStringList ScriptRunner::collectScriptData()
@@ -140,99 +185,167 @@ QStringList ScriptRunner::collectScriptData()
 
 int ScriptRunner::currentWaitTime() const
 {
+    QMutexLocker locker(&m_mutex);
     return m_waitCount * MasterTimer::tick();
+}
+
+quint64 ScriptRunner::fixtureValueKey(quint32 universe, quint32 fixtureID, quint32 channel)
+{
+    // 16 bits for the universe, 24 for the fixture ID, 24 for the channel:
+    // comfortably more range than any of these can legitimately take today,
+    // and it fits exactly into 64 bits.
+    return (quint64(universe & 0xFFFFu) << 48)
+         | (quint64(fixtureID & 0xFFFFFFu) << 24)
+         |  quint64(channel & 0xFFFFFFu);
 }
 
 bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
 {
-    if (m_waitCount > 0)
-        m_waitCount--;
-
-    if (m_fixtureValueQueue.count())
     {
-        while (!m_fixtureValueQueue.isEmpty())
+        QMutexLocker locker(&m_mutex);
+        if (m_waitCount > 0)
         {
-            FixtureValue val = m_fixtureValueQueue.dequeue();
+            m_waitCount--;
+            if (m_waitCount == 0)
+                // Wake up a script that's sleeping in waitTime() as soon as
+                // its wait is actually over, rather than waiting for that
+                // loop's own (throttled) periodic wake-up.
+                m_waitCondition.wakeAll();
+        }
+    }
 
-            QSharedPointer<GenericFader> fader = m_fadersMap.value(val.m_universe, QSharedPointer<GenericFader>());
+    // Pull the whole fixture-value queue out under the lock, then work
+    // on our own local copy - this keeps the critical section short
+    // and avoids holding the mutex while we call into GenericFader.
+    QHash<quint64, FixtureValue> fixtureValues;
+    {
+        QMutexLocker locker(&m_mutex);
+        fixtureValues.swap(m_fixtureValueQueue);
+    }
+
+    for (const FixtureValue &val : std::as_const(fixtureValues))
+    {
+        // val.m_universe is cached at the time setFixture() was called
+        // and then sits in the queue until the next write(). If the
+        // number of active universes has since shrunk (or was smaller
+        // than expected to begin with), universes[val.m_universe] below
+        // is an out-of-bounds QList access - undefined behaviour, and a
+        // very likely crash. Validate it before indexing.
+        if (val.m_universe >= quint32(universes.count()))
+        {
+            qWarning() << QString("Skipping fixture value: invalid universe %1").arg(val.m_universe);
+            continue;
+        }
+
+        QSharedPointer<GenericFader> fader;
+        {
+            QMutexLocker locker(&m_mutex);
+            fader = m_fadersMap.value(val.m_universe, QSharedPointer<GenericFader>());
             if (fader.isNull())
             {
                 fader = universes[val.m_universe]->requestFader();
+                if (fader.isNull())
+                    continue;
                 //fader->adjustIntensity(getAttributeValue(Intensity));
                 //fader->setBlendMode(blendMode());
                 m_fadersMap[val.m_universe] = fader;
             }
-
-            const uchar targetValue = val.m_value;
-            const uint fadeTime = val.m_fadeTime;
-            fader->updateChannel(m_doc, universes[val.m_universe], val.m_fixtureID, val.m_channel,
-                                 [targetValue, fadeTime](FadeChannel &fc)
-            {
-                fc.setStart(fc.current());
-                fc.setTarget(targetValue);
-                fc.setFadeTime(fadeTime);
-                fc.setElapsed(0);
-                fc.setReady(false);
-            });
         }
-    }
-    // if we don't have to wait and there are some functions in the queue
-    if (m_waitFunctionId == Function::invalidId() && m_functionQueue.count())
-    {
-        while (!m_functionQueue.isEmpty())
+
+        const uchar targetValue = val.m_value;
+        const uint fadeTime = val.m_fadeTime;
+        fader->updateChannel(m_doc, universes[val.m_universe], val.m_fixtureID, val.m_channel,
+                             [targetValue, fadeTime](FadeChannel &fc)
         {
-            QPair<quint32, FunctionOperation> &pair = m_functionQueue.head();
-            quint32 fID = pair.first;
-            FunctionOperation operation = pair.second;
-
-            Function *function = m_doc->function(fID);
-            if (function == NULL)
-            {
-                qWarning() << QString("No such function (ID %1)").arg(fID);
-                continue;
-            }
-
-            if (operation == FunctionOperation::START || operation == FunctionOperation::START_DONT_STOP)
-            {
-                function->start(timer, FunctionParent::master());
-                if (operation == FunctionOperation::START)
-                    m_startedFunctions << fID;
-            }
-            else if (operation == FunctionOperation::STOP)
-            {
-                function->stop(FunctionParent::master());
-                m_startedFunctions.removeAll(fID);
-            }
-            else if (operation == FunctionOperation::WAIT_START)
-            {
-                if (!function->isRunning())
-                {
-                    // the function is not running, so we we wait and we stop dequeuing
-                    m_waitFunctionId = fID;
-                    connect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)), SLOT(slotWaitFunctionStarted(quint32)));
-                    break;
-                }
-            }
-            else if (operation == FunctionOperation::WAIT_STOP)
-            {
-                if (!function->stopped())
-                {
-                    // the function has to start or is still running, so we wait and we stop dequeuing
-                    m_waitFunctionId = fID;
-                    connect(m_doc->masterTimer(), SIGNAL(functionStopped(quint32)), SLOT(slotWaitFunctionStopped(quint32)));
-                    break;
-                }
-            }
-            // we can continue with the next function in the queue
-            m_functionQueue.removeFirst();
-        }
+            fc.setStart(fc.current());
+            fc.setTarget(targetValue);
+            fc.setFadeTime(fadeTime);
+            fc.setElapsed(0);
+            fc.setReady(false);
+        });
     }
 
-    // If the JS call method has ended on its own, the thread has finished.
-    // Keep running until every queued operation has been dispatched, otherwise
-    // commands issued right before the script fell off the end would be lost
-    if (m_running == false && m_functionQueue.isEmpty() &&
-        m_waitFunctionId == Function::invalidId())
+    // Process as many queued function start/stop/wait requests as we
+    // can without blocking on one that isn't ready yet.
+    while (true)
+    {
+        QPair<quint32, FunctionOperation> pair;
+        {
+            QMutexLocker locker(&m_mutex);
+            // if we have to wait, or there's nothing queued, stop here
+            if (m_waitFunctionId != Function::invalidId() || m_functionQueue.isEmpty())
+                break;
+            pair = m_functionQueue.head();
+        }
+
+        quint32 fID = pair.first;
+        FunctionOperation operation = pair.second;
+
+        Function *function = m_doc->function(fID);
+        if (function == NULL)
+        {
+            qWarning() << QString("No such function (ID %1)").arg(fID);
+            // Must remove the bad entry - the old code's plain "continue;"
+            // left it at the head of the queue forever, spinning write()
+            // (called once per MasterTimer tick) in an infinite loop and
+            // freezing DMX output for every universe.
+            QMutexLocker locker(&m_mutex);
+            m_functionQueue.removeFirst();
+            continue;
+        }
+
+        bool waiting = false;
+
+        if (operation == FunctionOperation::START || operation == FunctionOperation::START_DONT_STOP)
+        {
+            function->start(timer, FunctionParent::master());
+            if (operation == FunctionOperation::START)
+            {
+                QMutexLocker locker(&m_mutex);
+                m_startedFunctions.insert(fID);
+            }
+        }
+        else if (operation == FunctionOperation::STOP)
+        {
+            function->stop(FunctionParent::master());
+            QMutexLocker locker(&m_mutex);
+            m_startedFunctions.remove(fID);
+        }
+        else if (operation == FunctionOperation::WAIT_START)
+        {
+            if (!function->isRunning())
+            {
+                // the function is not running, so we wait and we stop dequeuing
+                QMutexLocker locker(&m_mutex);
+                m_waitFunctionId = fID;
+                connect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)), SLOT(slotWaitFunctionStarted(quint32)), Qt::UniqueConnection);
+                waiting = true;
+            }
+        }
+        else if (operation == FunctionOperation::WAIT_STOP)
+        {
+            if (!function->stopped())
+            {
+                // the function has to start or is still running, so we wait and we stop dequeuing
+                QMutexLocker locker(&m_mutex);
+                m_waitFunctionId = fID;
+                connect(m_doc->masterTimer(), SIGNAL(functionStopped(quint32)), SLOT(slotWaitFunctionStopped(quint32)), Qt::UniqueConnection);
+                waiting = true;
+            }
+        }
+
+        if (waiting)
+            break;
+
+        // we can continue with the next function in the queue
+        QMutexLocker locker(&m_mutex);
+        if (!m_functionQueue.isEmpty())
+            m_functionQueue.removeFirst();
+    }
+
+    // If the JS call method has ended on its own, the thread has finished,
+    // therefore there's nothing else to run here
+    if (m_running == false)
         return false;
 
     return true;
@@ -240,6 +353,7 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
 
 void ScriptRunner::slotWaitFunctionStarted(quint32 fid)
 {
+    QMutexLocker locker(&m_mutex);
     if (m_waitFunctionId == fid)
     {
         disconnect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)), this, SLOT(slotWaitFunctionStarted(quint32)));
@@ -249,22 +363,28 @@ void ScriptRunner::slotWaitFunctionStarted(quint32 fid)
 
 void ScriptRunner::slotWaitFunctionStopped(quint32 fid)
 {
+    QMutexLocker locker(&m_mutex);
     if (m_waitFunctionId == fid)
     {
         disconnect(m_doc->masterTimer(), SIGNAL(functionStopped(quint32)), this, SLOT(slotWaitFunctionStopped(quint32)));
-        m_startedFunctions.removeAll(fid);
+        m_startedFunctions.remove(fid);
         m_waitFunctionId = Function::invalidId();
     }
 }
 
 void ScriptRunner::run()
 {
-    m_waitCount = 0;
+    {
+        QMutexLocker locker(&m_mutex);
+        m_waitCount = 0;
+    }
 
     m_engine = new QJSEngine();
     QJSValue objectValue = m_engine->newQObject(this);
     m_engine->globalObject().setProperty("Engine", objectValue);
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
+
+    m_gcTimer.start(); // Start global garbage collection timer
 
     QJSValue script = m_engine->evaluate("(function run() { " + m_content + " })");
 
@@ -285,10 +405,41 @@ void ScriptRunner::run()
         qDebug() << "[ScriptRunner] Code executed";
     }
 
-    // Signal write() that the JS code is done. Note that this must not stop
-    // the Script right away: pending queued operations are dispatched by
-    // write() on the MasterTimer thread and have to be flushed first
-    m_running = false;
+    // Routing both "stopped by user" and "finished by itself" through
+    // finishAndCleanUp ensures single cleanup regardless of how the script ends.
+    finishAndCleanUp();
+}
+
+void ScriptRunner::maybeCollectGarbage()
+{
+    if (m_engine == NULL || m_gcRunning)
+        return;
+
+    if (m_gcTimer.elapsed() >= GC_INTERVAL_MS)
+    {
+        m_gcRunning = true;
+        m_engine->collectGarbage();
+        m_gcTimer.restart();
+        m_gcRunning = false;
+    }
+}
+
+Fixture* ScriptRunner::validateFixtureChannel(quint32 fxID, quint32 channel)
+{
+    Fixture *fxi = m_doc->fixture(fxID);
+    if (fxi == NULL)
+    {
+        qWarning() << QString("No such fixture (ID: %1)").arg(fxID);
+        return NULL;
+    }
+
+    if (channel >= fxi->channels())
+    {
+        qWarning() << QString("Fixture (%1) has no channel number %2").arg(fxi->name()).arg(channel);
+        return NULL;
+    }
+
+    return fxi;
 }
 
 /************************************************************************
@@ -320,18 +471,9 @@ bool ScriptRunner::setFixture(quint32 fxID, quint32 channel, uchar value, uint t
 
     qDebug() << Q_FUNC_INFO;
 
-    Fixture *fxi = m_doc->fixture(fxID);
+    Fixture *fxi = validateFixtureChannel(fxID, channel);
     if (fxi == NULL)
-    {
-        qWarning() << QString("No such fixture (ID: %1)").arg(fxID);
         return false;
-    }
-
-    if (channel >= fxi->channels())
-    {
-        qWarning() << QString("Fixture (%1) has no channel number %2").arg(fxi->name()).arg(channel);
-        return false;
-    }
 
     int address = fxi->address() + channel;
     if (address >= 512)
@@ -347,7 +489,10 @@ bool ScriptRunner::setFixture(quint32 fxID, quint32 channel, uchar value, uint t
     val.m_channel = channel;
     val.m_value = value;
     val.m_fadeTime = time;
-    m_fixtureValueQueue.enqueue(val);
+
+    QMutexLocker locker(&m_mutex);
+    // Overwrite the value in place to prevent infinite queue growth.
+    m_fixtureValueQueue.insert(fixtureValueKey(val.m_universe, fxID, channel), val);
 
     return true;
 }
@@ -384,9 +529,41 @@ bool ScriptRunner::enqueueFunction(quint32 fID, FunctionOperation operation)
     pair.first = fID;
     pair.second = operation;
 
+    QMutexLocker locker(&m_mutex);
     m_functionQueue.enqueue(pair);
 
     return true;
+}
+
+bool ScriptRunner::waitForCondition(std::function<bool()> isPending)
+{
+    while (m_running)
+    {
+        bool pending;
+        {
+            QMutexLocker locker(&m_mutex);
+            pending = isPending();
+        }
+
+        if (!pending)
+            break;
+
+        maybeCollectGarbage(); // Use global GC checker
+
+        usleep(10000);
+    }
+
+    return m_running;
+}
+
+bool ScriptRunner::waitForFunctionOperation(quint32 fID, FunctionOperation operation)
+{
+    QPair<quint32, FunctionOperation> pair(fID, operation);
+
+    // Block thread in polling loop until write() fully resolves this request.
+    return waitForCondition([this, pair, fID]() {
+        return m_functionQueue.contains(pair) || m_waitFunctionId == fID;
+    });
 }
 
 bool ScriptRunner::startFunction(quint32 fID)
@@ -485,10 +662,8 @@ bool ScriptRunner::systemCommand(QString command)
 
 #if !defined(Q_OS_IOS)
     qint64 pid;
-    QProcess *newProcess = new QProcess();
-    newProcess->setProgram(programName);
-    newProcess->setArguments(programArgs);
-    newProcess->startDetached(&pid);
+    // Uses static overload to prevent leaking QProcess instances
+    QProcess::startDetached(programName, programArgs, QString(), &pid);
 #endif
 
     return true;
@@ -496,52 +671,42 @@ bool ScriptRunner::systemCommand(QString command)
 
 bool ScriptRunner::waitTime(uint ms)
 {
-    m_waitCount += ms / MasterTimer::tick();
-
     if (m_running == false)
         return false;
 
     qDebug() << Q_FUNC_INFO;
 
-    while (m_waitCount > 0)
-    {
-        if (m_running == false)
-            break;
+    QMutexLocker locker(&m_mutex);
+    m_waitCount += ms / MasterTimer::tick();
 
-        usleep(10000);
+    while (m_running && m_waitCount > 0)
+    {
+        m_waitCondition.wait(&m_mutex, 10);
+        maybeCollectGarbage();
     }
 
-    return true;
+    return m_running;
 }
 
 bool ScriptRunner::waitTime(QString time)
 {
-    m_waitCount += Function::stringToSpeed(time) / MasterTimer::tick();
-
-    if (m_running == false)
-        return false;
-
-    qDebug() << Q_FUNC_INFO;
-
-    while (m_waitCount > 0)
-    {
-        if (m_running == false)
-            break;
-
-        usleep(10000);
-    }
-
-    return true;
+    return waitTime(Function::stringToSpeed(time));
 }
 
 bool ScriptRunner::waitFunctionStart(quint32 fID)
 {
-    return enqueueFunction(fID, FunctionOperation::WAIT_START);
+    if (!enqueueFunction(fID, FunctionOperation::WAIT_START))
+        return false;
+
+    return waitForFunctionOperation(fID, FunctionOperation::WAIT_START);
 }
 
 bool ScriptRunner::waitFunctionStop(quint32 fID)
 {
-    return enqueueFunction(fID, FunctionOperation::WAIT_STOP);
+    if (!enqueueFunction(fID, FunctionOperation::WAIT_STOP))
+        return false;
+
+    return waitForFunctionOperation(fID, FunctionOperation::WAIT_STOP);
 }
 
 bool ScriptRunner::setBlackout(bool enable)
@@ -574,16 +739,24 @@ int ScriptRunner::random(QString minTime, QString maxTime)
     if (m_running == false)
         return 0;
 
-    int min = Function::stringToSpeed(minTime);
-    int max = Function::stringToSpeed(maxTime);
-
-    return QRandomGenerator::global()->generate() % ((max + 1) - min) + min;
+    return random(Function::stringToSpeed(minTime), Function::stringToSpeed(maxTime));
 }
 
-int ScriptRunner::random(int minTime, int maxTime)
+int ScriptRunner::random(uint minTime, uint maxTime)
 {
     if (m_running == false)
         return 0;
 
-    return QRandomGenerator::global()->generate() % ((maxTime + 1) - minTime) + minTime;
+    // Previously: QRandomGenerator::global()->generate() % ((maxTime + 1) - minTime) + minTime;
+    // in 32-bit int/uint arithmetic. If maxTime is INT_MAX, "maxTime + 1"
+    // overflows a signed int (UB); generate() itself can already exceed
+    // INT_MAX, so mixing signed/unsigned produces a garbage modulus for
+    // large or inverted (max < min) ranges. Do the arithmetic in 64-bit.
+    if (maxTime < minTime)
+        std::swap(minTime, maxTime);
+
+    qint64 range = qint64(maxTime) - qint64(minTime) + 1;
+    quint64 offset = QRandomGenerator::global()->generate64() % quint64(range);
+
+    return int(qint64(minTime) + qint64(offset));
 }
