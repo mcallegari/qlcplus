@@ -99,8 +99,9 @@ public:
     /** Prepare an ArtTodRequest packet */
     void setupArtNetTodRequest(QByteArray& data, const int& universe);
 
-    /** Prepare an ArtRdm packet */
-    void setupArtNetRdm(QByteArray& data, const int &universe, uchar command, QVariantList params);
+    /** Prepare an ArtRdm packet carrying an already built RDM frame.
+     *  The frame includes the start code, which is not sent over ArtNet */
+    void setupArtNetRdmFrame(QByteArray& data, const int &universe, const QByteArray &frame);
 
     /*********************************************************************
      * Receiver functions
@@ -114,11 +115,11 @@ public:
     /** Process a ArtDmx packet and extract the relevant DMX data */
     bool fillDMXdata(QByteArray const& data, QByteArray& dmx, quint32 &universe);
 
-    /** Process a ArtTodData packet and extract the relevant information */
-    bool processTODdata(const QByteArray &data, quint32 &universe, QVariantMap &values);
+    /** Process a ArtTodData packet and extract the raw UIDs (N * 6 bytes) */
+    bool processTODuids(const QByteArray &data, quint32 &universe, QByteArray &uids);
 
-    /** Process a ArtRdm packet and extract the relevant information */
-    bool processRDMdata(const QByteArray &data, quint32 &universe, QVariantMap &values);
+    /** Process a ArtRdm packet and extract the RDM frame, start code restored */
+    bool processRDMframe(const QByteArray &data, quint32 &universe, QByteArray &frame);
 
 private:
     QByteArray m_commonHeader;

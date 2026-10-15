@@ -28,8 +28,6 @@
 
 #define ULTRADMX_PRO_DEV_ID      0x02
 
-class RDMProtocol;
-
 /**
  * This is the base interface class for ENTTEC USB DMX Pro widgets.
  */
@@ -63,7 +61,7 @@ public:
     {
         OpenLine,
         CloseLine,
-        RDMCommand
+        RDMFrameCommand
     };
 
     enum RDMOperation
@@ -171,13 +169,19 @@ public:
     bool supportRDM() override;
 
     /** @reimp */
-    bool sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params) override;
+    int rdmTransportFlags(quint32 universe, quint32 line) override;
+
+    /** @reimp */
+    QByteArray rdmSourceUID(quint32 universe, quint32 line) override;
+
+    /** @reimp */
+    bool sendRDMFrame(quint32 universe, quint32 line, int type, const QByteArray &frame) override;
 
 signals:
-    void rdmValueChanged(quint32 universe, quint32 line, QVariantMap data);
+    void rdmFrameReceived(quint32 universe, quint32 line, QByteArray frame);
+    void rdmTimeout(quint32 universe, quint32 line, int type);
 
 private:
-    RDMProtocol *m_rdm;
     quint32 m_universe;
 };
 

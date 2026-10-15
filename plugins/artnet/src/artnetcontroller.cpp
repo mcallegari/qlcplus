@@ -18,7 +18,7 @@
 */
 
 #include "artnetcontroller.h"
-#include "rdmprotocol.h"
+#include "qlcioplugin.h"
 
 #include <QMutexLocker>
 #include <QStringList>
@@ -352,13 +352,15 @@ void ArtNetController::sendDmx(const quint32 universe, const QByteArray &data, b
     }
 }
 
-bool ArtNetController::sendRDMCommand(const quint32 universe, uchar command, QVariantList params)
+bool ArtNetController::sendRDMFrame(const quint32 universe, int type, const QByteArray &frame)
 {
+    // ArtNet doesn't carry DUB/mute/unmute frames
+    if (type == QLCIOPlugin::RDMDiscovery || frame.length() < 2)
+        return false;
+
     QByteArray rdmPacket;
     QHostAddress outAddress = m_broadcastAddr;
     quint32 outUniverse = universe;
-
-    bool result = false;
 
     if (m_universeMap.contains(universe))
     {
@@ -367,38 +369,47 @@ bool ArtNetController::sendRDMCommand(const quint32 universe, uchar command, QVa
         outUniverse = info.outputUniverse;
     }
 
-    if (command == DISCOVERY_COMMAND)
-    {
-        // ArtNet doesn't care about mute/unmute
-        if (params.length() >= 2)
-        {
-            quint16 pid = params.at(1).toUInt();
-            if (pid == PID_DISC_MUTE || pid == PID_DISC_UN_MUTE)
-                return false;
-        }
-        m_packetizer->setupArtNetTodRequest(rdmPacket, outUniverse);
-    }
-    else
-    {
-        m_packetizer->setupArtNetRdm(rdmPacket, outUniverse, command, params);
-    }
-
-    //qDebug() << "Sending RDM command" << rdmPacket.toHex(',');
+    m_packetizer->setupArtNetRdmFrame(rdmPacket, outUniverse, frame);
 
     qint64 sent = m_udpSocket->writeDatagram(rdmPacket, outAddress, ARTNET_PORT);
     if (sent < 0)
     {
-        qWarning() << "sendDmx failed";
+        qWarning() << "sendRDMFrame failed";
         qWarning() << "Errno: " << m_udpSocket->error();
         qWarning() << "Errmgs: " << m_udpSocket->errorString();
-    }
-    else
-    {
-        m_packetSent++;
-        result = true;
+        return false;
     }
 
-    return result;
+    m_packetSent++;
+    return true;
+}
+
+bool ArtNetController::requestRDMTod(const quint32 universe)
+{
+    QByteArray todRequest;
+    QHostAddress outAddress = m_broadcastAddr;
+    quint32 outUniverse = universe;
+
+    if (m_universeMap.contains(universe))
+    {
+        UniverseInfo info = m_universeMap[universe];
+        outAddress = info.outputAddress;
+        outUniverse = info.outputUniverse;
+    }
+
+    m_packetizer->setupArtNetTodRequest(todRequest, outUniverse);
+
+    qint64 sent = m_udpSocket->writeDatagram(todRequest, outAddress, ARTNET_PORT);
+    if (sent < 0)
+    {
+        qWarning() << "requestRDMTod failed";
+        qWarning() << "Errno: " << m_udpSocket->error();
+        qWarning() << "Errmgs: " << m_udpSocket->errorString();
+        return false;
+    }
+
+    m_packetSent++;
+    return true;
 }
 
 bool ArtNetController::handleArtNetPollReply(QByteArray const& datagram, QHostAddress const& senderAddress)
@@ -495,14 +506,14 @@ bool ArtNetController::handleArtNetDmx(QByteArray const& datagram, QHostAddress 
 
 bool ArtNetController::handleArtNetTodData(const QByteArray &datagram, const QHostAddress &senderAddress)
 {
-    QVariantMap values;
+    QByteArray uids;
     quint32 universe;
 
     Q_UNUSED(senderAddress);
 
-    if (m_packetizer->processTODdata(datagram, universe, values) == true)
+    if (m_packetizer->processTODuids(datagram, universe, uids) == true)
     {
-        emit rdmValueChanged(universe, m_line, values);
+        emit rdmTodReceived(universe, m_line, uids);
         return true;
     }
 
@@ -511,14 +522,14 @@ bool ArtNetController::handleArtNetTodData(const QByteArray &datagram, const QHo
 
 bool ArtNetController::handleArtNetRDM(const QByteArray &datagram, const QHostAddress &senderAddress)
 {
-    QVariantMap values;
+    QByteArray frame;
     quint32 universe;
 
     Q_UNUSED(senderAddress);
 
-    if (m_packetizer->processRDMdata(datagram, universe, values) == true)
+    if (m_packetizer->processRDMframe(datagram, universe, frame) == true)
     {
-        emit rdmValueChanged(universe, m_line, values);
+        emit rdmFrameReceived(universe, m_line, frame);
         return true;
     }
 

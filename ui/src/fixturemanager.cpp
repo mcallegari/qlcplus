@@ -52,6 +52,8 @@
 #include "addrgbpanel.h"
 #include "addfixture.h"
 #include "rdmmanager.h"
+#include "serviceloader.h"
+#include "qlcrdmservice.h"
 #include "universe.h"
 #include "fixture.h"
 #include "apputil.h"
@@ -77,6 +79,7 @@ FixtureManager::FixtureManager(QWidget* parent, Doc* doc)
     , m_fixtures_tree(NULL)
     , m_channel_groups_tree(NULL)
     , m_rdmManager(NULL)
+    , m_tabs(NULL)
     , m_info(NULL)
     , m_groupEditor(NULL)
     , m_currentTabIndex(0)
@@ -327,6 +330,7 @@ void FixtureManager::initDataView()
                               QSizePolicy::Expanding);
 
     QTabWidget *tabs = new QTabWidget(this);
+    m_tabs = tabs;
     m_splitter->addWidget(tabs);
 
     /* Create a tree widget to the left part of the splitter */
@@ -372,12 +376,12 @@ void FixtureManager::initDataView()
             this, SLOT(slotChannelsGroupDoubleClicked(QTreeWidgetItem*)));
 
     tabs->addTab(m_channel_groups_tree, tr("Channel Groups"));
-/*
-    m_rdmManager = new RDMManager(this, m_doc);
-    tabs->addTab(m_rdmManager, "RDM");
-    connect(m_rdmManager, SIGNAL(fixtureInfoReady(QString&)),
-            this, SLOT(slotDisplayFixtureInfo(QString&)));
-*/
+
+    // the RDM tab only exists if the RDM service plugin is installed
+    addRDMTab();
+    connect(m_doc->serviceLoader(), SIGNAL(serviceAvailable(QString)),
+            this, SLOT(slotServiceAvailable(QString)));
+
     connect(tabs, SIGNAL(currentChanged(int)), this, SLOT(slotTabChanged(int)));
 
     /* Create the text view */
@@ -777,6 +781,28 @@ void FixtureManager::slotFixtureItemExpanded()
 void FixtureManager::slotDisplayFixtureInfo(QString &info)
 {
     m_info->setText(info);
+}
+
+void FixtureManager::slotServiceAvailable(const QString &id)
+{
+    if (id == QLCRDM_SERVICE_ID)
+        addRDMTab();
+}
+
+void FixtureManager::addRDMTab()
+{
+    if (m_rdmManager != NULL || m_tabs == NULL)
+        return;
+
+    QObject *service = m_doc->serviceLoader()->service(QLCRDM_SERVICE_ID);
+    if (service == NULL || qobject_cast<QLCRDMService*>(service) == NULL)
+        return;
+
+    RDMManager *rdm = new RDMManager(this, service);
+    m_rdmManager = rdm;
+    m_tabs->addTab(m_rdmManager, "RDM");
+    connect(rdm, SIGNAL(fixtureInfoReady(QString&)),
+            this, SLOT(slotDisplayFixtureInfo(QString&)));
 }
 
 void FixtureManager::selectGroup(quint32 id)

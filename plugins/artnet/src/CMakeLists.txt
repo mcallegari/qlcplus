@@ -26,7 +26,6 @@ add_library(${module_name}
 
 target_sources(${module_name} PRIVATE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
-    ../../interfaces/rdmprotocol.cpp ../../interfaces/rdmprotocol.h
     artnetcontroller.cpp artnetcontroller.h
     artnetpacketizer.cpp artnetpacketizer.h
     artnetplugin.cpp artnetplugin.h

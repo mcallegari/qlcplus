@@ -5,6 +5,8 @@ include(../../variables.cmake)
 add_library(${module_name} SHARED
     ../../plugins/interfaces/qlcioplugin.cpp ../../plugins/interfaces/qlcioplugin.h
     ../../plugins/interfaces/utils.h
+    ../../plugins/interfaces/qlcserviceplugin.h
+    ../../plugins/interfaces/qlcrdmservice.h
     avolitesd4parser.cpp avolitesd4parser.h
     bus.cpp bus.h
     channelmodifier.cpp channelmodifier.h
@@ -67,6 +69,7 @@ add_library(${module_name} SHARED
     scenevalue.cpp scenevalue.h
     scriptwrapper.h
     sequence.cpp sequence.h
+    serviceloader.cpp serviceloader.h
     show.cpp show.h
     showfunction.cpp showfunction.h
     showrunner.cpp showrunner.h

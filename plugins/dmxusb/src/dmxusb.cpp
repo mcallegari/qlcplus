@@ -98,8 +98,10 @@ bool DMXUSB::openOutput(quint32 output, quint32 universe)
         if (widget->supportRDM())
         {
             EnttecDMXUSBPro *pro = static_cast<EnttecDMXUSBPro*>(widget);
-            connect(pro, SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)),
-                    this, SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)), Qt::QueuedConnection);
+            connect(pro, SIGNAL(rdmFrameReceived(quint32, quint32, QByteArray)),
+                    this, SIGNAL(rdmFrameReceived(quint32, quint32, QByteArray)), Qt::QueuedConnection);
+            connect(pro, SIGNAL(rdmTimeout(quint32, quint32, int)),
+                    this, SIGNAL(rdmTimeout(quint32, quint32, int)), Qt::QueuedConnection);
         }
         addToMap(universe, output, Output);
         return m_outputs.at(output)->open(output, false);
@@ -115,8 +117,10 @@ void DMXUSB::closeOutput(quint32 output, quint32 universe)
         if (widget->supportRDM())
         {
             EnttecDMXUSBPro *pro = static_cast<EnttecDMXUSBPro*>(widget);
-            disconnect(pro, SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)),
-                       this , SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)));
+            disconnect(pro, SIGNAL(rdmFrameReceived(quint32, quint32, QByteArray)),
+                       this , SIGNAL(rdmFrameReceived(quint32, quint32, QByteArray)));
+            disconnect(pro, SIGNAL(rdmTimeout(quint32, quint32, int)),
+                       this , SIGNAL(rdmTimeout(quint32, quint32, int)));
         }
         removeFromMap(output, universe, Output);
         m_outputs.at(output)->close(output, false);
@@ -310,13 +314,29 @@ bool DMXUSB::canConfigure() const
     return true;
 }
 
-bool DMXUSB::sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params)
+int DMXUSB::rdmTransportFlags(quint32 universe, quint32 line)
+{
+    if (line < quint32(m_outputs.size()))
+        return m_outputs.at(line)->rdmTransportFlags(universe, line);
+
+    return 0;
+}
+
+QByteArray DMXUSB::rdmSourceUID(quint32 universe, quint32 line)
+{
+    if (line < quint32(m_outputs.size()))
+        return m_outputs.at(line)->rdmSourceUID(universe, line);
+
+    return QByteArray();
+}
+
+bool DMXUSB::sendRDMFrame(quint32 universe, quint32 line, RDMFrameType type, const QByteArray &frame)
 {
     if (line < quint32(m_outputs.size()))
     {
         DMXUSBWidget *widget = m_outputs.at(line);
         if (widget->supportRDM())
-            return widget->sendRDMCommand(universe, line, command, params);
+            return widget->sendRDMFrame(universe, line, int(type), frame);
     }
 
     return false;

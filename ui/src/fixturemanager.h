@@ -148,7 +148,13 @@ private slots:
 
     void slotDisplayFixtureInfo(QString &info);
 
+    /** Add the RDM tab when the RDM service plugin gets loaded */
+    void slotServiceAvailable(const QString &id);
+
 private:
+    /** Add the RDM tab, if the RDM service plugin is available */
+    void addRDMTab();
+
     /** Select a fixture group */
     void selectGroup(quint32 id);
 
@@ -177,6 +183,7 @@ private:
     FixtureTreeWidget* m_fixtures_tree;
     QTreeWidget* m_channel_groups_tree;
     QWidget* m_rdmManager;
+    QTabWidget* m_tabs;
 
     QTextBrowser* m_info;
     FixtureGroupEditor* m_groupEditor;

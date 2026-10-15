@@ -48,6 +48,7 @@
 
 #include "qlcfixturedefcache.h"
 #include "audioplugincache.h"
+#include "serviceloader.h"
 #include "rgbscriptscache.h"
 #include "videoprovider.h"
 #include "qlcconfig.h"
@@ -525,6 +526,10 @@ void App::initDoc()
      * otherwise the qlcconfig.h creation should have been moved into the
      * audio folder, which doesn't make much sense */
     m_doc->audioPluginCache()->load(QLCFile::systemDirectory(AUDIOPLUGINDIR, KExtPlugin));
+
+    /* Load service plugins. They are optional and use the I/O plugins,
+     * so they must be loaded after them */
+    m_doc->serviceLoader()->load(ServiceLoader::systemServiceDirectory());
 
     /* Restore outputmap settings */
     Q_ASSERT(m_doc->inputOutputMap() != NULL);

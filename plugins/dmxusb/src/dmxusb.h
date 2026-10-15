@@ -126,10 +126,14 @@ public:
      ********************************************************************/
 public:
     /** @reimp */
-    bool sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params) override;
+    int rdmTransportFlags(quint32 universe, quint32 line) override;
 
-signals:
-    void rdmValueChanged(quint32 universe, quint32 line, QVariantMap data);
+    /** @reimp */
+    QByteArray rdmSourceUID(quint32 universe, quint32 line) override;
+
+    /** @reimp */
+    bool sendRDMFrame(quint32 universe, quint32 line, RDMFrameType type, const QByteArray &frame) override;
+
 
     /********************************************************************
      * Hotplug

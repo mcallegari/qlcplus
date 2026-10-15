@@ -32,10 +32,12 @@
 
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
+#include "qlcrdmservice.h"
 
 #include "monitorproperties.h"
 #include "audioplugincache.h"
 #include "rgbscriptscache.h"
+#include "serviceloader.h"
 #include "channelsgroup.h"
 #include "scriptwrapper.h"
 #include "collection.h"
@@ -64,6 +66,7 @@ Doc::Doc(QObject* parent, int universes)
     , m_rgbScriptsCache(new RGBScriptsCache(this))
     , m_ioPluginCache(new IOPluginCache(this))
     , m_audioPluginCache(new AudioPluginCache(this))
+    , m_serviceLoader(new ServiceLoader(this))
     , m_masterTimer(new MasterTimer(this))
     , m_ioMap(new InputOutputMap(this, universes))
     , m_monitorProps(NULL)
@@ -89,6 +92,8 @@ Doc::Doc(QObject* parent, int universes)
     m_autosaveTimer.setSingleShot(true);
 
     connect(&m_autosaveTimer, SIGNAL(timeout()), this, SIGNAL(needAutosave()));
+    connect(m_serviceLoader, SIGNAL(serviceAvailable(QString)),
+            this, SLOT(slotServiceAvailable(QString)));
 }
 
 Doc::~Doc()
@@ -103,6 +108,10 @@ Doc::~Doc()
         // TODO: is this still needed ??
         //m_ioMap->saveDefaults();
     }
+    /* Services use the I/O plugins: unload them first */
+    delete m_serviceLoader;
+    m_serviceLoader = NULL;
+
     delete m_ioMap;
     m_ioMap = NULL;
 
@@ -261,6 +270,25 @@ IOPluginCache* Doc::ioPluginCache() const
 AudioPluginCache *Doc::audioPluginCache() const
 {
     return m_audioPluginCache;
+}
+
+ServiceLoader *Doc::serviceLoader() const
+{
+    return m_serviceLoader;
+}
+
+void Doc::slotServiceAvailable(const QString &id)
+{
+    if (id == QLCRDM_SERVICE_ID)
+    {
+        QLCRDMService *rdm = m_serviceLoader->service<QLCRDMService>(id);
+        if (rdm == NULL)
+        {
+            qWarning() << "The" << id << "service doesn't implement the expected interface";
+            return;
+        }
+        rdm->setTransportProvider(m_ioMap);
+    }
 }
 
 InputOutputMap* Doc::inputOutputMap() const
