@@ -99,6 +99,7 @@ VCWidgetItem
     Row
     {
         anchors.fill: parent
+        enabled: clockObj ? !clockObj.isDisabled : true
 
         Column
         {

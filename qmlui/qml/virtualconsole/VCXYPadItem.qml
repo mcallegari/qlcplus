@@ -73,6 +73,7 @@ VCWidgetItem
     {
         id: itemsLayout
         anchors.fill: parent
+        enabled: xyPadObj ? !xyPadObj.isDisabled : true
         rowSpacing: 0
         columnSpacing: 0
         columns: 3
@@ -396,7 +397,6 @@ VCWidgetItem
             {
                 anchors.fill: parent
                 hoverEnabled: true
-                enabled: xyPadObj ? !xyPadObj.isDisabled : true
 
                 function clamp(num, min, max)
                 {
@@ -561,7 +561,6 @@ VCWidgetItem
                     iconSource: xyPadRoot.presetIcon(modelData.typeString)
                     label: modelData.name
                     fontSize: Math.round(UISettings.textSizeDefault * 0.8)
-                    enabled: xyPadObj ? !xyPadObj.isDisabled : true
                     bgColor: modelData.active ? UISettings.highlight : UISettings.bgControl
                     onClicked:
                     {

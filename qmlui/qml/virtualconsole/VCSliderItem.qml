@@ -188,6 +188,7 @@ VCWidgetItem
             faSource: FontAwesome.fa_xmark
             faColor: UISettings.bgControl
             bgColor: sliderObj && sliderObj.isOverriding ? "red" : UISettings.bgLight
+            enabled: sliderObj ? !sliderObj.isDisabled : true
             onClicked: if (sliderObj) sliderObj.isOverriding = false
         }
 
@@ -198,6 +199,7 @@ VCWidgetItem
             faSource: FontAwesome.fa_star
             faColor: "deepskyblue"
             tooltip: qsTr("Flash the controlled Function")
+            enabled: sliderObj ? !sliderObj.isDisabled : true
             onPressed:
             {
                 if (sliderObj)
@@ -215,6 +217,7 @@ VCWidgetItem
         {
             id: clickAndGoButton
             visible: cngType
+            enabled: sliderObj ? !sliderObj.isDisabled : true
             width: UISettings.iconSizeDefault * 1.2
             height: width
             Layout.alignment: Qt.AlignHCenter
@@ -250,6 +253,13 @@ VCWidgetItem
             }
 
             onClicked: colorToolLoader.toggleVisibility()
+
+            // the tool is reparented to the page, so hide it explicitly
+            onEnabledChanged:
+            {
+                if (!enabled && colorToolLoader.item)
+                    colorToolLoader.item.visible = false
+            }
 
             MultiColorBox
             {

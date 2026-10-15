@@ -78,6 +78,7 @@ VCWidgetItem
     {
         id: sideFaderLayout
         visible: sideFaderMode === VCCueList.None ? false : true
+        enabled: cueListObj ? !cueListObj.isDisabled : true
         height: parent.height
         width: UISettings.iconSizeDefault * 1.2
 
@@ -199,7 +200,7 @@ VCWidgetItem
             isRunning: playbackStatus === VCCueList.Playing ? true : false
             columnsWidths: cueListObj ? cueListObj.columnsWidths : []
 
-            onIndexChanged: if (cueListObj) cueListObj.playbackIndex = index
+            onIndexChanged: if (cueListObj && !cueListObj.isDisabled) cueListObj.playbackIndex = index
             //onStepValueChanged: chaserEditor.setStepSpeed(index, value, type)
             onNoteTextChanged: if (cueListObj) cueListObj.setStepNote(index, text)
             onAddFunctions: (list, index) =>
@@ -209,7 +210,7 @@ VCWidgetItem
             }
             onEnterPressed: (list, index) =>
             {
-                if (cueListObj)
+                if (cueListObj && !cueListObj.isDisabled)
                     cueListObj.playCurrentStep()
             }
             onColumnsResized: (widths) =>
@@ -269,13 +270,13 @@ VCWidgetItem
         {
             id: controlsRow
             height: UISettings.iconSizeMedium
+            enabled: cueListObj ? !cueListObj.isDisabled : true
 
             IconButton
             {
                 id: playbackBtn
                 width: contentWidth / 4
                 height: UISettings.iconSizeMedium
-                enabled: visible && !cueListObj.isDisabled
                 faSource: (cueListObj && cueListObj.playbackLayout === VCCueList.PlayPauseStop) ?
                            (cueListRoot.playbackStatus === VCCueList.Stopped ||
                             cueListRoot.playbackStatus === VCCueList.Paused ? FontAwesome.fa_play : FontAwesome.fa_pause) :
@@ -289,7 +290,6 @@ VCWidgetItem
                 id: stopBtn
                 width: contentWidth / 4
                 height: UISettings.iconSizeMedium
-                enabled: visible && !cueListObj.isDisabled
                 faSource: (cueListObj && cueListObj.playbackLayout === VCCueList.PlayStopPause) ? FontAwesome.fa_pause : FontAwesome.fa_stop
                 faColor: UISettings.fgMain
                 tooltip: (cueListObj && cueListObj.playbackLayout === VCCueList.PlayStopPause) ? qsTr("Pause") : qsTr("Stop")
@@ -300,7 +300,6 @@ VCWidgetItem
                 id: previousBtn
                 width: contentWidth / 4
                 height: UISettings.iconSizeMedium
-                enabled: visible && !cueListObj.isDisabled
                 faSource: FontAwesome.fa_circle_left
                 faColor: "lightcyan"
                 tooltip: qsTr("Previous cue")
@@ -311,7 +310,6 @@ VCWidgetItem
                 id: nextBtn
                 width: contentWidth / 4
                 height: UISettings.iconSizeMedium
-                enabled: visible && !cueListObj.isDisabled
                 faSource: FontAwesome.fa_circle_right
                 faColor: "lightcyan"
                 tooltip: qsTr("Next cue")
