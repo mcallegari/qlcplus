@@ -1,3 +1,7 @@
+---
+title: Scene editor lifetime regression
+---
+
 Configure a desktop build with `-Dqmlui=ON`, then run:
 
 ```sh
