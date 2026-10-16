@@ -251,3 +251,8 @@ target_sources(${module_name} PUBLIC
 )
 
 install(TARGETS ${module_name} DESTINATION ${INSTALLROOT}/${BINDIR})
+
+# Frontend regression harness; build explicitly with --target sceneeditor_test.
+if(NOT ANDROID AND NOT IOS)
+    add_subdirectory(test EXCLUDE_FROM_ALL)
+endif()
