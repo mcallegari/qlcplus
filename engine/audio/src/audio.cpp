@@ -61,6 +61,7 @@ Audio::Audio(Doc* doc)
   , m_sourceFileName("")
   , m_audioDuration(0)
   , m_volume(1.0)
+  , m_seekRequest(-1)
 {
     setName(tr("New Audio"));
     setRunOrder(Audio::SingleShot);
@@ -351,32 +352,43 @@ void Audio::preRun(MasterTimer* timer)
         }
 
         m_decoder->seek(elapsed());
-        AudioParameters ap = m_decoder->audioParameters();
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
- #if defined(__APPLE__) || defined(Q_OS_MAC)
-        //m_audio_out = new AudioRendererCoreAudio();
-        m_audio_out = new AudioRendererPortAudio(m_audioDevice);
- #elif defined(WIN32) || defined(Q_OS_WIN)
-        m_audio_out = new AudioRendererWaveOut(m_audioDevice);
- #else
-        m_audio_out = new AudioRendererAlsa(m_audioDevice);
- #endif
-        m_audio_out->moveToThread(QCoreApplication::instance()->thread());
-#elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        m_audio_out = new AudioRendererQt5(m_audioDevice, doc());
-#else
-        m_audio_out = new AudioRendererQt6(m_audioDevice, doc());
-#endif
-        m_audio_out->setDecoder(m_decoder);
-        m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());
-        m_audio_out->adjustIntensity(m_volume * getAttributeValue(Intensity));
-        m_audio_out->setFadeIn(elapsed() ? 0 : fadeIn);
-        m_audio_out->setLooped(runOrder() == Audio::Loop);
-        m_audio_out->setUserStop(false);
-        m_audio_out->start();
+        createRenderer(fadeIn);
     }
 
     Function::preRun(timer);
+}
+
+void Audio::requestSeek(quint32 ms)
+{
+    if (isRunning())
+        m_seekRequest.storeRelaxed(qMin<qint64>(ms, totalDuration()));
+}
+
+void Audio::createRenderer(uint fadeIn)
+{
+    AudioParameters ap = m_decoder->audioParameters();
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+ #if defined(__APPLE__) || defined(Q_OS_MAC)
+    //m_audio_out = new AudioRendererCoreAudio();
+    m_audio_out = new AudioRendererPortAudio(m_audioDevice);
+ #elif defined(WIN32) || defined(Q_OS_WIN)
+    m_audio_out = new AudioRendererWaveOut(m_audioDevice);
+ #else
+    m_audio_out = new AudioRendererAlsa(m_audioDevice);
+ #endif
+    m_audio_out->moveToThread(QCoreApplication::instance()->thread());
+#elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    m_audio_out = new AudioRendererQt5(m_audioDevice, doc());
+#else
+    m_audio_out = new AudioRendererQt6(m_audioDevice, doc());
+#endif
+    m_audio_out->setDecoder(m_decoder);
+    m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());
+    m_audio_out->adjustIntensity(m_volume * getAttributeValue(Intensity));
+    m_audio_out->setFadeIn(elapsed() ? 0 : fadeIn);
+    m_audio_out->setLooped(runOrder() == Audio::Loop);
+    m_audio_out->setUserStop(false);
+    m_audio_out->start();
 }
 
 void Audio::setPause(bool enable)
@@ -399,6 +411,27 @@ void Audio::write(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer)
     Q_UNUSED(universes)
+
+    qint64 seekTo = m_seekRequest.fetchAndStoreRelaxed(-1);
+    if (seekTo >= 0 && m_decoder != NULL)
+    {
+        setElapsed(seekTo);
+        if (m_audio_out != NULL && m_audio_out->isRunning())
+        {
+            /* the renderer moves the decoder in its own thread,
+               without blocking the MasterTimer */
+            m_audio_out->requestSeek(seekTo);
+        }
+        else
+        {
+            delete m_audio_out;
+            m_audio_out = NULL;
+            m_decoder->seek(seekTo);
+            createRenderer(0);
+            if (isPaused())
+                m_audio_out->suspend();
+        }
+    }
 
     if (isPaused())
         return;

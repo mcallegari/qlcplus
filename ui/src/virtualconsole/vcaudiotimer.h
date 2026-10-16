@@ -18,6 +18,10 @@
 #ifndef VCAUDIOTIMER_H
 #define VCAUDIOTIMER_H
 
+#include <QElapsedTimer>
+#include <QPixmap>
+#include <QHash>
+
 #include "vcwidget.h"
 
 class QXmlStreamReader;
@@ -54,9 +58,51 @@ private slots:
     void slotUpdate();
 
 private:
+    struct Entry
+    {
+        quint32 id;
+        bool paused;
+        QString name;
+        QString file;
+        quint32 elapsed;   // smoothed position shown on screen
+        quint32 total;
+    };
+
+    /** Collect the running audio functions, with a smoothed elapsed time */
+    void refreshEntries();
+
     QTimer *m_timer;
-    /** Last painted text, to avoid useless repaints */
+    /** Running audio functions, refreshed by slotUpdate() */
+    QList<Entry> m_entries;
+    /** Last painted state when nothing changes continuously, to avoid useless repaints */
     QString m_lastState;
+
+    /** The engine updates the elapsed time in ticks: between them the position
+     *  is extrapolated with a local clock, so that the playhead moves smoothly */
+    struct Smoothing
+    {
+        quint32 engineElapsed;
+        qint64 stamp;
+        quint32 shown;
+    };
+    QHash<quint32, Smoothing> m_smoothing;
+    QElapsedTimer m_clock;
+
+    /** Seek requested from the waveform and not applied by the engine yet:
+     *  function ID -> (target position, time of the request) */
+    QHash<quint32, QPair<quint32, qint64> > m_pendingSeeks;
+
+    /** Waveforms rendered once per size and color, then just copied when painting */
+    struct WaveCache
+    {
+        QString file;
+        QSize size;
+        QColor unplayedColor;
+        QColor playedColor;
+        QPixmap unplayed;
+        QPixmap played;
+    };
+    QHash<quint32, WaveCache> m_waveCache;
 
     /*********************************************************************
      * Clipboard
@@ -109,8 +155,23 @@ private:
 
     void drawButton(QPainter &painter, const QRect &r, ButtonType type, const QColor &color);
 
+    /** Waveform areas painted in the last paintEvent, where clicking seeks the track */
+    struct SeekArea
+    {
+        quint32 functionID;
+        QRect rect;
+        quint32 total;
+    };
+    QList<SeekArea> m_seekAreas;
+
+    /** Track being dragged on its waveform (invalid ID when none) and the dragged position */
+    quint32 m_dragID;
+    quint32 m_dragPosition;
+
 protected:
     void mousePressEvent(QMouseEvent *e) override;
+    void mouseMoveEvent(QMouseEvent *e) override;
+    void mouseReleaseEvent(QMouseEvent *e) override;
 };
 
 /** @} */
