@@ -726,7 +726,7 @@ Rectangle
                 width: parent.height - 2
                 height: width
                 anchors.verticalCenter: parent.verticalCenter
-                faSource: FontAwesome.fa_scissors
+                faSource: FontAwesome.fa_code_fork
                 faColor: UISettings.fgMain
                 tooltip: qsTr("Split the selected tempo section at the cursor")
                 enabled: parent.parent.sectionSelected && tempoLane.cursorInSelection
