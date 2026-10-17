@@ -112,6 +112,13 @@ if(ANDROID)
     set_property(TARGET ${module_name} APPEND PROPERTY QT_ANDROID_EXTRA_LIBS "$<TARGET_FILE:loopback>")
     set_property(TARGET ${module_name} APPEND PROPERTY QT_ANDROID_EXTRA_LIBS "$<TARGET_FILE:osc>")
     set_property(TARGET ${module_name} APPEND PROPERTY QT_ANDROID_EXTRA_LIBS "$<TARGET_FILE:os2l>")
+
+    # Copy the generated translations into the package assets
+    add_custom_command(TARGET ${module_name} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${ANDROID_PACKAGE_STAGING_DIR}/${TRANSLATIONDIR}"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QM_FILES} "${ANDROID_PACKAGE_STAGING_DIR}/${TRANSLATIONDIR}"
+        COMMENT "Copying translations to Android assets..."
+    )
 else()
     add_executable(${module_name} WIN32 ${SRC_FILES} ${QM_FILES})
 endif()
