@@ -261,7 +261,11 @@ Rectangle
                         // Infinity/NaN, which coerces to a 0ms Timer interval and
                         // makes the heads animation repaint the Canvas on every
                         // event loop pass, hanging the GUI thread (see EFXPreview)
-                        animationInterval: efxData.length > 0 ? efxEditor.duration / (efxData.length / 2) : 0
+                        animationInterval: efxData.length > 0 ? durationMs / (efxData.length / 2) : 0
+                        // a Beats tempo duration is in 1/1000 beats
+                        property real durationMs: efxEditor.tempoType === QLCFunction.Beats ?
+                                                  efxEditor.duration * 60 / (ioManager.bpmNumber > 0 ? ioManager.bpmNumber : 120) :
+                                                  efxEditor.duration
                         isRelative: efxEditor.isRelative
                     }
 
@@ -994,6 +998,35 @@ Rectangle
                                     faSource: FontAwesome.fa_clock
                                     faColor: UISettings.fgMain
                                     onClicked: showTimeTool(this, foLabel.label, foTimeLabel.label, QLCFunction.FadeOut)
+                                }
+
+                                // Row 4
+                                RobotoText
+                                {
+                                    height: UISettings.listItemHeight
+                                    label: qsTr("Tempo type")
+                                }
+                                CustomComboBox
+                                {
+                                    id: tempoCombo
+                                    Layout.columnSpan: 2
+                                    Layout.fillWidth: true
+                                    height: UISettings.listItemHeight
+                                    model: [
+                                        { mLabel: qsTr("Time"), mValue: QLCFunction.Time },
+                                        { mLabel: qsTr("Beats"), mValue: QLCFunction.Beats }
+                                    ]
+
+                                    currValue: efxEditor.tempoType
+                                    onValueChanged: (value) => efxEditor.tempoType = value
+
+                                    // a selection breaks the binding above: follow the
+                                    // changes made elsewhere too (e.g. undo)
+                                    Connections
+                                    {
+                                        target: efxEditor
+                                        function onTempoTypeChanged() { tempoCombo.currValue = efxEditor.tempoType }
+                                    }
                                 }
                             } // GridLayout
                     }

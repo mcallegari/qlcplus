@@ -115,10 +115,16 @@ public:
      * Contents
      *********************************************************************/
 public:
-    /** Set the duration in milliseconds */
+    /** Set the duration in milliseconds (or 1/1000 beats in Beats tempo) */
     virtual void setDuration(uint ms) override;
 
+    /** Get the duration of a loop, in the EFX tempo units */
     uint loopDuration() const;
+
+private:
+    /** Get the fade in speed in the EFX tempo units. A fade in override
+     *  given in another tempo (e.g. by a Chaser) is converted */
+    uint tempoFadeInSpeed() const;
 
 signals:
     void durationChanged(uint ms);
@@ -595,8 +601,27 @@ public:
     /** @reimp */
     void postRun(MasterTimer* timer, QList<Universe*> universes) override;
 
+    /** Get the time elapsed since the EFX was started, in its tempo units:
+     *  milliseconds in Time tempo, 1/1000 beats in Beats tempo */
+    quint32 tempoElapsed() const;
+
 private:
     QSharedPointer<GenericFader> getFader(QList<Universe *> universes, quint32 universeID);
+
+    /** Advance the beat clock of a Beats tempo EFX by one tick.
+     *  Returns how many 1/1000 beats the EFX has moved on */
+    uint advanceBeatClock(MasterTimer *timer);
+
+private:
+    /** Beats elapsed since the EFX was started */
+    double m_beatPosition;
+    /** m_beatPosition in 1/1000 beats, as handed to the fixtures */
+    quint64 m_beatUnits;
+    /** Phase correction (in beats) still to apply to keep the whole beats
+     *  of the EFX on the beats of the MasterTimer */
+    double m_beatCorrection;
+    /** The phase correction applied over the beat following its measure */
+    double m_beatCorrectionRate;
 
     /*********************************************************************
      * Intensity
