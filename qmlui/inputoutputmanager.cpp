@@ -64,6 +64,8 @@ InputOutputManager::InputOutputManager(QQuickView *view, Doc *doc, QObject *pare
     connect(m_ioMap, SIGNAL(universeAdded(quint32)), this, SIGNAL(universeNamesChanged()));
     connect(m_ioMap, SIGNAL(universeRemoved(quint32)), this, SIGNAL(universesListModelChanged()));
     connect(m_ioMap, SIGNAL(universeRemoved(quint32)), this, SIGNAL(universeNamesChanged()));
+    connect(m_ioMap, SIGNAL(pluginConfigurationChanged(QString,bool)),
+            this, SIGNAL(ioSourcesChanged()));
     connect(m_ioMap, SIGNAL(beat()), this, SIGNAL(beat()), Qt::QueuedConnection);
     connect(m_ioMap, SIGNAL(beatGeneratorTypeChanged()), this, SLOT(slotBeatTypeChanged()));
     connect(m_ioMap, SIGNAL(bpmNumberChanged(int)), this, SIGNAL(bpmNumberChanged(int)));
@@ -72,6 +74,7 @@ InputOutputManager::InputOutputManager(QQuickView *view, Doc *doc, QObject *pare
 void InputOutputManager::slotDocLoaded()
 {
     emit universesListModelChanged();
+    emit ioSourcesChanged();
 }
 
 /*********************************************************************
@@ -518,8 +521,10 @@ QVariant InputOutputManager::universeInputSources(int universe)
     foreach (QString pluginName,  m_ioMap->inputPluginNames())
     {
         QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
+        QStringList pluginLines = m_ioMap->pluginInputs(pluginName);
+        bool sourceAdded = false;
         int i = 0;
-        foreach (QString pLine, m_ioMap->pluginInputs(pluginName))
+        foreach (QString pLine, pluginLines)
         {
             if (pluginName == currPlugin && i == currLine)
             {
@@ -535,9 +540,28 @@ QVariant InputOutputManager::universeInputSources(int universe)
                 lineMap.insert("name", pLine);
                 lineMap.insert("line", i);
                 lineMap.insert("plugin", pluginName);
+                lineMap.insert("available", true);
+                lineMap.insert("canConfigure", plugin->canConfigure());
+                lineMap.insert("status", QString());
                 inputSources.append(lineMap);
+                sourceAdded = true;
             }
             i++;
+        }
+
+        if (sourceAdded == false)
+        {
+            QVariantMap pluginMap;
+            pluginMap.insert("universe", universe);
+            pluginMap.insert("name", pluginName);
+            pluginMap.insert("line", -1);
+            pluginMap.insert("plugin", pluginName);
+            pluginMap.insert("available", false);
+            pluginMap.insert("canConfigure", plugin->canConfigure());
+            pluginMap.insert("status", pluginLines.isEmpty() ?
+                             tr("No input lines detected") :
+                             tr("No unpatched input lines available"));
+            inputSources.append(pluginMap);
         }
     }
 
@@ -559,8 +583,10 @@ QVariant InputOutputManager::universeOutputSources(int universe)
     foreach (QString pluginName,  m_ioMap->outputPluginNames())
     {
         QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
+        QStringList pluginLines = m_ioMap->pluginOutputs(pluginName);
+        bool sourceAdded = false;
         int i = 0;
-        foreach (QString pLine, m_ioMap->pluginOutputs(pluginName))
+        foreach (QString pLine, pluginLines)
         {
             if (pluginName == currPlugin && i == currLine)
             {
@@ -576,9 +602,28 @@ QVariant InputOutputManager::universeOutputSources(int universe)
                 lineMap.insert("name", pLine);
                 lineMap.insert("line", i);
                 lineMap.insert("plugin", pluginName);
+                lineMap.insert("available", true);
+                lineMap.insert("canConfigure", plugin->canConfigure());
+                lineMap.insert("status", QString());
                 outputSources.append(lineMap);
+                sourceAdded = true;
             }
             i++;
+        }
+
+        if (sourceAdded == false)
+        {
+            QVariantMap pluginMap;
+            pluginMap.insert("universe", universe);
+            pluginMap.insert("name", pluginName);
+            pluginMap.insert("line", -1);
+            pluginMap.insert("plugin", pluginName);
+            pluginMap.insert("available", false);
+            pluginMap.insert("canConfigure", plugin->canConfigure());
+            pluginMap.insert("status", pluginLines.isEmpty() ?
+                             tr("No output lines detected") :
+                             tr("No unpatched output lines available"));
+            outputSources.append(pluginMap);
         }
     }
 
@@ -739,6 +784,13 @@ void InputOutputManager::configurePlugin(bool input)
             m_ioMap->configurePlugin(pluginName);
         }
     }
+}
+
+void InputOutputManager::configurePluginByName(QString pluginName)
+{
+    QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
+    if (plugin != nullptr && plugin->canConfigure())
+        m_ioMap->configurePlugin(pluginName);
 }
 
 bool InputOutputManager::inputCanConfigure() const
@@ -1044,4 +1096,3 @@ void InputOutputManager::setBpmNumber(int bpmNumber)
     m_ioMap->setBpmNumber(bpmNumber);
     emit bpmNumberChanged(bpmNumber);
 }
-
