@@ -116,6 +116,9 @@ endif()
 add_custom_target(check
     DEPENDS unittests
 )
+if(TARGET check-sceneeditor)
+    add_dependencies(check check-sceneeditor)
+endif()
 
 # Unit test coverage measurement
 if(WIN32)

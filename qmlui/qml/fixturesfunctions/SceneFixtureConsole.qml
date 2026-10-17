@@ -30,8 +30,20 @@ Rectangle
     color: "transparent"
     objectName: "sceneFixtureConsole"
 
-    Component.onCompleted: sceneEditor.sceneConsoleLoaded(true)
-    Component.onDestruction: sceneEditor.sceneConsoleLoaded(false)
+    // Keep the backend that created this view: a new editor may already be
+    // installed in the global context when old delegates finish destruction.
+    property var consoleEditor: sceneEditor
+    Component.onCompleted:
+    {
+        consoleEditor = sceneEditor
+        if (consoleEditor)
+            consoleEditor.sceneConsoleLoaded(true, sfcContainer)
+    }
+    Component.onDestruction:
+    {
+        if (consoleEditor)
+            consoleEditor.sceneConsoleLoaded(false, sfcContainer)
+    }
 
     property bool isSceneEditor: true
     property bool multipleSelection: false
@@ -52,7 +64,7 @@ Rectangle
      *  by the Scene editor through the standard Fixture selection */
     Connections
     {
-        target: sceneEditor
+        target: consoleEditor
         ignoreUnknownSignals: true
 
         function onExternalMapChanged()
@@ -78,7 +90,7 @@ Rectangle
         id: fixtureList
         anchors.fill: parent
         orientation: ListView.Horizontal
-        model: sceneEditor.fixtureList
+        model: consoleEditor ? consoleEditor.fixtureList : null
         boundsBehavior: Flickable.StopAtBounds
         highlightFollowsCurrentItem: false
         currentIndex: -1
@@ -91,8 +103,16 @@ Rectangle
                 width: fxConsole.width + 4
                 color: UISettings.bgMedium
 
-                Component.onCompleted: sceneEditor.registerFixtureConsole(index, fxConsole)
-                Component.onDestruction: sceneEditor.unRegisterFixtureConsole(index)
+                Component.onCompleted:
+                {
+                    if (consoleEditor)
+                        consoleEditor.registerFixtureConsole(index, fxConsole)
+                }
+                Component.onDestruction:
+                {
+                    if (consoleEditor)
+                        consoleEditor.unRegisterFixtureConsole(index, fxConsole)
+                }
 
                 FixtureConsole
                 {
