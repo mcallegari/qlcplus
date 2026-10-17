@@ -87,6 +87,9 @@ private:
 private:
     bool m_updateOverrideSpeeds;
 
+    /** Flag to rebuild the random steps order, since the number of steps changed */
+    bool m_orderRefreshNeeded;
+
     /************************************************************************
      * Step control
      ************************************************************************/

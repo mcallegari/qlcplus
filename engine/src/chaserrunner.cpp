@@ -38,6 +38,7 @@ ChaserRunner::ChaserRunner(const Doc *doc, const Chaser *chaser, quint32 startTi
     , m_doc(doc)
     , m_chaser(chaser)
     , m_updateOverrideSpeeds(false)
+    , m_orderRefreshNeeded(false)
     , m_startOffset(0)
     , m_lastRunStepIdx(-1)
     , m_lastFunctionID(Function::invalidId())
@@ -95,6 +96,11 @@ void ChaserRunner::slotChaserChanged()
 {
     // Handle (possible) speed change on the next write() pass
     m_updateOverrideSpeeds = true;
+
+    // Steps added or removed: the random order must cover them all.
+    // Rebuilt on the next write() pass, in the MasterTimer thread
+    if (m_order.size() != m_chaser->stepsCount())
+        m_orderRefreshNeeded = true;
     QList<ChaserRunnerStep*> delList;
     foreach (ChaserRunnerStep *step, m_runnerSteps)
     {
@@ -354,7 +360,9 @@ int ChaserRunner::computeNextStep(int currentStep) const
     }
     else if (m_chaser->runOrder() == Function::Random)
     {
-        nextStep = randomStepIndex(nextStep);
+        // The next round will be shuffled again, so its first step is
+        // not known yet. Return a valid step meanwhile
+        nextStep = randomStepIndex(m_direction == Function::Forward ? 0 : m_chaser->stepsCount() - 1);
     }
     else // Ping Pong
     {
@@ -694,11 +702,17 @@ int ChaserRunner::getNextStepIndex()
             else
                 currentStepIndex = 0;
         }
-        // Don't run the same function 2 times in a row
-        while (currentStepIndex < m_chaser->stepsCount()
-                && randomStepIndex(currentStepIndex) == m_lastRunStepIdx)
-            ++currentStepIndex;
-        currentStepIndex = randomStepIndex(currentStepIndex);
+        // Don't run the same function 2 times in a row, moving inwards from
+        // the end of the new order the round starts from. With a single step
+        // there is no other choice than repeating it
+        int position = currentStepIndex;
+        int increment = position == 0 ? 1 : -1;
+        while (position >= 0 && position < m_chaser->stepsCount()
+               && randomStepIndex(position) == m_lastRunStepIdx)
+            position += increment;
+        if (position < 0 || position >= m_chaser->stepsCount())
+            position = currentStepIndex;
+        currentStepIndex = randomStepIndex(position);
     }
     else // Ping Pong
     {
@@ -752,6 +766,12 @@ bool ChaserRunner::write(MasterTimer *timer, QList<Universe *> universes)
     // Nothing to do
     if (m_chaser->stepsCount() == 0)
         return false;
+
+    if (m_orderRefreshNeeded)
+    {
+        m_orderRefreshNeeded = false;
+        fillOrder();
+    }
 
     switch (m_pendingAction.m_action)
     {
