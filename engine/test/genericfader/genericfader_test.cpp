@@ -162,6 +162,41 @@ void GenericFader_Test::writeLoop()
     }
 }
 
+void GenericFader_Test::fadeOutWhilePaused()
+{
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    QSharedPointer<GenericFader> fader = ua[0]->requestFader();
+
+    FadeChannel fc(m_doc, 0, 5);
+    fc.setStart(0);
+    fc.setTarget(250);
+    fc.setFadeTime(0);
+    fader->add(fc);
+
+    fader->write(ua[0], MasterTimer::tick());
+    QCOMPARE(ua[0]->preGMValues()[15], (char) 250);
+
+    // A paused fader holds its values
+    fader->setPaused(true);
+    ua[0]->zeroIntensityChannels();
+    fader->write(ua[0], MasterTimer::tick());
+    QCOMPARE(ua[0]->preGMValues()[15], (char) 250);
+
+    // Fading out must resume it, or it would never complete
+    fader->setFadeOut(true, MasterTimer::tick() * 2);
+    QVERIFY(fader->isPaused() == false);
+
+    ua[0]->zeroIntensityChannels();
+    fader->write(ua[0], MasterTimer::tick());
+    QCOMPARE(ua[0]->preGMValues()[15], (char) 125);
+
+    ua[0]->zeroIntensityChannels();
+    fader->write(ua[0], MasterTimer::tick());
+    QCOMPARE(ua[0]->preGMValues()[15], (char) 0);
+    QCOMPARE(fader->m_channels.count(), 0);
+    QVERIFY(fader->deleteRequested() == true);
+}
+
 void GenericFader_Test::adjustIntensity()
 {
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();

@@ -823,6 +823,65 @@ void Scene_Test::writeHTPTwoTicks()
     doc->inputOutputMap()->releaseUniverses(false);
 }
 
+void Scene_Test::writeHTPStopWhilePaused()
+{
+    Doc* doc = new Doc(this);
+    MasterTimer timer(doc);
+
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QVERIFY(def != NULL);
+
+    QLCFixtureMode* mode = def->mode("Mode 1");
+    QVERIFY(mode != NULL);
+
+    Fixture* fxi = new Fixture(doc);
+    fxi->setFixtureDefinition(def, mode);
+    fxi->setAddress(0);
+    fxi->setUniverse(0);
+    doc->addFixture(fxi);
+
+    Scene* s1 = new Scene(doc);
+    s1->setName("First");
+    s1->setFadeInSpeed(MasterTimer::tick() * 2);
+    s1->setFadeOutSpeed(MasterTimer::tick() * 2);
+    s1->setValue(fxi->id(), 5, 250); // HTP
+    doc->addFunction(s1);
+
+    // Run the faders for one tick and return the value of channel 5.
+    // Universes are released before any check, so that a failure
+    // doesn't leave them claimed
+    int fadersCount = 0;
+    auto tickAndRead = [&]()
+    {
+        timer.timerTick();
+        QList<Universe*> ua = doc->inputOutputMap()->claimUniverses();
+        ua[0]->processFaders(MasterTimer::tick());
+        char value = ua[0]->preGMValues()[5];
+        fadersCount = ua[0]->faders().count();
+        doc->inputOutputMap()->releaseUniverses(false);
+        return value;
+    };
+
+    s1->start(&timer, FunctionParent::master());
+    tickAndRead();
+    QCOMPARE(tickAndRead(), (char) 250);
+
+    // Pause the Scene (e.g. its parent Show has been paused)
+    s1->setPause(true);
+    QCOMPARE(tickAndRead(), (char) 250);
+
+    // Stop it while paused (e.g. a paused Show is stopped, or restarted
+    // from a new cursor position)
+    s1->stop(FunctionParent::master());
+
+    // The fader must fade out and be removed, not be kept paused forever
+    QCOMPARE(tickAndRead(), (char) 125);
+    QVERIFY(s1->isRunning() == false);
+    QCOMPARE(tickAndRead(), (char) 0);
+    tickAndRead();
+    QCOMPARE(fadersCount, 0);
+}
+
 void Scene_Test::writeHTPTwoTicksIntensity()
 {
     Doc* doc = new Doc(this);

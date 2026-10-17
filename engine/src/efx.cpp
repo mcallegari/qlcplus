@@ -149,7 +149,15 @@ void EFX::setDuration(uint ms)
 
 uint EFX::loopDuration() const
 {
-    return duration() - tempoFadeInSpeed();
+    uint fadeIn = tempoFadeInSpeed();
+
+    // With a fade in not shorter than the duration, the subtraction would
+    // wrap around to a huge loop and the EFX would look frozen: use the
+    // whole duration for the loop instead
+    if (fadeIn >= duration())
+        return duration();
+
+    return duration() - fadeIn;
 }
 
 uint EFX::tempoFadeInSpeed() const
