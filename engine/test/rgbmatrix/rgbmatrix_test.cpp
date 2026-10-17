@@ -31,6 +31,7 @@
 #include "fixturegroup.h"
 #include "mastertimer.h"
 #include "rgbmatrix.h"
+#include "rgbtext.h"
 #include "fixture.h"
 #include "qlcfile.h"
 #include "doc.h"
@@ -105,6 +106,23 @@ void RGBMatrix_Test::group()
 
     mtx.setFixtureGroup(FixtureGroup::invalidId());
     QCOMPARE(mtx.fixtureGroup(), FixtureGroup::invalidId());
+}
+
+void RGBMatrix_Test::totalDurationWithoutSteps()
+{
+    RGBMatrix mtx(m_doc);
+    mtx.setFixtureGroup(m_doc->fixtureGroups().first()->id());
+
+    RGBText *text = new RGBText(m_doc);
+    text->setText(QString());
+    text->setAnimationStyle(RGBText::StaticLetters);
+    mtx.setAlgorithm(text);
+    QCOMPARE(text->rgbMapStepCount(QSize(5, 5)), 0);
+
+    // must not divide by zero
+    mtx.setTotalDuration(1000);
+    QCOMPARE(mtx.duration(), uint(1000));
+    QCOMPARE(mtx.totalDuration(), quint32(0));
 }
 
 void RGBMatrix_Test::color()
