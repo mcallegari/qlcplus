@@ -48,6 +48,9 @@ EFX::EFX(Doc* doc)
     , m_yPhase(0)
     , m_propagationMode(Parallel)
     , m_legacyFadeBus(Bus::invalid())
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+    , m_fixturesMutex(QMutex::Recursive)
+#endif
     , m_legacyHoldBus(Bus::invalid())
 {
     updateRotationCache();
@@ -687,19 +690,22 @@ bool EFX::addFixture(EFXFixture* ef)
     /* Search for an existing fixture with the same ID and append at last but do
      * not prevent multiple entries because a fixture can have multiple efx. */
     //! @todo Prevent multiple entries using head & mode
-    int i;
-    for (i = 0; i < m_fixtures.size(); i++)
     {
-        if (m_fixtures[i]->head() == ef->head())
+        QMutexLocker locker(&m_fixturesMutex);
+        int i;
+        for (i = 0; i < m_fixtures.size(); i++)
         {
-            m_fixtures.insert(i, ef);
-            break;
+            if (m_fixtures[i]->head() == ef->head())
+            {
+                m_fixtures.insert(i, ef);
+                break;
+            }
         }
-    }
 
-    /* If not inserted, put the EFXFixture object into our list */
-    if (i >= m_fixtures.size())
-        m_fixtures.append(ef);
+        /* If not inserted, put the EFXFixture object into our list */
+        if (i >= m_fixtures.size())
+            m_fixtures.append(ef);
+    }
 
     emit changed(this->id());
 
@@ -719,7 +725,13 @@ bool EFX::removeFixture(EFXFixture* ef)
 {
     Q_ASSERT(ef != NULL);
 
-    if (m_fixtures.removeAll(ef) > 0)
+    int removed = 0;
+    {
+        QMutexLocker locker(&m_fixturesMutex);
+        removed = m_fixtures.removeAll(ef);
+    }
+
+    if (removed > 0)
     {
         emit changed(this->id());
         return true;
@@ -732,6 +744,7 @@ bool EFX::removeFixture(EFXFixture* ef)
 
 bool EFX::removeFixture(quint32 fxi, int head)
 {
+    QMutexLocker locker(&m_fixturesMutex);
     for (int i = 0; i < m_fixtures.count(); i++)
     {
         EFXFixture *ef = m_fixtures.at(i);
@@ -747,7 +760,10 @@ bool EFX::removeFixture(quint32 fxi, int head)
 
 void EFX::removeAllFixtures()
 {
-    m_fixtures.clear();
+    {
+        QMutexLocker locker(&m_fixturesMutex);
+        m_fixtures.clear();
+    }
     emit changed(this->id());
 }
 
@@ -755,10 +771,12 @@ bool EFX::raiseFixture(EFXFixture* ef)
 {
     Q_ASSERT(ef != NULL);
 
+    QMutexLocker locker(&m_fixturesMutex);
     int index = m_fixtures.indexOf(ef);
     if (index > 0)
     {
         m_fixtures.move(index, index - 1);
+        locker.unlock();
         emit changed(this->id());
         return true;
     }
@@ -770,10 +788,12 @@ bool EFX::raiseFixture(EFXFixture* ef)
 
 bool EFX::lowerFixture(EFXFixture* ef)
 {
+    QMutexLocker locker(&m_fixturesMutex);
     int index = m_fixtures.indexOf(ef);
     if (index < (m_fixtures.count() - 1))
     {
         m_fixtures.move(index, index + 1);
+        locker.unlock();
         emit changed(this->id());
         return true;
     }
@@ -814,19 +834,29 @@ QList<quint32> EFX::components() const
 
 void EFX::slotFixtureRemoved(quint32 fxi_id)
 {
-    /* Remove the destroyed fixture from our list */
-    QMutableListIterator <EFXFixture*> it(m_fixtures);
-    while (it.hasNext() == true)
-    {
-        it.next();
+    bool removed = false;
 
-        if (it.value()->head().fxi == fxi_id)
+    {
+        QMutexLocker locker(&m_fixturesMutex);
+
+        /* Remove the destroyed fixture from our list. A fixture with
+         * more than one head has an entry for each of them */
+        QMutableListIterator <EFXFixture*> it(m_fixtures);
+        while (it.hasNext() == true)
         {
-            delete it.value();
-            it.remove();
-            break;
+            it.next();
+
+            if (it.value()->head().fxi == fxi_id)
+            {
+                delete it.value();
+                it.remove();
+                removed = true;
+            }
         }
     }
+
+    if (removed)
+        emit changed(this->id());
 }
 
 /*****************************************************************************
@@ -1159,6 +1189,7 @@ void EFX::preRun(MasterTimer* timer)
 {
     int serialNumber = 0;
 
+    QMutexLocker locker(&m_fixturesMutex);
     QListIterator <EFXFixture*> it(m_fixtures);
     while (it.hasNext() == true)
     {
@@ -1166,6 +1197,8 @@ void EFX::preRun(MasterTimer* timer)
         Q_ASSERT(ef != NULL);
         ef->setSerialNumber(serialNumber++);
     }
+
+    locker.unlock();
 
     Function::preRun(timer);
 }
@@ -1178,41 +1211,55 @@ void EFX::write(MasterTimer *timer, QList<Universe*> universes)
         return;
 
     int done = 0;
+    int count = 0;
 
-    QListIterator <EFXFixture*> it(m_fixtures);
-    while (it.hasNext() == true)
     {
-        EFXFixture *ef = it.next();
-        if (ef->isDone() == false)
+        QMutexLocker locker(&m_fixturesMutex);
+        count = m_fixtures.count();
+
+        QListIterator <EFXFixture*> it(m_fixtures);
+        while (it.hasNext() == true)
         {
-            QSharedPointer<GenericFader> fader = getFader(universes, ef->universe());
-            ef->nextStep(universes, fader);
-        }
-        else
-        {
-            done++;
+            EFXFixture *ef = it.next();
+            if (ef->isDone() == false)
+            {
+                // an entry whose fixture doesn't exist (e.g. it couldn't be
+                // loaded) has no universe
+                if (ef->universe() >= quint32(universes.count()))
+                    continue;
+
+                QSharedPointer<GenericFader> fader = getFader(universes, ef->universe());
+                ef->nextStep(universes, fader);
+            }
+            else
+            {
+                done++;
+            }
         }
     }
 
     incrementElapsed();
 
     /* Check for stop condition */
-    if (done == m_fixtures.count())
+    if (done == count)
         stop(FunctionParent::master());
 }
 
 void EFX::postRun(MasterTimer *timer, QList<Universe *> universes)
 {
     /* Reset all fixtures */
-    QListIterator <EFXFixture*> it(m_fixtures);
-    while (it.hasNext() == true)
     {
-        EFXFixture* ef(it.next());
+        QMutexLocker locker(&m_fixturesMutex);
+        QListIterator <EFXFixture*> it(m_fixtures);
+        while (it.hasNext() == true)
+        {
+            EFXFixture* ef(it.next());
 
-        /* Run the EFX's stop scene for Loop & PingPong modes */
-        if (runOrder() != SingleShot)
-            ef->stop();
-        ef->reset();
+            /* Run the EFX's stop scene for Loop & PingPong modes */
+            if (runOrder() != SingleShot)
+                ef->stop();
+            ef->reset();
+        }
     }
 
     dismissAllFaders();
