@@ -897,6 +897,24 @@ void Universe::setChannelModifier(ushort channel, ChannelModifier *modifier)
     updatePostGMValue(channel);
 }
 
+void Universe::resetChannelCapability(ushort channel)
+{
+    if (channel >= (ushort)m_channelsMask->length())
+        return;
+
+    if (Utils::vectorRemove(m_intensityChannels, channel))
+        m_intensityChannelsChanged = true;
+    Utils::vectorRemove(m_nonIntensityChannels, channel);
+
+    (*m_channelsMask)[channel] = char(Undefined);
+    m_modifiers[channel] = NULL;
+    (*m_modifiedZeroValues)[channel] = char(0);
+    (*m_preGMValues)[channel] = char(0);
+    (*m_blackoutValues)[channel] = char(0);
+
+    updatePostGMValue(channel);
+}
+
 ChannelModifier *Universe::channelModifier(ushort channel)
 {
     if (channel >= (ushort)m_modifiers.count())
