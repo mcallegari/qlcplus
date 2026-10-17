@@ -1418,4 +1418,63 @@ void ChaserRunner_Test::adjustMasterIntensityAcrossRunningCrossfadeSteps()
     m_doc->inputOutputMap()->releaseUniverses(false);
 }
 
+void ChaserRunner_Test::randomSingleStep()
+{
+    Chaser *chaser = new Chaser(m_doc);
+    chaser->addStep(ChaserStep(m_scene1->id()));
+    chaser->setRunOrder(Function::Random);
+
+    ChaserRunner cr(m_doc, chaser);
+    cr.m_lastRunStepIdx = 0;
+
+    // with a single step, the only valid next step is the same one
+    QCOMPARE(cr.getNextStepIndex(), 0);
+    QCOMPARE(cr.computeNextStep(0), 0);
+
+    delete chaser;
+}
+
+void ChaserRunner_Test::randomBackwardRound()
+{
+    m_chaser->setRunOrder(Function::Random);
+    m_chaser->setDirection(Function::Backward);
+
+    for (int i = 0; i < 100; i++)
+    {
+        ChaserRunner cr(m_doc, m_chaser);
+
+        // the last step of a backward round has been played
+        cr.m_lastRunStepIdx = cr.m_order.at(0);
+
+        int next = cr.getNextStepIndex();
+        QVERIFY(next >= 0 && next < m_chaser->stepsCount());
+        QVERIFY(next != cr.m_lastRunStepIdx);
+
+        next = cr.computeNextStep(cr.m_order.at(0));
+        QVERIFY(next >= 0 && next < m_chaser->stepsCount());
+    }
+
+    m_chaser->setRunOrder(Function::Loop);
+    m_chaser->setDirection(Function::Forward);
+}
+
+void ChaserRunner_Test::randomOrderFollowsSteps()
+{
+    m_chaser->setRunOrder(Function::Random);
+    ChaserRunner cr(m_doc, m_chaser);
+    QCOMPARE(cr.m_order.size(), 3);
+
+    // a step added while running must become part of the random order
+    m_chaser->addStep(ChaserStep(m_scene1->id()));
+
+    QList<Universe*> ua;
+    ua.append(new Universe(0, new GrandMaster()));
+    MasterTimerStub timer(m_doc, ua);
+    cr.write(&timer, ua);
+    QCOMPARE(cr.m_order.size(), 4);
+
+    cr.postRun(&timer, ua);
+    m_chaser->setRunOrder(Function::Loop);
+}
+
 QTEST_APPLESS_MAIN(ChaserRunner_Test)
