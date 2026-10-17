@@ -39,6 +39,7 @@ private slots:
 
     void initial();
     void group();
+    void totalDurationWithoutSteps();
     void color();
     void copy();
     void previewMaps();
