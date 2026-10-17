@@ -710,6 +710,16 @@ int Tardis::processAction(TardisAction &action, bool undo)
             m_contextManager->get3DView()->updateGenericItemScale(action.m_objID, value->value<QVector3D>());
         }
         break;
+        case GenericItemSetName:
+        {
+            m_contextManager->get3DView()->updateGenericItemName(action.m_objID, value->toString());
+        }
+        break;
+        case GenericItemSetColor:
+        {
+            m_contextManager->get3DView()->updateGenericItemColor(action.m_objID, value->value<QColor>());
+        }
+        break;
 
         /* *********************** Input/Output manager actions ************************ */
         case IOAddUniverse:
