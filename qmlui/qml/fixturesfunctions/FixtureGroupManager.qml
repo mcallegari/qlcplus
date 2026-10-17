@@ -212,7 +212,7 @@ Rectangle
                 IconButton
                 {
                     id: detectButton
-                    visible: allowEditing
+                    visible: allowEditing && rdmManager.available
                     z: 2
                     width: height
                     height: topBar.height - 2

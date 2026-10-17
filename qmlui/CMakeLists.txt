@@ -18,7 +18,6 @@ set(QML_IMPORT_PATH ".")
 
 set(SRC_FILES
     ../plugins/interfaces/utils.h
-    ../plugins/interfaces/rdmprotocol.cpp ../plugins/interfaces/rdmprotocol.h
     app.cpp app.h
     audioeditor.cpp audioeditor.h
     chasereditor.cpp chasereditor.h

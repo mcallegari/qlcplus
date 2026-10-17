@@ -233,7 +233,7 @@ signals:
 
     void rdmFrameReceived(quint32 universe, quint32 line, QByteArray frame);
 
-    void rdmTodReceived(quint32 universe, quint32 line, QByteArray uids);
+    void rdmTodReceived(quint32 universe, quint32 line, QByteArray uids, QString address);
 };
 
 #endif

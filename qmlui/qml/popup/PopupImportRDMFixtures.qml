@@ -27,16 +27,17 @@ import "."
 CustomPopupDialog
 {
     id: popupRoot
-    width: mainView.width * 0.75
-    height: mainView.height * 0.75
+    width: mainView.width * 0.8
+    height: mainView.height * 0.85
     title: qsTr("Import RDM fixtures")
-    standardButtons: Dialog.Cancel | Dialog.Apply
+    standardButtons: Dialog.Cancel | Dialog.Ok
 
-    property bool autoAddressing: false
-
-    ModelSelector
+    onClicked: (role) =>
     {
-        id: itemSelector
+        if (role === Dialog.Ok)
+            rdmManager.applyLayout()
+
+        close()
     }
 
     contentItem:
@@ -46,6 +47,7 @@ CustomPopupDialog
             width: popupRoot.width
             height: popupRoot.height
 
+            // detection in progress
             RobotoText
             {
                 visible: rdmManager.discoveryStatus === RDMManager.Running
@@ -76,247 +78,295 @@ CustomPopupDialog
                 label: qsTr("Fixtures found" + ": " + rdmManager.fixturesFound)
             }
 
-            ListView
+            // the item following the mouse while dragging a fixture
+            Rectangle
             {
-                id: fxListView
-                z: 1
-                visible: rdmManager.discoveryStatus === RDMManager.Finished
-                width: contentBox.width
-                height: contentBox.height
-                boundsBehavior: Flickable.StopAtBounds
-                headerPositioning: ListView.OverlayHeader
-                clip: true
-                model: rdmManager.fixtureList
+                id: dragGhost
+                z: 100
+                visible: false
+                radius: 4
+                opacity: 0.85
+                color: UISettings.highlight
+                border.width: 2
+                border.color: UISettings.fgMain
 
-                header:
-                    RowLayout
-                    {
-                        z: 2
-                        width: fxListView.width
-                        height: UISettings.listItemHeight
+                property string fxUID: ""
+                property string fxLabel: ""
+                property bool fromGrid: false
 
-                        RobotoText
-                        {
-                            width: UISettings.bigItemHeight
-                            height: UISettings.listItemHeight
-                            label: qsTr("Universe")
-                            color: UISettings.sectionHeader
-                        }
-                        Rectangle { width: 1; height: UISettings.listItemHeight; color: UISettings.fgMedium }
+                Drag.keys: [ "rdmFixture" ]
+                Drag.source: dragGhost
 
-                        RobotoText
-                        {
-                            width: UISettings.bigItemHeight * 1.5
-                            height: UISettings.listItemHeight
-                            label: qsTr("Manufacturer")
-                            color: UISettings.sectionHeader
-                        }
-                        Rectangle { width: 1; height: UISettings.listItemHeight; color: UISettings.fgMedium }
+                Text
+                {
+                    anchors.fill: parent
+                    anchors.margins: 4
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    wrapMode: Text.Wrap
+                    elide: Text.ElideRight
+                    font.family: UISettings.robotoFontName
+                    font.pixelSize: UISettings.textSizeDefault * 0.8
+                    font.bold: true
+                    color: UISettings.fgMain
+                    text: dragGhost.fxLabel
+                }
 
-                        RobotoText
-                        {
-                            Layout.fillWidth: true
-                            height: UISettings.listItemHeight
-                            label: qsTr("Model")
-                            color: UISettings.sectionHeader
-                        }
-                        Rectangle { width: 1; height: UISettings.listItemHeight; color: UISettings.fgMedium }
+                function begin(uid, label, w, h, hotX, hotY, inGrid)
+                {
+                    fxUID = uid
+                    fxLabel = label
+                    fromGrid = inGrid
+                    width = w
+                    height = h
+                    Drag.hotSpot.x = hotX
+                    Drag.hotSpot.y = hotY
+                    visible = true
+                    Drag.active = true
+                }
 
-                        RobotoText
-                        {
-                            width: UISettings.bigItemHeight
-                            height: UISettings.listItemHeight
-                            label: qsTr("DMX Address")
-                            color: UISettings.sectionHeader
-                        }
-                        Rectangle { width: 1; height: UISettings.listItemHeight; color: UISettings.fgMedium }
+                function moveTo(px, py)
+                {
+                    x = px
+                    y = py
+                }
 
-                        RobotoText
-                        {
-                            width: UISettings.bigItemHeight * 1.5
-                            height: UISettings.listItemHeight
-                            label: qsTr("Personality")
-                            color: UISettings.sectionHeader
-                        }
-                        Rectangle { width: 1; height: UISettings.listItemHeight; color: UISettings.fgMedium }
+                function drop()
+                {
+                    var action = Drag.drop()
+                    Drag.active = false
+                    visible = false
 
-                        RobotoText
-                        {
-                            width: UISettings.bigItemHeight * 1.2
-                            height: UISettings.listItemHeight
-                            label: qsTr("UID")
-                            color: UISettings.sectionHeader
-                        }
-                    }
-
-                delegate:
-                    Item
-                    {
-                        width: fxListView.width
-                        height: UISettings.listItemHeight
-
-                        property string fxUID: UID
-                        property int fxAddress: dmxAddress
-                        property int fxChannels: dmxChannels
-
-                        MouseArea
-                        {
-                            anchors.fill: parent
-                            onClicked: (mouse) => itemSelector.selectItem(index, fxListView.model, mouse.modifiers)
-                        }
-
-                        Rectangle
-                        {
-                            anchors.fill: parent
-                            radius: 3
-                            color: UISettings.highlight
-                            visible: isSelected
-                        }
-
-                        RowLayout
-                        {
-                            id: delegateRow
-                            anchors.fill: parent
-
-                            RobotoText
-                            {
-                                width: UISettings.bigItemHeight
-                                height: UISettings.listItemHeight
-                                label: (universe + 1)
-                            }
-                            Rectangle { width: 1; height: UISettings.listItemHeight; color: UISettings.fgMedium }
-
-                            RobotoText
-                            {
-                                width: UISettings.bigItemHeight * 1.5
-                                height: UISettings.listItemHeight
-                                label: manufacturer
-                            }
-                            Rectangle { width: 1; height: UISettings.listItemHeight; color: UISettings.fgMedium }
-
-                            RobotoText
-                            {
-                                Layout.fillWidth: true
-                                height: UISettings.listItemHeight
-                                label: model
-                            }
-                            Rectangle { width: 1; height: UISettings.listItemHeight; color: UISettings.fgMedium }
-
-                            CustomSpinBox
-                            {
-                                enabled: !autoAddressing
-                                width: UISettings.bigItemHeight
-                                height: UISettings.listItemHeight
-                                from: 1
-                                to: 511
-                                value: fxAddress
-                                onValueModified:
-                                {
-                                    rdmManager.requestDMXAddress(UID, value)
-                                }
-                            }
-                            Rectangle { width: 1; height: UISettings.listItemHeight; color: UISettings.fgMedium }
-
-                            RobotoText
-                            {
-                                width: UISettings.bigItemHeight * 1.5
-                                height: UISettings.listItemHeight
-                                label: personality
-                            }
-                            Rectangle { width: 1; height: UISettings.listItemHeight; color: UISettings.fgMedium }
-
-                            RobotoText
-                            {
-                                width: UISettings.bigItemHeight * 1.2
-                                height: UISettings.listItemHeight
-                                label: fxUID
-                            }
-                        }
-                    }
+                    // a fixture dragged out of the grid and dropped nowhere goes back to the pool
+                    if (action === Qt.IgnoreAction && fromGrid)
+                        rdmManager.unplaceFixture(fxUID)
+                }
             }
 
-            RowLayout
+            ColumnLayout
             {
                 visible: rdmManager.discoveryStatus === RDMManager.Finished
-                y: contentBox.height - height
-                z: 3
-                width: contentBox.width
-                height: UISettings.listItemHeight
+                anchors.fill: parent
+                spacing: 4
 
-                CustomCheckBox
-                {
-                    implicitWidth: height
-                    implicitHeight: UISettings.listItemHeight
-                    checked: !autoAddressing
-                    onClicked: autoAddressing = false
-                }
                 RobotoText
                 {
+                    Layout.fillWidth: true
                     height: UISettings.listItemHeight
                     fontBold: true
-                    label: qsTr("Manual addresses")
+                    label: qsTr("Detected fixtures") + ": " + rdmManager.fixturesFound + "  -  " +
+                           qsTr("drag them into the layout grid")
                 }
-                CustomCheckBox
+
+                // fixtures not yet placed in the layout grid
+                Rectangle
                 {
-                    implicitWidth: height
-                    implicitHeight: UISettings.listItemHeight
-                    checked: autoAddressing
-                    onClicked: autoAddressing = true
-                }
-                RobotoText
-                {
-                    height: UISettings.listItemHeight
-                    fontBold: true
-                    label: qsTr("Auto-addresses")
-                }
-                RobotoText
-                {
-                    height: UISettings.listItemHeight
-                    label: qsTr("From:")
-                }
-                CustomSpinBox
-                {
-                    id: aaStartAddrSpin
-                    enabled: autoAddressing
-                    height: UISettings.listItemHeight
-                    from: 1
-                    to: 511
-                    value: 1
-                }
-                RobotoText
-                {
-                    height: UISettings.listItemHeight
-                    label: qsTr("Gap:")
-                }
-                CustomSpinBox
-                {
-                    id: aaGapSpin
-                    enabled: autoAddressing
-                    height: UISettings.listItemHeight
-                    from: 0
-                    to: 511
-                    value: 0
-                }
-                GenericButton
-                {
-                    implicitHeight: UISettings.listItemHeight
-                    label: qsTr("Apply")
-                    onClicked:
+                    id: fixturesArea
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: contentBox.height * 0.28
+                    color: UISettings.bgStrong
+                    border.width: 1
+                    border.color: fixturesDrop.containsDrag ? UISettings.activeDropArea : UISettings.bgLight
+                    clip: true
+
+                    GridView
                     {
-                        if (autoAddressing)
-                        {
-                            var selIndices = itemSelector.itemsList()
-                            var currAddress = aaStartAddrSpin.value
+                        id: fxGridView
+                        anchors.fill: parent
+                        anchors.margins: 2
+                        boundsBehavior: Flickable.StopAtBounds
+                        cellWidth: UISettings.bigItemHeight * 2.1
+                        cellHeight: UISettings.bigItemHeight * 1.1
+                        model: rdmManager.fixtureList
 
-                            for (var s = 0; s < selIndices.length; s++)
+                        ScrollBar.vertical: ScrollBar { visible: fxGridView.contentHeight > fxGridView.height }
+
+                        delegate:
+                            RDMFixtureBox
                             {
-                                var item = fxListView.itemAtIndex(s)
-                                item.fxAddress = currAddress
-                                rdmManager.requestDMXAddress(item.fxUID, currAddress)
-                                currAddress = currAddress + item.fxChannels + aaGapSpin.value
+                                dragController: dragGhost
+                                fxUID: UID
+                                fxManufacturer: manufacturer
+                                fxModel: modelName
+                                fxPersonality: personality
+                                fxIP: ipAddress
+                                fxDefMode: defMode
+                                fxAddress: dmxAddress
+                                fxChannels: dmxChannels
+                                fxUniverse: universe
+                                fxHasDef: hasDefinition
+                            }
+                    }
+
+                    // dropping a fixture here takes it out of the layout grid
+                    DropArea
+                    {
+                        id: fixturesDrop
+                        anchors.fill: parent
+                        keys: [ "rdmFixture" ]
+                        onDropped: (drop) => rdmManager.unplaceFixture(dragGhost.fxUID)
+                    }
+                }
+
+                // layout grid size and auto patching
+                RowLayout
+                {
+                    Layout.fillWidth: true
+                    height: UISettings.listItemHeight
+                    spacing: 6
+
+                    RobotoText
+                    {
+                        height: UISettings.listItemHeight
+                        fontBold: true
+                        label: qsTr("Layout grid") + ":"
+                    }
+                    CustomSpinBox
+                    {
+                        height: UISettings.listItemHeight
+                        from: 1
+                        to: 50
+                        value: rdmManager.gridWidth
+                        onValueModified: rdmManager.gridWidth = value
+                    }
+                    RobotoText
+                    {
+                        height: UISettings.listItemHeight
+                        label: "x"
+                    }
+                    CustomSpinBox
+                    {
+                        height: UISettings.listItemHeight
+                        from: 1
+                        to: 50
+                        value: rdmManager.gridHeight
+                        onValueModified: rdmManager.gridHeight = value
+                    }
+
+                    Item { Layout.fillWidth: true; height: 1 }
+
+                    RobotoText
+                    {
+                        height: UISettings.listItemHeight
+                        label: qsTr("Start address") + ":"
+                    }
+                    CustomSpinBox
+                    {
+                        id: startAddrSpin
+                        height: UISettings.listItemHeight
+                        from: 1
+                        to: 512
+                        value: 1
+                    }
+                    RobotoText
+                    {
+                        height: UISettings.listItemHeight
+                        label: qsTr("Gap") + ":"
+                    }
+                    CustomSpinBox
+                    {
+                        id: gapSpin
+                        height: UISettings.listItemHeight
+                        from: 0
+                        to: 511
+                        value: 0
+                    }
+                    GenericButton
+                    {
+                        implicitHeight: UISettings.listItemHeight
+                        enabled: rdmManager.placedCount > 0
+                        label: qsTr("Autopatch")
+                        onClicked: rdmManager.autoPatch(startAddrSpin.value, gapSpin.value)
+                    }
+                }
+
+                // the layout grid: fixtures order defines the addressing
+                // and the position in the 2D view
+                Rectangle
+                {
+                    id: layoutArea
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    color: UISettings.bgStrong
+                    border.width: 1
+                    border.color: UISettings.bgLight
+                    clip: true
+
+                    Flickable
+                    {
+                        id: layoutFlick
+                        anchors.fill: parent
+                        anchors.margins: 2
+                        contentWidth: layoutGrid.width
+                        contentHeight: layoutGrid.height
+                        boundsBehavior: Flickable.StopAtBounds
+
+                        ScrollBar.vertical: ScrollBar { visible: layoutFlick.contentHeight > layoutFlick.height }
+                        ScrollBar.horizontal: ScrollBar { visible: layoutFlick.contentWidth > layoutFlick.width }
+
+                        Grid
+                        {
+                            id: layoutGrid
+                            columns: rdmManager.gridWidth
+
+                            Repeater
+                            {
+                                model: rdmManager.gridList
+
+                                delegate:
+                                    Rectangle
+                                    {
+                                        width: UISettings.bigItemHeight * 1.5
+                                        height: UISettings.bigItemHeight * 0.85
+                                        color: cellDrop.containsDrag ? Qt.rgba(0.62, 1, 0.32, 0.25) : "transparent"
+                                        border.width: 1
+                                        border.color: cellDrop.containsDrag ? UISettings.activeDropArea : UISettings.bgLight
+
+                                        Text
+                                        {
+                                            visible: !occupied
+                                            anchors.centerIn: parent
+                                            font.family: UISettings.robotoFontName
+                                            font.pixelSize: UISettings.textSizeDefault
+                                            color: UISettings.bgLight
+                                            text: cellIndex + 1
+                                        }
+
+                                        Loader
+                                        {
+                                            anchors.fill: parent
+                                            active: occupied
+                                            sourceComponent:
+                                                RDMFixtureBox
+                                                {
+                                                    width: parent.width
+                                                    height: parent.height
+                                                    compact: true
+                                                    inGrid: true
+                                                    dragController: dragGhost
+                                                    fxUID: UID
+                                                    fxManufacturer: manufacturer
+                                                    fxModel: modelName
+                                                    fxPersonality: personality
+                                                    fxIP: ipAddress
+                                                    fxDefMode: defMode
+                                                    fxAddress: dmxAddress
+                                                    fxChannels: dmxChannels
+                                                    fxUniverse: universe
+                                                    fxHasDef: hasDefinition
+                                                }
+                                        }
+
+                                        DropArea
+                                        {
+                                            id: cellDrop
+                                            anchors.fill: parent
+                                            keys: [ "rdmFixture" ]
+                                            onDropped: (drop) => rdmManager.placeFixture(dragGhost.fxUID, cellIndex)
+                                        }
+                                    }
                             }
                         }
-                        rdmManager.executeOperations()
                     }
                 }
             }

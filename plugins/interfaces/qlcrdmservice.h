@@ -23,6 +23,7 @@
 #include <QtPlugin>
 #include <QMetaType>
 #include <QObject>
+#include <QStringList>
 #include <QString>
 #include <QList>
 
@@ -53,6 +54,10 @@ struct QLCRDMDevice
     quint32 pluginLine;
     quint16 address;
     quint16 channels;
+    QString personality;        //! description of the active DMX personality
+    quint8 personalityIndex;    //! index of the active DMX personality
+    quint8 personalityCount;    //! number of DMX personalities
+    QString ipAddress;          //! network address of the device (Art-Net only), empty if unknown
 };
 
 /**
@@ -118,6 +123,26 @@ public:
 
     /** Run a discovery on all the RDM capable lines */
     virtual void discoverAll() = 0;
+
+    /** Set the DMX start address of a discovered device. The address is
+     *  only sent to the device by executeOperations() */
+    virtual void requestDMXAddress(const QString &uid, int address) = 0;
+
+    /** Assign the DMX start addresses to the given devices, in the given order: the first
+     *  one gets startAddress, the next ones follow with gap free channels in between.
+     *  Addresses are assigned per universe, since every device belongs to one.
+     *  The addresses are only sent to the devices by executeOperations().
+     *  deviceFound is emitted for every device that has been given a new address. */
+    virtual void autoPatch(const QStringList &orderedUIDs, int startAddress, int gap) = 0;
+
+    /** Discard the pending operations (e.g. addresses not sent yet) of the given
+     *  devices, restoring their original values. deviceFound is emitted for every
+     *  device that has been restored */
+    virtual void cancelOperations(const QStringList &uids) = 0;
+
+    /** Send to the devices all the pending operations (see requestDMXAddress).
+     *  deviceFound is emitted for every device that has been updated */
+    virtual void executeOperations() = 0;
 
     /** Download all the information of a previously discovered device */
     virtual void queryDevice(const QString &uid) = 0;
