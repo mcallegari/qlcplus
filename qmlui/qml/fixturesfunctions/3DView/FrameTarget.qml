@@ -28,7 +28,7 @@ RenderTarget
             id: colorAttachment
             width: 1024
             height: 1024
-            format: Texture.RGBA32F
+            format: Texture.RGBA16F
             generateMipMaps: false
             magnificationFilter: Texture.Linear
             minificationFilter: Texture.Linear
