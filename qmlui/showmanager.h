@@ -488,6 +488,24 @@ public:
      *  (if not overlapping), checking the resulting span as a whole */
     Q_INVOKABLE bool setShowItemStartTimeAndDuration(ShowFunction *sf, int startTime, int duration);
 
+    /** Resize two Show items sharing a boundary on the same Track by moving that
+     *  boundary: $leftSf keeps its own start time and gets $leftDuration, while
+     *  $rightSf keeps its own end time and gets $rightStartTime/$rightDuration.
+     *  Used when dragging a resize handle with both items selected, so the pair
+     *  is resized together instead of just the one being dragged.
+     *  Both items must be on the same Track and remain adjacent (no gap, no
+     *  overlap) after the resize, and neither may overlap any other item on
+     *  the Track: if any of that doesn't hold, nothing changes and false is
+     *  returned. Returns true if both items have been resized */
+    Q_INVOKABLE bool resizeAdjacentShowItems(ShowFunction *leftSf, int leftDuration,
+                                             ShowFunction *rightSf, int rightStartTime, int rightDuration);
+
+    /** Returns the QML item of the Show item sharing a boundary with $sf on its
+     *  own Track: the one ending exactly where $sf starts when $previous is
+     *  true, the one starting exactly where $sf ends otherwise.
+     *  Returns nullptr when $sf has no such neighbour */
+    Q_INVOKABLE QQuickItem *adjacentShowItemView(ShowFunction *sf, bool previous) const;
+
     /** Insert a time segment in a ShowFunction item, applying type-specific rules */
     Q_INVOKABLE bool insertShowItemTime(ShowFunction *sf, int length);
 
