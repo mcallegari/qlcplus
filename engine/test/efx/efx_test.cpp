@@ -3412,4 +3412,408 @@ void EFX_Test::adjustIntensity()
     e->postRun(m_doc->masterTimer(), ua);
 }
 
+EFX *EFX_Test::createEFX(int fixtures)
+{
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC250+");
+    QLCFixtureMode* mode = def->mode("Mode 4");
+
+    EFX* e = new EFX(m_doc);
+    m_doc->addFunction(e);
+
+    for (int i = 0; i < fixtures; i++)
+    {
+        Fixture* fxi = new Fixture(m_doc);
+        fxi->setFixtureDefinition(def, mode);
+        fxi->setAddress(i * 16);
+        fxi->setUniverse(0);
+        m_doc->addFixture(fxi);
+
+        EFXFixture* ef = new EFXFixture(e);
+        ef->setHead(GroupHead(fxi->id(), 0));
+        e->addFixture(ef);
+    }
+
+    return e;
+}
+
+void EFX_Test::writeTick(EFX *efx, MasterTimerStub *timer, bool beat)
+{
+    timer->m_beatRequested = beat;
+    efx->write(timer, m_doc->inputOutputMap()->universes());
+    timer->m_beatRequested = false;
+}
+
+void EFX_Test::timeLoopUnchanged()
+{
+    MasterTimerStub timer(m_doc, m_doc->inputOutputMap()->universes());
+    EFX *e = createEFX(1);
+    e->setDuration(1000);
+    EFXFixture *ef = e->m_fixtures.at(0);
+
+    // a Time tempo EFX runs on ms and restarts its loop from 0 as before
+    e->preRun(&timer);
+    for (int i = 1; i <= 50; i++)
+    {
+        writeTick(e, &timer, (i % 25) == 0);
+        QCOMPARE(ef->m_elapsed, uint(i * MasterTimer::tick()));
+    }
+    writeTick(e, &timer);
+    QCOMPARE(ef->m_elapsed, uint(0));
+    e->postRun(&timer, m_doc->inputOutputMap()->universes());
+}
+
+void EFX_Test::beatsTempoSwitch()
+{
+    EFX *e = createEFX(1);
+    m_doc->masterTimer()->requestBpmNumber(120);
+    e->setFadeInSpeed(500);
+    e->setDuration(2500);
+
+    // at 120 BPM, 1 beat is 500ms. Speeds are 1/1000 beats in Beats tempo
+    e->setTempoType(Function::Beats);
+    QCOMPARE(e->fadeInSpeed(), uint(1000));
+    QCOMPARE(e->duration(), uint(5000));
+    QCOMPARE(e->loopDuration(), uint(4000));
+
+    e->setTempoType(Function::Time);
+    QCOMPARE(e->fadeInSpeed(), uint(500));
+    QCOMPARE(e->duration(), uint(2500));
+}
+
+void EFX_Test::beatsSaveLoad()
+{
+    EFX *e = createEFX(1);
+    e->setTempoType(Function::Beats);
+    e->setDuration(3500);
+
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+    QVERIFY(e->saveXML(&xmlWriter));
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    // the speeds are loaded as they are, not converted again
+    EFX e2(m_doc);
+    QVERIFY(e2.loadXML(xmlReader));
+    QCOMPARE(e2.tempoType(), Function::Beats);
+    QCOMPARE(e2.duration(), uint(3500));
+}
+
+void EFX_Test::beatsFreeRunning()
+{
+    MasterTimerStub timer(m_doc, m_doc->inputOutputMap()->universes());
+    timer.requestBpmNumber(128);
+
+    EFX *e = createEFX(1);
+    e->setTempoType(Function::Beats);
+    e->setDuration(4000); // 4 beats
+    EFXFixture *ef = e->m_fixtures.at(0);
+
+    // no beat source: the EFX runs on the BPM alone, 20ms at 128 BPM
+    // being 0.04267 beats, without losing anything at the loop ends
+    e->preRun(&timer);
+    for (int i = 1; i <= 1000; i++)
+    {
+        writeTick(e, &timer);
+
+        double beats = i * MasterTimer::tick() * 128.0 / 60000.0;
+        uint units = uint(beats * 1000.0);
+        QVERIFY(ef->m_elapsed > 0 && ef->m_elapsed <= 4000);
+        // allow for a 1/1000 beat rounding difference
+        uint diff = (ef->m_elapsed + 4000 - units % 4000) % 4000;
+        QVERIFY(diff <= 1 || diff == 3999);
+    }
+
+    // 20 seconds = 42.667 beats: 2.667 beats into the 11th loop
+    QVERIFY(qAbs(int(ef->m_elapsed) - 2667) <= 1);
+    e->postRun(&timer, m_doc->inputOutputMap()->universes());
+}
+
+void EFX_Test::beatsBpmChange()
+{
+    MasterTimerStub timer(m_doc, m_doc->inputOutputMap()->universes());
+    timer.requestBpmNumber(120);
+
+    EFX *e = createEFX(1);
+    e->setTempoType(Function::Beats);
+    e->setDuration(8000);
+    EFXFixture *ef = e->m_fixtures.at(0);
+
+    e->preRun(&timer);
+    for (int i = 0; i < 50; i++)
+        writeTick(e, &timer);
+    QCOMPARE(ef->m_elapsed, uint(2000));
+
+    // the next ticks follow the new BPM straight away, without any jump
+    timer.requestBpmNumber(60);
+    writeTick(e, &timer);
+    QCOMPARE(ef->m_elapsed, uint(2020));
+    for (int i = 0; i < 49; i++)
+        writeTick(e, &timer);
+    QCOMPARE(ef->m_elapsed, uint(3000));
+
+    timer.requestBpmNumber(240);
+    writeTick(e, &timer);
+    QCOMPARE(ef->m_elapsed, uint(3080));
+    e->postRun(&timer, m_doc->inputOutputMap()->universes());
+}
+
+void EFX_Test::beatsLockOntoBeats()
+{
+    MasterTimerStub timer(m_doc, m_doc->inputOutputMap()->universes());
+    timer.setBeatSourceType(MasterTimer::External);
+    timer.requestBpmNumber(120);
+
+    EFX *e = createEFX(1);
+    e->setTempoType(Function::Beats);
+    e->setDuration(4000);
+
+    // started 0.4 beats before a beat: 25 ticks per beat at 120 BPM
+    e->preRun(&timer);
+    double previous = 0;
+    for (int i = 1; i <= 250; i++)
+    {
+        bool beat = (i % 25) == 10;
+        writeTick(e, &timer, beat);
+
+        // the EFX eases onto the beats: always moving forward, never
+        // slower than half or faster than 1.5 times the tempo
+        double step = e->m_beatPosition - previous;
+        QVERIFY(step >= 0.5 * 0.04 - 1e-9 && step <= 1.5 * 0.04 + 1e-9);
+        previous = e->m_beatPosition;
+
+        // from the second beat on, the EFX whole beats are on the beats
+        if (beat && i > 25)
+            QVERIFY(qAbs(e->m_beatPosition - qRound(e->m_beatPosition)) < 0.001);
+    }
+
+    // started 0.8 beats before a beat
+    e->postRun(&timer, m_doc->inputOutputMap()->universes());
+    e->preRun(&timer);
+    for (int i = 1; i <= 100; i++)
+    {
+        bool beat = (i % 25) == 20;
+        writeTick(e, &timer, beat);
+        if (beat && i > 25)
+            QVERIFY(qAbs(e->m_beatPosition - qRound(e->m_beatPosition)) < 0.001);
+    }
+    e->postRun(&timer, m_doc->inputOutputMap()->universes());
+}
+
+void EFX_Test::beatsFollowBeatsTempo()
+{
+    MasterTimerStub timer(m_doc, m_doc->inputOutputMap()->universes());
+    timer.setBeatSourceType(MasterTimer::External);
+    timer.requestBpmNumber(120);
+
+    EFX *e = createEFX(1);
+    e->setTempoType(Function::Beats);
+    e->setDuration(4000);
+
+    // the beats come at 100 BPM before the BPM detection catches up:
+    // the EFX keeps on the beats count, not the BPM
+    e->preRun(&timer);
+    int beats = 0;
+    for (int i = 1; i <= 300; i++)
+    {
+        bool beat = (i % 30) == 0;
+        writeTick(e, &timer, beat);
+        if (beat)
+        {
+            beats++;
+            QVERIFY(qAbs(e->m_beatPosition - beats) <= 0.21);
+        }
+    }
+    e->postRun(&timer, m_doc->inputOutputMap()->universes());
+}
+
+void EFX_Test::beatsPauseResume()
+{
+    MasterTimerStub timer(m_doc, m_doc->inputOutputMap()->universes());
+    timer.setBeatSourceType(MasterTimer::External);
+    timer.requestBpmNumber(120);
+
+    EFX *e = createEFX(1);
+    e->setTempoType(Function::Beats);
+    e->setDuration(4000);
+    EFXFixture *ef = e->m_fixtures.at(0);
+
+    e->preRun(&timer);
+    for (int i = 1; i <= 50; i++)
+        writeTick(e, &timer, (i % 25) == 0);
+    QCOMPARE(ef->m_elapsed, uint(2000));
+
+    // paused, with the beats going on: nothing moves
+    e->setPause(true);
+    for (int i = 51; i <= 80; i++)
+        writeTick(e, &timer, (i % 25) == 0);
+    QCOMPARE(ef->m_elapsed, uint(2000));
+    QCOMPARE(e->m_beatPosition, 2.0);
+
+    // resumed in the middle of a beat: it carries on from where it was
+    // and locks onto the beats again
+    e->setPause(false);
+    writeTick(e, &timer);
+    QCOMPARE(ef->m_elapsed, uint(2040));
+    for (int i = 82; i <= 200; i++)
+    {
+        bool beat = (i % 25) == 0;
+        writeTick(e, &timer, beat);
+        if (beat && i > 110)
+            QVERIFY(qAbs(e->m_beatPosition - qRound(e->m_beatPosition)) < 0.001);
+    }
+    e->postRun(&timer, m_doc->inputOutputMap()->universes());
+
+    // stopped and started again: from the start
+    e->preRun(&timer);
+    QCOMPARE(e->m_beatPosition, 0.0);
+    QCOMPARE(ef->m_elapsed, uint(0));
+    writeTick(e, &timer);
+    QCOMPARE(ef->m_elapsed, uint(40));
+    e->postRun(&timer, m_doc->inputOutputMap()->universes());
+}
+
+void EFX_Test::beatsSingleShot()
+{
+    MasterTimerStub timer(m_doc, m_doc->inputOutputMap()->universes());
+    timer.requestBpmNumber(120);
+
+    EFX *e = createEFX(1);
+    e->setTempoType(Function::Beats);
+    e->setDuration(2000);
+    e->setRunOrder(Function::SingleShot);
+    EFXFixture *ef = e->m_fixtures.at(0);
+
+    e->start(&timer, FunctionParent::master());
+    e->preRun(&timer);
+
+    // 2 beats at 120 BPM: 50 ticks
+    for (int i = 0; i < 50; i++)
+        writeTick(e, &timer);
+    QVERIFY(ef->isDone() == false);
+    QVERIFY(e->stopped() == false);
+
+    writeTick(e, &timer);
+    QVERIFY(ef->isDone() == true);
+    writeTick(e, &timer);
+    QVERIFY(e->stopped() == true);
+    e->postRun(&timer, m_doc->inputOutputMap()->universes());
+}
+
+void EFX_Test::beatsPingPong()
+{
+    MasterTimerStub timer(m_doc, m_doc->inputOutputMap()->universes());
+    timer.requestBpmNumber(90);
+
+    EFX *e = createEFX(1);
+    e->setTempoType(Function::Beats);
+    e->setDuration(1000);
+    e->setRunOrder(Function::PingPong);
+    EFXFixture *ef = e->m_fixtures.at(0);
+
+    // 1 beat at 90 BPM is 33.33 ticks: the direction changes every beat
+    e->preRun(&timer);
+    for (int i = 1; i <= 200; i++)
+    {
+        writeTick(e, &timer);
+        double beats = i * MasterTimer::tick() * 90.0 / 60000.0;
+        int loops = int((uint(beats * 1000.0) - 1) / 1000);
+        QCOMPARE(ef->m_runTimeDirection, (loops % 2) ? Function::Backward : Function::Forward);
+    }
+    e->postRun(&timer, m_doc->inputOutputMap()->universes());
+}
+
+void EFX_Test::beatsSerialOffset()
+{
+    MasterTimerStub timer(m_doc, m_doc->inputOutputMap()->universes());
+    timer.requestBpmNumber(120);
+
+    EFX *e = createEFX(3);
+    e->setTempoType(Function::Beats);
+    e->setDuration(4000);
+    e->setPropagationMode(EFX::Serial);
+
+    // with 3 fixtures, each one starts 1 beat after the previous one
+    e->preRun(&timer);
+    QCOMPARE(e->m_fixtures.at(1)->timeOffset(), uint(1000));
+    QCOMPARE(e->m_fixtures.at(2)->timeOffset(), uint(2000));
+
+    for (int i = 1; i <= 100; i++)
+    {
+        writeTick(e, &timer);
+        QCOMPARE(e->m_fixtures.at(0)->m_started, true);
+        QCOMPARE(e->m_fixtures.at(1)->m_started, i >= 25);
+        QCOMPARE(e->m_fixtures.at(2)->m_started, i >= 50);
+    }
+    e->postRun(&timer, m_doc->inputOutputMap()->universes());
+}
+
+void EFX_Test::beatsFadeIn()
+{
+    MasterTimerStub timer(m_doc, m_doc->inputOutputMap()->universes());
+    timer.requestBpmNumber(60);
+
+    EFX *e = createEFX(1);
+    e->setTempoType(Function::Beats);
+    e->setFadeInSpeed(1000);
+    e->setDuration(5000);
+    QCOMPARE(e->loopDuration(), uint(4000));
+
+    // the fade in lasts 1 beat, 1 second at 60 BPM, not 1000 ms of
+    // "beats" whatever the tempo
+    e->start(&timer, FunctionParent::master());
+    e->preRun(&timer);
+    for (int i = 1; i <= 25; i++)
+        writeTick(e, &timer);
+    QCOMPARE(e->tempoElapsed(), quint32(500));
+
+    float x = 1, y = 1;
+    e->rotateAndScale(&x, &y);
+    // halfway through the fade in: half the width and height
+    QVERIFY(qAbs(x - (127 + 127 * 0.5)) < 1.0);
+
+    for (int i = 1; i <= 25; i++)
+        writeTick(e, &timer);
+    x = 1; y = 1;
+    e->rotateAndScale(&x, &y);
+    QVERIFY(qAbs(x - (127 + 127)) < 1.0);
+
+    e->stop(FunctionParent::master());
+    e->postRun(&timer, m_doc->inputOutputMap()->universes());
+}
+
+void EFX_Test::beatsChaserFadeOverride()
+{
+    MasterTimerStub timer(m_doc, m_doc->inputOutputMap()->universes());
+    m_doc->masterTimer()->requestBpmNumber(120);
+
+    // a Beats tempo Chaser hands a Time tempo EFX a fade in of 1 beat
+    EFX *e = createEFX(1);
+    e->setDuration(3000);
+    e->start(&timer, FunctionParent::master(), 0, 1000, Function::defaultSpeed(),
+             Function::defaultSpeed(), Function::Beats);
+    QCOMPARE(e->loopDuration(), uint(2500));
+    e->stop(FunctionParent::master());
+
+    // and a Time tempo Chaser hands a Beats tempo EFX a fade in of 1 second
+    EFX *b = createEFX(1);
+    b->setTempoType(Function::Beats);
+    b->setDuration(6000);
+    b->start(&timer, FunctionParent::master(), 0, 1000, Function::defaultSpeed(),
+             Function::defaultSpeed(), Function::Time);
+    QCOMPARE(b->loopDuration(), uint(4000));
+    b->stop(FunctionParent::master());
+
+    // with the same tempo, the override is taken as it is
+    b->start(&timer, FunctionParent::master(), 0, 1000, Function::defaultSpeed(),
+             Function::defaultSpeed(), Function::Beats);
+    QCOMPARE(b->loopDuration(), uint(5000));
+    b->stop(FunctionParent::master());
+}
+
 QTEST_APPLESS_MAIN(EFX_Test)
