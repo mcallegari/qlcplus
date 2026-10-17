@@ -594,4 +594,23 @@ void Collection_Test::stopNotOwnChildren()
     QVERIFY(s2->stopped() == true);
 }
 
+void Collection_Test::totalDurationOfParallelMembers()
+{
+    Scene *s1 = new Scene(m_doc);
+    s1->setDuration(300);
+    m_doc->addFunction(s1);
+
+    Scene *s2 = new Scene(m_doc);
+    s2->setDuration(500);
+    m_doc->addFunction(s2);
+
+    Collection *c = new Collection(m_doc);
+    c->addFunction(s1->id());
+    c->addFunction(s2->id());
+    m_doc->addFunction(c);
+
+    // members run in parallel: the longest one is the duration
+    QCOMPARE(c->totalDuration(), quint32(500));
+}
+
 QTEST_APPLESS_MAIN(Collection_Test)
