@@ -1112,6 +1112,11 @@ void Function::resetElapsed()
     m_elapsedBeats = 0;
 }
 
+void Function::setElapsed(quint32 ms)
+{
+    m_elapsed = ms;
+}
+
 void Function::incrementElapsed()
 {
     // Don't wrap around. UINT_MAX is the maximum fade/hold time.

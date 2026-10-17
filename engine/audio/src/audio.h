@@ -168,6 +168,17 @@ public:
 
     /** @reimpl */
     void postRun(MasterTimer* timer, QList<Universe *> universes) override;
+
+    /** Request to move the playback of a running audio to $ms.
+     *  The seek is performed by the MasterTimer thread on the next write() */
+    void requestSeek(quint32 ms);
+
+private:
+    /** Create a new renderer playing from the current decoder position */
+    void createRenderer(uint fadeIn);
+
+    /** Position requested by requestSeek(), -1 when no seek is pending */
+    QAtomicInteger<qint64> m_seekRequest;
 };
 
 /** @} */

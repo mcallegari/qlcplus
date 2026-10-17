@@ -46,6 +46,8 @@ typedef struct
     int capabilities;
 } AudioDeviceInfo;
 
+#include <QAtomicInteger>
+
 class AudioRenderer : public QThread
 {
     Q_OBJECT
@@ -127,9 +129,21 @@ public:
     void stop();
     void setUserStop(bool stop);
 
+    /** Request to continue the playback from $ms. The decoder is moved
+     *  and the buffered audio dropped by the renderer thread itself,
+     *  so the output device is not reopened */
+    void requestSeek(qint64 ms);
+
 protected:
     /** State machine variables */
     bool m_userStop, m_pause, m_isEos;
+
+    /** Drop the audio buffered for the output device. Called after a seek */
+    virtual void flushOutput() { }
+
+private:
+    /** Position requested by requestSeek(), -1 when no seek is pending */
+    QAtomicInteger<qint64> m_seekRequest;
 
 private:
     /** Local copy of the audio function intensity */

@@ -51,6 +51,8 @@
 #include "vclabel.h"
 #include "vcxypad.h"
 #include "vcclock.h"
+#include "vcaudiotimer.h"
+#include "vcpalette.h"
 #include "apputil.h"
 #include "doc.h"
 
@@ -1152,6 +1154,30 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
             {
                 addWidgetToPageMap(frame);
                 frame->show();
+            }
+        }
+        else if (root.name() == KXMLQLCVCPalette)
+        {
+            /* Create a new fixture palette into its parent */
+            VCPalette* palette = new VCPalette(this, m_doc);
+            if (palette->loadXML(root) == false)
+                delete palette;
+            else
+            {
+                addWidgetToPageMap(palette);
+                palette->show();
+            }
+        }
+        else if (root.name() == KXMLQLCVCAudioTimer)
+        {
+            /* Create a new audio timer into its parent */
+            VCAudioTimer* timer = new VCAudioTimer(this, m_doc);
+            if (timer->loadXML(root) == false)
+                delete timer;
+            else
+            {
+                addWidgetToPageMap(timer);
+                timer->show();
             }
         }
         else if (root.name() == KXMLQLCVCLabel)
