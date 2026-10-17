@@ -251,11 +251,10 @@ public:
     /** Return true if the clipboard content comes from a cut operation */
     bool clipboardIsCut() const;
 
-    /** If the clipboard holds a cut, delete the source widgets and
-     *  reset the clipboard. To be called once the widgets have been pasted.
-     *  $targetFrameID is the frame the widgets have been pasted into and
-     *  is never deleted, even if present in the clipboard */
-    void flushClipboardAfterPaste(quint32 targetFrameID = VCWidget::invalidId());
+    /** If the clipboard holds a cut, delete the source widgets listed
+     *  in $pastedIDs and reset the clipboard. To be called once the widgets
+     *  have been pasted. Widgets that could not be pasted are not deleted */
+    void flushClipboardAfterPaste(QVariantList pastedIDs);
 
 signals:
     void clipboardItemsCountChanged();
@@ -294,6 +293,11 @@ public:
     /** Resets and update the lookup maps dedicated to input signals
      *  destined to VC pages */
     void updatePageInputs();
+
+    /** Add the input sources and key sequences of $widget, and of its
+     *  children if it is a frame, to the lookup maps of the page it belongs
+     *  to. To be used when widgets are added after the project has been loaded */
+    void mapWidgetInputs(VCWidget *widget);
 
     Q_INVOKABLE QVariant inputChannelsModel();
     Q_INVOKABLE QVariantList universeListModel() const;

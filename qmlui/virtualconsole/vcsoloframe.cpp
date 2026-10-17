@@ -91,7 +91,8 @@ bool VCSoloFrame::copyFrom(const VCWidget *widget)
     if (frame == nullptr)
         return false;
 
-    // setSoloframeMixing(frame->soloframeMixing()); // TODO
+    setSoloframeMixing(frame->soloframeMixing());
+    setExcludeMonitoredFunctions(frame->excludeMonitoredFunctions());
 
     return VCFrame::copyFrom(widget);
 }
