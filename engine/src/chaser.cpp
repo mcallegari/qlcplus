@@ -612,6 +612,47 @@ QList<quint32> Chaser::components() const
 }
 
 /*****************************************************************************
+ * Tempo conversion
+ *****************************************************************************/
+
+uint Chaser::timeToBeats(uint time, double bpm, double resolution)
+{
+    return speedToBeats(time, bpm, resolution);
+}
+
+uint Chaser::beatsToTime(uint beats, double bpm)
+{
+    return speedToTime(beats, bpm);
+}
+
+void Chaser::convertTempoType(TempoType type, double bpm, double resolution)
+{
+    if (type == tempoType() || bpm <= 0)
+        return;
+
+    // the common speeds
+    Function::convertTempoType(type, bpm, resolution);
+
+    bool toBeats = type == Function::Beats;
+    auto convert = [=](uint value)
+    {
+        return toBeats ? timeToBeats(value, bpm, resolution) : beatsToTime(value, bpm);
+    };
+
+    QList<ChaserStep> stepsList = steps();
+    for (int i = 0; i < stepsList.count(); i++)
+    {
+        ChaserStep step = stepsList.at(i);
+        step.fadeIn = convert(step.fadeIn);
+        step.hold = convert(step.hold);
+        step.fadeOut = convert(step.fadeOut);
+        step.duration = step.hold == Function::infiniteSpeed() ? Function::infiniteSpeed()
+                                                               : step.fadeIn + step.hold;
+        replaceStep(step, i);
+    }
+}
+
+/*****************************************************************************
  * Running
  *****************************************************************************/
 

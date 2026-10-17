@@ -22,6 +22,7 @@
 #define FUNCTION_H
 
 #include <QWaitCondition>
+#include <QSharedPointer>
 #include <QObject>
 #include <QString>
 #include <QMutex>
@@ -35,6 +36,7 @@
 class QXmlStreamReader;
 
 class GenericFader;
+class TempoMapClock;
 class MasterTimer;
 class Function;
 class Doc;
@@ -452,6 +454,24 @@ public:
     /** Convert a beat value to a time value in milliseconds */
     static uint beatsToTime(uint beats, int beatDuration);
 
+    /** Convert the speed $time (ms) to beats (1000 units per beat) at $bpm,
+     *  rounded to the nearest multiple of $resolution beats. Zero, infinite
+     *  and default speeds are kept, and any other value is at least
+     *  $resolution beats */
+    static uint speedToBeats(uint time, double bpm, double resolution);
+
+    /** Convert the speed $beats (1000 units per beat) to ms at $bpm.
+     *  Zero, infinite and default speeds are kept */
+    static uint speedToTime(uint beats, double bpm);
+
+    /**
+     * Convert the Function to the $type tempo, converting its fade in, fade
+     * out and duration at $bpm. Converting to beats rounds to multiples of
+     * $resolution beats. Unlike setTempoType(), this doesn't use the global
+     * BPM. Subclasses with more speeds (e.g. Chaser steps) convert them too.
+     */
+    virtual void convertTempoType(TempoType type, double bpm, double resolution);
+
     /** Get the override speed type (done by a Chaser) */
     TempoType overrideTempoType() const;
 
@@ -785,12 +805,23 @@ public:
      * @param overrideFadeOut Override the function's default fade out speed
      * @param overrideDuration Override the function's default duration
      * @param overrideTempoType Override the tempo type of the function
+     * @param tempoClock A Show tempo map to run the function beats on, instead
+     *                   of the MasterTimer beats (see tempoMapClock())
      */
     void start(MasterTimer* timer, FunctionParent parent, quint32 startTime = 0,
                uint overrideFadeIn = defaultSpeed(),
                uint overrideFadeOut = defaultSpeed(),
                uint overrideDuration = defaultSpeed(),
-               TempoType overrideTempoType = Original);
+               TempoType overrideTempoType = Original,
+               const TempoMapClock *tempoClock = NULL);
+
+    /**
+     * Get the tempo map clock the function was started with, if any.
+     * A Show with tempo sections starts its Beats tempo Functions with a
+     * copy of its tempo map, so that they can follow the section tempos
+     * and beat grids instead of the global BPM.
+     */
+    QSharedPointer<const TempoMapClock> tempoMapClock() const;
 
     /**
      * Pause a running Function. Subclasses should check the paused state
@@ -856,6 +887,8 @@ private:
 
     QList<FunctionParent> m_sources;
     QMutex m_sourcesMutex;
+
+    QSharedPointer<const TempoMapClock> m_tempoMapClock;
 
     QMutex m_stopMutex;
     QWaitCondition m_functionStopped;

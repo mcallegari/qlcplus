@@ -47,8 +47,46 @@ Rectangle
     property int showID: showManager.currentShowID
     property int selectedTrackIndex: -1
 
+    // the tempo sections lane, below the ruler of a Time based Show
+    property bool tempoLaneVisible: showManager.isEditing && showManager.timeDivision === Show.Time
+                                    && tempoLaneButton.checked
+    property int laneHeight: tempoLaneVisible ? headerHeight : 0
+
     onShowIDChanged: renderAndCenter()
-    Component.onCompleted: renderAndCenter()
+    Component.onCompleted:
+    {
+        renderAndCenter()
+        syncSelectedTrackIndex()
+    }
+
+    // the Track selection also changes without a click on a Track (e.g. when
+    // selecting items or deleting the selected Track), and it outlives this
+    // view when switching to another context and back
+    function syncSelectedTrackIndex()
+    {
+        var tracks = showManager.tracks
+        selectedTrackIndex = -1
+        for (var i = 0; tracks && i < tracks.length; i++)
+        {
+            if (tracks[i].id === showManager.selectedTrackId)
+            {
+                selectedTrackIndex = i
+                break
+            }
+        }
+    }
+
+    Connections
+    {
+        target: showManager
+        function onSelectedTrackIdChanged() { syncSelectedTrackIndex() }
+        // a Show with tempo sections always shows them
+        function onTempoSectionsChanged()
+        {
+            if (showManager.tempoSections.length > 0)
+                tempoLaneButton.checked = true
+        }
+    }
 
     Connections
     {
@@ -220,6 +258,58 @@ Rectangle
 
             IconButton
             {
+                id: snapItemsButton
+                z: 2
+                width: parent.height - 6
+                height: width
+                faSource: FontAwesome.fa_magnet
+                faColor: "lightsteelblue"
+                tooltip: qsTr("Snap to nearby items (hold Ctrl while dragging to suspend)")
+                checkable: true
+                checked: showManager.snapToItems
+                onToggled: showManager.snapToItems = checked
+            }
+
+            IconButton
+            {
+                id: tempoLaneButton
+                z: 2
+                width: parent.height - 6
+                height: width
+                faSource: FontAwesome.fa_drum
+                faColor: UISettings.fgMain
+                tooltip: qsTr("Show the tempo sections")
+                checkable: true
+                checked: showManager.tempoSections.length > 0
+                enabled: showManager.isEditing && showManager.timeDivision === Show.Time
+            }
+
+            IconButton
+            {
+                id: tempoConvertButton
+                z: 2
+                width: parent.height - 6
+                height: width
+                faSource: FontAwesome.fa_right_left
+                faColor: UISettings.fgMain
+                tooltip: qsTr("Convert Chasers and EFX between Time and Beats tempo, in the selected items, the whole Show or all Shows")
+                enabled: showManager.isEditing
+                onClicked:
+                {
+                    tempoConverter.chaserIds = []
+                    tempoConverter.toBeats = true
+                    tempoConverter.open()
+                }
+
+                PopupChaserTempoConverter
+                {
+                    id: tempoConverter
+                    parent: mainView
+                }
+            }
+
+            IconButton
+            {
                 id: stretchBtn
                 width: parent.height - 6
                 height: width
@@ -260,12 +350,24 @@ Rectangle
 
             IconButton
             {
+                id: cutBtn
+                width: parent.height - 6
+                height: width
+                faSource: FontAwesome.fa_scissors
+                faColor: UISettings.fgMain
+                tooltip: qsTr("Cut the selected items, to move them on paste (Ctrl+X)")
+                counter: showManager.selectedItemsCount
+                onClicked: showManager.cutToClipboard()
+            }
+
+            IconButton
+            {
                 id: copyBtn
                 width: parent.height - 6
                 height: width
                 faSource: FontAwesome.fa_copy
                 faColor: UISettings.fgMain
-                tooltip: qsTr("Copy the selected items in the clipboard")
+                tooltip: qsTr("Copy the selected items in the clipboard (Ctrl+C)")
                 counter: showManager.selectedItemsCount
                 onClicked: showManager.copyToClipboard()
             }
@@ -277,20 +379,25 @@ Rectangle
                 height: width
                 faSource: FontAwesome.fa_paste
                 faColor: UISettings.fgMain
-                tooltip: qsTr("Paste items in the clipboard at cursor position")
+                tooltip: qsTr("Paste items in the clipboard at cursor position (Ctrl+V)")
                 counter: showManager.clipboardItemsCount
-                onClicked:
-                {
-                    if (showManager.pasteFromClipboard() === false)
-                        pasteErrorPopup.open()
-                }
+                onClicked: showManager.pasteFromClipboard()
 
                 CustomPopupDialog
                 {
-                    id: pasteErrorPopup
-                    title: qsTr("Paste error")
+                    id: clipboardErrorPopup
                     standardButtons: Dialog.Ok
-                    message: qsTr("It is not possible to paste the items on the selected track at the current cursor position")
+                }
+
+                Connections
+                {
+                    target: showManager
+                    function onClipboardActionFailed(title, message)
+                    {
+                        clipboardErrorPopup.title = title
+                        clipboardErrorPopup.message = message
+                        clipboardErrorPopup.open()
+                    }
                 }
             }
 
@@ -327,7 +434,7 @@ Rectangle
                 faColor: UISettings.fgMain
                 bgColor: showManager.isPaused ? "green" :
                          (showManager.isPlaying ? "darkorange" : UISettings.bgLight)
-                tooltip: (showManager.isPlaying && !showManager.isPaused) ? qsTr("Pause") : qsTr("Play or resume")
+                tooltip: (showManager.isPlaying && !showManager.isPaused) ? qsTr("Pause (Space)") : qsTr("Play or resume (Space)")
                 checkable: false
                 enabled: showManager.isEditing
                 onClicked: showManager.playShow()
@@ -340,7 +447,7 @@ Rectangle
                 faSource: FontAwesome.fa_stop
                 faColor: UISettings.fgMain
                 bgColor: showManager.isPlaying ? "red" : UISettings.bgLight
-                tooltip: qsTr("Stop or rewind")
+                tooltip: qsTr("Stop or rewind (Esc)")
                 checkable: false
                 enabled: showManager.isEditing
                 onClicked: showManager.stopShow()
@@ -562,15 +669,164 @@ Rectangle
         }
     }
 
+    // the tempo lane buttons, left of the lane
+    Rectangle
+    {
+        y: topBar.height + headerHeight
+        z: 5
+        width: trackWidth + verticalDivider.width
+        height: laneHeight
+        visible: tempoLaneVisible
+        color: UISettings.bgStrong
+
+        property bool sectionSelected: tempoLane.selectedIndex >= 0
+
+        Row
+        {
+            x: 2
+            height: parent.height
+            spacing: 2
+
+            IconButton
+            {
+                width: parent.height - 2
+                height: width
+                anchors.verticalCenter: parent.verticalCenter
+                faSource: FontAwesome.fa_plus
+                faColor: "limegreen"
+                tooltip: qsTr("Add a tempo section at the cursor")
+                onClicked: tempoLane.addSectionAt(showManager.currentTime)
+            }
+
+            IconButton
+            {
+                width: parent.height - 2
+                height: width
+                anchors.verticalCenter: parent.verticalCenter
+                faSource: FontAwesome.fa_music
+                faColor: UISettings.fgMain
+                tooltip: qsTr("Add tempo sections from the selected audio items")
+                onClicked: tempoLane.addSectionsFromSelection()
+            }
+
+            IconButton
+            {
+                width: parent.height - 2
+                height: width
+                anchors.verticalCenter: parent.verticalCenter
+                faSource: FontAwesome.fa_pen
+                faColor: UISettings.fgMain
+                tooltip: qsTr("Edit the selected tempo section")
+                enabled: parent.parent.sectionSelected
+                onClicked: tempoLane.openEditor(tempoLane.selectedIndex)
+            }
+
+            IconButton
+            {
+                width: parent.height - 2
+                height: width
+                anchors.verticalCenter: parent.verticalCenter
+                faSource: FontAwesome.fa_code_fork
+                faColor: UISettings.fgMain
+                tooltip: qsTr("Split the selected tempo section at the cursor")
+                enabled: parent.parent.sectionSelected && tempoLane.cursorInSelection
+                onClicked: showManager.splitTempoSection(tempoLane.selectedIndex, showManager.currentTime)
+            }
+
+            IconButton
+            {
+                width: parent.height - 2
+                height: width
+                anchors.verticalCenter: parent.verticalCenter
+                faSource: FontAwesome.fa_trash_can
+                faColor: "crimson"
+                tooltip: qsTr("Delete the selected tempo section\nShift+click: delete all the tempo sections")
+                // enabled without a selection too, to delete all the sections
+                enabled: showManager.tempoSections.length > 0
+                onClicked:
+                {
+                    if (parent.parent.sectionSelected === false)
+                        return
+                    showManager.removeTempoSection(tempoLane.selectedIndex)
+                    tempoLane.selectedIndex = -1
+                }
+
+                // takes Shift+click only, so the button click (deleting the
+                // selected section only) doesn't happen. Other presses are
+                // declined and reach the button
+                MouseArea
+                {
+                    anchors.fill: parent
+                    onPressed: (mouse) => mouse.accepted = (mouse.modifiers & Qt.ShiftModifier) ? true : false
+                    onClicked: deleteAllTempoPopup.open()
+                }
+
+                CustomPopupDialog
+                {
+                    id: deleteAllTempoPopup
+                    title: qsTr("Delete all tempo sections")
+                    message: qsTr("Are you sure you want to delete all tempo sections?")
+                    standardButtons: Dialog.Yes | Dialog.No
+
+                    function deleteAll()
+                    {
+                        showManager.removeAllTempoSections()
+                        tempoLane.selectedIndex = -1
+                    }
+
+                    // like beatAlignWarningPopup: buttons emit clicked(role),
+                    // the Enter key emits accepted()
+                    onClicked: (role) =>
+                    {
+                        if (role === Dialog.Yes)
+                            deleteAll()
+                        close()
+                    }
+                    onAccepted: deleteAll()
+                }
+            }
+        }
+    }
+
+    // the tempo lane can be flicked horizontally, together with the timeline
+    Flickable
+    {
+        id: tempoLaneFlickable
+        x: timelineHeader.x
+        y: topBar.height + headerHeight
+        // below the timeline header, which draws the cursor across the lane
+        z: 3.5
+        width: timelineHeader.width
+        height: laneHeight
+        visible: tempoLaneVisible
+        clip: true
+
+        boundsBehavior: Flickable.StopAtBounds
+        flickableDirection: Flickable.HorizontalFlick
+        interactive: false
+
+        contentWidth: timelineHeader.contentWidth
+        contentX: xViewOffset
+
+        TempoLane
+        {
+            id: tempoLane
+            width: tempoLaneFlickable.contentWidth
+            height: tempoLaneFlickable.height
+            visibleX: xViewOffset
+            visibleWidth: tempoLaneFlickable.width
+        }
+    }
+
     // the main flickable area containing the tracks list and the Show items
     // this can be flicked only vertically
     Flickable
     {
         id: showContents
-        y: topBar.height + headerHeight
+        y: topBar.height + headerHeight + laneHeight
         z: 3 // below timelineHeader
         width: parent.width - rightPanel.width
-        height: showMgrContainer.height - topBar.height - headerHeight - (bottomPanel.visible ? bottomPanel.height : 0)
+        height: showMgrContainer.height - topBar.height - headerHeight - laneHeight - (bottomPanel.visible ? bottomPanel.height : 0)
         clip: true
 
         boundsBehavior: Flickable.StopAtBounds
@@ -608,6 +864,7 @@ Rectangle
                             isSelected: showMgrContainer.selectedTrackIndex === index ? true : false
 
                             onTrackSelected: showMgrContainer.selectedTrackIndex = index
+                            onTrackDeselected: showMgrContainer.selectedTrackIndex = -1
                         }
                 }
             }
@@ -644,13 +901,220 @@ Rectangle
 
             onContentXChanged: xViewOffset = contentX
 
+            /* Clicking on the timeline background moves the cursor and clears
+               the items selection, while dragging flicks the timeline.
+               In box selection mode, or while holding Ctrl, dragging draws
+               a box instead, selecting the items lying entirely within it.
+               Holding Shift as well extends the current selection.
+               The box selection mode lasts for a single box, or until a
+               click that doesn't draw one */
             MouseArea
             {
+                id: timelineMouseArea
                 anchors.fill: parent
+                cursorShape: showManager.boxSelectMode ? Qt.CrossCursor : Qt.ArrowCursor
+
+                // box corners, in content coordinates
+                property real boxStartX: 0
+                property real boxStartY: 0
+                property real boxEndX: 0
+                property real boxEndY: 0
+                // true from the press until the release of a box selection
+                property bool boxPressed: false
+                // true once the mouse has moved far enough to draw a box
+                property bool boxActive: false
+                // the mouse X position relative to the visible timeline
+                property real viewMouseX: 0
+                // the clicked() signal that follows a box selection release
+                property bool swallowClick: false
+
+                readonly property real edgeWidth: UISettings.bigItemHeight * 0.6
+
+                function updateBoxEnd(mouseX, mouseY)
+                {
+                    viewMouseX = mouseX - itemsArea.contentX
+                    boxEndX = Math.max(0, Math.min(mouseX, itemsArea.contentWidth))
+                    boxEndY = Math.max(0, Math.min(mouseY, itemsArea.contentHeight))
+                }
+
+                /* Scrolling speed in pixels per second. It grows as the mouse
+                   gets closer to, or goes past, the visible timeline edges,
+                   up to half of the visible timeline per second */
+                function edgeScrollSpeed()
+                {
+                    var visibleWidth = timelineHeader.width
+                    if (!boxActive || visibleWidth <= edgeWidth * 2)
+                        return 0
+
+                    var maxSpeed = visibleWidth / 2
+                    if (viewMouseX < edgeWidth)
+                        return -maxSpeed * Math.min(1.0, (edgeWidth - viewMouseX) / edgeWidth)
+                    if (viewMouseX > visibleWidth - edgeWidth)
+                        return maxSpeed * Math.min(1.0, (viewMouseX - visibleWidth + edgeWidth) / edgeWidth)
+                    return 0
+                }
+
+                function endBoxSelection()
+                {
+                    boxPressed = false
+                    boxActive = false
+                    preventStealing = false
+                }
+
+                onPressed: (mouse) =>
+                {
+                    swallowClick = false
+                    if (!showManager.boxSelectMode && !(mouse.modifiers & Qt.ControlModifier))
+                        return
+
+                    // don't let the Flickables steal the drag
+                    preventStealing = true
+                    boxPressed = true
+                    boxActive = false
+                    boxStartX = mouse.x
+                    boxStartY = mouse.y
+                    updateBoxEnd(mouse.x, mouse.y)
+                }
+
+                onPositionChanged: (mouse) =>
+                {
+                    if (!boxPressed)
+                        return
+
+                    if (!boxActive &&
+                        Math.abs(mouse.x - boxStartX) < Qt.styleHints.startDragDistance &&
+                        Math.abs(mouse.y - boxStartY) < Qt.styleHints.startDragDistance)
+                        return
+
+                    boxActive = true
+                    updateBoxEnd(mouse.x, mouse.y)
+                }
+
+                onReleased: (mouse) =>
+                {
+                    if (!boxPressed)
+                        return
+
+                    if (boxActive)
+                    {
+                        updateBoxEnd(mouse.x, mouse.y)
+                        showManager.selectItemsInRect(Qt.rect(Math.min(boxStartX, boxEndX), Math.min(boxStartY, boxEndY),
+                                                              Math.abs(boxEndX - boxStartX), Math.abs(boxEndY - boxStartY)),
+                                                      (mouse.modifiers & Qt.ShiftModifier) ? true : false)
+                        showManager.boxSelectMode = false
+                        swallowClick = true
+                    }
+                    else if (showManager.boxSelectMode)
+                    {
+                        // a click without a box just leaves the mode
+                        showManager.boxSelectMode = false
+                        swallowClick = true
+                    }
+                    endBoxSelection()
+                }
+
+                onCanceled: endBoxSelection()
+
                 onClicked: (mouse) =>
                 {
+                    if (swallowClick)
+                    {
+                        swallowClick = false
+                        return
+                    }
                     showManager.currentTime = TimeUtils.posToMs(mouse.x, timeScale, tickSize)
                     showManager.resetItemsSelection()
+                    // the timeline now owns the keyboard shortcuts (e.g. Ctrl+A)
+                    showManager.itemClicked(App.ShowDragItem)
+                }
+
+                Timer
+                {
+                    interval: 16
+                    repeat: true
+                    running: timelineMouseArea.boxActive
+
+                    // timers can fire late, so scroll by the time actually elapsed
+                    property double lastTick: 0
+
+                    onRunningChanged: lastTick = Date.now()
+
+                    onTriggered:
+                    {
+                        var now = Date.now()
+                        var step = timelineMouseArea.edgeScrollSpeed() * (now - lastTick) / 1000
+                        lastTick = now
+                        if (step === 0)
+                            return
+
+                        var maxX = Math.max(0, itemsArea.contentWidth - itemsArea.width)
+                        var newX = Math.max(0, Math.min(itemsArea.contentX + step, maxX))
+                        if (newX === itemsArea.contentX)
+                            return
+
+                        // the mouse stays still over the view while the content
+                        // scrolls underneath it, so the box end follows the content
+                        var viewX = timelineMouseArea.viewMouseX
+                        xViewOffset = newX
+                        timelineMouseArea.updateBoxEnd(newX + viewX, timelineMouseArea.boxEndY)
+                    }
+                }
+            }
+
+            /* Selection box. Its Canvas only covers the visible part of the
+               box, which can grow much wider than the view while scrolling */
+            Canvas
+            {
+                id: selectionBox
+                z: 11
+                visible: timelineMouseArea.boxActive
+
+                property real boxLeft: Math.min(timelineMouseArea.boxStartX, timelineMouseArea.boxEndX)
+                property real boxRight: Math.max(timelineMouseArea.boxStartX, timelineMouseArea.boxEndX)
+                property real viewLeft: itemsArea.contentX - 2
+                property real viewRight: itemsArea.contentX + timelineHeader.width + 2
+
+                x: Math.max(boxLeft, viewLeft)
+                y: Math.min(timelineMouseArea.boxStartY, timelineMouseArea.boxEndY)
+                width: Math.max(1, Math.min(boxRight, viewRight) - x)
+                height: Math.max(1, Math.abs(timelineMouseArea.boxEndY - timelineMouseArea.boxStartY))
+
+                onXChanged: requestPaint()
+                onWidthChanged: requestPaint()
+                onHeightChanged: requestPaint()
+                onVisibleChanged: if (visible) requestPaint()
+
+                onPaint:
+                {
+                    var ctx = getContext("2d")
+                    ctx.clearRect(0, 0, width, height)
+                    ctx.fillStyle = Qt.rgba(UISettings.selection.r, UISettings.selection.g, UISettings.selection.b, 0.15)
+                    ctx.fillRect(0, 0, width, height)
+
+                    ctx.strokeStyle = UISettings.selection
+                    ctx.lineWidth = 1
+                    ctx.setLineDash([4, 4])
+                    // keep the dashes still while the Canvas moves along the box
+                    ctx.lineDashOffset = x - boxLeft
+
+                    var r = width - 0.5
+                    var b = height - 0.5
+                    ctx.beginPath()
+                    ctx.moveTo(0, 0.5)
+                    ctx.lineTo(r, 0.5)
+                    ctx.moveTo(0, b)
+                    ctx.lineTo(r, b)
+                    if (boxLeft >= viewLeft)
+                    {
+                        ctx.moveTo(0.5, 0)
+                        ctx.lineTo(0.5, height)
+                    }
+                    if (boxRight <= viewRight)
+                    {
+                        ctx.moveTo(r, 0)
+                        ctx.lineTo(r, height)
+                    }
+                    ctx.stroke()
                 }
             }
 
@@ -700,6 +1164,13 @@ Rectangle
                 onTickSizeChanged: requestPaint()
                 onBeatsDivisionChanged: requestPaint()
                 onHeightChanged: requestPaint()
+
+                Connections
+                {
+                    target: showManager
+                    function onTempoSectionsChanged() { gridCanvas.requestPaint() }
+                    function onTimeScaleChanged() { gridCanvas.requestPaint() }
+                }
                 onVisibleChanged: if (visible) updatePosition()
 
                 Connections
@@ -733,13 +1204,35 @@ Rectangle
                     var absPos = parseInt((x + width) / tickSize) * tickSize
                     var xPos = absPos - x
 
+                    // inside the tempo sections, their beat grid replaces the time grid
+                    var sectionRanges = []
+                    if (showManager.tempoGridActive)
+                    {
+                        var sections = showManager.tempoSections
+                        for (var s = 0; s < sections.length; s++)
+                        {
+                            sectionRanges.push(TimeUtils.timeToSize(sections[s].startTime, timeScale, tickSize))
+                            sectionRanges.push(TimeUtils.timeToSize(sections[s].startTime + sections[s].duration, timeScale, tickSize))
+                        }
+                    }
+
+                    function inSection(pos)
+                    {
+                        for (var r = 0; r < sectionRanges.length; r += 2)
+                        {
+                            if (pos >= sectionRanges[r] && pos < sectionRanges[r + 1])
+                                return true
+                        }
+                        return false
+                    }
+
                     context.beginPath()
 
                     // paint dividers from the end to the beginning
                     for (var i = 0; i < divNum; i++)
                     {
                         // don't even bother to paint if we're outside the timeline
-                        if (absPos >= 0)
+                        if (absPos >= 0 && (sectionRanges.length === 0 || !inSection(absPos)))
                         {
                             if (subDividers > 1)
                             {
@@ -760,6 +1253,28 @@ Rectangle
                     }
                     context.closePath()
                     context.stroke()
+
+                    if (sectionRanges.length === 0)
+                        return
+
+                    // the tempo section grid: bars, beats, then beat subdivisions
+                    var lines = showManager.tempoGridLines(x, x + width)
+                    for (var w = 2; w >= 0; w--)
+                    {
+                        context.globalAlpha = w === 2 ? 1.0 : (w === 1 ? 0.6 : 0.3)
+                        context.strokeStyle = w === 2 ? UISettings.fgMedium : UISettings.bgLight
+                        context.beginPath()
+                        for (var l = 0; l < lines.length; l += 3)
+                        {
+                            if (lines[l + 1] !== w)
+                                continue
+                            var lx = Math.round(lines[l] - x) + 0.5
+                            context.moveTo(lx, 0)
+                            context.lineTo(lx, height)
+                        }
+                        context.stroke()
+                    }
+                    context.globalAlpha = 1.0
                 }
             }
 

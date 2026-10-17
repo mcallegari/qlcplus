@@ -310,6 +310,7 @@ Rectangle
 
                     IconPopupButton
                     {
+                        id: tempoButton
                         model: [
                             { mLabel: qsTr("Time"), mTextIcon: "T", mValue: QLCFunction.Time },
                             { mLabel: qsTr("Beats"), mTextIcon: "B", mValue: QLCFunction.Beats }
@@ -317,11 +318,45 @@ Rectangle
 
                         currValue: chaserEditor.tempoType
                         onValueChanged: (value) => chaserEditor.tempoType = value
+
+                        // a selection breaks the binding above: follow the
+                        // changes made elsewhere too (e.g. undo)
+                        Connections
+                        {
+                            target: chaserEditor
+                            function onTempoTypeChanged() { tempoButton.currValue = chaserEditor.tempoType }
+                        }
                     }
-                    RobotoText
+                    RowLayout
                     {
-                        label: qsTr("Tempo")
                         Layout.fillWidth: true
+
+                        RobotoText
+                        {
+                            label: qsTr("Tempo")
+                            Layout.fillWidth: true
+                        }
+
+                        IconButton
+                        {
+                            implicitWidth: UISettings.iconSizeMedium
+                            implicitHeight: implicitWidth
+                            faSource: FontAwesome.fa_right_left
+                            faColor: UISettings.fgMain
+                            tooltip: qsTr("Convert between Time and Beats tempo at a chosen BPM")
+                            onClicked:
+                            {
+                                chaserTempoConverter.chaserIds = [ ceContainer.functionID ]
+                                chaserTempoConverter.toBeats = chaserEditor.tempoType === QLCFunction.Time
+                                chaserTempoConverter.open()
+                            }
+
+                            PopupChaserTempoConverter
+                            {
+                                id: chaserTempoConverter
+                                parent: mainView
+                            }
+                        }
                     }
 
                     // Row 2
