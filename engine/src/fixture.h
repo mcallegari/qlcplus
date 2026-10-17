@@ -327,6 +327,15 @@ public:
      *  Returns NULL if no modifier has been assigned */
     ChannelModifier *channelModifier(quint32 idx);
 
+    /** Set the name of the ChannelModifier assigned to the channel with the
+     *  given $idx, when the modifier itself is not available in the modifiers
+     *  cache. This keeps the project information intact on the next save */
+    void setUnknownChannelModifier(quint32 idx, const QString &name);
+
+    /** Get the name of the ChannelModifier assigned to the channel with the
+     *  given $idx. Returns an empty string if no modifier has been assigned */
+    QString channelModifierName(quint32 idx) const;
+
 protected:
     /** Find and store channel numbers (pan, tilt, intensity) */
     void findChannels() const;
@@ -354,6 +363,12 @@ protected:
      *  This is basically the place to store them to be saved/loaded
      *  on the project XML file */
     QMap<quint32, ChannelModifier*> m_channelModifiers;
+
+    /** Hash holding the pair <channel index, modifier name>
+     *  This mirrors m_channelModifiers and is the reference used when saving,
+     *  so that a modifier missing from the modifiers cache is still written
+     *  back to the project file instead of being silently dropped */
+    QMap<quint32, QString> m_channelModifierNames;
 
     /*********************************************************************
      * Channel info
