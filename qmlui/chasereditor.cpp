@@ -699,6 +699,9 @@ void ChaserEditor::setTempoType(int tempoType)
     if (m_chaser == nullptr || m_chaser->tempoType() == Function::TempoType(tempoType))
         return;
 
+    // recorded before the steps, so that a redo converts the Chaser first
+    Tardis::instance()->enqueueAction(Tardis::FunctionSetTempoType, m_chaser->id(), m_chaser->tempoType(), tempoType);
+
     m_chaser->setTempoType(Function::TempoType(tempoType));
 
     int beatDuration = m_doc->masterTimer()->beatTimeDuration();
