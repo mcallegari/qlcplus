@@ -753,6 +753,11 @@ bool ChaserRunner::write(MasterTimer *timer, QList<Universe *> universes)
     if (m_chaser->stepsCount() == 0)
         return false;
 
+    // a step started by a pending action, before the running steps are
+    // advanced below. It must not be advanced in the same write, as a step
+    // started after them isn't, or it would run a tick ahead
+    ChaserRunnerStep *startedStep = NULL;
+
     switch (m_pendingAction.m_action)
     {
         case ChaserNextStep:
@@ -772,6 +777,8 @@ bool ChaserRunner::write(MasterTimer *timer, QList<Universe *> universes)
                 qDebug() << "[ChaserRunner] Starting from step" << m_lastRunStepIdx << "@ offset" << m_startOffset;
                 startNewStep(m_lastRunStepIdx, timer, m_pendingAction.m_masterIntensity,
                              m_pendingAction.m_stepIntensity, m_pendingAction.m_fadeMode);
+                if (m_runnerSteps.isEmpty() == false)
+                    startedStep = m_runnerSteps.last();
                 emit currentStepChanged(m_lastRunStepIdx);
             }
         break;
@@ -786,6 +793,9 @@ bool ChaserRunner::write(MasterTimer *timer, QList<Universe *> universes)
 
     foreach (ChaserRunnerStep *step, m_runnerSteps)
     {
+        if (step == startedStep)
+            continue;
+
         if (m_chaser->tempoType() == Function::Beats && timer->isBeat())
         {
             step->m_elapsedBeats += 1000;
