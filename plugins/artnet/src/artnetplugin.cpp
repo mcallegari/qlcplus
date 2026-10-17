@@ -190,8 +190,8 @@ bool ArtNetPlugin::openOutput(quint32 output, quint32 universe)
                 this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
         connect(controller, SIGNAL(rdmFrameReceived(quint32, quint32, QByteArray)),
                 this , SIGNAL(rdmFrameReceived(quint32, quint32, QByteArray)));
-        connect(controller, SIGNAL(rdmTodReceived(quint32, quint32, QByteArray)),
-                this , SIGNAL(rdmTodReceived(quint32, quint32, QByteArray)));
+        connect(controller, SIGNAL(rdmTodReceived(quint32, quint32, QByteArray, QString)),
+                this , SIGNAL(rdmTodReceived(quint32, quint32, QByteArray, QString)));
         m_IOmapping[output].controller = controller;
     }
 

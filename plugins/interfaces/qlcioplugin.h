@@ -448,8 +448,10 @@ signals:
     /** A raw RDM frame has been received from the given line */
     void rdmFrameReceived(quint32 universe, quint32 line, QByteArray frame);
 
-    /** A table of devices has been received. @param uids N * 6 bytes UIDs, big endian */
-    void rdmTodReceived(quint32 universe, quint32 line, QByteArray uids);
+    /** A table of devices has been received.
+     *  @param uids N * 6 bytes UIDs, big endian
+     *  @param address the network address of the sender, if the transport has one */
+    void rdmTodReceived(quint32 universe, quint32 line, QByteArray uids, QString address);
 
     /** No reply was received to a frame sent with sendRDMFrame/requestRDMTod
      *  @param type the RDMFrameType of the frame, or -1 for a TOD request */

@@ -509,11 +509,15 @@ bool ArtNetController::handleArtNetTodData(const QByteArray &datagram, const QHo
     QByteArray uids;
     quint32 universe;
 
-    Q_UNUSED(senderAddress);
-
     if (m_packetizer->processTODuids(datagram, universe, uids) == true)
     {
-        emit rdmTodReceived(universe, m_line, uids);
+        // the sender of a ArtTodData is the node the devices are connected to.
+        // Avoid the IPv4-mapped IPv6 notation (::ffff:a.b.c.d)
+        bool isIPv4 = false;
+        quint32 ipv4 = senderAddress.toIPv4Address(&isIPv4);
+        QString address = isIPv4 ? QHostAddress(ipv4).toString() : senderAddress.toString();
+
+        emit rdmTodReceived(universe, m_line, uids, address);
         return true;
     }
 

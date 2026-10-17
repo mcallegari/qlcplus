@@ -209,7 +209,7 @@ void App::startup()
     m_networkManager = new NetworkManager(this, m_doc, m_virtualConsole, m_simpleDesk);
     rootContext()->setContextProperty("networkManager", m_networkManager);
 
-    m_rdmManager = new RDMManager(this, m_doc);
+    m_rdmManager = new RDMManager(this, m_doc, m_fixtureManager);
 
     connect(m_networkManager, &NetworkManager::clientAccessRequest, 
             this, &App::slotClientAccessRequest);

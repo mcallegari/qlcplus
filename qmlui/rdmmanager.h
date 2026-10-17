@@ -22,108 +22,37 @@
 
 #include <QQuickView>
 #include <QVariant>
-#include <QThread>
+#include <QVector>
+#include <QMap>
 
-class QLCIOPlugin;
+#include "qlcrdmservice.h"
+
+class FixtureManager;
+class QLCFixtureDef;
 class ListModel;
 class Doc;
 
-typedef struct
-{
-    QString manufacturer;
-    QString name;
-    quint32 universe;
-    quint32 pluginLine;
-    quint16 dmxAddress;
-    quint16 channels;
-    quint8 personalityIndex;
-    quint8 personalityCount;
-    QString personality;
-    QVariantMap params;
-    int operation;
-} UIDInfo;
-
-class RDMWorker : public QThread
-{
-    Q_OBJECT
-
-public:
-    RDMWorker(Doc *doc);
-    ~RDMWorker();
-
-    enum RequestState
-    {
-        StateNone,
-        StateWait,
-        StateDiscoveryStart,
-        StateDiscoveryContinue,
-        StateDiscoveryEnd,
-        StateGetFixtureInfo
-    };
-
-    /** Start the discovery process and handle it via state machine */
-    void runDiscovery(quint32 uni, quint32 line);
-
-    /** Execute a list of operations (SET DMX address, toggle identify, etc.) */
-    void runOperations(quint32 uni, quint32 line,
-                       const QMap<QString, UIDInfo> &operations);
-
-private:
-    void run();
-
-    /** Stop this thread */
-    void stop();
-
-    /** Add a RDM command to the queue (first element = command type) */
-    void addToQueue(quint8 command, const QVariantList &params);
-
-    /** Send the next queued RDM command, if any */
-    void checkQueue();
-
-signals:
-    /** Inform the listeners that a new UID has been discovered */
-    void uidFound(QString UID, UIDInfo info);
-
-    /** Request the UI to display a popup with the given title/message */
-    void requestPopup(QString title, QString message);
-
-private slots:
-
-    /** Slot called whenever a plugin has collected new RDM data */
-    void slotRDMDataReady(quint32 universe, quint32 line, QVariantMap data);
-
-private:
-    Doc *m_doc;
-    bool m_running;
-
-    QLCIOPlugin *m_plugin;
-    quint32 m_universe;
-    quint32 m_line;
-
-    QStringList m_temporaryUidList;
-    QList<QVariantList> m_rdmCommandsQueue;
-
-    /** Map of all the discovered fixtures by UID */
-    QMap <QString, UIDInfo> m_uidMap;
-
-    /** Last discovery range we sent on the wire */
-    qulonglong m_currentStartUID;
-    qulonglong m_currentEndUID;
-
-    /** State variable to sync between a request and its answer */
-    RequestState m_requestState;
-};
-
+/**
+ * The QML side of the RDM fixtures import. The RDM service plugin discovers the fixtures
+ * and assigns their DMX addresses: this class only presents them, keeps track of where
+ * the user placed them in the layout grid and, at the end, creates the project fixtures.
+ * The RDM service is optional (see available).
+ */
 class RDMManager : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QVariant fixtureList READ fixtureList NOTIFY fixtureListChanged)
+    Q_PROPERTY(bool available READ available NOTIFY availableChanged FINAL)
     Q_PROPERTY(DiscoveryStatus discoveryStatus READ discoveryStatus WRITE setDiscoveryStatus NOTIFY discoveryStatusChanged FINAL)
     Q_PROPERTY(int fixturesFound READ fixturesFound NOTIFY fixturesFoundChanged FINAL)
+    Q_PROPERTY(QVariant fixtureList READ fixtureList NOTIFY fixtureListChanged)
+    Q_PROPERTY(QVariant gridList READ gridList NOTIFY gridListChanged)
+    Q_PROPERTY(int gridWidth READ gridWidth WRITE setGridWidth NOTIFY gridSizeChanged FINAL)
+    Q_PROPERTY(int gridHeight READ gridHeight WRITE setGridHeight NOTIFY gridSizeChanged FINAL)
+    Q_PROPERTY(int placedCount READ placedCount NOTIFY gridListChanged FINAL)
 
 public:
-    explicit RDMManager(QQuickView *view, Doc *doc, QObject *parent = 0);
+    explicit RDMManager(QQuickView *view, Doc *doc, FixtureManager *fixtureManager, QObject *parent = 0);
     ~RDMManager();
 
     enum DiscoveryStatus
@@ -134,33 +63,85 @@ public:
     };
     Q_ENUM(DiscoveryStatus)
 
-    enum Operations
-    {
-        SetDMXAddress  = 1 << 0,
-        ToggleIdentify = 1 << 1
-    };
-    Q_ENUM(Operations)
+    /** True when the RDM service plugin is installed and loaded */
+    bool available() const;
 
     Q_INVOKABLE void startDiscovery();
-    Q_INVOKABLE void requestDMXAddress(QString UID, int address);
-    Q_INVOKABLE void executeOperations();
+
+    /** Move a fixture to the given cell of the layout grid. If the cell is occupied,
+     *  the two fixtures are swapped (or the other fixture goes back to the fixtures area) */
+    Q_INVOKABLE void placeFixture(QString UID, int cellIndex);
+
+    /** Take a fixture out of the layout grid, back to the fixtures area */
+    Q_INVOKABLE void unplaceFixture(QString UID);
+
+    /** Switch on/off the identify function of a fixture (e.g. flashing its light) */
+    Q_INVOKABLE void setIdentify(QString UID, bool on);
+
+    /** Assign DMX addresses to the fixtures in the grid, following the grid order */
+    Q_INVOKABLE void autoPatch(int startAddress, int gap);
+
+    /** Send the DMX addresses to the fixtures and add them to the project,
+     *  placed in the 2D view following the layout grid. Returns false on error */
+    Q_INVOKABLE bool applyLayout();
 
     int fixturesFound();
 
+    /** Fixtures discovered and not yet placed in the layout grid */
     QVariant fixtureList();
+
+    /** The layout grid cells, in row by row order */
+    QVariant gridList();
+
+    int gridWidth() const;
+    void setGridWidth(int width);
+    int gridHeight() const;
+    void setGridHeight(int height);
+
+    /** Number of fixtures placed in the layout grid */
+    int placedCount() const;
 
     DiscoveryStatus discoveryStatus() const;
     void setDiscoveryStatus(DiscoveryStatus status);
 
 protected slots:
-    void slotUIDFound(QString UID, UIDInfo info);
-    void slotTaskFinished();
+    /** Look for the RDM service when a service plugin gets loaded */
+    void slotServiceAvailable(const QString &id);
+
+    void slotDeviceFound(QLCRDMDevice device);
+    void slotMessage(QString title, QString text);
+    void slotBusyChanged(bool busy);
 
 private:
-    void updateFixtureList();
+    /** A discovered fixture and its match in the fixture definitions library */
+    struct DeviceEntry
+    {
+        QLCRDMDevice device;
+        bool hasDefinition = false;
+        QString defManufacturer;
+        QString defModel;
+        QString defMode;
+    };
+
+    /** Get the RDM service from the service loader, if loaded */
+    void bindService();
+
+    /** Look for a fixture definition and mode matching the given device */
+    void matchDefinition(DeviceEntry &entry) const;
+
+    void resizeGrid(int width, int height);
+
+    /** Fixtures taken out of the layout grid get back the address they had before the autopatch */
+    void releaseFixtures(const QStringList &uids);
+
+    QVariantMap fixtureMap(const QString &UID) const;
+    void updateLists();
 
 signals:
+    void availableChanged();
     void fixtureListChanged();
+    void gridListChanged();
+    void gridSizeChanged();
     void discoveryStatusChanged();
     void fixturesFoundChanged();
 
@@ -169,17 +150,27 @@ private:
     QQuickView *m_view;
     /** Reference to the project workspace */
     Doc *m_doc;
+    /** Used to add the fixtures to the project */
+    FixtureManager *m_fixtureManager;
 
-    /** Reference to a ListModel representing the RDM fixtures detected,
-     *  organized as follows:
-     *  universe | manufacturer | model | DMX address | personality | UID | isSelected
+    /** The RDM service plugin, nullptr if not installed */
+    QLCRDMService *m_service;
+
+    /** The models exposed to QML, with the roles:
+     *  UID | manufacturer | modelName | dmxAddress | dmxChannels | personality | universe |
+     *  ipAddress | hasDefinition | defMode | occupied | cellIndex
      */
     ListModel *m_fixtureList;
+    ListModel *m_gridList;
 
     DiscoveryStatus m_discoveryStatus;
-    int m_fixturesFound;
 
     /** Map of all the discovered fixtures by UID */
-    QMap <QString, UIDInfo> m_uidMap;
+    QMap <QString, DeviceEntry> m_devices;
+
+    /** The layout grid: the UID of the fixture in each cell, empty if free */
+    int m_gridWidth;
+    int m_gridHeight;
+    QVector<QString> m_cells;
 };
 #endif

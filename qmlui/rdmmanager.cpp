@@ -18,134 +18,130 @@
 */
 
 #include <QQmlContext>
+#include <QDebug>
 
 #include "rdmmanager.h"
-#include "outputpatch.h"
-#include "qlcioplugin.h"
-#include "rdmprotocol.h"
+#include "fixturemanager.h"
+#include "qlcfixturedefcache.h"
+#include "qlcfixturemode.h"
+#include "qlcfixturedef.h"
+#include "serviceloader.h"
 #include "listmodel.h"
+#include "universe.h"
 #include "doc.h"
 
-#define MAX_WAIT_COUNT      30
+#define DEFAULT_GRID_WIDTH  6
+#define DEFAULT_GRID_HEIGHT 4
+#define MAX_GRID_SIZE       50
 
-RDMManager::RDMManager(QQuickView *view, Doc *doc, QObject *parent)
+/** Lower case and keep only letters and numbers, to compare names written in different ways */
+static QString normalizedName(const QString &name)
+{
+    QString result;
+    for (const QChar &c : name.toLower())
+    {
+        if (c.isLetterOrNumber())
+            result.append(c);
+    }
+    return result;
+}
+
+RDMManager::RDMManager(QQuickView *view, Doc *doc, FixtureManager *fixtureManager, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_doc(doc)
+    , m_fixtureManager(fixtureManager)
+    , m_service(nullptr)
     , m_discoveryStatus(Idle)
-    , m_fixturesFound(0)
+    , m_gridWidth(DEFAULT_GRID_WIDTH)
+    , m_gridHeight(DEFAULT_GRID_HEIGHT)
 {
     m_view->rootContext()->setContextProperty("rdmManager", this);
     qmlRegisterUncreatableType<RDMManager>("org.qlcplus.classes", 1, 0, "RDMManager", "Can't create a RDMManager!");
 
-    m_fixtureList = new ListModel(this);
     QStringList listRoles;
-    listRoles << "universe" << "manufacturer" << "model" << "dmxAddress" << "dmxChannels" << "personality" << "UID" << "isSelected";
+    listRoles << "UID" << "manufacturer" << "modelName" << "dmxAddress" << "dmxChannels"
+              << "personality" << "universe" << "ipAddress" << "hasDefinition" << "defMode"
+              << "occupied" << "cellIndex";
+
+    m_fixtureList = new ListModel(this);
     m_fixtureList->setRoleNames(listRoles);
+    m_gridList = new ListModel(this);
+    m_gridList->setRoleNames(listRoles);
+
+    m_cells.fill(QString(), m_gridWidth * m_gridHeight);
+
+    // the RDM service is an optional plugin: it might be already loaded or not
+    connect(m_doc->serviceLoader(), &ServiceLoader::serviceAvailable,
+            this, &RDMManager::slotServiceAvailable);
+    bindService();
 }
 
 RDMManager::~RDMManager()
 {
 }
 
-void RDMManager::startDiscovery()
+bool RDMManager::available() const
 {
-    m_fixturesFound = 0;
-    setDiscoveryStatus(Running);
-
-    // go through every universe and launch a RDM discovery for each
-    // patched plugin which supports the RDM standard
-    foreach (Universe *uni, m_doc->inputOutputMap()->universes())
-    {
-        for (int i = 0; i < uni->outputPatchesCount(); i++)
-        {
-            OutputPatch *op = uni->outputPatch(i);
-            if (op->plugin()->capabilities() & QLCIOPlugin::RDM)
-            {
-                RDMWorker *wt = new RDMWorker(m_doc);
-                connect(wt, SIGNAL(uidFound(QString, UIDInfo)),
-                        this, SLOT(slotUIDFound(QString, UIDInfo)));
-                connect(wt, SIGNAL(finished()),
-                        this, SLOT(slotTaskFinished()));
-                wt->runDiscovery(uni->id(), op->output());
-            }
-        }
-    }
+    return m_service != nullptr;
 }
 
-void RDMManager::requestDMXAddress(QString UID, int address)
+void RDMManager::slotServiceAvailable(const QString &id)
 {
-    qDebug() << "[RDM] Request address" << address << "for UID" << UID;
-    UIDInfo info = m_uidMap.value(UID);
-    info.dmxAddress = address;
-    info.operation |= SetDMXAddress;
-    m_uidMap[UID] = info;
+    if (id == QLCRDM_SERVICE_ID)
+        bindService();
 }
 
-void RDMManager::executeOperations()
+void RDMManager::bindService()
 {
-    // Group operations by (universe, plugin line) so each worker talks to 1 line
-    QHash<QPair<quint32, quint32>, QMap<QString, UIDInfo>> opsPerPatch;
-
-    for (auto it = m_uidMap.cbegin(); it != m_uidMap.cend(); ++it)
-    {
-        const QString uid = it.key();
-        const UIDInfo &info = it.value();
-
-        if (info.operation == 0)
-            continue;
-
-        QPair<quint32, quint32> key(info.universe, info.pluginLine);
-        opsPerPatch[key].insert(uid, info);
-    }
-
-    if (opsPerPatch.isEmpty())
+    if (m_service != nullptr)
         return;
 
-    // For every universe/output patch that supports RDM, spawn a worker
-    foreach (Universe *uni, m_doc->inputOutputMap()->universes())
-    {
-        for (int i = 0; i < uni->outputPatchesCount(); i++)
-        {
-            OutputPatch *op = uni->outputPatch(i);
-            if (op == nullptr)
-                continue;
+    QObject *serviceObject = m_doc->serviceLoader()->service(QLCRDM_SERVICE_ID);
+    QLCRDMService *service = qobject_cast<QLCRDMService*>(serviceObject);
+    if (service == nullptr)
+        return;
 
-            if (!(op->plugin()->capabilities() & QLCIOPlugin::RDM))
-                continue;
+    m_service = service;
 
-            QPair<quint32, quint32> key(uni->id(), op->output());
-            if (!opsPerPatch.contains(key))
-                continue;
+    // the service is a QObject implementing the QLCRDMService interface
+    connect(serviceObject, SIGNAL(deviceFound(QLCRDMDevice)),
+            this, SLOT(slotDeviceFound(QLCRDMDevice)));
+    connect(serviceObject, SIGNAL(message(QString, QString)),
+            this, SLOT(slotMessage(QString, QString)));
+    connect(serviceObject, SIGNAL(busyChanged(bool)),
+            this, SLOT(slotBusyChanged(bool)));
 
-            RDMWorker *wt = new RDMWorker(m_doc);
-            connect(wt, SIGNAL(uidFound(QString, UIDInfo)),
-                    this, SLOT(slotUIDFound(QString, UIDInfo)));
-            connect(wt, SIGNAL(finished()),
-                    wt, SLOT(deleteLater()));
+    emit availableChanged();
+}
 
-            // Launch operations for this patch
-            wt->runOperations(uni->id(), op->output(), opsPerPatch.value(key));
-        }
-    }
+void RDMManager::startDiscovery()
+{
+    if (m_service == nullptr)
+        return;
 
-    // Locally clear the operations bitmask now that they’ve been queued
-    for (auto it = m_uidMap.begin(); it != m_uidMap.end(); ++it)
-        it.value().operation = 0;
+    m_devices.clear();
+    m_cells.fill(QString());
+    emit fixturesFoundChanged();
+    setDiscoveryStatus(Running);
 
-    // Our DMX address values in m_uidMap are already updated by requestDMXAddress
-    // so we can refresh the fixture list right away.
-    updateFixtureList();
+    // the service launches a discovery on every patched line supporting RDM
+    m_service->discoverAll();
 }
 
 int RDMManager::fixturesFound()
 {
-    return m_fixturesFound;
+    return m_devices.count();
 }
 
 QVariant RDMManager::fixtureList()
 {
     return QVariant::fromValue(m_fixtureList);
+}
+
+QVariant RDMManager::gridList()
+{
+    return QVariant::fromValue(m_gridList);
 }
 
 void RDMManager::setDiscoveryStatus(DiscoveryStatus status)
@@ -157,464 +153,369 @@ void RDMManager::setDiscoveryStatus(DiscoveryStatus status)
     emit discoveryStatusChanged();
 }
 
-void RDMManager::slotUIDFound(QString UID, UIDInfo info)
-{
-    m_uidMap[UID] = info;
-    m_fixturesFound = m_uidMap.count();
-
-    emit fixturesFoundChanged();
-}
-
-void RDMManager::slotTaskFinished()
-{
-    setDiscoveryStatus(Finished);
-    updateFixtureList();
-}
-
 RDMManager::DiscoveryStatus RDMManager::discoveryStatus() const
 {
     return m_discoveryStatus;
 }
 
-void RDMManager::updateFixtureList()
+/*********************************************************************
+ * Discovered fixtures
+ *********************************************************************/
+
+void RDMManager::slotDeviceFound(QLCRDMDevice device)
 {
-    m_fixtureList->clear();
+    DeviceEntry entry;
+    entry.device = device;
+    matchDefinition(entry);
+    m_devices[device.uid] = entry;
 
-    for (auto i = m_uidMap.cbegin(), end = m_uidMap.cend(); i != end; ++i)
-    {
-        UIDInfo info = i.value();
+    emit fixturesFoundChanged();
 
-        QVariantMap fxMap;
-        fxMap["universe"] = info.universe;
-        fxMap["manufacturer"] = info.manufacturer;
-        fxMap["model"] = info.name;
-        fxMap["dmxAddress"] = info.dmxAddress;
-        fxMap["dmxChannels"] = info.channels;
-        fxMap["personality"] = info.personality;
-        fxMap["UID"] = i.key();
-        fxMap["isSelected"] = false;
-        m_fixtureList->addDataMap(fxMap);
-    }
-    emit fixtureListChanged();
+    // while the discovery is running the lists are built at the end,
+    // afterwards (e.g. after the addresses assignment) keep them up to date
+    if (m_discoveryStatus != Running)
+        updateLists();
 }
 
-/************************************************************************
- * RDM worker implementation
- ************************************************************************/
-
-RDMWorker::RDMWorker(Doc *doc)
-    : m_doc(doc)
-    , m_running(false)
-    , m_requestState(StateNone)
+void RDMManager::slotMessage(QString title, QString text)
 {
+    qWarning() << "[RDM]" << title << text;
 }
 
-RDMWorker::~RDMWorker()
+void RDMManager::slotBusyChanged(bool busy)
 {
-    stop();
-}
-
-void RDMWorker::stop()
-{
-    if (m_running == true)
-    {
-        m_running = false;
-        wait();
-    }
-}
-
-void RDMWorker::addToQueue(quint8 command, const QVariantList &params)
-{
-    QVariantList cmd;
-    cmd << int(command);           // store command type as first element
-    for (const QVariant &v : params)
-        cmd << v;
-
-    m_rdmCommandsQueue.append(cmd);
-/*
-    qDebug() << "[RDM] addToQueue cmd" << command
-             << "params:" << params
-             << "queue size now:" << m_rdmCommandsQueue.size();
-*/
-}
-
-void RDMWorker::checkQueue()
-{
-    if (m_rdmCommandsQueue.isEmpty() || m_plugin == nullptr)
+    if (busy)
         return;
 
-    QVariantList cmd = m_rdmCommandsQueue.takeFirst();
-    if (cmd.isEmpty())
+    // the lists are rebuilt when the discovery ends only: other requests (e.g. identify)
+    // end while the user is interacting with the fixtures and must not disturb the view
+    if (m_discoveryStatus == Running)
+    {
+        setDiscoveryStatus(Finished);
+        updateLists();
+    }
+}
+
+void RDMManager::matchDefinition(DeviceEntry &entry) const
+{
+    entry.hasDefinition = false;
+
+    const QString nManuf = normalizedName(entry.device.manufacturer);
+    const QString nModel = normalizedName(entry.device.model);
+    const QString nPersonality = normalizedName(entry.device.personality);
+
+    if (nModel.isEmpty())
         return;
 
-    quint8 command = quint8(cmd.takeFirst().toInt());
+    QLCFixtureDefCache *cache = m_doc->fixtureDefCache();
 
-    // If this is a discovery branch, remember the range we’re probing
-    if (command == DISCOVERY_COMMAND && cmd.size() >= 4)
+    const QStringList manufacturers = cache->manufacturers();
+    for (const QString &manufacturer : manufacturers)
     {
-        // cmd[0] = address, cmd[1] = PID, cmd[2] = startUID, cmd[3] = endUID
-        if (cmd[1].toUInt() == PID_DISC_UNIQUE_BRANCH)
+        // RDM manufacturer labels are written in many ways: accept partial matches
+        const QString nName = normalizedName(manufacturer);
+        if (nManuf.isEmpty() == false && nName != nManuf &&
+            nName.contains(nManuf) == false && nManuf.contains(nName) == false)
+            continue;
+
+        const QStringList models = cache->models(manufacturer);
+        for (const QString &model : models)
         {
-            m_currentStartUID = cmd[2].toULongLong();
-            m_currentEndUID   = cmd[3].toULongLong();
-/*
-            qDebug() << "[RDM] set current discovery range:"
-                     << QString::number(m_currentStartUID, 16)
-                     << "->"
-                     << QString::number(m_currentEndUID, 16);
-*/
-        }
-    }
+            if (normalizedName(model) != nModel)
+                continue;
 
-    m_plugin->sendRDMCommand(m_universe, m_line, command, cmd);
-    m_requestState = StateWait;
-}
+            QLCFixtureDef *def = cache->fixtureDef(manufacturer, model);
+            if (def == nullptr)
+                continue;
 
-void RDMWorker::runDiscovery(quint32 uni, quint32 line)
-{
-    m_universe = uni;
-    m_line = line;
-
-    m_rdmCommandsQueue.clear();
-
-    // Initial full-range discovery
-    m_currentStartUID = 0;
-    m_currentEndUID = (qulonglong(BROADCAST_ESTA_ID) << 32) +
-                      qulonglong(BROADCAST_DEVICE_ID);
-
-    addToQueue(DISCOVERY_COMMAND,
-               QVariantList() << RDMProtocol::broadcastAddress()
-                              << PID_DISC_UNIQUE_BRANCH
-                              << m_currentStartUID << m_currentEndUID);
-
-    m_requestState = StateDiscoveryStart;
-    start();
-}
-
-void RDMWorker::runOperations(quint32 uni, quint32 line,
-                              const QMap<QString, UIDInfo> &operations)
-{
-    m_universe = uni;
-    m_line = line;
-
-    m_rdmCommandsQueue.clear();
-
-    // Take a local copy of the map we need to operate on
-    m_uidMap = operations;
-
-    // Build the queue from the operation bitmask
-    for (auto it = m_uidMap.begin(); it != m_uidMap.end(); ++it)
-    {
-        const QString uid = it.key();
-        UIDInfo &info = it.value();
-
-        // 1) Set DMX address
-        if (info.operation & RDMManager::SetDMXAddress)
-        {
-            // PID_DMX_START_ADDRESS should be defined in rdmprotocol.h
-            addToQueue(SET_COMMAND,
-                       QVariantList() << uid
-                                      << PID_DMX_START_ADDRESS << 2
-                                      << quint16(info.dmxAddress));
-        }
-
-        // 2) Toggle identify
-        if (info.operation & RDMManager::ToggleIdentify)
-        {
-            // Use UIDInfo::params["identify"] as current state (default = false)
-            bool curIdentify = info.params.value("identify", false).toBool();
-            bool newIdentify = !curIdentify;
-
-            addToQueue(SET_COMMAND,
-                       QVariantList() << uid
-                                      << PID_IDENTIFY_DEVICE << 1
-                                      << (newIdentify ? 1 : 0));
-
-            info.params["identify"] = newIdentify;
-        }
-
-        // Clear operation bits after queuing
-        info.operation = 0;
-    }
-
-    // Nothing to do? Just exit
-    if (m_rdmCommandsQueue.isEmpty())
-    {
-        m_requestState = StateNone;
-        return;
-    }
-
-    // Reuse the same phase/state used for GETs: drive the queue until empty
-    m_requestState = StateGetFixtureInfo;
-    start();
-}
-
-void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap data)
-{
-    //qDebug() << "Got signal from universe" << universe << ", line" << line;
-    //qDebug() << "RDM map" << data;
-
-    // check the signal reason
-    if (data.contains("DISCOVERY_COUNT"))
-    {
-        int count = data.value("DISCOVERY_COUNT").toInt();
-        for (int i = 0; i < count; i++)
-        {
-            QString UID = data.value(QString("UID-%1").arg(i)).toString();
-            if (m_uidMap.contains(UID) == false)
+            // the personality name first, then a mode with the same channels count
+            QString modeName;
+            const QList<QLCFixtureMode*> modes = def->modes();
+            for (QLCFixtureMode *mode : modes)
             {
-                UIDInfo info;
-                info.universe = universe;
-                info.pluginLine = line;
-                info.operation = 0;
-                m_uidMap[UID] = info;
-                emit uidFound(UID, info);
+                if (nPersonality.isEmpty() == false && normalizedName(mode->name()) == nPersonality)
+                {
+                    modeName = mode->name();
+                    break;
+                }
             }
-        }
+            if (modeName.isEmpty() && entry.device.channels > 0)
+            {
+                for (QLCFixtureMode *mode : modes)
+                {
+                    if (mode->channels().count() == entry.device.channels)
+                    {
+                        modeName = mode->name();
+                        break;
+                    }
+                }
+            }
 
-        if (m_rdmCommandsQueue.isEmpty())
-            m_requestState = StateDiscoveryEnd;
-        else
-            m_requestState = StateDiscoveryContinue;
-    }
-    else if (data.contains("DISCOVERY_ERRORS"))
-    {
-        // Discovery errors mean collisions and/or bad checksum.
-        // Split the *current* range into two branches and enqueue them.
+            if (modeName.isEmpty())
+                continue;
 
-        if (m_currentStartUID >= m_currentEndUID)
-        {
-            // Nothing meaningful to split; just move on
-            if (m_rdmCommandsQueue.isEmpty())
-                m_requestState = StateDiscoveryEnd;
-            else
-                m_requestState = StateDiscoveryContinue;
+            entry.hasDefinition = true;
+            entry.defManufacturer = def->manufacturer();
+            entry.defModel = def->model();
+            entry.defMode = modeName;
             return;
         }
-
-        qulonglong start = m_currentStartUID;
-        qulonglong end   = m_currentEndUID;
-
-        qulonglong midPosition =
-            ((start & (0x0000800000000000 - 1)) +
-             (end   & (0x0000800000000000 - 1))) / 2
-            + ((end   & 0x0000800000000000) ? 0x0000400000000000 : 0)
-            + ((start & 0x0000800000000000) ? 0x0000400000000000 : 0);
-
-        qulonglong lowerStart = start;
-        qulonglong lowerEnd   = midPosition;
-        qulonglong upperStart = midPosition + 1;
-        qulonglong upperEnd   = end;
-
-        // add the two new branches to lookup
-        addToQueue(DISCOVERY_COMMAND,
-                   QVariantList() << RDMProtocol::broadcastAddress()
-                                  << PID_DISC_UNIQUE_BRANCH
-                                  << upperStart << upperEnd);
-
-        addToQueue(DISCOVERY_COMMAND,
-                   QVariantList() << RDMProtocol::broadcastAddress()
-                                  << PID_DISC_UNIQUE_BRANCH
-                                  << lowerStart << lowerEnd);
-
-        m_requestState = StateDiscoveryContinue;
     }
-    else if (data.contains("DISCOVERY_NO_REPLY"))
-    {
-        // No reply means a dead branch. Just continue with queued branches.
-        qDebug() << "Discovery: no reply";
-
-        if (m_rdmCommandsQueue.isEmpty())
-            m_requestState = StateDiscoveryEnd;
-        else
-            m_requestState = StateDiscoveryContinue;
-    }
-    else if (data.contains("UID_INFO"))
-    {
-        QString UID = data.value("UID_INFO").toString();
-        UIDInfo info = m_uidMap.value(UID);
-        bool infoUpdated = false;
-
-        //qDebug() << "INFO RECEIVED FOR" << UID << "data" << data;
-
-        for (QVariantMap::const_iterator it = data.begin(); it != data.end(); ++it)
-        {
-            const QString key = it.key();
-
-            if (key == "MODEL_NAME")
-            {
-                info.name = it.value().toString();
-            }
-            else if (key == "MANUFACTURER")
-            {
-                info.manufacturer = it.value().toString();
-            }
-            else if (key == "DMX_CHANNELS")
-            {
-                info.channels = it.value().toUInt();
-            }
-            else if (key == "PERSONALITY_INDEX")
-            {
-                info.personalityIndex = it.value().toUInt();
-                addToQueue(GET_COMMAND,
-                           QVariantList() << UID << PID_DMX_PERSONALITY_DESCRIPTION << 1 << info.personalityIndex);
-            }
-            else if (key == "PERSONALITY_COUNT")
-            {
-                info.personalityCount = it.value().toUInt();
-            }
-            else if (key == "DMX_START_ADDRESS")
-            {
-                info.dmxAddress = it.value().toUInt();
-            }
-            else if (key == "PERS_DESC")
-            {
-                info.personality = it.value().toString();
-                infoUpdated = true;
-            }
-        }
-
-        // Store updated info
-        m_uidMap[UID] = info;
-
-        // Only notify UI when we have the full basic info (DMX address)
-        if (infoUpdated)
-            emit uidFound(UID, info);
-
-        // Decide next state for the worker:
-        // - if there are still queued commands, continue GetFixtureInfo phase
-        // - otherwise we’re done with all GETs
-        if (m_rdmCommandsQueue.isEmpty())
-            m_requestState = StateNone;          // all GETs done
-        else
-            m_requestState = StateGetFixtureInfo; // continue info phase
-    }
-
 }
 
-void RDMWorker::run()
+/*********************************************************************
+ * Layout grid
+ *********************************************************************/
+
+int RDMManager::gridWidth() const
 {
-    int waitCount = 0;
+    return m_gridWidth;
+}
 
-    Universe *uni = m_doc->inputOutputMap()->universe(m_universe);
-    if (uni == NULL)
-    {
-        qDebug() << "ERROR. Universe not found!";
+void RDMManager::setGridWidth(int width)
+{
+    resizeGrid(width, m_gridHeight);
+}
+
+int RDMManager::gridHeight() const
+{
+    return m_gridHeight;
+}
+
+void RDMManager::setGridHeight(int height)
+{
+    resizeGrid(m_gridWidth, height);
+}
+
+void RDMManager::resizeGrid(int width, int height)
+{
+    width = qBound(1, width, MAX_GRID_SIZE);
+    height = qBound(1, height, MAX_GRID_SIZE);
+
+    if (width == m_gridWidth && height == m_gridHeight)
         return;
+
+    // keep every fixture in its row and column. The ones that
+    // don't fit anymore go back to the fixtures area
+    QVector<QString> newCells(width * height);
+    for (int y = 0; y < qMin(height, m_gridHeight); y++)
+    {
+        for (int x = 0; x < qMin(width, m_gridWidth); x++)
+            newCells[y * width + x] = m_cells.at(y * m_gridWidth + x);
     }
 
-    OutputPatch *op = NULL;
-    for (int i = 0; i < uni->outputPatchesCount(); i++)
+    QStringList removed;
+    for (const QString &uid : m_cells)
     {
-        op = uni->outputPatch(i);
-        if (op->output() == m_line)
-            break;
+        if (uid.isEmpty() == false && newCells.contains(uid) == false)
+            removed.append(uid);
     }
-    if (op == NULL)
+
+    m_cells = newCells;
+    m_gridWidth = width;
+    m_gridHeight = height;
+
+    releaseFixtures(removed);
+
+    emit gridSizeChanged();
+    updateLists();
+}
+
+void RDMManager::releaseFixtures(const QStringList &uids)
+{
+    if (m_service != nullptr && uids.isEmpty() == false)
+        m_service->cancelOperations(uids);
+}
+
+int RDMManager::placedCount() const
+{
+    int count = 0;
+    for (const QString &uid : m_cells)
     {
-        qDebug() << "ERROR. Output patch not found!";
+        if (uid.isEmpty() == false)
+            count++;
+    }
+    return count;
+}
+
+void RDMManager::placeFixture(QString UID, int cellIndex)
+{
+    if (m_devices.contains(UID) == false || cellIndex < 0 || cellIndex >= m_cells.count())
         return;
-    }
-    m_plugin = op->plugin();
 
-    connect(m_plugin, SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)),
-            this, SLOT(slotRDMDataReady(quint32, quint32, QVariantMap)));
+    const int previousIndex = m_cells.indexOf(UID);
+    if (previousIndex == cellIndex)
+        return;
 
-    m_running = true;
-    while (m_running == true)
+    const QString other = m_cells.at(cellIndex);
+    m_cells[cellIndex] = UID;
+
+    // a fixture coming from the grid swaps with the one in the target cell,
+    // a fixture coming from the fixtures area sends the other one back there
+    if (previousIndex >= 0)
+        m_cells[previousIndex] = other;
+    else if (other.isEmpty() == false)
+        releaseFixtures(QStringList() << other);
+
+    updateLists();
+}
+
+void RDMManager::unplaceFixture(QString UID)
+{
+    const int index = m_cells.indexOf(UID);
+    if (index < 0)
+        return;
+
+    m_cells[index].clear();
+    releaseFixtures(QStringList() << UID);
+    updateLists();
+}
+
+void RDMManager::setIdentify(QString UID, bool on)
+{
+    if (m_service == nullptr)
+        return;
+
+    // PID_IDENTIFY_DEVICE (0x1000) takes a single byte
+    m_service->writePid(UID, "0x1000", QLCRDMService::ByteArg, on ? "1" : "0");
+}
+
+void RDMManager::autoPatch(int startAddress, int gap)
+{
+    if (m_service == nullptr)
+        return;
+
+    QStringList ordered;
+    for (const QString &uid : m_cells)
     {
-        switch (m_requestState)
+        if (uid.isEmpty() == false)
+            ordered.append(uid);
+    }
+
+    if (ordered.isEmpty())
+        return;
+
+    // the new addresses come back with deviceFound
+    m_service->autoPatch(ordered, startAddress, gap);
+}
+
+/*********************************************************************
+ * Apply
+ *********************************************************************/
+
+bool RDMManager::applyLayout()
+{
+    if (m_service == nullptr)
+        return false;
+
+    // send the new addresses to the physical fixtures
+    m_service->executeOperations();
+
+    bool result = true;
+
+    for (int i = 0; i < m_cells.count(); i++)
+    {
+        const QString uid = m_cells.at(i);
+        if (uid.isEmpty())
+            continue;
+
+        const DeviceEntry &entry = m_devices.value(uid);
+        const QLCRDMDevice &dev = entry.device;
+
+        QString manufacturer = entry.defManufacturer;
+        QString model = entry.defModel;
+        QString mode = entry.defMode;
+        QString name = dev.model.isEmpty() ? QString("RDM fixture") : dev.model;
+
+        // fixtures not found in the library are added as generic dimmers
+        if (entry.hasDefinition == false)
         {
-        case StateNone:
-        {
-            // Nothing to do. Terminate the thread
-            m_running = false;
+            manufacturer = "Generic";
+            model = "Generic Dimmer";
+            mode.clear();
         }
-        break;
-        case StateDiscoveryStart:
+
+        // RDM addresses start from 1. The 2D view position is in grid units,
+        // one unit per cell, with the first cell centered at the grid origin
+        const int column = i % m_gridWidth;
+        const int row = i / m_gridWidth;
+
+        if (m_fixtureManager->addFixture(manufacturer, model, mode, name,
+                                         dev.universe, qMax(0, int(dev.address) - 1),
+                                         qMax(1, int(dev.channels)), 1, 0,
+                                         column + 0.5, row + 0.5) == false)
         {
-            waitCount = 0;
-            // Kick off the first queued discovery command
-            checkQueue();
-        }
-        break;
-        case StateDiscoveryContinue:
-        {
-            waitCount = 0;
-
-            if (m_rdmCommandsQueue.isEmpty())
-            {
-                // Nothing more to probe
-                m_requestState = StateDiscoveryEnd;
-                break;
-            }
-
-            // Next queued discovery (or later, other RDM operations)
-            checkQueue();
-        }
-        break;
-        case StateDiscoveryEnd:
-        {
-            if (m_uidMap.isEmpty())
-            {
-                emit requestPopup("Warning", "No RDM devices found");
-                m_requestState = StateNone;
-            }
-            else
-            {
-                // Queue basic info requests for all discovered UIDs
-                for (auto it = m_uidMap.cbegin(); it != m_uidMap.cend(); ++it)
-                {
-                    const QString uid = it.key();
-
-                    addToQueue(GET_COMMAND,
-                               QVariantList() << uid << PID_DEVICE_MODEL_DESCRIPTION);
-
-                    addToQueue(GET_COMMAND,
-                               QVariantList() << uid << PID_MANUFACTURER_LABEL);
-
-                    addToQueue(GET_COMMAND,
-                               QVariantList() << uid << PID_DEVICE_INFO);
-                }
-
-                // Start the fixture info phase
-                m_requestState = StateGetFixtureInfo;
-            }
-        }
-        break;
-        case StateGetFixtureInfo:
-        {
-            waitCount = 0;
-
-            if (m_rdmCommandsQueue.isEmpty())
-            {
-                // All GETs done
-                m_requestState = StateNone;
-                break;
-            }
-
-            // Send next queued GET command
-            checkQueue();
-        }
-        break;
-        default:
-        {
-            //qDebug() << "[RDM] ....WAIT....";
-            msleep(50);
-            waitCount++;
-            if (m_requestState == StateWait && waitCount == MAX_WAIT_COUNT)
-            {
-                qDebug() << "Exit for timeout...";
-                emit requestPopup("Warning", "Process timed out");
-                m_running = false;
-            }
-        }
-        break;
+            qWarning() << "[RDM] Cannot add fixture" << uid;
+            result = false;
         }
     }
 
-    disconnect(m_plugin, SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)),
-               this, SLOT(slotRDMDataReady(quint32, quint32, QVariantMap)));
+    return result;
+}
 
-    qDebug() << "Terminating RDM worker thread";
+/*********************************************************************
+ * Models
+ *********************************************************************/
+
+QVariantMap RDMManager::fixtureMap(const QString &UID) const
+{
+    QVariantMap map;
+
+    if (UID.isEmpty())
+    {
+        map["UID"] = "";
+        map["manufacturer"] = "";
+        map["modelName"] = "";
+        map["dmxAddress"] = 0;
+        map["dmxChannels"] = 0;
+        map["personality"] = "";
+        map["universe"] = 0;
+        map["ipAddress"] = "";
+        map["hasDefinition"] = false;
+        map["defMode"] = "";
+        map["occupied"] = false;
+        return map;
+    }
+
+    const DeviceEntry &entry = m_devices.value(UID);
+    const QLCRDMDevice &dev = entry.device;
+
+    map["UID"] = UID;
+    map["manufacturer"] = dev.manufacturer;
+    map["modelName"] = dev.model;
+    map["dmxAddress"] = dev.address;
+    map["dmxChannels"] = dev.channels;
+    map["personality"] = dev.personality;
+    map["universe"] = dev.universe;
+    map["ipAddress"] = dev.ipAddress;
+    map["hasDefinition"] = entry.hasDefinition;
+    map["defMode"] = entry.defMode;
+    map["occupied"] = true;
+    return map;
+}
+
+void RDMManager::updateLists()
+{
+    m_fixtureList->clear();
+    m_gridList->clear();
+
+    for (auto i = m_devices.cbegin(), end = m_devices.cend(); i != end; ++i)
+    {
+        if (m_cells.contains(i.key()) == false)
+        {
+            QVariantMap fxMap = fixtureMap(i.key());
+            fxMap["cellIndex"] = -1;
+            m_fixtureList->addDataMap(fxMap);
+        }
+    }
+
+    for (int c = 0; c < m_cells.count(); c++)
+    {
+        QVariantMap cellMap = fixtureMap(m_cells.at(c));
+        cellMap["cellIndex"] = c;
+        m_gridList->addDataMap(cellMap);
+    }
+
+    emit fixtureListChanged();
+    emit gridListChanged();
 }
