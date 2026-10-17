@@ -1268,4 +1268,24 @@ void Doc_Test::renamedFixtureKeepsValues()
     QCOMPARE(uni->channelCapabilities(20) & Universe::LTP, int(Universe::LTP));
 }
 
+void Doc_Test::movedFixtureBeyondUniverse()
+{
+    Fixture *fxi = new Fixture(m_doc);
+    fxi->setAddress(10);
+    fxi->setUniverse(0);
+    fxi->setChannels(4);
+    QVERIFY(m_doc->addFixture(fxi));
+
+    Universe *uni = m_doc->inputOutputMap()->universes().at(0);
+    const uchar intensity = Universe::HTP | Universe::Intensity;
+    QCOMPARE(uni->channelCapabilities(10), intensity);
+
+    // straddling the end of the universe: the channels that don't fit are
+    // ignored, the ones that do are set up and the old ones are freed
+    fxi->setAddress(510);
+    QCOMPARE(uni->channelCapabilities(10), uchar(Universe::Undefined));
+    QCOMPARE(uni->channelCapabilities(510), intensity);
+    QCOMPARE(uni->channelCapabilities(511), intensity);
+}
+
 QTEST_APPLESS_MAIN(Doc_Test)
