@@ -48,6 +48,7 @@ void Universe_Test::initial()
     QCOMPARE(m_uni->totalChannels(), ushort(0));
     QCOMPARE(m_uni->hasChanged(), false);
     QCOMPARE(m_uni->passthrough(), false);
+    QCOMPARE(m_uni->passthroughMode(), Universe::PassthroughMerge);
     QVERIFY(m_uni->inputPatch() == NULL);
     QVERIFY(m_uni->outputPatch(0) == NULL);
     QVERIFY(m_uni->feedbackPatch() == NULL);
@@ -456,6 +457,77 @@ void Universe_Test::reset()
         QCOMPARE((int)m_uni->postGMValues()->at(i), 0);
 }
 
+void Universe_Test::passthroughMerge()
+{
+    m_uni->setChannelCapability(0, QLCChannel::Pan);
+    m_uni->setChannelDefaultValue(0, 128);
+    m_uni->setPassthrough(true);
+    QCOMPARE(m_uni->passthroughMode(), Universe::PassthroughMerge);
+
+    // a lower input value is masked by the internal value (HTP)
+    m_uni->slotInputValueChanged(0, 0, 40);
+    QCOMPARE(m_uni->postGMValue(0), uchar(128));
+
+    // a higher input value wins
+    m_uni->slotInputValueChanged(0, 0, 200);
+    QCOMPARE(m_uni->postGMValue(0), uchar(200));
+
+    m_uni->slotInputValueChanged(0, 0, 40);
+    m_uni->reset(0, 1);
+    QCOMPARE(m_uni->postGMValue(0), uchar(40));
+    m_uni->write(0, 128);
+    QCOMPARE(m_uni->postGMValue(0), uchar(128));
+    QCOMPARE(m_uni->applyPassthrough(0, 128), uchar(128));
+}
+
+void Universe_Test::passthroughReplace()
+{
+    m_uni->setChannelCapability(0, QLCChannel::Pan);
+    m_uni->setChannelCapability(1, QLCChannel::Intensity);
+    m_uni->setChannelDefaultValue(0, 128);
+    m_uni->setPassthrough(true);
+    m_uni->setPassthroughMode(Universe::PassthroughReplace);
+    QCOMPARE(m_uni->passthroughMode(), Universe::PassthroughReplace);
+
+    // input values replace the internal values, whether lower or higher
+    m_uni->slotInputValueChanged(0, 0, 40);
+    QCOMPARE(m_uni->postGMValue(0), uchar(40));
+    m_uni->slotInputValueChanged(0, 1, 10);
+    m_uni->write(1, 255);
+    QCOMPARE(m_uni->postGMValue(1), uchar(10));
+
+    // internal writes are ignored
+    m_uni->write(0, 255);
+    QCOMPARE(m_uni->preGMValue(0), uchar(255));
+    QCOMPARE(m_uni->postGMValue(0), uchar(40));
+
+    // reset and intensity zeroing keep the input values
+    m_uni->reset(0, 1);
+    QCOMPARE(m_uni->postGMValue(0), uchar(40));
+    m_uni->zeroIntensityChannels();
+    QCOMPARE(m_uni->postGMValue(1), uchar(10));
+
+    // the Grand Master does not affect input values
+    m_gm->setValue(0);
+    QCOMPARE(m_uni->postGMValue(1), uchar(10));
+    m_gm->setValue(255);
+
+    QCOMPARE(m_uni->applyPassthrough(0, 255), uchar(40));
+
+    // going back to merge recomputes the output from both sources
+    m_uni->write(0, 128);
+    QCOMPARE(m_uni->postGMValue(0), uchar(40));
+    m_uni->setPassthroughMode(Universe::PassthroughMerge);
+    QCOMPARE(m_uni->postGMValue(0), uchar(128));
+
+    // with passthrough disabled, the mode has no effect
+    m_uni->setPassthroughMode(Universe::PassthroughReplace);
+    m_uni->setPassthrough(false);
+    m_uni->write(0, 128);
+    QCOMPARE(m_uni->postGMValue(0), uchar(128));
+    QCOMPARE(m_uni->applyPassthrough(0, 128), uchar(128));
+}
+
 void Universe_Test::loadEmpty()
 {
     QBuffer buffer;
@@ -577,6 +649,55 @@ void Universe_Test::loadPassthroughFalse()
     QCOMPARE(m_uni->passthrough(), false);
 }
 
+void Universe_Test::loadPassthroughModeReplace()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("Universe");
+    xmlWriter.writeAttribute("Name", "Universe 123");
+    xmlWriter.writeAttribute("Passthrough", "True");
+    xmlWriter.writeAttribute("PassthroughMode", "Replace");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(m_uni->loadXML(xmlReader, 0, 0) == true);
+    QCOMPARE(m_uni->passthrough(), true);
+    QCOMPARE(m_uni->passthroughMode(), Universe::PassthroughReplace);
+}
+
+void Universe_Test::loadPassthroughModeMissing()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("Universe");
+    xmlWriter.writeAttribute("Name", "Universe 123");
+    xmlWriter.writeAttribute("Passthrough", "True");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    // projects without the attribute keep the HTP merge behaviour
+    m_uni->setPassthroughMode(Universe::PassthroughReplace);
+    QVERIFY(m_uni->loadXML(xmlReader, 0, 0) == true);
+    QCOMPARE(m_uni->passthrough(), true);
+    QCOMPARE(m_uni->passthroughMode(), Universe::PassthroughMerge);
+}
+
 void Universe_Test::saveEmpty()
 {
     QBuffer buffer;
@@ -599,6 +720,7 @@ void Universe_Test::saveEmpty()
     QCOMPARE(xmlReader.attributes().value("Name").toString(), QString("Universe 123"));
     QCOMPARE(xmlReader.attributes().value("ID").toString(), QString("1"));
     QCOMPARE(xmlReader.attributes().hasAttribute("Passthrough"), false);
+    QCOMPARE(xmlReader.attributes().hasAttribute("PassthroughMode"), false);
 }
 
 void Universe_Test::savePasthroughTrue()
@@ -624,6 +746,29 @@ void Universe_Test::savePasthroughTrue()
     QCOMPARE(xmlReader.attributes().value("Name").toString(), QString("Universe 123"));
     QCOMPARE(xmlReader.attributes().value("ID").toString(), QString("1"));
     QCOMPARE(xmlReader.attributes().value("Passthrough").toString(), QString("True"));
+    QCOMPARE(xmlReader.attributes().hasAttribute("PassthroughMode"), false);
+}
+
+void Universe_Test::savePassthroughModeReplace()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    m_uni->setPassthrough(true);
+    m_uni->setPassthroughMode(Universe::PassthroughReplace);
+
+    QVERIFY(m_uni->saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QCOMPARE(xmlReader.attributes().value("Passthrough").toString(), QString("True"));
+    QCOMPARE(xmlReader.attributes().value("PassthroughMode").toString(), QString("Replace"));
 }
 
 void Universe_Test::setGMValueEfficiency()

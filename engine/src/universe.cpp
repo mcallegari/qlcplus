@@ -45,12 +45,16 @@
 #define KXMLUniverseAdditiveBlend    QStringLiteral("Additive")
 #define KXMLUniverseSubtractiveBlend QStringLiteral("Subtractive")
 
+#define KXMLUniversePassthroughMerge   QStringLiteral("Merge")
+#define KXMLUniversePassthroughReplace QStringLiteral("Replace")
+
 Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     : QThread(parent)
     , m_id(id)
     , m_name(QString("Universe %1").arg(id + 1))
     , m_grandMaster(gm)
     , m_passthrough(false)
+    , m_passthroughMode(PassthroughMerge)
     , m_monitor(false)
     , m_inputPatch(NULL)
     , m_fbPatch(NULL)
@@ -178,6 +182,43 @@ void Universe::setPassthrough(bool enable)
 bool Universe::passthrough() const
 {
     return m_passthrough;
+}
+
+void Universe::setPassthroughMode(PassthroughMode mode)
+{
+    if (mode == m_passthroughMode)
+        return;
+
+    qDebug() << "Set universe" << id() << "passthrough mode to" << passthroughModeToString(mode);
+
+    m_passthroughMode = mode;
+
+    // refresh the output with the new combination of values
+    for (int i = 0; i < m_usedChannels; i++)
+        updatePostGMValue(i);
+
+    emit passthroughModeChanged();
+}
+
+Universe::PassthroughMode Universe::passthroughMode() const
+{
+    return m_passthroughMode;
+}
+
+QString Universe::passthroughModeToString(PassthroughMode mode)
+{
+    if (mode == PassthroughReplace)
+        return KXMLUniversePassthroughReplace;
+
+    return KXMLUniversePassthroughMerge;
+}
+
+Universe::PassthroughMode Universe::stringToPassthroughMode(const QString &mode)
+{
+    if (mode == KXMLUniversePassthroughReplace)
+        return PassthroughReplace;
+
+    return PassthroughMerge;
 }
 
 void Universe::setMonitor(bool enable)
@@ -433,7 +474,8 @@ void Universe::applyPassthroughValues(int address, int range)
 
     for (int i = address; i < address + range && i < UNIVERSE_SIZE; i++)
     {
-        if (static_cast<uchar>(m_postGMValues->at(i)) < static_cast<uchar>(m_passthroughValues->at(i))) // HTP merge
+        if (m_passthroughMode == PassthroughReplace ||
+            static_cast<uchar>(m_postGMValues->at(i)) < static_cast<uchar>(m_passthroughValues->at(i))) // HTP merge
         {
             (*m_postGMValues)[i] = (*m_passthroughValues)[i];
         }
@@ -551,6 +593,9 @@ uchar Universe::applyPassthrough(int channel, uchar value)
     if (m_passthrough)
     {
         const uchar passthroughValue = static_cast<uchar>(m_passthroughValues->at(channel));
+        if (m_passthroughMode == PassthroughReplace)
+            return passthroughValue;
+
         if (value < passthroughValue) // HTP merge
         {
             return passthroughValue;
@@ -1115,6 +1160,11 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
         setPassthrough(false);
     }
 
+    if (attrs.hasAttribute(KXMLQLCUniversePassthroughMode))
+        setPassthroughMode(stringToPassthroughMode(attrs.value(KXMLQLCUniversePassthroughMode).toString()));
+    else
+        setPassthroughMode(PassthroughMerge);
+
     while (root.readNextStartElement())
     {
         QXmlStreamAttributes pAttrs = root.attributes();
@@ -1279,6 +1329,8 @@ bool Universe::saveXML(QXmlStreamWriter *doc) const
 
     if (passthrough() == true)
         doc->writeAttribute(KXMLQLCUniversePassthrough, KXMLQLCTrue);
+    if (passthroughMode() != PassthroughMerge)
+        doc->writeAttribute(KXMLQLCUniversePassthroughMode, passthroughModeToString(passthroughMode()));
 
     if (inputPatch() != NULL)
     {
