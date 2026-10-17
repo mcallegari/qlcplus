@@ -55,6 +55,7 @@ class ShowManager final : public PreviewContext
 
     Q_PROPERTY(bool stretchFunctions READ stretchFunctions WRITE setStretchFunctions NOTIFY stretchFunctionsChanged)
     Q_PROPERTY(bool gridEnabled READ gridEnabled WRITE setGridEnabled NOTIFY gridEnabledChanged)
+    Q_PROPERTY(bool snapToItems READ snapToItems WRITE setSnapToItems NOTIFY snapToItemsChanged)
     Q_PROPERTY(double snapGuideX READ snapGuideX WRITE setSnapGuideX NOTIFY snapGuideXChanged)
     Q_PROPERTY(bool isPlaying READ isPlaying NOTIFY isPlayingChanged)
     Q_PROPERTY(bool isPaused READ isPaused NOTIFY isPausedChanged)
@@ -70,7 +71,11 @@ class ShowManager final : public PreviewContext
     Q_PROPERTY(int selectedTrackId READ selectedTrackId WRITE setSelectedTrackId NOTIFY selectedTrackIdChanged)
     Q_PROPERTY(int selectedItemsCount READ selectedItemsCount NOTIFY selectedItemsCountChanged)
     Q_PROPERTY(int clipboardItemsCount READ clipboardItemsCount NOTIFY clipboardItemsCountChanged)
+    Q_PROPERTY(QVariantList cutItemIds READ cutItemIds NOTIFY cutItemIdsChanged)
     Q_PROPERTY(bool multipleSelection READ multipleSelection WRITE setMultipleSelection NOTIFY multipleSelectionChanged)
+    Q_PROPERTY(bool groupDragActive READ groupDragActive WRITE setGroupDragActive NOTIFY groupDragActiveChanged)
+    Q_PROPERTY(QPointF groupDragOffset READ groupDragOffset WRITE setGroupDragOffset NOTIFY groupDragOffsetChanged)
+    Q_PROPERTY(bool boxSelectMode READ boxSelectMode WRITE setBoxSelectMode NOTIFY boxSelectModeChanged)
 
 public:
     explicit ShowManager(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -117,6 +122,11 @@ public:
     bool gridEnabled() const;
     void setGridEnabled(bool gridEnabled);
 
+    /** Get/Set the snapping of Show items to the nearby items' edges.
+     *  Stored in the local computer settings, so it survives a restart */
+    bool snapToItems() const;
+    void setSnapToItems(bool snapToItems);
+
     /** Get/Set the X position of the snap guide line (-1 = hidden) */
     double snapGuideX() const;
     void setSnapGuideX(double snapGuideX);
@@ -139,6 +149,7 @@ signals:
     void showNameChanged(QString showName);
     void stretchFunctionsChanged(bool stretchFunction);
     void gridEnabledChanged(bool gridEnabled);
+    void snapToItemsChanged(bool snapToItems);
     void snapGuideXChanged();
     void isPlayingChanged(bool playing);
     void isPausedChanged(bool paused);
@@ -164,6 +175,10 @@ private:
     /** Flag that indicates if the Show items should be
      *  snapped to the closest grid divisor */
     bool m_gridEnabled;
+
+    /** Flag that indicates if the Show items should be
+     *  snapped to the edges of the nearby items */
+    bool m_snapToItems;
 
     /** X position of the snap guide line (-1 = hidden) */
     double m_snapGuideX;
@@ -237,6 +252,10 @@ signals:
     void selectedTrackIdChanged(int id);
 
 private:
+    /** Select the topmost Track holding a selected Show item, without
+     *  claiming the keyboard shortcuts for the Track like a click does */
+    void selectTrackOfSelectedItems();
+
     /** The index of the currently selected track */
     int m_selectedTrackId;
 
@@ -299,6 +318,20 @@ public:
     Q_INVOKABLE bool checkAndMoveItem(ShowFunction *sf,  int originalTrackIdx,
                                       int newTrackIdx, int newStartTime);
 
+    /** Move several Show items at once, as when dragging a multiple selection.
+     *  $items are the QML Show items, $trackIndexes and $startTimes their
+     *  destination Track indices and start times, in the same order.
+     *  All the destinations are checked for overlapping first, against the
+     *  items that stay where they are and against each other, and nothing
+     *  is moved unless every item fits. Unlike checkAndMoveItem, no Track
+     *  is created: all the destination Tracks must already exist.
+     *  Returns true if the items have been moved */
+    Q_INVOKABLE bool moveShowItems(QVariantList items, QVariantList trackIndexes,
+                                   QVariantList startTimes);
+
+    /** Return the number of Tracks of the Show being edited */
+    Q_INVOKABLE int tracksCount() const;
+
     /** Move a ShowFunction item to the Track at $trackIdx.
      *  This is used to apply a track change coming from an undo/redo or
      *  from a connected network peer, where the UI didn't move the item */
@@ -309,6 +342,28 @@ public:
 
     /** Set the duration of a ShowFunction item (if not overlapping) */
     Q_INVOKABLE bool setShowItemDuration(ShowFunction *sf, int duration);
+
+    /** Set both the start time and the duration of a ShowFunction item
+     *  (if not overlapping), checking the resulting span as a whole */
+    Q_INVOKABLE bool setShowItemStartTimeAndDuration(ShowFunction *sf, int startTime, int duration);
+
+    /** Resize two Show items sharing a boundary on the same Track by moving that
+     *  boundary: $leftSf keeps its own start time and gets $leftDuration, while
+     *  $rightSf keeps its own end time and gets $rightStartTime/$rightDuration.
+     *  Used when dragging a resize handle with both items selected, so the pair
+     *  is resized together instead of just the one being dragged.
+     *  Both items must be on the same Track and remain adjacent (no gap, no
+     *  overlap) after the resize, and neither may overlap any other item on
+     *  the Track: if any of that doesn't hold, nothing changes and false is
+     *  returned. Returns true if both items have been resized */
+    Q_INVOKABLE bool resizeAdjacentShowItems(ShowFunction *leftSf, int leftDuration,
+                                             ShowFunction *rightSf, int rightStartTime, int rightDuration);
+
+    /** Returns the QML item of the Show item sharing a boundary with $sf on its
+     *  own Track: the one ending exactly where $sf starts when $previous is
+     *  true, the one starting exactly where $sf ends otherwise.
+     *  Returns nullptr when $sf has no such neighbour */
+    Q_INVOKABLE QQuickItem *adjacentShowItemView(ShowFunction *sf, bool previous) const;
 
     /** Insert a time segment in a ShowFunction item, applying type-specific rules */
     Q_INVOKABLE bool insertShowItemTime(ShowFunction *sf, int length);
@@ -337,13 +392,40 @@ public:
     bool multipleSelection() const;
     void setMultipleSelection(bool multipleSelection);
 
+    /** Get/Set the box selection mode for Show items. When enabled, dragging
+     *  on the timeline draws a box selecting the items it wholly contains */
+    bool boxSelectMode() const;
+    void setBoxSelectMode(bool enable);
+
     /** Add an item to the selection tracking list */
     Q_INVOKABLE void setItemSelection(int trackIdx, ShowFunction *sf, QQuickItem *item, bool selected, int keyModifiers);
 
     /** Deselect all the selected items at once */
     Q_INVOKABLE void resetItemsSelection();
 
+    /** Select all the items of the currently selected Track, or of the
+     *  Track of the last selected item when no Track is selected.
+     *  Returns false if there is no Track to select the items from */
+    Q_INVOKABLE bool selectAllTrackItems();
+    /** Select the Show items lying entirely within $rect, expressed in the
+     *  coordinates of the items' parent. If $addToSelection is false,
+     *  the current selection is replaced, otherwise it is extended */
+    Q_INVOKABLE void selectItemsInRect(QRectF rect, bool addToSelection);
+
     Q_INVOKABLE QVariantList selectedItemRefs() const;
+
+    /** Returns the QML items of the currently selected Show items */
+    Q_INVOKABLE QVariantList selectedItemViews() const;
+
+    /** Get/Set the flag telling the selected Show items to follow the
+     *  one being dragged, by the offset in groupDragOffset */
+    bool groupDragActive() const;
+    void setGroupDragActive(bool active);
+
+    /** Get/Set the offset, in pixels, of the Show item being dragged
+     *  from its original position */
+    QPointF groupDragOffset() const;
+    void setGroupDragOffset(QPointF offset);
     Q_INVOKABLE QStringList selectedItemNames() const;
 
     /** Returns true if at least one of the selected items is locked */
@@ -358,11 +440,27 @@ public:
      */
     Q_INVOKABLE QVariantList previewData(Function *f) const;
 
+    /** Copy the selected items in the clipboard. Nothing happens
+     *  when no item is selected */
     Q_INVOKABLE void copyToClipboard();
-    /** Paste the clipboard items on the selected track at the cursor
-     *  position. Returns false if no item could be pasted because of
-     *  overlapping with the existing items */
+
+    /** Mark the selected items as cut: they stay where they are, dimmed,
+     *  until they are moved by the next paste. Copying cancels the cut.
+     *  Returns false, and emits clipboardActionFailed, if the selection
+     *  contains locked items */
+    Q_INVOKABLE bool cutToClipboard();
+
+    /** Paste the clipboard items at the cursor position, the earliest one
+     *  starting at the cursor. Items keep their relative start times and
+     *  Track offsets, gap Tracks included. The topmost Track of the items
+     *  lands on the selected Track, or the items land on their own Tracks
+     *  when no Track is selected. Pasting cut items moves them.
+     *  Nothing is pasted unless every item fits: on failure false is
+     *  returned and clipboardActionFailed carries the reason */
     Q_INVOKABLE bool pasteFromClipboard();
+
+    /** Returns the ShowFunction IDs of the items pending a cut */
+    QVariantList cutItemIds() const;
 
 protected slots:
     void slotTimeChanged(quint32 msec_time);
@@ -394,11 +492,30 @@ private:
     bool checkOverlapping(Track *track, ShowFunction *sourceFunc,
                           quint32 startTime, quint32 duration) const;
 
+    /** Same as above, but ignoring all the ShowFunctions in $exclude */
+    bool checkOverlapping(Track *track, const QList<ShowFunction *> &exclude,
+                          quint32 startTime, quint32 duration) const;
+
+    /** Convert a time value between the unit of the Show timeline and
+     *  the unit of $func, which differ when one of them is beat-based */
+    quint32 showToFunctionTime(const Function *func, quint32 value) const;
+    quint32 functionToShowTime(const Function *func, quint32 value) const;
+
+    /** Drop the pending cut state, keeping the clipboard as a copy */
+    void clearCutState();
+
 signals:
     void itemsColorChanged(QColor itemsColor);
     void selectedItemsCountChanged(int count);
     void clipboardItemsCountChanged(int count);
+    void cutItemIdsChanged();
+
+    /** Notify the UI that a clipboard action could not be performed */
+    void clipboardActionFailed(QString title, QString message);
     void multipleSelectionChanged();
+    void groupDragActiveChanged();
+    void groupDragOffsetChanged();
+    void boxSelectModeChanged();
 
     /** Notify the UI that the Function with the given $fid has been modified,
      *  so Show Items referencing it can repaint their preview lines */
@@ -417,8 +534,17 @@ private:
     /** Flag to enable multi selection in Show items */
     bool m_multipleSelection;
 
+    /** State of a multiple selection being dragged */
+    bool m_groupDragActive;
+    QPointF m_groupDragOffset;
+    /** Flag to enable box selection of Show items */
+    bool m_boxSelectMode;
+
     /** Holds the item currently ready for pasting */
     QList<SelectedShowItem> m_clipboard;
+
+    /** True when the clipboard items are cut, and so pending a move */
+    bool m_clipboardIsCut;
 
     WaveformImageProvider *m_waveformProvider;
 };
