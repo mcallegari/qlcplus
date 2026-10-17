@@ -37,6 +37,7 @@ private slots:
     void cleanup();
 
     void initial();
+    void loopDurationWithLongFadeIn();
     void algorithmNames();
     void stringToAlgorithm();
     void width();
