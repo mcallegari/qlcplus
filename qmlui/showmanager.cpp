@@ -1112,6 +1112,76 @@ bool ShowManager::setShowItemStartTimeAndDuration(ShowFunction *sf, int startTim
     return true;
 }
 
+bool ShowManager::resizeAdjacentShowItems(ShowFunction *leftSf, int leftDuration,
+                                          ShowFunction *rightSf, int rightStartTime, int rightDuration)
+{
+    if (m_currentShow == nullptr || leftSf == nullptr || rightSf == nullptr || leftSf == rightSf)
+        return false;
+
+    Track *track = m_currentShow->getTrackFromShowFunctionID(leftSf->id());
+    if (track == nullptr || track != m_currentShow->getTrackFromShowFunctionID(rightSf->id()))
+        return false;
+
+    // the two items must stay adjacent: the boundary is what's moving,
+    // not either item's other edge
+    if (quint32(leftSf->startTime()) + quint32(leftDuration) != quint32(rightStartTime))
+        return false;
+
+    QList<ShowFunction *> exclude = { leftSf, rightSf };
+
+    if (checkOverlapping(track, exclude, leftSf->startTime(), quint32(leftDuration)) ||
+        checkOverlapping(track, exclude, quint32(rightStartTime), quint32(rightDuration)))
+    {
+        return false;
+    }
+
+    if (leftSf->duration() != quint32(leftDuration))
+    {
+        Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetDuration, leftSf->id(), leftSf->duration(), leftDuration);
+        leftSf->setDuration(leftDuration);
+    }
+
+    if (rightSf->startTime() != quint32(rightStartTime))
+    {
+        Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetStartTime, rightSf->id(), rightSf->startTime(), rightStartTime);
+        rightSf->setStartTime(rightStartTime);
+    }
+
+    if (rightSf->duration() != quint32(rightDuration))
+    {
+        Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetDuration, rightSf->id(), rightSf->duration(), rightDuration);
+        rightSf->setDuration(rightDuration);
+    }
+
+    m_doc->setModified();
+
+    return true;
+}
+
+QQuickItem *ShowManager::adjacentShowItemView(ShowFunction *sf, bool previous) const
+{
+    if (m_currentShow == nullptr || sf == nullptr)
+        return nullptr;
+
+    Track *track = m_currentShow->getTrackFromShowFunctionID(sf->id());
+    if (track == nullptr)
+        return nullptr;
+
+    quint32 edge = previous ? sf->startTime() : sf->startTime() + sf->duration();
+
+    foreach (ShowFunction *other, track->showFunctions())
+    {
+        if (other == sf)
+            continue;
+
+        quint32 otherEdge = previous ? other->startTime() + other->duration() : other->startTime();
+        if (otherEdge == edge)
+            return m_itemsMap.value(other->id(), nullptr);
+    }
+
+    return nullptr;
+}
+
 int ShowManager::minimumTimelineDuration(Show::TimeDivision division) const
 {
     return division == Show::Time ? 1 : 125;

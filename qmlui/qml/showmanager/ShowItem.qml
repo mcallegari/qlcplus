@@ -90,6 +90,30 @@ Item
     property bool groupFollow: isSelected && !dragActive && showManager.groupDragActive
                                && !(sfRef && sfRef.locked)
 
+    /* When resizing a handle, the adjacent item (if any) that shares the
+       boundary being dragged - see adjacentPairItem() */
+    property var pairItem: null
+    property real pairOrigX: 0
+    property real pairOrigWidth: 0
+
+    /* The neighbour that would be (or is being) resized along with this item,
+       and which of this item's edges is the shared boundary. It is set while
+       hovering a handle as well, so that a boundary resize can be told apart
+       from an ordinary one before the drag begins */
+    property var boundaryPartner: null
+    property bool boundaryPartnerPrevious: false
+    readonly property bool leftBoundaryActive: boundaryPartner !== null && boundaryPartnerPrevious
+    readonly property bool rightBoundaryActive: boundaryPartner !== null && !boundaryPartnerPrevious
+
+    /* Set by the neighbour on the other side of a shared boundary, so that
+       both handles light up while that boundary is hovered or dragged */
+    property bool leftHandleHighlighted: false
+    property bool rightHandleHighlighted: false
+
+    // a handle resizing this item alone, versus one moving a shared boundary
+    readonly property color trimHandleColor: "#7FFFFF00"
+    readonly property color rollHandleColor: "#7F00FFFF"
+
     // the range of Tracks the dragged item(s) can be moved by
     property int minTrackDelta: 0
     property int maxTrackDelta: 0
@@ -132,6 +156,75 @@ Item
         if (flickable && flickable.contentX !== undefined)
             return showManager.getSnapEdges(sfRef.functionID, flickable.contentX, flickable.contentX + flickable.width)
         return showManager.getSnapEdges(sfRef.functionID)
+    }
+
+    /* Returns the unlocked item touching this item's start ($wantPrevious) or
+       end (!$wantPrevious) edge, when dragging that edge should move the
+       boundary the two of them share - resizing both at once instead of just
+       this one. That is the case when both items are selected, so that the
+       intent to treat them as a pair is explicit, or when $forcePair is set,
+       which pairs them up for a single gesture without selecting anything.
+       Returns null when the edge is to be resized on its own.
+
+       $forcePair comes from where the handle was grabbed rather than a
+       keyboard modifier: a modifier has no equivalent on a touchscreen, and
+       on desktop a held Alt is intercepted by most Linux window managers as
+       "move the window" before the application ever sees it. Grabbing right
+       on the seam shared with the neighbour is unambiguous on any input
+       device and needs no modifier at all */
+    function adjacentPairItem(wantPrevious, forcePair)
+    {
+        if (sfRef === null || sfRef.locked)
+            return null
+
+        var partner = showManager.adjacentShowItemView(sfRef, wantPrevious)
+        if (!partner || !partner.sfRef || partner.sfRef.locked)
+            return null
+
+        if (!forcePair && !(isSelected && partner.isSelected))
+            return null
+
+        return partner
+    }
+
+    /* Light up both sides of the boundary shared with $partner ($wantPrevious
+       tells which of this item's edges it is), or clear the highlight when
+       $partner is null */
+    function setBoundaryPartner(partner, wantPrevious)
+    {
+        if (boundaryPartner === partner && boundaryPartnerPrevious === wantPrevious)
+            return
+
+        if (boundaryPartner)
+        {
+            boundaryPartner.leftHandleHighlighted = false
+            boundaryPartner.rightHandleHighlighted = false
+        }
+
+        boundaryPartner = partner
+        boundaryPartnerPrevious = wantPrevious
+
+        if (partner)
+        {
+            if (wantPrevious)
+                partner.rightHandleHighlighted = true
+            else
+                partner.leftHandleHighlighted = true
+        }
+    }
+
+    /* Remove $item's own edges from a snapEdges list, so a paired resize
+       doesn't "snap" to the very edge it is itself moving */
+    function withoutItemEdges(edges, item)
+    {
+        var out = []
+        for (var i = 0; i < edges.length; i++)
+        {
+            if (Math.abs(edges[i] - item.x) < 0.5 || Math.abs(edges[i] - (item.x + item.width)) < 0.5)
+                continue
+            out.push(edges[i])
+        }
+        return out
     }
 
     onStartTimeChanged: updateGeometry()
@@ -860,7 +953,9 @@ Item
         z: 2
         width: handleWidth
         height: itemRoot.height
-        color: horLeftHdlMa.containsMouse ? "#7FFFFF00" : "transparent"
+        color: leftHandleHighlighted ? rollHandleColor
+               : horLeftHdlMa.containsMouse ? (leftBoundaryActive ? rollHandleColor : trimHandleColor)
+               : "transparent"
         visible: handlesVisible
 
         MouseArea
@@ -870,7 +965,8 @@ Item
             enabled: !showManager.boxSelectMode
             preventStealing: true
             hoverEnabled: true
-            cursorShape: containsMouse ? Qt.SizeHorCursor : Qt.ArrowCursor
+            cursorShape: containsMouse ? (leftBoundaryActive ? Qt.SplitHCursor : Qt.SizeHorCursor)
+                                       : Qt.ArrowCursor
 
             property real pressX: 0
             property real origItemX: 0
@@ -884,12 +980,39 @@ Item
                 pressX = mapToItem(itemRoot.parent, mouse.x, mouse.y).x
                 origItemX = itemRoot.x
                 origItemW = itemRoot.width
+
+                /* whether the drag moves the shared boundary is decided here,
+                   from the press position, so that moving off the seam
+                   halfway through doesn't turn a boundary resize into an
+                   ordinary one */
+                pairItem = adjacentPairItem(true, mouse.x <= handleWidth / 2)
+                setBoundaryPartner(pairItem, true)
+                if (pairItem)
+                {
+                    pairOrigX = pairItem.x
+                    pairOrigWidth = pairItem.width
+                    pairItem.isDragging = true
+                    snapEdges = withoutItemEdges(snapEdges, pairItem)
+                }
             }
+
+            // the leave event alone is not enough: a resize can move the
+            // handle out from under a stationary pointer
+            onContainsMouseChanged: if (!containsMouse && !pressed) setBoundaryPartner(null, true)
 
             onPositionChanged: (mouse) =>
             {
                 if (!pressed)
+                {
+                    /* preview what a drag started now would resize. The pointer
+                       may have left the handle already - hover events outlive a
+                       resize that moved it away - and this item may be the one
+                       being resized from the other side, which keeps it under
+                       the pointer for that whole drag */
+                    setBoundaryPartner(containsMouse && !isDragging
+                                       ? adjacentPairItem(true, mouse.x <= handleWidth / 2) : null, true)
                     return
+                }
 
                 var globalX = mapToItem(itemRoot.parent, mouse.x, mouse.y).x
                 var dx = globalX - pressX
@@ -925,11 +1048,22 @@ Item
                 if (newX > maxX)
                     newX = maxX
 
+                // clamp: don't allow shrinking the paired item past its own minimum width
+                if (pairItem)
+                {
+                    var minXForPair = pairOrigX + pairItem.handleWidth
+                    if (newX < minXForPair)
+                        newX = minXForPair
+                }
+
                 itemRoot.width = origItemW + (origItemX - newX)
                 itemRoot.x = newX
                 infoTextBox.height = itemRoot.height / 2
                 infoTextBox.textHAlign = Text.AlignLeft
                 updateTooltipText()
+
+                if (pairItem)
+                    pairItem.width = newX - pairOrigX
             }
             onReleased: (mouse) =>
             {
@@ -937,14 +1071,15 @@ Item
 
                 if (sfRef)
                 {
-                    if (itemRoot.x < 0)
+                    if (!pairItem && itemRoot.x < 0)
                     {
                         itemRoot.width += itemRoot.x
                         itemRoot.x = 0
                     }
 
-                    // check grid snapping (skip if item-snapped)
-                    if (!itemSnapped && itemRoot.x && showManager.gridEnabled
+                    // check grid snapping (skip if item-snapped, or if resizing a
+                    // pair: the boundary must stay exactly shared between both)
+                    if (!pairItem && !itemSnapped && itemRoot.x && showManager.gridEnabled
                             && !snapSuspended(mouse.modifiers))
                     {
                         var currX = itemRoot.x
@@ -985,13 +1120,34 @@ Item
                     newStartTime = Math.round(newStartTime)
                     newDuration = Math.round(newDuration)
 
+                    if (pairItem)
+                    {
+                        var pairDuration = Math.round(pairItem.positionToTime(pairItem.width))
+
+                        if (showManager.resizeAdjacentShowItems(pairItem.sfRef, pairDuration,
+                                                                sfRef, newStartTime, newDuration) === false)
+                        {
+                            updateGeometry()
+                            pairItem.updateGeometry()
+                        }
+                        else
+                        {
+                            if (funcRef && showManager.stretchFunctions === true)
+                                funcRef.totalDuration = sfRef.duration
+                            if (pairItem.funcRef && showManager.stretchFunctions === true)
+                                pairItem.funcRef.totalDuration = pairItem.sfRef.duration
+                        }
+                    }
                     // the left edge moves the start and changes the duration while
                     // the end stays put, so both must be checked together
-                    if (showManager.setShowItemStartTimeAndDuration(sfRef, newStartTime, newDuration) === false)
+                    else if (showManager.setShowItemStartTimeAndDuration(sfRef, newStartTime, newDuration) === false)
+                    {
                         updateGeometry()
-
-                    if (funcRef && showManager.stretchFunctions === true)
+                    }
+                    else if (funcRef && showManager.stretchFunctions === true)
+                    {
                         funcRef.totalDuration = sfRef.duration
+                    }
 
                     prCanvas.requestPaint()
                 }
@@ -999,6 +1155,35 @@ Item
                 isDragging = false
                 itemSnapped = false
                 updateGeometry()
+
+                if (pairItem)
+                {
+                    pairItem.isDragging = false
+                    pairItem.updateGeometry()
+                    pairItem.updateTooltipText()
+                    pairItem.setBoundaryPartner(null, false)
+                    pairItem = null
+                }
+                setBoundaryPartner(null, true)
+            }
+
+            onCanceled:
+            {
+                // a cancelled press never reaches onReleased, and the paired
+                // item would be left frozen by its isDragging flag
+                infoText = ""
+                isDragging = false
+                itemSnapped = false
+                updateGeometry()
+
+                if (pairItem)
+                {
+                    pairItem.isDragging = false
+                    pairItem.updateGeometry()
+                    pairItem.setBoundaryPartner(null, false)
+                    pairItem = null
+                }
+                setBoundaryPartner(null, true)
             }
         }
     }
@@ -1011,7 +1196,9 @@ Item
         z: 2
         width: handleWidth
         height: itemRoot.height
-        color: horRightHdlMa.containsMouse ? "#7FFFFF00" : "transparent"
+        color: rightHandleHighlighted ? rollHandleColor
+               : horRightHdlMa.containsMouse ? (rightBoundaryActive ? rollHandleColor : trimHandleColor)
+               : "transparent"
         visible: handlesVisible
 
         MouseArea
@@ -1021,21 +1208,46 @@ Item
             enabled: !showManager.boxSelectMode
             preventStealing: true
             hoverEnabled: true
-            cursorShape: containsMouse ? Qt.SizeHorCursor : Qt.ArrowCursor
+            cursorShape: containsMouse ? (rightBoundaryActive ? Qt.SplitHCursor : Qt.SizeHorCursor)
+                                       : Qt.ArrowCursor
 
             drag.target: horRightHandler
             drag.axis: Drag.XAxis
             drag.minimumX: horLeftHandler.x + width
 
-            onPressed:
+            onPressed: (mouse) =>
             {
                 isDragging = true
                 itemSnapped = false
                 snapEdges = getVisibleSnapEdges()
+
+                /* see the left handle: the pair is decided from the press
+                   position, so that drifting off the seam mid-drag doesn't
+                   change what is resized */
+                pairItem = adjacentPairItem(false, mouse.x >= handleWidth / 2)
+                setBoundaryPartner(pairItem, false)
+                if (pairItem)
+                {
+                    pairOrigX = pairItem.x
+                    pairOrigWidth = pairItem.width
+                    pairItem.isDragging = true
+                    snapEdges = withoutItemEdges(snapEdges, pairItem)
+                }
             }
+
+            // see the left handle
+            onContainsMouseChanged: if (!containsMouse && !pressed) setBoundaryPartner(null, false)
 
             onPositionChanged: (mouse) =>
             {
+                if (!pressed)
+                {
+                    // see the left handle
+                    setBoundaryPartner(containsMouse && !isDragging
+                                       ? adjacentPairItem(false, mouse.x >= handleWidth / 2) : null, false)
+                    return
+                }
+
                 if (drag.active === true)
                 {
                     var obj = mapToItem(itemRoot, mouseX, mouseY)
@@ -1067,10 +1279,24 @@ Item
                         }
                     }
 
+                    // clamp: don't allow shrinking the paired item past its own minimum width
+                    if (pairItem)
+                    {
+                        var maxWidth = (pairOrigX + pairOrigWidth) - itemRoot.x - pairItem.handleWidth
+                        if (newWidth > maxWidth)
+                            newWidth = maxWidth
+                    }
+
                     itemRoot.width = newWidth
                     infoTextBox.height = itemRoot.height / 4
                     infoTextBox.textHAlign = Text.AlignRight
                     updateTooltipText()
+
+                    if (pairItem)
+                    {
+                        pairItem.x = itemRoot.x + newWidth
+                        pairItem.width = (pairOrigX + pairOrigWidth) - pairItem.x
+                    }
                 }
             }
             onReleased: (mouse) =>
@@ -1082,8 +1308,9 @@ Item
 
                 if (sfRef)
                 {
-                    // check grid snapping (skip if item-snapped)
-                    if (!itemSnapped && showManager.gridEnabled
+                    // check grid snapping (skip if item-snapped, or if resizing a
+                    // pair: the boundary must stay exactly shared between both)
+                    if (!pairItem && !itemSnapped && showManager.gridEnabled
                             && !snapSuspended(mouse.modifiers))
                     {
                         var snappedEndPos = Math.round((itemRoot.x + itemRoot.width) / tickSize) * tickSize
@@ -1108,11 +1335,33 @@ Item
 
                     newDuration = Math.round(newDuration)
 
-                    if (showManager.setShowItemDuration(sfRef, newDuration) === false)
-                        updateGeometry()
+                    if (pairItem)
+                    {
+                        var pairStartTime = Math.round(pairItem.positionToTime(pairItem.x))
+                        var pairDuration = Math.round(pairItem.positionToTime(pairItem.width))
 
-                    if (funcRef && showManager.stretchFunctions === true)
+                        if (showManager.resizeAdjacentShowItems(sfRef, newDuration,
+                                                                pairItem.sfRef, pairStartTime, pairDuration) === false)
+                        {
+                            updateGeometry()
+                            pairItem.updateGeometry()
+                        }
+                        else
+                        {
+                            if (funcRef && showManager.stretchFunctions === true)
+                                funcRef.totalDuration = sfRef.duration
+                            if (pairItem.funcRef && showManager.stretchFunctions === true)
+                                pairItem.funcRef.totalDuration = pairItem.sfRef.duration
+                        }
+                    }
+                    else if (showManager.setShowItemDuration(sfRef, newDuration) === false)
+                    {
+                        updateGeometry()
+                    }
+                    else if (funcRef && showManager.stretchFunctions === true)
+                    {
                         funcRef.totalDuration = sfRef.duration
+                    }
 
                     prCanvas.requestPaint()
                 }
@@ -1120,6 +1369,34 @@ Item
                 isDragging = false
                 itemSnapped = false
                 updateGeometry()
+
+                if (pairItem)
+                {
+                    pairItem.isDragging = false
+                    pairItem.updateGeometry()
+                    pairItem.updateTooltipText()
+                    pairItem.setBoundaryPartner(null, false)
+                    pairItem = null
+                }
+                setBoundaryPartner(null, false)
+            }
+
+            onCanceled:
+            {
+                // see the left handle
+                infoText = ""
+                isDragging = false
+                itemSnapped = false
+                updateGeometry()
+
+                if (pairItem)
+                {
+                    pairItem.isDragging = false
+                    pairItem.updateGeometry()
+                    pairItem.setBoundaryPartner(null, false)
+                    pairItem = null
+                }
+                setBoundaryPartner(null, false)
             }
         }
     }
