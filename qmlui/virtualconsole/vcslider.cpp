@@ -463,7 +463,7 @@ qreal VCSlider::attributeValueToSliderValue(qreal value)
     return fraction;
 }
 
-void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
+void VCSlider::setValue(int value, bool setDMX, bool updateFeedback, bool adjust)
 {
     if (m_value == value)
         return;
@@ -492,7 +492,8 @@ void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
             m_doc->inputOutputMap()->setGrandMasterValue(value);
         break;
         case Adjust:
-            m_adjustChangeCounter++;
+            if (adjust)
+                m_adjustChangeCounter++;
         break;
     }
 
@@ -1069,17 +1070,11 @@ void VCSlider::slotControlledFunctionStopped(quint32 fid)
     if (function->stopped() == false)
         return;
 
-    if (m_controlledAttributeIndex == Function::Intensity && m_value != 0)
-    {
-        // Only reflect the stop on the slider. Setting the value queues an
-        // adjustment, which must not be applied: if the Function is restarted
-        // before the next DMX write, a zero intensity would stop it again
-        setValue(0, false, true);
-
-        QMutexLocker locker(&m_levelValueMutex);
-        if (m_adjustChangeCounter > 0)
-            m_adjustChangeCounter--;
-    }
+    // Only reflect the stop on the slider, without adjusting the Function:
+    // if it is restarted before the next DMX write, a zero intensity would
+    // stop it again
+    if (m_controlledAttributeIndex == Function::Intensity)
+        setValue(0, false, true, false);
 
     function->releaseAttributeOverride(m_controlledAttributeId);
     m_controlledAttributeId = Function::invalidAttributeId();
