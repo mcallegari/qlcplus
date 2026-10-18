@@ -24,10 +24,7 @@
 #include <QThread>
 #include <QMutex>
 #include <QHash>
-
-struct libusb_device;
-struct libusb_device_handle;
-struct libusb_device_descriptor;
+#include <libusb.h>
 
 class QString;
 class QByteArray;
@@ -103,7 +100,7 @@ public:
 protected:
     struct libusb_device* m_device;
     struct libusb_device_handle* m_handle;
-    struct libusb_device_descriptor* m_descriptor;
+    struct libusb_device_descriptor m_descriptor;
     int m_firmwareVersion;
     int m_blockingControlWrite;
     QByteArray m_bulkBuffer;
