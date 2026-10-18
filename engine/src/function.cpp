@@ -1114,7 +1114,6 @@ void Function::postRun(MasterTimer *timer, QList<Universe *> universes)
 
     m_paused = false;
     m_running = false;
-    m_tempoMapClock.clear();
     emit stopped(m_id);
 }
 

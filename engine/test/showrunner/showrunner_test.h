@@ -37,6 +37,7 @@ private slots:
     void initRunner();
     void intensity();
     void stopRunner();
+    void tempoMapClockSurvivesRestart();
     void tempoMapRunner();
     void tempoMapCollection();
     void tempoMapStepEndsWithItem();

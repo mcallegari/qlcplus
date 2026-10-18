@@ -28,6 +28,7 @@
 #include "collection.h"
 #include "chaser.h"
 #include "scene.h"
+#include "inputoutputmap.h"
 #include "doc.h"
 #include "showrunner_test.h"
 
@@ -75,6 +76,46 @@ void ShowRunner_Test::stopRunner()
     QCOMPARE(runner.m_elapsedTime, quint32(0));
     QCOMPARE(runner.m_runningQueue.count(), 0);
 }
+void ShowRunner_Test::tempoMapClockSurvivesRestart()
+{
+    Scene *scene = new Scene(m_doc);
+    m_doc->addFunction(scene);
+    Chaser *chaser = new Chaser(m_doc);
+    chaser->setTempoType(Function::Beats);
+    chaser->addStep(ChaserStep(scene->id()));
+    m_doc->addFunction(chaser);
+
+    TempoMap map;
+    map.addSection(TempoSection(0, 60000, 127.5, 4, "Song"));
+
+    MasterTimer *timer = m_doc->masterTimer();
+    QList<Universe*> universes = m_doc->inputOutputMap()->claimUniverses();
+    FunctionParent parent = FunctionParent::master();
+
+    TempoMapClock first(map, 1000);
+    chaser->start(timer, parent, 0, Function::defaultSpeed(), Function::defaultSpeed(),
+                  Function::defaultSpeed(), Function::Original, &first);
+    timer->timerTickFunctions(universes);
+    QVERIFY(chaser->isRunning());
+    QCOMPARE(chaser->tempoMapClock()->origin, quint32(1000));
+
+    // a Show stops a Function and starts it again for the next item in the
+    // same write, so the MasterTimer restarts it with postRun() and preRun().
+    // The clock of the new item must not be lost by the restart
+    chaser->stop(parent);
+    TempoMapClock second(map, 3000);
+    chaser->start(timer, parent, 0, Function::defaultSpeed(), Function::defaultSpeed(),
+                  Function::defaultSpeed(), Function::Original, &second);
+    timer->timerTickFunctions(universes);
+    QVERIFY(chaser->isRunning());
+    QVERIFY(chaser->tempoMapClock().isNull() == false);
+    QCOMPARE(chaser->tempoMapClock()->origin, quint32(3000));
+
+    chaser->stop(parent);
+    timer->timerTickFunctions(universes);
+    m_doc->inputOutputMap()->releaseUniverses(false);
+}
+
 void ShowRunner_Test::tempoMapRunner()
 {
     Show *show = new Show(m_doc);
