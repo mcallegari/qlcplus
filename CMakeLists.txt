@@ -144,10 +144,10 @@ add_custom_target(lcov
 )
 
 # Translations
-# Use the Linguist tools of the Qt kit in use, so translate.sh
+# On iOS, use the Linguist tools of the host Qt kit, so translate.sh
 # doesn't depend on the PATH of the environment running the build
 set(translate_env "")
-if (TARGET Qt${QT_VERSION_MAJOR}::lrelease AND TARGET Qt${QT_VERSION_MAJOR}::lupdate)
+if (IOS AND TARGET Qt${QT_VERSION_MAJOR}::lrelease AND TARGET Qt${QT_VERSION_MAJOR}::lupdate)
   set(translate_env ${CMAKE_COMMAND} -E env
     "LRELEASE=$<TARGET_FILE:Qt${QT_VERSION_MAJOR}::lrelease>"
     "LUPDATE=$<TARGET_FILE:Qt${QT_VERSION_MAJOR}::lupdate>")
