@@ -1288,4 +1288,40 @@ void Doc_Test::movedFixtureBeyondUniverse()
     QCOMPARE(uni->channelCapabilities(511), intensity);
 }
 
+void Doc_Test::movedFixtureOverFixtureInBetween()
+{
+    Fixture *a = new Fixture(m_doc);
+    a->setUniverse(1);
+    a->setAddress(100);
+    a->setChannels(4);
+    QVERIFY(m_doc->addFixture(a));
+
+    Fixture *b = new Fixture(m_doc);
+    b->setUniverse(0);
+    b->setAddress(100);
+    b->setChannels(4);
+    QVERIFY(m_doc->addFixture(b));
+
+    Universe *uni = m_doc->inputOutputMap()->universes().at(1);
+    const uchar intensity = Universe::HTP | Universe::Intensity;
+    QCOMPARE(uni->channelCapabilities(100), intensity);
+
+    // Moving a fixture sets its universe and its address one after the other,
+    // so it is briefly on the channels of another fixture: those must stay
+    // with their fixture, which must not lose its address or its channels
+    b->setUniverse(1);
+    b->setAddress(300);
+
+    QCOMPARE(m_doc->fixtureForAddress((1 << 9) + 100), a->id());
+    QCOMPARE(m_doc->fixtureForAddress((1 << 9) + 103), a->id());
+    QCOMPARE(uni->channelCapabilities(100), intensity);
+    QCOMPARE(uni->channelCapabilities(103), intensity);
+
+    // and the moved fixture ends up on its new channels only
+    QCOMPARE(m_doc->fixtureForAddress((1 << 9) + 300), b->id());
+    QCOMPARE(uni->channelCapabilities(300), intensity);
+    QCOMPARE(uni->channelCapabilities(303), intensity);
+    QCOMPARE(m_doc->fixtureForAddress(100), Fixture::invalidId());
+}
+
 QTEST_APPLESS_MAIN(Doc_Test)

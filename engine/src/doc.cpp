@@ -832,7 +832,9 @@ void Doc::slotFixtureChanged(quint32 id)
          * with an tmp wrong address after the first call (old address() + new universe()).
          * we only add if the channel is free, to prevent messing up things
          */
-        Q_ASSERT(!m_addresses.contains(i));
+        if (m_addresses.contains(i))
+            continue;
+
         m_addresses[i] = id;
     }
 
