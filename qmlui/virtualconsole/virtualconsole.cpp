@@ -89,7 +89,6 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
     {
         VCPage *page = new VCPage(view, m_doc, this, i, this);
         QQmlEngine::setObjectOwnership(page, QQmlEngine::CppOwnership);
-        addWidgetToMap(page);
         m_contextManager->registerContext(page->previewContext());
         m_pages.append(page);
     }
@@ -150,12 +149,6 @@ void VirtualConsole::resetContents()
 
     m_widgetsMap.clear();
     m_latestWidgetId = 0;
-
-    /* Pages are widgets too: Tardis actions and widget reparenting
-     * look them up by ID, so keep them in the map */
-    foreach (VCPage *page, m_pages)
-        addWidgetToMap(page);
-
     m_selectedPage = 0;
     m_loadStatus = Cleared;
 }
@@ -392,7 +385,6 @@ void VirtualConsole::addPage(int index)
 {
     VCPage *page = new VCPage(m_view, m_doc, this, index, this);
     QQmlEngine::setObjectOwnership(page, QQmlEngine::CppOwnership);
-    addWidgetToMap(page);
     m_contextManager->registerContext(page->previewContext());
     m_pages.insert(index, page);
 
@@ -420,7 +412,6 @@ void VirtualConsole::deletePage(int index)
     m_pages.at(index)->deleteChildren();
     VCPage *page = m_pages.takeAt(index);
     m_contextManager->unregisterContext(page->previewContext()->name());
-    removeWidgetFromMap(page);
     delete page;
 
     emit pagesCountChanged();
@@ -533,7 +524,8 @@ quint32 VirtualConsole::newWidgetId()
     /* This results in an endless loop if there are UINT_MAX-1 widgets. That,
        however, seems a bit unlikely. */
     while (m_widgetsMap.contains(m_latestWidgetId) ||
-           m_latestWidgetId == VCWidget::invalidId())
+           m_latestWidgetId == VCWidget::invalidId() ||
+           pageById(m_latestWidgetId) != nullptr)
     {
         m_latestWidgetId++;
     }
@@ -541,10 +533,32 @@ quint32 VirtualConsole::newWidgetId()
     return m_latestWidgetId;
 }
 
+quint32 VirtualConsole::newPageId() const
+{
+    /* Pages take their IDs from the top of the range, away from the
+     * widget IDs, which are saved in the project and start from 0 */
+    quint32 id = VCWidget::invalidId() - 1;
+    while (pageById(id) != nullptr)
+        id--;
+
+    return id;
+}
+
+VCPage *VirtualConsole::pageById(quint32 id) const
+{
+    for (VCPage *page : m_pages)
+    {
+        if (page->id() == id)
+            return page;
+    }
+
+    return nullptr;
+}
+
 void VirtualConsole::addWidgetToMap(VCWidget* widget)
 {
-    // Valid ID ?
-    if (widget->id() != VCWidget::invalidId())
+    // Valid ID ? A widget can't take the ID of a page
+    if (widget->id() != VCWidget::invalidId() && pageById(widget->id()) == nullptr)
     {
         // Maybe we don't know this widget yet
         if (!m_widgetsMap.contains(widget->id()))
@@ -584,7 +598,11 @@ VCWidget *VirtualConsole::widget(quint32 id) const
     if (id == VCWidget::invalidId())
         return nullptr;
 
-    return m_widgetsMap.value(id, nullptr);
+    VCWidget *widget = m_widgetsMap.value(id, nullptr);
+    if (widget != nullptr)
+        return widget;
+
+    return pageById(id);
 }
 
 void VirtualConsole::setWidgetSelection(quint32 wID, QQuickItem *item, bool enable, bool multi)
@@ -1766,17 +1784,6 @@ void VirtualConsole::postLoad()
     QList<VCWidget *> invalidWidgetsList;
     QList<VCWidget *> widgetsList;
 
-    /* Pages might have changed ID while loading, so remove them from the map
-     * and register them again after their children, which keep their ID
-     * in case of conflict */
-    for (auto it = m_widgetsMap.begin(); it != m_widgetsMap.end(); )
-    {
-        if (m_pages.contains(qobject_cast<VCPage *>(it.value())))
-            it = m_widgetsMap.erase(it);
-        else
-            ++it;
-    }
-
     foreach (VCPage *page, m_pages)
         widgetsList.append(page->children(true));
 
@@ -1797,9 +1804,6 @@ void VirtualConsole::postLoad()
     }
     foreach (VCWidget *widget, invalidWidgetsList)
         addWidgetToMap(widget);
-
-    foreach (VCPage *page, m_pages)
-        addWidgetToMap(page);
 
     /** Now for each page, map the children widgets input
      *  sources, to look it up later when input signals start

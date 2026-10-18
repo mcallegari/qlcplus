@@ -175,9 +175,13 @@ public:
     /** Remove $widget from the global VC widgets map */
     void removeWidgetFromMap(VCWidget* widget);
 
-    /** Return a reference to the VC widget with the specified $id.
+    /** Return a reference to the VC widget or page with the specified $id.
      *  On invalid $id, NULL is returned */
     VCWidget *widget(quint32 id) const;
+
+    /** Create a new page ID. Pages are not in the widgets map and
+     *  their IDs are never used by a widget */
+    quint32 newPageId() const;
 
     Q_INVOKABLE void setWidgetSelection(quint32 wID, QQuickItem *item, bool enable, bool multi);
 
@@ -228,6 +232,9 @@ signals:
 protected:
     /** Create a new widget ID */
     quint32 newWidgetId();
+
+    /** Return the page with the specified $id, or NULL if there is none */
+    VCPage *pageById(quint32 id) const;
 
 protected:
     /** A map of all the VC widgets references with their IDs */
