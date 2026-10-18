@@ -146,7 +146,7 @@ bool VCWidget::copyFrom(const VCWidget* widget)
         addInputSource(dst);
     }
 
-    QMapIterator<QKeySequence, quint32> it(m_keySequenceMap);
+    QMapIterator<QKeySequence, quint32> it(widget->m_keySequenceMap);
     while (it.hasNext())
     {
         it.next();
