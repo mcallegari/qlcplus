@@ -113,6 +113,8 @@ void ShowRunner_Test::tempoMapClockSurvivesRestart()
 
     chaser->stop(parent);
     timer->timerTickFunctions(universes);
+    QVERIFY(chaser->isRunning() == false);
+    QVERIFY(chaser->tempoMapClock().isNull());
     m_doc->inputOutputMap()->releaseUniverses(false);
 }
 
