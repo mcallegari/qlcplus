@@ -1112,6 +1112,14 @@ void Function::postRun(MasterTimer *timer, QList<Universe *> universes)
         m_functionStopped.wakeAll();
     }
 
+    {
+        // a Function restarted in place has already been given its new
+        // source (and clock) by start(); only a real stop drops the clock
+        QMutexLocker sourcesLocker(&m_sourcesMutex);
+        if (m_sources.isEmpty())
+            m_tempoMapClock.clear();
+    }
+
     m_paused = false;
     m_running = false;
     emit stopped(m_id);
