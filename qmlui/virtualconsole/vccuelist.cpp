@@ -583,6 +583,19 @@ void VCCueList::slotFunctionNameChanged(quint32 fid)
  * Playback
  *********************************************************************/
 
+/* The playback index is -1 when nothing has been played yet: in that case,
+ * moving forward starts from the first step and moving backward from the
+ * last one, like the QtWidgets UI does */
+static int forwardIndex(int index, int count)
+{
+    return (index < 0 || index + 1 >= count) ? 0 : index + 1;
+}
+
+static int backwardIndex(int index, int count)
+{
+    return (index <= 0 || index > count) ? count - 1 : index - 1;
+}
+
 int VCCueList::getNextIndex()
 {
     Chaser *ch = chaser();
@@ -590,9 +603,9 @@ int VCCueList::getNextIndex()
         return -1;
 
     if (ch->direction() == Function::Forward)
-        return m_playbackIndex + 1 == ch->stepsCount() ? 0 : m_playbackIndex + 1;
+        return forwardIndex(m_playbackIndex, ch->stepsCount());
     else
-        return m_playbackIndex == 0 ? ch->stepsCount() - 1 : m_playbackIndex - 1;
+        return backwardIndex(m_playbackIndex, ch->stepsCount());
 }
 
 int VCCueList::getPrevIndex()
@@ -602,9 +615,9 @@ int VCCueList::getPrevIndex()
         return -1;
 
     if (ch->direction() == Function::Forward)
-        return m_playbackIndex == 0 ? ch->stepsCount() - 1 : m_playbackIndex - 1;
+        return backwardIndex(m_playbackIndex, ch->stepsCount());
     else
-        return m_playbackIndex + 1 == ch->stepsCount() ? 0 : m_playbackIndex + 1;
+        return forwardIndex(m_playbackIndex, ch->stepsCount());
 }
 
 int VCCueList::getFirstIndex()
