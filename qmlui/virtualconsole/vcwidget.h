@@ -84,6 +84,7 @@ class VCWidget : public QObject
     Q_PROPERTY(QString propertiesResource READ propertiesResource CONSTANT)
     Q_PROPERTY(bool isEditing READ isEditing WRITE setIsEditing NOTIFY isEditingChanged)
     Q_PROPERTY(QRectF geometry READ geometry WRITE setGeometry NOTIFY geometryChanged)
+    Q_PROPERTY(qreal scaleFactor READ scaleFactor NOTIFY geometryChanged)
     Q_PROPERTY(int zIndex READ zIndex WRITE setZIndex NOTIFY zIndexChanged)
     Q_PROPERTY(bool allowResize READ allowResize WRITE setAllowResize NOTIFY allowResizeChanged)
     Q_PROPERTY(bool isDisabled READ isDisabled WRITE setDisabled NOTIFY disabledStateChanged)

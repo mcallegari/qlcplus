@@ -37,7 +37,8 @@ Rectangle
 
     property VCWidget wObj: null
     property bool isSelected: false
-    property int handleSize: Math.min(UISettings.iconSizeMedium, Math.min(height / 2.5, width / 2.5))
+    property real minimumSize: UISettings.iconSizeMedium * 0.7
+    property int handleSize:Math.min(UISettings.iconSizeMedium, Math.min(height / 2.5, width / 2.5))
 
     Drag.source: wRoot
     Drag.keys: [ "vcwidget" ]
@@ -88,10 +89,10 @@ Rectangle
             height = Math.round(height / snappingSize) * snappingSize
         }
 
-        if (height < UISettings.iconSizeMedium)
-            height = UISettings.iconSizeMedium
-        if (width < UISettings.iconSizeMedium)
-            width = UISettings.iconSizeMedium
+        if (height < minimumSize)
+            height = minimumSize
+        if (width < minimumSize)
+            width = minimumSize
 
         wObj.geometry = Qt.rect(x, y, width, height)
 
@@ -236,8 +237,8 @@ Rectangle
                 {
                     if (drag.target == null)
                         return;
-                    drag.maximumX = wRoot.width - handleSize
-                    drag.maximumY = wRoot.height - handleSize
+                    drag.maximumX = wRoot.width - minimumSize
+                    drag.maximumY = wRoot.height - minimumSize
                     wRoot.x += tlHandle.x
                     wRoot.width -= tlHandle.x
                     wRoot.height -= tlHandle.y
@@ -267,13 +268,13 @@ Rectangle
                 {
                     drag.target = trHandle
                     drag.threshold = 0
-                    drag.minimumX = handleSize
                 }
                 onPositionChanged:
                 {
                     if (drag.target == null)
                         return;
-                    drag.maximumY = wRoot.height - handleSize
+                    drag.minimumX = minimumSize - handleSize
+                    drag.maximumY = wRoot.height - minimumSize
                     wRoot.width = trHandle.x + trHandle.width
                     wRoot.height -= trHandle.y
                     wRoot.y += trHandle.y
@@ -301,13 +302,13 @@ Rectangle
                 {
                     drag.target = brHandle
                     drag.threshold = 0
-                    drag.minimumX = handleSize
-                    drag.minimumY = handleSize
                 }
                 onPositionChanged:
                 {
                     if (drag.target == null)
                         return;
+                    drag.minimumX = minimumSize - handleSize
+                    drag.minimumY = minimumSize - handleSize
                     wRoot.width = brHandle.x + brHandle.width
                     wRoot.height = brHandle.y + brHandle.height
                 }
@@ -335,13 +336,13 @@ Rectangle
                 {
                     drag.target = blHandle
                     drag.threshold = 0
-                    drag.minimumY = handleSize
                 }
                 onPositionChanged:
                 {
                     if (drag.target == null)
                         return;
-                    drag.maximumX = wRoot.width - handleSize
+                    drag.minimumY = minimumSize - handleSize
+                    drag.maximumX = wRoot.width - minimumSize
                     wRoot.height = blHandle.y + blHandle.height
                     wRoot.x += blHandle.x
                     wRoot.width -= blHandle.x

@@ -374,6 +374,12 @@ void GenericFader::setFadeOut(bool enable, uint fadeTime)
 {
     m_fadeOut = enable;
 
+    // A paused fader never advances, so it would never complete the fade out
+    // and would be kept by the Universe forever. This happens, for example,
+    // when a paused Show is stopped.
+    if (enable)
+        m_paused = false;
+
     if (fadeTime == 0)
         return;
 

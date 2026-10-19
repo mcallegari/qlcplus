@@ -133,8 +133,10 @@ void RGBMatrix::setTotalDuration(quint32 msec)
     if (grp == NULL)
         return;
 
+    // an algorithm might have no steps (e.g. an image not loaded yet)
+    // or fail to report them (-1)
     int steps = m_algorithm->rgbMapStepCount(grp->size());
-    setDuration(msec / steps);
+    setDuration(msec / uint(qMax(1, steps)));
 }
 
 quint32 RGBMatrix::totalDuration()
@@ -149,7 +151,7 @@ quint32 RGBMatrix::totalDuration()
         return 0;
 
     //qDebug () << "Algorithm steps:" << m_algorithm->rgbMapStepCount(grp->size());
-    return m_algorithm->rgbMapStepCount(grp->size()) * duration();
+    return qMax(0, m_algorithm->rgbMapStepCount(grp->size())) * duration();
 }
 
 void RGBMatrix::setDimmerControl(bool dimmerControl)

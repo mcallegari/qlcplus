@@ -28,7 +28,8 @@ Rectangle
     id: fixtureItem
     x: ((gridCellSize * mmXPos) / gridUnits) + gridPosition.x
     y: ((gridCellSize * mmYPos) / gridUnits) + gridPosition.y
-    z: 2
+    // raise hovered/selected items so their label is not covered by other fixtures
+    z: fxMouseArea.containsMouse ? 4 : (isSelected ? 3 : 2)
     width: (gridCellSize * mmWidth) / gridUnits
     height: (gridCellSize * mmHeight) / gridUnits
 
@@ -294,6 +295,8 @@ Rectangle
         height: UISettings.listItemHeight
         color: "#444"
         visible: showLabel
+        // keep the text readable when the fixture is upside down
+        rotation: Math.abs(((fixtureItem.rotation % 360) + 360) % 360 - 180) < 90 ? 180 : 0
 
         RobotoText
         {

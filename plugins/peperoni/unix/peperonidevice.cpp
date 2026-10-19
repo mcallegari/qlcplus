@@ -51,7 +51,8 @@ PeperoniDevice::PeperoniDevice(Peperoni* parent, struct libusb_device* device,
     , m_baseLine(line)
     , m_device(device)
     , m_handle(NULL)
-    , m_descriptor(desc)
+    , m_descriptor(*desc)
+    , m_running(false)
 {
     Q_ASSERT(device != NULL);
 
@@ -144,7 +145,7 @@ void PeperoniDevice::extractName()
         int len = 0;
 
         /* Extract the name */
-        len = libusb_get_string_descriptor_ascii(handle, m_descriptor->iProduct,
+        len = libusb_get_string_descriptor_ascii(handle, m_descriptor.iProduct,
                                                (uchar*) &buf, sizeof(buf));
         if (len > 0)
         {
@@ -157,7 +158,7 @@ void PeperoniDevice::extractName()
         }
 /*
         // UID
-        len = libusb_get_string_descriptor_ascii(handle, m_descriptor->iSerialNumber,
+        len = libusb_get_string_descriptor_ascii(handle, m_descriptor.iSerialNumber,
                                                (uchar*) &buf, sizeof(buf));
         if (len > 0)
             m_serial = QString(QByteArray(buf, len));
@@ -170,7 +171,7 @@ void PeperoniDevice::extractName()
 
 QString PeperoniDevice::name(quint32 line) const
 {
-    if (m_descriptor->idProduct == PEPERONI_PID_USBDMX21)
+    if (m_descriptor.idProduct == PEPERONI_PID_USBDMX21)
         return QString("%1 - %2 %3").arg(m_name).arg(tr("Universe")).arg((line - m_baseLine) + 1);
 
     return m_name;
@@ -251,13 +252,13 @@ bool PeperoniDevice::open(quint32 line, OperatingMode mode)
         r = libusb_open(m_device, &m_handle);
         if (r < 0)
         {
-            qWarning() << "Unable to open PeperoniDevice with idProduct:" << m_descriptor->idProduct;
+            qWarning() << "Unable to open PeperoniDevice with idProduct:" << m_descriptor.idProduct;
             m_handle = NULL;
             return false;
         }
 
         /* Use configuration #2 on X-Switch */
-        if (m_descriptor->idProduct == PEPERONI_PID_XSWITCH)
+        if (m_descriptor.idProduct == PEPERONI_PID_XSWITCH)
             configuration = PEPERONI_CONF_TXRX;
         else
             configuration = PEPERONI_CONF_TXONLY;
