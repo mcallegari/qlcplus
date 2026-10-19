@@ -180,7 +180,7 @@ public:
     /** Return the physical diagonal size of the current screen, in inches */
     qreal screenDiagonal() const;
 
-    /** Return true if the current screen is a small one (7 inches or below),
+    /** Return true if the current screen is a small one (8 inches or below),
      *  where the UI needs to compact itself to save space */
     bool smallScreen() const;
 

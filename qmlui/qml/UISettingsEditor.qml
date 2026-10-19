@@ -183,7 +183,7 @@ Rectangle
 
                 property real origScaleFactor
 
-                onClicked: uiManager.setModified("scalingFactor", 1.0)
+                onClicked: uiManager.setModified("scalingFactor", uiManager.getDefault("scalingFactor"))
             }
         }
 

@@ -125,6 +125,11 @@ Rectangle
         mainViewLoader.source = qmlRes
     }
 
+    function showScalingInfo()
+    {
+        scalingInfoPopup.open()
+    }
+
     FontLoader
     {
         source: "qrc:/RobotoCondensed-Regular.ttf"
@@ -599,6 +604,17 @@ Rectangle
     }
 
     PopupNetworkConnect { id: clientAccessPopup }
+
+    CustomPopupDialog
+    {
+        id: scalingInfoPopup
+        width: mainView.width / 2
+        title: qsTr("Small screen detected")
+        message: qsTr("The UI scaling factor has been automatically set to %1x to fit this screen.\n" +
+                      "It can be adjusted in the UI Settings panel, from the Actions menu.")
+                 .arg(UISettings.scalingFactor.toFixed(2))
+        standardButtons: Dialog.Ok
+    }
 
     /** Menu to open/load/save a project */
     ActionsMenu
