@@ -161,7 +161,10 @@ public:
     virtual void removeWidgetFromPageMap(VCWidget *widget);
 
 protected:
-    void setupWidget(VCWidget *widget, int page);
+    /** Add $widget to this frame on $page. The default look and feel is
+     *  applied only to a new widget ($isNew), not to a widget restored
+     *  from XML or copied, which already carries its own appearance */
+    void setupWidget(VCWidget *widget, int page, bool isNew = true);
 
     void checkSubmasterConnection(VCWidget *widget);
 

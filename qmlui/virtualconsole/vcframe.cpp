@@ -667,9 +667,9 @@ void VCFrame::deleteChildren()
     emit usedPagesNumberChanged();
 }
 
-void VCFrame::setupWidget(VCWidget *widget, int page)
+void VCFrame::setupWidget(VCWidget *widget, int page, bool isNew)
 {
-    if (m_vc->loadStatus() != VirtualConsole::Loading)
+    if (isNew && m_vc->loadStatus() != VirtualConsole::Loading)
         widget->setupLookAndFeel(m_vc->pixelDensity(), page);
 
     addWidgetToPageMap(widget);
@@ -1035,7 +1035,7 @@ void VCFrame::cloneFirstPage()
                 newWidget->setPage(pg);
                 newWidget->remapInputSources(pg);
 
-                setupWidget(newWidget, pg);
+                setupWidget(newWidget, pg, false);
                 newWidget->render(m_vc->view(), childrenItem());
             }
         }
@@ -1220,7 +1220,7 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
         else
         {
             QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
-            setupWidget(frame, frame->page());
+            setupWidget(frame, frame->page(), false);
             m_vc->addWidgetToMap(frame);
             if (render)
             {
@@ -1238,7 +1238,7 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
         else
         {
             QQmlEngine::setObjectOwnership(soloframe, QQmlEngine::CppOwnership);
-            setupWidget(soloframe, soloframe->page());
+            setupWidget(soloframe, soloframe->page(), false);
             m_vc->addWidgetToMap(soloframe);
             if (render)
             {
@@ -1256,7 +1256,7 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
         else
         {
             QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
-            setupWidget(button, button->page());
+            setupWidget(button, button->page(), false);
             m_vc->addWidgetToMap(button);
             if (render)
             {
@@ -1274,7 +1274,7 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
         else
         {
             QQmlEngine::setObjectOwnership(label, QQmlEngine::CppOwnership);
-            setupWidget(label, label->page());
+            setupWidget(label, label->page(), false);
             m_vc->addWidgetToMap(label);
             if (render)
             {
@@ -1292,7 +1292,7 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
         else
         {
             QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
-            setupWidget(slider, slider->page());
+            setupWidget(slider, slider->page(), false);
             m_vc->addWidgetToMap(slider);
             if (render)
             {
@@ -1310,7 +1310,7 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
         else
         {
             QQmlEngine::setObjectOwnership(animation, QQmlEngine::CppOwnership);
-            setupWidget(animation, animation->page());
+            setupWidget(animation, animation->page(), false);
             m_vc->addWidgetToMap(animation);
             if (render)
             {
@@ -1328,7 +1328,7 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
         else
         {
             QQmlEngine::setObjectOwnership(audioTrigger, QQmlEngine::CppOwnership);
-            setupWidget(audioTrigger, audioTrigger->page());
+            setupWidget(audioTrigger, audioTrigger->page(), false);
             m_vc->addWidgetToMap(audioTrigger);
             if (render)
             {
@@ -1346,7 +1346,7 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
         else
         {
             QQmlEngine::setObjectOwnership(speedDial, QQmlEngine::CppOwnership);
-            setupWidget(speedDial, speedDial->page());
+            setupWidget(speedDial, speedDial->page(), false);
             m_vc->addWidgetToMap(speedDial);
             if (render)
             {
@@ -1364,7 +1364,7 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
         else
         {
             QQmlEngine::setObjectOwnership(xyPad, QQmlEngine::CppOwnership);
-            setupWidget(xyPad, xyPad->page());
+            setupWidget(xyPad, xyPad->page(), false);
             m_vc->addWidgetToMap(xyPad);
             if (render)
             {
@@ -1382,7 +1382,7 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
         else
         {
             QQmlEngine::setObjectOwnership(clock, QQmlEngine::CppOwnership);
-            setupWidget(clock, clock->page());
+            setupWidget(clock, clock->page(), false);
             m_vc->addWidgetToMap(clock);
             if (render)
             {
@@ -1400,7 +1400,7 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
         else
         {
             QQmlEngine::setObjectOwnership(cuelist, QQmlEngine::CppOwnership);
-            setupWidget(cuelist, cuelist->page());
+            setupWidget(cuelist, cuelist->page(), false);
             m_vc->addWidgetToMap(cuelist);
             if (render)
             {
