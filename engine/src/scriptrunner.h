@@ -24,6 +24,7 @@
 #include <QQueue>
 #include <QPair>
 #include <QMap>
+#include <QHash>
 #include <QMutex>
 #include <QWaitCondition>
 #include <QElapsedTimer>
@@ -257,6 +258,13 @@ private:
     bool enqueueFunction(quint32 fID, FunctionOperation operation);
 
     /**
+     * Packs a (universe, fixture, channel) triple into the 64 bit key used by
+     * m_fixtureValueQueue: 16 bits for the universe, 24 for the fixture ID and
+     * 24 for the channel.
+     */
+    static quint64 fixtureValueKey(quint32 universe, quint32 fixtureID, quint32 channel);
+
+    /**
      * Runs a JS garbage collection pass if GC_INTERVAL_MS have elapsed since
      * the last one. Must be called from the script thread, without holding
      * m_mutex.
@@ -275,8 +283,10 @@ private:
     QJSEngine *m_engine;
     // Queue holding the Function IDs to start/stop
     QQueue<QPair<quint32, FunctionOperation>> m_functionQueue;
-    // Queue holding Fixture values to send to Universes
-    QQueue<FixtureValue> m_fixtureValueQueue;
+    // Fixture values to send to Universes on the next write(). Keyed by
+    // (universe, fixture, channel) so a channel set several times between two
+    // ticks only keeps its latest value, instead of growing without bound.
+    QHash<quint64, FixtureValue> m_fixtureValueQueue;
     // Indicate to add (true) or to not add (false) to the Functions started by this script
     bool m_stopOnExit;
     // IDs of the Functions started by this script

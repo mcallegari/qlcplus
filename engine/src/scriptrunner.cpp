@@ -175,11 +175,18 @@ int ScriptRunner::currentWaitTime() const
     return m_waitCount * MasterTimer::tick();
 }
 
+quint64 ScriptRunner::fixtureValueKey(quint32 universe, quint32 fixtureID, quint32 channel)
+{
+    return (quint64(universe & 0xFFFFu) << 48)
+         | (quint64(fixtureID & 0xFFFFFFu) << 24)
+         |  quint64(channel & 0xFFFFFFu);
+}
+
 bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
 {
     // Take the queued fixture values out under the lock and work on a private
     // copy, so that the lock is not held while calling into the faders
-    QQueue<FixtureValue> fixtureValues;
+    QHash<quint64, FixtureValue> fixtureValues;
     {
         QMutexLocker locker(&m_mutex);
         if (m_waitCount > 0 && --m_waitCount == 0)
@@ -189,9 +196,8 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
         fixtureValues.swap(m_fixtureValueQueue);
     }
 
-    while (!fixtureValues.isEmpty())
+    for (const FixtureValue &val : std::as_const(fixtureValues))
     {
-        FixtureValue val = fixtureValues.dequeue();
 
         // The universe index was computed when setFixture() was called and
         // has been sitting in the queue since then. Make sure it is still
@@ -463,7 +469,8 @@ bool ScriptRunner::setFixture(quint32 fxID, quint32 channel, uchar value, uint t
     val.m_fadeTime = time;
 
     QMutexLocker locker(&m_mutex);
-    m_fixtureValueQueue.enqueue(val);
+    // Overwrite a pending value for the same channel instead of queueing another one
+    m_fixtureValueQueue.insert(fixtureValueKey(val.m_universe, fxID, channel), val);
 
     return true;
 }
