@@ -1619,10 +1619,16 @@ void ContextManager::setColorValue(QColor col, QColor wauv)
     setChannelValueByType((int)QLCChannel::Amber, wauv.green());
     setChannelValueByType((int)QLCChannel::UV, wauv.blue());
 
-    QColor cmykColor = col.toCmyk();
-    setChannelValueByType((int)QLCChannel::Cyan, cmykColor.cyan());
-    setChannelValueByType((int)QLCChannel::Magenta, cmykColor.magenta());
-    setChannelValueByType((int)QLCChannel::Yellow, cmykColor.yellow());
+    // Only set CMYK channels if fixture has CMYK but NOT RGB (fixtures typically have one or the other)
+    QList<SceneValue> rgbList = m_channelsMap.values((int)QLCChannel::Red);
+    QList<SceneValue> cmykList = m_channelsMap.values((int)QLCChannel::Cyan);
+    if (!cmykList.isEmpty() && rgbList.isEmpty())
+    {
+        QColor cmykColor = col.toCmyk();
+        setChannelValueByType((int)QLCChannel::Cyan, cmykColor.cyan());
+        setChannelValueByType((int)QLCChannel::Magenta, cmykColor.magenta());
+        setChannelValueByType((int)QLCChannel::Yellow, cmykColor.yellow());
+    }
 }
 
 void ContextManager::setChannelValueByType(int type, int value, bool isRelative, quint32 channel)
