@@ -25,6 +25,7 @@
 #include <QPair>
 #include <QMap>
 #include <QMutex>
+#include <QWaitCondition>
 #include <atomic>
 #include "function.h"
 
@@ -274,6 +275,11 @@ private:
     QList <quint32> m_startedFunctions;
     // Timer ticks to wait before executing the next line
     quint32 m_waitCount;
+    // Condition variable used by waitTime() to sleep until write() (on the
+    // MasterTimer thread) has counted m_waitCount down to zero. Used together
+    // with m_mutex.
+    QWaitCondition m_waitCondition;
+
     // ID of the function that the script is waiting for
     quint32 m_waitFunctionId;
     // Map used to lookup a GenericFader instance for a Universe ID

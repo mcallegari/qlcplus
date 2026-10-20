@@ -161,8 +161,9 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
     QQueue<FixtureValue> fixtureValues;
     {
         QMutexLocker locker(&m_mutex);
-        if (m_waitCount > 0)
-            m_waitCount--;
+        if (m_waitCount > 0 && --m_waitCount == 0)
+            // wake up a script sleeping in waitTime() as soon as its wait is over
+            m_waitCondition.wakeAll();
 
         fixtureValues.swap(m_fixtureValueQueue);
     }
@@ -557,32 +558,22 @@ bool ScriptRunner::systemCommand(QString command)
 
 bool ScriptRunner::waitTime(uint ms)
 {
-    {
-        QMutexLocker locker(&m_mutex);
-        // This has to happen before the m_running check: Script::totalDuration()
-        // runs the script through collectScriptData() with m_running == false
-        // and sums up the waits via currentWaitTime().
-        m_waitCount += ms / MasterTimer::tick();
-    }
+    QMutexLocker locker(&m_mutex);
+
+    // This has to happen before the m_running check: Script::totalDuration()
+    // runs the script through collectScriptData() with m_running == false
+    // and sums up the waits via currentWaitTime().
+    m_waitCount += ms / MasterTimer::tick();
 
     if (m_running == false)
         return false;
 
     qDebug() << Q_FUNC_INFO;
 
-    while (true)
-    {
-        {
-            QMutexLocker locker(&m_mutex);
-            if (m_waitCount == 0)
-                break;
-        }
-
-        if (m_running == false)
-            break;
-
-        usleep(10000);
-    }
+    // Sleep until write() has counted m_waitCount down to zero. The timeout
+    // makes sure a stop request is noticed even if no wake-up arrives.
+    while (m_running && m_waitCount > 0)
+        m_waitCondition.wait(&m_mutex, 10);
 
     return true;
 }
