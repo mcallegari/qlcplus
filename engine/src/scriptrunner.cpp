@@ -154,10 +154,21 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
         {
             FixtureValue val = m_fixtureValueQueue.dequeue();
 
+            // The universe index was computed when setFixture() was called and
+            // has been sitting in the queue since then. Make sure it is still
+            // valid before indexing into the list.
+            if (val.m_universe >= quint32(universes.count()))
+            {
+                qWarning() << QString("Skipping fixture value: invalid universe %1").arg(val.m_universe);
+                continue;
+            }
+
             QSharedPointer<GenericFader> fader = m_fadersMap.value(val.m_universe, QSharedPointer<GenericFader>());
             if (fader.isNull())
             {
                 fader = universes[val.m_universe]->requestFader();
+                if (fader.isNull())
+                    continue;
                 //fader->adjustIntensity(getAttributeValue(Intensity));
                 //fader->setBlendMode(blendMode());
                 m_fadersMap[val.m_universe] = fader;
