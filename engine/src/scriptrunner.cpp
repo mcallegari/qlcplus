@@ -189,6 +189,10 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
             if (function == NULL)
             {
                 qWarning() << QString("No such function (ID %1)").arg(fID);
+                // Drop the bad entry. A plain "continue" leaves it at the head of
+                // the queue, so this loop would spin forever on the MasterTimer
+                // thread and freeze DMX output for every universe.
+                m_functionQueue.removeFirst();
                 continue;
             }
 
