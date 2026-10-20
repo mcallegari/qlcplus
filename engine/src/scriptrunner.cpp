@@ -373,6 +373,15 @@ void ScriptRunner::run()
         qDebug() << "[ScriptRunner] Code executed";
     }
 
+    // Only this thread uses the engine, so free it as soon as the script is
+    // done. stop() does nothing once the script has ended on its own, so it
+    // would otherwise never be deleted.
+    {
+        QMutexLocker locker(&m_mutex);
+        delete m_engine;
+        m_engine = NULL;
+    }
+
     // Signal write() that the JS code is done. Note that this must not stop
     // the Script right away: pending queued operations are dispatched by
     // write() on the MasterTimer thread and have to be flushed first
