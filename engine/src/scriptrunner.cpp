@@ -88,7 +88,7 @@ void ScriptRunner::stop()
 
     // Take ownership of what has to be released under the lock, then release
     // it without holding the lock
-    QList<quint32> startedFunctions;
+    QSet<quint32> startedFunctions;
     QMap<quint32, QSharedPointer<GenericFader> > faders;
     {
         QMutexLocker locker(&m_mutex);
@@ -269,14 +269,14 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
             if (operation == FunctionOperation::START)
             {
                 QMutexLocker locker(&m_mutex);
-                m_startedFunctions << fID;
+                m_startedFunctions.insert(fID);
             }
         }
         else if (operation == FunctionOperation::STOP)
         {
             function->stop(FunctionParent::master());
             QMutexLocker locker(&m_mutex);
-            m_startedFunctions.removeAll(fID);
+            m_startedFunctions.remove(fID);
         }
         else if (operation == FunctionOperation::WAIT_START)
         {
@@ -337,7 +337,7 @@ void ScriptRunner::slotWaitFunctionStopped(quint32 fid)
     if (m_waitFunctionId == fid)
     {
         disconnect(m_doc->masterTimer(), SIGNAL(functionStopped(quint32)), this, SLOT(slotWaitFunctionStopped(quint32)));
-        m_startedFunctions.removeAll(fid);
+        m_startedFunctions.remove(fid);
         m_waitFunctionId = Function::invalidId();
     }
 }

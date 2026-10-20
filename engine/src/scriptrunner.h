@@ -25,6 +25,7 @@
 #include <QPair>
 #include <QMap>
 #include <QHash>
+#include <QSet>
 #include <QMutex>
 #include <QWaitCondition>
 #include <QElapsedTimer>
@@ -289,8 +290,9 @@ private:
     QHash<quint64, FixtureValue> m_fixtureValueQueue;
     // Indicate to add (true) or to not add (false) to the Functions started by this script
     bool m_stopOnExit;
-    // IDs of the Functions started by this script
-    QList <quint32> m_startedFunctions;
+    // IDs of the Functions started by this script. A set, so starting the same
+    // Function repeatedly does not accumulate duplicate entries.
+    QSet<quint32> m_startedFunctions;
     // Timer ticks to wait before executing the next line
     quint32 m_waitCount;
     // Condition variable used by waitTime() to sleep until write() (on the
