@@ -24,6 +24,7 @@
 #include <QQueue>
 #include <QPair>
 #include <QMap>
+#include <QMutex>
 #include <atomic>
 #include "function.h"
 
@@ -277,6 +278,15 @@ private:
     quint32 m_waitFunctionId;
     // Map used to lookup a GenericFader instance for a Universe ID
     QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
+
+    // Guards m_functionQueue, m_fixtureValueQueue, m_startedFunctions,
+    // m_waitCount, m_waitFunctionId and m_fadersMap (m_running is atomic).
+    // They are touched by the script thread (the JS exported methods), by
+    // write() on the MasterTimer thread, and by slotWaitFunctionStarted/Stopped
+    // on the thread this object lives in.
+    // Never call into Functions or Universes with it held. The JS engine is
+    // only touched under it to interrupt or delete it (see stop()/run()).
+    mutable QMutex m_mutex;
 };
 
 #endif
