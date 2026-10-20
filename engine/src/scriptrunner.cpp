@@ -26,6 +26,7 @@
 #include <QProcess>
 #endif
 #include <QMutexLocker>
+#include <QElapsedTimer>
 #include <QDebug>
 
 #include "scriptrunner.h"
@@ -33,6 +34,9 @@
 #include "fadechannel.h"
 #include "mastertimer.h"
 #include "universe.h"
+
+// How often (in milliseconds) waitTime() may run a JS garbage collection pass
+static const int GC_INTERVAL_MS = 5000;
 
 ScriptRunner::ScriptRunner(Doc *doc, const QString &content, QObject *parent)
     : QThread(parent)
@@ -350,6 +354,8 @@ void ScriptRunner::run()
             engine->setInterrupted(true);
     }
 
+    m_gcTimer.start();
+
     QJSValue objectValue = engine->newQObject(this);
     engine->globalObject().setProperty("Engine", objectValue);
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
@@ -386,6 +392,17 @@ void ScriptRunner::run()
     // the Script right away: pending queued operations are dispatched by
     // write() on the MasterTimer thread and have to be flushed first
     m_running = false;
+}
+
+void ScriptRunner::maybeCollectGarbage()
+{
+    // m_engine is only modified by this thread while the script runs (and by
+    // stop() once the thread has finished), so reading it here is safe
+    if (m_engine == NULL || m_gcTimer.elapsed() < GC_INTERVAL_MS)
+        return;
+
+    m_engine->collectGarbage();
+    m_gcTimer.restart();
 }
 
 /************************************************************************
@@ -609,7 +626,15 @@ bool ScriptRunner::waitTime(uint ms)
     // Sleep until write() has counted m_waitCount down to zero. The timeout
     // makes sure a stop request is noticed even if no wake-up arrives.
     while (m_running && m_waitCount > 0)
+    {
         m_waitCondition.wait(&m_mutex, 10);
+
+        // A GC pass can take a while. Never run it with the mutex held: write()
+        // needs it on the MasterTimer thread every tick and would stall DMX output.
+        locker.unlock();
+        maybeCollectGarbage();
+        locker.relock();
+    }
 
     return true;
 }

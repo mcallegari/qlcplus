@@ -26,6 +26,7 @@
 #include <QMap>
 #include <QMutex>
 #include <QWaitCondition>
+#include <QElapsedTimer>
 #include <atomic>
 #include "function.h"
 
@@ -255,6 +256,13 @@ private:
     /** Common code to enqueue function */
     bool enqueueFunction(quint32 fID, FunctionOperation operation);
 
+    /**
+     * Runs a JS garbage collection pass if GC_INTERVAL_MS have elapsed since
+     * the last one. Must be called from the script thread, without holding
+     * m_mutex.
+     */
+    void maybeCollectGarbage();
+
 private:
     Doc *m_doc;
     QString m_content;
@@ -284,6 +292,9 @@ private:
     quint32 m_waitFunctionId;
     // Map used to lookup a GenericFader instance for a Universe ID
     QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
+
+    // Time elapsed since the last garbage collection pass
+    QElapsedTimer m_gcTimer;
 
     // Guards m_functionQueue, m_fixtureValueQueue, m_startedFunctions,
     // m_waitCount, m_waitFunctionId and m_fadersMap (m_running is atomic).
