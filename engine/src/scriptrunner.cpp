@@ -500,10 +500,8 @@ bool ScriptRunner::systemCommand(QString command)
 
 #if !defined(Q_OS_IOS)
     qint64 pid;
-    QProcess *newProcess = new QProcess();
-    newProcess->setProgram(programName);
-    newProcess->setArguments(programArgs);
-    newProcess->startDetached(&pid);
+    // Use the static overload: the QProcess allocated here was never deleted
+    QProcess::startDetached(programName, programArgs, QString(), &pid);
 #endif
 
     return true;
