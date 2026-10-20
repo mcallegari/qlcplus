@@ -24,6 +24,7 @@
 #include <QQueue>
 #include <QPair>
 #include <QMap>
+#include <atomic>
 #include "function.h"
 
 class GenericFader;
@@ -255,7 +256,11 @@ private:
 private:
     Doc *m_doc;
     QString m_content;
-    bool m_running;
+
+    // Whether the script is running. It is read by the JS exported methods and
+    // write() (different threads) and written by execute()/stop()/run(), so it
+    // has to be atomic.
+    std::atomic<bool> m_running;
 
     QJSEngine *m_engine;
     // Queue holding the Function IDs to start/stop
