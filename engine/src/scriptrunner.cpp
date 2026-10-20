@@ -63,15 +63,24 @@ void ScriptRunner::execute()
 
 void ScriptRunner::stop()
 {
-    if (m_running == false)
+    // Flip the flag first: every blocking call in this class checks it to know
+    // when to give up. The exchange also makes sure only one caller tears
+    // things down.
+    if (m_running.exchange(false) == false)
         return;
 
-    if (m_engine)
+    // wake up a script that is sleeping in waitTime()
+    m_waitCondition.wakeAll();
+
     {
-        m_engine->setInterrupted(true);
-        m_engine->deleteLater();
-        m_engine = NULL;
+        QMutexLocker locker(&m_mutex);
+        if (m_engine)
+            m_engine->setInterrupted(true);
     }
+
+    // Wait for run() to return before tearing anything down. The script may
+    // still be executing native code for a little while after the interrupt.
+    wait();
 
     // Take ownership of what has to be released under the lock, then release
     // it without holding the lock
@@ -79,6 +88,16 @@ void ScriptRunner::stop()
     QMap<quint32, QSharedPointer<GenericFader> > faders;
     {
         QMutexLocker locker(&m_mutex);
+
+        // Delete the engine directly: the worker thread does not run an event
+        // loop, so deleteLater() would never be processed and leak it
+        delete m_engine;
+        m_engine = NULL;
+
+        // Nothing queued by the stopped script must be dispatched anymore
+        m_functionQueue.clear();
+        m_fixtureValueQueue.clear();
+
         startedFunctions.swap(m_startedFunctions);
         faders.swap(m_fadersMap);
     }
@@ -99,8 +118,6 @@ void ScriptRunner::stop()
         if (!fader.isNull())
             fader->requestDelete();
     }
-
-    m_running = false;
 }
 
 QStringList ScriptRunner::collectScriptData()
@@ -322,12 +339,22 @@ void ScriptRunner::run()
         m_waitCount = 0;
     }
 
-    m_engine = new QJSEngine();
-    QJSValue objectValue = m_engine->newQObject(this);
-    m_engine->globalObject().setProperty("Engine", objectValue);
+    QJSEngine *engine = new QJSEngine();
+    {
+        QMutexLocker locker(&m_mutex);
+        m_engine = engine;
+
+        // stop() may have been called before the engine existed, in which
+        // case it had nothing to interrupt
+        if (m_running == false)
+            engine->setInterrupted(true);
+    }
+
+    QJSValue objectValue = engine->newQObject(this);
+    engine->globalObject().setProperty("Engine", objectValue);
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
 
-    QJSValue script = m_engine->evaluate("(function run() { " + m_content + " })");
+    QJSValue script = engine->evaluate("(function run() { " + m_content + " })");
 
     if (script.isCallable() == false)
     {
