@@ -76,6 +76,7 @@ Rectangle
         width: height
         height: UISettings.iconSizeDefault
         anchors.right: parent.right
+        z: 3
         border.color: UISettings.bgMedium
         useFontawesome: true
         label: FontAwesome.fa_xmark
@@ -138,564 +139,577 @@ Rectangle
         }
     }
 
-    GridLayout
+    Flickable
     {
-        id: editorGrid
-        columnSpacing: origIconMedium
-        rowSpacing: 10
-        columns: 4
+        id: editorFlickable
+        anchors.fill: parent
         z: 1
+        clip: true
+        boundsBehavior: Flickable.StopAtBounds
+        contentWidth: editorGrid.width
+        contentHeight: editorGrid.height
 
-        // Row 1
-        RobotoText
+        ScrollBar.vertical: CustomScrollBar { }
+
+        GridLayout
         {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Scaling factor")
-        }
-        RowLayout
-        {
-            Slider
+            id: editorGrid
+            columnSpacing: origIconMedium
+            rowSpacing: 10
+            columns: 4
+            z: 1
+
+            // Row 1
+            RobotoText
             {
-                id: sfSlider
-                orientation: Qt.Horizontal
-                from: 0.3
-                to: 2
-                value: UISettings.scalingFactor
-                wheelEnabled: true
-                onMoved: uiManager.setModified("scalingFactor", value)
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("Scaling factor")
+            }
+            RowLayout
+            {
+                Slider
+                {
+                    id: sfSlider
+                    orientation: Qt.Horizontal
+                    from: 0.3
+                    to: 2
+                    value: UISettings.scalingFactor
+                    wheelEnabled: true
+                    onMoved: uiManager.setModified("scalingFactor", value)
+                }
+
+                RobotoText
+                {
+                    height: origItemHeight
+                    fontSize: origTextSizeDefault
+                    label: sfSlider.value.toFixed(2) + "x"
+                }
+
+                IconButton
+                {
+                    id: sfRestore
+                    width: origIconMedium
+                    height: width
+                    imgSource: "qrc:/undo.svg"
+                    tooltip: qsTr("Reset to default")
+
+                    property real origScaleFactor
+
+                    onClicked: uiManager.setModified("scalingFactor", uiManager.getDefault("scalingFactor"))
+                }
+            }
+
+            Rectangle
+            {
+                Layout.columnSpan: 2
+                height: origItemHeight
+                color: "transparent"
+            }
+
+            // Row 2
+            RobotoText
+            {
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("Background darker")
+            }
+            Loader
+            {
+                property string kName: "bgStronger"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
+
+                function updateColor(col)
+                {
+                    uiManager.setModified(kName, col)
+                }
             }
 
             RobotoText
             {
                 height: origItemHeight
                 fontSize: origTextSizeDefault
-                label: sfSlider.value.toFixed(2) + "x"
+                label: qsTr("Background dark")
             }
-
-            IconButton
+            Loader
             {
-                id: sfRestore
-                width: origIconMedium
-                height: width
-                imgSource: "qrc:/undo.svg"
-                tooltip: qsTr("Reset to default")
+                property string kName: "bgStrong"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
 
-                property real origScaleFactor
-
-                onClicked: uiManager.setModified("scalingFactor", uiManager.getDefault("scalingFactor"))
-            }
-        }
-
-        Rectangle
-        {
-            Layout.columnSpan: 2
-            height: origItemHeight
-            color: "transparent"
-        }
-
-        // Row 2
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Background darker")
-        }
-        Loader
-        {
-            property string kName: "bgStronger"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Background dark")
-        }
-        Loader
-        {
-            property string kName: "bgStrong"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-        //Row 3
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Background medium")
-        }
-        Loader
-        {
-            property string kName: "bgMedium"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Background light")
-        }
-        Loader
-        {
-            property string kName: "bgLight"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-        //Row 4
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Background lighter")
-        }
-        Loader
-        {
-            property string kName: "bgLighter"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Controls background")
-        }
-        Loader
-        {
-            property string kName: "bgControl"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-        //Row 5
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Foreground main")
-        }
-        Loader
-        {
-            property string kName: "fgMain"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Foreground medium")
-        }
-        Loader
-        {
-            property string kName: "fgMedium"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-        //Row 6
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Foreground light")
-        }
-        Loader
-        {
-            property string kName: "fgLight"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Toolbar gradient start")
-        }
-        Loader
-        {
-            property string kName: "toolbarStartMain"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-        //Row 7
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Sub-toolbar gradient start")
-        }
-        Loader
-        {
-            property string kName: "toolbarStartSub"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Toolbar gradient end")
-        }
-        Loader
-        {
-            property string kName: "toolbarEnd"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-        //Row 8
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Toolbar hover gradient start")
-        }
-        Loader
-        {
-            property string kName: "toolbarHoverStart"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Toolbar hover gradient end")
-        }
-        Loader
-        {
-            property string kName: "toolbarHoverEnd"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-        //Row 9
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Toolbar selection")
-        }
-        Loader
-        {
-            property string kName: "toolbarSelectionMain"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Sub-toolbar selection")
-        }
-        Loader
-        {
-            property string kName: "toolbarSelectionSub"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-        //Row 10
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Section header")
-        }
-        Loader
-        {
-            property string kName: "sectionHeader"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Section header divider")
-        }
-        Loader
-        {
-            property string kName: "sectionHeaderDiv"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-        //Row 11
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Item highlight")
-        }
-        Loader
-        {
-            property string kName: "highlight"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Item highlight pressed")
-        }
-        Loader
-        {
-            property string kName: "highlightPressed"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-        //Row 12
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Item hover")
-        }
-        Loader
-        {
-            property string kName: "hover"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Item selection")
-        }
-        Loader
-        {
-            property string kName: "selection"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-        //Row 13
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("VC Frame drop area")
-        }
-        Loader
-        {
-            property string kName: "activeDropArea"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-        RobotoText
-        {
-            height: origItemHeight
-            fontSize: origTextSizeDefault
-            label: qsTr("Item dark border")
-        }
-        Loader
-        {
-            property string kName: "borderColorDark"
-            sourceComponent: colorSelector
-            onLoaded: item.init(this, uiManager.getDefault(kName),
-                                      uiManager.getModified(kName))
-
-            function updateColor(col)
-            {
-                uiManager.setModified(kName, col)
-            }
-        }
-
-        GenericButton
-        {
-            Layout.columnSpan: 4
-            Layout.alignment: Qt.AlignHCenter
-            width: origIconMedium * 10
-            height: origIconDefault
-            fontSize: origTextSizeDefault
-            label: qsTr("Save to file")
-            onClicked:
-            {
-                var fPath = uiManager.userConfFilepath()
-                if (uiManager.saveSettings() === true)
+                function updateColor(col)
                 {
-                    messagePopup.title = qsTr("Operation completed")
-                    messagePopup.message = qsTr("File successfully saved to:" + "<br>" + fPath)
+                    uiManager.setModified(kName, col)
                 }
-                else
-                {
-                    messagePopup.title = qsTr("Error")
-                    messagePopup.message = qsTr("Unable to save file:" + "<br>" + fPath)
-                }
-                messagePopup.open()
             }
 
-            Image
+            //Row 3
+            RobotoText
             {
-                x: parent.width * 0.05
-                anchors.verticalCenter: parent.verticalCenter
-                width: parent.height * 0.75
-                height: width
-                source: "qrc:/filesave.svg"
-                sourceSize: Qt.size(width, height)
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("Background medium")
+            }
+            Loader
+            {
+                property string kName: "bgMedium"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
+
+                function updateColor(col)
+                {
+                    uiManager.setModified(kName, col)
+                }
+            }
+
+            RobotoText
+            {
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("Background light")
+            }
+            Loader
+            {
+                property string kName: "bgLight"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
+
+                function updateColor(col)
+                {
+                    uiManager.setModified(kName, col)
+                }
+            }
+
+            //Row 4
+            RobotoText
+            {
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("Background lighter")
+            }
+            Loader
+            {
+                property string kName: "bgLighter"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
+
+                function updateColor(col)
+                {
+                    uiManager.setModified(kName, col)
+                }
+            }
+
+            RobotoText
+            {
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("Controls background")
+            }
+            Loader
+            {
+                property string kName: "bgControl"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
+
+                function updateColor(col)
+                {
+                    uiManager.setModified(kName, col)
+                }
+            }
+
+            //Row 5
+            RobotoText
+            {
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("Foreground main")
+            }
+            Loader
+            {
+                property string kName: "fgMain"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
+
+                function updateColor(col)
+                {
+                    uiManager.setModified(kName, col)
+                }
+            }
+
+            RobotoText
+            {
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("Foreground medium")
+            }
+            Loader
+            {
+                property string kName: "fgMedium"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
+
+                function updateColor(col)
+                {
+                    uiManager.setModified(kName, col)
+                }
+            }
+
+            //Row 6
+            RobotoText
+            {
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("Foreground light")
+            }
+            Loader
+            {
+                property string kName: "fgLight"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
+
+                function updateColor(col)
+                {
+                    uiManager.setModified(kName, col)
+                }
+            }
+
+            RobotoText
+            {
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("Toolbar gradient start")
+            }
+            Loader
+            {
+                property string kName: "toolbarStartMain"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
+
+                function updateColor(col)
+                {
+                    uiManager.setModified(kName, col)
+                }
+            }
+
+            //Row 7
+            RobotoText
+            {
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("Sub-toolbar gradient start")
+            }
+            Loader
+            {
+                property string kName: "toolbarStartSub"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
+
+                function updateColor(col)
+                {
+                    uiManager.setModified(kName, col)
+                }
+            }
+
+            RobotoText
+            {
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("Toolbar gradient end")
+            }
+            Loader
+            {
+                property string kName: "toolbarEnd"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
+
+                function updateColor(col)
+                {
+                    uiManager.setModified(kName, col)
+                }
+            }
+
+            //Row 8
+            RobotoText
+            {
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("Toolbar hover gradient start")
+            }
+            Loader
+            {
+                property string kName: "toolbarHoverStart"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
+
+                function updateColor(col)
+                {
+                    uiManager.setModified(kName, col)
+                }
+            }
+
+
+            RobotoText
+            {
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("Toolbar hover gradient end")
+            }
+            Loader
+            {
+                property string kName: "toolbarHoverEnd"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
+
+                function updateColor(col)
+                {
+                    uiManager.setModified(kName, col)
+                }
+            }
+
+            //Row 9
+            RobotoText
+            {
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("Toolbar selection")
+            }
+            Loader
+            {
+                property string kName: "toolbarSelectionMain"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
+
+                function updateColor(col)
+                {
+                    uiManager.setModified(kName, col)
+                }
+            }
+
+
+            RobotoText
+            {
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("Sub-toolbar selection")
+            }
+            Loader
+            {
+                property string kName: "toolbarSelectionSub"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
+
+                function updateColor(col)
+                {
+                    uiManager.setModified(kName, col)
+                }
+            }
+
+            //Row 10
+            RobotoText
+            {
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("Section header")
+            }
+            Loader
+            {
+                property string kName: "sectionHeader"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
+
+                function updateColor(col)
+                {
+                    uiManager.setModified(kName, col)
+                }
+            }
+
+            RobotoText
+            {
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("Section header divider")
+            }
+            Loader
+            {
+                property string kName: "sectionHeaderDiv"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
+
+                function updateColor(col)
+                {
+                    uiManager.setModified(kName, col)
+                }
+            }
+
+            //Row 11
+            RobotoText
+            {
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("Item highlight")
+            }
+            Loader
+            {
+                property string kName: "highlight"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
+
+                function updateColor(col)
+                {
+                    uiManager.setModified(kName, col)
+                }
+            }
+
+            RobotoText
+            {
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("Item highlight pressed")
+            }
+            Loader
+            {
+                property string kName: "highlightPressed"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
+
+                function updateColor(col)
+                {
+                    uiManager.setModified(kName, col)
+                }
+            }
+
+            //Row 12
+            RobotoText
+            {
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("Item hover")
+            }
+            Loader
+            {
+                property string kName: "hover"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
+
+                function updateColor(col)
+                {
+                    uiManager.setModified(kName, col)
+                }
+            }
+
+            RobotoText
+            {
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("Item selection")
+            }
+            Loader
+            {
+                property string kName: "selection"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
+
+                function updateColor(col)
+                {
+                    uiManager.setModified(kName, col)
+                }
+            }
+
+            //Row 13
+            RobotoText
+            {
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("VC Frame drop area")
+            }
+            Loader
+            {
+                property string kName: "activeDropArea"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
+
+                function updateColor(col)
+                {
+                    uiManager.setModified(kName, col)
+                }
+            }
+
+            RobotoText
+            {
+                height: origItemHeight
+                fontSize: origTextSizeDefault
+                label: qsTr("Item dark border")
+            }
+            Loader
+            {
+                property string kName: "borderColorDark"
+                sourceComponent: colorSelector
+                onLoaded: item.init(this, uiManager.getDefault(kName),
+                                          uiManager.getModified(kName))
+
+                function updateColor(col)
+                {
+                    uiManager.setModified(kName, col)
+                }
+            }
+
+            GenericButton
+            {
+                Layout.columnSpan: 4
+                Layout.alignment: Qt.AlignHCenter
+                width: origIconMedium * 10
+                height: origIconDefault
+                fontSize: origTextSizeDefault
+                label: qsTr("Save to file")
+                onClicked:
+                {
+                    var fPath = uiManager.userConfFilepath()
+                    if (uiManager.saveSettings() === true)
+                    {
+                        messagePopup.title = qsTr("Operation completed")
+                        messagePopup.message = qsTr("File successfully saved to:" + "<br>" + fPath)
+                    }
+                    else
+                    {
+                        messagePopup.title = qsTr("Error")
+                        messagePopup.message = qsTr("Unable to save file:" + "<br>" + fPath)
+                    }
+                    messagePopup.open()
+                }
+
+                Image
+                {
+                    x: parent.width * 0.05
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: parent.height * 0.75
+                    height: width
+                    source: "qrc:/filesave.svg"
+                    sourceSize: Qt.size(width, height)
+                }
             }
         }
     }
