@@ -21,6 +21,7 @@
 #include <QJSEngine>
 #include <QJSValue>
 #include <QRandomGenerator>
+#include <utility>
 #if !defined(Q_OS_IOS)
 #include <QProcess>
 #endif
@@ -590,7 +591,7 @@ int ScriptRunner::random(QString minTime, QString maxTime)
     int min = Function::stringToSpeed(minTime);
     int max = Function::stringToSpeed(maxTime);
 
-    return QRandomGenerator::global()->generate() % ((max + 1) - min) + min;
+    return random(min, max);
 }
 
 int ScriptRunner::random(int minTime, int maxTime)
@@ -598,5 +599,14 @@ int ScriptRunner::random(int minTime, int maxTime)
     if (m_running == false)
         return 0;
 
-    return QRandomGenerator::global()->generate() % ((maxTime + 1) - minTime) + minTime;
+    // "(maxTime + 1) - minTime" overflows a 32 bit int when maxTime is INT_MAX,
+    // and mixing it with the unsigned result of generate() gives a garbage
+    // modulus for inverted (max < min) ranges. Do the math in 64 bit instead.
+    if (maxTime < minTime)
+        std::swap(minTime, maxTime);
+
+    const qint64 range = qint64(maxTime) - qint64(minTime) + 1;
+    const quint64 offset = QRandomGenerator::global()->generate64() % quint64(range);
+
+    return int(qint64(minTime) + qint64(offset));
 }
