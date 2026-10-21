@@ -144,76 +144,94 @@ QString Tardis::actionToString(int action)
 
 void Tardis::undoAction()
 {
-    if (m_historyIndex == -1 || m_history.isEmpty())
-        return;
+    QList<TardisAction> batch;
 
+    {
+        QMutexLocker locker(&m_historyMutex);
+
+        if (m_historyIndex == -1 || m_history.isEmpty())
+            return;
+
+        quint64 refTimestamp = m_history.at(m_historyIndex).m_timestamp;
+
+        while (m_historyIndex >= 0)
+        {
+            const TardisAction &action = m_history.at(m_historyIndex);
+
+            if (refTimestamp - action.m_timestamp > TARDIS_ACTION_INTERTIME)
+                break;
+
+            batch.append(action);
+            m_historyIndex--;
+        }
+
+        qDebug() << "History index:" << m_historyIndex;
+    }
+
+    /* Actions are processed without holding the history lock,
+     * so the Tardis thread is never blocked by a slow undo */
     m_busy = true;
 
-    quint64 refTimestamp = m_history.at(m_historyIndex).m_timestamp;
-
-    while (1)
+    for (TardisAction &action : batch)
     {
-        TardisAction action = m_history.at(m_historyIndex);
-
-        if (refTimestamp - action.m_timestamp > TARDIS_ACTION_INTERTIME)
-            break;
-
         qDebug() << "Undo action" << actionToString(action.m_action);
-
-        m_historyIndex--;
 
         int code = processAction(action, true);
 
         /* If there are active network connections, send the action there too */
         forwardActionToNetwork(code, action, true);
-
-        if (m_historyIndex == -1)
-            break;
     }
-
-    qDebug() << "History index:" << m_historyIndex;
 
     m_busy = false;
 }
 
 void Tardis::redoAction()
 {
-    if (m_history.isEmpty() || m_historyIndex == m_history.count() - 1)
-        return;
+    QList<TardisAction> batch;
 
-    bool done = false;
+    {
+        QMutexLocker locker(&m_historyMutex);
+
+        if (m_history.isEmpty() || m_historyIndex >= m_history.count() - 1)
+            return;
+
+        quint64 refTimestamp = m_history.at(m_historyIndex + 1).m_timestamp;
+
+        while (m_historyIndex < m_history.count() - 1)
+        {
+            const TardisAction &action = m_history.at(m_historyIndex + 1);
+
+            /* Stop at the first action of the next batch,
+             * the same way undoAction does */
+            if (action.m_timestamp - refTimestamp > TARDIS_ACTION_INTERTIME)
+                break;
+
+            batch.append(action);
+            m_historyIndex++;
+        }
+
+        qDebug() << "History index:" << m_historyIndex;
+    }
 
     m_busy = true;
 
-    quint64 refTimestamp = m_history.at(m_historyIndex + 1).m_timestamp;
-
-    while (!done)
+    for (TardisAction &action : batch)
     {
-        m_historyIndex++;
-
-        TardisAction action = m_history.at(m_historyIndex);
         qDebug() << "Redo action" << actionToString(action.m_action);
 
         int code = processAction(action, false);
 
         /* If there are active network connections, send the action there too */
         forwardActionToNetwork(code, action);
-
-        /* Check if I am processing a batch of actions or a single one */
-        if (m_historyIndex == m_history.count() - 1 ||
-            action.m_timestamp - refTimestamp > TARDIS_ACTION_INTERTIME)
-        {
-            done = true;
-        }
     }
-
-    qDebug() << "History index:" << m_historyIndex;
 
     m_busy = false;
 }
 
 void Tardis::resetHistory()
 {
+    QMutexLocker locker(&m_historyMutex);
+
     m_history.clear();
     m_historyIndex = -1;
     m_historyCount = 0;
@@ -275,63 +293,65 @@ void Tardis::run()
             continue;
         }
 
-        /* If the history index is halfway, it means I need to remove
-         * all the actions after the last undo operation before
-         * pushing a new one */
-        if (m_historyIndex >= 0 && m_historyIndex != m_history.count())
         {
-            int count = m_history.count();
-            qint64 refTimestamp = m_history.last().m_timestamp;
+            QMutexLocker locker(&m_historyMutex);
 
-            for (int i = m_historyIndex + 1; i < count; i++)
+            /* If the history index is halfway (including when everything
+             * has been undone and the index is -1), it means I need to
+             * remove all the actions after the last undo operation before
+             * pushing a new one */
+            if (m_historyIndex < m_history.count() - 1)
             {
-                if (refTimestamp - m_history.last().m_timestamp > TARDIS_ACTION_INTERTIME)
+                while (m_history.count() > m_historyIndex + 1)
+                    m_history.removeLast();
+
+                /* count again the batches left */
+                m_historyCount = 0;
+                for (int i = 0; i < m_history.count(); i++)
                 {
-                    refTimestamp = m_history.last().m_timestamp;
-                    m_historyCount--;
-                }
-                m_history.removeLast();
-
-            }
-        }
-
-        if (m_history.count())
-        {
-            // scan history from the last item to find a match
-            for (int i = m_history.count() - 1; i >= 0; i--)
-            {
-                if (action.m_timestamp - m_history.at(i).m_timestamp > TARDIS_ACTION_INTERTIME)
-                    break;
-
-                if (action.m_action == m_history.at(i).m_action &&
-                    action.m_objID == m_history.at(i).m_objID &&
-                    action.m_oldValue == m_history.at(i).m_newValue)
-                {
-                    //qDebug() << "Found match at" << i << action.m_oldValue << m_history.at(i).m_newValue;
-                    action.m_oldValue = m_history.at(i).m_oldValue;
-                    m_history.replace(i, action);
-                    match = true;
-                    break;
+                    if (i == 0 || m_history.at(i).m_timestamp - m_history.at(i - 1).m_timestamp > TARDIS_ACTION_INTERTIME)
+                        m_historyCount++;
                 }
             }
+
+            if (m_history.count())
+            {
+                // scan history from the last item to find a match
+                for (int i = m_history.count() - 1; i >= 0; i--)
+                {
+                    if (action.m_timestamp - m_history.at(i).m_timestamp > TARDIS_ACTION_INTERTIME)
+                        break;
+
+                    if (action.m_action == m_history.at(i).m_action &&
+                        action.m_objID == m_history.at(i).m_objID &&
+                        action.m_oldValue == m_history.at(i).m_newValue)
+                    {
+                        //qDebug() << "Found match at" << i << action.m_oldValue << m_history.at(i).m_newValue;
+                        action.m_oldValue = m_history.at(i).m_oldValue;
+                        m_history.replace(i, action);
+                        match = true;
+                        break;
+                    }
+                }
+            }
+
+            if (m_history.isEmpty() || action.m_timestamp - m_history.last().m_timestamp > TARDIS_ACTION_INTERTIME)
+                m_historyCount++;
+
+            if (match == false)
+                m_history.append(action);
+
+            /* So long and thanks for all the fish */
+            if (m_historyCount > TARDIS_MAX_ACTIONS_NUMBER)
+            {
+                quint64 refTimestamp = m_history.first().m_timestamp;
+                while (m_history.count() > 1 && m_history.first().m_timestamp - refTimestamp < TARDIS_ACTION_INTERTIME)
+                    m_history.removeFirst();
+                m_historyCount = TARDIS_MAX_ACTIONS_NUMBER;
+            }
+
+            m_historyIndex = m_history.count() - 1;
         }
-
-        if (m_history.isEmpty() || action.m_timestamp - m_history.last().m_timestamp > TARDIS_ACTION_INTERTIME)
-            m_historyCount++;
-
-        if (match == false)
-            m_history.append(action);
-
-        /* So long and thanks for all the fish */
-        if (m_historyCount > TARDIS_MAX_ACTIONS_NUMBER)
-        {
-            qint64 refTimestamp = m_history.first().m_timestamp;
-            while (m_history.first().m_timestamp - refTimestamp < TARDIS_ACTION_INTERTIME)
-                m_history.removeFirst();
-            m_historyCount = TARDIS_MAX_ACTIONS_NUMBER;
-        }
-
-        m_historyIndex = m_history.count() - 1;
 
         //qDebug("Got action: 0x%02X, history length: %d (%d)", action.m_action, m_historyCount, int(m_history.count()));
 

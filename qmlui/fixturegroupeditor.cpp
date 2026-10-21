@@ -34,6 +34,8 @@ FixtureGroupEditor::FixtureGroupEditor(QQuickView *view, Doc *doc,
     , m_view(view)
     , m_doc(doc)
     , m_fixtureManager(fxMgr)
+    , m_editGroup(nullptr)
+    , m_selectionAnchor(-1)
 {
     Q_ASSERT(m_doc != nullptr);
 
@@ -77,7 +79,11 @@ void FixtureGroupEditor::resetGroup()
         return;
 
     m_editGroup->reset();
+    m_groupSelection.clear();
+    m_selectionAnchor = -1;
+
     updateGroupMap();
+    emit selectionDataChanged();
 }
 
 void FixtureGroupEditor::slotDocLoaded()
@@ -95,6 +101,8 @@ void FixtureGroupEditor::setEditGroup(QVariant reference)
         return;
 
     m_editGroup = reference.value<FixtureGroup *>();
+    m_groupSelection.clear();
+    m_selectionAnchor = -1;
 
     emit groupNameChanged();
     emit groupSizeChanged();
@@ -157,6 +165,7 @@ QVariantList FixtureGroupEditor::selectionData()
 void FixtureGroupEditor::resetSelection()
 {
     m_groupSelection.clear();
+    m_selectionAnchor = -1;
 }
 
 QVariantList FixtureGroupEditor::groupSelection(int x, int y, int mouseMods)
@@ -166,17 +175,16 @@ QVariantList FixtureGroupEditor::groupSelection(int x, int y, int mouseMods)
         return m_groupSelection;
 
     int absIndex = (y * m_editGroup->size().width()) + x;
+    bool rangeSelection = (mouseMods & Qt::ShiftModifier) && m_selectionAnchor >= 0;
 
-    if (m_groupSelection.contains(absIndex))
+    if (rangeSelection == false && m_groupSelection.contains(absIndex))
         return m_groupSelection;
-
-    //if (mouseMods == 0)
-    //    m_groupSelection.clear();
 
     GroupHead head = m_editGroup->head(QLCPoint(x, y));
     if (head.isValid() == false)
     {
         m_groupSelection.clear();
+        m_selectionAnchor = -1;
         return m_groupSelection;
     }
 
@@ -184,7 +192,27 @@ QVariantList FixtureGroupEditor::groupSelection(int x, int y, int mouseMods)
     if (fixture == nullptr)
         return m_groupSelection;
 
-    m_groupSelection.append(absIndex);
+    if (rangeSelection)
+    {
+        // select all the heads between the first selected one and this one
+        m_groupSelection.clear();
+
+        int from = qMin(m_selectionAnchor, absIndex);
+        int to = qMax(m_selectionAnchor, absIndex);
+
+        for (int i = from; i <= to; i++)
+        {
+            if (m_editGroup->head(pointFromAbsolute(i)).isValid())
+                m_groupSelection.append(i);
+        }
+    }
+    else
+    {
+        if (m_groupSelection.isEmpty())
+            m_selectionAnchor = absIndex;
+
+        m_groupSelection.append(absIndex);
+    }
 
     std::sort(m_groupSelection.begin(), m_groupSelection.end(),
               [](QVariant a, QVariant b) {
@@ -229,6 +257,52 @@ QVariantList FixtureGroupEditor::headSelection(int x, int y, int mouseMods)
     m_groupSelection.append(absIndex);
 
     return m_groupSelection;
+}
+
+bool FixtureGroupEditor::selectFixtureHeads(quint32 itemID, int headIndex, int mouseMods)
+{
+    if (m_editGroup == nullptr)
+        return false;
+
+    quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+    int gridWidth = m_editGroup->size().width();
+    QVariantList headsIndices;
+
+    QMap<QLCPoint, GroupHead> headsMap = m_editGroup->headsMap();
+    for (auto it = headsMap.constBegin(); it != headsMap.constEnd(); ++it)
+    {
+        if (it.value().fxi != fixtureID)
+            continue;
+
+        if (headIndex >= 0 && it.value().head != headIndex)
+            continue;
+
+        headsIndices.append((it.key().y() * gridWidth) + it.key().x());
+    }
+
+    if (headsIndices.isEmpty())
+        return false;
+
+    if ((mouseMods & Qt::ControlModifier) == 0)
+        m_groupSelection.clear();
+
+    for (QVariant &idx : headsIndices)
+    {
+        if (m_groupSelection.contains(idx) == false)
+            m_groupSelection.append(idx);
+    }
+
+    std::sort(m_groupSelection.begin(), m_groupSelection.end(),
+              [](QVariant a, QVariant b) {
+                  return a.toUInt() < b.toUInt();
+              });
+
+    if (m_selectionAnchor < 0 || (mouseMods & Qt::ControlModifier) == 0)
+        m_selectionAnchor = m_groupSelection.first().toInt();
+
+    emit selectionDataChanged();
+
+    return true;
 }
 
 bool FixtureGroupEditor::addFixture(QVariant reference, int x, int y)
@@ -332,6 +406,9 @@ void FixtureGroupEditor::moveSelection(int x, int y, int offset)
 
     for (int i = 0; i < m_groupSelection.count(); i++)
         m_groupSelection.replace(i, m_groupSelection.at(i).toInt() + offset);
+
+    if (m_selectionAnchor >= 0)
+        m_selectionAnchor += offset;
 }
 
 void FixtureGroupEditor::deleteSelection()
@@ -354,6 +431,7 @@ void FixtureGroupEditor::deleteSelection()
     }
 
     m_groupSelection.clear();
+    m_selectionAnchor = -1;
 
     updateGroupMap();
 }
@@ -479,6 +557,8 @@ void FixtureGroupEditor::transformSelection(int transformation)
             m_groupSelection.append(absIndex);
         }
     }
+
+    m_selectionAnchor = m_groupSelection.isEmpty() ? -1 : m_groupSelection.first().toInt();
 
     /** Finally, inform the UI that the map has changed */
     updateGroupMap();

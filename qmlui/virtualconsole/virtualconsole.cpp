@@ -1578,8 +1578,9 @@ bool VirtualConsole::loadXML(QXmlStreamReader &root)
         }
     }
 
-    // delete the exceeding pages
-    while (m_pages.count() - currPageIdx > 0)
+    // delete the exceeding pages. deletePage() never deletes the
+    // last one, so stop there if no page was loaded at all
+    while (m_pages.count() > qMax(currPageIdx, 1))
         deletePage(m_pages.count() - 1);
 
     updatePageInputs();

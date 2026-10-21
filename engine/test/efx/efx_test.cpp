@@ -99,6 +99,21 @@ void EFX_Test::initial()
     QCOMPARE(e.m_legacyHoldBus, Bus::invalid());
 }
 
+void EFX_Test::loopDurationWithLongFadeIn()
+{
+    EFX e(m_doc);
+    e.setDuration(2000);
+
+    e.setFadeInSpeed(500);
+    QCOMPARE(e.loopDuration(), uint(1500));
+
+    // a fade in not shorter than the duration must not wrap around
+    e.setFadeInSpeed(3000);
+    QCOMPARE(e.loopDuration(), uint(2000));
+    e.setFadeInSpeed(2000);
+    QCOMPARE(e.loopDuration(), uint(2000));
+}
+
 void EFX_Test::algorithmNames()
 {
     QStringList list = EFX::algorithmList();

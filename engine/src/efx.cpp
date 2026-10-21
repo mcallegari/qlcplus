@@ -147,6 +147,12 @@ uint EFX::loopDuration() const
 {
     uint fadeIn = overrideFadeInSpeed() == defaultSpeed() ? fadeInSpeed() : overrideFadeInSpeed();
 
+    // With a fade in not shorter than the duration, the subtraction would
+    // wrap around to a huge loop and the EFX would look frozen: use the
+    // whole duration for the loop instead
+    if (fadeIn >= duration())
+        return duration();
+
     return duration() - fadeIn;
 }
 

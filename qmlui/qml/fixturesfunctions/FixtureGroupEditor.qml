@@ -34,6 +34,15 @@ Rectangle
 
     function hasSettings() { return false }
 
+    Connections
+    {
+        target: fixtureGroupEditor
+        function onSelectionDataChanged()
+        {
+            groupGrid.setSelectionData(fixtureGroupEditor.selectionData)
+        }
+    }
+
     Rectangle
     {
         height: UISettings.iconSizeDefault
@@ -115,14 +124,6 @@ Rectangle
                     var empty = []
                     groupGrid.setSelectionData(empty)
                 }
-            }
-
-            IconButton
-            {
-                faSource: FontAwesome.fa_trash_can
-                faColor: "darkred"
-                tooltip: qsTr("Reset the entire group")
-                onClicked: fixtureGroupEditor.resetGroup()
             }
         }
     }
@@ -256,7 +257,7 @@ Rectangle
                 {
                     gridFlickable.interactive = false
                     var absIdx = (yPos * gridSize.width) + xPos
-                    if (selectionData && selectionData.indexOf(absIdx) >= 0)
+                    if (!(mods & Qt.ShiftModifier) && selectionData && selectionData.indexOf(absIdx) >= 0)
                         return
                     if (contextManager.multipleSelection === false && mods === 0)
                     {
@@ -277,7 +278,7 @@ Rectangle
                 if (externalDrag == false)
                 {
                     fixtureGroupEditor.moveSelection(xPos, yPos, offset)
-                    setSelectionData(fixtureGroupEditor.groupSelection(xPos, yPos, mods))
+                    setSelectionData(fixtureGroupEditor.selectionData)
                 }
             }
 

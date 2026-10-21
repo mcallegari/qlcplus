@@ -20,7 +20,7 @@ else()
 endif()
 
 add_library(${module_name}
-    SHARED
+    ${QLC_PLUGIN_TYPE}
     ${QM_FILES}
 )
 

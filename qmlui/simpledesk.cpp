@@ -134,7 +134,7 @@ void SimpleDesk::updateChannelList()
     for (int i = 0; i < currUni.length(); i++)
     {
         quint32 chIndex = 0;
-        quint32 chValue = currUni.at(i);
+        quint32 chValue = uchar(currUni.at(i));
         bool isOverriding = false;
 
         Fixture *fixture = m_doc->fixture(m_doc->fixtureForAddress(start + i));

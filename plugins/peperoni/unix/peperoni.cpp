@@ -19,6 +19,7 @@
 
 #include <QMessageBox>
 #include <QString>
+#include <QSet>
 #include <QDebug>
 #include <libusb.h>
 
@@ -248,10 +249,11 @@ void Peperoni::rescanDevices()
         if (device(dev) == true)
         {
             /* We already have this device and it's still
-               there. Remove from the destroy list and
-               continue iterating. */
-            destroyList.remove(line);
-            line++;
+               there. Remove all its lines from the destroy list
+               (USBDMX21 owns two) and continue iterating. */
+            int lines = PeperoniDevice::outputsNumber(&desc);
+            for (int l = 0; l < lines; l++)
+                destroyList.remove(line++);
             continue;
         }
         else if (PeperoniDevice::isPeperoniDevice(&desc) == true)
@@ -270,14 +272,19 @@ void Peperoni::rescanDevices()
     }
 
     //qDebug() << "[Peperoni] Need to destroy" << destroyList.count() << "devices";
+    /* A device may be referenced by more than one line (USBDMX21),
+       so remove all of its lines but delete it only once */
+    QSet<PeperoniDevice*> deadDevices;
     QHashIterator<quint32, PeperoniDevice*> it(destroyList);
     while (it.hasNext())
     {
         it.next();
-        PeperoniDevice *dev = m_devices.take(it.key());
-        dev->closeAll();
-        delete dev;
+        m_devices.remove(it.key());
+        deadDevices.insert(it.value());
     }
+
+    foreach (PeperoniDevice *dev, deadDevices)
+        delete dev; // destructor calls closeAll()
 
     //qDebug() << "[Peperoni] devices found:" << m_devices.count();
     if (m_devices.count() != devCount)

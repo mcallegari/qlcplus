@@ -112,6 +112,40 @@ if(ANDROID)
     set_property(TARGET ${module_name} APPEND PROPERTY QT_ANDROID_EXTRA_LIBS "$<TARGET_FILE:loopback>")
     set_property(TARGET ${module_name} APPEND PROPERTY QT_ANDROID_EXTRA_LIBS "$<TARGET_FILE:osc>")
     set_property(TARGET ${module_name} APPEND PROPERTY QT_ANDROID_EXTRA_LIBS "$<TARGET_FILE:os2l>")
+
+    # Copy the generated translations into the package assets
+    add_custom_command(TARGET ${module_name} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${ANDROID_PACKAGE_STAGING_DIR}/${TRANSLATIONDIR}"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${QM_FILES} "${ANDROID_PACKAGE_STAGING_DIR}/${TRANSLATIONDIR}"
+        COMMENT "Copying translations to Android assets..."
+    )
+elseif(IOS)
+    string(REGEX MATCH "^[0-9.]+" IOS_BUNDLE_VERSION "${APPVERSION}")
+    qt_add_executable(${module_name} MACOSX_BUNDLE ${SRC_FILES} ${QM_FILES})
+    set_target_properties(${module_name} PROPERTIES
+        MACOSX_BUNDLE_GUI_IDENTIFIER "org.qlcplus.qlcplus5"
+        MACOSX_BUNDLE_BUNDLE_NAME "QLC+"
+        MACOSX_BUNDLE_SHORT_VERSION_STRING "${IOS_BUNDLE_VERSION}"
+        MACOSX_BUNDLE_BUNDLE_VERSION "${IOS_BUNDLE_VERSION}"
+        XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "org.qlcplus.qlcplus5"
+        MACOSX_BUNDLE_INFO_PLIST "${PROJECT_SOURCE_DIR}/platforms/ios/Info.plist.in"
+        XCODE_ATTRIBUTE_ASSETCATALOG_COMPILER_APPICON_NAME "AppIcon"
+    )
+
+    # App icon
+    set(IOS_ASSETS "${PROJECT_SOURCE_DIR}/platforms/ios/Assets.xcassets")
+    target_sources(${module_name} PRIVATE "${IOS_ASSETS}")
+    set_source_files_properties("${IOS_ASSETS}" PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+
+    # Copy fixtures, RGB scripts, translations, etc. into the app bundle
+    add_dependencies(${module_name} translations)
+    add_custom_command(TARGET ${module_name} POST_BUILD
+        COMMAND ${CMAKE_COMMAND}
+            -DSOURCE_DIR=${PROJECT_SOURCE_DIR}
+            -DBUNDLE_DIR=$<TARGET_BUNDLE_DIR:${module_name}>
+            -P ${PROJECT_SOURCE_DIR}/platforms/ios/bundle-resources.cmake
+        COMMENT "Copying QLC+ resources into the iOS app bundle..."
+    )
 else()
     add_executable(${module_name} WIN32 ${SRC_FILES} ${QM_FILES})
 endif()
@@ -231,6 +265,23 @@ if(ANDROID)
         z
         c++_shared
     )
+endif()
+
+if(IOS)
+    # I/O plugins are static on iOS. See Q_IMPORT_PLUGIN in main.cpp
+    target_link_libraries(${module_name} PRIVATE
+        artnet
+        e131
+        loopback
+        midiplugin
+        osc
+        os2l
+    )
+
+    # Qt Multimedia FFmpeg backend is static on iOS and needs the FFmpeg frameworks
+    if(COMMAND qt_add_ios_ffmpeg_libraries)
+        qt_add_ios_ffmpeg_libraries(${module_name})
+    endif()
 endif()
 
 if(lupdate_only)
