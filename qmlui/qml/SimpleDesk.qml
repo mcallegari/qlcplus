@@ -284,7 +284,8 @@ Rectangle
                             {
                                 Layout.alignment: Qt.AlignHCenter
                                 height: UISettings.listItemHeight * 0.75
-                                focusPolicy: Qt.NoFocus
+                                // Item.focusPolicy exists only from Qt 6.7
+                                Component.onCompleted: if ("focusPolicy" in this) focusPolicy = Qt.NoFocus
                                 fontSize: UISettings.textSizeDefault
                                 labelColor: UISettings.fgMain
                                 fontBold: true

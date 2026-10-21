@@ -35,6 +35,14 @@ Rectangle
 
     property string currentContext: ""
 
+    // Window edges overlaid by system UI (e.g. Android status/navigation bars
+    // drawn edge-to-edge). Interactive items must stay inside these margins.
+    readonly property bool isAndroid: Qt.platform.os === "android"
+    readonly property real safeTop: isAndroid ? SafeArea.margins.top : 0
+    readonly property real safeBottom: isAndroid ? SafeArea.margins.bottom : 0
+    readonly property real safeLeft: isAndroid ? SafeArea.margins.left : 0
+    readonly property real safeRight: isAndroid ? SafeArea.margins.right : 0
+
     Component.onCompleted: UISettings.sidePanelWidth = Math.min(width / 3, UISettings.bigItemHeight * 5)
     onWidthChanged: UISettings.sidePanelWidth = Math.min(width / 3, UISettings.bigItemHeight * 5)
 
@@ -125,6 +133,11 @@ Rectangle
         mainViewLoader.source = qmlRes
     }
 
+    function showScalingInfo()
+    {
+        scalingInfoPopup.open()
+    }
+
     FontLoader
     {
         source: "qrc:/RobotoCondensed-Regular.ttf"
@@ -146,7 +159,9 @@ Rectangle
     {
         id: mainToolbar
         visible: qlcplus.accessMask & App.AC_VCControl ? false : true // this is kiosk mode
-        width: parent.width
+        x: mainView.safeLeft
+        y: mainView.safeTop
+        width: parent.width - mainView.safeLeft - mainView.safeRight
         height: UISettings.iconSizeDefault
         z: 50
         gradient: Gradient
@@ -473,8 +488,8 @@ Rectangle
                 {
                     id: beatSelectionPanel
                     parent: mainView
-                    y: mainToolbar.height
-                    x: beatIndicator.x - width
+                    y: mainToolbar.y + mainToolbar.height
+                    x: mainToolbar.x + beatIndicator.x - width
                     z: 51
                     visible: false
                 }
@@ -654,9 +669,10 @@ Rectangle
     Loader
     {
         id: mainViewLoader
-        width: parent.width
-        height: parent.height - (mainToolbar.visible ? mainToolbar.height : 0)
-        y: mainToolbar.visible ? mainToolbar.height : 0
+        x: mainView.safeLeft
+        y: mainView.safeTop + (mainToolbar.visible ? mainToolbar.height : 0)
+        width: parent.width - mainView.safeLeft - mainView.safeRight
+        height: parent.height - y - mainView.safeBottom
 
         Component.onCompleted:
         {
@@ -670,12 +686,23 @@ Rectangle
 
     PopupNetworkConnect { id: clientAccessPopup }
 
+    CustomPopupDialog
+    {
+        id: scalingInfoPopup
+        width: mainView.width / 2
+        title: qsTr("Small screen detected")
+        message: qsTr("The UI scaling factor has been automatically set to %1x to fit this screen.\n" +
+                      "It can be adjusted in the UI Settings panel, from the Actions menu.")
+                 .arg(UISettings.scalingFactor.toFixed(2))
+        standardButtons: Dialog.Ok
+    }
+
     /** Menu to open/load/save a project */
     ActionsMenu
     {
         id: actionsMenu
-        x: 1
-        y: actEntry.height + 1
+        x: mainToolbar.x + 1
+        y: mainToolbar.y + actEntry.height + 1
         visible: false
         z: visible ? 99 : 0
     }

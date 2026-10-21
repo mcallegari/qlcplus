@@ -65,6 +65,7 @@ private slots:
     void writeForwardPingPongFive();
     void writeBackwardPingPongFive();
     void writeNoAutoStep();
+    void writeStartOffset();
 
     void adjustIntensity();
     void adjustMasterIntensityAcrossRunningCrossfadeSteps();

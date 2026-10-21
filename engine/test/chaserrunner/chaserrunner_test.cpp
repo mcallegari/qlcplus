@@ -1309,6 +1309,45 @@ void ChaserRunner_Test::writeNoAutoStep()
     }
 }
 
+/* Count the writes until $cr moves on from the step it started with */
+static int writesToNextStep(ChaserRunner &cr, MasterTimer *timer)
+{
+    int writes = 1;
+    cr.write(timer, QList<Universe*>());
+    int firstStep = cr.m_lastRunStepIdx;
+    while (writes < 100 && cr.m_lastRunStepIdx == firstStep)
+    {
+        cr.write(timer, QList<Universe*>());
+        writes++;
+    }
+    return writes;
+}
+
+void ChaserRunner_Test::writeStartOffset()
+{
+    m_chaser->setDirection(Function::Forward);
+    m_chaser->setRunOrder(Function::Loop);
+    m_chaser->setDurationMode(Chaser::Common);
+    m_chaser->setDuration(MasterTimer::tick() * 10);
+    MasterTimer timer(m_doc);
+
+    ChaserRunner cr(m_doc, m_chaser);
+    int fromStart = writesToNextStep(cr, &timer);
+    cr.postRun(&timer, QList<Universe*>());
+
+    // started two ticks into its first step: the step counts the offset
+    // and the tick of the write that starts it, like a step started at 0
+    ChaserRunner crOffset(m_doc, m_chaser, MasterTimer::tick() * 2);
+    QVERIFY(crOffset.write(&timer, QList<Universe*>()) == true);
+    QCOMPARE(crOffset.m_runnerSteps.first()->m_elapsed, MasterTimer::tick() * 3);
+    crOffset.postRun(&timer, QList<Universe*>());
+
+    // and ends two writes earlier
+    ChaserRunner crOffset2(m_doc, m_chaser, MasterTimer::tick() * 2);
+    QCOMPARE(writesToNextStep(crOffset2, &timer), fromStart - 2);
+    crOffset2.postRun(&timer, QList<Universe*>());
+}
+
 void ChaserRunner_Test::adjustIntensity()
 {
     m_chaser->setDirection(Function::Forward);

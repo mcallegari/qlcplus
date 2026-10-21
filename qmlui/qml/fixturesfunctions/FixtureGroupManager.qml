@@ -585,6 +585,13 @@ Rectangle
                                         break
                                     }
 
+                                    // when editing a group, clicking a fixture/head that belongs to it
+                                    // selects its heads on the grid instead of switching to the fixture editor
+                                    if (editButton.checked && currentItemType === App.FixtureGroupDragItem &&
+                                        (qItem.itemType === App.FixtureDragItem || qItem.itemType === App.HeadDragItem) &&
+                                        fixtureGroupEditor.selectFixtureHeads(itemID, qItem.itemType === App.HeadDragItem ? iID : -1, mouseMods))
+                                        break
+
                                     updateButtons(qItem.itemType, itemID)
                                 break;
                                 case App.DoubleClicked:

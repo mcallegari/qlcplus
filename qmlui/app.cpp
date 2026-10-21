@@ -80,8 +80,17 @@
 #define MAX_RECENT_FILES    10
 
 /** Screen diagonal (in inches) at or below which the UI is considered
- *  to be running on a small screen and needs to compact itself */
-#define SMALL_SCREEN_INCHES 7.0
+ *  to be running on a small screen and needs to compact itself.
+ *  "7 inch" panels usually report between 7.0 and 7.9 inches */
+#define SMALL_SCREEN_INCHES 8.0
+
+/** Physical area (in millimeters, landscape) the UI needs to fit at scaling
+ *  factor 1.0. Smaller screens get an automatic scaling factor below 1.0 */
+#define UI_REFERENCE_WIDTH_MM   225.0
+#define UI_REFERENCE_HEIGHT_MM  125.0
+
+/** Lower bound of the automatic scaling factor, to keep text readable */
+#define UI_MIN_AUTO_SCALING     0.5
 
 /** Resolution multiplier applied when grabbing an item for printing.
  *  3x brings a screen resolution item close to a 300DPI page */
@@ -298,11 +307,15 @@ void App::startup()
 #endif
 
     slotScreenChanged(screen());
-    m_uiManager->initialize();
+    bool autoScaled = m_uiManager->initialize();
     m_showManager->initialize();
 
     // and here we go!
     setSource(QUrl("qrc:/MainView.qml"));
+
+    // inform the user when the UI has been scaled down to fit the screen
+    if (autoScaled)
+        QMetaObject::invokeMethod(rootObject(), "showScalingInfo");
 
     if (restoreWindowGeometry)
         setGeometry(rect);
@@ -557,9 +570,23 @@ void App::slotScreenChanged(QScreen *screen)
         emit screenDiagonalChanged();
     }
 
+    /* UI sizes are expressed in millimeters (screenPixelDensity units), so whether
+     * the UI fits only depends on the physical size of the screen. Evaluate the
+     * factor that shrinks the reference area into the screen, never enlarging it.
+     * The UI is laid out in landscape, so compare the long and short sides */
+    QSize pxSize = screen->size();
+    qreal longMm = qMax(pxSize.width(), pxSize.height()) / m_pixelDensity;
+    qreal shortMm = qMin(pxSize.width(), pxSize.height()) / m_pixelDensity;
+    qreal autoScaling = qMin(longMm / UI_REFERENCE_WIDTH_MM, shortMm / UI_REFERENCE_HEIGHT_MM);
+    autoScaling = qRound(qBound(UI_MIN_AUTO_SCALING, autoScaling, 1.0) * 100.0) / 100.0;
+
+    if (m_uiManager)
+        m_uiManager->setDefaultScalingFactor(autoScaling);
+
     qDebug() << "Screen changed to" << screen->name() << ", pixel density:" << m_pixelDensity
              << ", geometry:" << screen->size() << ", physical size:" << screen->physicalSize() << isLandscape
-             << ", diagonal (inches):" << m_screenDiagonal << ", small screen:" << smallScreen();
+             << ", diagonal (inches):" << m_screenDiagonal << ", small screen:" << smallScreen()
+             << ", auto scaling:" << autoScaling;
     rootContext()->setContextProperty("screenPixelDensity", m_pixelDensity);
 }
 

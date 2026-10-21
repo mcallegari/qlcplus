@@ -120,8 +120,9 @@ VCWidgetItem
             enabled: visible && !sliderObj.isDisabled
             Layout.alignment: Qt.AlignHCenter
             Layout.fillHeight: true
-            width: parent.width
+            Layout.fillWidth: true
             rotation: sliderObj ? (sliderObj.invertedAppearance ? 180 : 0) : 0
+            scaleFactor: sliderObj ? sliderObj.scaleFactor : 1.0
             from: sliderObj ? sliderObj.rangeLowLimit : 0
             to: sliderObj ? sliderObj.rangeHighLimit : 255
             value: sliderValue
