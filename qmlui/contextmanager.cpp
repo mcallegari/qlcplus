@@ -1619,10 +1619,15 @@ void ContextManager::setColorValue(QColor col, QColor wauv)
     setChannelValueByType((int)QLCChannel::Amber, wauv.green());
     setChannelValueByType((int)QLCChannel::UV, wauv.blue());
 
-    // Only set CMYK channels if fixture has CMYK but NOT RGB (fixtures typically have one or the other)
+    // Only set CMYK channels if fixture uses CMYK (has all three C, M, Y) and not RGB
+    // This prevents RGB-to-CMYK conversion from affecting CMY channels on fixtures
+    // where they are used as LED emitters (e.g., RGBWA+Cyan fixtures like ETC Lustr Series2)
     QList<SceneValue> rgbList = m_channelsMap.values((int)QLCChannel::Red);
-    QList<SceneValue> cmykList = m_channelsMap.values((int)QLCChannel::Cyan);
-    if (!cmykList.isEmpty() && rgbList.isEmpty())
+    QList<SceneValue> cyanList = m_channelsMap.values((int)QLCChannel::Cyan);
+    QList<SceneValue> magentaList = m_channelsMap.values((int)QLCChannel::Magenta);
+    QList<SceneValue> yellowList = m_channelsMap.values((int)QLCChannel::Yellow);
+
+    if (!cyanList.isEmpty() && !magentaList.isEmpty() && !yellowList.isEmpty() && rgbList.isEmpty())
     {
         QColor cmykColor = col.toCmyk();
         setChannelValueByType((int)QLCChannel::Cyan, cmykColor.cyan());
