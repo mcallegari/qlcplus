@@ -1628,4 +1628,31 @@ void ChaserRunner_Test::tempoMapNextStep()
     QCOMPARE(cr.m_runnerSteps.first()->m_endTime, 1000.0);
 }
 
+void ChaserRunner_Test::tempoMapStartOffset()
+{
+    TempoMap map;
+    map.addSection(TempoSection(0, 600000, 120));
+    setupTempoMapChaser(m_chaser, map, 0, 1000);
+
+    // started 480 ms into the Show, 20 ms (one tick) before the first step
+    // ends on beat 1 (500 ms)
+    ChaserRunner cr(m_doc, m_chaser, 480);
+    MasterTimer timer(m_doc);
+
+    // the step started by the pending action counts the offset and the tick
+    // of its own write once, and is not ended by that same write
+    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QCOMPARE(cr.m_lastRunStepIdx, 0);
+    QCOMPARE(cr.m_runnerSteps.size(), 1);
+    QCOMPARE(cr.m_runnerSteps.first()->m_endTime, 500.0);
+    QCOMPARE(cr.m_runnerSteps.first()->m_elapsed, uint(480 + MasterTimer::tick()));
+
+    // the next write is the first one at or after 500 ms: it ends the step
+    // and starts the next one on the grid
+    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QCOMPARE(cr.m_lastRunStepIdx, 1);
+    QCOMPARE(cr.m_runnerSteps.size(), 1);
+    QCOMPARE(cr.m_runnerSteps.first()->m_endTime, 1000.0);
+}
+
 QTEST_APPLESS_MAIN(ChaserRunner_Test)

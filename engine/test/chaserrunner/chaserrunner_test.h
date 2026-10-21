@@ -76,6 +76,7 @@ private slots:
     void tempoMapSeek();
     void tempoMapFades();
     void tempoMapNextStep();
+    void tempoMapStartOffset();
 
 private:
     Doc* m_doc;
