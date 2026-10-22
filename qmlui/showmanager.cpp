@@ -1723,6 +1723,12 @@ void ShowManager::slotShowFinished()
 
 void ShowManager::slotShowStopped()
 {
+    /* The stopped signal is emitted by the MasterTimer thread and so arrives
+       queued. Ignore it if the Show has been started again in the meantime,
+       like when resuming playback after moving the cursor during a pause */
+    if (m_currentShow != nullptr && m_currentShow->stopped() == false)
+        return;
+
     setPlaybackState(false, false);
 }
 
