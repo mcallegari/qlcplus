@@ -37,6 +37,9 @@ public:
 
     void resetProperties(int pageIndex);
 
+    /** @reimp */
+    void setID(quint32 id) override;
+
     /** Return the Preview Context associated to this VC page */
     PreviewContext *previewContext() const;
 

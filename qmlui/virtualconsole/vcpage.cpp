@@ -20,6 +20,7 @@
 #include "vcpage.h"
 
 #include "previewcontext.h"
+#include "virtualconsole.h"
 
 VCPage::VCPage(QQuickView *view, Doc *doc, VirtualConsole *vc, int pageIndex, QObject *parent)
     : VCFrame(doc, vc, parent)
@@ -28,6 +29,9 @@ VCPage::VCPage(QQuickView *view, Doc *doc, VirtualConsole *vc, int pageIndex, QO
     setAllowResize(false);
     setShowHeader(false);
     resetProperties(pageIndex);
+
+    if (vc != nullptr)
+        VCWidget::setID(vc->newPageId());
 
     // since this class inherits VCFrame, it gets also
     // many uneeded external controls. Remove them here
@@ -53,6 +57,13 @@ void VCPage::resetProperties(int pageIndex)
     setFont(QFont("Roboto Condensed", 16));
     setCaption(tr("Page %1").arg(pageIndex + 1));
     VCFrame::initializeProperties();
+}
+
+void VCPage::setID(quint32 id)
+{
+    /* A page keeps the ID given on creation, since an ID loaded from
+     * a project could be the one of a widget */
+    Q_UNUSED(id)
 }
 
 PreviewContext *VCPage::previewContext() const
