@@ -19,6 +19,7 @@
 */
 
 #include <QXmlStreamReader>
+#include <algorithm>
 #include <QXmlStreamWriter>
 #include <QStringList>
 #include <QString>
@@ -485,22 +486,41 @@ bool Doc::addFixture(Fixture* fixture, quint32 id, bool crossUniverse)
     }
 
     // Add the fixture channels capabilities to the universe they belong
+    patchFixtureChannels(fixture, crossUniverse);
+
+    emit fixtureAdded(id);
+    setModified();
+
+    return true;
+}
+
+void Doc::patchFixtureChannels(Fixture *fixture, bool crossUniverse)
+{
     QList<Universe *> universes = inputOutputMap()->claimUniverses();
 
     QList<int> forcedHTP = fixture->forcedHTPChannels();
     QList<int> forcedLTP = fixture->forcedLTPChannels();
+    quint32 uni = fixture->universe();
     quint32 fxAddress = fixture->address();
 
-    for (i = 0; i < fixture->channels(); i++)
+    for (quint32 i = 0; i < fixture->channels(); i++)
     {
         const QLCChannel *channel(fixture->channel(i));
         quint32 addr = fxAddress + i;
+
+        // don't touch the channels of another fixture
+        if (m_addresses.value(fixture->universeAddress() + i, fixture->id()) != fixture->id())
+            continue;
 
         if (crossUniverse)
         {
             uni = floor((fixture->universeAddress() + i) / 512);
             addr = (fixture->universeAddress() + i) - (uni * 512);
         }
+
+        // the fixture may not fit in the universe (e.g. address too high)
+        if (uni >= quint32(universes.count()) || addr >= 512)
+            continue;
 
         // Inform Universe of any HTP/LTP forcing
         if (forcedHTP.contains(int(i)))
@@ -517,12 +537,44 @@ bool Doc::addFixture(Fixture* fixture, quint32 id, bool crossUniverse)
         ChannelModifier *mod = fixture->channelModifier(i);
         universes.at(uni)->setChannelModifier(addr, mod);
     }
+
     inputOutputMap()->releaseUniverses(true);
+}
 
-    emit fixtureAdded(id);
-    setModified();
+void Doc::unpatchChannels(const QList<quint32> &addresses)
+{
+    if (addresses.isEmpty())
+        return;
 
-    return true;
+    QList<Universe *> universes = inputOutputMap()->claimUniverses();
+
+    foreach (quint32 address, addresses)
+    {
+        // still (or again) used by a fixture
+        if (m_addresses.contains(address))
+            continue;
+
+        quint32 uni = address / 512;
+        if (uni < quint32(universes.count()))
+            universes.at(uni)->resetChannelCapability(address % 512);
+    }
+
+    inputOutputMap()->releaseUniverses(true);
+}
+
+QList<quint32> Doc::fixtureAddresses(quint32 id) const
+{
+    QList<quint32> addresses;
+
+    QHashIterator <quint32, quint32> it(m_addresses);
+    while (it.hasNext() == true)
+    {
+        it.next();
+        if (it.value() == id)
+            addresses.append(it.key());
+    }
+
+    return addresses;
 }
 
 bool Doc::deleteFixture(quint32 id)
@@ -534,6 +586,7 @@ bool Doc::deleteFixture(quint32 id)
         m_fixturesListCacheUpToDate = false;
 
         /* Keep track of fixture addresses */
+        QList<quint32> oldAddresses = fixtureAddresses(id);
         QMutableHashIterator <uint,uint> it(m_addresses);
         while (it.hasNext() == true)
         {
@@ -541,6 +594,10 @@ bool Doc::deleteFixture(quint32 id)
             if (it.value() == id)
                 it.remove();
         }
+
+        /* The channels are free now: remove their capabilities, default
+         * values and modifiers, which would otherwise keep affecting the output */
+        unpatchChannels(oldAddresses);
         if (m_monitorProps != NULL)
             m_monitorProps->removeFixture(id);
 
@@ -754,6 +811,7 @@ void Doc::slotFixtureChanged(quint32 id)
 {
     /* Keep track of fixture addresses */
     Fixture* fxi = fixture(id);
+    QList<quint32> oldAddresses = fixtureAddresses(id);
 
     // remove it
     QMutableHashIterator <uint,uint> it(m_addresses);
@@ -774,8 +832,29 @@ void Doc::slotFixtureChanged(quint32 id)
          * with an tmp wrong address after the first call (old address() + new universe()).
          * we only add if the channel is free, to prevent messing up things
          */
-        Q_ASSERT(!m_addresses.contains(i));
+        if (m_addresses.contains(i))
+            continue;
+
         m_addresses[i] = id;
+    }
+
+    /* If the fixture has been moved (or its channels count changed), the
+     * universes must follow: free the channels it left and set up the ones
+     * it now occupies. Other changes (e.g. the name) must not touch them,
+     * since setting up the channels also resets them to their default value */
+    QList<quint32> newAddresses = fixtureAddresses(id);
+    std::sort(oldAddresses.begin(), oldAddresses.end());
+    std::sort(newAddresses.begin(), newAddresses.end());
+    if (oldAddresses != newAddresses)
+    {
+        QList<quint32> freedAddresses;
+        foreach (quint32 address, oldAddresses)
+        {
+            if (newAddresses.contains(address) == false)
+                freedAddresses.append(address);
+        }
+        unpatchChannels(freedAddresses);
+        patchFixtureChannels(fxi, fxi->crossUniverse());
     }
 
     setModified();
