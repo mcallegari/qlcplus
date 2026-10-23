@@ -258,6 +258,26 @@ Rectangle
 
         IconButton
         {
+            id: ptReplaceButton
+            visible: ptCheckButton.checked
+            anchors.top: parent.top
+            anchors.right: parent.right
+            checkedColor: UISettings.selection
+            width: UISettings.iconSizeMedium * 0.8
+            height: UISettings.iconSizeMedium * 0.8
+            faSource: FontAwesome.fa_lock
+            checkable: true
+            tooltip: qsTr("Passthrough replaces internal values (input only)")
+            checked: universe ? universe.passthroughMode === Universe.PassthroughReplace : false
+            onToggled:
+            {
+                if (universe)
+                    universe.passthroughMode = checked ? Universe.PassthroughReplace : Universe.PassthroughMerge
+            }
+        }
+
+        IconButton
+        {
             id: fbButton
             z: 2
             visible: inputPatchesNumber
