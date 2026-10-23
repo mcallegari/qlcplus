@@ -2366,6 +2366,7 @@ QVariantList FixtureManager::presetsChannels(QLCChannel::Group group)
                                 .arg(ch->name()));
             prMap.insert("fixtureID", fxID);
             prMap.insert("channelIdx", idx);
+            prMap.insert("currentValue", fixture->channelValueAt(idx));
             prList.append(prMap);
         }
     }
@@ -2479,6 +2480,7 @@ QVariantList FixtureManager::presetChannel(quint32 fixtureID, int chIndex)
     prMap.insert("name", ch->name());
     prMap.insert("fixtureID", fixtureID);
     prMap.insert("channelIdx", chIndex);
+    prMap.insert("currentValue", fixture->channelValueAt(chIndex));
     prList.append(prMap);
 
     return prList;
