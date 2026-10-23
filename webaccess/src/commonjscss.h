@@ -24,8 +24,9 @@
 
 QString webAccessJsStringEscaped(const QString &text);
 
-#define HTML_HEADER \
+#define HTML_HEADER(LANG) \
     "<!DOCTYPE html>\n" \
+    "<html" LANG ">\n" \
     "<head>\n" \
     "<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n" \
     "<link rel=\"shortcut icon\" href=\"/favicon.ico\">\n" \
@@ -50,5 +51,13 @@ QString webAccessJsStringEscaped(const QString &text);
     "function checkProjectLoaded() {\n" \
     " websocket.send(\"QLC+API|isProjectLoaded\");\n" \
     "};\n"
+
+#ifdef QMLUI
+#include "app.h"
+#define LANGUAGE_HTML App::languageHTML()
+#else
+#include "qlci18n.h"
+#define LANGUAGE_HTML QLCi18n::loadedLanguageHTML()
+#endif
 
 #endif // COMMONJSCSS_H
