@@ -1813,13 +1813,14 @@ void ContextManager::slotUniverseWritten(quint32 idx, const QByteArray &ua)
 {
     for (Fixture *fixture : m_doc->fixtures())
     {
-        if (fixture->universe() != idx)
+        // a cross-universe fixture spans more universes
+        if (idx < fixture->universe() || idx > fixture->lastUniverse())
             continue;
 
         QByteArray prevValues;
         prevValues.append(fixture->channelValues());
 
-        if (fixture->setChannelValues(ua) == true)
+        if (fixture->setUniverseValues(idx, ua) == true)
         {
             if (m_DMXView->isEnabled())
                 m_DMXView->updateFixture(fixture);

@@ -1313,8 +1313,10 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
                 if (qlcch == nullptr)
                     continue;
 
-                quint32 dmx_ch = fxi->address() + scv.channel;
-                int uni = fxi->universe();
+                // a cross-universe fixture channel may belong to a following universe
+                quint32 absAddress = fxi->channelAddress(scv.channel);
+                quint32 dmx_ch = absAddress & 0x01FF;
+                int uni = absAddress >> 9;
                 if (uni < universes.count())
                 {
                     uchar chValue = universes[uni]->preGMValue(dmx_ch);

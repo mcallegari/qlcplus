@@ -39,6 +39,18 @@
 #define MAX_KEYPAD_HISTORY      10
 #define WEB_SD_CHANNELS_PER_PAGE 32
 
+/* Get the channel index of $fixture patched at the absolute $absAddress.
+ * Cross-universe fixtures channels are not necessarily contiguous,
+ * otherwise $relCh is returned */
+static quint32 fixtureChannelIndex(Fixture *fixture, quint32 absAddress, quint32 relCh)
+{
+    if (fixture->crossUniverse() == Fixture::CrossUniverseNone)
+        return relCh;
+
+    quint32 chIndex = fixture->channelIndexForAddress(absAddress);
+    return chIndex == QLCChannel::invalid() ? relCh : chIndex;
+}
+
 SimpleDesk::SimpleDesk(QQuickView *view, Doc *doc,
                        FunctionManager *funcMgr, QObject *parent)
     : PreviewContext(view, doc, "SDESK", parent)
@@ -145,7 +157,7 @@ void SimpleDesk::updateChannelList()
                 status = (status == Odd) ? Even : Odd;
                 prevID = fixture->id();
             }
-            chIndex = i - fixture->address();
+            chIndex = fixtureChannelIndex(fixture, start + i, i - fixture->address());
             if (hasChannel(i))
             {
                 chValue = value(i);
@@ -210,7 +222,11 @@ void SimpleDesk::setValue(quint32 fixtureID, uint channel, uchar value)
     if (fixtureID != Fixture::invalidId())
     {
         fixture = m_doc->fixture(fixtureID);
-        channel += fixture->address();
+        // cross-universe fixtures channels are not necessarily contiguous
+        if (fixture->crossUniverse() != Fixture::CrossUniverseNone)
+            channel = fixture->channelAddress(channel) & 0x01FF;
+        else
+            channel += fixture->address();
     }
     if (m_values.contains(start + channel))
     {
@@ -231,7 +247,7 @@ void SimpleDesk::setValue(quint32 fixtureID, uint channel, uchar value)
 
     if (fixture != nullptr)
     {
-        quint32 relCh = channel - fixture->address();
+        quint32 relCh = fixtureChannelIndex(fixture, start + channel, channel - fixture->address());
         setDumpValue(fixtureID, relCh, value);
     }
 
@@ -533,7 +549,8 @@ bool SimpleDesk::sendKeypadCommand(QString command)
         quint32 fxID = m_doc->fixtureForAddress((m_universeFilter * 512) + scv.channel);
         Fixture *fixture = m_doc->fixture(fxID);
         if (fixture != nullptr)
-            setValue(fxID, scv.channel - fixture->address(), scv.value);
+            setValue(fxID, fixtureChannelIndex(fixture, (m_universeFilter * 512) + scv.channel,
+                                               scv.channel - fixture->address()), scv.value);
         else
             setValue(fxID, scv.channel, scv.value);
         QModelIndex mIndex = m_channelList->index(int(scv.channel), 0, QModelIndex());
@@ -610,7 +627,7 @@ void SimpleDesk::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                             {
                                 //qDebug() << "Restoring default value of fixture" << fixture->id()
                                 //         << "channel" << chIndex << "value" << ch->defaultValue();
-                                ua[universe]->setChannelDefaultValue(fixture->address() + chIndex, ch->defaultValue());
+                                ua[universe]->setChannelDefaultValue(fc.addressInUniverse(), ch->defaultValue());
                             }
                         }
                         else
@@ -677,7 +694,7 @@ void SimpleDesk::writeDMX(MasterTimer *timer, QList<Universe *> ua)
             {
                 Fixture *fixture = m_doc->fixture(fxID);
                 if (fixture != nullptr)
-                    channel = address - fixture->address();
+                    channel = fixtureChannelIndex(fixture, address, address - fixture->address());
             }
             FadeChannel *fc = getFader(ua, uni, fxID, channel);
             fc->setCurrent(value);

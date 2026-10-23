@@ -498,7 +498,9 @@ void VCAudioTriggers::rebuildBarAbsDmxChannels(AudioBar &bar) const
     {
         if (Fixture *fx = m_doc->fixture(scv.fxi))
         {
-            const quint32 absAddr = fx->universeAddress() + scv.channel;
+            const quint32 absAddr = fx->channelAddress(scv.channel);
+            if (absAddr == QLCChannel::invalid())
+                continue;
             bar.m_absDmxChannels.append(int(absAddr));
         }
     }

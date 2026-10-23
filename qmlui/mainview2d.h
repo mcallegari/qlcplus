@@ -126,6 +126,11 @@ protected:
     /** Update the Quick item selection and reparent for dragging if needed */
     void selectFixture(QQuickItem *fxItem, bool enable) const;
 
+    /** For LED bars and RGB panels, set the geometry of $fxItem projecting
+     *  its 3D box with position $pos and rotation $rot onto the 2D plane.
+     *  Returns false if $fixture is not projected (geometry left untouched) */
+    bool updateProjectedGeometry(QQuickItem *fxItem, Fixture *fixture, QVector3D pos, QVector3D rot) const;
+
 signals:
     void gridSizeChanged();
     void gridPositionChanged();

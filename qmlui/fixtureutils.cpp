@@ -18,6 +18,8 @@
 */
 
 #include <QDebug>
+#include <QtMath>
+#include <QQuaternion>
 #include <Qt3DCore/QTransform>
 
 #include "monitorproperties.h"
@@ -183,6 +185,73 @@ QSizeF FixtureUtils::item2DDimension(const QLCFixtureMode *fxMode, int pointOfVi
     }
 
     return size;
+}
+
+void FixtureUtils::item2DProjection(const MonitorProperties *monProps, int pointOfView,
+                                    const QLCFixtureMode *fxMode, QVector3D pos, QVector3D rot,
+                                    QPointF &point, QSizeF &size, qreal &rotation)
+{
+    // keep the same center used by the plain 2D representation
+    QPointF basePoint = item2DPosition(monProps, pointOfView, pos);
+    QSizeF baseSize = item2DDimension(fxMode, pointOfView);
+    QPointF center = basePoint + QPointF(baseSize.width() / 2.0, baseSize.height() / 2.0);
+
+    QLCPhysical phy;
+    if (fxMode != nullptr)
+        phy = fxMode->physical();
+    float width = phy.width() ? phy.width() : 300;
+    float height = phy.height() ? phy.height() : 300;
+    float depth = phy.depth() ? phy.depth() : 300;
+
+    // same rotation applied by MainView3D::updateFixtureRotation
+    QQuaternion q = Qt3DCore::QTransform::fromAxesAndAngles(QVector3D(1, 0, 0), -rot.x(),
+                                                            QVector3D(0, 1, 0), -rot.y(),
+                                                            QVector3D(0, 0, 1), -rot.z());
+
+    // project a 3D vector onto the 2D view plane (2D Y axis points down)
+    auto project = [pointOfView](QVector3D v) -> QPointF
+    {
+        switch (pointOfView)
+        {
+            case MonitorProperties::TopView:
+                return QPointF(v.x(), v.z());
+            case MonitorProperties::RightSideView:
+                return QPointF(-v.z(), -v.y());
+            case MonitorProperties::LeftSideView:
+                return QPointF(v.z(), -v.y());
+            default:
+                return QPointF(v.x(), -v.y());
+        }
+    };
+
+    QPointF px = project(q.rotatedVector(QVector3D(width, 0, 0)));
+    QPointF py = project(q.rotatedVector(QVector3D(0, height, 0)));
+    QPointF pz = project(q.rotatedVector(QVector3D(0, 0, depth)));
+
+    // orient the item along the projected width axis, unless it
+    // points toward the viewer: in that case keep it unrotated
+    QPointF u(1, 0);
+    rotation = 0;
+    qreal len = qSqrt(px.x() * px.x() + px.y() * px.y());
+    if (len > width * 0.001)
+    {
+        u = px / len;
+        rotation = qRadiansToDegrees(qAtan2(u.y(), u.x()));
+        if (rotation < 0)
+            rotation += 360.0;
+    }
+    QPointF n(-u.y(), u.x());
+
+    // extents of the projected box along the item axes
+    auto extent = [&px, &py, &pz](QPointF axis) -> qreal
+    {
+        return qAbs(QPointF::dotProduct(px, axis)) +
+               qAbs(QPointF::dotProduct(py, axis)) +
+               qAbs(QPointF::dotProduct(pz, axis));
+    };
+
+    size = QSizeF(extent(u), extent(n));
+    point = center - QPointF(size.width() / 2.0, size.height() / 2.0);
 }
 
 void FixtureUtils::alignItem(QVector3D refPos, QVector3D &origPos, int pointOfView, int alignment)

@@ -1001,14 +1001,20 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QL
             valueList.append(rgbToGrey(col));
         }
 
-        quint32 absAddress = fxi->universeAddress();
-
         for (int i = 0; i < channelList.count(); i++)
         {
             if (channelList.at(i) == QLCChannel::invalid())
                 continue;
 
-            quint32 universeIndex = floor((absAddress + channelList.at(i)) / 512);
+            // a cross-universe fixture channel may belong to a following universe
+            quint32 absAddress = fxi->channelAddress(channelList.at(i));
+            if (absAddress == QLCChannel::invalid())
+                continue;
+
+            int universeIndex = absAddress >> 9;
+            if (universeIndex >= universes.count())
+                continue;
+
             Universe *universe = universes.at(universeIndex);
             QSharedPointer<GenericFader> fader = getFader(universe);
             if (fader.isNull())

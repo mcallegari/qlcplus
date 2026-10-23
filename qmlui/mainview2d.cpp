@@ -246,6 +246,11 @@ void MainView2D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     newFixtureItem->setProperty("mmWidth", size.width());
     newFixtureItem->setProperty("mmHeight", size.height());
 
+    // LED bars/RGB panels: represent their full 3D orientation
+    updateProjectedGeometry(newFixtureItem, fixture,
+                            m_monProps->fixturePosition(fxID, headIndex, linkedIndex),
+                            m_monProps->fixtureRotation(fxID, headIndex, linkedIndex));
+
     // and finally add the new item to the items map
     m_itemsMap[itemID] = newFixtureItem;
 
@@ -628,6 +633,13 @@ void MainView2D::updateFixtureRotation(quint32 itemID, QVector3D degrees)
         return;
 
     QQuickItem *fxItem = m_itemsMap[itemID];
+    quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+    quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+    quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+    if (updateProjectedGeometry(fxItem, m_doc->fixture(fxID),
+                                m_monProps->fixturePosition(fxID, headIndex, linkedIndex), degrees))
+        return;
 
     switch(m_monProps->pointOfView())
     {
@@ -661,10 +673,42 @@ void MainView2D::updateFixturePosition(quint32 itemID, QVector3D pos)
     else
     {
         QQuickItem *fxItem = m_itemsMap[itemID];
+        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+        quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+        if (updateProjectedGeometry(fxItem, m_doc->fixture(fxID), pos,
+                                    m_monProps->fixtureRotation(fxID, headIndex, linkedIndex)))
+            return;
+
         QPointF point = FixtureUtils::item2DPosition(m_monProps, m_monProps->pointOfView(), pos);
         fxItem->setProperty("mmXPos", point.x());
         fxItem->setProperty("mmYPos", point.y());
     }
+}
+
+bool MainView2D::updateProjectedGeometry(QQuickItem *fxItem, Fixture *fixture, QVector3D pos, QVector3D rot) const
+{
+    if (fxItem == nullptr || fixture == nullptr || fixture->fixtureMode() == nullptr)
+        return false;
+
+    if (fixture->type() != QLCFixtureDef::LEDBarPixels && fixture->type() != QLCFixtureDef::LEDBarBeams)
+        return false;
+
+    QPointF point;
+    QSizeF size;
+    qreal rotation = 0;
+
+    FixtureUtils::item2DProjection(m_monProps, m_monProps->pointOfView(), fixture->fixtureMode(),
+                                   pos, rot, point, size, rotation);
+
+    fxItem->setProperty("mmXPos", point.x());
+    fxItem->setProperty("mmYPos", point.y());
+    fxItem->setProperty("mmWidth", size.width());
+    fxItem->setProperty("mmHeight", size.height());
+    fxItem->setProperty("rotation", rotation);
+
+    return true;
 }
 
 void MainView2D::updateFixtureSize(quint32 itemID, Fixture *fixture)
@@ -675,6 +719,15 @@ void MainView2D::updateFixtureSize(quint32 itemID, Fixture *fixture)
     if (m_itemsMap.contains(itemID))
     {
         QQuickItem *fxItem = m_itemsMap[itemID];
+        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+        quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+        if (updateProjectedGeometry(fxItem, fixture,
+                                    m_monProps->fixturePosition(fxID, headIndex, linkedIndex),
+                                    m_monProps->fixtureRotation(fxID, headIndex, linkedIndex)))
+            return;
+
         QLCFixtureMode *fxMode = fixture->fixtureMode();
         QSizeF size = FixtureUtils::item2DDimension(fixture->type() == QLCFixtureDef::Dimmer ? nullptr : fxMode,
                                                     m_monProps->pointOfView());
