@@ -882,6 +882,10 @@ QString VCSlider::cngPresetResource() const
 
 void VCSlider::setClickAndGoColors(QColor rgb, QColor wauv)
 {
+    Tardis::instance()->enqueueAction(Tardis::VCSliderSetClickAndGoColors, id(),
+                                      QVariantList({ m_cngPrimaryColor, m_cngSecondaryColor }),
+                                      QVariantList({ rgb, wauv }));
+
     m_cngPrimaryColor = rgb;
     m_cngSecondaryColor = wauv;
 

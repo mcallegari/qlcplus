@@ -689,6 +689,9 @@ void VCFrame::removeWidgetFromPageMap(VCWidget *widget)
 
 void VCFrame::setDisabled(bool disable)
 {
+    if (isDisabled() != disable)
+        Tardis::instance()->enqueueAction(Tardis::VCFrameSetDisabled, id(), isDisabled(), disable);
+
     for (VCWidget *widget : children(true)) // C++11
         widget->setDisabled(disable);
 
