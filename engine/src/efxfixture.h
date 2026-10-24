@@ -178,7 +178,8 @@ private:
     /** Indicates, whether start() has been called for this fixture */
     bool m_started;
 
-    /** Elapsed milliseconds since last reset() */
+    /** Elapsed time since last reset(), in the EFX tempo units:
+        milliseconds in Time tempo, 1/1000 beats in Beats tempo */
     uint m_elapsed;
 
     /** 0..M_PI*2, current position, recomputed on each timer tick; depends on elapsed() and parent->duration() */
@@ -192,8 +193,9 @@ private:
     void start(QSharedPointer<GenericFader> fader);
     void stop();
 
-    /** Calculate the next step data for this fixture */
-    void nextStep(QList<Universe *> universes, QSharedPointer<GenericFader> fader);
+    /** Calculate the next step data for this fixture, $increment (in
+        the EFX tempo units) after the previous one */
+    void nextStep(QList<Universe *> universes, QSharedPointer<GenericFader> fader, uint increment);
 
     /** Set a 16bit value on a fader gotten from the engine */
     void updateFaderValues(FadeChannel &fc, quint32 value);

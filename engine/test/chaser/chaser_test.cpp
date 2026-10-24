@@ -1107,4 +1107,72 @@ void Chaser_Test::quickChaser()
     QVERIFY(s2->stopped() == true);
 }
 
+void Chaser_Test::tempoConversionValues()
+{
+    // 128 BPM: a beat is 468.75 ms
+    QCOMPARE(Chaser::timeToBeats(469, 128, 0.25), uint(1000));
+    QCOMPARE(Chaser::timeToBeats(300, 128, 0.25), uint(750));
+    QCOMPARE(Chaser::timeToBeats(300, 128, 1), uint(1000));
+    QCOMPARE(Chaser::timeToBeats(300, 128, 0.125), uint(625));
+    // never rounded down to nothing
+    QCOMPARE(Chaser::timeToBeats(10, 128, 0.25), uint(250));
+    // zero, infinite and default speeds are kept
+    QCOMPARE(Chaser::timeToBeats(0, 128, 0.25), uint(0));
+    QCOMPARE(Chaser::timeToBeats(Function::infiniteSpeed(), 128, 0.25), Function::infiniteSpeed());
+    QCOMPARE(Chaser::timeToBeats(Function::defaultSpeed(), 128, 0.25), Function::defaultSpeed());
+
+    QCOMPARE(Chaser::beatsToTime(1000, 128), uint(469));
+    QCOMPARE(Chaser::beatsToTime(750, 96.5), uint(466));
+    QCOMPARE(Chaser::beatsToTime(0, 128), uint(0));
+    QCOMPARE(Chaser::beatsToTime(Function::infiniteSpeed(), 128), Function::infiniteSpeed());
+}
+
+void Chaser_Test::convertToBeats()
+{
+    Chaser c(m_doc);
+    c.setFadeInSpeed(235);
+    c.setFadeOutSpeed(0);
+    c.setDuration(469);
+    c.addStep(ChaserStep(0, 100, 900, 0));
+    c.addStep(ChaserStep(1, 0, Function::infiniteSpeed(), 0));
+
+    // the global BPM (120 by default) must not matter
+    c.convertTempoType(Function::Beats, 128, 0.25);
+
+    QCOMPARE(c.tempoType(), Function::Beats);
+    QCOMPARE(c.fadeInSpeed(), uint(500));
+    QCOMPARE(c.fadeOutSpeed(), uint(0));
+    QCOMPARE(c.duration(), uint(1000));
+
+    QCOMPARE(c.steps().at(0).fadeIn, uint(250));
+    QCOMPARE(c.steps().at(0).hold, uint(2000));
+    QCOMPARE(c.steps().at(0).fadeOut, uint(0));
+    QCOMPARE(c.steps().at(0).duration, uint(2250));
+
+    QCOMPARE(c.steps().at(1).hold, Function::infiniteSpeed());
+    QCOMPARE(c.steps().at(1).duration, Function::infiniteSpeed());
+
+    // converting to the tempo type it already has does nothing
+    c.convertTempoType(Function::Beats, 60, 1);
+    QCOMPARE(c.duration(), uint(1000));
+}
+
+void Chaser_Test::convertToTime()
+{
+    Chaser c(m_doc);
+    c.setTempoType(Function::Beats);
+    c.setDuration(1000);
+    c.setFadeInSpeed(500);
+    c.addStep(ChaserStep(0, 250, 750, 0));
+
+    c.convertTempoType(Function::Time, 96.5, 0.25);
+
+    QCOMPARE(c.tempoType(), Function::Time);
+    QCOMPARE(c.duration(), uint(622));
+    QCOMPARE(c.fadeInSpeed(), uint(311));
+    QCOMPARE(c.steps().at(0).fadeIn, uint(155));
+    QCOMPARE(c.steps().at(0).hold, uint(466));
+    QCOMPARE(c.steps().at(0).duration, uint(621));
+}
+
 QTEST_MAIN(Chaser_Test)

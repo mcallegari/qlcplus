@@ -70,6 +70,14 @@ private slots:
     void adjustIntensity();
     void adjustMasterIntensityAcrossRunningCrossfadeSteps();
 
+    void tempoMapNoDrift();
+    void tempoMapOffGridStart();
+    void tempoMapStopFadeOut();
+    void tempoMapSeek();
+    void tempoMapFades();
+    void tempoMapNextStep();
+    void tempoMapStartOffset();
+
 private:
     Doc* m_doc;
     Scene* m_scene1;

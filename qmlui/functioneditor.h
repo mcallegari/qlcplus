@@ -131,6 +131,10 @@ public:
     /** Get the Function duration */
     virtual int duration() const;
 
+protected slots:
+    /** Notify the tempo type and the speeds, e.g. after a tempo type change */
+    void notifySpeedsChanged();
+
 signals:
     void tempoTypeChanged(int tempoType);
     void fadeInSpeedChanged(int fadeInSpeed);

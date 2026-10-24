@@ -523,6 +523,93 @@ void ContextManager::resetViewItems()
         m_3DView->resetItems();
 }
 
+bool ContextManager::handleShowManagerKeyPress(QKeyEvent *e)
+{
+    /* Key events are delivered here either directly by the main view, or by
+     * the signal of a detached context. In the latter case the Show Manager
+     * is on screen in its own window, even though it is not the current
+     * context of the main view */
+    PreviewContext *senderContext = qobject_cast<PreviewContext *>(sender());
+    QString activeContext = senderContext != nullptr ? senderContext->name() : currentContext();
+
+    if (activeContext != "SHOWMGR")
+        return false;
+
+    /* Holding a key down must not toggle the playback over and over,
+     * nor paste the same items over and over */
+    if (e->isAutoRepeat())
+        return false;
+
+    ShowManager *showMgr = qobject_cast<ShowManager *>(contextByName("SHOWMGR"));
+    if (showMgr == nullptr || showMgr->isEditing() == false)
+        return false;
+
+    /* Never steal keys from a popup: a modal dialog and its buttons own
+     * them while it is open, and this handler runs before the event is
+     * delivered to the QML scene */
+    QQuickView *view = senderContext != nullptr ? senderContext->view() : m_view;
+    for (QQuickItem *item = view->activeFocusItem(); item != nullptr; item = item->parentItem())
+    {
+        if (item->inherits("QQuickPopupItem"))
+            return false;
+    }
+
+    if (e->modifiers() == Qt::ControlModifier)
+        return handleShowManagerClipboardKey(showMgr, view, e->key());
+
+    if (e->modifiers() != Qt::NoModifier)
+        return false;
+
+    switch (e->key())
+    {
+        case Qt::Key_Space:
+            showMgr->playShow();
+        return true;
+        case Qt::Key_Escape:
+            showMgr->stopShow();
+        return true;
+        default:
+        break;
+    }
+
+    return false;
+}
+
+bool ContextManager::handleShowManagerClipboardKey(ShowManager *showMgr, QQuickView *view, int key)
+{
+    if (key != Qt::Key_X && key != Qt::Key_C && key != Qt::Key_V)
+        return false;
+
+    /* The timeline has no focus of its own: it owns the clipboard keys
+     * when it was the last clicked area, like it does for Ctrl+A */
+    if (m_lastClickedType != App::ShowDragItem && m_lastClickedType != App::TrackDragItem)
+        return false;
+
+    /* A text field being edited (e.g. a Track being renamed) keeps its
+     * own cut, copy and paste. Read-only fields, like the Track names
+     * that take the focus on click, do not count */
+    QQuickItem *focusItem = view->activeFocusItem();
+    if (focusItem != nullptr &&
+        (focusItem->inherits("QQuickTextInput") || focusItem->inherits("QQuickTextEdit")) &&
+        focusItem->property("readOnly").toBool() == false)
+        return false;
+
+    switch (key)
+    {
+        case Qt::Key_X:
+            showMgr->cutToClipboard();
+        break;
+        case Qt::Key_C:
+            showMgr->copyToClipboard();
+        break;
+        case Qt::Key_V:
+            showMgr->pasteFromClipboard();
+        break;
+    }
+
+    return true;
+}
+
 void ContextManager::handleKeyPress(QKeyEvent *e)
 {
     int key = e->key();
@@ -532,6 +619,13 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
         return;
 
     qDebug() << "Key press event received:" << e->text();
+
+    if (handleShowManagerKeyPress(e))
+    {
+        /* Consume it, so it does not reach the QML scene on top of this */
+        e->accept();
+        return;
+    }
 
     if (e->modifiers() & Qt::ControlModifier)
     {
@@ -543,7 +637,20 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
                 // clicked widget. Otherwise, let it go through so text
                 // fields can handle their own "select all" shortcut.
                 if (m_lastClickedType == App::FixtureDragItem)
+                {
                     toggleFixturesSelection();
+                }
+                else if (m_lastClickedType == App::ShowDragItem ||
+                         m_lastClickedType == App::TrackDragItem)
+                {
+                    // the Show Manager timeline was the last clicked widget:
+                    // select all the items of the selected Track
+                    ShowManager *showMgr = qobject_cast<ShowManager *>(contextByName("SHOWMGR"));
+                    // consume it, so that it doesn't also select the text of
+                    // the Track name field holding the focus
+                    if (showMgr != nullptr && showMgr->selectAllTrackItems())
+                        e->accept();
+                }
             break;
             case Qt::Key_Tab:
                 selectNextFixtureGroup();

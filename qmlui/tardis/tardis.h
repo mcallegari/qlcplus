@@ -123,6 +123,7 @@ public:
         ChaserSetStepHold,
         ChaserSetStepFadeOut,
         ChaserSetStepDuration,
+        FunctionSetState,           // a whole Chaser or EFX, as XML (tempo conversion)
 
         /* EFX editing actions */
         EFXAddFixture = 0x1300,
@@ -182,6 +183,9 @@ public:
         ShowManagerItemSetStartTime,
         ShowManagerItemSetDuration,
         ShowManagerItemSetTrack,
+        ShowManagerSetTempoMap,     // objID: Show ID, value: tempo map XML
+        ShowManagerItemSetFunction, // objID: item ID in the current Show, value: Function ID
+        ShowManagerShowItemSetTimes,// objID: Show ID, value: { item ID, start time, duration }
 
         /* Simple Desk actions */
         SimpleDeskSetChannel = 0xC000,

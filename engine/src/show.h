@@ -25,9 +25,11 @@
 #include <QSet>
 
 #include "function.h"
+#include "tempomap.h"
 #include "track.h"
 
 class QXmlStreamReader;
+class QXmlStreamWriter;
 class ShowRunner;
 
 /** @addtogroup engine_functions Functions
@@ -92,6 +94,48 @@ public:
 private:
     TimeDivision m_timeDivisionType;
     int m_timeDivisionBPM;
+
+    /*********************************************************************
+     * Tempo map
+     *********************************************************************/
+public:
+    /** Get the tempo sections of this Show */
+    const TempoMap &tempoMap() const;
+
+    /**
+     * Replace the tempo sections of this Show.
+     *
+     * The items of Beats tempo Functions are normally positioned in beats,
+     * while a Show with tempo sections positions all its items in ms (see
+     * itemsInMs()). So when the Show gets its first section, the items of
+     * its Beats tempo Functions are converted once to ms using the current
+     * BPM, which leaves them where they were on the timeline. The Show then
+     * keeps its items in ms, even if all its sections are removed later.
+     */
+    void setTempoMap(const TempoMap &tempoMap);
+
+    /** Returns true if all the items of this Show are positioned in ms,
+     *  including those of Beats tempo Functions. Such a Show runs its Beats
+     *  tempo Functions on its tempo map, whatever its time division */
+    bool itemsInMs() const;
+
+    /** Set the tempo map and the items unit as they are, without converting
+     *  any item (used to restore a previous state, e.g. on undo) */
+    void restoreTempoMap(const TempoMap &tempoMap, bool itemsInMs);
+
+    /** Save and load the tempo map with the items unit */
+    bool saveXMLTempoMap(QXmlStreamWriter *doc) const;
+    bool loadXMLTempoMap(QXmlStreamReader &root);
+
+private:
+    void convertBeatItemsToTime();
+
+signals:
+    void tempoMapChanged();
+
+private:
+    TempoMap m_tempoMap;
+    bool m_itemsInMs;
 
     /*********************************************************************
      * Tracks
