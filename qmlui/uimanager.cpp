@@ -160,6 +160,9 @@ void UiManager::setModified(QString name, QVariant value)
     UiProperty prop = m_parameterMap.value(name);
     prop.m_modified = value;
     m_parameterMap.insert(name, prop);
+    if (m_uiStyle == nullptr)
+        return;
+
     std::string str = name.toStdString();
     m_uiStyle->setProperty(str.c_str(), value);
 }

@@ -70,23 +70,26 @@ typedef struct
     QVector3D m_center;
 } BoundingVolume;
 
+/** All the nodes referenced here end up parented to the QML scene tree,
+ *  which can be destroyed before this C++ side is reset, so they are
+ *  guarded and automatically become nullptr when deleted */
 typedef struct
 {
     /** Reference to the fixture root item, for hierarchy walk and function calls */
-    QEntity *m_rootItem;
+    QPointer<QEntity> m_rootItem;
     /** Reference to the root item transform component, to perform translations/rotations */
-    Qt3DCore::QTransform *m_rootTransform;
+    QPointer<Qt3DCore::QTransform> m_rootTransform;
     /** Reference to the arm entity used by moving heads */
-    QEntity *m_armItem;
+    QPointer<QEntity> m_armItem;
     /** Reference to the head entity used by moving heads */
-    QEntity *m_headItem;
+    QPointer<QEntity> m_headItem;
     /** The bounding volume information */
     BoundingVolume m_volume;
     /** The selection box entity */
-    QEntity *m_selectionBox;
+    QPointer<QEntity> m_selectionBox;
     /** Reference to the texture used to render the
      *  currently selected gobo picture */
-    GoboTextureImage *m_goboTexture;
+    QPointer<GoboTextureImage> m_goboTexture;
     /** The scene generation this item was created in. Mesh loading is
      *  asynchronous, so a SceneLoader callback can arrive after the scene
      *  has been reset (e.g. on project load). Callbacks carrying a stale
@@ -227,7 +230,9 @@ signals:
 
 private:
     QElapsedTimer m_fpsElapsed;
-    QFrameAction *m_frameAction;
+    /** Once added as a component, it is reparented to the QML
+     *  scene root entity, so it is guarded */
+    QPointer<QFrameAction> m_frameAction;
     /** User-requested state of the FPS counter, kept independently from
      *  m_frameAction so it persists across 3D scene teardown/rebuild */
     bool m_frameCountEnabled;
@@ -355,20 +360,23 @@ private:
     void updateLightMatrix(SceneItem *mesh, quint32 itemID);
 
 private:
+    /** The following references point to objects owned by the QML view,
+     *  so they are guarded against the view being destroyed */
+
     /** Reference to the Scene3D component */
-    QQuickItem *m_scene3D;
+    QPointer<QQuickItem> m_scene3D;
 
     /** Reference to the entity containing everything */
-    QEntity *m_scene3DEntity;
+    QPointer<QEntity> m_scene3DEntity;
 
     /** Reference to the scene root entity for items creation */
-    QEntity *m_sceneRootEntity;
+    QPointer<QEntity> m_sceneRootEntity;
 
     /** Reference to the light pass entity and material for uniform updates */
-    QEntity *m_quadEntity;
+    QPointer<QEntity> m_quadEntity;
 
     /** Reference to the render targets used for scattering */
-    QRenderTarget *m_gBuffer;
+    QPointer<QRenderTarget> m_gBuffer;
 
     /** Map of QLC+ item IDs and SceneItem references */
     QMap<quint32, SceneItem*> m_entitiesMap;
@@ -465,7 +473,8 @@ private:
 
     QVector3D m_position3DMarker;
     bool m_position3DMarkerVisible;
-    QEntity *m_markerEntity;
+    /** Parented to the scene root entity, so guarded */
+    QPointer<QEntity> m_markerEntity;
 
     /*********************************************************************
      * Environment
@@ -535,8 +544,9 @@ private:
     QStringList m_stagesList;
     QStringList m_stageResourceList;
 
-    /** Reference to the selected stage Entity */
-    QEntity *m_stageEntity;
+    /** Reference to the selected stage Entity.
+     *  Parented to the scene root entity, so guarded */
+    QPointer<QEntity> m_stageEntity;
 
     /** Ambient light amount (0.0 - 1.0) */
     float m_ambientIntensity;

@@ -22,6 +22,7 @@
 
 #include <QQuickView>
 #include <QQuickItem>
+#include <QPointer>
 #include <QObject>
 #include <QColor>
 #include <QRect>
@@ -140,8 +141,9 @@ protected:
     /** Reference to the project document */
     Doc* m_doc;
 
-    /** Reference to the onscreen Quick item */
-    QQuickItem *m_item;
+    /** Reference to the onscreen Quick item. It is created and owned by
+     *  this widget, but guarded in case the QML side destroys it */
+    QPointer<QQuickItem> m_item;
 
     /*********************************************************************
      * ID

@@ -145,8 +145,9 @@ public slots:
     void slotRefreshView() override;
 
 private:
-    /** References to the 2D grid item for positioning */
-    QQuickItem *m_gridItem;
+    /** References to the 2D grid item for positioning.
+     *  Owned by the QML view, so it must be guarded */
+    QPointer<QQuickItem> m_gridItem;
 
     /** Reference to the Doc Monitor properties */
     MonitorProperties *m_monProps;

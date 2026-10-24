@@ -20,6 +20,8 @@
 #ifndef SCENEEDITOR_H
 #define SCENEEDITOR_H
 
+#include <QPointer>
+
 #include "functioneditor.h"
 #include "qlcinputsource.h"
 #include "scenevalue.h"
@@ -66,11 +68,12 @@ public:
     void setPreviewEnabled(bool enable) override;
 
     /** Method called by QML to inform the SceneEditor that
-     *  SceneFixtureConsole has been loaded/unloaded. */
-    Q_INVOKABLE void sceneConsoleLoaded(bool status);
+     *  SceneFixtureConsole has been loaded/unloaded.
+     *  $item is used to ignore a stale console being unloaded */
+    Q_INVOKABLE void sceneConsoleLoaded(bool status, QQuickItem *item);
 
     Q_INVOKABLE void registerFixtureConsole(int index, QQuickItem *item);
-    Q_INVOKABLE void unRegisterFixtureConsole(int index);
+    Q_INVOKABLE void unRegisterFixtureConsole(int index, QQuickItem *item);
 
     /** QML invokable method that returns if the Scene has the
      *  requested $fixture's $channel */
@@ -249,11 +252,11 @@ private:
     ListModel *m_componentList;
 
     /** A reference to the SceneFixtureConsole when loaded */
-    QQuickItem *m_sceneConsole;
+    QPointer<QQuickItem> m_sceneConsole;
 
     /** Keep a track of the registered Fixture consoles in a Scene Console,
      *  to rapidly set a channel value */
-    QMap<int, QQuickItem *> m_fxConsoleMap;
+    QMap<int, QPointer<QQuickItem>> m_fxConsoleMap;
 
     /** Pre-cache initial channel values including palettes.
      *  arranged as <fixture ID, channel values array> */
