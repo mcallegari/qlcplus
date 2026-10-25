@@ -43,6 +43,11 @@ ChaserRunner::ChaserRunner(const Doc *doc, const Chaser *chaser, quint32 startTi
     , m_lastFunctionID(Function::invalidId())
     , m_roundTime(new QElapsedTimer())
     , m_order()
+    , m_beatClockStarted(false)
+    , m_firstStepStarted(false)
+    , m_lastBeatPosition(0)
+    , m_beatPosition(0)
+    , m_msSinceBeat(0)
 {
     Q_ASSERT(chaser != NULL);
 
@@ -492,8 +497,53 @@ void ChaserRunner::clearRunningList()
     m_runnerSteps.clear();
 }
 
+void ChaserRunner::updateBeatPosition(MasterTimer *timer)
+{
+    int beatDuration = qMax(1, timer->beatTimeDuration());
+
+    if (m_beatClockStarted == false)
+    {
+        // start in phase with the MasterTimer beat clock
+        m_beatClockStarted = true;
+        if (timer->isBeat())
+            m_msSinceBeat = 0;
+        else
+            m_msSinceBeat = qBound(0, beatDuration - timer->timeToNextBeat(), beatDuration - 1);
+    }
+    else if (timer->isBeat())
+    {
+        m_lastBeatPosition += 1000;
+        m_msSinceBeat = 0;
+    }
+    else if (m_msSinceBeat < beatDuration)
+    {
+        m_msSinceBeat += MasterTimer::tick();
+    }
+
+    // never reach the next whole beat before the beat actually happens
+    qint64 phase = qMin(qint64(999), (qint64(m_msSinceBeat) * 1000) / beatDuration);
+    m_beatPosition = m_lastBeatPosition + phase;
+}
+
+qint64 ChaserRunner::alignedBeatStart(uint duration) const
+{
+    qint64 phase = m_beatPosition - m_lastBeatPosition;
+
+    // anchor the step to the last beat if it still has a reasonable time to run.
+    // Whole beat steps always end on a beat, like the beat count used to do
+    if (duration >= 1000 || phase < qint64(duration / 2))
+        return m_lastBeatPosition;
+
+    // chaser start: extend the first step until the next beat, so that the
+    // following steps fall on the beat grid
+    if (m_firstStepStarted == false)
+        return m_lastBeatPosition + 1000;
+
+    return m_beatPosition;
+}
+
 void ChaserRunner::startNewStep(int index, MasterTimer *timer, qreal mIntensity, qreal sIntensity,
-                                int fadeControl, quint32 elapsed)
+                                int fadeControl, quint32 elapsed, qint64 beatStart)
 {
     if (m_chaser == NULL || m_chaser->stepsCount() == 0)
         return;
@@ -563,7 +613,22 @@ void ChaserRunner::startNewStep(int index, MasterTimer *timer, qreal mIntensity,
         newStep->m_elapsed = m_startOffset + MasterTimer::tick();
     else
         newStep->m_elapsed = MasterTimer::tick() + elapsed;
-    newStep->m_elapsedBeats = 0; //(newStep->m_elapsed / timer->beatTimeDuration()) * 1000;
+
+    /* Beats tempo: a step chained to the previous one starts exactly where the
+     * previous one should have ended, so that steps don't accumulate drift.
+     * Otherwise (or if that would end the step right away) align it to the beat */
+    if (m_chaser->tempoType() == Function::Beats)
+    {
+        if (beatStart >= 0 && beatStart + qint64(newStep->m_duration) > m_beatPosition)
+            newStep->m_beatStart = beatStart;
+        else
+            newStep->m_beatStart = alignedBeatStart(newStep->m_duration);
+    }
+    else
+    {
+        newStep->m_beatStart = m_beatPosition;
+    }
+    m_firstStepStarted = true;
 
     m_startOffset = 0;
 
@@ -753,6 +818,8 @@ bool ChaserRunner::write(MasterTimer *timer, QList<Universe *> universes)
     if (m_chaser->stepsCount() == 0)
         return false;
 
+    updateBeatPosition(timer);
+
     // a step started by a pending action, before the running steps are
     // advanced below. It must not be advanced in the same write, as a step
     // started after them isn't, or it would run a tick ahead
@@ -790,23 +857,28 @@ bool ChaserRunner::write(MasterTimer *timer, QList<Universe *> universes)
     }
 
     quint32 prevStepRoundElapsed = 0;
+    qint64 nextBeatStart = -1;
 
     foreach (ChaserRunnerStep *step, m_runnerSteps)
     {
         if (step == startedStep)
             continue;
 
-        if (m_chaser->tempoType() == Function::Beats && timer->isBeat())
+        bool stepDone = false;
+
+        if (step->m_duration != Function::infiniteSpeed())
         {
-            step->m_elapsedBeats += 1000;
-            qDebug() << "[ChaserRunner] Function" << step->m_function->name() << "duration:" << step->m_duration << "beats:" << step->m_elapsedBeats;
+            if (m_chaser->tempoType() == Function::Time)
+                stepDone = step->m_elapsed >= step->m_duration;
+            else
+                stepDone = m_beatPosition - step->m_beatStart >= qint64(step->m_duration);
         }
 
-        if (step->m_duration != Function::infiniteSpeed() &&
-            ((m_chaser->tempoType() == Function::Time && step->m_elapsed >= step->m_duration) ||
-             (m_chaser->tempoType() == Function::Beats && step->m_elapsedBeats >= step->m_duration)))
+        if (stepDone)
         {
-            if (step->m_duration != 0)
+            if (m_chaser->tempoType() == Function::Beats)
+                nextBeatStart = step->m_beatStart + step->m_duration;
+            else if (step->m_duration != 0)
                 prevStepRoundElapsed = step->m_elapsed % step->m_duration;
 
             m_lastFunctionID = step->m_function->type() == Function::SceneType ? step->m_function->id() : Function::invalidId();
@@ -842,7 +914,7 @@ bool ChaserRunner::write(MasterTimer *timer, QList<Universe *> universes)
             int blend = m_pendingAction.m_action == ChaserNoAction ? Chaser::FromFunction : m_pendingAction.m_fadeMode;
 
             startNewStep(m_lastRunStepIdx, timer, m_pendingAction.m_masterIntensity,
-                         m_pendingAction.m_stepIntensity, blend, prevStepRoundElapsed);
+                         m_pendingAction.m_stepIntensity, blend, prevStepRoundElapsed, nextBeatStart);
             emit currentStepChanged(m_lastRunStepIdx);
         }
         else
