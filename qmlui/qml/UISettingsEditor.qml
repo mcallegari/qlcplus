@@ -146,10 +146,10 @@ Rectangle
         z: 1
         clip: true
         boundsBehavior: Flickable.StopAtBounds
-        contentWidth: editorGrid.width
+        contentWidth: editorGrid.width + (sbar.visible ? sbar.width : 0)
         contentHeight: editorGrid.height
 
-        ScrollBar.vertical: CustomScrollBar { }
+        ScrollBar.vertical: CustomScrollBar { id: sbar }
 
         GridLayout
         {
