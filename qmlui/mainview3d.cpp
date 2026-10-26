@@ -31,6 +31,7 @@
 #include <QUrl>
 #include <QXmlStreamReader>
 #include <QRegularExpression>
+#include <QSet>
 
 #include <Qt3DCore/QTransform>
 #include <Qt3DCore/QNode>
@@ -117,7 +118,7 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
 
     m_genericItemsList = new ListModel(this);
     QStringList listRoles;
-    listRoles << "itemID" << "name" << "isSelected" << "isLocked";
+    listRoles << "itemID" << "name" << "itemColor" << "isSelected" << "isLocked";
     m_genericItemsList->setRoleNames(listRoles);
 
     resetCameraPosition();
@@ -2237,6 +2238,10 @@ void MainView3D::initializeItem(int itemID, QEntity *itemEntity, QSceneLoader *l
     if (calculateVolume)
         m_boundingVolumesMap[loader->source()] = meshRef->m_volume;
 
+    QColor baseColor = m_monProps->itemColor(itemID);
+    if (baseColor.isValid())
+        applyGenericItemColor(meshRef, baseColor);
+
     QLayer *selectionLayer = m_sceneRootEntity->property("selectionLayer").value<QLayer *>();
     QGeometryRenderer *selectionMesh = m_sceneRootEntity->property("selectionMesh").value<QGeometryRenderer *>();
 
@@ -2281,6 +2286,7 @@ void MainView3D::setItemSelection(int itemID, bool enable, int keyModifiers)
                 meshRef->m_rootItem->setProperty("isSelected", false);
                 meshRef->m_selectionBox->setProperty("isSelected", false);
             }
+            setGenericItemListSelection(id, false);
         }
         m_genericSelectedItems.clear();
         emit genericSelectedCountChanged();
@@ -2295,12 +2301,31 @@ void MainView3D::setItemSelection(int itemID, bool enable, int keyModifiers)
     }
 
     if (enable)
-        m_genericSelectedItems.append(itemID);
+    {
+        if (m_genericSelectedItems.contains(itemID) == false)
+            m_genericSelectedItems.append(itemID);
+    }
     else
+    {
         m_genericSelectedItems.removeAll(itemID);
+    }
+
+    // keep the QML items list in sync with the 3D view selection
+    setGenericItemListSelection(itemID, enable);
 
     emit genericSelectedCountChanged();
     emit genericSelectedLockedChanged();
+    emit genericItemsNameChanged();
+    emit genericItemsColorChanged();
+}
+
+void MainView3D::setGenericItemListSelection(int itemID, bool selected)
+{
+    int row = m_monProps->genericItemsID().indexOf(itemID);
+    if (row < 0 || row >= m_genericItemsList->rowCount())
+        return;
+
+    m_genericItemsList->setDataWithRole(m_genericItemsList->index(row, 0), "isSelected", selected);
 }
 
 void MainView3D::setItemSelectionByIndex(int index, bool enable, int keyModifiers)
@@ -2375,6 +2400,8 @@ void MainView3D::removeSelectedGenericItems()
     }
     m_genericSelectedItems.clear();
     emit genericSelectedCountChanged();
+    emit genericItemsNameChanged();
+    emit genericItemsColorChanged();
     updateGenericItemsList();
 }
 
@@ -2417,7 +2444,8 @@ void MainView3D::updateGenericItemsList()
         QVariantMap itemMap;
         itemMap.insert("itemID", itemID);
         itemMap.insert("name", m_monProps->itemName(itemID));
-        itemMap.insert("isSelected", false);
+        itemMap.insert("itemColor", m_monProps->itemColor(itemID));
+        itemMap.insert("isSelected", m_genericSelectedItems.contains(int(itemID)));
         itemMap.insert("isLocked", (m_monProps->itemFlags(itemID) & MonitorProperties::LockedFlag) ? true : false);
         m_genericItemsList->addDataMap(itemMap);
     }
@@ -2582,6 +2610,127 @@ void MainView3D::setGenericItemsScale(QVector3D scale)
     }
 
     emit genericItemsScaleChanged();
+}
+
+void MainView3D::updateGenericItemName(quint32 itemID, QString name)
+{
+    if (m_monProps->containsItem(itemID) == false)
+        return;
+
+    QString currName = m_monProps->itemName(itemID);
+    if (currName == name)
+        return;
+
+    Tardis::instance()->enqueueAction(Tardis::GenericItemSetName, itemID, QVariant(currName), QVariant(name));
+
+    m_monProps->setItemName(itemID, name);
+
+    // update the single row, to preserve the list selection
+    int row = m_monProps->genericItemsID().indexOf(itemID);
+    if (row >= 0)
+        m_genericItemsList->setDataWithRole(m_genericItemsList->index(row, 0), "name", m_monProps->itemName(itemID));
+
+    if (m_genericSelectedItems.count() == 1 && m_genericSelectedItems.first() == int(itemID))
+        emit genericItemsNameChanged();
+}
+
+QString MainView3D::genericItemsName() const
+{
+    if (m_genericSelectedItems.count() == 1)
+        return m_monProps->itemName(m_genericSelectedItems.first());
+
+    return QString();
+}
+
+void MainView3D::setGenericItemsName(QString name)
+{
+    if (m_genericSelectedItems.count() != 1)
+        return;
+
+    updateGenericItemName(m_genericSelectedItems.first(), name);
+}
+
+void MainView3D::applyGenericItemColor(SceneItem *meshRef, QColor color) const
+{
+    if (meshRef == nullptr || meshRef->m_rootItem == nullptr)
+        return;
+
+    QList<QEntity *> entities = meshRef->m_rootItem->findChildren<QEntity *>();
+    entities.prepend(meshRef->m_rootItem);
+
+    // materials can be shared between entities. Process them once
+    QSet<QMaterial *> materials;
+
+    for (QEntity *entity : entities)
+    {
+        for (QComponent *component : entity->components())
+        {
+            QMaterial *material = qobject_cast<QMaterial *>(component);
+            if (material == nullptr || materials.contains(material))
+                continue;
+
+            materials.insert(material);
+
+            for (QParameter *par : material->parameters())
+            {
+                if (par->name() != "diffuse")
+                    continue;
+
+                // keep the original mesh color the first time it gets overridden
+                if (par->property("origDiffuse").isValid() == false)
+                    par->setProperty("origDiffuse", par->value());
+
+                if (color.isValid())
+                    par->setValue(color);
+                else
+                    par->setValue(par->property("origDiffuse"));
+            }
+        }
+    }
+}
+
+void MainView3D::updateGenericItemColor(quint32 itemID, QColor color)
+{
+    if (m_monProps->containsItem(itemID) == false)
+        return;
+
+    QColor currColor = m_monProps->itemColor(itemID);
+    if (currColor == color)
+        return;
+
+    Tardis::instance()->enqueueAction(Tardis::GenericItemSetColor, itemID, QVariant(currColor), QVariant(color));
+
+    m_monProps->setItemColor(itemID, color);
+    applyGenericItemColor(m_genericMap.value(itemID, nullptr), color);
+
+    // update the single row, to preserve the list selection
+    int row = m_monProps->genericItemsID().indexOf(itemID);
+    if (row >= 0)
+        m_genericItemsList->setDataWithRole(m_genericItemsList->index(row, 0), "itemColor", color);
+
+    if (m_genericSelectedItems.contains(int(itemID)))
+        emit genericItemsColorChanged();
+}
+
+QColor MainView3D::genericItemsColor() const
+{
+    if (m_genericSelectedItems.isEmpty())
+        return QColor();
+
+    return m_monProps->itemColor(m_genericSelectedItems.first());
+}
+
+void MainView3D::setGenericItemsColor(QColor color)
+{
+    // copy the list, as Tardis may trigger selection changes
+    QList<int> selection = m_genericSelectedItems;
+    for (int &itemID : selection)
+        updateGenericItemColor(itemID, color);
+}
+
+void MainView3D::resetGenericItemsColor()
+{
+    setGenericItemsColor(QColor());
 }
 
 QVector3D MainView3D::position3DMarker() const

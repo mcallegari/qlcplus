@@ -21,6 +21,7 @@
 #ifndef MAINVIEW3D_H
 #define MAINVIEW3D_H
 
+#include <QColor>
 #include <QObject>
 #include <QQuickView>
 #include <QElapsedTimer>
@@ -125,6 +126,8 @@ class MainView3D final : public PreviewContext
     Q_PROPERTY(QVector3D genericItemsPosition READ genericItemsPosition WRITE setGenericItemsPosition NOTIFY genericItemsPositionChanged)
     Q_PROPERTY(QVector3D genericItemsRotation READ genericItemsRotation WRITE setGenericItemsRotation NOTIFY genericItemsRotationChanged)
     Q_PROPERTY(QVector3D genericItemsScale READ genericItemsScale WRITE setGenericItemsScale NOTIFY genericItemsScaleChanged)
+    Q_PROPERTY(QString genericItemsName READ genericItemsName WRITE setGenericItemsName NOTIFY genericItemsNameChanged)
+    Q_PROPERTY(QColor genericItemsColor READ genericItemsColor WRITE setGenericItemsColor NOTIFY genericItemsColorChanged)
 
     Q_PROPERTY(QVector3D position3DMarker READ position3DMarker WRITE setPosition3DMarker NOTIFY position3DMarkerChanged)
     Q_PROPERTY(bool position3DMarkerVisible READ position3DMarkerVisible WRITE setPosition3DMarkerVisible NOTIFY position3DMarkerVisibleChanged)
@@ -440,6 +443,19 @@ public:
     QVector3D genericItemsScale() const;
     void setGenericItemsScale(QVector3D scale);
 
+    /** Get/Set the custom name of the selected generic item.
+     *  Only meaningful when exactly one item is selected */
+    void updateGenericItemName(quint32 itemID, QString name);
+    QString genericItemsName() const;
+    void setGenericItemsName(QString name);
+
+    /** Get/Set the base color of the selected generic items.
+     *  An invalid color restores the original mesh colors */
+    void updateGenericItemColor(quint32 itemID, QColor color);
+    QColor genericItemsColor() const;
+    void setGenericItemsColor(QColor color);
+    Q_INVOKABLE void resetGenericItemsColor();
+
     QVector3D position3DMarker() const;
     Q_INVOKABLE void setPosition3DMarker(QVector3D pos);
     bool position3DMarkerVisible() const;
@@ -448,6 +464,13 @@ public:
 protected:
     void updateGenericItemsList();
 
+    /** Set the selection state of the row of $itemID in the QML items list */
+    void setGenericItemListSelection(int itemID, bool selected);
+
+    /** Override (or restore, if $color is invalid) the diffuse
+     *  color of all the materials of a generic item mesh */
+    void applyGenericItemColor(SceneItem *meshRef, QColor color) const;
+
 signals:
     void genericItemsListChanged();
     void genericSelectedCountChanged();
@@ -455,6 +478,8 @@ signals:
     void genericItemsPositionChanged();
     void genericItemsRotationChanged();
     void genericItemsScaleChanged();
+    void genericItemsNameChanged();
+    void genericItemsColorChanged();
     void position3DMarkerChanged();
     void position3DMarkerVisibleChanged();
 
