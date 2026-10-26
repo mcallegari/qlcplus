@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.3.0 GIT</Version>
+  <Author>Hans-Jürgen Tappe</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED Bar 8 Swing QCL</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Speed" Preset="SpeedTiltSlowFast"/>
+ <Channel Name="Pixel 1 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 1 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 1 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 1 White" Preset="IntensityWhite"/>
+ <Channel Name="Pixel 1 Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Pixel 2 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 2 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 2 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 2 White" Preset="IntensityWhite"/>
+ <Channel Name="Pixel 2 Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Pixel 3 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 3 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 3 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 3 White" Preset="IntensityWhite"/>
+ <Channel Name="Pixel 3 Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Pixel 4 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 4 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 4 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 4 White" Preset="IntensityWhite"/>
+ <Channel Name="Pixel 4 Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Pixel 5 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 5 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 5 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 5 White" Preset="IntensityWhite"/>
+ <Channel Name="Pixel 5 Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Pixel 6 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 6 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 6 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 6 White" Preset="IntensityWhite"/>
+ <Channel Name="Pixel 6 Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Pixel 7 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 7 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 7 White" Preset="IntensityWhite"/>
+ <Channel Name="Pixel 7 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 7 Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Pixel 8 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 8 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 8 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 8 White" Preset="IntensityWhite"/>
+ <Channel Name="Pixel 8 Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="SMD LED 1">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="LampOff">Off</Capability>
+  <Capability Min="1" Max="25" Preset="LampOn">On</Capability>
+  <Capability Min="26" Max="255" Preset="StrobeSlowToFast">Strobe with increasing speed</Capability>
+ </Channel>
+ <Channel Name="SMD LED 2">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="LampOff">Off</Capability>
+  <Capability Min="1" Max="25" Preset="LampOn">On</Capability>
+  <Capability Min="26" Max="255" Preset="StrobeSlowToFast">Strobe with increasing speed</Capability>
+ </Channel>
+ <Channel Name="SMD LED 3">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="LampOff">Off</Capability>
+  <Capability Min="1" Max="25" Preset="LampOn">On</Capability>
+  <Capability Min="26" Max="255" Preset="StrobeSlowToFast">Strobe with increasing speed</Capability>
+ </Channel>
+ <Channel Name="SMD LED 4">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="LampOff">Off</Capability>
+  <Capability Min="1" Max="25" Preset="LampOn">On</Capability>
+  <Capability Min="26" Max="255" Preset="StrobeSlowToFast">Strobe with increasing speed</Capability>
+ </Channel>
+ <Channel Name="SMD LED 5">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="LampOff">Off</Capability>
+  <Capability Min="1" Max="25" Preset="LampOn">On</Capability>
+  <Capability Min="26" Max="255" Preset="StrobeSlowToFast">Strobe with increasing speed</Capability>
+ </Channel>
+ <Channel Name="SMD LED 6">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="LampOff">Off</Capability>
+  <Capability Min="1" Max="25" Preset="LampOn">On</Capability>
+  <Capability Min="26" Max="255" Preset="StrobeSlowToFast">Strobe with increasing speed</Capability>
+ </Channel>
+ <Channel Name="SMD LED 7">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="LampOff">Off</Capability>
+  <Capability Min="1" Max="25" Preset="LampOn">On</Capability>
+  <Capability Min="26" Max="255" Preset="StrobeSlowToFast">Strobe with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Pixel 4+5 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 4+5 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 4+5 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 4+5 White" Preset="IntensityWhite"/>
+ <Channel Name="Pixel 3+6 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 3+6 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 3+6 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 3+6 White" Preset="IntensityWhite"/>
+ <Channel Name="SMD LED 3+5">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="LampOff">Off</Capability>
+  <Capability Min="1" Max="25" Preset="LampOn">On</Capability>
+  <Capability Min="26" Max="255" Preset="StrobeSlowToFast">Strobe with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Pixel 2+7 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 2+7 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 2+7 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 2+7 White" Preset="IntensityWhite"/>
+ <Channel Name="SMD LED 2+6">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="LampOff">Off</Capability>
+  <Capability Min="1" Max="25" Preset="LampOn">On</Capability>
+  <Capability Min="26" Max="255" Preset="StrobeSlowToFast">Strobe with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Pixel 1+8 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 1+8 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 1+8 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 1+8 White" Preset="IntensityWhite"/>
+ <Channel Name="SMD LED 1+7">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="LampOff">Off</Capability>
+  <Capability Min="1" Max="25" Preset="LampOn">On</Capability>
+  <Capability Min="26" Max="255" Preset="StrobeSlowToFast">Strobe with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Pixel 1-8 Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Pixel 1-8 Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="19">Auto program 1</Capability>
+  <Capability Min="20" Max="29">Auto program 2</Capability>
+  <Capability Min="30" Max="39">Auto program 3</Capability>
+  <Capability Min="40" Max="49">Auto program 4</Capability>
+  <Capability Min="50" Max="59">Auto program 5</Capability>
+  <Capability Min="60" Max="69">Auto program 6</Capability>
+  <Capability Min="70" Max="79">Auto program 7</Capability>
+  <Capability Min="80" Max="89">Auto program 8</Capability>
+  <Capability Min="90" Max="99">Sound program 1</Capability>
+  <Capability Min="100" Max="109">Sound program 2</Capability>
+  <Capability Min="110" Max="119">Sound program 3</Capability>
+  <Capability Min="120" Max="129">Sound program 4</Capability>
+  <Capability Min="130" Max="139">Sound program 5</Capability>
+  <Capability Min="140" Max="149">Sound program 6</Capability>
+  <Capability Min="150" Max="159">Sound program 7</Capability>
+  <Capability Min="160" Max="255">Sound program 8</Capability>
+ </Channel>
+ <Channel Name="Pixel 1-8 Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Program Speed</Capability>
+ </Channel>
+ <Channel Name="SMD LED Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="19">Auto program 1</Capability>
+  <Capability Min="20" Max="29">Auto program 2</Capability>
+  <Capability Min="30" Max="39">Auto program 3</Capability>
+  <Capability Min="40" Max="49">Auto program 4</Capability>
+  <Capability Min="50" Max="59">Auto program 5</Capability>
+  <Capability Min="60" Max="69">Auto program 6</Capability>
+  <Capability Min="70" Max="79">Auto program 7</Capability>
+  <Capability Min="80" Max="89">Auto program 8</Capability>
+  <Capability Min="90" Max="99">Sound program 1</Capability>
+  <Capability Min="100" Max="109">Sound program 2</Capability>
+  <Capability Min="110" Max="119">Sound program 3</Capability>
+  <Capability Min="120" Max="129">Sound program 4</Capability>
+  <Capability Min="130" Max="139">Sound program 5</Capability>
+  <Capability Min="140" Max="149">Sound program 6</Capability>
+  <Capability Min="150" Max="159">Sound program 7</Capability>
+  <Capability Min="160" Max="255">Sound program 8</Capability>
+ </Channel>
+ <Channel Name="SMD LED Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Program Speed</Capability>
+ </Channel>
+ <Channel Name="Pixel 1-8 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 1-8 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 1-8 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 1-8 White" Preset="IntensityWhite"/>
+ <Channel Name="SMD LED 1-7">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="LampOff">Off</Capability>
+  <Capability Min="1" Max="25" Preset="LampOn">On</Capability>
+  <Capability Min="26" Max="255" Preset="StrobeSlowToFast">Strobe with increasing speed</Capability>
+ </Channel>
+ <Mode Name="49 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="5000"/>
+   <Dimensions Weight="7" Width="1000" Height="251" Depth="107"/>
+   <Lens Name="Other" DegreesMin="1" DegreesMax="120"/>
+   <Focus Type="Barrel" PanMax="0" TiltMax="215"/>
+   <Layout Width="15" Height="1"/>
+   <Technical PowerConsumption="80" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Tilt</Channel>
+  <Channel Number="1">Tilt Speed</Channel>
+  <Channel Number="2">Pixel 1 Red</Channel>
+  <Channel Number="3">Pixel 1 Green</Channel>
+  <Channel Number="4">Pixel 1 Blue</Channel>
+  <Channel Number="5">Pixel 1 White</Channel>
+  <Channel Number="6">Pixel 1 Strobe</Channel>
+  <Channel Number="7">Pixel 2 Red</Channel>
+  <Channel Number="8">Pixel 2 Green</Channel>
+  <Channel Number="9">Pixel 2 Blue</Channel>
+  <Channel Number="10">Pixel 2 White</Channel>
+  <Channel Number="11">Pixel 2 Strobe</Channel>
+  <Channel Number="12">Pixel 3 Red</Channel>
+  <Channel Number="13">Pixel 3 Green</Channel>
+  <Channel Number="14">Pixel 3 Blue</Channel>
+  <Channel Number="15">Pixel 3 White</Channel>
+  <Channel Number="16">Pixel 3 Strobe</Channel>
+  <Channel Number="17">Pixel 4 Red</Channel>
+  <Channel Number="18">Pixel 4 Green</Channel>
+  <Channel Number="19">Pixel 4 Blue</Channel>
+  <Channel Number="20">Pixel 4 White</Channel>
+  <Channel Number="21">Pixel 4 Strobe</Channel>
+  <Channel Number="22">Pixel 5 Red</Channel>
+  <Channel Number="23">Pixel 5 Green</Channel>
+  <Channel Number="24">Pixel 5 Blue</Channel>
+  <Channel Number="25">Pixel 5 White</Channel>
+  <Channel Number="26">Pixel 5 Strobe</Channel>
+  <Channel Number="27">Pixel 6 Red</Channel>
+  <Channel Number="28">Pixel 6 Green</Channel>
+  <Channel Number="29">Pixel 6 Blue</Channel>
+  <Channel Number="30">Pixel 6 White</Channel>
+  <Channel Number="31">Pixel 6 Strobe</Channel>
+  <Channel Number="32">Pixel 7 Red</Channel>
+  <Channel Number="33">Pixel 7 Green</Channel>
+  <Channel Number="34">Pixel 7 Blue</Channel>
+  <Channel Number="35">Pixel 7 White</Channel>
+  <Channel Number="36">Pixel 7 Strobe</Channel>
+  <Channel Number="37">Pixel 8 Red</Channel>
+  <Channel Number="38">Pixel 8 Green</Channel>
+  <Channel Number="39">Pixel 8 Blue</Channel>
+  <Channel Number="40">Pixel 8 White</Channel>
+  <Channel Number="41">Pixel 8 Strobe</Channel>
+  <Channel Number="42">SMD LED 1</Channel>
+  <Channel Number="43">SMD LED 2</Channel>
+  <Channel Number="44">SMD LED 3</Channel>
+  <Channel Number="45">SMD LED 4</Channel>
+  <Channel Number="46">SMD LED 5</Channel>
+  <Channel Number="47">SMD LED 6</Channel>
+  <Channel Number="48">SMD LED 7</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>42</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>43</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+  </Head>
+  <Head>
+   <Channel>45</Channel>
+  </Head>
+  <Head>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>46</Channel>
+  </Head>
+  <Head>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>47</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+  </Head>
+  <Head>
+   <Channel>48</Channel>
+  </Head>
+  <Head>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="27 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="5000"/>
+   <Dimensions Weight="7" Width="1000" Height="251" Depth="107"/>
+   <Lens Name="Other" DegreesMin="1" DegreesMax="120"/>
+   <Focus Type="Barrel" PanMax="0" TiltMax="215"/>
+   <Layout Width="8" Height="1"/>
+   <Technical PowerConsumption="80" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Tilt</Channel>
+  <Channel Number="1">Tilt Speed</Channel>
+  <Channel Number="2">Pixel 4+5 Red</Channel>
+  <Channel Number="3">Pixel 4+5 Green</Channel>
+  <Channel Number="4">Pixel 4+5 Blue</Channel>
+  <Channel Number="5">Pixel 4+5 White</Channel>
+  <Channel Number="6">SMD LED 4</Channel>
+  <Channel Number="7">Pixel 3+6 Red</Channel>
+  <Channel Number="8">Pixel 3+6 Green</Channel>
+  <Channel Number="9">Pixel 3+6 Blue</Channel>
+  <Channel Number="10">Pixel 3+6 White</Channel>
+  <Channel Number="11">SMD LED 3+5</Channel>
+  <Channel Number="12">Pixel 2+7 Red</Channel>
+  <Channel Number="13">Pixel 2+7 Green</Channel>
+  <Channel Number="14">Pixel 2+7 Blue</Channel>
+  <Channel Number="15">Pixel 2+7 White</Channel>
+  <Channel Number="16">SMD LED 2+6</Channel>
+  <Channel Number="17">Pixel 1+8 Red</Channel>
+  <Channel Number="18">Pixel 1+8 Green</Channel>
+  <Channel Number="19">Pixel 1+8 Blue</Channel>
+  <Channel Number="20">Pixel 1+8 White</Channel>
+  <Channel Number="21">SMD LED 1+7</Channel>
+  <Channel Number="22">Pixel 1-8 Strobe</Channel>
+  <Channel Number="23">Pixel 1-8 Program</Channel>
+  <Channel Number="24">Pixel 1-8 Program Speed</Channel>
+  <Channel Number="25">SMD LED Program</Channel>
+  <Channel Number="26">SMD LED Program Speed</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="23 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="5000"/>
+   <Dimensions Weight="7" Width="1000" Height="251" Depth="107"/>
+   <Lens Name="Other" DegreesMin="1" DegreesMax="120"/>
+   <Focus Type="Barrel" PanMax="0" TiltMax="215"/>
+   <Layout Width="8" Height="1"/>
+   <Technical PowerConsumption="80" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Tilt</Channel>
+  <Channel Number="1">Tilt Speed</Channel>
+  <Channel Number="2">Pixel 4+5 Red</Channel>
+  <Channel Number="3">Pixel 4+5 Green</Channel>
+  <Channel Number="4">Pixel 4+5 Blue</Channel>
+  <Channel Number="5">Pixel 4+5 White</Channel>
+  <Channel Number="6">SMD LED 4</Channel>
+  <Channel Number="7">Pixel 3+6 Red</Channel>
+  <Channel Number="8">Pixel 3+6 Green</Channel>
+  <Channel Number="9">Pixel 3+6 Blue</Channel>
+  <Channel Number="10">Pixel 3+6 White</Channel>
+  <Channel Number="11">SMD LED 3+5</Channel>
+  <Channel Number="12">Pixel 2+7 Red</Channel>
+  <Channel Number="13">Pixel 2+7 Green</Channel>
+  <Channel Number="14">Pixel 2+7 Blue</Channel>
+  <Channel Number="15">Pixel 2+7 White</Channel>
+  <Channel Number="16">SMD LED 2+6</Channel>
+  <Channel Number="17">Pixel 1+8 Red</Channel>
+  <Channel Number="18">Pixel 1+8 Green</Channel>
+  <Channel Number="19">Pixel 1+8 Blue</Channel>
+  <Channel Number="20">Pixel 1+8 White</Channel>
+  <Channel Number="21">SMD LED 1+7</Channel>
+  <Channel Number="22">Pixel 1-8 Strobe</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="12 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="5000"/>
+   <Dimensions Weight="7" Width="1000" Height="251" Depth="107"/>
+   <Lens Name="Other" DegreesMin="1" DegreesMax="120"/>
+   <Focus Type="Barrel" PanMax="0" TiltMax="215"/>
+   <Layout Width="2" Height="1"/>
+   <Technical PowerConsumption="80" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Tilt</Channel>
+  <Channel Number="1">Tilt Speed</Channel>
+  <Channel Number="2">Pixel 1-8 Red</Channel>
+  <Channel Number="3">Pixel 1-8 Green</Channel>
+  <Channel Number="4">Pixel 1-8 Blue</Channel>
+  <Channel Number="5">Pixel 1-8 White</Channel>
+  <Channel Number="6">Pixel 1-8 Strobe</Channel>
+  <Channel Number="7">SMD LED 1-7</Channel>
+  <Channel Number="8">Pixel 1-8 Program</Channel>
+  <Channel Number="9">Pixel 1-8 Program Speed</Channel>
+  <Channel Number="10">SMD LED Program</Channel>
+  <Channel Number="11">SMD LED Program Speed</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="5000"/>
+   <Dimensions Weight="7" Width="1000" Height="251" Depth="107"/>
+   <Lens Name="Other" DegreesMin="1" DegreesMax="120"/>
+   <Focus Type="Barrel" PanMax="0" TiltMax="215"/>
+   <Layout Width="2" Height="1"/>
+   <Technical PowerConsumption="80" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Tilt</Channel>
+  <Channel Number="1">Tilt Speed</Channel>
+  <Channel Number="2">Pixel 1-8 Red</Channel>
+  <Channel Number="3">Pixel 1-8 Green</Channel>
+  <Channel Number="4">Pixel 1-8 Blue</Channel>
+  <Channel Number="5">Pixel 1-8 White</Channel>
+  <Channel Number="6">Pixel 1-8 Strobe</Channel>
+  <Channel Number="7">SMD LED 1-7</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="5000"/>
+  <Dimensions Weight="7" Width="1000" Height="251" Depth="107"/>
+  <Lens Name="Other" DegreesMin="1" DegreesMax="120"/>
+  <Focus Type="Barrel" PanMax="0" TiltMax="215"/>
+  <Technical PowerConsumption="80" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

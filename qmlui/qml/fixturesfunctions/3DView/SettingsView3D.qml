@@ -48,40 +48,54 @@ Rectangle
     property vector3d lastScale
     property bool isUpdating: false
 
-    onSelFixturesCountChanged:
-    {
-        isUpdating = true
-        var pos = contextManager.fixturesPosition
-        var rot = contextManager.fixturesRotation
-        if (selFixturesCount + selGenericCount > 1)
-        {
-            lastPosition = Qt.vector3d(0, 0, 0)
-            lastRotation = Qt.vector3d(0, 0, 0)
-            pos = lastPosition
-            rot = lastRotation
-        }
-
-        currentPosition = pos
-        currentRotation = rot
-        isUpdating = false
-    }
-
     onSelGenericCountChanged:
     {
-        isUpdating = true
-        var pos = View3D.genericItemsPosition
-        var rot = View3D.genericItemsRotation
-        var scl = View3D.genericItemsScale
-        if (selFixturesCount + selGenericCount > 1)
+        if (selGenericCount === 0)
+            itemColorTool.visible = false
+    }
+
+    // refresh on every selection change of either kind, even when the
+    // count stays the same (e.g. switching from one fixture to another)
+    Connections
+    {
+        target: contextManager
+        function onSelectedFixturesChanged() { settingsRoot.refreshTransformValues() }
+    }
+    Connections
+    {
+        target: View3D
+        function onGenericSelectedCountChanged() { settingsRoot.refreshTransformValues() }
+    }
+
+    /** Show the values of what is selected in the 3D view, considering both
+     *  fixtures and generic items: absolute values when a single element
+     *  is selected, relative values (starting from zero) otherwise */
+    function refreshTransformValues()
+    {
+        var pos = Qt.vector3d(0, 0, 0)
+        var rot = Qt.vector3d(0, 0, 0)
+        var scl = Qt.vector3d(100.0, 100.0, 100.0)
+        // read the counts from the backends, as the bound properties
+        // might not be updated yet when this is invoked
+        var fxCount = contextManager ? contextManager.selectedFixturesCount : 0
+        var genCount = View3D.genericSelectedCount
+
+        if (fxCount === 1 && genCount === 0)
         {
-            lastPosition = Qt.vector3d(0, 0, 0)
-            lastRotation = Qt.vector3d(0, 0, 0)
-            lastScale = Qt.vector3d(100.0, 100.0, 100.0)
-            pos = lastPosition
-            rot = lastRotation
-            scl = lastScale
+            pos = contextManager.fixturesPosition
+            rot = contextManager.fixturesRotation
+        }
+        else if (fxCount === 0 && genCount === 1)
+        {
+            pos = View3D.genericItemsPosition
+            rot = View3D.genericItemsRotation
+            scl = View3D.genericItemsScale
         }
 
+        isUpdating = true
+        lastPosition = pos
+        lastRotation = rot
+        lastScale = scl
         currentPosition = pos
         currentRotation = rot
         currentScale = scl
@@ -90,6 +104,44 @@ Rectangle
 
     onCurrentScaleChanged: console.log("Current scale " + currentScale)
 
+    ColorTool
+    {
+        id: itemColorTool
+        parent: mainView
+        x: rightPanel.x - settingsRoot.width - width
+        y: UISettings.bigItemHeight
+        visible: false
+        showPalette: false
+
+        onToolColorChanged:
+            function(r, g, b, w, a, uv)
+            {
+                View3D.genericItemsColor = Qt.rgba(r, g, b, 1.0)
+            }
+        onClose: visible = false
+    }
+
+    function toggleItemColorTool()
+    {
+        if (itemColorTool.visible)
+        {
+            itemColorTool.visible = false
+            return
+        }
+
+        itemColorTool.visible = true
+        // ColorTool picks fixture colors when shown. Override with the item one
+        var col = View3D.genericItemsColor
+        itemColorTool.currentRGB = col.valid ? col : Qt.rgba(1, 1, 1, 1)
+    }
+
+    PopupRenameItems
+    {
+        id: itemRenamePopup
+        title: qsTr("Rename item")
+        onAccepted: View3D.genericItemsName = editText
+    }
+
     function refreshPositionValues(generic)
     {
         isUpdating = true
@@ -97,18 +149,28 @@ Rectangle
         isUpdating = false
     }
 
-    ModelSelector
-    {
-        id: giSelector
-        onItemsCountChanged: { }
+    // last clicked row of the generic items list, used for Shift range selection
+    property int lastItemIndex: -1
 
-        // keep the 3D view selection in sync with the list selection,
-        // including multi-row (range) selections. Use ControlModifier so
-        // each row is added/removed without clearing the others
-        onItemSelectionChanged: (itemIndex, selected) =>
+    // The 3D view owns the generic items selection and updates the list
+    // "isSelected" role, so both views stay in sync whichever one is clicked
+    function selectGenericItem(index, selected, modifiers)
+    {
+        if (modifiers & Qt.ShiftModifier && lastItemIndex >= 0)
         {
-            View3D.setItemSelectionByIndex(itemIndex, selected, Qt.ControlModifier)
+            var from = Math.min(index, lastItemIndex)
+            var to = Math.max(index, lastItemIndex)
+            for (var i = from; i <= to; i++)
+                View3D.setItemSelectionByIndex(i, true, Qt.ControlModifier)
+            return
         }
+
+        if (modifiers & Qt.ControlModifier)
+            View3D.setItemSelectionByIndex(index, !selected, Qt.ControlModifier)
+        else
+            View3D.setItemSelectionByIndex(index, true, 0)
+
+        lastItemIndex = index
     }
 
     // catch wheel events over the whole panel so they don't
@@ -329,21 +391,17 @@ Rectangle
                             if (isUpdating)
                                 return;
 
-                            if (selFixturesCount == 1 && selGenericCount == 0)
-                            {
-                                contextManager.fixturesPosition = Qt.vector3d(x, y, z)
-                            }
-                            else if (selFixturesCount == 0 && selGenericCount == 1)
-                            {
-                                View3D.genericItemsPosition = Qt.vector3d(x, y, z)
-                            }
-                            else
-                            {
-                                var newPos = Qt.vector3d(x - lastPosition.x, y - lastPosition.y, z - lastPosition.z)
+                            var newPos = Qt.vector3d(x - lastPosition.x, y - lastPosition.y, z - lastPosition.z)
+                            if (selFixturesCount > 0)
                                 contextManager.fixturesPosition = newPos
+                            if (selGenericCount > 0)
                                 View3D.genericItemsPosition = newPos
-                                lastPosition = Qt.vector3d(x, y, z)
-                            }
+                            lastPosition = Qt.vector3d(x, y, z)
+                            // keep in sync with the spin boxes, so a later refresh
+                            // to the same value is not ignored
+                            isUpdating = true
+                            currentPosition = lastPosition
+                            isUpdating = false
                         }
 
                         // row 1
@@ -430,21 +488,15 @@ Rectangle
                             if (isUpdating)
                                 return;
 
-                            if (selFixturesCount == 1 && selGenericCount == 0)
-                            {
-                                contextManager.fixturesRotation = Qt.vector3d(x, y, z)
-                            }
-                            else if (selFixturesCount == 0 && selGenericCount == 1)
-                            {
-                                View3D.genericItemsRotation = Qt.vector3d(x, y, z)
-                            }
-                            else
-                            {
-                                var newRot = Qt.vector3d(x - lastRotation.x, y - lastRotation.y, z - lastRotation.z)
+                            var newRot = Qt.vector3d(x - lastRotation.x, y - lastRotation.y, z - lastRotation.z)
+                            if (selFixturesCount > 0)
                                 contextManager.fixturesRotation = newRot
+                            if (selGenericCount > 0)
                                 View3D.genericItemsRotation = newRot
-                                lastRotation = Qt.vector3d(x, y, z)
-                            }
+                            lastRotation = Qt.vector3d(x, y, z)
+                            isUpdating = true
+                            currentRotation = lastRotation
+                            isUpdating = false
                         }
 
                         // row 1
@@ -538,8 +590,9 @@ Rectangle
                                 View3D.genericItemsScale = newScale
                                 lastScale = Qt.vector3d(x, y, z)
                             }
-                            if (scaleLocked.checked)
-                                currentScale = Qt.vector3d(x, x, x)
+                            isUpdating = true
+                            currentScale = scaleLocked.checked ? Qt.vector3d(x, x, x) : Qt.vector3d(x, y, z)
+                            isUpdating = false
                         }
 
                         // row 1
@@ -731,6 +784,41 @@ Rectangle
                                     tooltip: qsTr("Lock/Unlock the selected items")
                                     onClicked: View3D.toggleGenericItemsLock()
                                 }
+                                IconButton
+                                {
+                                    // a name can be set only on a single item
+                                    enabled: selGenericCount === 1
+                                    height: UISettings.iconSizeMedium
+                                    width: height
+                                    imgSource: "qrc:/rename.svg"
+                                    tooltip: qsTr("Rename the selected item")
+                                    onClicked:
+                                    {
+                                        itemRenamePopup.editText = View3D.genericItemsName
+                                        itemRenamePopup.open()
+                                    }
+                                }
+                                IconButton
+                                {
+                                    enabled: selGenericCount
+                                    height: UISettings.iconSizeMedium
+                                    width: height
+                                    checked: itemColorTool.visible
+                                    faSource: FontAwesome.fa_palette
+                                    faColor: UISettings.fgMain
+                                    tooltip: qsTr("Set the base color of the selected items")
+                                    onClicked: settingsRoot.toggleItemColorTool()
+                                }
+                                IconButton
+                                {
+                                    enabled: selGenericCount
+                                    height: UISettings.iconSizeMedium
+                                    width: height
+                                    faSource: FontAwesome.fa_eraser
+                                    faColor: UISettings.fgMain
+                                    tooltip: qsTr("Restore the original colors of the selected items")
+                                    onClicked: View3D.resetGenericItemsColor()
+                                }
                                 Rectangle
                                 {
                                     Layout.fillWidth: true
@@ -774,23 +862,40 @@ Rectangle
                                             anchors.fill: parent
                                             onClicked: (mouse) =>
                                             {
-                                                // giSelector.onItemSelectionChanged keeps the
-                                                // 3D view selection in sync (see above)
-                                                giSelector.selectItem(index, itemsList.model, mouse.modifiers)
+                                                settingsRoot.selectGenericItem(index, isSelected, mouse.modifiers)
                                             }
                                         }
                                     }
 
-                                    Text
+                                    Row
                                     {
-                                        visible: isLocked
                                         anchors.right: parent.right
                                         anchors.rightMargin: 6
                                         anchors.verticalCenter: parent.verticalCenter
-                                        color: "#00FF00"
-                                        font.family: UISettings.fontAwesomeFontName
-                                        font.pixelSize: UISettings.listItemHeight * 0.6
-                                        text: FontAwesome.fa_lock
+                                        spacing: 4
+
+                                        Text
+                                        {
+                                            visible: isLocked
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            color: "#00FF00"
+                                            font.family: UISettings.fontAwesomeFontName
+                                            font.pixelSize: UISettings.listItemHeight * 0.6
+                                            text: FontAwesome.fa_lock
+                                        }
+
+                                        // custom base color, if set
+                                        Rectangle
+                                        {
+                                            visible: model.itemColor.valid
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            width: UISettings.listItemHeight * 0.6
+                                            height: width
+                                            radius: 2
+                                            color: model.itemColor.valid ? model.itemColor : "transparent"
+                                            border.width: 1
+                                            border.color: UISettings.borderColorDark
+                                        }
                                     }
                                 }
                         }

@@ -339,6 +339,11 @@ public:
     /** Get a string to be displayed as tooltip for a fixture at $address */
     Q_INVOKABLE QString getTooltip(quint32 address);
 
+    /** Returns the index of the first channel of fixture $fxID visible
+     *  in the filtered universe. Non-zero only for cross-universe fixtures
+     *  started in a previous universe */
+    Q_INVOKABLE int universeChannelOffset(quint32 fxID);
+
     /** Returns data for representation in a GridEditor QML component */
     QVariantList fixturesMap();
     void setFixturesMap(QVariantList fixturesMap);

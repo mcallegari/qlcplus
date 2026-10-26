@@ -153,7 +153,7 @@ VCXYPad::~VCXYPad()
     clearPresets();
 
     if (m_item)
-        delete m_item;
+        delete m_item.data();
 }
 
 QString VCXYPad::defaultCaption() const
@@ -184,6 +184,8 @@ void VCXYPad::render(QQuickView *view, QQuickItem *parent)
         return;
     }
 
+    // release the item of a previous rendering (e.g. VC page reloaded)
+    delete m_item.data();
     m_item = qobject_cast<QQuickItem*>(component->create());
     if (m_item == nullptr)
         qWarning() << Q_FUNC_INFO << "Unable to create XY pad component" << component->errors();
@@ -1810,9 +1812,29 @@ void VCXYPad::slotUniverseWritten(quint32 idx, const QByteArray &universeData)
     emit fixturePositionsChanged();
 }
 
+void VCXYPad::setDisabled(bool disable)
+{
+    // a disabled pad (e.g. inside a disabled frame) must not keep
+    // transmitting the values held by its faders
+    for (QSharedPointer<GenericFader> fader : m_fadersMap)
+    {
+        if (fader.isNull() == false)
+            fader->setEnabled(!disable);
+    }
+
+    VCWidget::setDisabled(disable);
+
+    // re-apply the current position when re-enabled
+    if (disable == false)
+        m_positionChanged = true;
+}
+
 void VCXYPad::writeDMX(MasterTimer *timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer)
+
+    if (isDisabled())
+        return;
 
     if (m_positionChanged == false)
         return;

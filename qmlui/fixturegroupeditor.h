@@ -119,6 +119,11 @@ public:
     /** Returns a selection array from the provided $itemID and $headIndex */
     Q_INVOKABLE QVariantList headSelection(int x, int y, int mouseMods);
 
+    /** Select the heads of the fixture with the provided $itemID that
+     *  are part of the group being edited. If $headIndex is not -1, only
+     *  that head is selected. Returns false if nothing has been found */
+    Q_INVOKABLE bool selectFixtureHeads(quint32 itemID, int headIndex, int mouseMods);
+
     /** Add a Fixture with the provided $reference to x,y position */
     Q_INVOKABLE bool addFixture(QVariant reference, int x, int y);
 
@@ -158,6 +163,8 @@ private:
     QVariantList m_groupLabels;
     /** An array of data representing the currently selected items on a Grid editor */
     QVariantList m_groupSelection;
+    /** The absolute index of the first selected head, used for range selection */
+    int m_selectionAnchor;
 };
 
 #endif // FIXTUREGROUPEDITOR_H

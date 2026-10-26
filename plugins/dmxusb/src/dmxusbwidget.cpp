@@ -623,12 +623,28 @@ bool DMXUSBWidget::supportRDM()
     return false;
 }
 
-bool DMXUSBWidget::sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params)
+int DMXUSBWidget::rdmTransportFlags(quint32 universe, quint32 line)
 {
     Q_UNUSED(universe)
     Q_UNUSED(line)
-    Q_UNUSED(command)
-    Q_UNUSED(params)
+
+    return 0;
+}
+
+QByteArray DMXUSBWidget::rdmSourceUID(quint32 universe, quint32 line)
+{
+    Q_UNUSED(universe)
+    Q_UNUSED(line)
+
+    return QByteArray();
+}
+
+bool DMXUSBWidget::sendRDMFrame(quint32 universe, quint32 line, int type, const QByteArray &frame)
+{
+    Q_UNUSED(universe)
+    Q_UNUSED(line)
+    Q_UNUSED(type)
+    Q_UNUSED(frame)
 
     return false;
 }

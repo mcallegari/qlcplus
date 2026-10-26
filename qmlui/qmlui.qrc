@@ -52,6 +52,7 @@
     <file alias="SidePanel.qml">qml/SidePanel.qml</file>
     <file alias="SimpleDesk.qml">qml/SimpleDesk.qml</file>
     <file alias="SingleAxisTool.qml">qml/SingleAxisTool.qml</file>
+    <file alias="SubMenu.qml">qml/SubMenu.qml</file>
     <file alias="TimeEditTool.qml">qml/TimeEditTool.qml</file>
     <file alias="TreeNodeDelegate.qml">qml/TreeNodeDelegate.qml</file>
     <file alias="UISettings.qml">qml/UISettings.qml</file>
@@ -89,6 +90,7 @@
     <file alias="PopupCustomFeedback.qml">qml/popup/PopupCustomFeedback.qml</file>
     <file alias="PopupDisclaimer.qml">qml/popup/PopupDisclaimer.qml</file>
     <file alias="PopupFolderBrowser.qml">qml/popup/PopupFolderBrowser.qml</file>
+    <file alias="AndroidFileDialog.qml">qml/popup/AndroidFileDialog.qml</file>
     <file alias="PopupImportProject.qml">qml/popup/PopupImportProject.qml</file>
     <file alias="PopupPINRequest.qml">qml/popup/PopupPINRequest.qml</file>
     <file alias="PopupPINSetup.qml">qml/popup/PopupPINSetup.qml</file>

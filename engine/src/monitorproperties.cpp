@@ -59,6 +59,7 @@
 #define KXMLQLCMonitorRenderShowFPS     QStringLiteral("ShowFPS")
 #define KXMLQLCMonitorItemName      QStringLiteral("Name")
 #define KXMLQLCMonitorItemRes       QStringLiteral("Res")
+#define KXMLQLCMonitorItemColor     QStringLiteral("Color")
 
 #define KXMLQLCMonitorItemXPosition     QStringLiteral("XPos")
 #define KXMLQLCMonitorItemYPosition     QStringLiteral("YPos")
@@ -632,6 +633,16 @@ void MonitorProperties::setItemScale(quint32 itemID, QVector3D scale)
     m_genericItems[itemID].m_scale = scale;
 }
 
+QColor MonitorProperties::itemColor(quint32 itemID) const
+{
+    return m_genericItems[itemID].m_color;
+}
+
+void MonitorProperties::setItemColor(quint32 itemID, QColor color)
+{
+    m_genericItems[itemID].m_color = color;
+}
+
 quint32 MonitorProperties::itemFlags(quint32 itemID) const
 {
     return m_genericItems[itemID].m_flags;
@@ -895,6 +906,9 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
             if (tAttrs.hasAttribute(KXMLQLCMonitorItemName))
                 item.m_name = tAttrs.value(KXMLQLCMonitorItemName).toString();
 
+            if (tAttrs.hasAttribute(KXMLQLCMonitorItemColor))
+                item.m_color = QColor(tAttrs.value(KXMLQLCMonitorItemColor).toString());
+
             m_genericItems[itemID] = item;
             root.skipCurrentElement();
         }
@@ -1124,6 +1138,9 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
 
         if (item.m_name.isEmpty() == false)
             doc->writeAttribute(KXMLQLCMonitorItemName, item.m_name);
+
+        if (item.m_color.isValid())
+            doc->writeAttribute(KXMLQLCMonitorItemColor, item.m_color.name());
 
         doc->writeEndElement();
     }

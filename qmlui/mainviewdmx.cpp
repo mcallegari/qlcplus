@@ -61,14 +61,14 @@ void MainViewDMX::setUniverseFilter(quint32 universeFilter)
     if (!isEnabled())
         return;
 
-    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    QMapIterator<quint32, QPointer<QQuickItem>> it(m_itemsMap);
     while (it.hasNext())
     {
         it.next();
         quint32 fxID = it.key();
         QQuickItem *fxItem = it.value();
         Fixture *fixture = m_doc->fixture(fxID);
-        if (fixture == nullptr)
+        if (fixture == nullptr || fxItem == nullptr)
             continue;
 
         if (universeFilter == Universe::invalid() || fixture->universe() == universeFilter)
@@ -80,14 +80,14 @@ void MainViewDMX::setUniverseFilter(quint32 universeFilter)
 
 void MainViewDMX::reset()
 {
-    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    QMapIterator<quint32, QPointer<QQuickItem>> it(m_itemsMap);
     while (it.hasNext())
     {
         it.next();
         Fixture *fixture = m_doc->fixture(it.key());
         if (fixture)
             disconnect(fixture, SIGNAL(aliasChanged()), this, SLOT(slotAliasChanged()));
-        delete it.value();
+        delete it.value().data();
     }
     m_itemsMap.clear();
 }
@@ -133,7 +133,10 @@ void MainViewDMX::setFixtureFlags(quint32 itemID, quint32 flags)
     if (headIndex || linkedIndex)
         return;
 
-    QQuickItem *fxItem = m_itemsMap.value(fixtureID, nullptr);
+    QQuickItem *fxItem = m_itemsMap.value(fixtureID);
+    if (fxItem == nullptr)
+        return;
+
     fxItem->setProperty("visible", (flags & MonitorProperties::HiddenFlag) ? false : true);
 }
 
@@ -142,7 +145,8 @@ void MainViewDMX::updateFixture(Fixture *fixture)
     if (isEnabled() == false || fixture == nullptr)
         return;
 
-    if (m_itemsMap.contains(fixture->id()) == false)
+    QQuickItem *fxItem = m_itemsMap.value(fixture->id());
+    if (fxItem == nullptr)
         return;
 
     QByteArray fxValues = fixture->channelValues();
@@ -157,18 +161,20 @@ void MainViewDMX::updateFixture(Fixture *fixture)
         dmxValues.append(QString::number(value));
     }
 
-    QQuickItem *fxItem = m_itemsMap[fixture->id()];
     fxItem->setProperty("values", QVariant::fromValue(dmxValues));
 }
 
 void MainViewDMX::updateFixtureSelection(QList<quint32>fixtures)
 {
-    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    QMapIterator<quint32, QPointer<QQuickItem>> it(m_itemsMap);
     while (it.hasNext())
     {
         it.next();
         quint32 itemID = FixtureUtils::fixtureItemID(it.key(), 0, 0);
         QQuickItem *fxItem = it.value();
+        if (fxItem == nullptr)
+            continue;
+
         if (fixtures.contains(itemID))
             fxItem->setProperty("isSelected", true);
         else
@@ -181,8 +187,9 @@ void MainViewDMX::updateFixtureSelection(quint32 fxID, bool enable)
     if (isEnabled() == false || m_itemsMap.contains(fxID) == false)
         return;
 
-    QQuickItem *fxItem = m_itemsMap[fxID];
-    fxItem->setProperty("isSelected", enable);
+    QQuickItem *fxItem = m_itemsMap.value(fxID);
+    if (fxItem)
+        fxItem->setProperty("isSelected", enable);
 }
 
 void MainViewDMX::removeFixtureItem(quint32 fxID)
@@ -190,8 +197,7 @@ void MainViewDMX::removeFixtureItem(quint32 fxID)
     if (isEnabled() == false || m_itemsMap.contains(fxID) == false)
         return;
 
-    QQuickItem *fixtureItem = m_itemsMap.take(fxID);
-    delete fixtureItem;
+    delete m_itemsMap.take(fxID).data();
 }
 
 bool MainViewDMX::showAddresses() const
@@ -239,6 +245,10 @@ void MainViewDMX::slotAliasChanged()
         return;
 
     Fixture *fixture = qobject_cast<Fixture *>(sender());
-    QQuickItem *fxItem = m_itemsMap[fixture->id()];
-    QMetaObject::invokeMethod(fxItem, "updateChannels");
+    if (fixture == nullptr)
+        return;
+
+    QQuickItem *fxItem = m_itemsMap.value(fixture->id());
+    if (fxItem)
+        QMetaObject::invokeMethod(fxItem, "updateChannels");
 }

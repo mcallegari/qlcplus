@@ -37,6 +37,9 @@ Entity
     property bool isSelected: false
     property int headsNumber: 1
     property size headsLayout: Qt.size(1, 1)
+    /* Draw every emitter cell as its own PAR can instead of one cuboid spanning
+       the whole fixture (a T-bar or multi-head wash of colour changers) */
+    property bool parBodies: false
     property vector3d phySize: Qt.vector3d(1, 0.1, 0.1)
 
     onItemIDChanged:
@@ -63,6 +66,11 @@ Entity
 
     /* **************** Tilt properties (motorized bars) **************** */
     property real tiltMaxDegrees: 270
+    property bool invertedTilt: false
+    /* A moving head mesh is modelled hanging, i.e. with its beam pointing down at
+       the zero tilt rotation, while a bar is drawn right side up. Its tilt range
+       is therefore shifted by half a turn compared to Fixture3DItem. */
+    readonly property real tiltRestOffset: 180
     property real tiltSpeed: 4000 // in milliseconds
     property real tiltRotation: 0
 
@@ -112,13 +120,16 @@ Entity
        this item does not have. The 0.7 factor matches Fixture3DItem, where it
        compensates the mesh lens being slightly larger than the emitting surface. */
     property real coneTopRadius:
-        Math.max(0.005, 0.5 * 0.7 * Math.min(phySize.x / cellColumns, phySize.z / cellRows))
+        parBodies ? (0.24023 / 2) * parScale * 0.7 // same as a single PAR, see Fixture3DItem
+                  : Math.max(0.005, 0.5 * 0.7 * Math.min(phySize.x / cellColumns, phySize.z / cellRows))
     property real coneBottomRadius: distCutoff * Math.tan(cutoffAngle) + coneTopRadius
 
     /* Depth of the emitter inside the fixture body. Fixture3DItem takes this from
        the loaded mesh; a bar is drawn as a plain cuboid, so its own height is the
        closest equivalent. */
-    property real headLength: Math.max(0.01, phySize.y)
+    property real headLength:
+        parBodies ? 0.389005 * parScale // same as a single PAR, see Fixture3DItem
+                  : Math.max(0.01, phySize.y)
 
     /* ********************* Light properties ********************* */
     /* ****** These are bound to uniforms in ScreenQuadEntity ***** */
@@ -133,7 +144,7 @@ Entity
         console.log("Binding tilt ----")
         fixtureEntity.tiltTransform = t
         fixtureEntity.tiltMaxDegrees = maxDegrees
-        tiltRotation = maxDegrees / 2
+        tiltRotation = tiltRestOffset + (maxDegrees / 2)
         t.rotationX = Qt.binding(function() { return tiltRotation })
     }
 
@@ -246,8 +257,14 @@ Entity
     // whole bar (headIndex is always 0), so spread the cells over the fixture
     // body here: evenly across its width and depth, centered on the origin and
     // rotated by the bar's current orientation matrix.
+    property var lastLightPos
+    property var lastLightMatrix
+
     function setHeadLightProps(headIndex, pos, matrix)
     {
+        lastLightPos = pos
+        lastLightMatrix = matrix
+
         var count = headsList.length
         if (count === 0)
             return
@@ -261,6 +278,16 @@ Entity
             var row = Math.floor(h / cellColumns)
             var localPos = Qt.vector4d(-(phySize.x / 2) + ((column + 0.5) * cellWidth), 0,
                                        -(phySize.z / 2) + ((row + 0.5) * cellDepth), 0)
+
+            // pos already includes the headEntity offset of the cuboid body: for
+            // a PAR mesh replace it with the offset of the mesh own lens
+            var cell = parBodies ? parCells[h] : null
+            if (cell)
+            {
+                localPos.x += cell.lensOffset.x * cell.meshScale
+                localPos.y = (cell.lensOffset.y * cell.meshScale) - (phySize.y * 0.5)
+                localPos.z += cell.lensOffset.z * cell.meshScale
+            }
 
             var head = headsList[h]
             head.lightPos = pos.plus(matrix.times(localPos).toVector3d())
@@ -298,11 +325,13 @@ Entity
 
         if (tiltMaxDegrees)
         {
-            var degTo = parseInt(((tiltMaxDegrees / 0xFFFF) * tilt) - (tiltMaxDegrees / 2))
-            //console.log("Tilt to " + degTo + ", max: " + tiltMaxDegrees)
+            // same convention as Fixture3DItem, so a bar and a moving head with
+            // the same tilt value (and the same Inverted tilt flag) point alike
+            var baseTiltPos = tiltMaxDegrees / 2
+            var tiltDeg = (tiltMaxDegrees / 0xFFFF) * tilt
             tiltAnim.stop()
             tiltAnim.from = tiltRotation
-            tiltAnim.to = -degTo
+            tiltAnim.to = tiltRestOffset + (invertedTilt ? -baseTiltPos + tiltDeg : baseTiltPos - tiltDeg)
             var tiltPhysical = (tiltSpeed / tiltMaxDegrees) * Math.abs(tiltAnim.to - tiltAnim.from)
             tiltAnim.duration = animationDuration(elapsed, tiltPhysical, oneShot)
             tiltAnim.start()
@@ -374,6 +403,7 @@ Entity
     CuboidMesh
     {
         id: baseMesh
+        enabled: !fixtureEntity.parBodies
         xExtent: phySize.x
         yExtent: phySize.y * 0.5
         zExtent: phySize.z
@@ -387,6 +417,7 @@ Entity
         CuboidMesh
         {
             id: headMesh
+            enabled: !fixtureEntity.parBodies
             xExtent: phySize.x
             yExtent: phySize.y * 0.5
             zExtent: phySize.z
@@ -407,6 +438,70 @@ Entity
     }
 
     property Texture2D goboTexture: Texture2D { }
+
+    /* One PAR mesh per emitter cell, laid out exactly like the emitters in
+       setHeadLightProps(): same grid, centered on the fixture body. Each mesh is
+       scaled to fit its cell, as MainView3D does for a single head fixture. */
+    property url parSource
+    // size of the loaded PAR mesh and the scale that makes it fit in a cell
+    property vector3d parExtents: Qt.vector3d(1, 1, 1)
+    readonly property real parScale:
+        Math.min((phySize.x / cellColumns) / Math.max(0.0001, parExtents.x),
+                 phySize.y / Math.max(0.0001, parExtents.y),
+                 (phySize.z / cellRows) / Math.max(0.0001, parExtents.z))
+    // the par delegates, by head index, to know where each one emits light from
+    property var parCells: []
+
+    NodeInstantiator
+    {
+        model: fixtureEntity.parBodies && fixtureEntity.parSource != "" ? fixtureEntity.headsNumber : 0
+
+        delegate:
+            Entity
+            {
+                id: parCell
+                property real cellWidth: phySize.x / cellColumns
+                property real cellDepth: phySize.z / cellRows
+                // where the mesh emits light from, relative to its origin, before scaling
+                property vector3d lensOffset: Qt.vector3d(0, 0, 0)
+                property real meshScale: fixtureEntity.parScale
+
+                SceneLoader
+                {
+                    id: parLoader
+                    source: fixtureEntity.parSource
+
+                    onStatusChanged: (status) =>
+                    {
+                        if (status !== SceneLoader.Ready)
+                            return
+                        var info = View3D.setupMeshCell(parLoader)
+                        if (info.extents !== undefined)
+                        {
+                            fixtureEntity.parExtents = info.extents
+                            parCell.lensOffset = info.headOffset
+                            fixtureEntity.parCells[index] = parCell
+                            // the lens positions are known only now
+                            if (fixtureEntity.lastLightMatrix !== undefined)
+                                fixtureEntity.setHeadLightProps(0, fixtureEntity.lastLightPos, fixtureEntity.lastLightMatrix)
+                        }
+                    }
+                }
+
+                Transform
+                {
+                    id: parTransform
+                    scale: parCell.meshScale
+                    // the mesh origin sits on the cell center, like the origin of
+                    // a single PAR sits on the fixture position
+                    translation: Qt.vector3d(-(phySize.x / 2) + (((index % cellColumns) + 0.5) * cellWidth),
+                                             0,
+                                             -(phySize.z / 2) + ((Math.floor(index / cellColumns) + 0.5) * cellDepth))
+                }
+
+                components: [ parLoader, parTransform ]
+            }
+    }
 
     /* headEntity is NOT listed here: it is an Entity, not a Component, so QML
        rejected it with a "Cannot append ... to a QML list of QComponent*"

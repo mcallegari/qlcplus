@@ -40,6 +40,7 @@
 #include "fixture.h"
 
 class AudioCapture;
+class ServiceLoader;
 class RGBScriptsCache;
 class AudioPluginCache;
 class MonitorProperties;
@@ -141,6 +142,9 @@ public:
     /** Get the audio decoder plugin cache object */
     AudioPluginCache *audioPluginCache() const;
 
+    /** Get the service plugins loader */
+    ServiceLoader *serviceLoader() const;
+
     /** Get the DMX output map object */
     InputOutputMap *inputOutputMap() const;
 
@@ -153,12 +157,17 @@ public:
     /** Destroy a previously created audio capture instance */
     void destroyAudioCapture();
 
+private slots:
+    /** Wire a newly loaded service plugin to the engine data it needs */
+    void slotServiceAvailable(const QString &id);
+
 private:
     QLCFixtureDefCache *m_fixtureDefCache;
     QLCModifiersCache *m_modifiersCache;
     RGBScriptsCache *m_rgbScriptsCache;
     IOPluginCache *m_ioPluginCache;
     AudioPluginCache *m_audioPluginCache;
+    ServiceLoader *m_serviceLoader;
     MasterTimer *m_masterTimer;
     InputOutputMap *m_ioMap;
     mutable QSharedPointer<AudioCapture> m_inputCapture;
@@ -259,7 +268,7 @@ public:
      * @return true if the fixture was successfully added to doc,
      *         otherwise false.
      */
-    bool addFixture(Fixture* fixture, quint32 id = Fixture::invalidId(), bool crossUniverse = false);
+    bool addFixture(Fixture* fixture, quint32 id = Fixture::invalidId());
 
     /**
      * Delete the given fixture instance from Doc

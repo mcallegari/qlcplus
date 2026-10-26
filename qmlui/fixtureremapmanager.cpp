@@ -243,10 +243,9 @@ bool FixtureRemapManager::cloneAndAutoRemap(quint32 srcFxiId)
         return false;
 
     // Check that the address range is free in the target doc
-    quint32 universeAddr = srcFix->universeAddress();
-    for (quint32 i = universeAddr; i < universeAddr + srcFix->channels(); i++)
+    for (quint32 i = 0; i < srcFix->channels(); i++)
     {
-        if (m_targetDoc->fixtureForAddress(i) != Fixture::invalidId())
+        if (m_targetDoc->fixtureForAddress(srcFix->channelAddress(i)) != Fixture::invalidId())
         {
             qWarning() << "[FixtureRemapManager] Clone failed: address already in use";
             return false;
@@ -256,6 +255,7 @@ bool FixtureRemapManager::cloneAndAutoRemap(quint32 srcFxiId)
     Fixture *tgtFix = new Fixture(m_targetDoc);
     tgtFix->setAddress(srcFix->address());
     tgtFix->setUniverse(srcFix->universe());
+    tgtFix->setCrossUniverse(srcFix->crossUniverse());
     tgtFix->setName(srcFix->name());
 
     const QLCFixtureDef *srcDef = srcFix->fixtureDef();

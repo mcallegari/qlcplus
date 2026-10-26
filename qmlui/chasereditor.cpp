@@ -31,12 +31,15 @@ ChaserEditor::ChaserEditor(QQuickView *view, Doc *doc, QObject *parent)
     , m_chaser(nullptr)
     , m_playbackIndex(-1)
 {
-    m_view->rootContext()->setContextProperty("chaserEditor", this);
 
     m_stepsList = new ListModel(this);
     QStringList listRoles;
     listRoles << "funcID" << "isSelected" << "fadeIn" << "hold" << "fadeOut" << "duration" << "note";
     m_stepsList->setRoleNames(listRoles);
+
+    // publish to QML only once fully constructed: bindings of an already
+    // loaded editor view re-evaluate immediately and read the models
+    m_view->rootContext()->setContextProperty("chaserEditor", this);
 }
 
 void ChaserEditor::setFunctionID(quint32 ID)
@@ -709,7 +712,7 @@ void ChaserEditor::setTempoType(int tempoType)
         Tardis::instance()->enqueueAction(Tardis::ChaserSetStepFadeOut, m_chaser->id(), QVariant::fromValue(oldFadeOut),
                                           QVariant::fromValue(UIntPair(index, step.fadeOut)));
 
-        step.duration = step.fadeIn + step.hold;
+        step.duration = Function::speedAdd(step.fadeIn, step.hold);
         Tardis::instance()->enqueueAction(Tardis::ChaserSetStepDuration, m_chaser->id(), QVariant::fromValue(oldDuration),
                                           QVariant::fromValue(UIntPair(index, step.duration)));
 

@@ -73,6 +73,7 @@ VCWidgetItem
     {
         id: itemsLayout
         anchors.fill: parent
+        enabled: xyPadObj ? !xyPadObj.isDisabled : true
         rowSpacing: 0
         columnSpacing: 0
         columns: 3

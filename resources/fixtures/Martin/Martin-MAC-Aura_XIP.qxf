@@ -1,0 +1,1371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.3.0 GIT</Version>
+  <Author>Florian Leeber, Massimo Callegari</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>MAC Aura XIP</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Strobe / Shutter" Default="30">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="20" Max="49" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="50" Max="200" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="201" Max="210" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="211" Max="255" Preset="StrobeRandomSlowToFast">Random strobe, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Red" Default="255" Preset="IntensityRed"/>
+ <Channel Name="Red Fine" Default="255" Preset="IntensityRedFine"/>
+ <Channel Name="Green" Default="255" Preset="IntensityGreen"/>
+ <Channel Name="Green Fine" Default="255" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue" Default="255" Preset="IntensityBlue"/>
+ <Channel Name="Blue Fine" Default="255" Preset="IntensityBlueFine"/>
+ <Channel Name="White" Default="255" Preset="IntensityWhite"/>
+ <Channel Name="White Fine" Default="255" Preset="IntensityWhiteFine"/>
+ <Channel Name="CTC" Default="128">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="18">1000 K</Capability>
+  <Capability Min="19" Max="127">1050 K to 6450 K</Capability>
+  <Capability Min="128" Max="128">6500 K (default)</Capability>
+  <Capability Min="129" Max="255">6550 K to 12 850 K</Capability>
+ </Channel>
+ <Channel Name="Green-Magenta Skew" Default="128">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="126">Shift towards magenta / negative Duv (0 is maximum offset from black body curve)</Capability>
+  <Capability Min="127" Max="128">No shift (on black body curve)</Capability>
+  <Capability Min="129" Max="255">Shift towards green / positive Duv (255 is maximum offset from black body curve)</Capability>
+ </Channel>
+ <Channel Name="Color Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
+  <Capability Min="11" Max="11" Preset="ColorMacro" Res1="#ff6f91">Moroccan pink (Lee 790)</Capability>
+  <Capability Min="12" Max="12">Not used</Capability>
+  <Capability Min="13" Max="13" Preset="ColorMacro" Res1="#ff9ec4">Pink (Lee 157)</Capability>
+  <Capability Min="14" Max="14">Not used</Capability>
+  <Capability Min="15" Max="15" Preset="ColorMacro" Res1="#ff5fa0">Special rose pink (Lee 332)</Capability>
+  <Capability Min="16" Max="16">Not used</Capability>
+  <Capability Min="17" Max="17" Preset="ColorMacro" Res1="#ff2e9a">Follies pink (Lee 328)</Capability>
+  <Capability Min="18" Max="18">Not used</Capability>
+  <Capability Min="19" Max="19" Preset="ColorMacro" Res1="#d4188c">Fuchsia pink (Lee 345)</Capability>
+  <Capability Min="20" Max="20">Not used</Capability>
+  <Capability Min="21" Max="21" Preset="ColorMacro" Res1="#e85ba0">Surprise pink (Lee 194)</Capability>
+  <Capability Min="22" Max="22">Not used</Capability>
+  <Capability Min="23" Max="23" Preset="ColorMacro" Res1="#2a0a6e">Congo blue (Lee 181)</Capability>
+  <Capability Min="24" Max="24">Not used</Capability>
+  <Capability Min="25" Max="25" Preset="ColorMacro" Res1="#142a8c">Tokyo blue (Lee 071)</Capability>
+  <Capability Min="26" Max="26">Not used</Capability>
+  <Capability Min="27" Max="27" Preset="ColorMacro" Res1="#0a2fa0">Deep blue (Lee 120)</Capability>
+  <Capability Min="28" Max="28">Not used</Capability>
+  <Capability Min="29" Max="29" Preset="ColorMacro" Res1="#0047ab">Just blue (Lee 079)</Capability>
+  <Capability Min="30" Max="30">Not used</Capability>
+  <Capability Min="31" Max="31" Preset="ColorMacro" Res1="#0060b0">Medium blue (Lee 132)</Capability>
+  <Capability Min="32" Max="32">Not used</Capability>
+  <Capability Min="33" Max="33" Preset="ColorMacro" Res1="#a8c8e8">Double CT blue (Lee 200)</Capability>
+  <Capability Min="34" Max="34">Not used</Capability>
+  <Capability Min="35" Max="35" Preset="ColorMacro" Res1="#6fa8c0">Slate blue (Lee 161)</Capability>
+  <Capability Min="36" Max="36">Not used</Capability>
+  <Capability Min="37" Max="37" Preset="ColorMacro" Res1="#bfd8f0">Full CT blue (Lee 201)</Capability>
+  <Capability Min="38" Max="38">Not used</Capability>
+  <Capability Min="39" Max="39" Preset="ColorMacro" Res1="#d6e6f7">Half CT blue (Lee 202)</Capability>
+  <Capability Min="40" Max="40">Not used</Capability>
+  <Capability Min="41" Max="41" Preset="ColorMacro" Res1="#c0dce8">Steel blue (Lee 117)</Capability>
+  <Capability Min="42" Max="42">Not used</Capability>
+  <Capability Min="43" Max="43" Preset="ColorMacro" Res1="#9fd0ea">Lighter blue (Lee 353)</Capability>
+  <Capability Min="44" Max="44">Not used</Capability>
+  <Capability Min="45" Max="45" Preset="ColorMacro" Res1="#4fc3e8">Light blue (Lee 118)</Capability>
+  <Capability Min="46" Max="46">Not used</Capability>
+  <Capability Min="47" Max="47" Preset="ColorMacro" Res1="#00b7a8">Medium blue green (Lee 116)</Capability>
+  <Capability Min="48" Max="48">Not used</Capability>
+  <Capability Min="49" Max="49" Preset="ColorMacro" Res1="#007a33">Dark green (Lee 124)</Capability>
+  <Capability Min="50" Max="50">Not used</Capability>
+  <Capability Min="51" Max="51" Preset="ColorMacro" Res1="#00a651">Primary green (Lee 139)</Capability>
+  <Capability Min="52" Max="52">Not used</Capability>
+  <Capability Min="53" Max="53" Preset="ColorMacro" Res1="#6fbf3b">Moss green (Lee 089)</Capability>
+  <Capability Min="54" Max="54">Not used</Capability>
+  <Capability Min="55" Max="55" Preset="ColorMacro" Res1="#4fa83d">Fern green (Lee 122)</Capability>
+  <Capability Min="56" Max="56">Not used</Capability>
+  <Capability Min="57" Max="57" Preset="ColorMacro" Res1="#8dc63f">Jas green (Lee 738)</Capability>
+  <Capability Min="58" Max="58">Not used</Capability>
+  <Capability Min="59" Max="59" Preset="ColorMacro" Res1="#c6d82f">Lime green (Lee 088)</Capability>
+  <Capability Min="60" Max="60">Not used</Capability>
+  <Capability Min="61" Max="61" Preset="ColorMacro" Res1="#fff200">Spring yellow (Lee 100)</Capability>
+  <Capability Min="62" Max="62">Not used</Capability>
+  <Capability Min="63" Max="63" Preset="ColorMacro" Res1="#ffb81c">Deep amber (Lee 104)</Capability>
+  <Capability Min="64" Max="64">Not used</Capability>
+  <Capability Min="65" Max="65" Preset="ColorMacro" Res1="#ff9e1b">Chrome orange (Lee 179)</Capability>
+  <Capability Min="66" Max="66">Not used</Capability>
+  <Capability Min="67" Max="67" Preset="ColorMacro" Res1="#ff7f00">Orange (Lee 105)</Capability>
+  <Capability Min="68" Max="68">Not used</Capability>
+  <Capability Min="69" Max="69" Preset="ColorMacro" Res1="#ff8c00">Gold amber (Lee 021)</Capability>
+  <Capability Min="70" Max="70">Not used</Capability>
+  <Capability Min="71" Max="71" Preset="ColorMacro" Res1="#ffb347">Millennium gold (Lee 778)</Capability>
+  <Capability Min="72" Max="72">Not used</Capability>
+  <Capability Min="73" Max="73" Preset="ColorMacro" Res1="#ff6a13">Deep golden amber (Lee 135)</Capability>
+  <Capability Min="74" Max="74">Not used</Capability>
+  <Capability Min="75" Max="75" Preset="ColorMacro" Res1="#e03c31">Flame red (Lee 164)</Capability>
+  <Capability Min="76" Max="76">Not used</Capability>
+  <Capability Min="77" Max="77" Preset="ColorMacro" Res1="#ff0090">Red magenta</Capability>
+  <Capability Min="78" Max="78">Not used</Capability>
+  <Capability Min="79" Max="79" Preset="ColorMacro" Res1="#b39ddb">Medium lavender</Capability>
+  <Capability Min="80" Max="80">Not used</Capability>
+  <Capability Min="81" Max="81" Preset="ColorMacro" Res1="#ffffff">Pure white</Capability>
+  <Capability Min="82" Max="82">Not used</Capability>
+  <Capability Min="83" Max="83" Preset="ColorMacro" Res1="#ff0000">Pure red</Capability>
+  <Capability Min="84" Max="84">Not used</Capability>
+  <Capability Min="85" Max="85" Preset="ColorMacro" Res1="#ffff00">Pure yellow</Capability>
+  <Capability Min="86" Max="86">Not used</Capability>
+  <Capability Min="87" Max="87" Preset="ColorMacro" Res1="#00ff00">Pure green</Capability>
+  <Capability Min="88" Max="88">Not used</Capability>
+  <Capability Min="89" Max="89" Preset="ColorMacro" Res1="#00ffff">Pure cyan</Capability>
+  <Capability Min="90" Max="90">Not used</Capability>
+  <Capability Min="91" Max="91" Preset="ColorMacro" Res1="#0000ff">Pure blue</Capability>
+  <Capability Min="92" Max="92">Not used</Capability>
+  <Capability Min="93" Max="93" Preset="ColorMacro" Res1="#ff00ff">Pure magenta</Capability>
+  <Capability Min="94" Max="94">Not used</Capability>
+  <Capability Min="95" Max="95" Preset="ColorMacro" Res1="#0090c0">Peacock blue (Lee 115)</Capability>
+  <Capability Min="96" Max="96">Not used</Capability>
+  <Capability Min="97" Max="97" Preset="ColorMacro" Res1="#7a4fa3">Dark lavender (Lee 180)</Capability>
+  <Capability Min="98" Max="98">Not used</Capability>
+  <Capability Min="99" Max="99" Preset="ColorMacro" Res1="#ffb870">Double CT orange (Lee 287)</Capability>
+  <Capability Min="100" Max="100">Not used</Capability>
+  <Capability Min="101" Max="101" Preset="ColorMacro" Res1="#ffc894">Full CT orange (Lee 204)</Capability>
+  <Capability Min="102" Max="102">Not used</Capability>
+  <Capability Min="103" Max="103" Preset="ColorMacro" Res1="#ffdcb4">Half CT orange (Lee 205)</Capability>
+  <Capability Min="104" Max="104">Not used</Capability>
+  <Capability Min="105" Max="105" Preset="ColorMacro" Res1="#ffc04d">Deep Straw (Lee 015)</Capability>
+  <Capability Min="106" Max="190">No function</Capability>
+  <Capability Min="191" Max="214" Preset="RotationClockwiseFastToSlow">Continuous rotation CW, fast to slow</Capability>
+  <Capability Min="215" Max="219" Preset="RotationStop">Stop (wheel stops at current position)</Capability>
+  <Capability Min="220" Max="243" Preset="RotationCounterClockwiseSlowToFast">Continuous rotation CCW, slow to fast</Capability>
+  <Capability Min="244" Max="247">Random colors, fast</Capability>
+  <Capability Min="248" Max="251">Random colors, medium</Capability>
+  <Capability Min="252" Max="255">Random colors, slow</Capability>
+ </Channel>
+ <Channel Name="Zoom" Default="128" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Zoom Fine" Preset="BeamZoomFine"/>
+ <Channel Name="Pan" Default="128" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Default="128" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">Exit calibration adjustment and return to normal control - 5 sec.</Capability>
+  <Capability Min="10" Max="14">Reset entire fixture - 5 sec.</Capability>
+  <Capability Min="15" Max="16">No function</Capability>
+  <Capability Min="17" Max="17">Reset beam only - 5 sec.</Capability>
+  <Capability Min="18" Max="18" Preset="ResetPanTilt">Reset pan and tilt only - 5 sec.</Capability>
+  <Capability Min="19" Max="22">No function</Capability>
+  <Capability Min="23" Max="23">Linear dimming curve - 1 sec. (menu override)</Capability>
+  <Capability Min="24" Max="24">Square law dimming curve (default) - 1 sec. (menu override)</Capability>
+  <Capability Min="25" Max="25">Inverse square law dimming curve - 1 sec. (menu override)</Capability>
+  <Capability Min="26" Max="26">S-curve dimming curve - 1 sec. (menu override)</Capability>
+  <Capability Min="27" Max="27">No function</Capability>
+  <Capability Min="28" Max="28">Fast pan and tilt speed (default) - 1 sec.</Capability>
+  <Capability Min="29" Max="29">Smooth pan and tilt speed - 1 sec.</Capability>
+  <Capability Min="30" Max="35">No function</Capability>
+  <Capability Min="36" Max="36">Video tracking = ON - 1 sec.</Capability>
+  <Capability Min="37" Max="37">Video tracking = OFF (default) - 1 sec.</Capability>
+  <Capability Min="38" Max="38">Extended color mode (default) - 1 sec.</Capability>
+  <Capability Min="39" Max="39">Calibrated color mode - 1 sec.</Capability>
+  <Capability Min="40" Max="51">No function</Capability>
+  <Capability Min="52" Max="52">Control panel display = ON (default) - 1 sec.</Capability>
+  <Capability Min="53" Max="53">Control panel display = OFF - 1 sec.</Capability>
+  <Capability Min="54" Max="54">Regulated fan speed, fixed light output intensity (default) - 1 sec.</Capability>
+  <Capability Min="55" Max="55">Full fan speed, regulated light output intensity - 1 sec.</Capability>
+  <Capability Min="56" Max="56">Medium fan speed, regulated light output intensity - 1 sec.</Capability>
+  <Capability Min="57" Max="57">Low fan speed, regulated light output intensity - 1 sec.</Capability>
+  <Capability Min="58" Max="58">Ultra-low fan speed, regulated light output intensity - 1 sec.</Capability>
+  <Capability Min="59" Max="60">No function</Capability>
+  <Capability Min="61" Max="61">Hibernation mode = ON - 1 sec.</Capability>
+  <Capability Min="62" Max="62">Hibernation mode = OFF (default) - 1 sec.</Capability>
+  <Capability Min="63" Max="64">No function</Capability>
+  <Capability Min="65" Max="65">Pan and tilt limits on - 1 sec.</Capability>
+  <Capability Min="66" Max="66">Pan and tilt limits off (default) - 1 sec.</Capability>
+  <Capability Min="67" Max="67">Store lower pan limit - 1 sec.</Capability>
+  <Capability Min="68" Max="68">Store upper pan limit - 1 sec.</Capability>
+  <Capability Min="69" Max="69">Store lower tilt limit - 1 sec.</Capability>
+  <Capability Min="70" Max="70">Store upper tilt limit - 1 sec.</Capability>
+  <Capability Min="71" Max="71">Reset pan and tilt limits - 1 sec.</Capability>
+  <Capability Min="72" Max="72">Tungsten emulation = ON - 1 sec.</Capability>
+  <Capability Min="73" Max="73">Tungsten emulation = OFF (default) - 1 sec.</Capability>
+  <Capability Min="74" Max="74">Scene capture record - 5 sec.</Capability>
+  <Capability Min="75" Max="75">Scene capture playback = ON - 5 sec.</Capability>
+  <Capability Min="76" Max="76">Scene capture playback = OFF (default) - 5 sec.</Capability>
+  <Capability Min="77" Max="91">No function</Capability>
+  <Capability Min="92" Max="92">Compact Mode Aura = ON - 1 sec.</Capability>
+  <Capability Min="93" Max="93">Compact Mode Aura = OFF (default) - 1 sec.</Capability>
+  <Capability Min="94" Max="99">No function</Capability>
+  <Capability Min="100" Max="100">Enable calibration adjustment - 5 sec.</Capability>
+  <Capability Min="101" Max="101">Store pan and tilt calibration - 5 sec.</Capability>
+  <Capability Min="102" Max="102">Store dimmer calibration - 5 sec.</Capability>
+  <Capability Min="103" Max="113">No function</Capability>
+  <Capability Min="114" Max="114">Store zoom calibration - 5 sec.</Capability>
+  <Capability Min="115" Max="198">No function</Capability>
+  <Capability Min="199" Max="199">Return all calibration settings to factory defaults - 5 sec.</Capability>
+  <Capability Min="200" Max="207">No function</Capability>
+  <Capability Min="208" Max="208">Auto empty water = ON - 1 sec.</Capability>
+  <Capability Min="209" Max="209">Auto empty water = OFF (default) - 1 sec.</Capability>
+  <Capability Min="210" Max="210">Outdoor - Stop actions and return to normal operation (default) - 1 sec.</Capability>
+  <Capability Min="211" Max="211">Outdoor - Empty head - 1 sec.</Capability>
+  <Capability Min="212" Max="212">Outdoor - Dry off - 1 sec.</Capability>
+  <Capability Min="213" Max="213">Outdoor - Go to safe parking position - 1 sec.</Capability>
+  <Capability Min="214" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="LED Frequency" Default="128">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127">Adjustment in steps from 2400 to 3000 Hz</Capability>
+  <Capability Min="128" Max="128">Default PWM frequency (3000 Hz)</Capability>
+  <Capability Min="129" Max="254">No function</Capability>
+  <Capability Min="255" Max="255">High-speed PWM Frequency Mode (24 000 Hz)</Capability>
+ </Channel>
+ <Channel Name="No function" Preset="NoFunction"/>
+ <Channel Name="P3 Mix">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="26">DMX Mode: Intensity and colors fully controlled by DMX, P3 pixel data ignored</Capability>
+  <Capability Min="27" Max="27">Mixed Mode: output fully controlled by DMX (P3 pixel data ignored)</Capability>
+  <Capability Min="28" Max="227">Mixed Mode: progressive crossfade from DMX to P3 control</Capability>
+  <Capability Min="228" Max="228">Mixed Mode: output fully controlled by P3 (DMX data ignored)</Capability>
+  <Capability Min="229" Max="255">Video Mode: P3 pixel control with DMX superimposed (DMX channels 'color' the P3 pixel data)</Capability>
+ </Channel>
+ <Channel Name="FX1">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No FX</Capability>
+  <Capability Min="1" Max="1">Beam Strobe Pulse Width</Capability>
+  <Capability Min="2" Max="2">Beam Blackout Strobe</Capability>
+  <Capability Min="3" Max="3">Beam 2 x Strobe</Capability>
+  <Capability Min="4" Max="4">Beam 3 x Strobe</Capability>
+  <Capability Min="5" Max="5">Beam 4 x Strobe</Capability>
+  <Capability Min="6" Max="6">Beam Up, Down, Flash</Capability>
+  <Capability Min="7" Max="7">Beam Up, Down, Flash (second color)</Capability>
+  <Capability Min="8" Max="8">Beam Up, Flash, Down, Flash</Capability>
+  <Capability Min="9" Max="9">Beam Up, Flash, Down, Flash (second color)</Capability>
+  <Capability Min="10" Max="10">Beam Random Levels</Capability>
+  <Capability Min="11" Max="11">Beam Movie Flicker</Capability>
+  <Capability Min="12" Max="12">Beam Atomic Lighting</Capability>
+  <Capability Min="13" Max="13">Beam Thunderstorm</Capability>
+  <Capability Min="14" Max="16">No function</Capability>
+  <Capability Min="17" Max="17">Beam Pixel Masks Static</Capability>
+  <Capability Min="18" Max="18">Beam Pixel Killer Static</Capability>
+  <Capability Min="19" Max="19">Beam Sparkle Stars</Capability>
+  <Capability Min="20" Max="20">Beam Starfield</Capability>
+  <Capability Min="21" Max="21">Beam Fiber Optic</Capability>
+  <Capability Min="22" Max="22">Beam Noise</Capability>
+  <Capability Min="23" Max="23">Beam Build Up / Step Down</Capability>
+  <Capability Min="24" Max="24">Beam Build Up / Fade Down</Capability>
+  <Capability Min="25" Max="25">Beam Build Up / Random Step Down</Capability>
+  <Capability Min="26" Max="26">Beam Build Up / Random Fade Down</Capability>
+  <Capability Min="27" Max="27">Beam Random 1 Pixel Step</Capability>
+  <Capability Min="28" Max="28">Beam Random 1 Pixel Fade</Capability>
+  <Capability Min="29" Max="29">Beam Random 2 Pixel Step</Capability>
+  <Capability Min="30" Max="30">Beam Random 2 Pixel Fade</Capability>
+  <Capability Min="31" Max="31">Beam Random 3 Pixel Step</Capability>
+  <Capability Min="32" Max="32">Beam Random 3 Pixel Fade</Capability>
+  <Capability Min="33" Max="33">Beam Random 4 Pixel Step</Capability>
+  <Capability Min="34" Max="34">Beam Random 4 Pixel Fade</Capability>
+  <Capability Min="35" Max="35">Beam Split Static</Capability>
+  <Capability Min="36" Max="36">Beam Split Rotating Step</Capability>
+  <Capability Min="37" Max="37">Beam Split Rotating Fade</Capability>
+  <Capability Min="38" Max="38">Beam In/Out Step</Capability>
+  <Capability Min="39" Max="39">Beam In/Out Fade</Capability>
+  <Capability Min="40" Max="40">Beam Waterdrop</Capability>
+  <Capability Min="41" Max="41">Beam Radar Spin Step</Capability>
+  <Capability Min="42" Max="42">Beam Radar Spin Fade</Capability>
+  <Capability Min="43" Max="43">Beam Line Spin Step</Capability>
+  <Capability Min="44" Max="44">Beam Line Spin Fade</Capability>
+  <Capability Min="45" Max="45">Beam Cross (Y) Spin Step</Capability>
+  <Capability Min="46" Max="46">Beam Cross (Y) Spin Fade</Capability>
+  <Capability Min="47" Max="47">Beam Cross (Y) Circle (O) Step</Capability>
+  <Capability Min="48" Max="48">Beam Cross (Y) Circle (O) Fade</Capability>
+  <Capability Min="49" Max="49">Beam Slice Pie Spin Step</Capability>
+  <Capability Min="50" Max="50">Beam Slice Pie Spin Fade</Capability>
+  <Capability Min="51" Max="51">Beam Snake 1 Pixel Step</Capability>
+  <Capability Min="52" Max="52">Beam Snake 1 Pixel Fade</Capability>
+  <Capability Min="53" Max="53">Beam Snake 2 Pixel Step</Capability>
+  <Capability Min="54" Max="54">Beam Snake 2 Pixel Fade</Capability>
+  <Capability Min="55" Max="55">Beam Snake 3 Pixel Step</Capability>
+  <Capability Min="56" Max="56">Beam Snake 3 Pixel Fade</Capability>
+  <Capability Min="57" Max="57">Beam Snake 4 Pixel Step</Capability>
+  <Capability Min="58" Max="58">Beam Snake 4 Pixel Fade</Capability>
+  <Capability Min="59" Max="59">Beam Vertical Line Step</Capability>
+  <Capability Min="60" Max="60">Beam Vertical Line Fade</Capability>
+  <Capability Min="61" Max="61">Beam Vertical Line Bounce Step</Capability>
+  <Capability Min="62" Max="62">Beam Vertical Line Bounce Fade</Capability>
+  <Capability Min="63" Max="63">Beam Horizontal Line Step</Capability>
+  <Capability Min="64" Max="64">Beam Horizontal Line Fade</Capability>
+  <Capability Min="65" Max="65">Beam Horizontal Line Bounce Step</Capability>
+  <Capability Min="66" Max="66">Beam Horizontal Line Bounce Fade</Capability>
+  <Capability Min="67" Max="67">Beam Vertical + Horizontal Line Bounce Step</Capability>
+  <Capability Min="68" Max="68">Beam Vertical + Horizontal Line Bounce Fade</Capability>
+  <Capability Min="69" Max="71">No function</Capability>
+  <Capability Min="72" Max="72">Beam Color Looks Static</Capability>
+  <Capability Min="73" Max="73">Beam Rainbow Pixels Step</Capability>
+  <Capability Min="74" Max="74">Beam Rainbow Pixels Fade</Capability>
+  <Capability Min="75" Max="75">Beam Red-Yellow Pixels Step</Capability>
+  <Capability Min="76" Max="76">Beam Red-Yellow Pixels Fade</Capability>
+  <Capability Min="77" Max="77">Beam Yellow-Green Pixels Step</Capability>
+  <Capability Min="78" Max="78">Beam Yellow-Green Pixels Fade</Capability>
+  <Capability Min="79" Max="79">Beam Green-Cyan Pixels Step</Capability>
+  <Capability Min="80" Max="80">Beam Green-Cyan Pixels Fade</Capability>
+  <Capability Min="81" Max="81">Beam Cyan-Blue Pixels Step</Capability>
+  <Capability Min="82" Max="82">Beam Cyan-Blue Pixels Fade</Capability>
+  <Capability Min="83" Max="83">Beam Blue-Magenta Pixels Step</Capability>
+  <Capability Min="84" Max="84">Beam Blue-Magenta Pixels Fade</Capability>
+  <Capability Min="85" Max="85">Beam Magenta-Red Pixels Step</Capability>
+  <Capability Min="86" Max="86">Beam Magenta-Red Pixels Fade</Capability>
+  <Capability Min="87" Max="87">Beam Red-White-Blue Step</Capability>
+  <Capability Min="88" Max="88">Beam Red-White-Blue Fade</Capability>
+  <Capability Min="89" Max="89">Beam Fire</Capability>
+  <Capability Min="90" Max="90">Beam Water</Capability>
+  <Capability Min="91" Max="91">Beam Swimming Pool</Capability>
+  <Capability Min="92" Max="92">Beam Ice</Capability>
+  <Capability Min="93" Max="93">Beam Hot and Cold</Capability>
+  <Capability Min="94" Max="94">Beam Warm and Fuzzy</Capability>
+  <Capability Min="95" Max="95">Beam Silver and Gold</Capability>
+  <Capability Min="96" Max="96">Beam Gold and Silver</Capability>
+  <Capability Min="97" Max="97">Beam Electric Arc</Capability>
+  <Capability Min="98" Max="98">Beam Plasma</Capability>
+  <Capability Min="99" Max="101">No function</Capability>
+  <Capability Min="102" Max="102">Beam Spectrum Shifter Static</Capability>
+  <Capability Min="103" Max="103">Beam Spectrum Shifter Step</Capability>
+  <Capability Min="104" Max="104">Beam Spectrum Shifter Fade</Capability>
+  <Capability Min="105" Max="105">Beam Pixel Spectrum Shifter Static</Capability>
+  <Capability Min="106" Max="106">Beam Pixel Spectrum Shifter Step</Capability>
+  <Capability Min="107" Max="107">Beam Pixel Spectrum Shifter Fade</Capability>
+  <Capability Min="108" Max="108">Beam Pixel Spectrum Shifter Random Static</Capability>
+  <Capability Min="109" Max="109">Beam Pixel Spectrum Shifter Random Step</Capability>
+  <Capability Min="110" Max="110">Beam Pixel Spectrum Shifter Random Fade</Capability>
+  <Capability Min="111" Max="113">No function</Capability>
+  <Capability Min="114" Max="114">Beam Video Slo-Mo</Capability>
+  <Capability Min="115" Max="117">No function</Capability>
+  <Capability Min="118" Max="118">Aura Strobe Pulse Width</Capability>
+  <Capability Min="119" Max="119">Aura Blackout Strobe</Capability>
+  <Capability Min="120" Max="120">Aura 2 x Strobe</Capability>
+  <Capability Min="121" Max="121">Aura 3 x Strobe</Capability>
+  <Capability Min="122" Max="122">Aura 4 x Strobe</Capability>
+  <Capability Min="123" Max="123">Aura Up, Down, Flash</Capability>
+  <Capability Min="124" Max="124">Aura Up, Down, Flash (second color)</Capability>
+  <Capability Min="125" Max="125">Aura Up, Flash, Down, Flash</Capability>
+  <Capability Min="126" Max="126">Aura Up, Flash, Down, Flash (second color)</Capability>
+  <Capability Min="127" Max="127">Aura Random Levels</Capability>
+  <Capability Min="128" Max="128">Aura Movie Flicker</Capability>
+  <Capability Min="129" Max="129">Aura Atomic Lighting</Capability>
+  <Capability Min="130" Max="130">Aura Thunderstorm</Capability>
+  <Capability Min="131" Max="133">No function</Capability>
+  <Capability Min="134" Max="134">Aura Pixel Masks Static</Capability>
+  <Capability Min="135" Max="135">Aura Pixel Killer Static</Capability>
+  <Capability Min="136" Max="136">Aura Sparkle Stars</Capability>
+  <Capability Min="137" Max="137">Aura Lightning Flashes Random</Capability>
+  <Capability Min="138" Max="138">Aura Lightning Flashes Heavy</Capability>
+  <Capability Min="139" Max="139">Aura Lightning Flashes Left-Right</Capability>
+  <Capability Min="140" Max="140">Aura Lightning Flashes Top-Bottom</Capability>
+  <Capability Min="141" Max="141">Aura Starfield</Capability>
+  <Capability Min="142" Max="142">Aura Fiber Optic</Capability>
+  <Capability Min="143" Max="143">Aura Noise</Capability>
+  <Capability Min="144" Max="144">Aura Build Up / Step Down</Capability>
+  <Capability Min="145" Max="145">Aura Build Up / Fade Down</Capability>
+  <Capability Min="146" Max="146">Aura Build Up / Random Step Down</Capability>
+  <Capability Min="147" Max="147">Aura Build Up / Random Fade Down</Capability>
+  <Capability Min="148" Max="148">Aura Random 1 Filament Step</Capability>
+  <Capability Min="149" Max="149">Aura Random 1 Filament Fade</Capability>
+  <Capability Min="150" Max="150">Aura Random 2 Filament Step</Capability>
+  <Capability Min="151" Max="151">Aura Random 2 Filament Fade</Capability>
+  <Capability Min="152" Max="152">Aura Random 4 Filament Step</Capability>
+  <Capability Min="153" Max="153">Aura Random 4 Filament Fade</Capability>
+  <Capability Min="154" Max="154">Aura Random 8 Filament Step</Capability>
+  <Capability Min="155" Max="155">Aura Random 8 Filament Fade</Capability>
+  <Capability Min="156" Max="156">Aura Split Static</Capability>
+  <Capability Min="157" Max="157">Aura Split Rotating Step</Capability>
+  <Capability Min="158" Max="158">Aura Split Rotating Fade</Capability>
+  <Capability Min="159" Max="159">Aura Odd/Even Step</Capability>
+  <Capability Min="160" Max="160">Aura Odd/Even Fade</Capability>
+  <Capability Min="161" Max="161">Aura Radar Spin Step</Capability>
+  <Capability Min="162" Max="162">Aura Radar Spin Fade</Capability>
+  <Capability Min="163" Max="163">Aura Line Spin Step</Capability>
+  <Capability Min="164" Max="164">Aura Line Spin Fade</Capability>
+  <Capability Min="165" Max="165">Aura Cross Spin Step</Capability>
+  <Capability Min="166" Max="166">Aura Cross Spin Fade</Capability>
+  <Capability Min="167" Max="167">Aura Slice Pie 1 Spin Step</Capability>
+  <Capability Min="168" Max="168">Aura Slice Pie 1 Spin Fade</Capability>
+  <Capability Min="169" Max="169">Aura Slice Pie 2 Spin Step</Capability>
+  <Capability Min="170" Max="170">Aura Slice Pie 2 Spin Fade</Capability>
+  <Capability Min="171" Max="171">Aura Slice Pie 3 Spin Step</Capability>
+  <Capability Min="172" Max="172">Aura Slice Pie 3 Spin Fade</Capability>
+  <Capability Min="173" Max="173">Aura Random Slice Pie Step</Capability>
+  <Capability Min="174" Max="174">Aura Random Slice Pie Fade</Capability>
+  <Capability Min="175" Max="175">Aura Snake 1 Filament Step</Capability>
+  <Capability Min="176" Max="176">Aura Snake 1 Filament Fade</Capability>
+  <Capability Min="177" Max="177">Aura Snake 2 Filament Step</Capability>
+  <Capability Min="178" Max="178">Aura Snake 2 Filament Fade</Capability>
+  <Capability Min="179" Max="179">Aura Snake 4 Filament Step</Capability>
+  <Capability Min="180" Max="180">Aura Snake 4 Filament Fade</Capability>
+  <Capability Min="181" Max="181">Aura Snake 8 Filament Step</Capability>
+  <Capability Min="182" Max="182">Aura Snake 8 Filament Fade</Capability>
+  <Capability Min="183" Max="183">Aura Vertical Line Step</Capability>
+  <Capability Min="184" Max="184">Aura Vertical Line Fade</Capability>
+  <Capability Min="185" Max="185">Aura Vertical Line Bounce Step</Capability>
+  <Capability Min="186" Max="186">Aura Vertical Line Bounce Fade</Capability>
+  <Capability Min="187" Max="187">Aura Horizontal Line Step</Capability>
+  <Capability Min="188" Max="188">Aura Horizontal Line Fade</Capability>
+  <Capability Min="189" Max="189">Aura Horizontal Line Bounce Step</Capability>
+  <Capability Min="190" Max="190">Aura Horizontal Line Bounce Fade</Capability>
+  <Capability Min="191" Max="191">Aura Vertical + Horizontal Line Bounce Step</Capability>
+  <Capability Min="192" Max="192">Aura Vertical + Horizontal Line Bounce Fade</Capability>
+  <Capability Min="193" Max="195">No function</Capability>
+  <Capability Min="196" Max="196">Aura Color Looks Static</Capability>
+  <Capability Min="197" Max="197">Aura Rainbow Filaments Step</Capability>
+  <Capability Min="198" Max="198">Aura Rainbow Filaments Fade</Capability>
+  <Capability Min="199" Max="199">Aura Red-Yellow Filaments Step</Capability>
+  <Capability Min="200" Max="200">Aura Red-Yellow Filaments Fade</Capability>
+  <Capability Min="201" Max="201">Aura Yellow-Green Filaments Step</Capability>
+  <Capability Min="202" Max="202">Aura Yellow-Green Filaments Fade</Capability>
+  <Capability Min="203" Max="203">Aura Green-Cyan Filaments Step</Capability>
+  <Capability Min="204" Max="204">Aura Green-Cyan Filaments Fade</Capability>
+  <Capability Min="205" Max="205">Aura Cyan-Blue Filaments Step</Capability>
+  <Capability Min="206" Max="206">Aura Cyan-Blue Filaments Fade</Capability>
+  <Capability Min="207" Max="207">Aura Blue-Magenta Filaments Step</Capability>
+  <Capability Min="208" Max="208">Aura Blue-Magenta Filaments Fade</Capability>
+  <Capability Min="209" Max="209">Aura Magenta-Red Filaments Step</Capability>
+  <Capability Min="210" Max="210">Aura Magenta-Red Filaments Fade</Capability>
+  <Capability Min="211" Max="211">Aura Red-White-Blue Step</Capability>
+  <Capability Min="212" Max="212">Aura Red-White-Blue Fade</Capability>
+  <Capability Min="213" Max="213">Aura Fire</Capability>
+  <Capability Min="214" Max="214">Aura Water</Capability>
+  <Capability Min="215" Max="215">Aura Swimming Pool</Capability>
+  <Capability Min="216" Max="216">Aura Ice</Capability>
+  <Capability Min="217" Max="217">Aura Hot and Cold</Capability>
+  <Capability Min="218" Max="218">Aura Warm and Fuzzy</Capability>
+  <Capability Min="219" Max="219">Aura Silver and Gold</Capability>
+  <Capability Min="220" Max="220">Aura Gold and Silver</Capability>
+  <Capability Min="221" Max="221">Aura Electric Arc</Capability>
+  <Capability Min="222" Max="222">Aura Plasma</Capability>
+  <Capability Min="223" Max="225">No function</Capability>
+  <Capability Min="226" Max="226">Aura Spectrum Shifter Static</Capability>
+  <Capability Min="227" Max="227">Aura Spectrum Shifter Step</Capability>
+  <Capability Min="228" Max="228">Aura Spectrum Shifter Fade</Capability>
+  <Capability Min="229" Max="229">Aura Pixel Spectrum Shifter Static</Capability>
+  <Capability Min="230" Max="230">Aura Pixel Spectrum Shifter Step</Capability>
+  <Capability Min="231" Max="231">Aura Pixel Spectrum Shifter Fade</Capability>
+  <Capability Min="232" Max="232">Aura Pixel Spectrum Shifter Random Static</Capability>
+  <Capability Min="233" Max="233">Aura Pixel Spectrum Shifter Random Step</Capability>
+  <Capability Min="234" Max="234">Aura Pixel Spectrum Shifter Random Fade</Capability>
+  <Capability Min="235" Max="235">Aura Tungsten</Capability>
+  <Capability Min="236" Max="236">Aura Tungsten Delay</Capability>
+  <Capability Min="237" Max="239">No function</Capability>
+  <Capability Min="240" Max="240">Aura Video Slo-Mo</Capability>
+  <Capability Min="241" Max="243">No function</Capability>
+  <Capability Min="244" Max="244">Complete Color Looks Static</Capability>
+  <Capability Min="245" Max="245">Beam-Aura Step</Capability>
+  <Capability Min="246" Max="246">Beam-Aura Fade</Capability>
+  <Capability Min="247" Max="247">Aura Ramp Beam Flash</Capability>
+  <Capability Min="248" Max="248">Beam Ramp Aura Flash</Capability>
+  <Capability Min="249" Max="249">Full Thunderstorm</Capability>
+  <Capability Min="250" Max="250">Full Welding</Capability>
+  <Capability Min="251" Max="251">Full 3-Step Strobe (Beam, Aura, both)</Capability>
+  <Capability Min="252" Max="254">No function</Capability>
+  <Capability Min="255" Max="255">Virtual dimmers Square Law</Capability>
+ </Channel>
+ <Channel Name="FX1 Speed" Default="128">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="126" Preset="RotationCounterClockwiseFastToSlow">Effect reversed, fast to slow</Capability>
+  <Capability Min="127" Max="129" Preset="RotationStop">Effect stops</Capability>
+  <Capability Min="130" Max="255" Preset="RotationClockwiseSlowToFast">Effect forward, slow to fast</Capability>
+ </Channel>
+ <Channel Name="FX 2">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No FX</Capability>
+  <Capability Min="1" Max="1">Beam Strobe Pulse Width</Capability>
+  <Capability Min="2" Max="2">Beam Blackout Strobe</Capability>
+  <Capability Min="3" Max="3">Beam 2 x Strobe</Capability>
+  <Capability Min="4" Max="4">Beam 3 x Strobe</Capability>
+  <Capability Min="5" Max="5">Beam 4 x Strobe</Capability>
+  <Capability Min="6" Max="6">Beam Up, Down, Flash</Capability>
+  <Capability Min="7" Max="7">Beam Up, Down, Flash (second color)</Capability>
+  <Capability Min="8" Max="8">Beam Up, Flash, Down, Flash</Capability>
+  <Capability Min="9" Max="9">Beam Up, Flash, Down, Flash (second color)</Capability>
+  <Capability Min="10" Max="10">Beam Random Levels</Capability>
+  <Capability Min="11" Max="11">Beam Movie Flicker</Capability>
+  <Capability Min="12" Max="12">Beam Atomic Lighting</Capability>
+  <Capability Min="13" Max="13">Beam Thunderstorm</Capability>
+  <Capability Min="14" Max="16">No function</Capability>
+  <Capability Min="17" Max="17">Beam Pixel Masks Static</Capability>
+  <Capability Min="18" Max="18">Beam Pixel Killer Static</Capability>
+  <Capability Min="19" Max="19">Beam Sparkle Stars</Capability>
+  <Capability Min="20" Max="20">Beam Starfield</Capability>
+  <Capability Min="21" Max="21">Beam Fiber Optic</Capability>
+  <Capability Min="22" Max="22">Beam Noise</Capability>
+  <Capability Min="23" Max="23">Beam Build Up / Step Down</Capability>
+  <Capability Min="24" Max="24">Beam Build Up / Fade Down</Capability>
+  <Capability Min="25" Max="25">Beam Build Up / Random Step Down</Capability>
+  <Capability Min="26" Max="26">Beam Build Up / Random Fade Down</Capability>
+  <Capability Min="27" Max="27">Beam Random 1 Pixel Step</Capability>
+  <Capability Min="28" Max="28">Beam Random 1 Pixel Fade</Capability>
+  <Capability Min="29" Max="29">Beam Random 2 Pixel Step</Capability>
+  <Capability Min="30" Max="30">Beam Random 2 Pixel Fade</Capability>
+  <Capability Min="31" Max="31">Beam Random 3 Pixel Step</Capability>
+  <Capability Min="32" Max="32">Beam Random 3 Pixel Fade</Capability>
+  <Capability Min="33" Max="33">Beam Random 4 Pixel Step</Capability>
+  <Capability Min="34" Max="34">Beam Random 4 Pixel Fade</Capability>
+  <Capability Min="35" Max="35">Beam Split Static</Capability>
+  <Capability Min="36" Max="36">Beam Split Rotating Step</Capability>
+  <Capability Min="37" Max="37">Beam Split Rotating Fade</Capability>
+  <Capability Min="38" Max="38">Beam In/Out Step</Capability>
+  <Capability Min="39" Max="39">Beam In/Out Fade</Capability>
+  <Capability Min="40" Max="40">Beam Waterdrop</Capability>
+  <Capability Min="41" Max="41">Beam Radar Spin Step</Capability>
+  <Capability Min="42" Max="42">Beam Radar Spin Fade</Capability>
+  <Capability Min="43" Max="43">Beam Line Spin Step</Capability>
+  <Capability Min="44" Max="44">Beam Line Spin Fade</Capability>
+  <Capability Min="45" Max="45">Beam Cross (Y) Spin Step</Capability>
+  <Capability Min="46" Max="46">Beam Cross (Y) Spin Fade</Capability>
+  <Capability Min="47" Max="47">Beam Cross (Y) Circle (O) Step</Capability>
+  <Capability Min="48" Max="48">Beam Cross (Y) Circle (O) Fade</Capability>
+  <Capability Min="49" Max="49">Beam Slice Pie Spin Step</Capability>
+  <Capability Min="50" Max="50">Beam Slice Pie Spin Fade</Capability>
+  <Capability Min="51" Max="51">Beam Snake 1 Pixel Step</Capability>
+  <Capability Min="52" Max="52">Beam Snake 1 Pixel Fade</Capability>
+  <Capability Min="53" Max="53">Beam Snake 2 Pixel Step</Capability>
+  <Capability Min="54" Max="54">Beam Snake 2 Pixel Fade</Capability>
+  <Capability Min="55" Max="55">Beam Snake 3 Pixel Step</Capability>
+  <Capability Min="56" Max="56">Beam Snake 3 Pixel Fade</Capability>
+  <Capability Min="57" Max="57">Beam Snake 4 Pixel Step</Capability>
+  <Capability Min="58" Max="58">Beam Snake 4 Pixel Fade</Capability>
+  <Capability Min="59" Max="59">Beam Vertical Line Step</Capability>
+  <Capability Min="60" Max="60">Beam Vertical Line Fade</Capability>
+  <Capability Min="61" Max="61">Beam Vertical Line Bounce Step</Capability>
+  <Capability Min="62" Max="62">Beam Vertical Line Bounce Fade</Capability>
+  <Capability Min="63" Max="63">Beam Horizontal Line Step</Capability>
+  <Capability Min="64" Max="64">Beam Horizontal Line Fade</Capability>
+  <Capability Min="65" Max="65">Beam Horizontal Line Bounce Step</Capability>
+  <Capability Min="66" Max="66">Beam Horizontal Line Bounce Fade</Capability>
+  <Capability Min="67" Max="67">Beam Vertical + Horizontal Line Bounce Step</Capability>
+  <Capability Min="68" Max="68">Beam Vertical + Horizontal Line Bounce Fade</Capability>
+  <Capability Min="69" Max="71">No function</Capability>
+  <Capability Min="72" Max="72">Beam Color Looks Static</Capability>
+  <Capability Min="73" Max="73">Beam Rainbow Pixels Step</Capability>
+  <Capability Min="74" Max="74">Beam Rainbow Pixels Fade</Capability>
+  <Capability Min="75" Max="75">Beam Red-Yellow Pixels Step</Capability>
+  <Capability Min="76" Max="76">Beam Red-Yellow Pixels Fade</Capability>
+  <Capability Min="77" Max="77">Beam Yellow-Green Pixels Step</Capability>
+  <Capability Min="78" Max="78">Beam Yellow-Green Pixels Fade</Capability>
+  <Capability Min="79" Max="79">Beam Green-Cyan Pixels Step</Capability>
+  <Capability Min="80" Max="80">Beam Green-Cyan Pixels Fade</Capability>
+  <Capability Min="81" Max="81">Beam Cyan-Blue Pixels Step</Capability>
+  <Capability Min="82" Max="82">Beam Cyan-Blue Pixels Fade</Capability>
+  <Capability Min="83" Max="83">Beam Blue-Magenta Pixels Step</Capability>
+  <Capability Min="84" Max="84">Beam Blue-Magenta Pixels Fade</Capability>
+  <Capability Min="85" Max="85">Beam Magenta-Red Pixels Step</Capability>
+  <Capability Min="86" Max="86">Beam Magenta-Red Pixels Fade</Capability>
+  <Capability Min="87" Max="87">Beam Red-White-Blue Step</Capability>
+  <Capability Min="88" Max="88">Beam Red-White-Blue Fade</Capability>
+  <Capability Min="89" Max="89">Beam Fire</Capability>
+  <Capability Min="90" Max="90">Beam Water</Capability>
+  <Capability Min="91" Max="91">Beam Swimming Pool</Capability>
+  <Capability Min="92" Max="92">Beam Ice</Capability>
+  <Capability Min="93" Max="93">Beam Hot and Cold</Capability>
+  <Capability Min="94" Max="94">Beam Warm and Fuzzy</Capability>
+  <Capability Min="95" Max="95">Beam Silver and Gold</Capability>
+  <Capability Min="96" Max="96">Beam Gold and Silver</Capability>
+  <Capability Min="97" Max="97">Beam Electric Arc</Capability>
+  <Capability Min="98" Max="98">Beam Plasma</Capability>
+  <Capability Min="99" Max="101">No function</Capability>
+  <Capability Min="102" Max="102">Beam Spectrum Shifter Static</Capability>
+  <Capability Min="103" Max="103">Beam Spectrum Shifter Step</Capability>
+  <Capability Min="104" Max="104">Beam Spectrum Shifter Fade</Capability>
+  <Capability Min="105" Max="105">Beam Pixel Spectrum Shifter Static</Capability>
+  <Capability Min="106" Max="106">Beam Pixel Spectrum Shifter Step</Capability>
+  <Capability Min="107" Max="107">Beam Pixel Spectrum Shifter Fade</Capability>
+  <Capability Min="108" Max="108">Beam Pixel Spectrum Shifter Random Static</Capability>
+  <Capability Min="109" Max="109">Beam Pixel Spectrum Shifter Random Step</Capability>
+  <Capability Min="110" Max="110">Beam Pixel Spectrum Shifter Random Fade</Capability>
+  <Capability Min="111" Max="113">No function</Capability>
+  <Capability Min="114" Max="114">Beam Video Slo-Mo</Capability>
+  <Capability Min="115" Max="117">No function</Capability>
+  <Capability Min="118" Max="118">Aura Strobe Pulse Width</Capability>
+  <Capability Min="119" Max="119">Aura Blackout Strobe</Capability>
+  <Capability Min="120" Max="120">Aura 2 x Strobe</Capability>
+  <Capability Min="121" Max="121">Aura 3 x Strobe</Capability>
+  <Capability Min="122" Max="122">Aura 4 x Strobe</Capability>
+  <Capability Min="123" Max="123">Aura Up, Down, Flash</Capability>
+  <Capability Min="124" Max="124">Aura Up, Down, Flash (second color)</Capability>
+  <Capability Min="125" Max="125">Aura Up, Flash, Down, Flash</Capability>
+  <Capability Min="126" Max="126">Aura Up, Flash, Down, Flash (second color)</Capability>
+  <Capability Min="127" Max="127">Aura Random Levels</Capability>
+  <Capability Min="128" Max="128">Aura Movie Flicker</Capability>
+  <Capability Min="129" Max="129">Aura Atomic Lighting</Capability>
+  <Capability Min="130" Max="130">Aura Thunderstorm</Capability>
+  <Capability Min="131" Max="133">No function</Capability>
+  <Capability Min="134" Max="134">Aura Pixel Masks Static</Capability>
+  <Capability Min="135" Max="135">Aura Pixel Killer Static</Capability>
+  <Capability Min="136" Max="136">Aura Sparkle Stars</Capability>
+  <Capability Min="137" Max="137">Aura Lightning Flashes Random</Capability>
+  <Capability Min="138" Max="138">Aura Lightning Flashes Heavy</Capability>
+  <Capability Min="139" Max="139">Aura Lightning Flashes Left-Right</Capability>
+  <Capability Min="140" Max="140">Aura Lightning Flashes Top-Bottom</Capability>
+  <Capability Min="141" Max="141">Aura Starfield</Capability>
+  <Capability Min="142" Max="142">Aura Fiber Optic</Capability>
+  <Capability Min="143" Max="143">Aura Noise</Capability>
+  <Capability Min="144" Max="144">Aura Build Up / Step Down</Capability>
+  <Capability Min="145" Max="145">Aura Build Up / Fade Down</Capability>
+  <Capability Min="146" Max="146">Aura Build Up / Random Step Down</Capability>
+  <Capability Min="147" Max="147">Aura Build Up / Random Fade Down</Capability>
+  <Capability Min="148" Max="148">Aura Random 1 Filament Step</Capability>
+  <Capability Min="149" Max="149">Aura Random 1 Filament Fade</Capability>
+  <Capability Min="150" Max="150">Aura Random 2 Filament Step</Capability>
+  <Capability Min="151" Max="151">Aura Random 2 Filament Fade</Capability>
+  <Capability Min="152" Max="152">Aura Random 4 Filament Step</Capability>
+  <Capability Min="153" Max="153">Aura Random 4 Filament Fade</Capability>
+  <Capability Min="154" Max="154">Aura Random 8 Filament Step</Capability>
+  <Capability Min="155" Max="155">Aura Random 8 Filament Fade</Capability>
+  <Capability Min="156" Max="156">Aura Split Static</Capability>
+  <Capability Min="157" Max="157">Aura Split Rotating Step</Capability>
+  <Capability Min="158" Max="158">Aura Split Rotating Fade</Capability>
+  <Capability Min="159" Max="159">Aura Odd/Even Step</Capability>
+  <Capability Min="160" Max="160">Aura Odd/Even Fade</Capability>
+  <Capability Min="161" Max="161">Aura Radar Spin Step</Capability>
+  <Capability Min="162" Max="162">Aura Radar Spin Fade</Capability>
+  <Capability Min="163" Max="163">Aura Line Spin Step</Capability>
+  <Capability Min="164" Max="164">Aura Line Spin Fade</Capability>
+  <Capability Min="165" Max="165">Aura Cross Spin Step</Capability>
+  <Capability Min="166" Max="166">Aura Cross Spin Fade</Capability>
+  <Capability Min="167" Max="167">Aura Slice Pie 1 Spin Step</Capability>
+  <Capability Min="168" Max="168">Aura Slice Pie 1 Spin Fade</Capability>
+  <Capability Min="169" Max="169">Aura Slice Pie 2 Spin Step</Capability>
+  <Capability Min="170" Max="170">Aura Slice Pie 2 Spin Fade</Capability>
+  <Capability Min="171" Max="171">Aura Slice Pie 3 Spin Step</Capability>
+  <Capability Min="172" Max="172">Aura Slice Pie 3 Spin Fade</Capability>
+  <Capability Min="173" Max="173">Aura Random Slice Pie Step</Capability>
+  <Capability Min="174" Max="174">Aura Random Slice Pie Fade</Capability>
+  <Capability Min="175" Max="175">Aura Snake 1 Filament Step</Capability>
+  <Capability Min="176" Max="176">Aura Snake 1 Filament Fade</Capability>
+  <Capability Min="177" Max="177">Aura Snake 2 Filament Step</Capability>
+  <Capability Min="178" Max="178">Aura Snake 2 Filament Fade</Capability>
+  <Capability Min="179" Max="179">Aura Snake 4 Filament Step</Capability>
+  <Capability Min="180" Max="180">Aura Snake 4 Filament Fade</Capability>
+  <Capability Min="181" Max="181">Aura Snake 8 Filament Step</Capability>
+  <Capability Min="182" Max="182">Aura Snake 8 Filament Fade</Capability>
+  <Capability Min="183" Max="183">Aura Vertical Line Step</Capability>
+  <Capability Min="184" Max="184">Aura Vertical Line Fade</Capability>
+  <Capability Min="185" Max="185">Aura Vertical Line Bounce Step</Capability>
+  <Capability Min="186" Max="186">Aura Vertical Line Bounce Fade</Capability>
+  <Capability Min="187" Max="187">Aura Horizontal Line Step</Capability>
+  <Capability Min="188" Max="188">Aura Horizontal Line Fade</Capability>
+  <Capability Min="189" Max="189">Aura Horizontal Line Bounce Step</Capability>
+  <Capability Min="190" Max="190">Aura Horizontal Line Bounce Fade</Capability>
+  <Capability Min="191" Max="191">Aura Vertical + Horizontal Line Bounce Step</Capability>
+  <Capability Min="192" Max="192">Aura Vertical + Horizontal Line Bounce Fade</Capability>
+  <Capability Min="193" Max="195">No function</Capability>
+  <Capability Min="196" Max="196">Aura Color Looks Static</Capability>
+  <Capability Min="197" Max="197">Aura Rainbow Filaments Step</Capability>
+  <Capability Min="198" Max="198">Aura Rainbow Filaments Fade</Capability>
+  <Capability Min="199" Max="199">Aura Red-Yellow Filaments Step</Capability>
+  <Capability Min="200" Max="200">Aura Red-Yellow Filaments Fade</Capability>
+  <Capability Min="201" Max="201">Aura Yellow-Green Filaments Step</Capability>
+  <Capability Min="202" Max="202">Aura Yellow-Green Filaments Fade</Capability>
+  <Capability Min="203" Max="203">Aura Green-Cyan Filaments Step</Capability>
+  <Capability Min="204" Max="204">Aura Green-Cyan Filaments Fade</Capability>
+  <Capability Min="205" Max="205">Aura Cyan-Blue Filaments Step</Capability>
+  <Capability Min="206" Max="206">Aura Cyan-Blue Filaments Fade</Capability>
+  <Capability Min="207" Max="207">Aura Blue-Magenta Filaments Step</Capability>
+  <Capability Min="208" Max="208">Aura Blue-Magenta Filaments Fade</Capability>
+  <Capability Min="209" Max="209">Aura Magenta-Red Filaments Step</Capability>
+  <Capability Min="210" Max="210">Aura Magenta-Red Filaments Fade</Capability>
+  <Capability Min="211" Max="211">Aura Red-White-Blue Step</Capability>
+  <Capability Min="212" Max="212">Aura Red-White-Blue Fade</Capability>
+  <Capability Min="213" Max="213">Aura Fire</Capability>
+  <Capability Min="214" Max="214">Aura Water</Capability>
+  <Capability Min="215" Max="215">Aura Swimming Pool</Capability>
+  <Capability Min="216" Max="216">Aura Ice</Capability>
+  <Capability Min="217" Max="217">Aura Hot and Cold</Capability>
+  <Capability Min="218" Max="218">Aura Warm and Fuzzy</Capability>
+  <Capability Min="219" Max="219">Aura Silver and Gold</Capability>
+  <Capability Min="220" Max="220">Aura Gold and Silver</Capability>
+  <Capability Min="221" Max="221">Aura Electric Arc</Capability>
+  <Capability Min="222" Max="222">Aura Plasma</Capability>
+  <Capability Min="223" Max="225">No function</Capability>
+  <Capability Min="226" Max="226">Aura Spectrum Shifter Static</Capability>
+  <Capability Min="227" Max="227">Aura Spectrum Shifter Step</Capability>
+  <Capability Min="228" Max="228">Aura Spectrum Shifter Fade</Capability>
+  <Capability Min="229" Max="229">Aura Pixel Spectrum Shifter Static</Capability>
+  <Capability Min="230" Max="230">Aura Pixel Spectrum Shifter Step</Capability>
+  <Capability Min="231" Max="231">Aura Pixel Spectrum Shifter Fade</Capability>
+  <Capability Min="232" Max="232">Aura Pixel Spectrum Shifter Random Static</Capability>
+  <Capability Min="233" Max="233">Aura Pixel Spectrum Shifter Random Step</Capability>
+  <Capability Min="234" Max="234">Aura Pixel Spectrum Shifter Random Fade</Capability>
+  <Capability Min="235" Max="235">Aura Tungsten</Capability>
+  <Capability Min="236" Max="236">Aura Tungsten Delay</Capability>
+  <Capability Min="237" Max="239">No function</Capability>
+  <Capability Min="240" Max="240">Aura Video Slo-Mo</Capability>
+  <Capability Min="241" Max="243">No function</Capability>
+  <Capability Min="244" Max="244">Complete Color Looks Static</Capability>
+  <Capability Min="245" Max="245">Beam-Aura Step</Capability>
+  <Capability Min="246" Max="246">Beam-Aura Fade</Capability>
+  <Capability Min="247" Max="247">Aura Ramp Beam Flash</Capability>
+  <Capability Min="248" Max="248">Beam Ramp Aura Flash</Capability>
+  <Capability Min="249" Max="249">Full Thunderstorm</Capability>
+  <Capability Min="250" Max="250">Full Welding</Capability>
+  <Capability Min="251" Max="251">Full 3-Step Strobe (Beam, Aura, both)</Capability>
+  <Capability Min="252" Max="254">No function</Capability>
+  <Capability Min="255" Max="255">Virtual dimmers Square Law</Capability>
+ </Channel>
+ <Channel Name="FX2 Speed" Default="128">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="126" Preset="RotationCounterClockwiseFastToSlow">Effect reversed, fast to slow</Capability>
+  <Capability Min="127" Max="129" Preset="RotationStop">Effect stops</Capability>
+  <Capability Min="130" Max="255" Preset="RotationClockwiseSlowToFast">Effect forward, slow to fast</Capability>
+ </Channel>
+ <Channel Name="FX Sync" Default="36">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No sync</Capability>
+  <Capability Min="1" Max="1">Offset shift 10°</Capability>
+  <Capability Min="2" Max="2">Offset shift 20°</Capability>
+  <Capability Min="3" Max="3">Offset shift 30°</Capability>
+  <Capability Min="4" Max="4">Offset shift 40°</Capability>
+  <Capability Min="5" Max="5">Offset shift 50°</Capability>
+  <Capability Min="6" Max="6">Offset shift 60°</Capability>
+  <Capability Min="7" Max="7">Offset shift 70°</Capability>
+  <Capability Min="8" Max="8">Offset shift 80°</Capability>
+  <Capability Min="9" Max="9">Offset shift 90°</Capability>
+  <Capability Min="10" Max="10">Offset shift 100°</Capability>
+  <Capability Min="11" Max="11">Offset shift 110°</Capability>
+  <Capability Min="12" Max="12">Offset shift 120°</Capability>
+  <Capability Min="13" Max="13">Offset shift 130°</Capability>
+  <Capability Min="14" Max="14">Offset shift 140°</Capability>
+  <Capability Min="15" Max="15">Offset shift 150°</Capability>
+  <Capability Min="16" Max="16">Offset shift 160°</Capability>
+  <Capability Min="17" Max="17">Offset shift 170°</Capability>
+  <Capability Min="18" Max="18">Offset shift 180°</Capability>
+  <Capability Min="19" Max="19">Offset shift 190°</Capability>
+  <Capability Min="20" Max="20">Offset shift 200°</Capability>
+  <Capability Min="21" Max="21">Offset shift 210°</Capability>
+  <Capability Min="22" Max="22">Offset shift 220°</Capability>
+  <Capability Min="23" Max="23">Offset shift 230°</Capability>
+  <Capability Min="24" Max="24">Offset shift 240°</Capability>
+  <Capability Min="25" Max="25">Offset shift 250°</Capability>
+  <Capability Min="26" Max="26">Offset shift 260°</Capability>
+  <Capability Min="27" Max="27">Offset shift 270°</Capability>
+  <Capability Min="28" Max="28">Offset shift 280°</Capability>
+  <Capability Min="29" Max="29">Offset shift 290°</Capability>
+  <Capability Min="30" Max="30">Offset shift 300°</Capability>
+  <Capability Min="31" Max="31">Offset shift 310°</Capability>
+  <Capability Min="32" Max="32">Offset shift 320°</Capability>
+  <Capability Min="33" Max="33">Offset shift 330°</Capability>
+  <Capability Min="34" Max="34">Offset shift 340°</Capability>
+  <Capability Min="35" Max="35">Offset shift 350°</Capability>
+  <Capability Min="36" Max="36">Synchronized: all fixtures start FX cycles at same time</Capability>
+  <Capability Min="37" Max="100">No function</Capability>
+  <Capability Min="101" Max="120">Random start (FX speed channel controls overall speed)</Capability>
+  <Capability Min="121" Max="140">Random duration</Capability>
+  <Capability Min="141" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Aura Strobe / Shutter" Default="30">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="20" Max="49" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="50" Max="200" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="201" Max="210" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="211" Max="255" Preset="StrobeRandomSlowToFast">Random strobe, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Aura Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Aura Dimmer Fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Aura Red" Default="255" Preset="IntensityRed"/>
+ <Channel Name="Aura Green" Default="255" Preset="IntensityGreen"/>
+ <Channel Name="Aura Blue" Default="255" Preset="IntensityBlue"/>
+ <Channel Name="Aura CTC" Default="128">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="18">1000 K</Capability>
+  <Capability Min="19" Max="127">1050 K to 6450 K</Capability>
+  <Capability Min="128" Max="128">6500 K (default)</Capability>
+  <Capability Min="129" Max="255">6550 K to 12 850 K</Capability>
+ </Channel>
+ <Channel Name="Aura Green-Magenta Skew" Default="128">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="126">Shift towards magenta / negative Duv (0 is maximum offset from black body curve)</Capability>
+  <Capability Min="127" Max="128">No shift (on black body curve)</Capability>
+  <Capability Min="129" Max="255">Shift towards green / positive Duv (255 is maximum offset from black body curve)</Capability>
+ </Channel>
+ <Channel Name="Aura Color Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
+  <Capability Min="11" Max="11" Preset="ColorMacro" Res1="#ff6f91">Moroccan pink (Lee 790)</Capability>
+  <Capability Min="12" Max="12">Not used</Capability>
+  <Capability Min="13" Max="13" Preset="ColorMacro" Res1="#ff9ec4">Pink (Lee 157)</Capability>
+  <Capability Min="14" Max="14">Not used</Capability>
+  <Capability Min="15" Max="15" Preset="ColorMacro" Res1="#ff5fa0">Special rose pink (Lee 332)</Capability>
+  <Capability Min="16" Max="16">Not used</Capability>
+  <Capability Min="17" Max="17" Preset="ColorMacro" Res1="#ff2e9a">Follies pink (Lee 328)</Capability>
+  <Capability Min="18" Max="18">Not used</Capability>
+  <Capability Min="19" Max="19" Preset="ColorMacro" Res1="#d4188c">Fuchsia pink (Lee 345)</Capability>
+  <Capability Min="20" Max="20">Not used</Capability>
+  <Capability Min="21" Max="21" Preset="ColorMacro" Res1="#e85ba0">Surprise pink (Lee 194)</Capability>
+  <Capability Min="22" Max="22">Not used</Capability>
+  <Capability Min="23" Max="23" Preset="ColorMacro" Res1="#2a0a6e">Congo blue (Lee 181)</Capability>
+  <Capability Min="24" Max="24">Not used</Capability>
+  <Capability Min="25" Max="25" Preset="ColorMacro" Res1="#142a8c">Tokyo blue (Lee 071)</Capability>
+  <Capability Min="26" Max="26">Not used</Capability>
+  <Capability Min="27" Max="27" Preset="ColorMacro" Res1="#0a2fa0">Deep blue (Lee 120)</Capability>
+  <Capability Min="28" Max="28">Not used</Capability>
+  <Capability Min="29" Max="29" Preset="ColorMacro" Res1="#0047ab">Just blue (Lee 079)</Capability>
+  <Capability Min="30" Max="30">Not used</Capability>
+  <Capability Min="31" Max="31" Preset="ColorMacro" Res1="#0060b0">Medium blue (Lee 132)</Capability>
+  <Capability Min="32" Max="32">Not used</Capability>
+  <Capability Min="33" Max="33" Preset="ColorMacro" Res1="#a8c8e8">Double CT blue (Lee 200)</Capability>
+  <Capability Min="34" Max="34">Not used</Capability>
+  <Capability Min="35" Max="35" Preset="ColorMacro" Res1="#6fa8c0">Slate blue (Lee 161)</Capability>
+  <Capability Min="36" Max="36">Not used</Capability>
+  <Capability Min="37" Max="37" Preset="ColorMacro" Res1="#bfd8f0">Full CT blue (Lee 201)</Capability>
+  <Capability Min="38" Max="38">Not used</Capability>
+  <Capability Min="39" Max="39" Preset="ColorMacro" Res1="#d6e6f7">Half CT blue (Lee 202)</Capability>
+  <Capability Min="40" Max="40">Not used</Capability>
+  <Capability Min="41" Max="41" Preset="ColorMacro" Res1="#c0dce8">Steel blue (Lee 117)</Capability>
+  <Capability Min="42" Max="42">Not used</Capability>
+  <Capability Min="43" Max="43" Preset="ColorMacro" Res1="#9fd0ea">Lighter blue (Lee 353)</Capability>
+  <Capability Min="44" Max="44">Not used</Capability>
+  <Capability Min="45" Max="45" Preset="ColorMacro" Res1="#4fc3e8">Light blue (Lee 118)</Capability>
+  <Capability Min="46" Max="46">Not used</Capability>
+  <Capability Min="47" Max="47" Preset="ColorMacro" Res1="#00b7a8">Medium blue green (Lee 116)</Capability>
+  <Capability Min="48" Max="48">Not used</Capability>
+  <Capability Min="49" Max="49" Preset="ColorMacro" Res1="#007a33">Dark green (Lee 124)</Capability>
+  <Capability Min="50" Max="50">Not used</Capability>
+  <Capability Min="51" Max="51" Preset="ColorMacro" Res1="#00a651">Primary green (Lee 139)</Capability>
+  <Capability Min="52" Max="52">Not used</Capability>
+  <Capability Min="53" Max="53" Preset="ColorMacro" Res1="#6fbf3b">Moss green (Lee 089)</Capability>
+  <Capability Min="54" Max="54">Not used</Capability>
+  <Capability Min="55" Max="55" Preset="ColorMacro" Res1="#4fa83d">Fern green (Lee 122)</Capability>
+  <Capability Min="56" Max="56">Not used</Capability>
+  <Capability Min="57" Max="57" Preset="ColorMacro" Res1="#8dc63f">Jas green (Lee 738)</Capability>
+  <Capability Min="58" Max="58">Not used</Capability>
+  <Capability Min="59" Max="59" Preset="ColorMacro" Res1="#c6d82f">Lime green (Lee 088)</Capability>
+  <Capability Min="60" Max="60">Not used</Capability>
+  <Capability Min="61" Max="61" Preset="ColorMacro" Res1="#fff200">Spring yellow (Lee 100)</Capability>
+  <Capability Min="62" Max="62">Not used</Capability>
+  <Capability Min="63" Max="63" Preset="ColorMacro" Res1="#ffb81c">Deep amber (Lee 104)</Capability>
+  <Capability Min="64" Max="64">Not used</Capability>
+  <Capability Min="65" Max="65" Preset="ColorMacro" Res1="#ff9e1b">Chrome orange (Lee 179)</Capability>
+  <Capability Min="66" Max="66">Not used</Capability>
+  <Capability Min="67" Max="67" Preset="ColorMacro" Res1="#ff7f00">Orange (Lee 105)</Capability>
+  <Capability Min="68" Max="68">Not used</Capability>
+  <Capability Min="69" Max="69" Preset="ColorMacro" Res1="#ff8c00">Gold amber (Lee 021)</Capability>
+  <Capability Min="70" Max="70">Not used</Capability>
+  <Capability Min="71" Max="71" Preset="ColorMacro" Res1="#ffb347">Millennium gold (Lee 778)</Capability>
+  <Capability Min="72" Max="72">Not used</Capability>
+  <Capability Min="73" Max="73" Preset="ColorMacro" Res1="#ff6a13">Deep golden amber (Lee 135)</Capability>
+  <Capability Min="74" Max="74">Not used</Capability>
+  <Capability Min="75" Max="75" Preset="ColorMacro" Res1="#e03c31">Flame red (Lee 164)</Capability>
+  <Capability Min="76" Max="76">Not used</Capability>
+  <Capability Min="77" Max="77" Preset="ColorMacro" Res1="#ff0090">Red magenta</Capability>
+  <Capability Min="78" Max="78">Not used</Capability>
+  <Capability Min="79" Max="79" Preset="ColorMacro" Res1="#b39ddb">Medium lavender</Capability>
+  <Capability Min="80" Max="80">Not used</Capability>
+  <Capability Min="81" Max="81" Preset="ColorMacro" Res1="#ffffff">Pure white</Capability>
+  <Capability Min="82" Max="82">Not used</Capability>
+  <Capability Min="83" Max="83" Preset="ColorMacro" Res1="#ff0000">Pure red</Capability>
+  <Capability Min="84" Max="84">Not used</Capability>
+  <Capability Min="85" Max="85" Preset="ColorMacro" Res1="#ffff00">Pure yellow</Capability>
+  <Capability Min="86" Max="86">Not used</Capability>
+  <Capability Min="87" Max="87" Preset="ColorMacro" Res1="#00ff00">Pure green</Capability>
+  <Capability Min="88" Max="88">Not used</Capability>
+  <Capability Min="89" Max="89" Preset="ColorMacro" Res1="#00ffff">Pure cyan</Capability>
+  <Capability Min="90" Max="90">Not used</Capability>
+  <Capability Min="91" Max="91" Preset="ColorMacro" Res1="#0000ff">Pure blue</Capability>
+  <Capability Min="92" Max="92">Not used</Capability>
+  <Capability Min="93" Max="93" Preset="ColorMacro" Res1="#ff00ff">Pure magenta</Capability>
+  <Capability Min="94" Max="94">Not used</Capability>
+  <Capability Min="95" Max="95" Preset="ColorMacro" Res1="#0090c0">Peacock blue (Lee 115)</Capability>
+  <Capability Min="96" Max="96">Not used</Capability>
+  <Capability Min="97" Max="97" Preset="ColorMacro" Res1="#7a4fa3">Dark lavender (Lee 180)</Capability>
+  <Capability Min="98" Max="98">Not used</Capability>
+  <Capability Min="99" Max="99" Preset="ColorMacro" Res1="#ffb870">Double CT orange (Lee 287)</Capability>
+  <Capability Min="100" Max="100">Not used</Capability>
+  <Capability Min="101" Max="101" Preset="ColorMacro" Res1="#ffc894">Full CT orange (Lee 204)</Capability>
+  <Capability Min="102" Max="102">Not used</Capability>
+  <Capability Min="103" Max="103" Preset="ColorMacro" Res1="#ffdcb4">Half CT orange (Lee 205)</Capability>
+  <Capability Min="104" Max="104">Not used</Capability>
+  <Capability Min="105" Max="105" Preset="ColorMacro" Res1="#ffc04d">Deep Straw (Lee 015)</Capability>
+  <Capability Min="106" Max="190">No function</Capability>
+  <Capability Min="191" Max="214" Preset="RotationClockwiseFastToSlow">Continuous rotation CW, fast to slow</Capability>
+  <Capability Min="215" Max="219" Preset="RotationStop">Stop (wheel stops at current position)</Capability>
+  <Capability Min="220" Max="243" Preset="RotationCounterClockwiseSlowToFast">Continuous rotation CCW, slow to fast</Capability>
+  <Capability Min="244" Max="247">Random colors, fast</Capability>
+  <Capability Min="248" Max="251">Random colors, medium</Capability>
+  <Capability Min="252" Max="255">Random colors, slow</Capability>
+ </Channel>
+ <Channel Name="Aura P3 Mix">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="26">DMX Mode: Output fully controlled by DMX, P3 pixel data ignored</Capability>
+  <Capability Min="27" Max="27">Mixed Mode: output fully controlled by DMX (P3 pixel data ignored)</Capability>
+  <Capability Min="28" Max="227">Mixed Mode: progressive crossfade from DMX to P3 control</Capability>
+  <Capability Min="228" Max="228">Mixed Mode: output fully controlled by P3 (DMX data ignored)</Capability>
+  <Capability Min="229" Max="255">Video Mode: P3 pixel control with DMX superimposed (DMX channels 'color' the P3 pixel data)</Capability>
+ </Channel>
+ <Channel Name="Pixel 1 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 1 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 1 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 2 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 2 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 2 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 3 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 3 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 3 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 4 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 4 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 4 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 5 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 5 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 5 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 6 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 6 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 6 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 7 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 7 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 7 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Filament 1 Red" Preset="IntensityRed"/>
+ <Channel Name="Filament 1 Green" Preset="IntensityGreen"/>
+ <Channel Name="Filament 1 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Filament 2 Red" Preset="IntensityRed"/>
+ <Channel Name="Filament 2 Green" Preset="IntensityGreen"/>
+ <Channel Name="Filament 2 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Filament 3 Red" Preset="IntensityRed"/>
+ <Channel Name="Filament 3 Green" Preset="IntensityGreen"/>
+ <Channel Name="Filament 3 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Filament 4 Red" Preset="IntensityRed"/>
+ <Channel Name="Filament 4 Green" Preset="IntensityGreen"/>
+ <Channel Name="Filament 4 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Filament 5 Red" Preset="IntensityRed"/>
+ <Channel Name="Filament 5 Green" Preset="IntensityGreen"/>
+ <Channel Name="Filament 5 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Filament 6 Red" Preset="IntensityRed"/>
+ <Channel Name="Filament 6 Green" Preset="IntensityGreen"/>
+ <Channel Name="Filament 6 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Filament 7 Red" Preset="IntensityRed"/>
+ <Channel Name="Filament 7 Green" Preset="IntensityGreen"/>
+ <Channel Name="Filament 7 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Filament 8 Red" Preset="IntensityRed"/>
+ <Channel Name="Filament 8 Green" Preset="IntensityGreen"/>
+ <Channel Name="Filament 8 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Filament 9 Red" Preset="IntensityRed"/>
+ <Channel Name="Filament 9 Green" Preset="IntensityGreen"/>
+ <Channel Name="Filament 9 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Filament 10 Red" Preset="IntensityRed"/>
+ <Channel Name="Filament 10 Green" Preset="IntensityGreen"/>
+ <Channel Name="Filament 10 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Filament 11 Red" Preset="IntensityRed"/>
+ <Channel Name="Filament 11 Green" Preset="IntensityGreen"/>
+ <Channel Name="Filament 11 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Filament 12 Red" Preset="IntensityRed"/>
+ <Channel Name="Filament 12 Green" Preset="IntensityGreen"/>
+ <Channel Name="Filament 12 Blue" Preset="IntensityBlue"/>
+ <Mode Name="Compact">
+  <Channel Number="0">Strobe / Shutter</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Dimmer fine</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Red Fine</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Green Fine</Channel>
+  <Channel Number="7">Blue</Channel>
+  <Channel Number="8">Blue Fine</Channel>
+  <Channel Number="9">CTC</Channel>
+  <Channel Number="10">Green-Magenta Skew</Channel>
+  <Channel Number="11">Color Wheel</Channel>
+  <Channel Number="12">Zoom</Channel>
+  <Channel Number="13">Zoom Fine</Channel>
+  <Channel Number="14">Pan</Channel>
+  <Channel Number="15">Pan Fine</Channel>
+  <Channel Number="16">Tilt</Channel>
+  <Channel Number="17">Tilt Fine</Channel>
+  <Channel Number="18">Control</Channel>
+  <Channel Number="19">LED Frequency</Channel>
+ </Mode>
+ <Mode Name="Compact Direct">
+  <Channel Number="0">Strobe / Shutter</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Dimmer fine</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Red Fine</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Green Fine</Channel>
+  <Channel Number="7">Blue</Channel>
+  <Channel Number="8">Blue Fine</Channel>
+  <Channel Number="9">White</Channel>
+  <Channel Number="10">White Fine</Channel>
+  <Channel Number="11">No function</Channel>
+  <Channel Number="12">Zoom</Channel>
+  <Channel Number="13">Zoom Fine</Channel>
+  <Channel Number="14">Pan</Channel>
+  <Channel Number="15">Pan Fine</Channel>
+  <Channel Number="16">Tilt</Channel>
+  <Channel Number="17">Tilt Fine</Channel>
+  <Channel Number="18">Control</Channel>
+  <Channel Number="19">LED Frequency</Channel>
+ </Mode>
+ <Mode Name="Basic">
+  <Channel Number="0">Strobe / Shutter</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Dimmer fine</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Red Fine</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Green Fine</Channel>
+  <Channel Number="7">Blue</Channel>
+  <Channel Number="8">Blue Fine</Channel>
+  <Channel Number="9">CTC</Channel>
+  <Channel Number="10">Green-Magenta Skew</Channel>
+  <Channel Number="11">Color Wheel</Channel>
+  <Channel Number="12">Zoom</Channel>
+  <Channel Number="13">Zoom Fine</Channel>
+  <Channel Number="14">Pan</Channel>
+  <Channel Number="15">Pan Fine</Channel>
+  <Channel Number="16">Tilt</Channel>
+  <Channel Number="17">Tilt Fine</Channel>
+  <Channel Number="18">Control</Channel>
+  <Channel Number="19">LED Frequency</Channel>
+  <Channel Number="20">P3 Mix</Channel>
+  <Channel Number="21">FX1</Channel>
+  <Channel Number="22">FX1 Speed</Channel>
+  <Channel Number="23">FX 2</Channel>
+  <Channel Number="24">FX2 Speed</Channel>
+  <Channel Number="25">FX Sync</Channel>
+  <Channel Number="26">Aura Strobe / Shutter</Channel>
+  <Channel Number="27">Aura Dimmer</Channel>
+  <Channel Number="28">Aura Dimmer Fine</Channel>
+  <Channel Number="29">Aura Red</Channel>
+  <Channel Number="30">Aura Green</Channel>
+  <Channel Number="31">Aura Blue</Channel>
+  <Channel Number="32">Aura CTC</Channel>
+  <Channel Number="33">Aura Green-Magenta Skew</Channel>
+  <Channel Number="34">Aura Color Wheel</Channel>
+  <Channel Number="35">Aura P3 Mix</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Extended">
+  <Channel Number="0">Strobe / Shutter</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Dimmer fine</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Red Fine</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Green Fine</Channel>
+  <Channel Number="7">Blue</Channel>
+  <Channel Number="8">Blue Fine</Channel>
+  <Channel Number="9">CTC</Channel>
+  <Channel Number="10">Green-Magenta Skew</Channel>
+  <Channel Number="11">Color Wheel</Channel>
+  <Channel Number="12">Zoom</Channel>
+  <Channel Number="13">Zoom Fine</Channel>
+  <Channel Number="14">Pan</Channel>
+  <Channel Number="15">Pan Fine</Channel>
+  <Channel Number="16">Tilt</Channel>
+  <Channel Number="17">Tilt Fine</Channel>
+  <Channel Number="18">Control</Channel>
+  <Channel Number="19">LED Frequency</Channel>
+  <Channel Number="20">P3 Mix</Channel>
+  <Channel Number="21">FX1</Channel>
+  <Channel Number="22">FX1 Speed</Channel>
+  <Channel Number="23">FX 2</Channel>
+  <Channel Number="24">FX2 Speed</Channel>
+  <Channel Number="25">FX Sync</Channel>
+  <Channel Number="26">Aura Strobe / Shutter</Channel>
+  <Channel Number="27">Aura Dimmer</Channel>
+  <Channel Number="28">Aura Dimmer Fine</Channel>
+  <Channel Number="29">Aura Red</Channel>
+  <Channel Number="30">Aura Green</Channel>
+  <Channel Number="31">Aura Blue</Channel>
+  <Channel Number="32">Aura CTC</Channel>
+  <Channel Number="33">Aura Green-Magenta Skew</Channel>
+  <Channel Number="34">Aura Color Wheel</Channel>
+  <Channel Number="35">Aura P3 Mix</Channel>
+  <Channel Number="36">Pixel 1 Red</Channel>
+  <Channel Number="37">Pixel 1 Green</Channel>
+  <Channel Number="38">Pixel 1 Blue</Channel>
+  <Channel Number="39">Pixel 2 Red</Channel>
+  <Channel Number="40">Pixel 2 Green</Channel>
+  <Channel Number="41">Pixel 2 Blue</Channel>
+  <Channel Number="42">Pixel 3 Red</Channel>
+  <Channel Number="43">Pixel 3 Green</Channel>
+  <Channel Number="44">Pixel 3 Blue</Channel>
+  <Channel Number="45">Pixel 4 Red</Channel>
+  <Channel Number="46">Pixel 4 Green</Channel>
+  <Channel Number="47">Pixel 4 Blue</Channel>
+  <Channel Number="48">Pixel 5 Red</Channel>
+  <Channel Number="49">Pixel 5 Green</Channel>
+  <Channel Number="50">Pixel 5 Blue</Channel>
+  <Channel Number="51">Pixel 6 Red</Channel>
+  <Channel Number="52">Pixel 6 Green</Channel>
+  <Channel Number="53">Pixel 6 Blue</Channel>
+  <Channel Number="54">Pixel 7 Red</Channel>
+  <Channel Number="55">Pixel 7 Green</Channel>
+  <Channel Number="56">Pixel 7 Blue</Channel>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+  </Head>
+  <Head>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+  </Head>
+  <Head>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+  </Head>
+  <Head>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+  </Head>
+  <Head>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+  </Head>
+  <Head>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+  </Head>
+  <Head>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+   <Channel>56</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Ludicrous">
+  <Channel Number="0">Strobe / Shutter</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Dimmer fine</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Red Fine</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Green Fine</Channel>
+  <Channel Number="7">Blue</Channel>
+  <Channel Number="8">Blue Fine</Channel>
+  <Channel Number="9">CTC</Channel>
+  <Channel Number="10">Green-Magenta Skew</Channel>
+  <Channel Number="11">Color Wheel</Channel>
+  <Channel Number="12">Zoom</Channel>
+  <Channel Number="13">Zoom Fine</Channel>
+  <Channel Number="14">Pan</Channel>
+  <Channel Number="15">Pan Fine</Channel>
+  <Channel Number="16">Tilt</Channel>
+  <Channel Number="17">Tilt Fine</Channel>
+  <Channel Number="18">Control</Channel>
+  <Channel Number="19">LED Frequency</Channel>
+  <Channel Number="20">P3 Mix</Channel>
+  <Channel Number="21">FX1</Channel>
+  <Channel Number="22">FX1 Speed</Channel>
+  <Channel Number="23">FX 2</Channel>
+  <Channel Number="24">FX2 Speed</Channel>
+  <Channel Number="25">FX Sync</Channel>
+  <Channel Number="26">Aura Strobe / Shutter</Channel>
+  <Channel Number="27">Aura Dimmer</Channel>
+  <Channel Number="28">Aura Dimmer Fine</Channel>
+  <Channel Number="29">Aura Red</Channel>
+  <Channel Number="30">Aura Green</Channel>
+  <Channel Number="31">Aura Blue</Channel>
+  <Channel Number="32">Aura CTC</Channel>
+  <Channel Number="33">Aura Green-Magenta Skew</Channel>
+  <Channel Number="34">Aura Color Wheel</Channel>
+  <Channel Number="35">Aura P3 Mix</Channel>
+  <Channel Number="36">Pixel 1 Red</Channel>
+  <Channel Number="37">Pixel 1 Green</Channel>
+  <Channel Number="38">Pixel 1 Blue</Channel>
+  <Channel Number="39">Pixel 2 Red</Channel>
+  <Channel Number="40">Pixel 2 Green</Channel>
+  <Channel Number="41">Pixel 2 Blue</Channel>
+  <Channel Number="42">Pixel 3 Red</Channel>
+  <Channel Number="43">Pixel 3 Green</Channel>
+  <Channel Number="44">Pixel 3 Blue</Channel>
+  <Channel Number="45">Pixel 4 Red</Channel>
+  <Channel Number="46">Pixel 4 Green</Channel>
+  <Channel Number="47">Pixel 4 Blue</Channel>
+  <Channel Number="48">Pixel 5 Red</Channel>
+  <Channel Number="49">Pixel 5 Green</Channel>
+  <Channel Number="50">Pixel 5 Blue</Channel>
+  <Channel Number="51">Pixel 6 Red</Channel>
+  <Channel Number="52">Pixel 6 Green</Channel>
+  <Channel Number="53">Pixel 6 Blue</Channel>
+  <Channel Number="54">Pixel 7 Red</Channel>
+  <Channel Number="55">Pixel 7 Green</Channel>
+  <Channel Number="56">Pixel 7 Blue</Channel>
+  <Channel Number="57">Filament 1 Red</Channel>
+  <Channel Number="58">Filament 1 Green</Channel>
+  <Channel Number="59">Filament 1 Blue</Channel>
+  <Channel Number="60">Filament 2 Red</Channel>
+  <Channel Number="61">Filament 2 Green</Channel>
+  <Channel Number="62">Filament 2 Blue</Channel>
+  <Channel Number="63">Filament 3 Red</Channel>
+  <Channel Number="64">Filament 3 Green</Channel>
+  <Channel Number="65">Filament 3 Blue</Channel>
+  <Channel Number="66">Filament 4 Red</Channel>
+  <Channel Number="67">Filament 4 Green</Channel>
+  <Channel Number="68">Filament 4 Blue</Channel>
+  <Channel Number="69">Filament 5 Red</Channel>
+  <Channel Number="70">Filament 5 Green</Channel>
+  <Channel Number="71">Filament 5 Blue</Channel>
+  <Channel Number="72">Filament 6 Red</Channel>
+  <Channel Number="73">Filament 6 Green</Channel>
+  <Channel Number="74">Filament 6 Blue</Channel>
+  <Channel Number="75">Filament 7 Red</Channel>
+  <Channel Number="76">Filament 7 Green</Channel>
+  <Channel Number="77">Filament 7 Blue</Channel>
+  <Channel Number="78">Filament 8 Red</Channel>
+  <Channel Number="79">Filament 8 Green</Channel>
+  <Channel Number="80">Filament 8 Blue</Channel>
+  <Channel Number="81">Filament 9 Red</Channel>
+  <Channel Number="82">Filament 9 Green</Channel>
+  <Channel Number="83">Filament 9 Blue</Channel>
+  <Channel Number="84">Filament 10 Red</Channel>
+  <Channel Number="85">Filament 10 Green</Channel>
+  <Channel Number="86">Filament 10 Blue</Channel>
+  <Channel Number="87">Filament 11 Red</Channel>
+  <Channel Number="88">Filament 11 Green</Channel>
+  <Channel Number="89">Filament 11 Blue</Channel>
+  <Channel Number="90">Filament 12 Red</Channel>
+  <Channel Number="91">Filament 12 Green</Channel>
+  <Channel Number="92">Filament 12 Blue</Channel>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+  </Head>
+  <Head>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+  </Head>
+  <Head>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+  </Head>
+  <Head>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+  </Head>
+  <Head>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+  </Head>
+  <Head>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+  </Head>
+  <Head>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+   <Channel>56</Channel>
+  </Head>
+  <Head>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+  </Head>
+  <Head>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+  </Head>
+  <Head>
+   <Channel>63</Channel>
+   <Channel>64</Channel>
+   <Channel>65</Channel>
+  </Head>
+  <Head>
+   <Channel>66</Channel>
+   <Channel>67</Channel>
+   <Channel>68</Channel>
+  </Head>
+  <Head>
+   <Channel>69</Channel>
+   <Channel>70</Channel>
+   <Channel>71</Channel>
+  </Head>
+  <Head>
+   <Channel>72</Channel>
+   <Channel>73</Channel>
+   <Channel>74</Channel>
+  </Head>
+  <Head>
+   <Channel>75</Channel>
+   <Channel>76</Channel>
+   <Channel>77</Channel>
+  </Head>
+  <Head>
+   <Channel>78</Channel>
+   <Channel>79</Channel>
+   <Channel>80</Channel>
+  </Head>
+  <Head>
+   <Channel>81</Channel>
+   <Channel>82</Channel>
+   <Channel>83</Channel>
+  </Head>
+  <Head>
+   <Channel>84</Channel>
+   <Channel>85</Channel>
+   <Channel>86</Channel>
+  </Head>
+  <Head>
+   <Channel>87</Channel>
+   <Channel>88</Channel>
+   <Channel>89</Channel>
+  </Head>
+  <Head>
+   <Channel>90</Channel>
+   <Channel>91</Channel>
+   <Channel>92</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="6000" ColourTemperature="0"/>
+  <Dimensions Weight="8.94" Width="338" Height="382" Depth="225"/>
+  <Lens Name="Other" DegreesMin="6" DegreesMax="35"/>
+  <Focus Type="Head" PanMax="540" TiltMax="220"/>
+  <Technical PowerConsumption="302" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

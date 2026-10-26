@@ -210,7 +210,7 @@ Rectangle
                 MenuBarEntry
                 {
                     id: threedView
-                    visible: !View3D.detached
+                    visible: !View3D.detached && Qt.platform.os !== "android" && Qt.platform.os !== "ios"
                     imgSource: "3dview.svg"
                     entryText: qsTr("3D View")
                     checked: contextManager.currentSubContext === "3D"

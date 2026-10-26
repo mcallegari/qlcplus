@@ -77,6 +77,8 @@ public:
         GenericItemSetPosition,
         GenericItemSetRotation,
         GenericItemSetScale,
+        GenericItemSetName,
+        GenericItemSetColor,
 
         /* Input/Output mapping actions */
         IOAddUniverse = 0x0100,
@@ -230,6 +232,7 @@ public:
 
         VCSliderSetValue = LIVE_ACTIONS_START_CODE + 0x300,
         VCSliderButtonPress,
+        VCSliderSetClickAndGoColors,
 
         VCCueListPlayClicked = LIVE_ACTIONS_START_CODE + 0x400,
         VCCueListStopClicked,
@@ -261,6 +264,8 @@ public:
         VCAnimationSetColor4,
         VCAnimationSetColor5,
         VCAnimationActivatePreset,
+
+        VCFrameSetDisabled = LIVE_ACTIONS_START_CODE + 0xA00,
 
         /* Network protocol actions */
         NetAnnounce = 0xFF00,
@@ -358,6 +363,10 @@ private:
     /** Synchronization variables between threads */
     QMutex m_queueMutex;
     QSemaphore m_queueSem;
+
+    /** Protects the history, its index and count, which are written by
+     *  the Tardis thread and read by undo/redo on the main thread */
+    QMutex m_historyMutex;
 
     /** The actual history of actions */
     QList<TardisAction> m_history;

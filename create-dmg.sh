@@ -84,31 +84,7 @@ else
 fi
 
 if [ -n "$SIGNATURE" ]; then
-    # sign package with codesign (macdeployqt fails in that too)
-    echo "Signing binaries..."
-    ENTITLEMENTS="platforms/macos/qlcplus.entitlements"
-
-    find $APP_DIR/Contents/Frameworks -type f | while read file; do
-        codesign --force --sign "$SIGNATURE" --timestamp "$file"
-    done
-
-    find $APP_DIR/Contents/PlugIns -type f -name "*.dylib" | while read file; do
-        codesign --force --sign "$SIGNATURE" --timestamp "$file"
-    done
-
-    find $QML_DIR -type f -name "*.dylib" | while read file; do
-        codesign --force --sign "$SIGNATURE" --timestamp "$file"
-    done
-
-    codesign --sign "$SIGNATURE" --timestamp --deep --entitlements $ENTITLEMENTS --options runtime $APP_DIR
-
-    # workaround first time sign failure
-    if [ -f "$BIN_DIR/qlcplus" ]; then
-        codesign --force --sign "$SIGNATURE" --timestamp --entitlements $ENTITLEMENTS --options runtime $BIN_DIR/qlcplus
-        codesign --force --sign "$SIGNATURE" --timestamp --entitlements $ENTITLEMENTS --options runtime $BIN_DIR/qlcplus-launcher
-    else
-        codesign --force --sign "$SIGNATURE" --timestamp --entitlements $ENTITLEMENTS --options runtime $BIN_DIR/qlcplus5
-    fi
+    platforms/macos/sign_app.sh $APP_DIR "$SIGNATURE" || exit 1
 fi
 
 # Create Apple Disk iMaGe from ~/QLC+.app/
@@ -128,4 +104,11 @@ cd -
 
 if [ -n "$SIGNATURE" ]; then
     codesign --sign "$SIGNATURE" --timestamp $OUTDIR/QLC+_$VERSION.dmg
+
+    # notarize and staple. Create the profile once with:
+    # xcrun notarytool store-credentials <profile> --apple-id <id> --team-id <team>
+    if [ -n "$NOTARY_PROFILE" ]; then
+        xcrun notarytool submit $OUTDIR/QLC+_$VERSION.dmg --keychain-profile "$NOTARY_PROFILE" --wait && \
+        xcrun stapler staple $OUTDIR/QLC+_$VERSION.dmg
+    fi
 fi

@@ -22,6 +22,7 @@
 
 #include <QQuickView>
 #include <QQuickItem>
+#include <QPointer>
 #include <QObject>
 #include <QColor>
 #include <QRect>
@@ -84,6 +85,7 @@ class VCWidget : public QObject
     Q_PROPERTY(QString propertiesResource READ propertiesResource CONSTANT)
     Q_PROPERTY(bool isEditing READ isEditing WRITE setIsEditing NOTIFY isEditingChanged)
     Q_PROPERTY(QRectF geometry READ geometry WRITE setGeometry NOTIFY geometryChanged)
+    Q_PROPERTY(qreal scaleFactor READ scaleFactor NOTIFY geometryChanged)
     Q_PROPERTY(int zIndex READ zIndex WRITE setZIndex NOTIFY zIndexChanged)
     Q_PROPERTY(bool allowResize READ allowResize WRITE setAllowResize NOTIFY allowResizeChanged)
     Q_PROPERTY(bool isDisabled READ isDisabled WRITE setDisabled NOTIFY disabledStateChanged)
@@ -139,8 +141,9 @@ protected:
     /** Reference to the project document */
     Doc* m_doc;
 
-    /** Reference to the onscreen Quick item */
-    QQuickItem *m_item;
+    /** Reference to the onscreen Quick item. It is created and owned by
+     *  this widget, but guarded in case the QML side destroys it */
+    QPointer<QQuickItem> m_item;
 
     /*********************************************************************
      * ID

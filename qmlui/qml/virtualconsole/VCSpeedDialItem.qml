@@ -112,6 +112,7 @@ VCWidgetItem
     {
         id: itemsLayout
         anchors.fill: parent
+        enabled: speedObj ? !speedObj.isDisabled : true
 
         columns: tapButton.visible ? 6 : 4
 

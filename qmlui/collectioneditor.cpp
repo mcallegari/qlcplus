@@ -27,13 +27,16 @@ CollectionEditor::CollectionEditor(QQuickView *view, Doc *doc, QObject *parent)
     : FunctionEditor(view, doc, parent)
     , m_collection(nullptr)
 {
-    m_view->rootContext()->setContextProperty("collectionEditor", this);
     m_editorObjectName = "collectionEditorRoot";
 
     m_functionsList = new ListModel(this);
     QStringList listRoles;
     listRoles << "funcID" << "isSelected";
     m_functionsList->setRoleNames(listRoles);
+
+    // publish to QML only once fully constructed: bindings of an already
+    // loaded editor view re-evaluate immediately and read the models
+    m_view->rootContext()->setContextProperty("collectionEditor", this);
 }
 
 void CollectionEditor::setFunctionID(quint32 ID)

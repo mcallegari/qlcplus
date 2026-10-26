@@ -159,6 +159,7 @@ if(appimage)
         FILES
             ${QT_PLUGINS_PATH}/platforms/libqlinuxfb.so
             ${QT_PLUGINS_PATH}/platforms/libqxcb.so
+            ${QT_PLUGINS_PATH}/platforms/libqwayland.so
             ${QT_PLUGINS_PATH}/platforms/libqminimal.so
         DESTINATION ${PLUGINS_DESTINATION}/platforms
     )
