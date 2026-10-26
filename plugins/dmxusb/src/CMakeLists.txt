@@ -103,7 +103,6 @@ endif()
 
 target_sources(${module_name} PRIVATE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
-    ../../interfaces/rdmprotocol.cpp ../../interfaces/rdmprotocol.h
     ../../midi/src/common/midiprotocol.cpp ../../midi/src/common/midiprotocol.h
     dmxinterface.cpp dmxinterface.h
     ${module_name}.cpp ${module_name}.h

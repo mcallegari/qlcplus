@@ -35,6 +35,7 @@ private slots:
 
     void setUnset();
     void unsetAll();
+    void crossUniverse();
 
 private:
     Doc* m_doc;

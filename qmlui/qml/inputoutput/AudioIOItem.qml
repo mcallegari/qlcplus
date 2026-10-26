@@ -157,7 +157,7 @@ Rectangle
             {
                 isSelected = true
                 ioManager.selectedIndex = -1
-                audioItem.selected(0);
+                audioItem.selected()
             }
         }
     }

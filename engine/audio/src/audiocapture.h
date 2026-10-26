@@ -43,6 +43,11 @@
 #define FREQ_SUBBANDS_DEFAULT_NUMBER    16
 #define SPECTRUM_MIN_FREQUENCY          40
 #define SPECTRUM_MAX_FREQUENCY          5000
+/** Band level mapped to 0 (bar empty). 0 dBFS is a full scale sine (bar full) */
+#define SPECTRUM_DB_FLOOR               -60.0
+/** Band level boost per octave, pivoting on 1kHz.
+ *  Band energy of pink noise is flat, music rolls off at about 4.5dB/octave */
+#define SPECTRUM_TILT_DB_OCTAVE         1.5
 
 /** Beat tracker (issue #1881 work): multi-band onset front end +
  *  comb-scored ACF tempo estimator by varghele (beattracker.cpp,
@@ -137,13 +142,17 @@ protected:
      */
     virtual bool readAudio(int maxSize) = 0;
 
-    /** This is called at every processData to fill a single BandsData structure */
+    /** This is called at every processData to fill a single BandsData structure
+     *  with band levels normalized to [0..1].
+     *  Returns the sum of the average band magnitudes, used for the volume bar */
     double fillBandsData(int number);
 
     /** This is the method where captured audio data is processed in this order
      *  1) calculates the signal power, which will be the volume bar
      *  2) perform the FFT
-     *  3) retrieve the signal magnitude for each registered number of bands
+     *  3) retrieve the signal level for each registered number of bands
+     *  Spectrum bands are emitted normalized to [0..1] and maxMagnitude is
+     *  always 1.0, so receivers get absolute levels, not frame-relative ones
      */
     void processData();
 

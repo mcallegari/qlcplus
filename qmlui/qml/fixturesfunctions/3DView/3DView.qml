@@ -390,6 +390,7 @@ Rectangle
                 property int directionCounter
                 property real dx
                 property real dy
+                property bool dragged
 
                 property int selFixturesCount: contextManager ? contextManager.selectedFixturesCount : 0
                 property int selGenericCount: View3D.genericSelectedCount
@@ -404,11 +405,19 @@ Rectangle
                     directionCounter = 0
                     dx = 0
                     dy = 0
+                    dragged = false
                     startPoint = Qt.point(mouse.x, mouse.y)
                 }
 
                 onClicked: (mouse) =>
                 {
+                    // do not treat the release at the end of a drag (item move
+                    // or camera pan/rotate/zoom) as a selection click, or the
+                    // item(s) just moved would be immediately deselected by
+                    // the pick performed below
+                    if (dragged)
+                        return
+
                     // right button is reserved for camera rotation, so it
                     // must not be used to select/deselect items in the view
                     if (mouse.button === Qt.RightButton)
@@ -439,6 +448,8 @@ Rectangle
                         direction = dx > dy ? Qt.Horizontal : Qt.Vertical
                     }
 
+                    dragged = true
+
                     var newPos
                     var xDelta = mouse.x - startPoint.x
                     var yDelta = mouse.y - startPoint.y
@@ -448,53 +459,25 @@ Rectangle
                         xDelta = xDelta * viewCamera.position.z
                         yDelta = yDelta * viewCamera.position.z
 
-                        if (selFixturesCount == 1 && selGenericCount == 0)
-                        {
-                            newPos = contextManager.fixturesPosition
-
-                            if (direction == Qt.Horizontal)
-                                contextManager.fixturesPosition = Qt.vector3d(newPos.x + xDelta, newPos.y, newPos.z)
-                            else
-                            {
-                                if (mouse.modifiers & Qt.ShiftModifier)
-                                    contextManager.fixturesPosition = Qt.vector3d(newPos.x, newPos.y, newPos.z + yDelta)
-                                else
-                                    contextManager.fixturesPosition = Qt.vector3d(newPos.x, newPos.y - yDelta, newPos.z)
-                            }
-
-                            threeDSettings.refreshPositionValues(false)
-                        }
-                        else if (selFixturesCount == 0 && selGenericCount == 1)
-                        {
-                            newPos = View3D.genericItemsPosition
-
-                            if (direction == Qt.Horizontal)
-                                View3D.genericItemsPosition = Qt.vector3d(newPos.x + xDelta, newPos.y, newPos.z)
-                            else
-                            {
-                                if (mouse.modifiers & Qt.ShiftModifier)
-                                    View3D.genericItemsPosition = Qt.vector3d(newPos.x, newPos.y, newPos.z + yDelta)
-                                else
-                                    View3D.genericItemsPosition = Qt.vector3d(newPos.x, newPos.y - yDelta, newPos.z)
-                            }
-
-                            threeDSettings.refreshPositionValues(true)
-                        }
+                        if (direction == Qt.Horizontal)
+                            newPos = Qt.vector3d(xDelta, 0, 0)
                         else
                         {
-                            if (direction == Qt.Horizontal)
-                                newPos = Qt.vector3d(xDelta, 0, 0)
+                            if (mouse.modifiers & Qt.ShiftModifier)
+                                newPos = Qt.vector3d(0, 0, yDelta)
                             else
-                            {
-                                if (mouse.modifiers & Qt.ShiftModifier)
-                                    newPos = Qt.vector3d(0, 0, yDelta)
-                                else
-                                    newPos = Qt.vector3d(0, -yDelta, 0)
-                            }
-
-                            contextManager.fixturesPosition = newPos
-                            View3D.genericItemsPosition = newPos
+                                newPos = Qt.vector3d(0, -yDelta, 0)
                         }
+
+                        if (selFixturesCount > 0)
+                            contextManager.fixturesPosition = newPos
+                        if (selGenericCount > 0)
+                            View3D.genericItemsPosition = newPos
+
+                        if (selFixturesCount == 1 && selGenericCount == 0)
+                            threeDSettings.refreshPositionValues(false)
+                        else if (selFixturesCount == 0 && selGenericCount == 1)
+                            threeDSettings.refreshPositionValues(true)
                     }
                     else if (mouse.buttons === Qt.RightButton)  // camera rotation
                     {

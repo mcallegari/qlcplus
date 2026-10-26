@@ -535,7 +535,7 @@ Rectangle
                                     gfhcDragItem.parent = mainView
                                     gfhcDragItem.x = posnInWindow.x - (gfhcDragItem.width / 4)
                                     gfhcDragItem.y = posnInWindow.y - (gfhcDragItem.height / 4)
-                                    if (!qItem.isSelected)
+                                    if (!qItem.isSelected || gfhcDragItem.itemsList.indexOf(qItem) === -1)
                                     {
                                         if ((mouseMods & Qt.ControlModifier) == 0)
                                             gfhcDragItem.itemsList = []
@@ -585,6 +585,13 @@ Rectangle
                                         break
                                     }
 
+                                    // when editing a group, clicking a fixture/head that belongs to it
+                                    // selects its heads on the grid instead of switching to the fixture editor
+                                    if (editButton.checked && currentItemType === App.FixtureGroupDragItem &&
+                                        (qItem.itemType === App.FixtureDragItem || qItem.itemType === App.HeadDragItem) &&
+                                        fixtureGroupEditor.selectFixtureHeads(itemID, qItem.itemType === App.HeadDragItem ? iID : -1, mouseMods))
+                                        break
+
                                     updateButtons(qItem.itemType, itemID)
                                 break;
                                 case App.DoubleClicked:
@@ -607,6 +614,7 @@ Rectangle
                                     }
 
                                     groupListView.dragActive = true
+                                    UISettings.internalDragActive = true
                                 break;
                                 case App.DragFinished:
                                     gfhcDragItem.Drag.drop()
@@ -614,6 +622,7 @@ Rectangle
                                     gfhcDragItem.x = 0
                                     gfhcDragItem.y = 0
                                     groupListView.dragActive = false
+                                    UISettings.internalDragActive = false
                                     //gfhcDragItem.itemsList = []
                                 break;
                             }

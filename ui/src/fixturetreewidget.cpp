@@ -247,7 +247,6 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem* item, Fixture* fixtur
 
     if (m_channelSelection == true)
     {
-        quint32 baseAddress = fixture->universeAddress();
         for (quint32 c = 0; c < fixture->channels(); c++)
         {
             const QLCChannel* channel = fixture->channel(c);
@@ -266,8 +265,9 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem* item, Fixture* fixtur
             }
 
             cItem->setFlags(cItem->flags() | Qt::ItemIsUserCheckable);
-            if (m_channelsMask.length() > (int)(baseAddress + c) &&
-                m_channelsMask.at(baseAddress + c) == 1)
+            quint32 absAddress = fixture->channelAddress(c);
+            if (m_channelsMask.length() > (int)absAddress &&
+                m_channelsMask.at(absAddress) == 1)
                     cItem->setCheckState(KColumnName, Qt::Checked);
             else
                 cItem->setCheckState(KColumnName, Qt::Unchecked);

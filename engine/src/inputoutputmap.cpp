@@ -1510,3 +1510,42 @@ bool InputOutputMap::saveXML(QXmlStreamWriter *doc) const
 
     return true;
 }
+
+/*********************************************************************
+ * RDM transport
+ *********************************************************************/
+
+QList<QLCRDMLine> InputOutputMap::lines()
+{
+    QList<QLCRDMLine> list;
+
+    for (const Universe *uni : universes())
+    {
+        for (int i = 0; i < uni->outputPatchesCount(); i++)
+        {
+            OutputPatch *op = uni->outputPatch(i);
+            if (op == nullptr || op->plugin() == nullptr)
+                continue;
+
+            if (op->plugin()->capabilities() & QLCIOPlugin::RDM)
+            {
+                QLCRDMLine line = { uni->id(), op->output(), op->plugin() };
+                list.append(line);
+            }
+        }
+    }
+
+    return list;
+}
+
+QLCIOPlugin *InputOutputMap::transport(quint32 universe, quint32 line)
+{
+    const QList<QLCRDMLine> list = lines();
+    for (const QLCRDMLine &l : list)
+    {
+        if (l.universe == universe && l.line == line)
+            return l.plugin;
+    }
+
+    return nullptr;
+}

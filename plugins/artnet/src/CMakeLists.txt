@@ -20,13 +20,12 @@ else()
 endif()
 
 add_library(${module_name}
-    SHARED
+    ${QLC_PLUGIN_TYPE}
     ${QM_FILES}
 )
 
 target_sources(${module_name} PRIVATE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
-    ../../interfaces/rdmprotocol.cpp ../../interfaces/rdmprotocol.h
     artnetcontroller.cpp artnetcontroller.h
     artnetpacketizer.cpp artnetpacketizer.h
     artnetplugin.cpp artnetplugin.h

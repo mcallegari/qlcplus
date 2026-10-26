@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.3.0 GIT</Version>
+  <Author>Fede79</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>4Bar Hex ILS</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Automatic Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="29" Preset="Alias">Auto program 1
+   <Alias Mode="27Ch" Channel="Strobe" With="Program Speed"/>
+  </Capability>
+  <Capability Min="30" Max="49" Preset="Alias">Auto program 2
+   <Alias Mode="27Ch" Channel="Strobe" With="Program Speed"/>
+  </Capability>
+  <Capability Min="50" Max="69" Preset="Alias">Auto program 3
+   <Alias Mode="27Ch" Channel="Strobe" With="Program Speed"/>
+  </Capability>
+  <Capability Min="70" Max="89" Preset="Alias">Auto program 4
+   <Alias Mode="27Ch" Channel="Strobe" With="Program Speed"/>
+  </Capability>
+  <Capability Min="90" Max="109" Preset="Alias">Auto program 5
+   <Alias Mode="27Ch" Channel="Strobe" With="Program Speed"/>
+  </Capability>
+  <Capability Min="110" Max="129" Preset="Alias">Auto program 6
+   <Alias Mode="27Ch" Channel="Strobe" With="Program Speed"/>
+  </Capability>
+  <Capability Min="130" Max="149" Preset="Alias">Auto program 7
+   <Alias Mode="27Ch" Channel="Strobe" With="Program Speed"/>
+  </Capability>
+  <Capability Min="150" Max="169" Preset="Alias">Auto program 8
+   <Alias Mode="27Ch" Channel="Strobe" With="Program Speed"/>
+  </Capability>
+  <Capability Min="170" Max="189" Preset="Alias">Auto program 9
+   <Alias Mode="27Ch" Channel="Strobe" With="Program Speed"/>
+  </Capability>
+  <Capability Min="190" Max="209" Preset="Alias">Auto program 10
+   <Alias Mode="27Ch" Channel="Strobe" With="Program Speed"/>
+  </Capability>
+  <Capability Min="210" Max="229" Preset="Alias">Auto program 11
+   <Alias Mode="27Ch" Channel="Strobe" With="Program Speed"/>
+  </Capability>
+  <Capability Min="230" Max="249" Preset="Alias">Auto program 12
+   <Alias Mode="27Ch" Channel="Strobe" With="Program Speed"/>
+  </Capability>
+  <Capability Min="250" Max="255" Preset="Alias">Sound-active program
+   <Alias Mode="27Ch" Channel="Strobe" With="Sound sensitivity"/>
+  </Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe. slow to fast</Capability>
+ </Channel>
+ <Channel Name="Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Program Speed, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Sound sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">Sound sensitivity OFF</Capability>
+  <Capability Min="11" Max="255">Sound sensitivity, low to high</Capability>
+ </Channel>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Amber 1" Preset="IntensityAmber"/>
+ <Channel Name="White 1" Preset="IntensityWhite"/>
+ <Channel Name="UV 1" Preset="IntensityUV"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Amber 2" Preset="IntensityAmber"/>
+ <Channel Name="White 2" Preset="IntensityWhite"/>
+ <Channel Name="UV 2" Preset="IntensityUV"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Amber 3" Preset="IntensityAmber"/>
+ <Channel Name="White 3" Preset="IntensityWhite"/>
+ <Channel Name="UV 3" Preset="IntensityUV"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="Amber 4" Preset="IntensityAmber"/>
+ <Channel Name="White 4" Preset="IntensityWhite"/>
+ <Channel Name="UV 4" Preset="IntensityUV"/>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Amber 1</Channel>
+  <Channel Number="4">White 1</Channel>
+  <Channel Number="5">UV 1</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Amber 1</Channel>
+  <Channel Number="4">White 1</Channel>
+  <Channel Number="5">UV 1</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Strobe</Channel>
+ </Mode>
+ <Mode Name="27 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="2635" ColourTemperature="0"/>
+   <Dimensions Weight="5.5" Width="1186" Height="305" Depth="51"/>
+   <Lens Name="Other" DegreesMin="16" DegreesMax="16"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Layout Width="4" Height="1"/>
+   <Technical PowerConsumption="94" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Automatic Program</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Red 1</Channel>
+  <Channel Number="4">Green 1</Channel>
+  <Channel Number="5">Blue 1</Channel>
+  <Channel Number="6">Amber 1</Channel>
+  <Channel Number="7">White 1</Channel>
+  <Channel Number="8">UV 1</Channel>
+  <Channel Number="9">Red 2</Channel>
+  <Channel Number="10">Green 2</Channel>
+  <Channel Number="11">Blue 2</Channel>
+  <Channel Number="12">Amber 2</Channel>
+  <Channel Number="13">White 2</Channel>
+  <Channel Number="14">UV 2</Channel>
+  <Channel Number="15">Red 3</Channel>
+  <Channel Number="16">Green 3</Channel>
+  <Channel Number="17">Blue 3</Channel>
+  <Channel Number="18">Amber 3</Channel>
+  <Channel Number="19">White 3</Channel>
+  <Channel Number="20">UV 3</Channel>
+  <Channel Number="21">Red 4</Channel>
+  <Channel Number="22">Green 4</Channel>
+  <Channel Number="23">Blue 4</Channel>
+  <Channel Number="24">Amber 4</Channel>
+  <Channel Number="25">White 4</Channel>
+  <Channel Number="26">UV 4</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="2635" ColourTemperature="0"/>
+  <Dimensions Weight="5.5" Width="1186" Height="305" Depth="51"/>
+  <Lens Name="Other" DegreesMin="16" DegreesMax="16"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="94" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

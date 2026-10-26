@@ -113,11 +113,11 @@ bool VCWidget::copyFrom(const VCWidget* widget)
     if (widget == nullptr)
         return false;
 
-    m_backgroundImage = widget->m_backgroundImage;
-
     m_hasCustomBackgroundColor = widget->m_hasCustomBackgroundColor;
     if (m_hasCustomBackgroundColor == true)
         setBackgroundColor(widget->backgroundColor());
+
+    m_backgroundImage = widget->m_backgroundImage;
 
     m_hasCustomForegroundColor = widget->m_hasCustomForegroundColor;
     if (m_hasCustomForegroundColor == true)
@@ -146,7 +146,7 @@ bool VCWidget::copyFrom(const VCWidget* widget)
         addInputSource(dst);
     }
 
-    QMapIterator<QKeySequence, quint32> it(m_keySequenceMap);
+    QMapIterator<QKeySequence, quint32> it(widget->m_keySequenceMap);
     while (it.hasNext())
     {
         it.next();
@@ -445,7 +445,6 @@ void VCWidget::setBackgroundImage(QString path)
 
     enqueueTardisAction(Tardis::VCWidgetBackgroundImage, m_backgroundImage, path);
 
-    m_hasCustomBackgroundColor = false;
     m_backgroundImage = path;
 
     emit backgroundImageChanged(path);
@@ -502,6 +501,9 @@ void VCWidget::setDefaultFontSize(qreal size)
 
 void VCWidget::setFont(const QFont& font)
 {
+    if (m_hasCustomFont && m_font == font)
+        return;
+
     m_hasCustomFont = true;
     enqueueTardisAction(Tardis::VCWidgetFont, m_font, font);
     m_font = font;

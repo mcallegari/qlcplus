@@ -1194,8 +1194,21 @@ void StageWizard::generate()
     // environment size and all fixture positions exactly as they are.
     if (hasNewGroups())
     {
-        m_doc->monitorProperties()->setStageType(
-            static_cast<MonitorProperties::StageType>(m_stageType));
+        // A fresh project has no 2D point of view yet. If it stays Undefined
+        // the 2D view pops up the POV dialog on first show and then re-converts
+        // the grid/positions we are about to write, scrambling the layout.
+        if (m_doc->monitorProperties()->pointOfView() == MonitorProperties::Undefined)
+            m_doc->monitorProperties()->setPointOfView(MonitorProperties::TopView);
+
+        // Go through MainView3D when available so the live stage entity (with
+        // its trusses) is rebuilt; writing MonitorProperties alone would leave
+        // the running 3D view showing the old stage.
+        MainView3D *view3D = m_contextManager ? m_contextManager->get3DView() : nullptr;
+        if (view3D != nullptr && view3D->isEnabled())
+            view3D->setStageIndex(m_stageType);
+        else
+            m_doc->monitorProperties()->setStageType(
+                static_cast<MonitorProperties::StageType>(m_stageType));
         // Route the grid size through ContextManager so the 2D/3D views update
         // too (writing MonitorProperties directly would leave the 2D grid stale).
         m_contextManager->setEnvironmentSize(m_envSize);

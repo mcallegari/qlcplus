@@ -26,6 +26,7 @@ class Doc;
 class Show;
 class Track;
 class Scene;
+class Fixture;
 
 class ShowRunner_Test final : public QObject
 {
@@ -37,9 +38,19 @@ private slots:
     void initRunner();
     void intensity();
     void stopRunner();
+    void sameFunctionConsecutiveItems();
+    void sameFunctionOverlappingItems();
+    void differentFunctionsConsecutiveItems();
+    void beatItemsWhenStartingMidway();
+
+private:
+    Scene *createScene();
+    Show *createShow(quint32 fid1, quint32 start1, quint32 fid2, quint32 start2, bool sameTrack);
+    int runningTicks(Show *show, Scene *scene, quint32 from, quint32 to, quint32 until);
 
 private:
     Doc *m_doc;
+    Fixture *m_fixture;
     Show *m_show;
     Track *m_track;
     Scene *m_scene;

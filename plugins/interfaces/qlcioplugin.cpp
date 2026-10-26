@@ -234,12 +234,36 @@ void QLCIOPlugin::removeFromMap(quint32 universe, quint32 line, QLCIOPlugin::Cap
  * RDM
  *************************************************************************/
 
-bool QLCIOPlugin::sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params)
+int QLCIOPlugin::rdmTransportFlags(quint32 universe, quint32 line)
 {
     Q_UNUSED(universe)
     Q_UNUSED(line)
-    Q_UNUSED(command)
-    Q_UNUSED(params)
+
+    return 0;
+}
+
+QByteArray QLCIOPlugin::rdmSourceUID(quint32 universe, quint32 line)
+{
+    Q_UNUSED(universe)
+    Q_UNUSED(line)
+
+    return QByteArray();
+}
+
+bool QLCIOPlugin::sendRDMFrame(quint32 universe, quint32 line, RDMFrameType type, const QByteArray &frame)
+{
+    Q_UNUSED(universe)
+    Q_UNUSED(line)
+    Q_UNUSED(type)
+    Q_UNUSED(frame)
+
+    return false;
+}
+
+bool QLCIOPlugin::requestRDMTod(quint32 universe, quint32 line)
+{
+    Q_UNUSED(universe)
+    Q_UNUSED(line)
 
     return false;
 }

@@ -61,12 +61,14 @@ quint32 Collection::totalDuration()
 {
     quint32 totalDuration = 0;
 
+    // the members of a Collection run in parallel,
+    // so the Collection lasts as long as the longest one
     foreach (QVariant fid, functions())
     {
         Function* function = doc()->function(fid.toUInt());
         if (function == nullptr)
             continue;
-        totalDuration += function->totalDuration();
+        totalDuration = qMax(totalDuration, function->totalDuration());
     }
 
     return totalDuration;

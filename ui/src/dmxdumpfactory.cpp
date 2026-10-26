@@ -155,7 +155,7 @@ void DmxDumpFactory::slotSelectSceneButtonClicked()
             Fixture *fxi = m_doc->fixture(scv.fxi);
             if (fxi == NULL)
                 continue;
-            quint32 absAddress = fxi->universeAddress() + scv.channel;
+            quint32 absAddress = fxi->channelAddress(scv.channel);
             if (chMask.length() > (int)absAddress)
                 chMask[absAddress] = 1;
         }
@@ -260,20 +260,20 @@ void DmxDumpFactory::accept()
             Fixture *fxi = m_doc->fixture(fxID);
             if (fxi != NULL)
             {
-                quint32 baseAddress = fxi->universeAddress();
                 for (int c = 0; c < fixItem->childCount(); c++)
                 {
                     QTreeWidgetItem *chanItem = fixItem->child(c);
                     quint32 channel = chanItem->data(KColumnName, PROP_CHANNEL).toUInt();
+                    quint32 absAddress = fxi->channelAddress(channel);
 
                     /* Skip fixtures patched outside of the existing universes */
-                    if (baseAddress + channel >= (quint32)dumpMask.size())
+                    if (absAddress >= (quint32)dumpMask.size())
                         continue;
 
                     if (m_dumpAllRadio->isChecked())
                     {
-                        dumpMask[baseAddress + channel] = 1;
-                        uchar value = preGMValues.at(baseAddress + channel);
+                        dumpMask[absAddress] = 1;
+                        uchar value = preGMValues.at(absAddress);
                         if (m_nonZeroCheck->isChecked() == false ||
                            (m_nonZeroCheck->isChecked() == true && value > 0))
                         {
@@ -283,11 +283,11 @@ void DmxDumpFactory::accept()
                     }
                     else
                     {
-                        //qDebug() << "Fix: " << fxID << "chan:" << channel << "addr:" << (baseAddress + channel);
+                        //qDebug() << "Fix: " << fxID << "chan:" << channel << "addr:" << absAddress;
                         if (chanItem->checkState(KColumnName) == Qt::Checked)
                         {
-                            dumpMask[baseAddress + channel] = 1;
-                            uchar value = preGMValues.at(baseAddress + channel);
+                            dumpMask[absAddress] = 1;
+                            uchar value = preGMValues.at(absAddress);
                             if (m_nonZeroCheck->isChecked() == false ||
                                (m_nonZeroCheck->isChecked() == true && value > 0))
                             {
@@ -296,7 +296,7 @@ void DmxDumpFactory::accept()
                             }
                         }
                         else
-                            dumpMask[baseAddress + channel] = 0;
+                            dumpMask[absAddress] = 0;
                     }
                 }
             }

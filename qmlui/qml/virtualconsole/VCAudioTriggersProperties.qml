@@ -115,7 +115,12 @@ Rectangle
                     {
                         Layout.fillWidth: true
                         height: gridItemsHeight
-                        value: widgetRef ? widgetRef.barsNumber - 1 : 0
+                        // AudioCapture accepts 1 to FREQ_SUBBANDS_MAX_NUMBER bands
+                        from: 1
+                        to: 32
+                        // fallback must be >= from, or CustomSpinBox's
+                        // onFromChanged overwrites (and breaks) this binding
+                        value: widgetRef ? widgetRef.barsNumber - 1 : 1
                         onValueModified: if (widgetRef) widgetRef.barsNumber = value + 1
                     }
 
@@ -127,7 +132,8 @@ Rectangle
                         Layout.fillWidth: true
                         clip: true
                         //implicitWidth: audioTriggerPropsColumn.width
-                        implicitHeight: count * gridItemsHeight
+                        // contentHeight includes the header and the double height rows
+                        implicitHeight: contentHeight
                         boundsBehavior: Flickable.StopAtBounds
                         headerPositioning: ListView.OverlayHeader
                         model: widgetRef ? widgetRef.barsInfo : null

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.4</Version>
+  <Author>Matt Carter</Author>
+ </Creator>
+ <Manufacturer>Ledj</Manufacturer>
+ <Model>Stage Par CZ200 3200K</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Strobe" Default="255">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31">No function</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe (slow-fast)</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Pulse strobe (slow-fast)</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe (slow-fast)</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Zoom speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="FastToSlow">Zoom speed (fast-slow)</Capability>
+ </Channel>
+ <Channel Name="Dimmer curve">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="50">Default (set on unit)</Capability>
+  <Capability Min="51" Max="100">Linear</Capability>
+  <Capability Min="101" Max="150">Square</Capability>
+  <Capability Min="151" Max="200">Inverse Square</Capability>
+  <Capability Min="201" Max="240">S-Curve</Capability>
+  <Capability Min="241" Max="250">No function</Capability>
+  <Capability Min="251" Max="255">Reset (hold 5 seconds)</Capability>
+ </Channel>
+ <Mode Name="2 channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Zoom</Channel>
+ </Mode>
+ <Mode Name="3 channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Zoom</Channel>
+  <Channel Number="2">Strobe</Channel>
+ </Mode>
+ <Mode Name="5 channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Zoom</Channel>
+  <Channel Number="2">Zoom speed</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Dimmer curve</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="13800" ColourTemperature="3200"/>
+  <Dimensions Weight="4.3" Width="275" Height="370" Depth="390"/>
+  <Lens Name="Other" DegreesMin="13" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="205" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

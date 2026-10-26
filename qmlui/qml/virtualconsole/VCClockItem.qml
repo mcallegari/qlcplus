@@ -99,10 +99,11 @@ VCWidgetItem
     Row
     {
         anchors.fill: parent
+        enabled: clockObj ? !clockObj.isDisabled : true
 
         Column
         {
-            width: parent.width - enableChk.width
+            width: parent.width - (enableChk.visible ? enableChk.width : 0)
             height: clockRoot.height
             spacing: 0
 
@@ -187,6 +188,7 @@ VCWidgetItem
         IconButton
         {
             id: enableChk
+            visible: clockObj ? clockObj.scheduleList.length > 0 : false
             anchors.verticalCenter: parent.verticalCenter
             height: Math.min(clockRoot.height, UISettings.iconSizeDefault)
             width: height

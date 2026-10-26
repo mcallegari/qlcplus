@@ -41,6 +41,8 @@ Rectangle
     property real tickSize: showManager.tickSize
     property int headerHeight: UISettings.iconSizeMedium
     property real xViewOffset: 0
+    property real vScrollBarWidth: showContents.ScrollBar.vertical && showContents.ScrollBar.vertical.visible ?
+                                   showContents.ScrollBar.vertical.width : 0
 
     property int showID: showManager.currentShowID
     property int selectedTrackIndex: -1
@@ -48,11 +50,51 @@ Rectangle
     onShowIDChanged: renderAndCenter()
     Component.onCompleted: renderAndCenter()
 
+    Connections
+    {
+        target: showManager
+        // page the timeline forward while the cursor line nears the right
+        // edge of the currently visible area, so playback stays in view
+        function onCurrentTimeChanged()
+        {
+            if (showManager.isPlaying)
+                followCursor()
+        }
+    }
+
     function centerView()
     {
         var xPos = TimeUtils.timeToSize(showManager.currentTime, timeScale, tickSize) - (timelineHeader.width / 2)
         if (xPos >= 0)
             xViewOffset = xPos
+    }
+
+    function cursorPixelX()
+    {
+        if (showManager.timeDivision === Show.Time)
+            return TimeUtils.timeToSize(showManager.currentTime, timeScale, tickSize)
+        else
+            return TimeUtils.timeToBeatPosition(showManager.currentTime, tickSize, ioManager.bpmNumber, showManager.beatsDivision)
+    }
+
+    // jumps xViewOffset forward by a page when the cursor gets within a
+    // small margin of the visible area's right edge. Left untouched
+    // otherwise, so manual scrolling/flicking during playback isn't fought
+    function followCursor()
+    {
+        var pageWidth = timelineHeader.width
+        if (pageWidth <= 0)
+            return
+
+        var cursorX = cursorPixelX()
+        var margin = pageWidth * 0.01
+        var rightEdge = xViewOffset + pageWidth
+
+        if (cursorX < rightEdge - margin)
+            return
+
+        var maxOffset = Math.max(0, timelineHeader.contentWidth - pageWidth)
+        xViewOffset = Math.min(maxOffset, Math.max(0, cursorX - margin))
     }
 
     function renderAndCenter()
@@ -317,6 +359,7 @@ Rectangle
 
             CustomComboBox
             {
+                id: timeDivisionCombo
                 model: [
                     { mLabel: qsTr("Time"), mValue: Show.Time },
                     { mLabel: qsTr("BPM 4/4"), mValue: Show.BPM_4_4 },
@@ -325,7 +368,45 @@ Rectangle
                 ]
                 enabled: showManager.isEditing
                 currValue: showManager.timeDivision
-                onValueChanged: showManager.timeDivision = currValue
+                onValueChanged:
+                {
+                    if (currValue !== Show.Time &&
+                            showManager.timeDivision === Show.Time &&
+                            showManager.hasBeatBasedItems())
+                    {
+                        beatAlignWarningPopup.pendingDivision = currValue
+                        beatAlignWarningPopup.open()
+                    }
+                    else
+                    {
+                        showManager.timeDivision = currValue
+                    }
+                }
+
+                CustomPopupDialog
+                {
+                    id: beatAlignWarningPopup
+                    title: qsTr("Switch to BPM markers")
+                    message: qsTr("Warning: all beat-based functions will be aligned to the nearest beat")
+                    standardButtons: Dialog.Ok | Dialog.Cancel
+
+                    property var pendingDivision: Show.Time
+
+                    // the OK/Cancel buttons only emit clicked(role) (see
+                    // CustomPopupDialog's footer), while accepted()/rejected()
+                    // only fire when confirming with the Enter key, so both
+                    // paths must be handled to cover mouse and keyboard
+                    onClicked: (role) =>
+                    {
+                        if (role === Dialog.Ok)
+                            showManager.timeDivision = pendingDivision
+                        else
+                            timeDivisionCombo.currValue = showManager.timeDivision
+                        close()
+                    }
+                    onAccepted: showManager.timeDivision = pendingDivision
+                    onRejected: timeDivisionCombo.currValue = showManager.timeDivision
+                }
             }
 
             ZoomItem
@@ -443,7 +524,13 @@ Rectangle
         y: topBar.height
         z: 4
         height: showMgrContainer.headerHeight
-        width: showMgrContainer.width - trackWidth - verticalDivider.width - rightPanel.width
+        // the right panel and the tracks column can together be wider than the
+        // Show Manager itself (a narrow window, a different screen density or a
+        // smaller UI scaling factor), which would make this width negative and
+        // hand HeaderAndCursor a zero or negative visibleWidth to divide by
+        // The vertical scrollbar of showContents, when displayed, covers the
+        // right edge of the timeline, so it must not count as visible area
+        width: Math.max(0, showMgrContainer.width - trackWidth - verticalDivider.width - rightPanel.width - vScrollBarWidth)
 
         boundsBehavior: Flickable.StopAtBounds
         flickableDirection: Flickable.HorizontalFlick

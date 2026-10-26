@@ -36,7 +36,9 @@
 #include <QPrinter>
 #include <QPainter>
 #include <QScreen>
+#include <QtMath>
 #include <QFileInfo>
+#include <QFileOpenEvent>
 #include <QDir>
 #include <unistd.h>
 
@@ -65,6 +67,7 @@
 
 #include "qlcfixturedefcache.h"
 #include "audioplugincache.h"
+#include "serviceloader.h"
 #include "rgbscriptscache.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
@@ -75,6 +78,19 @@
 #define KXMLQLCWorkspaceWindow QStringLiteral("CurrentWindow")
 
 #define MAX_RECENT_FILES    10
+
+/** Screen diagonal (in inches) at or below which the UI is considered
+ *  to be running on a small screen and needs to compact itself.
+ *  "7 inch" panels usually report between 7.0 and 7.9 inches */
+#define SMALL_SCREEN_INCHES 8.0
+
+/** Physical area (in millimeters, landscape) the UI needs to fit at scaling
+ *  factor 1.0. Smaller screens get an automatic scaling factor below 1.0 */
+#define UI_REFERENCE_WIDTH_MM   225.0
+#define UI_REFERENCE_HEIGHT_MM  125.0
+
+/** Lower bound of the automatic scaling factor, to keep text readable */
+#define UI_MIN_AUTO_SCALING     0.5
 
 /** Resolution multiplier applied when grabbing an item for printing.
  *  3x brings a screen resolution item close to a 300DPI page */
@@ -291,11 +307,15 @@ void App::startup()
 #endif
 
     slotScreenChanged(screen());
-    m_uiManager->initialize();
+    bool autoScaled = m_uiManager->initialize();
     m_showManager->initialize();
 
     // and here we go!
     setSource(QUrl("qrc:/MainView.qml"));
+
+    // inform the user when the UI has been scaled down to fit the screen
+    if (autoScaled)
+        QMetaObject::invokeMethod(rootObject(), "showScalingInfo");
 
     if (restoreWindowGeometry)
         setGeometry(rect);
@@ -366,6 +386,16 @@ qreal App::pixelDensity() const
     return m_pixelDensity;
 }
 
+qreal App::screenDiagonal() const
+{
+    return m_screenDiagonal;
+}
+
+bool App::smallScreen() const
+{
+    return m_screenDiagonal > 0 && m_screenDiagonal <= SMALL_SCREEN_INCHES;
+}
+
 int App::accessMask() const
 {
     return m_accessMask;
@@ -410,6 +440,16 @@ int App::defaultMask() const
 
 void App::keyPressEvent(QKeyEvent *e)
 {
+    // If a text input item (e.g. an inline name being edited) currently has
+    // focus, let it handle the key press first (e.g. Delete/Backspace to edit
+    // text) instead of triggering global shortcuts like function/item deletion
+    QQuickItem *focusItem = activeFocusItem();
+    if (focusItem && (focusItem->flags() & QQuickItem::ItemAcceptsInputMethod))
+    {
+        QQuickView::keyPressEvent(e);
+        return;
+    }
+
     if (m_contextManager)
         m_contextManager->handleKeyPress(e);
 
@@ -457,6 +497,26 @@ bool App::eventFilter(QObject *obj, QEvent *event)
             return true;
         }
     }
+    else if (event->type() == QEvent::FileOpen)
+    {
+        // On macOS, opening a .qxw/.qxf file from Finder (double click,
+        // "Open With", or a Dock drop) doesn't come in through argv: the OS
+        // delivers it as a FileOpen event to the application instead, which
+        // is why it needs to be caught here rather than in QCommandLineParser.
+        QFileOpenEvent *foe = static_cast<QFileOpenEvent *>(event);
+        QString filename = foe->file();
+        if (filename.isEmpty())
+            filename = foe->url().toLocalFile();
+
+        if (filename.isEmpty() == false)
+        {
+            if (filename.endsWith(KExtFixture))
+                loadFixture(filename);
+            else
+                loadWorkspace(filename);
+        }
+        return true;
+    }
 
     return QQuickView::eventFilter(obj, event);
 }
@@ -472,8 +532,50 @@ void App::slotScreenChanged(QScreen *screen)
                      screen->orientation() == Qt::InvertedLandscapeOrientation) ? true : false;
     qreal sSize = isLandscape ? screen->size().height() : screen->size().width();
     m_pixelDensity = qMax(screen->physicalDotsPerInch() *  0.039370, sSize / 220.0);
+
+    /* Determine the physical diagonal size of the screen, in inches.
+     * QScreen::physicalSize is the most accurate source, but some platforms
+     * (and virtual/remote displays) report a bogus or null size, so fall back
+     * to the pixel geometry divided by the reported DPI */
+    qreal diagonal = 0;
+    QSizeF physSize = screen->physicalSize();
+    if (physSize.width() > 1 && physSize.height() > 1)
+    {
+        // physicalSize is in millimeters
+        diagonal = qSqrt((physSize.width() * physSize.width()) +
+                         (physSize.height() * physSize.height())) / 25.4;
+    }
+    else if (screen->physicalDotsPerInch() > 0)
+    {
+        QSize pxSize = screen->size();
+        diagonal = qSqrt((qreal(pxSize.width()) * pxSize.width()) +
+                         (qreal(pxSize.height()) * pxSize.height())) / screen->physicalDotsPerInch();
+    }
+
+    // note: no qFuzzyCompare here, since m_screenDiagonal starts at 0
+    if (qAbs(diagonal - m_screenDiagonal) > 0.01)
+    {
+        m_screenDiagonal = diagonal;
+        emit screenDiagonalChanged();
+    }
+
+    /* UI sizes are expressed in millimeters (screenPixelDensity units), so whether
+     * the UI fits only depends on the physical size of the screen. Evaluate the
+     * factor that shrinks the reference area into the screen, never enlarging it.
+     * The UI is laid out in landscape, so compare the long and short sides */
+    QSize pxSize = screen->size();
+    qreal longMm = qMax(pxSize.width(), pxSize.height()) / m_pixelDensity;
+    qreal shortMm = qMin(pxSize.width(), pxSize.height()) / m_pixelDensity;
+    qreal autoScaling = qMin(longMm / UI_REFERENCE_WIDTH_MM, shortMm / UI_REFERENCE_HEIGHT_MM);
+    autoScaling = qRound(qBound(UI_MIN_AUTO_SCALING, autoScaling, 1.0) * 100.0) / 100.0;
+
+    if (m_uiManager)
+        m_uiManager->setDefaultScalingFactor(autoScaling);
+
     qDebug() << "Screen changed to" << screen->name() << ", pixel density:" << m_pixelDensity
-             << ", geometry:" << screen->size() << ", physical size:" << screen->physicalSize() << isLandscape;
+             << ", geometry:" << screen->size() << ", physical size:" << screen->physicalSize() << isLandscape
+             << ", diagonal (inches):" << m_screenDiagonal << ", small screen:" << smallScreen()
+             << ", auto scaling:" << autoScaling;
     rootContext()->setContextProperty("screenPixelDensity", m_pixelDensity);
 }
 
@@ -615,6 +717,13 @@ void App::initDoc()
      * otherwise the qlcconfig.h creation should have been moved into the
      * audio folder, which doesn't make much sense */
     m_doc->audioPluginCache()->load(QLCFile::systemDirectory(AUDIOPLUGINDIR, KExtPlugin));
+
+#if !defined(Q_OS_ANDROID) && !defined(Q_OS_IOS)
+    /* Load service plugins. They are optional and use the I/O plugins,
+     * so they must be loaded after them */
+    m_doc->serviceLoader()->load(ServiceLoader::systemServiceDirectory());
+#endif
+
     m_videoProvider = new VideoProvider(this, m_doc);
 
     Q_ASSERT(m_doc->inputOutputMap() != nullptr);
@@ -1008,8 +1117,9 @@ bool App::saveWorkspace(const QString &fileName)
     if (localFilename.startsWith("file:"))
         localFilename = QUrl(fileName).toLocalFile();
 
-    /* Always use the workspace suffix */
-    if (localFilename.right(4) != KExtWorkspace)
+    /* Always use the workspace suffix, except for Android content URIs
+       (the name is chosen in the system picker) */
+    if (!localFilename.startsWith("content:") && localFilename.right(4) != KExtWorkspace)
         localFilename += KExtWorkspace;
 
     /* Set the workspace path before saving the new XML. In this way local files

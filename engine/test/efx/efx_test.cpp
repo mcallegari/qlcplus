@@ -99,6 +99,21 @@ void EFX_Test::initial()
     QCOMPARE(e.m_legacyHoldBus, Bus::invalid());
 }
 
+void EFX_Test::loopDurationWithLongFadeIn()
+{
+    EFX e(m_doc);
+    e.setDuration(2000);
+
+    e.setFadeInSpeed(500);
+    QCOMPARE(e.loopDuration(), uint(1500));
+
+    // a fade in not shorter than the duration must not wrap around
+    e.setFadeInSpeed(3000);
+    QCOMPARE(e.loopDuration(), uint(2000));
+    e.setFadeInSpeed(2000);
+    QCOMPARE(e.loopDuration(), uint(2000));
+}
+
 void EFX_Test::algorithmNames()
 {
     QStringList list = EFX::algorithmList();
@@ -3410,6 +3425,64 @@ void EFX_Test::adjustIntensity()
     QList<Universe*> ua;
     ua.append(new Universe(0, new GrandMaster()));
     e->postRun(m_doc->masterTimer(), ua);
+}
+
+void EFX_Test::removeMultiHeadFixture()
+{
+    EFX *e = new EFX(m_doc);
+
+    for (int h = 0; h < 3; h++)
+    {
+        EFXFixture *ef = new EFXFixture(e);
+        ef->setHead(GroupHead(7, h));
+        QVERIFY(e->addFixture(ef));
+    }
+    EFXFixture *other = new EFXFixture(e);
+    other->setHead(GroupHead(8, 0));
+    QVERIFY(e->addFixture(other));
+    QCOMPARE(e->fixtures().size(), 4);
+
+    // every head of the removed fixture must go
+    e->slotFixtureRemoved(7);
+    QCOMPARE(e->fixtures().size(), 1);
+    QCOMPARE(e->fixtures().at(0), other);
+
+    delete e;
+}
+
+void EFX_Test::missingFixture()
+{
+    QList<Universe*> ua;
+    ua.append(new Universe(0, new GrandMaster()));
+    MasterTimerStub timer(m_doc, ua);
+
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC250+");
+    QLCFixtureMode* mode = def->mode("Mode 4");
+    Fixture* fxi = new Fixture(m_doc);
+    fxi->setFixtureDefinition(def, mode);
+    fxi->setAddress(0);
+    fxi->setUniverse(0);
+    m_doc->addFixture(fxi);
+
+    EFX *e = new EFX(m_doc);
+    m_doc->addFunction(e);
+
+    // an entry for a fixture that doesn't exist (e.g. it couldn't be loaded)
+    EFXFixture *missing = new EFXFixture(e);
+    missing->setHead(GroupHead(1234, 0));
+    QVERIFY(e->addFixture(missing));
+    QCOMPARE(missing->universe(), Universe::invalid());
+
+    EFXFixture *ef = new EFXFixture(e);
+    ef->setHead(GroupHead(fxi->id(), 0));
+    QVERIFY(e->addFixture(ef));
+
+    // it is skipped, and the other fixture still runs
+    e->preRun(&timer);
+    for (int i = 0; i < 10; i++)
+        e->write(&timer, ua);
+    QCOMPARE(ef->m_elapsed, uint(10 * MasterTimer::tick()));
+    e->postRun(&timer, ua);
 }
 
 QTEST_APPLESS_MAIN(EFX_Test)

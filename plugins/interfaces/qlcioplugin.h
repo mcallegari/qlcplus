@@ -404,30 +404,56 @@ protected:
     QMap<quint32, PluginUniverseDescriptor> m_universesMap;
 
     /*************************************************************************
-     * RDM
+     * RDM raw frame transport
+     *
+     * A plugin with the RDM capability only carries opaque RDM frames. It
+     * doesn't interpret them: building and parsing the E1.20 frames is the
+     * job of the RDM service.
+     * A frame always is a complete E1.20 frame: start code (0xCC) included
+     * and checksum included. A transport which doesn't carry the start code
+     * on the wire (e.g. ArtNet) strips/restores it by itself.
      *************************************************************************/
 public:
-    /**
-     * Send a RDM command. If the plugin doesn't support the RDM
-     * capability, this function will return an empty result and result == false.
-     *
-     * @param result a true/false outcome for this function
-     * @param line the line to be used for RDM transmission
-     * @param command The RDM command to send (discovery, get, set, etc)
-     * @param params A list of parameters specific to the command
-     * @return a map of <key,value> results depending on the command sent
-     */
-    virtual bool sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params);
+    /** Kind of frame passed to sendRDMFrame */
+    enum RDMFrameType
+    {
+        RDMDiscovery = 0,   //! discovery class command (unique branch, mute, unmute)
+        RDMRequest          //! get/set class command
+    };
+
+    /** How the RDM service has to drive a line */
+    enum RDMTransportFlag
+    {
+        RDMRawDiscovery = 1 << 0, //! discovery is done by sending DISC_UNIQUE_BRANCH frames and reading raw replies
+        RDMTodDiscovery = 1 << 1, //! discovery is done by requestRDMTod(), the transport returns the UID list
+        RDMNeedsMute    = 1 << 2  //! mute/unmute frames are needed (and carried) on this line
+    };
+
+    /** Get the RDMTransportFlag bits of the given line. 0 if RDM is not supported */
+    virtual int rdmTransportFlags(quint32 universe, quint32 line);
+
+    /** Get the 6 bytes UID to be used as source UID of the frames sent on the
+     *  given line, or an empty array if the RDM service has to choose one */
+    virtual QByteArray rdmSourceUID(quint32 universe, quint32 line);
+
+    /** Send a complete RDM frame. The reply is notified by rdmFrameReceived
+     *  or rdmTimeout. @return false if the frame could not be queued */
+    virtual bool sendRDMFrame(quint32 universe, quint32 line, RDMFrameType type, const QByteArray &frame);
+
+    /** Request the table of devices (TOD) to the line (RDMTodDiscovery lines only).
+     *  The reply is notified by rdmTodReceived. @return false if not supported */
+    virtual bool requestRDMTod(quint32 universe, quint32 line);
 
 signals:
-    /**
-     * Notify the listeners that some RDM information has been processed
-     *
-     * @param universe the universe associated to the RDM data read
-     * @param line the plugin line associated to the RDM data read
-     * @param data
-     */
-    void rdmValueChanged(quint32 universe, quint32 line, QVariantMap data);
+    /** A raw RDM frame has been received from the given line */
+    void rdmFrameReceived(quint32 universe, quint32 line, QByteArray frame);
+
+    /** A table of devices has been received. @param uids N * 6 bytes UIDs, big endian */
+    void rdmTodReceived(quint32 universe, quint32 line, QByteArray uids);
+
+    /** No reply was received to a frame sent with sendRDMFrame/requestRDMTod
+     *  @param type the RDMFrameType of the frame, or -1 for a TOD request */
+    void rdmTimeout(quint32 universe, quint32 line, int type);
 };
 
 #define QLCIOPlugin_iid "org.qlcplus.QLCIOPlugin"

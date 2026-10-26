@@ -118,7 +118,7 @@ Flickable
 
         function getItemIcon(itemID, chNumber)
         {
-            return fixtureManager.channelIcon(itemID, chNumber)
+            return fixtureManager.channelIcon(itemID, chNumber + fixtureManager.universeChannelOffset(itemID))
         }
 
         function getTooltip(xPos, yPos)

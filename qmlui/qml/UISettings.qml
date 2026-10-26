@@ -74,6 +74,14 @@ QtObject
        first visible channel (survives context changes) */
     property int simpleDeskScrollIndex: 0
 
+    /* True while an in-app QML drag (channels, functions, fixtures, VC
+       widgets...) is in progress anywhere in the UI. MainView's full-window
+       fileDropArea (used for OS file drag & drop) watches this to get out of
+       the way: being a high z, full-window overlay, it would otherwise
+       always win Qt's drag hit test over any nested DropArea underneath it
+       and starve it of position updates, regardless of "keys" filtering. */
+    property bool internalDragActive: false
+
     /* Channel properties column widths */
     property real chPropsModesWidth: bigItemHeight * 1.2
     property real chPropsFlagsWidth: bigItemHeight * 1.3

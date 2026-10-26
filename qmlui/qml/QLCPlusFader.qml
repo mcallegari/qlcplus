@@ -36,6 +36,7 @@ Slider
     property Gradient handleGradient: defaultGradient
     property Gradient handleGradientHover: defaultGradientHover
     property color trackColor: defaultTrackColor
+    property real scaleFactor: 1.0
 
     property color defaultTrackColor: "#38b0ff"
     property Gradient defaultGradient:
@@ -84,8 +85,9 @@ Slider
         {
             y: slider.leftPadding + slider.visualPosition * (slider.availableHeight - height)
             x: slider.topPadding + slider.availableWidth / 2 - width / 2
-            implicitHeight: Math.min(slider.width, UISettings.iconSizeDefault * 0.75)
-            implicitWidth: Math.min(UISettings.iconSizeDefault, slider.width)
+            // shrink to fit the available width, up to the default size
+            implicitWidth: Math.min(UISettings.iconSizeDefault * slider.scaleFactor, slider.width)
+            implicitHeight: implicitWidth * 0.75
             gradient: pressed ? handleGradientHover : handleGradient
             border.color: "#5c5c5c"
             border.width: 1

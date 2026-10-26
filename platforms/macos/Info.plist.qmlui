@@ -23,6 +23,9 @@
 	<key>CFBundleName</key>
 	<string>Q Light Controller Plus</string>
 
+	<key>CFBundleIdentifier</key>
+	<string>org.qlcplus.macos</string>
+
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 

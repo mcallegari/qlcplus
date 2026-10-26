@@ -93,6 +93,21 @@ VCWidgetItem
     {
         id: itemsLayout
         anchors.fill: parent
+        enabled: animationObj ? !animationObj.isDisabled : true
+
+        // color tools are reparented to the page, so hide them explicitly
+        onEnabledChanged:
+        {
+            if (enabled)
+                return
+
+            for (var i = 0; i < colorsRepeater.count; i++)
+            {
+                var repItem = colorsRepeater.itemAt(i)
+                if (repItem && repItem.colorTool)
+                    repItem.colorTool.visible = false
+            }
+        }
 
         columns: levelFader.visible ? 2 : 1
 

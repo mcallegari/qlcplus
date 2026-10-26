@@ -147,8 +147,13 @@ public:
     /** Is the UDP socket capable of receiving packets ? */
     bool socketBound() const;
 
-    /** Send a RDM command */
-    bool sendRDMCommand(const quint32 universe, uchar command, QVariantList params);
+    /** Send a complete RDM frame (start code included) as ArtRdm.
+     *  Discovery class frames are not carried: ArtNet gateways run the discovery
+     *  by themselves and expose the result through requestRDMTod() */
+    bool sendRDMFrame(const quint32 universe, int type, const QByteArray &frame);
+
+    /** Send an ArtTodRequest for the given universe */
+    bool requestRDMTod(const quint32 universe);
 
 private:
     /** The network interface associated to this controller */
@@ -217,7 +222,9 @@ protected slots:
 signals:
     void valueChanged(quint32 universe, quint32 input, quint32 channel, uchar value);
 
-    void rdmValueChanged(quint32 universe, quint32 line, QVariantMap data);
+    void rdmFrameReceived(quint32 universe, quint32 line, QByteArray frame);
+
+    void rdmTodReceived(quint32 universe, quint32 line, QByteArray uids);
 };
 
 #endif

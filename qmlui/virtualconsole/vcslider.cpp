@@ -124,7 +124,7 @@ VCSlider::~VCSlider()
     removeActiveFaders();
 
     if (m_item)
-        delete m_item;
+        delete m_item.data();
 }
 
 QString VCSlider::defaultCaption() const
@@ -156,6 +156,8 @@ void VCSlider::render(QQuickView *view, QQuickItem *parent)
         return;
     }
 
+    // release the item of a previous rendering (e.g. VC page reloaded)
+    delete m_item.data();
     m_item = qobject_cast<QQuickItem*>(component->create());
     if (m_item == nullptr)
         qWarning() << Q_FUNC_INFO << "Unable to create slider component" << component->errors();
@@ -210,14 +212,21 @@ bool VCSlider::copyFrom(const VCWidget *widget)
     /* Copy widget style */
     setWidgetStyle(slider->widgetStyle());
 
+    /* Copy mode first, since it resets range, attribute and other features */
+    setSliderMode(slider->sliderMode());
+
+    /* Copy adjust stuff. The attribute must be set after the function,
+     * and the range after the attribute, since they reset each other */
+    setControlledFunction(slider->controlledFunction());
+    setControlledAttribute(slider->controlledAttribute());
+    setAdjustFlashEnabled(slider->adjustFlashEnabled());
+
     /* Copy level stuff */
     setRangeLowLimit(slider->rangeLowLimit());
     setRangeHighLimit(slider->rangeHighLimit());
     for (SceneValue scv : slider->levelChannels())
         addLevelChannel(scv.fxi, scv.channel);
-
-    /* Copy playback stuff */
-    setControlledFunction(slider->controlledFunction());
+    emit channelsCountChanged();
 
     /* Copy slider appearance */
     setValueDisplayStyle(slider->valueDisplayStyle());
@@ -226,13 +235,19 @@ bool VCSlider::copyFrom(const VCWidget *widget)
 
     /* Copy Click & Go feature */
     setClickAndGoType(slider->clickAndGoType());
-
-    /* Copy mode & current value */
-    setSliderMode(slider->sliderMode());
-    setValue(slider->value(), false, false);
+    m_cngPrimaryColor = slider->m_cngPrimaryColor;
+    m_cngSecondaryColor = slider->m_cngSecondaryColor;
+    m_cngResource = slider->m_cngResource;
+    emit cngPrimaryColorChanged(m_cngPrimaryColor);
+    emit cngSecondaryColorChanged(m_cngSecondaryColor);
+    emit cngPresetResourceChanged();
+    emit clickAndGoPresetsListChanged();
 
     /* Copy monitor mode */
     setMonitorEnabled(slider->monitorEnabled());
+
+    /* Copy current value */
+    setValue(slider->value(), false, false);
 
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
@@ -869,6 +884,10 @@ QString VCSlider::cngPresetResource() const
 
 void VCSlider::setClickAndGoColors(QColor rgb, QColor wauv)
 {
+    Tardis::instance()->enqueueAction(Tardis::VCSliderSetClickAndGoColors, id(),
+                                      QVariantList({ m_cngPrimaryColor, m_cngSecondaryColor }),
+                                      QVariantList({ rgb, wauv }));
+
     m_cngPrimaryColor = rgb;
     m_cngSecondaryColor = wauv;
 
@@ -1300,8 +1319,10 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
                 if (qlcch == nullptr)
                     continue;
 
-                quint32 dmx_ch = fxi->address() + scv.channel;
-                int uni = fxi->universe();
+                // a cross-universe fixture channel may belong to a following universe
+                quint32 absAddress = fxi->channelAddress(scv.channel);
+                quint32 dmx_ch = absAddress & 0x01FF;
+                int uni = absAddress >> 9;
                 if (uni < universes.count())
                 {
                     uchar chValue = universes[uni]->preGMValue(dmx_ch);
