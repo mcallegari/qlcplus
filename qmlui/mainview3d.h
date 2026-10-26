@@ -126,6 +126,7 @@ class MainView3D final : public PreviewContext
     Q_PROPERTY(QVector3D genericItemsPosition READ genericItemsPosition WRITE setGenericItemsPosition NOTIFY genericItemsPositionChanged)
     Q_PROPERTY(QVector3D genericItemsRotation READ genericItemsRotation WRITE setGenericItemsRotation NOTIFY genericItemsRotationChanged)
     Q_PROPERTY(QVector3D genericItemsScale READ genericItemsScale WRITE setGenericItemsScale NOTIFY genericItemsScaleChanged)
+    Q_PROPERTY(bool scaleLocked READ scaleLocked WRITE setScaleLocked NOTIFY scaleLockedChanged)
     Q_PROPERTY(QString genericItemsName READ genericItemsName WRITE setGenericItemsName NOTIFY genericItemsNameChanged)
     Q_PROPERTY(QColor genericItemsColor READ genericItemsColor WRITE setGenericItemsColor NOTIFY genericItemsColorChanged)
 
@@ -213,6 +214,12 @@ protected slots:
     void slotFrameProcessed();
 
 private:
+    /** Apply the FPS counter enabled state to the running scene (attach/detach
+     *  the QFrameAction, reset counters, notify QML). Unlike setFrameCountEnabled()
+     *  this does not persist the value nor mark the project modified, so it is
+     *  safe to call while loading a project. */
+    void applyFrameCountEnabled(bool enable);
+
     /** Create the QFrameAction (if needed) and attach it to the current
      *  scene root entity. Called both when the user enables the FPS counter
      *  and whenever the 3D scene is (re)initialized, so the setting survives
@@ -443,6 +450,12 @@ public:
     QVector3D genericItemsScale() const;
     void setGenericItemsScale(QVector3D scale);
 
+    /** Get/Set whether the "Scale" X/Y/Z fields of the 3D view settings panel
+     *  are locked together. Stored in MonitorProperties, so the choice survives
+     *  a view switch and is saved in the project */
+    bool scaleLocked() const;
+    void setScaleLocked(bool locked);
+
     /** Get/Set the custom name of the selected generic item.
      *  Only meaningful when exactly one item is selected */
     void updateGenericItemName(quint32 itemID, QString name);
@@ -478,6 +491,7 @@ signals:
     void genericItemsPositionChanged();
     void genericItemsRotationChanged();
     void genericItemsScaleChanged();
+    void scaleLockedChanged();
     void genericItemsNameChanged();
     void genericItemsColorChanged();
     void position3DMarkerChanged();
@@ -550,6 +564,11 @@ public:
 
 protected:
     void createStage();
+
+    /** Re-apply the "Rendering" settings persisted in the project (MonitorProperties)
+     *  to the running scene and notify the QML side. Called on project load /
+     *  when the 3D view becomes visible. Does not mark the project modified. */
+    void applyRenderSettings();
     QVector3D unprojectToWorld(const float &aspect, const QVector2D &ndcMousePos) const;
     bool rayIntersectsAABB(const QVector3D &rayOrigin, const QVector3D &rayDir,
                            const QVector3D &center, const QVector3D &extents, float &hitDistance) const;
@@ -564,7 +583,10 @@ signals:
     void smokeAmountChanged(float smokeAmount);
 
 private:
-    RenderQuality m_renderQuality;
+    /* The "Rendering" settings (quality, ambient light, smoke, show FPS) are
+       stored in the project through MonitorProperties (m_monProps), so they
+       persist in the workspace file. The getters/setters below proxy to it,
+       the same way stageIndex() does. */
 
     QStringList m_stagesList;
     QStringList m_stageResourceList;
@@ -572,12 +594,6 @@ private:
     /** Reference to the selected stage Entity.
      *  Parented to the scene root entity, so guarded */
     QPointer<QEntity> m_stageEntity;
-
-    /** Ambient light amount (0.0 - 1.0) */
-    float m_ambientIntensity;
-
-    /** Smoke amount (0.0 - 1.0) */
-    float m_smokeAmount;
 };
 
 #endif // MAINVIEW3D_H
