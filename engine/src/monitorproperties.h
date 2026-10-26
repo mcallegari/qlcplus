@@ -137,6 +137,43 @@ private:
     StageType m_stageType;
 
     /********************************************************************
+     * 3D View rendering
+     ********************************************************************/
+public:
+    /** Get/Set the 3D view render quality. The value matches the
+     *  MainView3D::RenderQuality enum (0 = Low ... 3 = Ultra) */
+    inline void setRenderQuality(int quality) { m_renderQuality = quality; }
+    inline int renderQuality() const { return m_renderQuality; }
+
+    /** Get/Set the 3D view ambient light intensity (0.0 - 1.0) */
+    inline void setAmbientLightIntensity(qreal intensity) { m_ambientLightIntensity = intensity; }
+    inline qreal ambientLightIntensity() const { return m_ambientLightIntensity; }
+
+    /** Get/Set the 3D view smoke/haze amount (0.0 - 1.0) */
+    inline void setSmokeAmount(qreal amount) { m_smokeAmount = amount; }
+    inline qreal smokeAmount() const { return m_smokeAmount; }
+
+    /** Get/Set the 3D view fixture light intensity: a global multiplier on the
+     *  light fixtures cast on surfaces (1.0 = unscaled). Ambient light governs
+     *  how bright the set is on its own, so this is what sets the balance
+     *  between the two when a rig has enough fixtures to wash the stage out.
+     *  The volumetric beams in the air are not affected: those are already
+     *  scaled by the smoke amount. */
+    inline void setFixtureLightIntensity(qreal intensity) { m_fixtureLightIntensity = intensity; }
+    inline qreal fixtureLightIntensity() const { return m_fixtureLightIntensity; }
+
+    /** Get/Set whether the 3D view FPS counter overlay is shown */
+    inline void setShowFPS(bool show) { m_showFPS = show; }
+    inline bool showFPS() const { return m_showFPS; }
+
+private:
+    int m_renderQuality;
+    qreal m_ambientLightIntensity;
+    qreal m_smokeAmount;
+    qreal m_fixtureLightIntensity;
+    bool m_showFPS;
+
+    /********************************************************************
      * Items flags
      ********************************************************************/
 public:

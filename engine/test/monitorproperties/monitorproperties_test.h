@@ -31,6 +31,7 @@ private slots:
     void fixtureItems();
     void lightItems();
     void lightItemsXML();
+    void renderSettingsXML();
     void genericItems();
     void reset();
 };
