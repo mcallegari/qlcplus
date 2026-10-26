@@ -101,6 +101,7 @@ public:
     int positionCount() const { return m_positionCount; }
     int position3DCount() const { return m_position3DCount; }
 
+public slots:
     void updatePaletteList();
 
 signals:

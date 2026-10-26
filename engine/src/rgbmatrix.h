@@ -170,6 +170,10 @@ public:
     /** @reimp */
     QList<quint32> components() const override;
 
+private slots:
+    /** Forget the Fixture Group when it gets deleted */
+    void slotFixtureGroupRemoved(quint32 id);
+
 private:
     quint32 m_fixtureGroupID;
     FixtureGroup *m_group;

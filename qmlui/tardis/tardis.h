@@ -77,6 +77,8 @@ public:
         GenericItemSetPosition,
         GenericItemSetRotation,
         GenericItemSetScale,
+        GenericItemSetName,
+        GenericItemSetColor,
 
         /* Input/Output mapping actions */
         IOAddUniverse = 0x0100,
@@ -234,6 +236,7 @@ public:
 
         VCSliderSetValue = LIVE_ACTIONS_START_CODE + 0x300,
         VCSliderButtonPress,
+        VCSliderSetClickAndGoColors,
 
         VCCueListPlayClicked = LIVE_ACTIONS_START_CODE + 0x400,
         VCCueListStopClicked,
@@ -265,6 +268,8 @@ public:
         VCAnimationSetColor4,
         VCAnimationSetColor5,
         VCAnimationActivatePreset,
+
+        VCFrameSetDisabled = LIVE_ACTIONS_START_CODE + 0xA00,
 
         /* Network protocol actions */
         NetAnnounce = 0xFF00,

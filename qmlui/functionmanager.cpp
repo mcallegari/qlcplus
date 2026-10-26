@@ -1477,13 +1477,16 @@ void FunctionManager::dumpDmxValues(QList<SceneValue> dumpValues, QList<quint32>
     QList<SceneValue> dumpedValues;
     for (Fixture *fixture : fixtureList)
     {
-        quint32 baseAddress = fixture->universeAddress();
-
         for (quint32 chIndex = 0; chIndex < fixture->channels(); chIndex++)
         {
+            // cross-universe fixtures channels may not be contiguous
+            quint32 absAddress = fixture->channelAddress(chIndex);
+            if (absAddress >= quint32(preGMValues.size()))
+                continue;
+
             if (allChannels)
             {
-                uchar value = preGMValues.at(baseAddress + chIndex);
+                uchar value = preGMValues.at(absAddress);
                 if (!nonZeroOnly || (nonZeroOnly && value > 0))
                 {
                     SceneValue scv(fixture->id(), chIndex, value);
@@ -1513,7 +1516,7 @@ void FunctionManager::dumpDmxValues(QList<SceneValue> dumpValues, QList<quint32>
 
                 if (channelMask & chTypeBit)
                 {
-                    uchar value = preGMValues.at(baseAddress + chIndex);
+                    uchar value = preGMValues.at(absAddress);
                     SceneValue scv(fixture->id(), chIndex, value);
                     int matchVal = dumpValues.indexOf(scv);
                     if (matchVal != -1)

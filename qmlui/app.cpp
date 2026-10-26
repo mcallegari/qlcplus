@@ -1128,8 +1128,9 @@ bool App::saveWorkspace(const QString &fileName)
     if (localFilename.startsWith("file:"))
         localFilename = QUrl(fileName).toLocalFile();
 
-    /* Always use the workspace suffix */
-    if (localFilename.right(4) != KExtWorkspace)
+    /* Always use the workspace suffix, except for Android content URIs
+       (the name is chosen in the system picker) */
+    if (!localFilename.startsWith("content:") && localFilename.right(4) != KExtWorkspace)
         localFilename += KExtWorkspace;
 
     /* Set the workspace path before saving the new XML. In this way local files

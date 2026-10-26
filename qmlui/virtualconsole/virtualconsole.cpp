@@ -597,14 +597,16 @@ void VirtualConsole::setWidgetSelection(quint32 wID, QQuickItem *item, bool enab
     if (multi == false)
     {
         // disable any previously selected widget
-        QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+        QMapIterator<quint32, QPointer<QQuickItem>> it(m_itemsMap);
         while (it.hasNext())
         {
             it.next();
             QQuickItem *uiWidget = it.value();
-            vcWidget = m_widgetsMap[it.key()];
-            uiWidget->setProperty("isSelected", false);
-            vcWidget->setIsEditing(false);
+            if (uiWidget != nullptr)
+                uiWidget->setProperty("isSelected", false);
+            vcWidget = m_widgetsMap.value(it.key());
+            if (vcWidget != nullptr)
+                vcWidget->setIsEditing(false);
         }
         m_itemsMap.clear();
     }
@@ -614,7 +616,7 @@ void VirtualConsole::setWidgetSelection(quint32 wID, QQuickItem *item, bool enab
         if (item != nullptr)
             m_itemsMap[wID] = item;
 
-        vcWidget = m_widgetsMap[wID];
+        vcWidget = m_widgetsMap.value(wID);
 
         if (vcWidget != nullptr)
             vcWidget->setIsEditing(true);
@@ -626,7 +628,7 @@ void VirtualConsole::setWidgetSelection(quint32 wID, QQuickItem *item, bool enab
     {
         m_itemsMap.remove(wID);
 
-        vcWidget = m_widgetsMap[wID];
+        vcWidget = m_widgetsMap.value(wID);
 
         if (vcWidget != nullptr)
             vcWidget->setIsEditing(false);
@@ -637,8 +639,11 @@ void VirtualConsole::setWidgetSelection(quint32 wID, QQuickItem *item, bool enab
 
 void VirtualConsole::resetWidgetSelection()
 {
-    foreach (QQuickItem *widget, m_itemsMap)
-        widget->setProperty("isSelected", false);
+    for (const QPointer<QQuickItem> &widget : std::as_const(m_itemsMap))
+    {
+        if (widget)
+            widget->setProperty("isSelected", false);
+    }
     m_itemsMap.clear();
 
     emit selectedWidgetChanged();
@@ -650,10 +655,10 @@ QStringList VirtualConsole::selectedWidgetNames() const
     QStringList names;
 
     {
-        QMap<quint32, QQuickItem*>::const_iterator it = m_itemsMap.begin();
-        for (; it != m_itemsMap.end(); it++)
+        auto it = m_itemsMap.constBegin();
+        for (; it != m_itemsMap.constEnd(); it++)
         {
-            VCWidget *vcWidget = m_widgetsMap[it.key()];
+            VCWidget *vcWidget = m_widgetsMap.value(it.key());
             if (vcWidget != nullptr)
             {
                 if (vcWidget->caption().isEmpty())
@@ -676,8 +681,8 @@ QVariantList VirtualConsole::selectedWidgetIDs() const
 {
     QVariantList ids;
 
-    QMap<quint32, QQuickItem*>::const_iterator it = m_itemsMap.begin();
-    for (; it != m_itemsMap.end(); it++)
+    auto it = m_itemsMap.constBegin();
+    for (; it != m_itemsMap.constEnd(); it++)
     {
         ids << it.key();
     }
@@ -747,12 +752,14 @@ void VirtualConsole::setWidgetsAlignment(VCWidget *refWidget, int alignment)
 
     QRectF refGeom = refWidget->geometry();
 
-    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    QMapIterator<quint32, QPointer<QQuickItem>> it(m_itemsMap);
     while (it.hasNext())
     {
         it.next();
 
-        VCWidget *widget = m_widgetsMap[it.key()];
+        VCWidget *widget = m_widgetsMap.value(it.key());
+        if (widget == nullptr)
+            continue;
         QRectF wGeom = widget->geometry();
 
         switch(alignment)
@@ -800,12 +807,14 @@ void VirtualConsole::setWidgetsDistribution(int direction)
      * 2- sort the widgets from the leftmost/topmost item
      * 3- detect the minimum and maximum items position
      */
-    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    QMapIterator<quint32, QPointer<QQuickItem>> it(m_itemsMap);
     while (it.hasNext())
     {
         it.next();
 
-        VCWidget *widget = m_widgetsMap[it.key()];
+        VCWidget *widget = m_widgetsMap.value(it.key());
+        if (widget == nullptr)
+            continue;
         QRectF wGeom = widget->geometry();
         qreal pos = direction == Qt::Horizontal ? wGeom.x() : wGeom.y();
         qreal size = direction == Qt::Horizontal ? wGeom.width() : wGeom.height();
@@ -838,6 +847,10 @@ void VirtualConsole::setWidgetsDistribution(int direction)
             min = pos;
     }
 
+    // stale selection entries are skipped, so check again what's left
+    if (sortedWidgets.count() < 3)
+        return;
+
     gap = ((max - min) - widgetsSize) / (sortedWidgets.count() - 1);
 
     qreal newPos = min;
@@ -863,60 +876,70 @@ void VirtualConsole::setWidgetsDistribution(int direction)
 
 void VirtualConsole::setWidgetsCaption(QString caption)
 {
-    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    QMapIterator<quint32, QPointer<QQuickItem>> it(m_itemsMap);
     while (it.hasNext())
     {
         it.next();
 
-        VCWidget *widget = m_widgetsMap[it.key()];
+        VCWidget *widget = m_widgetsMap.value(it.key());
+        if (widget == nullptr)
+            continue;
         widget->setCaption(caption);
     }
 }
 
 void VirtualConsole::setWidgetsForegroundColor(QColor color)
 {
-    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    QMapIterator<quint32, QPointer<QQuickItem>> it(m_itemsMap);
     while (it.hasNext())
     {
         it.next();
 
-        VCWidget *widget = m_widgetsMap[it.key()];
+        VCWidget *widget = m_widgetsMap.value(it.key());
+        if (widget == nullptr)
+            continue;
         widget->setForegroundColor(color);
     }
 }
 
 void VirtualConsole::setWidgetsBackgroundColor(QColor color)
 {
-    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    QMapIterator<quint32, QPointer<QQuickItem>> it(m_itemsMap);
     while (it.hasNext())
     {
         it.next();
 
-        VCWidget *widget = m_widgetsMap[it.key()];
+        VCWidget *widget = m_widgetsMap.value(it.key());
+        if (widget == nullptr)
+            continue;
         widget->setBackgroundColor(color);
     }
 }
 
 void VirtualConsole::setWidgetsBackgroundImage(QString path)
 {
-    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    QMapIterator<quint32, QPointer<QQuickItem>> it(m_itemsMap);
     while (it.hasNext())
     {
         it.next();
 
-        VCWidget *widget = m_widgetsMap[it.key()];
+        VCWidget *widget = m_widgetsMap.value(it.key());
+        if (widget == nullptr)
+            continue;
         widget->setBackgroundImage(path);
     }
 }
 
 void VirtualConsole::setWidgetsFont(QFont font)
 {
-    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    QMapIterator<quint32, QPointer<QQuickItem>> it(m_itemsMap);
     while (it.hasNext())
     {
         it.next();
 
-        VCWidget *widget = m_widgetsMap[it.key()];
+        VCWidget *widget = m_widgetsMap.value(it.key());
+        if (widget == nullptr)
+            continue;
         widget->setFont(font);
     }
 }
@@ -975,7 +998,7 @@ VCWidget *VirtualConsole::selectedWidget() const
     if (m_itemsMap.isEmpty())
         return qobject_cast<VCWidget *>(m_pages.at(m_selectedPage));
 
-    return m_widgetsMap[m_itemsMap.firstKey()];
+    return m_widgetsMap.value(m_itemsMap.firstKey(), nullptr);
 }
 
 void VirtualConsole::requestAddMatrixPopup(VCFrame *frame, QQuickItem *parent, QString widgetType, QPoint pos)
@@ -1047,12 +1070,14 @@ void VirtualConsole::pasteFromClipboard()
     QQuickItem *renderParent = nullptr;
     QPoint currPos(0, 0);
 
-    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    QMapIterator<quint32, QPointer<QQuickItem>> it(m_itemsMap);
     while (it.hasNext())
     {
         it.next();
 
-        VCWidget *widget = m_widgetsMap[it.key()];
+        VCWidget *widget = m_widgetsMap.value(it.key());
+        if (widget == nullptr)
+            continue;
         if (widget->type() == VCWidget::FrameWidget ||
             widget->type() == VCWidget::SoloFrameWidget)
         {

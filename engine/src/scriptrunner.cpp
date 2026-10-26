@@ -454,15 +454,16 @@ bool ScriptRunner::setFixture(quint32 fxID, quint32 channel, uchar value, uint t
     }
 
     int address = fxi->address() + channel;
-    if (address >= 512)
+    if (fxi->crossUniverse() == Fixture::CrossUniverseNone && address >= 512)
     {
         qWarning() << QString("Invalid address: %1").arg(address);
         return false;
     }
 
-    // enqueue this fixture value to be processed at the next write call
+    // enqueue this fixture value to be processed at the next write call.
+    // A cross-universe fixture channel may belong to a following universe
     FixtureValue val;
-    val.m_universe = fxi->universe();
+    val.m_universe = fxi->channelAddress(channel) >> 9;
     val.m_fixtureID = fxID;
     val.m_channel = channel;
     val.m_value = value;

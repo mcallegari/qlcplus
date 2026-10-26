@@ -156,28 +156,33 @@ function qlcStringToTime(str, type)
     }
     else if (type === 1 /* Function.Beats */)
     {
-        var tokens = str.split(" ");
+        // accepted formats: "2", "1/4", "2 1/2", "0.5", "1,25"
+        var beats = 0;
+        var tokens = str.trim().split(/\s+/);
 
         for (var t = 0; t < tokens.length; t++)
         {
-            var token = tokens[t];
+            var token = tokens[t].replace(",", ".");
             if (token === "") continue;
 
-            if (token.indexOf("/") !== -1)
+            var slashIdx = token.indexOf("/");
+            if (slashIdx !== -1)
             {
-                if      (token === "1/8") { finalTime += 125; }
-                else if (token === "1/4") { finalTime += 250; }
-                else if (token === "3/8") { finalTime += 375; }
-                else if (token === "1/2") { finalTime += 500; }
-                else if (token === "5/8") { finalTime += 625; }
-                else if (token === "3/4") { finalTime += 750; }
-                else if (token === "7/8") { finalTime += 875; }
+                var num = parseFloat(token.substring(0, slashIdx));
+                var den = parseFloat(token.substring(slashIdx + 1));
+                if (!isNaN(num) && !isNaN(den) && den !== 0)
+                    beats += num / den;
             }
             else
             {
-                finalTime += parseInt(token) * 1000;
+                var val = parseFloat(token);
+                if (!isNaN(val))
+                    beats += val;
             }
         }
+
+        // round to the nearest 1/8 of beat
+        finalTime = Math.max(0, Math.round(beats * 8) * 125);
     }
 
     return finalTime;
@@ -258,6 +263,8 @@ function timeToQlcString(value, type)
         else if (value === 625) { timeString += " 5/8"; }
         else if (value === 750) { timeString += " 3/4"; }
         else if (value === 875) { timeString += " 7/8"; }
+
+        timeString = timeString.trim();
     }
 
     //console.log("Final time string: " + timeString)

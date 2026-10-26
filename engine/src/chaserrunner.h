@@ -48,7 +48,7 @@ typedef struct
     qreal m_masterIntensity;            //! Current master intensity applied to this step
     qreal m_stepIntensity;              //! Current step intensity applied to this step
     quint32 m_elapsed;                  //! Elapsed milliseconds
-    quint32 m_elapsedBeats;             //! Elapsed beats
+    qint64 m_beatStart;                 //! Beats tempo: step start on the runner beat timeline (1000 = 1 beat)
     uint m_fadeIn;                      //! Step fade in in ms
     uint m_fadeOut;                     //! Step fade out in ms
     uint m_duration;                    //! Step hold in ms
@@ -220,7 +220,22 @@ private:
      *                           to use the Universe::AdditiveBlend mode
      */
     void startNewStep(int index, MasterTimer *timer, qreal mIntensity, qreal sIntensity,
-                      int fadeControl, quint32 elapsed = 0);
+                      int fadeControl, quint32 elapsed = 0, qint64 beatStart = -1);
+
+    /**
+     * Beats tempo: advance the runner beat timeline. Between beats the position
+     * advances in milliseconds, scaled to the current beat duration, and it never
+     * goes past the next whole beat until the beat actually happens. When a beat
+     * happens, the position snaps to that whole beat, which removes any drift.
+     */
+    void updateBeatPosition(MasterTimer *timer);
+
+    /**
+     * Beats tempo: return the timeline position where a step that was not chained
+     * to the previous one (chaser start or manual action) should start, so that
+     * its end falls on the beat grid
+     */
+    qint64 alignedBeatStart(uint duration) const;
 
     /**
      * Get the index of the next step that should be started,
@@ -230,6 +245,12 @@ private:
 
 private:
     FunctionParent functionParent() const;
+
+    bool m_beatClockStarted;    //! True once the beat timeline is aligned to the MasterTimer
+    bool m_firstStepStarted;    //! True once the first step has been started
+    qint64 m_lastBeatPosition;  //! Timeline position of the last beat (multiple of 1000)
+    qint64 m_beatPosition;      //! Current timeline position (1000 = 1 beat)
+    int m_msSinceBeat;          //! Milliseconds elapsed since the last beat
 
 public:
     /**
