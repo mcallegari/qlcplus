@@ -43,6 +43,7 @@ private slots:
 
     void createFixtureId();
     void addFixture();
+    void addFixtureCrossUniverse();
     void deleteFixture();
     void replaceFixtures();
     void fixture();

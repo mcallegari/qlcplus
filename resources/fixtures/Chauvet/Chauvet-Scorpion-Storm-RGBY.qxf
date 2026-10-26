@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.1</Version>
+  <Author>Nate Doyon</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Scorpion Storm RGBY</Model>
+ <Type>Laser</Type>
+ <Channel Name="Control Mode" Default="151">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="50" Preset="Alias">No function
+   <Alias Mode="DMX" Channel="Rotation" With="No function"/>
+   <Alias Mode="DMX" Channel="Line" With="No function"/>
+   <Alias Mode="DMX" Channel="Red" With="No function"/>
+   <Alias Mode="DMX" Channel="Green" With="No function"/>
+   <Alias Mode="DMX" Channel="Blue" With="No function"/>
+   <Alias Mode="DMX" Channel="Yellow" With="No function"/>
+  </Capability>
+  <Capability Min="51" Max="75" Preset="Alias">Auto program, fast
+   <Alias Mode="DMX" Channel="Rotation" With="No function"/>
+   <Alias Mode="DMX" Channel="Line" With="No function"/>
+   <Alias Mode="DMX" Channel="Red" With="No function"/>
+   <Alias Mode="DMX" Channel="Green" With="No function"/>
+   <Alias Mode="DMX" Channel="Blue" With="No function"/>
+   <Alias Mode="DMX" Channel="Yellow" With="No function"/>
+  </Capability>
+  <Capability Min="76" Max="100" Preset="Alias">Auto program, slow
+   <Alias Mode="DMX" Channel="Rotation" With="No function"/>
+   <Alias Mode="DMX" Channel="Line" With="No function"/>
+   <Alias Mode="DMX" Channel="Red" With="No function"/>
+   <Alias Mode="DMX" Channel="Green" With="No function"/>
+   <Alias Mode="DMX" Channel="Blue" With="No function"/>
+   <Alias Mode="DMX" Channel="Yellow" With="No function"/>
+  </Capability>
+  <Capability Min="101" Max="150" Preset="Alias">Sound program
+   <Alias Mode="DMX" Channel="Rotation" With="No function"/>
+   <Alias Mode="DMX" Channel="Line" With="No function"/>
+   <Alias Mode="DMX" Channel="Red" With="No function"/>
+   <Alias Mode="DMX" Channel="Green" With="No function"/>
+   <Alias Mode="DMX" Channel="Blue" With="No function"/>
+   <Alias Mode="DMX" Channel="Yellow" With="No function"/>
+  </Capability>
+  <Capability Min="151" Max="200">DMX mode 1</Capability>
+  <Capability Min="201" Max="255" Preset="Alias">DMX mode 2
+   <Alias Mode="DMX" Channel="Red" With="Color select"/>
+   <Alias Mode="DMX" Channel="Green" With="Strobe"/>
+   <Alias Mode="DMX" Channel="Blue" With="No function"/>
+   <Alias Mode="DMX" Channel="Yellow" With="No function"/>
+  </Capability>
+ </Channel>
+ <Channel Name="Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4" Preset="RotationStop">No Function</Capability>
+  <Capability Min="5" Max="127" Preset="RotationClockwiseSlowToFast">CW rotation, slow to fast</Capability>
+  <Capability Min="128" Max="133" Preset="RotationStop">Stop</Capability>
+  <Capability Min="134" Max="255" Preset="RotationCounterClockwiseSlowToFast">CCW rotation, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Line">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255" Preset="SmallToBig">Line segments, short to long</Capability>
+ </Channel>
+ <Channel Name="Red">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="10" Preset="ShutterOpen">Red</Capability>
+  <Capability Min="11" Max="254" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="255" Max="255">Strobe, sound active</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="10" Preset="ShutterOpen">Green</Capability>
+  <Capability Min="11" Max="254" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="255" Max="255">Strobe, sound active</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="10" Preset="ShutterOpen">Blue</Capability>
+  <Capability Min="11" Max="254" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="255" Max="255">Strobe, sound active</Capability>
+ </Channel>
+ <Channel Name="Yellow">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="10" Preset="ShutterOpen">Yellow</Capability>
+  <Capability Min="11" Max="254" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="255" Max="255">Strobe, sound active</Capability>
+ </Channel>
+ <Channel Name="Color select">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="5" Max="12" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="13" Max="20" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="21" Max="28" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="29" Max="36" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="37" Max="44" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red on, Green strobe</Capability>
+  <Capability Min="45" Max="52" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red on, Blue strobe</Capability>
+  <Capability Min="53" Max="60" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">Red on, Yellow strobe</Capability>
+  <Capability Min="61" Max="68" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff0000">Green on, Red strobe</Capability>
+  <Capability Min="69" Max="76" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green on, Blue strobe</Capability>
+  <Capability Min="77" Max="84" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffff00">Green on, Yellow strobe</Capability>
+  <Capability Min="85" Max="92" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff0000">Blue on, Red strobe</Capability>
+  <Capability Min="93" Max="100" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ff00">Blue on, Green strobe</Capability>
+  <Capability Min="101" Max="108" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff00">Blue on, Yellow strobe</Capability>
+  <Capability Min="109" Max="116" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ff0000">Yellow on, Red strobe</Capability>
+  <Capability Min="117" Max="124" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Yellow on, Green strobe</Capability>
+  <Capability Min="125" Max="132" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#0000ff">Yellow on, Blue strobe</Capability>
+  <Capability Min="133" Max="138" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red and Green strobe</Capability>
+  <Capability Min="139" Max="144" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red and Blue strobe</Capability>
+  <Capability Min="145" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">Red and Yellow strobe</Capability>
+  <Capability Min="151" Max="156" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green and Blue strobe</Capability>
+  <Capability Min="157" Max="162" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffff00">Green and Yellow strobe</Capability>
+  <Capability Min="163" Max="168" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff00">Blue and Yellow strobe</Capability>
+  <Capability Min="169" Max="174">Red, Green, and Blue strobe</Capability>
+  <Capability Min="175" Max="180">Red, Green, and Yellow strobe</Capability>
+  <Capability Min="181" Max="186">Red, Blue, and Yellow strobe</Capability>
+  <Capability Min="187" Max="192">Green, Blue, and Yellow strobe</Capability>
+  <Capability Min="193" Max="198">Red, Green, Yellow, and Blue strobe</Capability>
+  <Capability Min="199" Max="204" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red and Green alternating strobe</Capability>
+  <Capability Min="205" Max="210" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red and Blue alternating strobe</Capability>
+  <Capability Min="211" Max="215" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">Red and Yellow alternating strobe</Capability>
+  <Capability Min="216" Max="220" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green and Blue alternating strobe</Capability>
+  <Capability Min="221" Max="225" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffff00">Green and Yellow alternating strobe</Capability>
+  <Capability Min="226" Max="230" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff00">Blue and Yellow alternating strobe</Capability>
+  <Capability Min="231" Max="235">Red, Green, and Blue alternating strobe</Capability>
+  <Capability Min="236" Max="240">Red, Green, and Yellow alternating strobe</Capability>
+  <Capability Min="241" Max="245">Red, Blue, and Yellow alternating strobe</Capability>
+  <Capability Min="246" Max="250">Green, Blue, and Yellow alternating strobe</Capability>
+  <Capability Min="251" Max="255">Red, Green, Blue, and Yellow alternating strobe</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="5" Max="254" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="255" Max="255">Sound strobe</Capability>
+ </Channel>
+ <Channel Name="No function" Preset="NoFunction"/>
+ <Mode Name="DMX">
+  <Channel Number="0">Control Mode</Channel>
+  <Channel Number="1" ActsOn="0">Rotation</Channel>
+  <Channel Number="2" ActsOn="0">Line</Channel>
+  <Channel Number="3" ActsOn="0">Red</Channel>
+  <Channel Number="4" ActsOn="0">Green</Channel>
+  <Channel Number="5" ActsOn="0">Blue</Channel>
+  <Channel Number="6" ActsOn="0">Yellow</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="Laser" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.4" Width="149" Height="158" Depth="165"/>
+  <Lens Name="Other" DegreesMin="119" DegreesMax="119"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="16" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -79,6 +79,7 @@ Rectangle
     MouseArea
     {
         anchors.fill: parent
+        preventStealing: true
         onWheel: { return false }
     }
 
@@ -167,6 +168,7 @@ Rectangle
                 {
                     Layout.fillWidth: true
                     height: colorToolBar.height
+                    preventStealing: true
                     drag.target: paletteBox.isEditing ? null : (colorToolBox.dragTarget ? colorToolBox.dragTarget : colorToolBox)
                 }
                 GenericButton

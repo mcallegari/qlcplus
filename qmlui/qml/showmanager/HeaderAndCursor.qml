@@ -49,6 +49,19 @@ Rectangle
     onVisibleWidthChanged:
     {
         console.log("Visible width changed to: " + visibleWidth)
+
+        /** The visible area can legitimately collapse to nothing while the
+          * layout settles - on startup, while the window is resized or moved
+          * to a screen with a different density, or when the UI scaling factor
+          * changes. Dividing by it would then make timeHeader.x NaN, and since
+          * that position is assigned here rather than bound, the NaN would
+          * stick: the onVisibleXChanged comparisons below are all false against
+          * NaN, so nothing would ever restore a valid position. The Canvas
+          * would keep feeding NaN coordinates to the scene graph on every
+          * repaint, which corrupts the rendering and can hang the GPU */
+        if (visibleWidth <= 0)
+            return
+
         timeHeader.x = ((visibleX / visibleWidth) * visibleWidth) - visibleWidth
         timeHeader.requestPaint()
     }
@@ -64,6 +77,11 @@ Rectangle
           * Here, it is necessary to monitor the Flickable scroll position to properly
           * shift and render the Canvas.
           */
+
+        // same reason as in onVisibleWidthChanged: never divide by a
+        // collapsed visible area, or the Canvas position becomes NaN
+        if (visibleWidth <= 0)
+            return
 
         if (visibleX < timeHeader.x + visibleWidth || visibleX > timeHeader.x + (visibleWidth * 2))
         {
@@ -109,7 +127,7 @@ Rectangle
         width: 1
         color: "transparent"
         z: 1
-        visible: cursorHeight ? (x >= visibleX ? true : false) : false
+        visible: cursorHeight ? (x >= visibleX && x <= visibleX + visibleWidth) : false
 
         Rectangle
         {
@@ -132,8 +150,8 @@ Rectangle
     Canvas
     {
         id: timeHeader
-        x: -visibleWidth
-        width: visibleWidth * 3
+        x: -Math.max(0, visibleWidth)
+        width: Math.max(0, visibleWidth * 3)
         height: headerHeight
         antialiasing: true
         contextType: "2d"
@@ -141,7 +159,12 @@ Rectangle
         onPaint:
         {
             var fontSize = headerHeight * 0.55
-            var subDividers = showManager.beatsDivision
+            // for a Time based show, divide the space between two big markers
+            // into up to 5 spaces (one per second), or fewer if the big
+            // markers are closer together than 5 seconds
+            var subDividers = timeDivision === Show.Time
+                    ? Math.min(5, Math.round(timeScale))
+                    : showManager.beatsDivision
             context.globalAlpha = 1.0
             context.lineWidth = 1
 
@@ -166,7 +189,37 @@ Rectangle
 
             //console.log("xPos: " + xPos + ", msTime: " + msTime)
 
+            var subTickTop = height * 0.75
+
             context.beginPath()
+
+            // paint the small sub-tick markers first, in gray
+            if (subDividers > 1)
+            {
+                var subXPos = xPos
+                var subMsTime = msTime
+
+                for (var j = 0; j < divNum; j++)
+                {
+                    if (subMsTime >= 0)
+                    {
+                        var subX = subXPos - (tickSize / subDividers)
+                        for (var s = 0; s < subDividers - 1; s++)
+                        {
+                            context.moveTo(subX, subTickTop)
+                            context.lineTo(subX, height)
+                            subX -= (tickSize / subDividers)
+                        }
+                    }
+                    subXPos -= tickSize
+                    subMsTime -= timeScale * 1000
+                }
+            }
+            context.strokeStyle = UISettings.bgLight
+            context.stroke()
+
+            context.beginPath()
+            context.strokeStyle = showTimeMarkers ? "white" : UISettings.bgLight
             context.fillStyle = "white"
 
             // paint bars and text markers from the end to the beginning
@@ -175,17 +228,6 @@ Rectangle
                 // don't even bother to paint if we're outside the timeline
                 if (msTime >= 0)
                 {
-                    if (subDividers > 1)
-                    {
-                        var subX = xPos - (tickSize / subDividers)
-                        for (var s = 0; s < subDividers - 1; s++)
-                        {
-                            context.moveTo(subX, height / 2)
-                            context.lineTo(subX, height)
-                            subX -= (tickSize / subDividers)
-                        }
-                    }
-
                     context.moveTo(xPos, 0)
                     context.lineTo(xPos, height)
 

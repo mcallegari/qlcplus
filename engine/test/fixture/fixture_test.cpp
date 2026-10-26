@@ -1087,4 +1087,297 @@ void Fixture_Test::unknownChannelModifier()
     QVERIFY(modifierFound == true);
 }
 
+/*****************************************************************************
+ * Cross universe
+ *****************************************************************************/
+
+/* Make $fxi a generic RGB panel row with $heads pixels */
+static void setupPanelRow(Fixture &fxi, int heads, Fixture::Components comp, bool is16bit = false)
+{
+    QLCFixtureDef *rowDef = fxi.genericRGBPanelDef(heads, comp, is16bit);
+    QLCFixtureMode *rowMode = fxi.genericRGBPanelMode(rowDef, comp, is16bit, 3000, 50);
+    fxi.setFixtureDefinition(rowDef, rowMode);
+}
+
+/* Return the text of the CrossUniverse tag saved by $fxi, or an empty
+ * string if the tag is not present */
+static QString savedCrossUniverse(const Fixture &fxi)
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+    xmlWriter.writeStartElement("TestRoot");
+    fxi.saveXML(&xmlWriter);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement(); // TestRoot
+    xmlReader.readNextStartElement(); // Fixture
+
+    QString value;
+    while (xmlReader.readNextStartElement())
+    {
+        if (xmlReader.name().toString() == KXMLFixtureCrossUniverse)
+            value = xmlReader.readElementText();
+        else
+            xmlReader.skipCurrentElement();
+    }
+
+    return value;
+}
+
+void Fixture_Test::crossUniverseAddress()
+{
+    // 120 RGB pixels = 360 channels, starting at address 361 (0-based 360):
+    // only 152 channels are left in universe 0
+    Fixture fxi(this);
+    setupPanelRow(fxi, 120, Fixture::RGB);
+    fxi.setUniverse(0);
+    fxi.setAddress(360);
+    QCOMPARE(fxi.channels(), quint32(360));
+
+    /* Default: contiguous channels */
+    QVERIFY(fxi.crossUniverse() == Fixture::CrossUniverseNone);
+    QCOMPARE(fxi.channelAddress(0), quint32(360));
+    QCOMPARE(fxi.channelAddress(151), quint32(511));
+    QCOMPARE(fxi.channelAddress(359), quint32(719));
+    QCOMPARE(fxi.channelAddress(360), QLCChannel::invalid());
+
+    /* Fill: contiguous channels, the universe is filled up to the last channel */
+    fxi.setCrossUniverse(Fixture::CrossUniverseFill);
+    QVERIFY(fxi.crossUniverse() == Fixture::CrossUniverseFill);
+    QCOMPARE(fxi.channelAddress(0), quint32(360));
+    QCOMPARE(fxi.channelAddress(151), quint32(511));
+    QCOMPARE(fxi.channelAddress(152), quint32(512));       // U1 address 0
+    QCOMPARE(fxi.channelAddress(359), quint32(512 + 207)); // U1 address 207
+    QCOMPARE(fxi.channelAddress(360), QLCChannel::invalid());
+    QCOMPARE(fxi.lastUniverse(), quint32(1));
+
+    /* Pixel: 50 whole pixels in U0 (360-509), 70 pixels in U1 (0-209) */
+    fxi.setCrossUniverse(Fixture::CrossUniversePixel);
+    QVERIFY(fxi.crossUniverse() == Fixture::CrossUniversePixel);
+    QCOMPARE(fxi.channelAddress(0), quint32(360));
+    QCOMPARE(fxi.channelAddress(149), quint32(509));       // last channel of pixel 50
+    QCOMPARE(fxi.channelAddress(150), quint32(512));       // pixel 51 starts in U1
+    QCOMPARE(fxi.channelAddress(151), quint32(513));
+    QCOMPARE(fxi.channelAddress(152), quint32(514));
+    QCOMPARE(fxi.channelAddress(359), quint32(512 + 209));
+    QCOMPARE(fxi.channelAddress(360), QLCChannel::invalid());
+    QCOMPARE(fxi.lastUniverse(), quint32(1));
+
+    /* Pixel: a fixture fitting the universe is not affected */
+    fxi.setAddress(0);
+    QCOMPARE(fxi.channelAddress(0), quint32(0));
+    QCOMPARE(fxi.channelAddress(359), quint32(359));
+    QCOMPARE(fxi.lastUniverse(), quint32(0));
+
+    /* Pixel: RGBW, 200 pixels = 800 channels starting at U2 address 500.
+     * 3 pixels in U2 (500-511), 128 pixels in U3 (0-511), 69 pixels in U4 */
+    Fixture fxi2(this);
+    setupPanelRow(fxi2, 200, Fixture::RGBW);
+    fxi2.setUniverse(2);
+    fxi2.setAddress(500);
+    fxi2.setCrossUniverse(Fixture::CrossUniversePixel);
+    QCOMPARE(fxi2.channels(), quint32(800));
+    QCOMPARE(fxi2.channelAddress(0), quint32((2 << 9) + 500));
+    QCOMPARE(fxi2.channelAddress(11), quint32((2 << 9) + 511));
+    QCOMPARE(fxi2.channelAddress(12), quint32(3 << 9));
+    QCOMPARE(fxi2.channelAddress(12 + 511), quint32((3 << 9) + 511));
+    QCOMPARE(fxi2.channelAddress(12 + 512), quint32(4 << 9));
+    QCOMPARE(fxi2.channelAddress(799), quint32((4 << 9) + 275));
+    QCOMPARE(fxi2.lastUniverse(), quint32(4));
+}
+
+void Fixture_Test::crossUniverseAddress16bit()
+{
+    // 16bit RGB pixels are 6 channels wide. 10 pixels at address 500:
+    // 2 pixels in U0 (500-511), 8 pixels in U1 (0-47)
+    Fixture fxi(this);
+    setupPanelRow(fxi, 10, Fixture::RGB, true);
+    fxi.setUniverse(0);
+    fxi.setAddress(500);
+    fxi.setCrossUniverse(Fixture::CrossUniversePixel);
+    QCOMPARE(fxi.channels(), quint32(60));
+    QCOMPARE(fxi.channelAddress(11), quint32(511));
+    QCOMPARE(fxi.channelAddress(12), quint32(512));
+    QCOMPARE(fxi.channelAddress(59), quint32(512 + 47));
+
+    // 10 pixels at address 505: only 1 pixel (505-510) fits in U0,
+    // so address 511 stays unused
+    fxi.setAddress(505);
+    QCOMPARE(fxi.channelAddress(5), quint32(510));
+    QCOMPARE(fxi.channelAddress(6), quint32(512));
+    QCOMPARE(fxi.channelAddress(59), quint32(512 + 53));
+}
+
+void Fixture_Test::crossUniverseIndexForAddress()
+{
+    Fixture fxi(this);
+    setupPanelRow(fxi, 120, Fixture::RGB);
+    fxi.setUniverse(0);
+    fxi.setAddress(360);
+
+    /* Default */
+    QCOMPARE(fxi.channelIndexForAddress(359), QLCChannel::invalid());
+    QCOMPARE(fxi.channelIndexForAddress(360), quint32(0));
+    QCOMPARE(fxi.channelIndexForAddress(719), quint32(359));
+    QCOMPARE(fxi.channelIndexForAddress(720), QLCChannel::invalid());
+
+    /* Fill */
+    fxi.setCrossUniverse(Fixture::CrossUniverseFill);
+    QCOMPARE(fxi.channelIndexForAddress(511), quint32(151));
+    QCOMPARE(fxi.channelIndexForAddress(512), quint32(152));
+    QCOMPARE(fxi.channelIndexForAddress(512 + 207), quint32(359));
+    QCOMPARE(fxi.channelIndexForAddress(512 + 208), QLCChannel::invalid());
+
+    /* Pixel: U0 addresses 510 and 511 are not used by the fixture */
+    fxi.setCrossUniverse(Fixture::CrossUniversePixel);
+    QCOMPARE(fxi.channelIndexForAddress(360), quint32(0));
+    QCOMPARE(fxi.channelIndexForAddress(509), quint32(149));
+    QCOMPARE(fxi.channelIndexForAddress(510), QLCChannel::invalid());
+    QCOMPARE(fxi.channelIndexForAddress(511), QLCChannel::invalid());
+    QCOMPARE(fxi.channelIndexForAddress(512), quint32(150));
+    QCOMPARE(fxi.channelIndexForAddress(512 + 209), quint32(359));
+    QCOMPARE(fxi.channelIndexForAddress(512 + 210), QLCChannel::invalid());
+
+    /* channelIndexForAddress is the reverse of channelAddress */
+    for (quint32 i = 0; i < fxi.channels(); i++)
+        QCOMPARE(fxi.channelIndexForAddress(fxi.channelAddress(i)), i);
+}
+
+void Fixture_Test::crossUniverseValues()
+{
+    Fixture fxi(this);
+    setupPanelRow(fxi, 120, Fixture::RGB);
+    fxi.setUniverse(0);
+    fxi.setAddress(360);
+    fxi.setCrossUniverse(Fixture::CrossUniversePixel);
+
+    QByteArray uni0(512, 0);
+    QByteArray uni1(512, 0);
+    for (int i = 360; i < 510; i++)
+        uni0[i] = 10;
+    uni0[510] = 99; // unused by the fixture
+    uni0[511] = 99; // unused by the fixture
+    for (int i = 0; i < 210; i++)
+        uni1[i] = 20;
+    uni1[210] = 99; // past the fixture end
+
+    /* Universes not used by the fixture are ignored */
+    QVERIFY(fxi.setUniverseValues(2, uni1) == false);
+
+    /* Values from the first universe */
+    QVERIFY(fxi.setUniverseValues(0, uni0) == true);
+    QCOMPARE(fxi.channelValueAt(0), uchar(10));
+    QCOMPARE(fxi.channelValueAt(149), uchar(10));
+    QCOMPARE(fxi.channelValueAt(150), uchar(0));
+    QCOMPARE(fxi.channelValueAt(359), uchar(0));
+
+    /* Values from the second universe */
+    QVERIFY(fxi.setUniverseValues(1, uni1) == true);
+    QCOMPARE(fxi.channelValueAt(149), uchar(10));
+    QCOMPARE(fxi.channelValueAt(150), uchar(20));
+    QCOMPARE(fxi.channelValueAt(359), uchar(20));
+
+    /* No changes */
+    QVERIFY(fxi.setUniverseValues(0, uni0) == false);
+    QVERIFY(fxi.setUniverseValues(1, uni1) == false);
+    QVERIFY(fxi.setChannelValues(uni0) == false);
+
+    /* A fixture fitting a universe only takes values from its own universe */
+    Fixture fxi2(this);
+    setupPanelRow(fxi2, 10, Fixture::RGB);
+    fxi2.setUniverse(1);
+    fxi2.setAddress(0);
+    QVERIFY(fxi2.setUniverseValues(0, uni1) == false);
+    QVERIFY(fxi2.setUniverseValues(1, uni1) == true);
+    QCOMPARE(fxi2.channelValueAt(0), uchar(20));
+    QCOMPARE(fxi2.channelValueAt(29), uchar(20));
+}
+
+void Fixture_Test::crossUniverseSave()
+{
+    Fixture fxi(this);
+    setupPanelRow(fxi, 120, Fixture::RGB);
+    fxi.setID(5);
+    fxi.setUniverse(0);
+    fxi.setAddress(360);
+
+    /* Default: no tag */
+    QCOMPARE(savedCrossUniverse(fxi), QString());
+
+    fxi.setCrossUniverse(Fixture::CrossUniversePixel);
+    QCOMPARE(savedCrossUniverse(fxi), QString(KXMLFixtureCrossUniversePixel));
+
+    fxi.setCrossUniverse(Fixture::CrossUniverseFill);
+    QCOMPARE(savedCrossUniverse(fxi), QString(KXMLFixtureCrossUniverseFill));
+}
+
+void Fixture_Test::crossUniverseLoad()
+{
+    QList<QPair<QString, Fixture::CrossUniverseMode>> cases;
+    cases << qMakePair(QString(), Fixture::CrossUniverseNone)
+          << qMakePair(QString("True"), Fixture::CrossUniversePixel) // legacy value
+          << qMakePair(QString("Pixel"), Fixture::CrossUniversePixel)
+          << qMakePair(QString("Fill"), Fixture::CrossUniverseFill);
+
+    for (const QPair<QString, Fixture::CrossUniverseMode> &c : cases)
+    {
+        // use a dedicated Doc to keep m_doc empty for the other tests
+        Doc doc(this);
+
+        // a fixture not crossing universes must fit its universe,
+        // otherwise the loader resets its address
+        int address = c.second == Fixture::CrossUniverseNone ? 100 : 360;
+
+        QBuffer buffer;
+        buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+        QXmlStreamWriter xmlWriter(&buffer);
+
+        xmlWriter.writeStartElement("Fixture");
+        xmlWriter.writeTextElement("Manufacturer", "Generic");
+        xmlWriter.writeTextElement("Model", "RGBPanel");
+        xmlWriter.writeTextElement("Mode", "RGB");
+        xmlWriter.writeTextElement("Width", "3000");
+        xmlWriter.writeTextElement("Height", "50");
+        xmlWriter.writeTextElement("ID", "7");
+        xmlWriter.writeTextElement("Name", "Panel - Row 2");
+        xmlWriter.writeTextElement("Universe", "0");
+        if (c.first.isEmpty() == false)
+            xmlWriter.writeTextElement("CrossUniverse", c.first);
+        xmlWriter.writeTextElement("Address", QString::number(address));
+        xmlWriter.writeTextElement("Channels", "360");
+        xmlWriter.writeEndDocument();
+        xmlWriter.setDevice(NULL);
+        buffer.close();
+
+        buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+        QXmlStreamReader xmlReader(&buffer);
+        xmlReader.readNextStartElement();
+
+        QVERIFY(Fixture::loader(xmlReader, &doc) == true);
+        Fixture *fxi = doc.fixture(7);
+        QVERIFY(fxi != NULL);
+        QVERIFY(fxi->crossUniverse() == c.second);
+        QCOMPARE(fxi->channels(), quint32(360));
+        QCOMPARE(fxi->heads(), 120);
+        QCOMPARE(fxi->universe(), quint32(0));
+        QCOMPARE(fxi->address(), quint32(address));
+
+        // the first channel of pixel 51 depends on the mode
+        if (c.second == Fixture::CrossUniversePixel)
+            QCOMPARE(fxi->channelAddress(150), quint32(512));
+        else
+            QCOMPARE(fxi->channelAddress(150), quint32(address + 150));
+
+        // saving gives back the same mode (legacy "True" becomes "Pixel")
+        QCOMPARE(savedCrossUniverse(*fxi),
+                 c.second == Fixture::CrossUniverseNone ? QString() :
+                 c.second == Fixture::CrossUniverseFill ? QString("Fill") : QString("Pixel"));
+    }
+}
+
 QTEST_APPLESS_MAIN(Fixture_Test)

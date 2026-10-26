@@ -24,6 +24,7 @@
 #include <QVector>
 #include <QPoint>
 #include <QList>
+#include <QMutex>
 
 #include "efxfixture.h"
 #include "function.h"
@@ -533,6 +534,14 @@ public slots:
 
 private:
     QList <EFXFixture *> m_fixtures;
+
+    /** Protects m_fixtures and the EFXFixture objects in it, which are used
+     *  by the MasterTimer thread while the EFX runs */
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+    mutable QMutex m_fixturesMutex;
+#else
+    mutable QRecursiveMutex m_fixturesMutex;
+#endif
 
     /*********************************************************************
      * Fixture propagation mode

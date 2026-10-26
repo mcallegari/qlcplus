@@ -39,11 +39,13 @@ private slots:
 
     void initial();
     void group();
+    void totalDurationWithoutSteps();
     void color();
     void copy();
     void previewMaps();
     void property();
     void loadSave();
+    void groupRemovedWhileRunning();
 
 private:
     Doc* m_doc;

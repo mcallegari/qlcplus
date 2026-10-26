@@ -54,7 +54,9 @@ if(QT_VERSION_MAJOR EQUAL 5)
     find_package(Qt${QT_VERSION_MAJOR} OPTIONAL_COMPONENTS Script)
 endif()
 
-find_package(PkgConfig REQUIRED)
+if(NOT IOS)
+    find_package(PkgConfig REQUIRED)
+endif()
 
 include(./variables.cmake)
 include(./coverage.cmake)
@@ -142,14 +144,23 @@ add_custom_target(lcov
 )
 
 # Translations
+# On iOS, use the Linguist tools of the host Qt kit, so translate.sh
+# doesn't depend on the PATH of the environment running the build
+set(translate_env "")
+if (IOS AND TARGET Qt${QT_VERSION_MAJOR}::lrelease AND TARGET Qt${QT_VERSION_MAJOR}::lupdate)
+  set(translate_env ${CMAKE_COMMAND} -E env
+    "LRELEASE=$<TARGET_FILE:Qt${QT_VERSION_MAJOR}::lrelease>"
+    "LUPDATE=$<TARGET_FILE:Qt${QT_VERSION_MAJOR}::lupdate>")
+endif()
+
 if (qmlui)
   add_custom_target(translations ALL
-    COMMAND ./translate.sh release qmlui
+    COMMAND ${translate_env} ./translate.sh release qmlui
     COMMENT "Translating qmlui translations..."
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 else ()
   add_custom_target(translations ALL
-    COMMAND ./translate.sh release ui
+    COMMAND ${translate_env} ./translate.sh release ui
     COMMENT "Translating ui translations..."
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 endif()

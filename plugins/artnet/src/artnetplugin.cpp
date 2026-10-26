@@ -188,8 +188,10 @@ bool ArtNetPlugin::openOutput(quint32 output, quint32 universe)
                                                             output, this);
         connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
                 this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
-        connect(controller, SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)),
-                this , SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)));
+        connect(controller, SIGNAL(rdmFrameReceived(quint32, quint32, QByteArray)),
+                this , SIGNAL(rdmFrameReceived(quint32, quint32, QByteArray)));
+        connect(controller, SIGNAL(rdmTodReceived(quint32, quint32, QByteArray)),
+                this , SIGNAL(rdmTodReceived(quint32, quint32, QByteArray)));
         m_IOmapping[output].controller = controller;
     }
 
@@ -386,15 +388,34 @@ QList<ArtNetIO> ArtNetPlugin::getIOMapping() const
  * RDM
  ********************************************************************/
 
-bool ArtNetPlugin::sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params)
+int ArtNetPlugin::rdmTransportFlags(quint32 universe, quint32 line)
 {
-    qDebug() << "Sending RDM command on universe" << universe << "and line" << line;
+    Q_UNUSED(universe)
+    Q_UNUSED(line)
+
+    return QLCIOPlugin::RDMTodDiscovery;
+}
+
+bool ArtNetPlugin::sendRDMFrame(quint32 universe, quint32 line, RDMFrameType type, const QByteArray &frame)
+{
     if (line >= (quint32)m_IOmapping.count())
         return false;
 
     ArtNetController *controller = m_IOmapping.at(line).controller;
     if (controller != NULL)
-        return controller->sendRDMCommand(universe, command, params);
+        return controller->sendRDMFrame(universe, int(type), frame);
+
+    return false;
+}
+
+bool ArtNetPlugin::requestRDMTod(quint32 universe, quint32 line)
+{
+    if (line >= (quint32)m_IOmapping.count())
+        return false;
+
+    ArtNetController *controller = m_IOmapping.at(line).controller;
+    if (controller != NULL)
+        return controller->requestRDMTod(universe);
 
     return false;
 }

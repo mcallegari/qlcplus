@@ -78,7 +78,7 @@ void AudioTriggerWidget::displaySpectrum(double *spectrumData, double maxMagnitu
 {
     m_volumeBarHeight = (power * m_spectrumHeight) / 0x7FFF;
     for (int i = 0; i < m_barsNumber; i++)
-        m_spectrumBands[i] = (m_volumeBarHeight * spectrumData[i]) / maxMagnitude;
+        m_spectrumBands[i] = (maxMagnitude > 0.0) ? (m_spectrumHeight * spectrumData[i]) / maxMagnitude : 0.0;
 
     //qDebug() << "[displaySpectrum] power: " << power << ", first bar: " << m_spectrumBands[0];
     update();

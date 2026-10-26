@@ -27,6 +27,7 @@
 
 #include "qlcinputprofile.h"
 #include "grandmaster.h"
+#include "qlcrdmservice.h"
 #include "qlcioplugin.h"
 
 class QXmlStreamReader;
@@ -53,7 +54,7 @@ class Doc;
 #define KXMLIONetworkName       QStringLiteral("Name")
 #define KXMLIONetworkPassword   QStringLiteral("Password")
 
-class InputOutputMap final : public QObject
+class InputOutputMap final : public QObject, public QLCRDMTransportProvider
 {
     Q_OBJECT
     Q_DISABLE_COPY(InputOutputMap)
@@ -694,6 +695,17 @@ public:
      */
     bool saveXML(QXmlStreamWriter *doc) const;
 
+    /*********************************************************************
+     * RDM transport
+     *********************************************************************/
+public:
+    /** @reimp QLCRDMTransportProvider
+     *  Gives the RDM service plugin access to the I/O plugins which
+     *  carry RDM frames, without exposing the engine to it. */
+    QList<QLCRDMLine> lines() override;
+
+    /** @reimp QLCRDMTransportProvider */
+    QLCIOPlugin *transport(quint32 universe, quint32 line) override;
 };
 
 /** @} */

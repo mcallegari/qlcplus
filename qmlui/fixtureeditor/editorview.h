@@ -116,6 +116,8 @@ public:
     {
         RGBChannel = QLCChannel::Nothing + 100,
         RGBWChannel,
+        RGBAChannel,
+        RGBLChannel,
         RGBAWChannel
     };
     Q_ENUM(CompositeChannelTypes)

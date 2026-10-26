@@ -17,6 +17,16 @@ if(ANDROID OR IOS)
     set(qmlui ON)
 endif()
 
+# iOS doesn't allow loading dynamic libraries at runtime:
+# libraries and I/O plugins are linked statically into the app
+if(IOS)
+    set(QLC_LIB_TYPE STATIC)
+    set(QLC_PLUGIN_TYPE STATIC)
+else()
+    set(QLC_LIB_TYPE SHARED)
+    set(QLC_PLUGIN_TYPE SHARED)
+endif()
+
 # Development builds mark the version string as "GIT". Turn this off
 # (-DDEVEL=OFF) when building an official release.
 option(DEVEL "Mark this build as a development (GIT) build" ON)
@@ -46,7 +56,7 @@ endif()
 # deliberately left unsuffixed, since they are shared between the two.
 if(qmlui)
     add_definitions(-DQMLUI)
-    set(APPVERSION "5.3.0")
+    set(APPVERSION "5.3.1")
     set(APPBINARY "qlcplus5")
     set(PLUGINSUBDIR "qlcplus5")
 else()

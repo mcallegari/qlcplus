@@ -52,6 +52,8 @@
 #include "addrgbpanel.h"
 #include "addfixture.h"
 #include "rdmmanager.h"
+#include "serviceloader.h"
+#include "qlcrdmservice.h"
 #include "universe.h"
 #include "fixture.h"
 #include "apputil.h"
@@ -77,6 +79,7 @@ FixtureManager::FixtureManager(QWidget* parent, Doc* doc)
     , m_fixtures_tree(NULL)
     , m_channel_groups_tree(NULL)
     , m_rdmManager(NULL)
+    , m_tabs(NULL)
     , m_info(NULL)
     , m_groupEditor(NULL)
     , m_currentTabIndex(0)
@@ -327,6 +330,7 @@ void FixtureManager::initDataView()
                               QSizePolicy::Expanding);
 
     QTabWidget *tabs = new QTabWidget(this);
+    m_tabs = tabs;
     m_splitter->addWidget(tabs);
 
     /* Create a tree widget to the left part of the splitter */
@@ -372,12 +376,12 @@ void FixtureManager::initDataView()
             this, SLOT(slotChannelsGroupDoubleClicked(QTreeWidgetItem*)));
 
     tabs->addTab(m_channel_groups_tree, tr("Channel Groups"));
-/*
-    m_rdmManager = new RDMManager(this, m_doc);
-    tabs->addTab(m_rdmManager, "RDM");
-    connect(m_rdmManager, SIGNAL(fixtureInfoReady(QString&)),
-            this, SLOT(slotDisplayFixtureInfo(QString&)));
-*/
+
+    // the RDM tab only exists if the RDM service plugin is installed
+    addRDMTab();
+    connect(m_doc->serviceLoader(), SIGNAL(serviceAvailable(QString)),
+            this, SLOT(slotServiceAvailable(QString)));
+
     connect(tabs, SIGNAL(currentChanged(int)), this, SLOT(slotTabChanged(int)));
 
     /* Create the text view */
@@ -777,6 +781,28 @@ void FixtureManager::slotFixtureItemExpanded()
 void FixtureManager::slotDisplayFixtureInfo(QString &info)
 {
     m_info->setText(info);
+}
+
+void FixtureManager::slotServiceAvailable(const QString &id)
+{
+    if (id == QLCRDM_SERVICE_ID)
+        addRDMTab();
+}
+
+void FixtureManager::addRDMTab()
+{
+    if (m_rdmManager != NULL || m_tabs == NULL)
+        return;
+
+    QObject *service = m_doc->serviceLoader()->service(QLCRDM_SERVICE_ID);
+    if (service == NULL || qobject_cast<QLCRDMService*>(service) == NULL)
+        return;
+
+    RDMManager *rdm = new RDMManager(this, service);
+    m_rdmManager = rdm;
+    m_tabs->addTab(m_rdmManager, "RDM");
+    connect(rdm, SIGNAL(fixtureInfoReady(QString&)),
+            this, SLOT(slotDisplayFixtureInfo(QString&)));
 }
 
 void FixtureManager::selectGroup(quint32 id)
@@ -1404,12 +1430,45 @@ void FixtureManager::slotAddRGBPanel()
             fxi->setFixtureDefinition(rowDef, rowMode);
 
             // Check universe span
-            if (address + fxi->channels() > 512)
+            quint32 rowChannels = fxi->channels();
+            if (address + rowChannels > 512)
             {
-                if (!rgb.crossUniverse())
+                // channels of a single pixel (6 or 8 when 16bit)
+                quint32 pixelSize = fxi->heads() > 0 ? rowChannels / fxi->heads() : 1;
+
+                switch (rgb.crossUniverse())
                 {
-                    uniIndex++;
-                    address = 0;
+                    case Fixture::CrossUniverseNone:
+                        // move the entire row to the next universe.
+                        // A row larger than a universe is split by pixel
+                        if (rowChannels <= 512)
+                        {
+                            uniIndex++;
+                            address = 0;
+                        }
+                        else
+                        {
+                            if (address > 0)
+                            {
+                                uniIndex++;
+                                address = 0;
+                            }
+                            fxi->setCrossUniverse(Fixture::CrossUniversePixel);
+                        }
+                    break;
+                    case Fixture::CrossUniversePixel:
+                        // not even a pixel fits: start from the next universe
+                        if (512 - address < pixelSize)
+                        {
+                            uniIndex++;
+                            address = 0;
+                        }
+                        if (address + rowChannels > 512)
+                            fxi->setCrossUniverse(Fixture::CrossUniversePixel);
+                    break;
+                    case Fixture::CrossUniverseFill:
+                        fxi->setCrossUniverse(Fixture::CrossUniverseFill);
+                    break;
                 }
             }
             if (m_doc->inputOutputMap()->getUniverseID(uniIndex) == m_doc->inputOutputMap()->invalidUniverse())
@@ -1419,15 +1478,17 @@ void FixtureManager::slotAddRGBPanel()
             }
 
             fxi->setUniverse(m_doc->inputOutputMap()->getUniverseID(uniIndex));
-            if (address + fxi->channels() > 512)
-                fxi->setCrossUniverse(rgb.crossUniverse());
             fxi->setAddress(address);
-            m_doc->addFixture(fxi, Fixture::invalidId(), rgb.crossUniverse());
+            // Doc takes care of adding the universes spanned by a cross-universe fixture
+            m_doc->addFixture(fxi, Fixture::invalidId());
 
-            address += fxi->channels();
-            if (address >= 512 && rgb.crossUniverse())
+            // next row starts right after the last channel of this one
+            quint32 lastAddress = fxi->channelAddress(rowChannels - 1);
+            uniIndex += (lastAddress >> 9) - fxi->universe();
+            address = (lastAddress & 0x01FF) + 1;
+            if (address >= 512)
             {
-                address -= 512;
+                address = 0;
                 uniIndex++;
             }
 

@@ -379,6 +379,9 @@ public:
     /** @reimp */
     void writeDMX(MasterTimer* timer, QList<Universe*> universes) override;
 
+    /** @reimp */
+    void setDisabled(bool disable) override;
+
 private:
     void updateChannel(FadeChannel *fc, uchar value);
 

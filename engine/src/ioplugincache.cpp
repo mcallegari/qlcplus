@@ -49,6 +49,24 @@ void IOPluginCache::load(const QDir& dir)
 {
     qDebug() << Q_FUNC_INFO << dir.path();
 
+#if defined(Q_OS_IOS)
+    /* Plugins are statically linked into the application */
+    Q_UNUSED(dir)
+    const QObjectList instances = QPluginLoader::staticInstances();
+    for (QObject *instance : instances)
+    {
+        QLCIOPlugin* ptr = qobject_cast<QLCIOPlugin*> (instance);
+        if (ptr == NULL || plugin(ptr->name()) != NULL)
+            continue;
+
+        qDebug() << "Loaded static I/O plugin" << ptr->name();
+        emit pluginLoaded(ptr->name());
+        ptr->init();
+        m_plugins << ptr;
+        connect(ptr, SIGNAL(configurationChanged()),
+                this, SLOT(slotConfigurationChanged()));
+    }
+#else
     /* Check that we can access the directory */
     if (dir.exists() == false || dir.isReadable() == false)
         return;
@@ -103,6 +121,7 @@ void IOPluginCache::load(const QDir& dir)
             loader.unload();
         }
     }
+#endif
 }
 
 QList <QLCIOPlugin*> IOPluginCache::plugins() const

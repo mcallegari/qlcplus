@@ -71,6 +71,7 @@ Item
     onDurationChanged: updateGeometry()
     onTimeScaleChanged: updateGeometry()
     onTimeDivisionChanged: updateGeometry()
+    onBeatsDivisionChanged: updateGeometry()
 
     onGlobalColorChanged:
     {
@@ -84,20 +85,88 @@ Item
         updateTooltipText()
     }
 
+    Connections
+    {
+        target: funcRef
+        function onTempoTypeChanged() { updateGeometry() }
+    }
+
+    Connections
+    {
+        // the current BPM affects the on-screen position of items whose
+        // own tempo type differs from the Show's timeline division (see
+        // updateGeometry())
+        target: ioManager
+        function onBpmNumberChanged() { updateGeometry() }
+    }
+
     function updateGeometry()
     {
         if (isDragging || funcRef == null)
             return
 
+        /* A Function keeps its own tempo type regardless of the Show's
+           timeline division (a Show can mix time-based and beat-based
+           items), so startTime/duration are stored in real milliseconds
+           for a Time tempo Function and in "beats as ms" (1000 units per
+           beat) for a Beats tempo one. The item's on-screen position must
+           always be computed according to ITS OWN unit, converted to
+           match whichever ruler (Time or BPM) the Show is currently
+           displaying - never assume the Show's division tells us the
+           item's own unit. */
+        var itemIsBeats = funcRef.tempoType === QLCFunction.Beats
+
         if (timeDivision === Show.Time)
         {
-            x = TimeUtils.timeToSize(startTime, timeScale, tickSize)
-            width = TimeUtils.timeToSize(duration, timeScale, tickSize)
+            if (itemIsBeats)
+            {
+                x = TimeUtils.beatsToTimeSize(startTime, ioManager.bpmNumber, timeScale, tickSize)
+                width = TimeUtils.beatsToTimeSize(duration, ioManager.bpmNumber, timeScale, tickSize)
+            }
+            else
+            {
+                x = TimeUtils.timeToSize(startTime, timeScale, tickSize)
+                width = TimeUtils.timeToSize(duration, timeScale, tickSize)
+            }
         }
         else
         {
-            x = TimeUtils.beatsToSize(startTime, tickSize, beatsDivision)
-            width = TimeUtils.beatsToSize(duration, tickSize, beatsDivision)
+            if (itemIsBeats)
+            {
+                x = TimeUtils.beatsToSize(startTime, tickSize, beatsDivision)
+                width = TimeUtils.beatsToSize(duration, tickSize, beatsDivision)
+            }
+            else
+            {
+                x = TimeUtils.timeToBeatSize(startTime, ioManager.bpmNumber, beatsDivision, tickSize)
+                width = TimeUtils.timeToBeatSize(duration, ioManager.bpmNumber, beatsDivision, tickSize)
+            }
+        }
+    }
+
+    /* Convert a value expressed in THIS item's own Function unit (real ms
+       for a Time tempo Function, "beats as ms" for a Beats tempo one) to
+       a pixel size/position on whichever ruler (Time or BPM) the Show is
+       currently displaying. Same conversion rules as updateGeometry(),
+       factored out for the step/fade preview painting below. */
+    function timeValueToPixels(value)
+    {
+        if (funcRef == null)
+            return 0
+
+        var itemIsBeats = funcRef.tempoType === QLCFunction.Beats
+
+        if (timeDivision === Show.Time)
+        {
+            return itemIsBeats
+                    ? TimeUtils.beatsToTimeSize(value, ioManager.bpmNumber, timeScale, tickSize)
+                    : TimeUtils.timeToSize(value, timeScale, tickSize)
+        }
+        else
+        {
+            return itemIsBeats
+                    ? TimeUtils.beatsToSize(value, tickSize, beatsDivision)
+                    : TimeUtils.timeToBeatSize(value, ioManager.bpmNumber, beatsDivision, tickSize)
         }
     }
 
@@ -172,8 +241,57 @@ Item
     {
         id: prCanvas
         z: 3
-        anchors.fill: parent
+        height: itemRoot.height
         contextType: "2d"
+
+        /** A Canvas allocates a backing image, and on the scene graph side a
+          * texture, for its whole size - so filling the item would mean one
+          * allocation per Show item as wide as that item is on the timeline,
+          * whether or not any of it is on screen. Zooming in multiplies every
+          * item's width by the same factor, so that grows without bound: a
+          * long Show can end up holding a gigabyte of backing images, and any
+          * item wider than the maximum texture size the driver supports (a
+          * common limit is 16384 pixels, which a four minute item reaches at a
+          * time scale of 1) has to be rescaled on the CPU on every repaint
+          * before it can be uploaded.
+          *
+          * The timeline header and the grid already avoid this by keeping
+          * their Canvas no bigger than the visible area and moving it as the
+          * view scrolls; do the same here, clipping the Canvas to the part of
+          * the item that is actually on screen and painting with the item's
+          * own coordinates shifted by the Canvas position, so the painting
+          * code below stays unchanged. */
+        property Item timelineView:
+        {
+            /* itemRoot.parent is the Flickable's contentItem,
+               itemRoot.parent.parent is the Flickable itself */
+            var f = itemRoot.parent ? itemRoot.parent.parent : null
+            return (f && f.contentX !== undefined) ? f : null
+        }
+
+        property real viewLeft: timelineView ? timelineView.contentX - itemRoot.x : 0
+        property real viewRight: timelineView ? viewLeft + timelineView.width : itemRoot.width
+
+        x: timelineView ? Math.max(0, Math.min(viewLeft, itemRoot.width)) : 0
+        width: timelineView ? Math.max(0, Math.min(viewRight, itemRoot.width) - x)
+                            : itemRoot.width
+
+        onXChanged: requestPaint()
+
+        /* The painted positions come from the item's own size and from the
+           timeline scale, but the Canvas is now sized by the visible area
+           instead of by the item, so zooming no longer resizes it and no
+           repaint is triggered by itself: ask for one explicitly */
+        Connections
+        {
+            target: itemRoot
+
+            function onWidthChanged() { prCanvas.requestPaint() }
+            function onTimeScaleChanged() { prCanvas.requestPaint() }
+            function onTickSizeChanged() { prCanvas.requestPaint() }
+            function onTimeDivisionChanged() { prCanvas.requestPaint() }
+            function onBeatsDivisionChanged() { prCanvas.requestPaint() }
+        }
 
         /* Repaint the preview lines when the referenced Function
            is modified (e.g. a Chaser step time or an EFX duration) */
@@ -190,6 +308,14 @@ Item
 
         onPaint:
         {
+            /* an item scrolled out of the visible area has no width, and then
+               Qt never creates a drawing context for the Canvas */
+            if (context === null || context === undefined)
+                return
+
+            context.reset()
+            context.clearRect(0, 0, width, height)
+
             if (sfRef === null || funcRef === null)
                 return
 
@@ -198,12 +324,19 @@ Item
             if (previewData === null || previewData === undefined)
                 return
 
+            /* paint in the item's own coordinates: the Canvas covers only the
+               visible slice of the item (see above), so shift it into place */
+            context.save()
+            context.translate(-prCanvas.x, 0)
+
+            var visLeft = prCanvas.x
+            var visRight = prCanvas.x + prCanvas.width
+
             context.strokeStyle = "#ddd"
             context.fillStyle = "transparent"
             context.lineWidth = 1
 
             context.beginPath()
-            context.clearRect(0, 0, width, height)
 
             //console.log("About to paint " + previewData.length + " values")
 
@@ -222,11 +355,15 @@ Item
                         var loopCount = funcRef.totalDuration ? Math.floor(sfRef.duration / funcRef.totalDuration) : 0
                         for (var l = 0; l < loopCount; l++)
                         {
-                            lastTime += previewData[1]
-                            if (timeDivision === Show.Time)
-                                xPos = TimeUtils.timeToSize(lastTime, timeScale, tickSize)
-                            else
-                                xPos = TimeUtils.beatsToSize(lastTime, tickSize, beatsDivision)
+                            lastTime += previewData[i + 1]
+                            xPos = timeValueToPixels(lastTime)
+                            /* the number of repeats is a ratio of times, so it
+                               is not bounded by the item's width on screen:
+                               stop as soon as the lines leave the painted area */
+                            if (xPos > visRight)
+                                break
+                            if (xPos < visLeft)
+                                continue
                             context.moveTo(xPos, 0)
                             context.lineTo(xPos, itemRoot.height)
                         }
@@ -235,30 +372,19 @@ Item
                         xPos = 0
                     break
                     case ShowManager.FadeIn:
-                        var fiEnd
-                        if (timeDivision === Show.Time)
-                            fiEnd = TimeUtils.timeToSize(lastTime + previewData[i + 1], timeScale, tickSize)
-                        else
-                            fiEnd = TimeUtils.beatsToSize(lastTime + previewData[i + 1], tickSize, beatsDivision)
+                        var fiEnd = timeValueToPixels(lastTime + previewData[i + 1])
                         context.moveTo(xPos, itemRoot.height)
                         context.lineTo(fiEnd, 0)
                     break
                     case ShowManager.StepDivider:
                         lastTime = previewData[i + 1]
-                        if (timeDivision === Show.Time)
-                            xPos = TimeUtils.timeToSize(lastTime, timeScale, tickSize)
-                        else
-                            xPos = TimeUtils.beatsToSize(lastTime, tickSize, beatsDivision)
+                        xPos = timeValueToPixels(lastTime)
                         context.moveTo(xPos, 0)
                         context.lineTo(xPos, itemRoot.height)
                         stepsCount++
                     break
                     case ShowManager.FadeOut:
-                        var foEnd
-                        if (timeDivision === Show.Time)
-                            foEnd = TimeUtils.timeToSize(lastTime + previewData[i + 1], timeScale, tickSize)
-                        else
-                            foEnd = TimeUtils.beatsToSize(lastTime + previewData[i + 1], tickSize, beatsDivision)
+                        var foEnd = timeValueToPixels(lastTime + previewData[i + 1])
                         context.moveTo(stepsCount ? xPos : itemRoot.width - foEnd, 0)
                         context.lineTo(stepsCount ? foEnd : itemRoot.width, itemRoot.height)
                     break
@@ -266,6 +392,7 @@ Item
 
             }
             context.stroke()
+            context.restore()
         }
     }
 
@@ -401,11 +528,26 @@ Item
             {
                 infoText = ""
 
+                // a Function keeps its own tempo type regardless of the Show's
+                // ruler (see updateGeometry() above), so the dropped position
+                // must be converted using ITS OWN unit, like the resize handlers do
+                var itemIsBeats = funcRef && funcRef.tempoType === QLCFunction.Beats
+                var dropX = itemRoot.x + showItemBody.x
+
+                // grid snapping: snap to the nearest beat on a BPM ruler
+                // (skipped if already snapped to another item's edge)
+                if (showManager.gridEnabled && !itemSnapped && timeDivision !== Show.Time)
+                    dropX = Math.round(dropX / (tickSize / beatsDivision)) * (tickSize / beatsDivision)
+
                 var newTime
                 if (timeDivision === Show.Time)
-                    newTime = TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize)
+                    newTime = itemIsBeats
+                            ? TimeUtils.posToBeatsMsOnTimeline(dropX, timeScale, tickSize, ioManager.bpmNumber)
+                            : TimeUtils.posToMs(dropX, timeScale, tickSize)
                 else
-                    newTime = TimeUtils.posToBeat(itemRoot.x + showItemBody.x, tickSize, beatsDivision)
+                    newTime = itemIsBeats
+                            ? TimeUtils.posToBeat(dropX, tickSize, beatsDivision)
+                            : TimeUtils.posToBeatMs(dropX, tickSize, ioManager.bpmNumber, beatsDivision)
 
                 var newTrackIdx = Math.round((itemRoot.y + showItemBody.y) / itemRoot.height)
                 if (newTime < 0)
@@ -413,7 +555,7 @@ Item
 
                 if (newTrackIdx >= 0)
                 {
-                    var res = showManager.checkAndMoveItem(sfRef, trackIndex, newTrackIdx, newTime, itemSnapped)
+                    var res = showManager.checkAndMoveItem(sfRef, trackIndex, newTrackIdx, newTime)
 
                     if (res === true)
                         trackIndex = newTrackIdx
@@ -586,16 +728,33 @@ Item
                     }
 
                     var newDuration, newStartTime
+                    var itemIsBeats = funcRef && funcRef.tempoType === QLCFunction.Beats
 
                     if (timeDivision === Show.Time)
                     {
-                        newStartTime = TimeUtils.posToMs(itemRoot.x, timeScale, tickSize)
-                        newDuration = TimeUtils.posToMs(itemRoot.width, timeScale, tickSize)
+                        if (itemIsBeats)
+                        {
+                            newStartTime = TimeUtils.posToBeatsMsOnTimeline(itemRoot.x, timeScale, tickSize, ioManager.bpmNumber)
+                            newDuration = TimeUtils.posToBeatsMsOnTimeline(itemRoot.width, timeScale, tickSize, ioManager.bpmNumber)
+                        }
+                        else
+                        {
+                            newStartTime = TimeUtils.posToMs(itemRoot.x, timeScale, tickSize)
+                            newDuration = TimeUtils.posToMs(itemRoot.width, timeScale, tickSize)
+                        }
                     }
                     else
                     {
-                        newStartTime = TimeUtils.posToBeat(itemRoot.x, tickSize, beatsDivision)
-                        newDuration = TimeUtils.posToBeat(itemRoot.width, tickSize, beatsDivision)
+                        if (itemIsBeats)
+                        {
+                            newStartTime = TimeUtils.posToBeat(itemRoot.x, tickSize, beatsDivision)
+                            newDuration = TimeUtils.posToBeat(itemRoot.width, tickSize, beatsDivision)
+                        }
+                        else
+                        {
+                            newStartTime = TimeUtils.posToBeatMs(itemRoot.x, tickSize, ioManager.bpmNumber, beatsDivision)
+                            newDuration = TimeUtils.posToBeatMs(itemRoot.width, tickSize, ioManager.bpmNumber, beatsDivision)
+                        }
                     }
 
                     if (showManager.setShowItemStartTime(sfRef, newStartTime) === true)
@@ -701,11 +860,20 @@ Item
                     }
 
                     var newDuration
+                    var itemIsBeats = funcRef && funcRef.tempoType === QLCFunction.Beats
 
                     if (timeDivision === Show.Time)
-                        newDuration = TimeUtils.posToMs(itemRoot.width, timeScale, tickSize)
+                    {
+                        newDuration = itemIsBeats
+                                ? TimeUtils.posToBeatsMsOnTimeline(itemRoot.width, timeScale, tickSize, ioManager.bpmNumber)
+                                : TimeUtils.posToMs(itemRoot.width, timeScale, tickSize)
+                    }
                     else
-                        newDuration = (Math.round(itemRoot.width / (tickSize / beatsDivision)) * 1000)
+                    {
+                        newDuration = itemIsBeats
+                                ? (Math.round(itemRoot.width / (tickSize / beatsDivision)) * 1000)
+                                : TimeUtils.posToBeatMs(itemRoot.width, tickSize, ioManager.bpmNumber, beatsDivision)
+                    }
 
                     if (showManager.setShowItemDuration(sfRef, newDuration) === false)
                         updateGeometry()

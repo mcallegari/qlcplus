@@ -99,6 +99,7 @@ VCWidgetItem
             border.width: 0
             checkable: true
             tooltip: qsTr("Enable/Disable the audio capture")
+            enabled: audioTriggerObj ? !audioTriggerObj.isDisabled : true
             faSource: FontAwesome.fa_check
             faColor: "lime"
             imgMargins: 1
@@ -109,7 +110,7 @@ VCWidgetItem
         // the volume fader
         QLCPlusFader
         {
-            enabled: !audioTriggerObj.isDisabled
+            enabled: audioTriggerObj ? !audioTriggerObj.isDisabled : true
             Layout.alignment: Qt.AlignHCenter
             Layout.fillHeight: true
             width: parent.width

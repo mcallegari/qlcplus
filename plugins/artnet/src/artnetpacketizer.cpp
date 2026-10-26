@@ -18,7 +18,6 @@
 */
 
 #include "artnetpacketizer.h"
-#include "rdmprotocol.h"
 
 #include <QStringList>
 #include <QDebug>
@@ -179,11 +178,8 @@ void ArtNetPacketizer::setupArtNetTodRequest(QByteArray &data, const int &univer
     data.append((char)(universe & 0x00FF)); // Address
 }
 
-void ArtNetPacketizer::setupArtNetRdm(QByteArray &data, const int &universe, uchar command, QVariantList params)
+void ArtNetPacketizer::setupArtNetRdmFrame(QByteArray &data, const int &universe, const QByteArray &frame)
 {
-    RDMProtocol rdm;
-    QByteArray ba;
-
     data.clear();
     data.append(m_commonHeader);
     data[9] = char(ARTNET_RDM >> 8);
@@ -201,8 +197,8 @@ void ArtNetPacketizer::setupArtNetRdm(QByteArray &data, const int &universe, uch
     data.append(char(0x00));                // ArProcess
     data.append((char)(universe & 0x00FF)); // Address
 
-    rdm.packetizeCommand(command, params, false, ba);
-    data.append(ba);
+    // the start code is not part of the ArtRdm payload
+    data.append(frame.mid(1));
 }
 
 /*********************************************************************
@@ -273,51 +269,31 @@ bool ArtNetPacketizer::fillDMXdata(QByteArray const& data, QByteArray &dmx, quin
     return true;
 }
 
-bool ArtNetPacketizer::processTODdata(const QByteArray &data, quint32 &universe, QVariantMap &values)
+bool ArtNetPacketizer::processTODuids(const QByteArray &data, quint32 &universe, QByteArray &uids)
 {
     if (data.isNull() || data.length() < 28)
         return false;
 
-    // 0 - 11 ArtNet header
-    // 12 RDM version
-    // 13 Port
-    // 14 - 20 Spare
-    // 21, 23 address
+    // see processTODdata for the packet layout
     universe = (data.at(21) << 8) + data.at(23);
-    // 22 Command response
-    // 24 - 25 UID total
-    //quint16 uidTotal = (quint8(data.at(24)) << 8) + quint8(data.at(25));
-    // 26 BlockCount (consider only when total > 200)
-    // 27 UID count
     quint8 uidCount = quint8(data.at(27));
 
-    qDebug() << "UID count:" << uidCount;
-
-    for (int i = 0; i < uidCount; i++)
-    {
-        quint16 ESTAId;
-        quint32 deviceId;
-        QString UID = RDMProtocol::byteArrayToUID(data.mid(28 + (i * 6), 6), ESTAId, deviceId);
-        qDebug() << "UID:" << UID;
-        values.insert(QString("UID-%1").arg(i), UID);
-    }
-    values.insert("DISCOVERY_COUNT", uidCount);
+    uids = data.mid(28, uidCount * 6);
 
     return true;
 }
 
-bool ArtNetPacketizer::processRDMdata(const QByteArray &data, quint32 &universe, QVariantMap &values)
+bool ArtNetPacketizer::processRDMframe(const QByteArray &data, quint32 &universe, QByteArray &frame)
 {
     if (data.isNull() || data.length() < 24)
         return false;
 
-    // 0 - 11 ArtNet header
-    // 12 RDM version
-    // 13 - 20 zero fillers
-    // 21, 23 address
+    // see processRDMdata for the packet layout
     universe = (data.at(21) << 8) + data.at(23);
 
-    RDMProtocol rdm;
-    return rdm.parsePacket(data.mid(24), values);
+    frame = data.mid(24);
+    frame.prepend(char(0xCC)); // restore the RDM start code
+
+    return true;
 }
 

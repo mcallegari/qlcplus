@@ -34,12 +34,6 @@ class SceneEditor;
 class FunctionEditor;
 class GenericDMXSource;
 
-typedef struct
-{
-    quint32 m_fID;
-    QQuickItem *m_item;
-} selectedFunction;
-
 class FunctionManager final : public QObject
 {
     Q_OBJECT
@@ -243,6 +237,10 @@ signals:
 public slots:
     void slotDocLoaded();
     void slotFunctionAdded(quint32 fid);
+
+    /** Register the tree item of the Function with ID $fid under its new
+     *  name, when the Function has been renamed outside this manager */
+    void slotFunctionNameChanged(quint32 fid);
 
 private:
     /** Reference of the QML view */

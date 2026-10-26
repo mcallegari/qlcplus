@@ -249,7 +249,11 @@ private:
 public:
     virtual bool supportRDM();
 
-    virtual bool sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params);
+    virtual int rdmTransportFlags(quint32 universe, quint32 line);
+
+    virtual QByteArray rdmSourceUID(quint32 universe, quint32 line);
+
+    virtual bool sendRDMFrame(quint32 universe, quint32 line, int type, const QByteArray &frame);
 
     /********************************************************************
      * Write universe

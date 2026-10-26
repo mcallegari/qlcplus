@@ -108,8 +108,12 @@ CustomPopupDialog
                     id: drivesList
                     SplitView.preferredWidth: popupRoot.width / 3
                     implicitHeight: UISettings.listItemHeight * 8
+                    boundsBehavior: Flickable.StopAtBounds
+                    clip: true
 
                     model: folderBrowser.drivesModel
+
+                    ScrollBar.vertical: CustomScrollBar { }
 
                     property int selectedIndex: -1
 
@@ -160,6 +164,8 @@ CustomPopupDialog
                     clip: true
 
                     model: folderBrowser.folderModel
+
+                    ScrollBar.vertical: CustomScrollBar { }
 
                     property int selectedIndex: -1
 

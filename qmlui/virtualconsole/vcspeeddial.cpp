@@ -84,7 +84,7 @@ VCSpeedDial::VCSpeedDial(Doc *doc, QObject *parent)
 VCSpeedDial::~VCSpeedDial()
 {
     if (m_item)
-        delete m_item;
+        delete m_item.data();
 
     clearPresets();
 }
@@ -114,6 +114,8 @@ void VCSpeedDial::render(QQuickView *view, QQuickItem *parent)
         return;
     }
 
+    // release the item of a previous rendering (e.g. VC page reloaded)
+    delete m_item.data();
     m_item = qobject_cast<QQuickItem*>(component->create());
     if (m_item == nullptr)
         qWarning() << Q_FUNC_INFO << "Unable to create speed dial component" << component->errors();

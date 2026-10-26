@@ -31,6 +31,7 @@
 #include "fixturegroup.h"
 #include "mastertimer.h"
 #include "rgbmatrix.h"
+#include "rgbtext.h"
 #include "fixture.h"
 #include "qlcfile.h"
 #include "doc.h"
@@ -105,6 +106,23 @@ void RGBMatrix_Test::group()
 
     mtx.setFixtureGroup(FixtureGroup::invalidId());
     QCOMPARE(mtx.fixtureGroup(), FixtureGroup::invalidId());
+}
+
+void RGBMatrix_Test::totalDurationWithoutSteps()
+{
+    RGBMatrix mtx(m_doc);
+    mtx.setFixtureGroup(m_doc->fixtureGroups().first()->id());
+
+    RGBText *text = new RGBText(m_doc);
+    text->setText(QString());
+    text->setAnimationStyle(RGBText::StaticLetters);
+    mtx.setAlgorithm(text);
+    QCOMPARE(text->rgbMapStepCount(QSize(5, 5)), 0);
+
+    // must not divide by zero
+    mtx.setTotalDuration(1000);
+    QCOMPARE(mtx.duration(), uint(1000));
+    QCOMPARE(mtx.totalDuration(), quint32(0));
 }
 
 void RGBMatrix_Test::color()
@@ -386,6 +404,36 @@ void RGBMatrix_Test::loadSave()
     xmlReader.readNextStartElement();
     QVERIFY(mtx2.loadXML(xmlReader) == false); // Not an RGBMatrix node
 
+}
+
+void RGBMatrix_Test::groupRemovedWhileRunning()
+{
+    FixtureGroup *grp = new FixtureGroup(m_doc);
+    grp->setSize(QSize(1, 1));
+    m_doc->addFixtureGroup(grp);
+    grp->assignFixture(m_doc->fixtures().first()->id());
+
+    RGBMatrix *mtx = new RGBMatrix(m_doc);
+    mtx->setFixtureGroup(grp->id());
+    m_doc->addFunction(mtx);
+
+    MasterTimer *timer = m_doc->masterTimer();
+    mtx->start(timer, FunctionParent::master());
+    timer->timerTick();
+    timer->timerTick();
+    QVERIFY(mtx->isRunning() == true);
+    QVERIFY(mtx->m_group == grp);
+
+    // the matrix must drop the pointer to the deleted group and stop
+    QVERIFY(m_doc->deleteFixtureGroup(grp->id()));
+    QVERIFY(mtx->m_group == NULL);
+
+    timer->timerTick();
+    timer->timerTick();
+    QVERIFY(mtx->stopped() == true);
+    QVERIFY(mtx->isRunning() == false);
+
+    m_doc->deleteFunction(mtx->id());
 }
 
 QTEST_MAIN(RGBMatrix_Test)

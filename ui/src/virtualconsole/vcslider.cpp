@@ -705,14 +705,18 @@ void VCSlider::slotUniverseWritten(quint32 idx, const QByteArray &universeData)
     {
         LevelChannel lch(it.next());
         Fixture* fxi = m_doc->fixture(lch.fixture);
-        if (fxi == NULL || fxi->universe() != idx)
+        if (fxi == NULL || lch.channel >= fxi->channels())
             continue;
 
-        if (lch.channel >= fxi->channels() ||
-            fxi->address() + lch.channel >= (quint32)universeData.length())
+        // a cross-universe fixture channel may belong to a following universe
+        quint32 absAddress = fxi->channelAddress(lch.channel);
+        if ((absAddress >> 9) != idx)
             continue;
 
-        quint32 dmx_ch = fxi->address() + lch.channel;
+        quint32 dmx_ch = absAddress & 0x01FF;
+        if (dmx_ch >= (quint32)universeData.length())
+            continue;
+
         uchar chValue = universeData.at(dmx_ch);
         if (monitorSliderValue == -1)
         {

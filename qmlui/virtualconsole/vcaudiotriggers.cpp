@@ -85,7 +85,7 @@ VCAudioTriggers::VCAudioTriggers(Doc *doc, VirtualConsole *vc, QObject *parent)
 VCAudioTriggers::~VCAudioTriggers()
 {
     if (m_item)
-        delete m_item;
+        delete m_item.data();
 }
 
 QString VCAudioTriggers::defaultCaption() const
@@ -116,6 +116,8 @@ void VCAudioTriggers::render(QQuickView *view, QQuickItem *parent)
         return;
     }
 
+    // release the item of a previous rendering (e.g. VC page reloaded)
+    delete m_item.data();
     m_item = qobject_cast<QQuickItem*>(component->create());
     if (m_item == nullptr)
         qWarning() << Q_FUNC_INFO << "Unable to create audio triggers component" << component->errors();
@@ -168,6 +170,18 @@ void VCAudioTriggers::remapChannels(const QMap<SceneValue, SceneValue> &remapMap
 bool VCAudioTriggers::captureEnabled() const
 {
     return m_captureEnabled;
+}
+
+void VCAudioTriggers::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity, bool excludeMonitored)
+{
+    Q_UNUSED(fid)
+    Q_UNUSED(fIntensity)
+    Q_UNUSED(excludeMonitored)
+
+    // stop capturing when any other widget (e.g. in the same Solo Frame)
+    // starts a Function
+    if (widget != this && m_captureEnabled)
+        setCaptureEnabled(false);
 }
 
 void VCAudioTriggers::setCaptureEnabled(bool enable)
@@ -486,7 +500,9 @@ void VCAudioTriggers::rebuildBarAbsDmxChannels(AudioBar &bar) const
     {
         if (Fixture *fx = m_doc->fixture(scv.fxi))
         {
-            const quint32 absAddr = fx->universeAddress() + scv.channel;
+            const quint32 absAddr = fx->channelAddress(scv.channel);
+            if (absAddr == QLCChannel::invalid())
+                continue;
             bar.m_absDmxChannels.append(int(absAddr));
         }
     }
@@ -590,6 +606,10 @@ void VCAudioTriggers::slotSpectrumDataChanged(double *spectrumBands,
     // We registered bandsNumber = m_spectrumBars.count() - 1 with AudioCapture,
     // so 'size' must match that.
     if (size != m_spectrumBars.count() - 1)
+        return;
+
+    // a disabled widget must not start/stop functions or widgets
+    if (isDisabled())
         return;
 
     m_audioLevels.clear();
@@ -856,9 +876,23 @@ void VCAudioTriggers::slotInputValueChanged(quint8 id, uchar value)
  * DMXSource
  *********************************************************************/
 
+void VCAudioTriggers::setDisabled(bool disable)
+{
+    for (QSharedPointer<GenericFader> fader : m_fadersMap)
+    {
+        if (fader.isNull() == false)
+            fader->setEnabled(!disable && m_captureEnabled);
+    }
+
+    VCWidget::setDisabled(disable);
+}
+
 void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
+
+    if (isDisabled())
+        return;
 
     quint32 lastUniverse = Universe::invalid();
     QSharedPointer<GenericFader> fader;
@@ -881,7 +915,7 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
                         fader->adjustIntensity(intensity());
                         m_fadersMap[universe] = fader;
                     }
-                    fader->setEnabled(m_captureEnabled);
+                    fader->setEnabled(m_captureEnabled && !isDisabled());
                     lastUniverse = universe;
                 }
 

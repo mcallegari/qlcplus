@@ -135,10 +135,14 @@ private:
      ********************************************************************/
 public:
     /** @reimp */
-    bool sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params) override;
+    int rdmTransportFlags(quint32 universe, quint32 line) override;
 
-signals:
-    void rdmValueChanged(quint32 universe, quint32 line, QVariantMap data);
+    /** @reimp */
+    bool sendRDMFrame(quint32 universe, quint32 line, RDMFrameType type, const QByteArray &frame) override;
+
+    /** @reimp */
+    bool requestRDMTod(quint32 universe, quint32 line) override;
+
 
     /*********************************************************************
      * ArtNet socket

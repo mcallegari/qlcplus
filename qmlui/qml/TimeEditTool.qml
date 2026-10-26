@@ -71,8 +71,7 @@ GridLayout
         speedType = tType
         timeValueString = tStrValue
         timeValue = TimeUtils.qlcStringToTime(timeValueString, tempoType)
-        if (allowFractions !== QLCFunction.NoFractions)
-            currentFraction = (timeValue % 1000)
+        updateFraction()
 
         if (tX >= 0)
             x = tX
@@ -87,18 +86,31 @@ GridLayout
         timeBox.selectAndFocus()
     }
 
+    function updateFraction()
+    {
+        currentFraction = (allowFractions !== QLCFunction.NoFractions && timeValue > 0) ? timeValue % 1000 : 0
+    }
+
+    /* Return the current value, treating infinite (-2) as zero */
+    function baseValue()
+    {
+        return timeValue < 0 ? 0 : timeValue
+    }
+
     function updateTime(value, string)
     {
         if (value !== -1 && value !== timeValue)
         {
             timeValue = value
             timeValueString = TimeUtils.timeToQlcString(timeValue, tempoType)
+            updateFraction()
             toolRoot.valueChanged(timeValue)
         }
         if (string !== "" && string !== timeValueString)
         {
             timeValue = TimeUtils.qlcStringToTime(string, tempoType)
             timeValueString = TimeUtils.timeToQlcString(timeValue, tempoType)
+            updateFraction()
             toolRoot.valueChanged(timeValue)
         }
     }
@@ -264,7 +276,7 @@ GridLayout
         fontSize: btnFontSize
         label: "+"
         repetition: true
-        onClicked: updateTime(timeValue + 1000, "")
+        onClicked: updateTime(baseValue() + 1000, "")
     }
 
     GenericButton
@@ -281,21 +293,19 @@ GridLayout
         onClicked:
         {
             if (allowFractions === QLCFunction.AllFractions)
-                updateTime(timeValue + 125, "")
+            {
+                updateTime(baseValue() + 125, "")
+            }
             else
             {
-                var tmpTime = timeValue
-                var newfraction = 0
-                if (currentFraction == 0)
-                    newfraction = 125
-                else if (currentFraction != 500)
-                    newfraction = currentFraction * 2
-
-                if (newfraction == 0)
-                    tmpTime += 1000
-
-                updateTime(tmpTime - currentFraction + newfraction, "")
-                currentFraction = newfraction
+                // double the beat fraction: 0 -> 1/8 -> 1/4 -> 1/2 -> next whole beat
+                let wholeBeats = baseValue() - currentFraction
+                if (currentFraction === 0)
+                    updateTime(wholeBeats + 125, "")
+                else if (currentFraction >= 500)
+                    updateTime(wholeBeats + 1000, "")
+                else
+                    updateTime(wholeBeats + currentFraction * 2, "")
             }
         }
     }
@@ -417,7 +427,7 @@ GridLayout
         fontSize: btnFontSize
         label: "-"
         repetition: true
-        onClicked: updateTime(timeValue - 1000, "")
+        onClicked: updateTime(Math.max(0, baseValue() - 1000), "")
     }
 
     GenericButton
@@ -435,26 +445,21 @@ GridLayout
         {
             if (allowFractions === QLCFunction.AllFractions)
             {
-                if (timeValue == 0)
-                    return
-
-                updateTime(timeValue - 125, "")
+                updateTime(Math.max(0, baseValue() - 125), "")
             }
             else
             {
-                var tmpTime = timeValue
-                var newfraction = 0
-                if (currentFraction == 0)
+                // halve the beat fraction: whole beat -> 1/2 -> 1/4 -> 1/8 -> 0
+                let wholeBeats = baseValue() - currentFraction
+                if (currentFraction === 0)
                 {
-                    newfraction = 500
-                    if (tmpTime > 0)
-                        tmpTime -= 1000
+                    if (wholeBeats > 0)
+                        updateTime(wholeBeats - 500, "")
                 }
-                else if (currentFraction != 125)
-                    newfraction = currentFraction / 2
-
-                updateTime(tmpTime - currentFraction + newfraction, "")
-                currentFraction = newfraction
+                else if (currentFraction <= 125)
+                    updateTime(wholeBeats, "")
+                else
+                    updateTime(wholeBeats + Math.floor(currentFraction / 250) * 125, "")
             }
         }
     }

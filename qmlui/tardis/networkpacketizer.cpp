@@ -156,7 +156,7 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value) const
             QVariantList list = value.toList();
             for (const QVariant &item : list)
             {
-                if (!item.canConvert<SceneValue>())
+                if (item.metaType().id() != QMetaType::QColor && !item.canConvert<SceneValue>())
                 {
                     qDebug() << "Unsupported QVariantList item metatype" << item.typeName();
                     continue;

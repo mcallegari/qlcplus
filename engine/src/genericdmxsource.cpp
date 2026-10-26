@@ -119,7 +119,11 @@ void GenericDMXSource::writeDMX(MasterTimer* timer, QList<Universe *> ua)
                 continue;
 
             quint32 channelIndex = it.key().second;
-            int universeIndex = floor((fixture->universeAddress() + channelIndex) / 512);
+            quint32 absAddress = fixture->channelAddress(channelIndex);
+            if (absAddress == QLCChannel::invalid())
+                continue;
+
+            int universeIndex = absAddress >> 9;
 
             if (universeIndex >= ua.count())
                 continue;

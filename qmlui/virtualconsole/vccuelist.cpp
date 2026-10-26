@@ -72,7 +72,7 @@ VCCueList::VCCueList(Doc *doc, QObject *parent)
 VCCueList::~VCCueList()
 {
     if (m_item)
-        delete m_item;
+        delete m_item.data();
 }
 
 QString VCCueList::defaultCaption() const
@@ -100,6 +100,8 @@ void VCCueList::render(QQuickView *view, QQuickItem *parent)
         return;
     }
 
+    // release the item of a previous rendering (e.g. VC page reloaded)
+    delete m_item.data();
     m_item = qobject_cast<QQuickItem*>(component->create());
     if (m_item == nullptr)
         qWarning() << Q_FUNC_INFO << "Unable to create cue list component" << component->errors();
@@ -141,6 +143,7 @@ bool VCCueList::copyFrom(const VCWidget *widget)
 
     setPlaybackLayout(cuelist->playbackLayout());
     setNextPrevBehavior(cuelist->nextPrevBehavior());
+    setColumnsWidths(cuelist->columnsWidths());
 
     /* Common stuff */
     return VCWidget::copyFrom(widget);
@@ -456,6 +459,20 @@ void VCCueList::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fInt
     stopChaser();
 }
 
+QVariantList VCCueList::columnsWidths() const
+{
+    return m_columnsWidths;
+}
+
+void VCCueList::setColumnsWidths(QVariantList widths)
+{
+    if (m_columnsWidths == widths)
+        return;
+
+    m_columnsWidths = widths;
+    emit columnsWidthsChanged();
+}
+
 quint32 VCCueList::chaserID() const
 {
     return m_chaserID;
@@ -568,6 +585,19 @@ void VCCueList::slotFunctionNameChanged(quint32 fid)
  * Playback
  *********************************************************************/
 
+/* The playback index is -1 when nothing has been played yet: in that case,
+ * moving forward starts from the first step and moving backward from the
+ * last one, like the QtWidgets UI does */
+static int forwardIndex(int index, int count)
+{
+    return (index < 0 || index + 1 >= count) ? 0 : index + 1;
+}
+
+static int backwardIndex(int index, int count)
+{
+    return (index <= 0 || index > count) ? count - 1 : index - 1;
+}
+
 int VCCueList::getNextIndex()
 {
     Chaser *ch = chaser();
@@ -575,9 +605,9 @@ int VCCueList::getNextIndex()
         return -1;
 
     if (ch->direction() == Function::Forward)
-        return m_playbackIndex + 1 == ch->stepsCount() ? 0 : m_playbackIndex + 1;
+        return forwardIndex(m_playbackIndex, ch->stepsCount());
     else
-        return m_playbackIndex == 0 ? ch->stepsCount() - 1 : m_playbackIndex - 1;
+        return backwardIndex(m_playbackIndex, ch->stepsCount());
 }
 
 int VCCueList::getPrevIndex()
@@ -587,9 +617,9 @@ int VCCueList::getPrevIndex()
         return -1;
 
     if (ch->direction() == Function::Forward)
-        return m_playbackIndex == 0 ? ch->stepsCount() - 1 : m_playbackIndex - 1;
+        return backwardIndex(m_playbackIndex, ch->stepsCount());
     else
-        return m_playbackIndex + 1 == ch->stepsCount() ? 0 : m_playbackIndex + 1;
+        return forwardIndex(m_playbackIndex, ch->stepsCount());
 }
 
 int VCCueList::getFirstIndex()
@@ -1072,6 +1102,15 @@ bool VCCueList::loadXML(QXmlStreamReader &root)
         {
             root.skipCurrentElement();
         }
+        else if (root.name() == KXMLQLCVCCueListColumnsWidths)
+        {
+            QVariantList widths;
+            QStringList wList = root.readElementText().split(",");
+            for (QString wStr : wList)
+                widths.append(wStr.toDouble());
+
+            setColumnsWidths(widths);
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown VC Cue list tag:" << root.name().toString();
@@ -1111,6 +1150,16 @@ bool VCCueList::saveXML(QXmlStreamWriter *doc) const
     /* Crossfade cue list */
     if (sideFaderMode() != None)
         doc->writeTextElement(KXMLQLCVCCueListSlidersMode, faderModeToString(sideFaderMode()));
+
+    /* Steps list columns widths */
+    if (!m_columnsWidths.isEmpty())
+    {
+        QStringList wList;
+        for (QVariant w : m_columnsWidths)
+            wList.append(QString::number(w.toDouble(), 'f', 2));
+
+        doc->writeTextElement(KXMLQLCVCCueListColumnsWidths, wList.join(","));
+    }
 
     /* Input controls */
     saveXMLInputControl(doc, INPUT_NEXT_STEP_ID, false, KXMLQLCVCCueListNext);

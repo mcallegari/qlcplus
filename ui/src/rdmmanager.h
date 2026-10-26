@@ -17,128 +17,25 @@
   limitations under the License.
 */
 
+
 #ifndef RDMMANAGER_H
 #define RDMMANAGER_H
 
-#include <QThread>
-
 #include "ui_rdmmanager.h"
+#include "qlcrdmservice.h"
 
-class QLCIOPlugin;
-class Doc;
-
-typedef struct
-{
-    QString manufacturer;
-    QString name;
-    quint32 universe;
-    quint32 pluginLine;
-    quint16 dmxAddress;
-    quint16 channels;
-    QVariantMap params;
-} UIDInfo;
-
-typedef struct
-{
-    qulonglong startUID;
-    qulonglong endUID;
-} DiscoveryInfo;
-
-class RDMWorker final : public QThread
-{
-    Q_OBJECT
-
-public:
-    RDMWorker(Doc *doc);
-    ~RDMWorker();
-
-    enum RequestState
-    {
-        StateNone,
-        StateWait,
-        StateDiscoveryStart,
-        StateDiscoveryContinue,
-        StateDiscoveryEnd,
-        StatePersonalities,
-        StatePersonalityInfo,
-        StateSlots,
-        StateSupportedPids,
-        StateReadSinglePid,
-        StateWriteSinglePid,
-        StateWaitPidInfo
-    };
-
-    /** Start the discovery process and handle it vai state machine */
-    void runDiscovery(quint32 uni, quint32 line);
-
-    /** Request the given UID information and handle results via state machine */
-    void getUidInfo(quint32 uni, quint32 line, QString UID, UIDInfo &info);
-
-    void handlePID(quint32 uni, quint32 line, QString UID, QString pid, QVariantList args, bool write);
-
-private:
-    void run() override;
-
-    /** Stop this thread */
-    void stop();
-
-private slots:
-
-    /** Slot called whenever a plugin has collected new RDM data */
-    void slotRDMDataReady(quint32 universe, quint32 line, QVariantMap data);
-
-signals:
-    /** Inform the listeners that a new UID has been discovered */
-    void uidFound(QString UID, UIDInfo info);
-
-    void fixtureInfoReady(QString &info);
-
-    void pidInfoReady(QString info);
-
-    void requestPopup(QString title, QString message);
-
-private:
-    Doc *m_doc;
-    bool m_running;
-
-    QLCIOPlugin *m_plugin;
-    quint32 m_universe;
-    quint32 m_line;
-
-    /** Map of all the discovered fixtures by UID */
-    QMap <QString, UIDInfo> m_uidMap;
-
-    /** FIFO for discovery binary search */
-    QList<DiscoveryInfo> m_discoveryList;
-
-    /** State variable to sync between a request and its answer */
-    RequestState m_requestState;
-
-    QVector<quint16> m_requestList;
-
-    /** String containing HTML formatted
-     *  information of a fixture */
-    QString m_fixtureInfo;
-};
-
+/**
+ * The RDM view. It only displays what the RDM service plugin provides and forwards
+ * the user requests to it: all the RDM logic lives in the service.
+ */
 class RDMManager final : public QWidget, public Ui_RDMManager
 {
     Q_OBJECT
 
 public:
-    explicit RDMManager(QWidget *parent, Doc* doc);
+    /** @param service the RDM service object, implementing QLCRDMService */
+    explicit RDMManager(QWidget *parent, QObject *service);
     ~RDMManager();
-
-    enum PidDataType
-    {
-        ByteArg = 0,
-        ShortArg,
-        LongArg,
-        ArrayArg
-    };
-
-private:
-    bool getPluginInfo(quint32 universe, quint32 line, quint32 &universeID, quint32 &outputLine);
 
 private slots:
     /** Triggers the RDM discovery on all universes */
@@ -154,25 +51,27 @@ private slots:
     /** Write a single PID and return the result */
     void slotWritePID();
 
-    void updateRDMTreeItem(QString UID, UIDInfo info);
+    void slotDeviceFound(QLCRDMDevice device);
+
+    void slotDeviceInfoReady(QString html);
 
     void slotSelectionChanged();
 
     void slotUpdatePidInfo(QString info);
 
-    void slotDisplayPopup(QString title, QString message);
+    void slotDisplayMessage(QString title, QString text);
 
-    void slotTaskFinished();
+    void slotBusyChanged(bool busy);
 
 signals:
     void fixtureInfoReady(QString &info);
 
 private:
-    /** Reference to the main Doc object */
-    Doc *m_doc;
+    QString selectedUID() const;
 
-    /** Map of all the discovered fixtures by UID */
-    QMap <QString, UIDInfo> m_uidMap;
+private:
+    /** The RDM service plugin */
+    QLCRDMService *m_service;
 };
 
 #endif // RDMMANAGER_H
