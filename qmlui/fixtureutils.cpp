@@ -436,25 +436,97 @@ QColor FixtureUtils::headColor(Fixture *fixture, int headIndex)
     quint32 white = fixture->channelNumber(QLCChannel::White, QLCChannel::MSB, headIndex);
     quint32 amber = fixture->channelNumber(QLCChannel::Amber, QLCChannel::MSB, headIndex);
     quint32 UV = fixture->channelNumber(QLCChannel::UV, QLCChannel::MSB, headIndex);
+    quint32 cyan = fixture->channelNumber(QLCChannel::Cyan, QLCChannel::MSB, headIndex);
+    quint32 magenta = fixture->channelNumber(QLCChannel::Magenta, QLCChannel::MSB, headIndex);
+    quint32 yellow = fixture->channelNumber(QLCChannel::Yellow, QLCChannel::MSB, headIndex);
     quint32 lime = fixture->channelNumber(QLCChannel::Lime, QLCChannel::MSB, headIndex);
     quint32 indigo = fixture->channelNumber(QLCChannel::Indigo, QLCChannel::MSB, headIndex);
 
+    // Determine if CMY channels are dedicated LED emitters (additive) vs CMYK subtractive
+    // A channel is an emitter if it exists but NOT all three C, M, Y are present
+    bool cyanIsEmitter = (cyan != QLCChannel::invalid() &&
+                          (magenta == QLCChannel::invalid() || yellow == QLCChannel::invalid()));
+    bool magentaIsEmitter = (magenta != QLCChannel::invalid() &&
+                             (cyan == QLCChannel::invalid() || yellow == QLCChannel::invalid()));
+    bool yellowIsEmitter = (yellow != QLCChannel::invalid() &&
+                            (cyan == QLCChannel::invalid() || magenta == QLCChannel::invalid()));
+
     if (white != QLCChannel::invalid() && fixture->channelValueAt(white))
-        finalColor = blendColors(finalColor, Qt::white, (float)fixture->channelValueAt(white) / 255.0);
+    {
+        float whiteIntensity = (float)fixture->channelValueAt(white) / 255.0;
+        // Additive mixing: white brightens all channels equally
+        finalColor.setRedF(qMin(1.0, finalColor.redF() + whiteIntensity));
+        finalColor.setGreenF(qMin(1.0, finalColor.greenF() + whiteIntensity));
+        finalColor.setBlueF(qMin(1.0, finalColor.blueF() + whiteIntensity));
+    }
 
     if (amber != QLCChannel::invalid() && fixture->channelValueAt(amber))
-        finalColor = blendColors(finalColor, QColor(0xFFFF7E00), (float)fixture->channelValueAt(amber) / 255.0);
+    {
+        float amberIntensity = (float)fixture->channelValueAt(amber) / 255.0;
+        // Additive mixing: amber uses upstream's color 0xFFFF7E00 (R=1.0, G=0.49, B=0.0)
+        finalColor.setRedF(qMin(1.0, finalColor.redF() + amberIntensity * 1.0));
+        finalColor.setGreenF(qMin(1.0, finalColor.greenF() + amberIntensity * 0.49));
+        finalColor.setBlueF(qMin(1.0, finalColor.blueF() + amberIntensity * 0.0));
+    }
 
     if (UV != QLCChannel::invalid() && fixture->channelValueAt(UV))
-        finalColor = blendColors(finalColor, QColor(0xFF9400D3), (float)fixture->channelValueAt(UV) / 255.0);
+    {
+        float uvIntensity = (float)fixture->channelValueAt(UV) / 255.0;
+        // Additive mixing: UV uses upstream's violet color 0xFF9400D3 (R=0.58, G=0.0, B=0.83)
+        finalColor.setRedF(qMin(1.0, finalColor.redF() + uvIntensity * 0.58));
+        finalColor.setGreenF(qMin(1.0, finalColor.greenF() + uvIntensity * 0.0));
+        finalColor.setBlueF(qMin(1.0, finalColor.blueF() + uvIntensity * 0.83));
+    }
+
+    if (cyanIsEmitter && fixture->channelValueAt(cyan))
+    {
+        float cyanIntensity = (float)fixture->channelValueAt(cyan) / 255.0;
+        // Additive mixing: Cyan adds (R=0.0, G=1.0, B=1.0)
+        finalColor.setRedF(qMin(1.0, finalColor.redF() + cyanIntensity * 0.0));
+        finalColor.setGreenF(qMin(1.0, finalColor.greenF() + cyanIntensity * 1.0));
+        finalColor.setBlueF(qMin(1.0, finalColor.blueF() + cyanIntensity * 1.0));
+    }
+
+    if (magentaIsEmitter && fixture->channelValueAt(magenta))
+    {
+        float magentaIntensity = (float)fixture->channelValueAt(magenta) / 255.0;
+        // Additive mixing: Magenta adds (R=1.0, G=0.0, B=1.0)
+        finalColor.setRedF(qMin(1.0, finalColor.redF() + magentaIntensity * 1.0));
+        finalColor.setGreenF(qMin(1.0, finalColor.greenF() + magentaIntensity * 0.0));
+        finalColor.setBlueF(qMin(1.0, finalColor.blueF() + magentaIntensity * 1.0));
+    }
+
+    if (yellowIsEmitter && fixture->channelValueAt(yellow))
+    {
+        float yellowIntensity = (float)fixture->channelValueAt(yellow) / 255.0;
+        // Additive mixing: Yellow adds (R=1.0, G=1.0, B=0.0)
+        finalColor.setRedF(qMin(1.0, finalColor.redF() + yellowIntensity * 1.0));
+        finalColor.setGreenF(qMin(1.0, finalColor.greenF() + yellowIntensity * 1.0));
+        finalColor.setBlueF(qMin(1.0, finalColor.blueF() + yellowIntensity * 0.0));
+    }
 
     if (lime != QLCChannel::invalid() && fixture->channelValueAt(lime))
-        finalColor = blendColors(finalColor, QColor(0xFFADFF2F), (float)fixture->channelValueAt(lime) / 255.0);
+    {
+        float limeIntensity = (float)fixture->channelValueAt(lime) / 255.0;
+        // Additive mixing: Lime uses upstream's color 0xFFADFF2F (R=0.68, G=1.0, B=0.18)
+        finalColor.setRedF(qMin(1.0, finalColor.redF() + limeIntensity * 0.68));
+        finalColor.setGreenF(qMin(1.0, finalColor.greenF() + limeIntensity * 1.0));
+        finalColor.setBlueF(qMin(1.0, finalColor.blueF() + limeIntensity * 0.18));
+    }
 
     if (indigo != QLCChannel::invalid() && fixture->channelValueAt(indigo))
-        finalColor = blendColors(finalColor, QColor(0xFF4B0082), (float)fixture->channelValueAt(indigo) / 255.0);
+    {
+        float indigoIntensity = (float)fixture->channelValueAt(indigo) / 255.0;
+        // Additive mixing: Indigo uses upstream's color 0xFF4B0082 (R=0.29, G=0.0, B=0.51)
+        finalColor.setRedF(qMin(1.0, finalColor.redF() + indigoIntensity * 0.29));
+        finalColor.setGreenF(qMin(1.0, finalColor.greenF() + indigoIntensity * 0.0));
+        finalColor.setBlueF(qMin(1.0, finalColor.blueF() + indigoIntensity * 0.51));
+    }
 
     if (white != QLCChannel::invalid() || amber != QLCChannel::invalid() || UV != QLCChannel::invalid() ||
+        (cyan != QLCChannel::invalid() && cyanIsEmitter) ||
+        (magenta != QLCChannel::invalid() && magentaIsEmitter) ||
+        (yellow != QLCChannel::invalid() && yellowIsEmitter) ||
         lime != QLCChannel::invalid() || indigo != QLCChannel::invalid())
         colorFound = true;
 
