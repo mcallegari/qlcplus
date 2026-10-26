@@ -49,8 +49,9 @@ PaletteManager::PaletteManager(QQuickView *view, Doc *doc,
 
     // Refresh the list when palettes are added/removed outside this manager
     // (e.g. by the Stage Wizard).
-    connect(m_doc, &Doc::paletteAdded,   this, [this]() { updatePaletteList(); });
-    connect(m_doc, &Doc::paletteRemoved, this, [this]() { updatePaletteList(); });
+    // Old-style syntax: the function-pointer form fails on Windows with "signal not found"
+    connect(m_doc, SIGNAL(paletteAdded(quint32)), this, SLOT(updatePaletteList()));
+    connect(m_doc, SIGNAL(paletteRemoved(quint32)), this, SLOT(updatePaletteList()));
 }
 
 PaletteManager::~PaletteManager()

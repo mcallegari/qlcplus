@@ -56,7 +56,7 @@ QVariant ListModel::data(const QModelIndex &index, int role) const
     if (itemRow < 0 || itemRow >= m_data.count())
         return QVariant();
 
-    if (role < Qt::UserRole + 1 || role > Qt::UserRole + 1 + m_roles.count())
+    if (role < Qt::UserRole + 1 || role >= Qt::UserRole + 1 + m_roles.count())
         return QVariant();
 
     QString roleName = m_roles.at(role - Qt::UserRole - 1);
@@ -90,7 +90,7 @@ bool ListModel::setData(const QModelIndex &index, const QVariant &value, int rol
     if (itemRow < 0 || itemRow >= m_data.count())
         return false;
 
-    if (role < Qt::UserRole + 1 || role > Qt::UserRole + 1 + m_roles.count())
+    if (role < Qt::UserRole + 1 || role >= Qt::UserRole + 1 + m_roles.count())
         return false;
 
     QString roleName = m_roles.at(role - Qt::UserRole - 1);
@@ -129,7 +129,7 @@ void ListModel::addDataMap(QVariantMap data)
 void ListModel::setDataMap(const QModelIndex &index, QVariantMap data)
 {
     int itemRow = index.row();
-    if (itemRow >= m_data.count())
+    if (itemRow < 0 || itemRow >= m_data.count())
         return;
 
     m_data[itemRow] = data;

@@ -56,6 +56,7 @@ Rectangle
     property var dialogNameFilters: [ qsTr("Fixture definition files") + " (*.qxf)", qsTr("All files") + " (*)" ]
     property int dialogFileMode: FileDialog.OpenFile
     property int dialogOpMode: App.OpenMode
+    property var androidDialog: null
 
     function openDialog(opMode)
     {
@@ -84,6 +85,24 @@ Rectangle
             if (saveFilename !== "")
                 customDialog.selectedFile = saveFilename
             customDialog.open()
+        }
+        else if (Qt.platform.os === "android")
+        {
+            /* Created on demand (not declared) so other platforms never
+               load Qt.labs.platform. See AndroidFileDialog.qml */
+            if (androidDialog === null)
+            {
+                androidDialog = Qt.createComponent("qrc:/AndroidFileDialog.qml").createObject(fixtureEditorView)
+                androidDialog.fileAccepted.connect(function(selected) {
+                    dialogSelectedFile = selected
+                    handleAccept()
+                })
+            }
+            androidDialog.title = dialogTitle
+            androidDialog.saveMode = (dialogFileMode === FileDialog.SaveFile)
+            if (saveFilename !== "")
+                androidDialog.currentFile = saveFilename
+            androidDialog.open()
         }
         else
         {
@@ -137,6 +156,7 @@ Rectangle
             handleAccept()
         }
     }
+
 
     PopupFolderBrowser
     {

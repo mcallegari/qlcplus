@@ -94,11 +94,21 @@ jobs:
           echo "QT: ${QT}"
           echo "NPROC: ${NPROC}"
 
-      - name: Download, cache and install packages
-        uses: awalsh128/cache-apt-pkgs-action@v1.6.3
-        with:
-          packages: ${{env.PACKAGES_ALL}}
-          version: ${{runner.os}}-apt
+      - name: Install packages
+        run: |
+          PKGS="${PACKAGES_ALL}"
+          # Ubuntu 24.04 renamed libfuse2 to libfuse2t64
+          if apt-cache show libfuse2t64 >/dev/null 2>&1; then
+            PKGS="${PKGS/libfuse2/libfuse2t64}"
+          fi
+          # retry: runner mirrors are sometimes out of sync (404 on fresh updates)
+          for i in 1 2 3; do
+            sudo apt-get update && \
+            sudo apt-get install -y --no-install-recommends ${PKGS} && exit 0
+            echo "apt install failed (attempt $i), retrying in 30s..."
+            sleep 30
+          done
+          exit 1
 
       - name: Install Qt through aqt (and python)
         uses: jurplel/install-qt-action@v4

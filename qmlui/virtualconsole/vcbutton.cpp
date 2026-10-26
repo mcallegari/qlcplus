@@ -69,7 +69,7 @@ VCButton::VCButton(Doc *doc, QObject *parent)
 VCButton::~VCButton()
 {
     if (m_item)
-        delete m_item;
+        delete m_item.data();
 }
 
 QString VCButton::defaultCaption() const
@@ -98,6 +98,8 @@ void VCButton::render(QQuickView *view, QQuickItem *parent)
         return;
     }
 
+    // release the item of a previous rendering (e.g. VC page reloaded)
+    delete m_item.data();
     m_item = qobject_cast<QQuickItem*>(component->create());
     if (m_item == nullptr)
         qWarning() << Q_FUNC_INFO << "Unable to create button component" << component->errors();

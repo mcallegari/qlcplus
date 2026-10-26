@@ -103,10 +103,17 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1" colspan="2">
-         <widget class="QCheckBox" name="m_crossUniverseCheck">
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_crossUniverse">
           <property name="text">
-           <string>Allow cross-universe addressing [EXPERIMENTAL]</string>
+           <string>Universe split</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1" colspan="2">
+         <widget class="QComboBox" name="m_crossUniverseCombo">
+          <property name="toolTip">
+           <string>How a row is patched when it doesn't fit in the current universe</string>
           </property>
          </widget>
         </item>
@@ -388,7 +395,7 @@
   <tabstop>m_nameEdit</tabstop>
   <tabstop>m_uniCombo</tabstop>
   <tabstop>m_addressSpin</tabstop>
-  <tabstop>m_crossUniverseCheck</tabstop>
+  <tabstop>m_crossUniverseCombo</tabstop>
   <tabstop>m_compCombo</tabstop>
   <tabstop>m_16bitCheck</tabstop>
   <tabstop>m_columnSpin</tabstop>

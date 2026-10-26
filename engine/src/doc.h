@@ -268,7 +268,7 @@ public:
      * @return true if the fixture was successfully added to doc,
      *         otherwise false.
      */
-    bool addFixture(Fixture* fixture, quint32 id = Fixture::invalidId(), bool crossUniverse = false);
+    bool addFixture(Fixture* fixture, quint32 id = Fixture::invalidId());
 
     /**
      * Delete the given fixture instance from Doc
@@ -344,7 +344,7 @@ protected:
      * $fixture to the universes it is patched on. Channels used by another
      * fixture are left untouched
      */
-    void patchFixtureChannels(Fixture *fixture, bool crossUniverse);
+    void patchFixtureChannels(Fixture *fixture);
 
     /**
      * Reset the universe channels at the given absolute $addresses,

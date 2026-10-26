@@ -51,6 +51,7 @@ private slots:
 
     void writeHTPZeroTicks();
     void writeHTPTwoTicks();
+    void writeHTPStopWhilePaused();
     void writeHTPTwoTicksIntensity();
     void writeLTPReady();
 

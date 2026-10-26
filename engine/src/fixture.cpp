@@ -44,7 +44,7 @@ Fixture::Fixture(QObject* parent)
     : QObject(parent)
     , m_id(Fixture::invalidId())
     , m_address(0)
-    , m_crossUniverse(false)
+    , m_crossUniverse(CrossUniverseNone)
     , m_channels(0)
     , m_fixtureDef(NULL)
     , m_fixtureMode(NULL)
@@ -136,14 +136,40 @@ quint32 Fixture::universe() const
     return (m_address >> 9);
 }
 
-void Fixture::setCrossUniverse(bool enable)
+void Fixture::setCrossUniverse(CrossUniverseMode mode)
 {
-    m_crossUniverse = enable;
+    m_crossUniverse = mode;
 }
 
-bool Fixture::crossUniverse() const
+Fixture::CrossUniverseMode Fixture::crossUniverse() const
 {
     return m_crossUniverse;
+}
+
+quint32 Fixture::lastUniverse() const
+{
+    if (channels() == 0)
+        return universe();
+
+    return channelAddress(channels() - 1) >> 9;
+}
+
+quint32 Fixture::crossUniversePixelSize() const
+{
+    if (m_fixtureMode == NULL || m_fixtureMode->heads().isEmpty())
+        return 1;
+
+    // this is called for every channel address lookup, so keep it cheap:
+    // check only the first head size against the total number of channels
+    int size = m_fixtureMode->heads().first().channels().size();
+    if (size <= 0 || size > 512)
+        return 1;
+
+    // heads must cover all the channels
+    if (quint32(size * m_fixtureMode->heads().size()) != channels())
+        return 1;
+
+    return quint32(size);
 }
 
 /*****************************************************************************
@@ -218,10 +244,48 @@ const QLCChannel* Fixture::channel(quint32 channel) const
 
 quint32 Fixture::channelAddress(quint32 channel) const
 {
-    if (channel < channels())
-        return universeAddress() + channel;
-    else
+    if (channel >= channels())
         return QLCChannel::invalid();
+
+    // None and Fill: channels are contiguous across universes
+    if (m_crossUniverse != CrossUniversePixel)
+        return universeAddress() + channel;
+
+    // Pixel: whole heads only. Channels of a head that wouldn't fit
+    // in a universe are moved to the beginning of the next one
+    quint32 pixelSize = crossUniversePixelSize();
+    quint32 pixel = channel / pixelSize;
+    quint32 firstPixels = (512 - address()) / pixelSize;
+
+    if (pixel < firstPixels)
+        return universeAddress() + channel;
+
+    quint32 pixelsPerUniverse = 512 / pixelSize;
+    pixel -= firstPixels;
+    quint32 uni = universe() + 1 + (pixel / pixelsPerUniverse);
+
+    return (uni << 9) + ((pixel % pixelsPerUniverse) * pixelSize) + (channel % pixelSize);
+}
+
+quint32 Fixture::channelIndexForAddress(quint32 absAddress) const
+{
+    if (absAddress < universeAddress())
+        return QLCChannel::invalid();
+
+    // None and Fill: channels are contiguous across universes
+    if (m_crossUniverse != CrossUniversePixel)
+    {
+        quint32 channel = absAddress - universeAddress();
+        return channel < channels() ? channel : QLCChannel::invalid();
+    }
+
+    for (quint32 i = 0; i < channels(); i++)
+    {
+        if (channelAddress(i) == absAddress)
+            return i;
+    }
+
+    return QLCChannel::invalid();
 }
 
 quint32 Fixture::channel(QLCChannel::Group group,
@@ -562,8 +626,52 @@ ChannelModifier *Fixture::channelModifier(quint32 idx)
  * Channel info
  *********************************************************************/
 
+bool Fixture::setUniverseValues(quint32 universe, const QByteArray &values)
+{
+    if (m_crossUniverse == CrossUniverseNone)
+    {
+        if (universe != this->universe())
+            return false;
+        return setChannelValues(values);
+    }
+
+    if (universe < this->universe() || universe > lastUniverse())
+        return false;
+
+    bool changed = false;
+
+    for (quint32 i = 0; i < channels(); i++)
+    {
+        quint32 absAddress = channelAddress(i);
+        if ((absAddress >> 9) != universe)
+            continue;
+
+        int addr = int(absAddress & 0x01FF);
+        if (addr >= values.size() || int(i) >= m_values.size())
+            continue;
+
+        if (m_values.at(i) != values.at(addr))
+        {
+            changed = true;
+            QMutexLocker locker(&m_channelsInfoMutex);
+            m_values[i] = values.at(addr);
+            checkAlias(i, m_values[i]);
+        }
+    }
+
+    if (changed == true)
+        emit valuesChanged();
+
+    return changed;
+}
+
 bool Fixture::setChannelValues(const QByteArray &values)
 {
+    // a cross-universe fixture gets values from its first universe here,
+    // the rest comes through setUniverseValues
+    if (m_crossUniverse != CrossUniverseNone)
+        return setUniverseValues(universe(), values);
+
     const int addr = address();
     if (addr >= values.size())
         return false;
@@ -1109,7 +1217,7 @@ bool Fixture::loader(QXmlStreamReader &root, Doc* doc)
 
     if (fxi->loadXML(root, doc, doc->fixtureDefCache()) == true)
     {
-        if (doc->addFixture(fxi, fxi->id(), fxi->crossUniverse()) == true)
+        if (doc->addFixture(fxi, fxi->id()) == true)
         {
             /* Success */
             result = true;
@@ -1193,8 +1301,12 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc,
         }
         else if (xmlDoc.name() == KXMLFixtureCrossUniverse)
         {
-            xmlDoc.readElementText();
-            setCrossUniverse(true);
+            // "True" (legacy) or "Pixel" -> split by pixel, "Fill" -> fill the universe
+            QString mode = xmlDoc.readElementText();
+            if (mode == KXMLFixtureCrossUniverseFill)
+                setCrossUniverse(CrossUniverseFill);
+            else
+                setCrossUniverse(CrossUniversePixel);
         }
         else if (xmlDoc.name() == KXMLFixtureAddress)
         {
@@ -1401,8 +1513,10 @@ bool Fixture::saveXML(QXmlStreamWriter *doc) const
     doc->writeTextElement(KXMLFixtureName, m_name);
     /* Universe */
     doc->writeTextElement(KXMLFixtureUniverse, QString::number(universe()));
-    if (crossUniverse())
-        doc->writeTextElement(KXMLFixtureCrossUniverse, KXMLQLCTrue);
+    if (crossUniverse() == CrossUniversePixel)
+        doc->writeTextElement(KXMLFixtureCrossUniverse, KXMLFixtureCrossUniversePixel);
+    else if (crossUniverse() == CrossUniverseFill)
+        doc->writeTextElement(KXMLFixtureCrossUniverse, KXMLFixtureCrossUniverseFill);
     /* Address */
     doc->writeTextElement(KXMLFixtureAddress, QString::number(address()));
     /* Channel count */

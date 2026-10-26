@@ -225,6 +225,79 @@ void Doc_Test::addFixture()
     QVERIFY(spy.at(2).at(0) == f3->id());
 }
 
+void Doc_Test::addFixtureCrossUniverse()
+{
+    // 120 RGB pixels (360 channels) at address 361: only 152 channels left in U0
+    auto createRow = [](Doc *doc, quint32 universe, quint32 address, Fixture::CrossUniverseMode mode)
+    {
+        Fixture *fxi = new Fixture(doc);
+        QLCFixtureDef *rowDef = fxi->genericRGBPanelDef(120, Fixture::RGB, false);
+        QLCFixtureMode *rowMode = fxi->genericRGBPanelMode(rowDef, Fixture::RGB, false, 3000, 50);
+        fxi->setFixtureDefinition(rowDef, rowMode);
+        fxi->setUniverse(universe);
+        fxi->setAddress(address);
+        fxi->setCrossUniverse(mode);
+        return fxi;
+    };
+
+    /* Pixel: U0 360-509 + U1 0-209. U0 510-511 stay free */
+    Fixture *pixel = createRow(m_doc, 0, 360, Fixture::CrossUniversePixel);
+    QVERIFY(m_doc->addFixture(pixel) == true);
+    QCOMPARE(m_doc->fixtureForAddress(359), Fixture::invalidId());
+    QCOMPARE(m_doc->fixtureForAddress(360), pixel->id());
+    QCOMPARE(m_doc->fixtureForAddress(509), pixel->id());
+    QCOMPARE(m_doc->fixtureForAddress(510), Fixture::invalidId());
+    QCOMPARE(m_doc->fixtureForAddress(511), Fixture::invalidId());
+    QCOMPARE(m_doc->fixtureForAddress(512), pixel->id());
+    QCOMPARE(m_doc->fixtureForAddress(512 + 209), pixel->id());
+    QCOMPARE(m_doc->fixtureForAddress(512 + 210), Fixture::invalidId());
+
+    /* The unused channels at the end of U0 can be patched */
+    Fixture *gapFixture = new Fixture(m_doc);
+    gapFixture->setChannels(2);
+    gapFixture->setUniverse(0);
+    gapFixture->setAddress(510);
+    QVERIFY(m_doc->addFixture(gapFixture) == true);
+    QCOMPARE(m_doc->fixtureForAddress(510), gapFixture->id());
+    QCOMPARE(m_doc->fixtureForAddress(511), gapFixture->id());
+
+    /* A fixture overlapping the part in U1 can't be added */
+    Fixture *overlap = new Fixture(m_doc);
+    overlap->setChannels(5);
+    overlap->setUniverse(1);
+    overlap->setAddress(200);
+    QVERIFY(m_doc->addFixture(overlap) == false);
+
+    /* ...but right after it, it can */
+    overlap->setAddress(210);
+    QVERIFY(m_doc->addFixture(overlap) == true);
+
+    /* Deleting the cross-universe fixture frees all its channels */
+    QVERIFY(m_doc->deleteFixture(pixel->id()) == true);
+    QCOMPARE(m_doc->fixtureForAddress(360), Fixture::invalidId());
+    QCOMPARE(m_doc->fixtureForAddress(512), Fixture::invalidId());
+    QCOMPARE(m_doc->fixtureForAddress(512 + 209), Fixture::invalidId());
+    QCOMPARE(m_doc->fixtureForAddress(510), gapFixture->id());
+
+    /* Fill: U0 360-511 + U1 0-207, overlapping the gap fixture */
+    Fixture *fill = createRow(m_doc, 0, 360, Fixture::CrossUniverseFill);
+    QVERIFY(m_doc->addFixture(fill) == false);
+    QVERIFY(m_doc->deleteFixture(gapFixture->id()) == true);
+    QVERIFY(m_doc->addFixture(fill) == true);
+    QCOMPARE(m_doc->fixtureForAddress(511), fill->id());
+    QCOMPARE(m_doc->fixtureForAddress(512), fill->id());
+    QCOMPARE(m_doc->fixtureForAddress(512 + 207), fill->id());
+    QCOMPARE(m_doc->fixtureForAddress(512 + 208), Fixture::invalidId());
+
+    /* Universes spanned by a cross-universe fixture are created */
+    Doc doc(this, 4);
+    QCOMPARE(doc.inputOutputMap()->universesCount(), quint32(4));
+    Fixture *last = createRow(&doc, 3, 360, Fixture::CrossUniversePixel);
+    QVERIFY(doc.addFixture(last) == true);
+    QCOMPARE(doc.inputOutputMap()->universesCount(), quint32(5));
+    QCOMPARE(doc.fixtureForAddress((4 << 9) + 209), last->id());
+}
+
 void Doc_Test::deleteFixture()
 {
     QSignalSpy spy(m_doc, SIGNAL(fixtureRemoved(quint32)));

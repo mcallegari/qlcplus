@@ -97,6 +97,9 @@ RGBMatrix::RGBMatrix(Doc *doc)
     registerAttribute(tr("Pattern"), LastWins | Single, 0.0, algoCount > 0 ? algoCount - 1 : 0, 0);
 
     setAlgorithm(RGBAlgorithm::algorithm(doc, "Stripes"));
+
+    connect(doc, SIGNAL(fixtureGroupRemoved(quint32)),
+            this, SLOT(slotFixtureGroupRemoved(quint32)));
 }
 
 RGBMatrix::~RGBMatrix()
@@ -133,8 +136,10 @@ void RGBMatrix::setTotalDuration(quint32 msec)
     if (grp == NULL)
         return;
 
+    // an algorithm might have no steps (e.g. an image not loaded yet)
+    // or fail to report them (-1)
     int steps = m_algorithm->rgbMapStepCount(grp->size());
-    setDuration(msec / steps);
+    setDuration(msec / uint(qMax(1, steps)));
 }
 
 quint32 RGBMatrix::totalDuration()
@@ -149,7 +154,7 @@ quint32 RGBMatrix::totalDuration()
         return 0;
 
     //qDebug () << "Algorithm steps:" << m_algorithm->rgbMapStepCount(grp->size());
-    return m_algorithm->rgbMapStepCount(grp->size()) * duration();
+    return qMax(0, m_algorithm->rgbMapStepCount(grp->size())) * duration();
 }
 
 void RGBMatrix::setDimmerControl(bool dimmerControl)
@@ -233,6 +238,17 @@ QList<quint32> RGBMatrix::components() const
         return m_group->fixtureList();
 
     return QList<quint32>();
+}
+
+void RGBMatrix::slotFixtureGroupRemoved(quint32 id)
+{
+    if (id != m_fixtureGroupID)
+        return;
+
+    // the group is deleted right after this signal: drop the cached
+    // pointer, so that a running matrix stops instead of using it
+    QMutexLocker algorithmLocker(&m_algorithmMutex);
+    m_group = NULL;
 }
 
 /****************************************************************************
@@ -999,14 +1015,20 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QL
             valueList.append(rgbToGrey(col));
         }
 
-        quint32 absAddress = fxi->universeAddress();
-
         for (int i = 0; i < channelList.count(); i++)
         {
             if (channelList.at(i) == QLCChannel::invalid())
                 continue;
 
-            quint32 universeIndex = floor((absAddress + channelList.at(i)) / 512);
+            // a cross-universe fixture channel may belong to a following universe
+            quint32 absAddress = fxi->channelAddress(channelList.at(i));
+            if (absAddress == QLCChannel::invalid())
+                continue;
+
+            int universeIndex = absAddress >> 9;
+            if (universeIndex >= universes.count())
+                continue;
+
             Universe *universe = universes.at(universeIndex);
             QSharedPointer<GenericFader> fader = getFader(universe);
             if (fader.isNull())

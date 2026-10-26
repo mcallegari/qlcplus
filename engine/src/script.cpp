@@ -783,10 +783,12 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Univers
     {
         if (ch < fxi->channels())
         {
-            int address = fxi->address() + ch;
-            if (address < 512)
+            // a cross-universe fixture channel may belong to a following universe
+            quint32 absAddress = fxi->channelAddress(ch);
+            quint32 address = absAddress & 0x01FF;
+            quint32 universe = absAddress >> 9;
+            if (fxi->crossUniverse() != Fixture::CrossUniverseNone || fxi->address() + ch < 512)
             {
-                quint32 universe = fxi->universe();
                 QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
                 if (fader.isNull())
                 {

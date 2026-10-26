@@ -95,6 +95,7 @@ Popup
     property var dialogNameFilters: [ qsTr("QLC+ files") + " (*.qxw *.qxf)", qsTr("All files") + " (*)" ]
     property int dialogFileMode: FileDialog.OpenFile
     property int dialogOpMode: App.OpenMode
+    property var androidDialog: null
 
     function openDialog(opMode)
     {
@@ -117,6 +118,22 @@ Popup
 
         if (Qt.platform.os === "linux")
             customDialog.open()
+        else if (Qt.platform.os === "android")
+        {
+            /* Created on demand (not declared) so other platforms never
+               load Qt.labs.platform. See AndroidFileDialog.qml */
+            if (androidDialog === null)
+            {
+                androidDialog = Qt.createComponent("qrc:/AndroidFileDialog.qml").createObject(menuRoot)
+                androidDialog.fileAccepted.connect(function(selected) {
+                    dialogSelectedFile = selected
+                    handleAccept()
+                })
+            }
+            androidDialog.title = dialogTitle
+            androidDialog.saveMode = (dialogFileMode === FileDialog.SaveFile)
+            androidDialog.open()
+        }
         else
             nativeDialog.open()
     }
@@ -173,6 +190,7 @@ Popup
             handleAccept()
         }
     }
+
 
     PopupFolderBrowser
     {

@@ -55,6 +55,13 @@ private slots:
     void save();
     //void status();
 
+    void crossUniverseAddress();
+    void crossUniverseAddress16bit();
+    void crossUniverseIndexForAddress();
+    void crossUniverseValues();
+    void crossUniverseSave();
+    void crossUniverseLoad();
+
 private:
     Doc* m_doc;
 };
