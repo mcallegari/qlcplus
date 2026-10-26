@@ -122,6 +122,8 @@ Rectangle
             return
         headItem.isWheelColor = false
         headItem.headColor1 = color
+        // clear any stale wheel color, otherwise MultiColorBox adds it as WAUV
+        headItem.headColor2 = "black"
     }
 
     function setShutter(type, low, high)
