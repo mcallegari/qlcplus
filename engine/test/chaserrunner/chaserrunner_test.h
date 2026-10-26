@@ -67,6 +67,14 @@ private slots:
     void writeNoAutoStep();
     void writeStartOffset();
 
+    void writeBeatsWhole();
+    void writeBeatsQuarterLocked();
+    void writeBeatsLateBeat();
+    void writeBeatsEarlyBeat();
+    void writeBeatsOneAndHalf();
+    void writeBeatsStartEarlyInBeat();
+    void writeBeatsStartLateInBeat();
+
     void adjustIntensity();
     void adjustMasterIntensityAcrossRunningCrossfadeSteps();
     void randomSingleStep();

@@ -42,6 +42,7 @@ Rectangle
     property int startCorner: cornerCombo.currentValue
     property int displacement: dispCombo.currentValue
     property int direction: directionCombo.currentValue
+    property int crossUniverse: splitCombo.currentValue
 
     onWidthChanged: panelPreview.requestPaint()
     onRowsChanged: panelPreview.requestPaint()
@@ -276,6 +277,26 @@ Rectangle
                 model: [
                     { mLabel: qsTr("Horizontal"), mValue: FixtureManager.Horizontal },
                     { mLabel: qsTr("Vertical"), mValue: FixtureManager.Vertical }
+                ]
+            }
+
+            // row 8
+            RobotoText
+            {
+                height: propsGrid.itemsHeight
+                label: qsTr("Universe split")
+                fontSize: propsGrid.itemsFontSize
+            }
+            CustomComboBox
+            {
+                id: splitCombo
+                height: propsGrid.itemsHeight
+                Layout.columnSpan: 3
+                Layout.fillWidth: true
+                model: [
+                    { mLabel: qsTr("Split entire row"), mValue: Fixture.CrossUniverseNone },
+                    { mLabel: qsTr("Split by pixel"), mValue: Fixture.CrossUniversePixel },
+                    { mLabel: qsTr("Split anywhere (fill universe)"), mValue: Fixture.CrossUniverseFill }
                 ]
             }
         } // end of GridLayout

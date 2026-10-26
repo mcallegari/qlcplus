@@ -431,12 +431,12 @@ quint32 Doc::createFixtureId()
     return m_latestFixtureId;
 }
 
-bool Doc::addFixture(Fixture* fixture, quint32 id, bool crossUniverse)
+bool Doc::addFixture(Fixture* fixture, quint32 id)
 {
     Q_ASSERT(fixture != NULL);
 
     quint32 i;
-    quint32 uni = fixture->universe();
+    quint32 uni = fixture->lastUniverse();
 
     // No ID given, this method can assign one
     if (id == Fixture::invalidId())
@@ -449,12 +449,12 @@ bool Doc::addFixture(Fixture* fixture, quint32 id, bool crossUniverse)
     }
 
     /* Check for overlapping address */
-    for (i = fixture->universeAddress();
-         i < fixture->universeAddress() + fixture->channels(); i++)
+    for (i = 0; i < fixture->channels(); i++)
     {
-        if (m_addresses.contains(i))
+        quint32 absAddress = fixture->channelAddress(i);
+        if (m_addresses.contains(absAddress))
         {
-            qWarning() << Q_FUNC_INFO << "fixture" << id << "overlapping with fixture" << m_addresses[i] << "@ channel" << i;
+            qWarning() << Q_FUNC_INFO << "fixture" << id << "overlapping with fixture" << m_addresses[absAddress] << "@ channel" << absAddress;
             return false;
         }
     }
@@ -468,14 +468,8 @@ bool Doc::addFixture(Fixture* fixture, quint32 id, bool crossUniverse)
             this, SLOT(slotFixtureChanged(quint32)));
 
     /* Keep track of fixture addresses */
-    for (i = fixture->universeAddress();
-         i < fixture->universeAddress() + fixture->channels(); i++)
-    {
-        m_addresses[i] = id;
-    }
-
-    if (crossUniverse)
-        uni = floor((fixture->universeAddress() + fixture->channels()) / 512);
+    for (i = 0; i < fixture->channels(); i++)
+        m_addresses[fixture->channelAddress(i)] = id;
 
     if (uni >= inputOutputMap()->universesCount())
     {
@@ -489,18 +483,13 @@ bool Doc::addFixture(Fixture* fixture, quint32 id, bool crossUniverse)
 
     QList<int> forcedHTP = fixture->forcedHTPChannels();
     QList<int> forcedLTP = fixture->forcedLTPChannels();
-    quint32 fxAddress = fixture->address();
 
     for (i = 0; i < fixture->channels(); i++)
     {
         const QLCChannel *channel(fixture->channel(i));
-        quint32 addr = fxAddress + i;
-
-        if (crossUniverse)
-        {
-            uni = floor((fixture->universeAddress() + i) / 512);
-            addr = (fixture->universeAddress() + i) - (uni * 512);
-        }
+        quint32 absAddress = fixture->channelAddress(i);
+        uni = absAddress >> 9;
+        quint32 addr = absAddress & 0x01FF;
 
         // Inform Universe of any HTP/LTP forcing
         if (forcedHTP.contains(int(i)))
@@ -585,6 +574,7 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
         newFixture->setName(fixture->name());
         newFixture->setAddress(fixture->address());
         newFixture->setUniverse(fixture->universe());
+        newFixture->setCrossUniverse(fixture->crossUniverse());
 
         if (fixture->fixtureDef() == NULL ||
             (fixture->fixtureDef()->manufacturer() == KXMLFixtureGeneric &&
@@ -634,11 +624,8 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
                 this, SLOT(slotFixtureChanged(quint32)));
 
         /* Keep track of fixture addresses */
-        for (uint i = newFixture->universeAddress();
-             i < newFixture->universeAddress() + newFixture->channels(); i++)
-        {
-            m_addresses[i] = id;
-        }
+        for (quint32 i = 0; i < newFixture->channels(); i++)
+            m_addresses[newFixture->channelAddress(i)] = id;
         m_latestFixtureId = id;
     }
     return true;
@@ -652,8 +639,6 @@ bool Doc::updateFixtureChannelCapabilities(quint32 id, QList<int> forcedHTP, QLi
     Fixture* fixture = m_fixtures[id];
     // get exclusive access to the universes list
     QList<Universe *> universes = inputOutputMap()->claimUniverses();
-    Universe *universe = universes.at(fixture->universe());
-    quint32 fxAddress = fixture->address();
 
     // Set forced HTP channels
     fixture->setForcedHTPChannels(forcedHTP);
@@ -666,20 +651,29 @@ bool Doc::updateFixtureChannelCapabilities(quint32 id, QList<int> forcedHTP, QLi
     {
         const QLCChannel *channel(fixture->channel(i));
 
+        // a cross-universe fixture may span multiple universes
+        quint32 absAddress = fixture->channelAddress(i);
+        quint32 uniIdx = absAddress >> 9;
+        if (int(uniIdx) >= universes.count())
+            continue;
+
+        Universe *universe = universes.at(uniIdx);
+        quint32 addr = absAddress & 0x01FF;
+
         // Inform Universe of any HTP/LTP forcing
         if (forcedHTP.contains(int(i)))
-            universe->setChannelCapability(fxAddress + i, channel->group(), Universe::HTP);
+            universe->setChannelCapability(addr, channel->group(), Universe::HTP);
         else if (forcedLTP.contains(int(i)))
-            universe->setChannelCapability(fxAddress + i, channel->group(), Universe::LTP);
+            universe->setChannelCapability(addr, channel->group(), Universe::LTP);
         else
-            universe->setChannelCapability(fxAddress + i, channel->group());
+            universe->setChannelCapability(addr, channel->group());
 
         // Apply the default value BEFORE modifiers
-        universe->setChannelDefaultValue(fxAddress + i, channel->defaultValue());
+        universe->setChannelDefaultValue(addr, channel->defaultValue());
 
         // Apply a channel modifier, if defined
         ChannelModifier *mod = fixture->channelModifier(i);
-        universe->setChannelModifier(fxAddress + i, mod);
+        universe->setChannelModifier(addr, mod);
     }
 
     inputOutputMap()->releaseUniverses(true);
@@ -767,13 +761,14 @@ void Doc::slotFixtureChanged(quint32 id)
         }
     }
 
-    for (uint i = fxi->universeAddress(); i < fxi->universeAddress() + fxi->channels(); i++)
+    for (quint32 ch = 0; ch < fxi->channels(); ch++)
     {
         /*
          * setting new universe and address calls this twice,
          * with an tmp wrong address after the first call (old address() + new universe()).
          * we only add if the channel is free, to prevent messing up things
          */
+        quint32 i = fxi->channelAddress(ch);
         Q_ASSERT(!m_addresses.contains(i));
         m_addresses[i] = id;
     }

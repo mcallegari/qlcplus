@@ -1347,6 +1347,238 @@ void ChaserRunner_Test::writeStartOffset()
     crOffset2.postRun(&timer, QList<Universe*>());
 }
 
+/****************************************************************************
+ * Beats tempo
+ *
+ * A beat lasts 50 ticks, so the runner beat timeline (1000 = 1 beat)
+ * advances by 20 every tick, whatever the tick duration is.
+ ****************************************************************************/
+
+#define BEAT_TICKS 50
+
+static void setupBeatsTimer(MasterTimer &timer)
+{
+    timer.m_beatTimeDuration = MasterTimer::tick() * BEAT_TICKS;
+    timer.m_beatRequested = false;
+}
+
+static void setupBeatsChaser(Chaser *chaser, uint duration)
+{
+    chaser->setDirection(Function::Forward);
+    chaser->setRunOrder(Function::Loop);
+    chaser->setTempoType(Function::Beats);
+    chaser->setDurationMode(Chaser::Common);
+    chaser->setDuration(duration);
+}
+
+static void addFourthStep(Doc *doc, Chaser *chaser)
+{
+    Scene *scene4 = new Scene(doc);
+    scene4->setName("S4");
+    doc->addFunction(scene4);
+    chaser->addStep(ChaserStep(scene4->id()));
+}
+
+/* Return the list of ticks, from $first to $last included, every $period ticks */
+static QList<int> beatTicks(int first, int last, int period = BEAT_TICKS)
+{
+    QList<int> ticks;
+    for (int i = first; i <= last; i += period)
+        ticks << i;
+    return ticks;
+}
+
+/* Write $cr for $ticks times, firing a beat on the writes listed in $beats.
+ * Return the index of the running step after each write */
+static QVector<int> runBeats(ChaserRunner &cr, MasterTimer &timer, int ticks, const QList<int> &beats)
+{
+    QVector<int> steps;
+    for (int i = 0; i < ticks; i++)
+    {
+        timer.m_beatRequested = beats.contains(i);
+        cr.write(&timer, QList<Universe*>());
+        steps.append(cr.m_lastRunStepIdx);
+    }
+    timer.m_beatRequested = false;
+    return steps;
+}
+
+/* Build the expected step index for each tick, from a list of
+ * (first tick, step index) pairs sorted by tick */
+static QVector<int> expectedSteps(int ticks, const QList<QPair<int, int>> &changes)
+{
+    QVector<int> steps(ticks, -1);
+    for (int c = 0; c < changes.count(); c++)
+    {
+        int end = c + 1 < changes.count() ? changes.at(c + 1).first : ticks;
+        for (int i = changes.at(c).first; i < end && i < ticks; i++)
+            steps[i] = changes.at(c).second;
+    }
+    return steps;
+}
+
+/* Return a description of the first tick where the steps differ, or an empty string */
+static QString stepsMismatch(const QVector<int> &actual, const QVector<int> &expected)
+{
+    for (int i = 0; i < expected.count(); i++)
+    {
+        if (i >= actual.count() || actual.at(i) != expected.at(i))
+            return QString("tick %1: step %2, expected %3").arg(i)
+                .arg(i < actual.count() ? actual.at(i) : -1).arg(expected.at(i));
+    }
+    return QString();
+}
+
+/* 4 steps of 1/4 beat with a beat every BEAT_TICKS: the steps change at
+ * 250, 500 and 750 (ticks 13, 25 and 38) and the first step on the beat */
+static QList<QPair<int, int>> quarterCycle(int beatTick)
+{
+    return QList<QPair<int, int>>()
+           << qMakePair(beatTick, 0) << qMakePair(beatTick + 13, 1)
+           << qMakePair(beatTick + 25, 2) << qMakePair(beatTick + 38, 3);
+}
+
+void ChaserRunner_Test::writeBeatsWhole()
+{
+    setupBeatsChaser(m_chaser, 1000);
+    MasterTimer timer(m_doc);
+    setupBeatsTimer(timer);
+
+    // steps change only on beats. With no beats after tick 150,
+    // the step started on that beat never ends
+    ChaserRunner cr(m_doc, m_chaser);
+    QVector<int> steps = runBeats(cr, timer, 230, beatTicks(0, 150));
+
+    QVector<int> expected = expectedSteps(230, QList<QPair<int, int>>()
+        << qMakePair(0, 0) << qMakePair(50, 1) << qMakePair(100, 2) << qMakePair(150, 0));
+
+    QCOMPARE(stepsMismatch(steps, expected), QString());
+    cr.postRun(&timer, QList<Universe*>());
+}
+
+void ChaserRunner_Test::writeBeatsQuarterLocked()
+{
+    addFourthStep(m_doc, m_chaser);
+    setupBeatsChaser(m_chaser, 250);
+    MasterTimer timer(m_doc);
+    setupBeatsTimer(timer);
+
+    // the first step starts exactly on every beat
+    ChaserRunner cr(m_doc, m_chaser);
+    QVector<int> steps = runBeats(cr, timer, 200, beatTicks(0, 150));
+
+    QList<QPair<int, int>> changes;
+    for (int beat = 0; beat < 200; beat += BEAT_TICKS)
+        changes << quarterCycle(beat);
+
+    QCOMPARE(stepsMismatch(steps, expectedSteps(200, changes)), QString());
+    cr.postRun(&timer, QList<Universe*>());
+}
+
+void ChaserRunner_Test::writeBeatsLateBeat()
+{
+    addFourthStep(m_doc, m_chaser);
+    setupBeatsChaser(m_chaser, 250);
+    MasterTimer timer(m_doc);
+    setupBeatsTimer(timer);
+
+    // the second beat is 5 ticks late: the last step waits for it,
+    // and the first step starts on it
+    ChaserRunner cr(m_doc, m_chaser);
+    QVector<int> steps = runBeats(cr, timer, 120, QList<int>() << 0 << 55 << 105);
+
+    QList<QPair<int, int>> changes;
+    changes << quarterCycle(0) << quarterCycle(55) << quarterCycle(105);
+
+    QCOMPARE(stepsMismatch(steps, expectedSteps(120, changes)), QString());
+    cr.postRun(&timer, QList<Universe*>());
+}
+
+void ChaserRunner_Test::writeBeatsEarlyBeat()
+{
+    addFourthStep(m_doc, m_chaser);
+    setupBeatsChaser(m_chaser, 250);
+    MasterTimer timer(m_doc);
+    setupBeatsTimer(timer);
+
+    // the second beat is 5 ticks early: the last step is cut short
+    // (but not skipped) and the first step starts on the beat
+    ChaserRunner cr(m_doc, m_chaser);
+    QVector<int> steps = runBeats(cr, timer, 110, QList<int>() << 0 << 45 << 95);
+
+    QList<QPair<int, int>> changes;
+    changes << quarterCycle(0) << quarterCycle(45) << quarterCycle(95);
+
+    QCOMPARE(stepsMismatch(steps, expectedSteps(110, changes)), QString());
+    QCOMPARE(steps.at(44), 3);
+    cr.postRun(&timer, QList<Universe*>());
+}
+
+void ChaserRunner_Test::writeBeatsOneAndHalf()
+{
+    setupBeatsChaser(m_chaser, 1500);
+    MasterTimer timer(m_doc);
+    setupBeatsTimer(timer);
+
+    // steps change every 1.5 beats: half way between beats (in milliseconds)
+    // or on the beat, when the whole steps time is a whole number of beats
+    ChaserRunner cr(m_doc, m_chaser);
+    QVector<int> steps = runBeats(cr, timer, 310, beatTicks(0, 300));
+
+    QVector<int> expected = expectedSteps(310, QList<QPair<int, int>>()
+        << qMakePair(0, 0) << qMakePair(75, 1) << qMakePair(150, 2)
+        << qMakePair(225, 0) << qMakePair(300, 1));
+
+    QCOMPARE(stepsMismatch(steps, expected), QString());
+    cr.postRun(&timer, QList<Universe*>());
+}
+
+void ChaserRunner_Test::writeBeatsStartEarlyInBeat()
+{
+    addFourthStep(m_doc, m_chaser);
+    setupBeatsChaser(m_chaser, 250);
+    MasterTimer timer(m_doc);
+    setupBeatsTimer(timer);
+
+    // start 2 ticks after a beat (position 40): the first step is anchored
+    // to that beat, so it is shorter and the next beat starts the first step
+    ChaserRunner cr(m_doc, m_chaser);
+    cr.m_beatClockStarted = true;
+    cr.m_msSinceBeat = MasterTimer::tick();
+
+    QVector<int> steps = runBeats(cr, timer, 75, QList<int>() << 48);
+
+    QVector<int> expected = expectedSteps(75, QList<QPair<int, int>>()
+        << qMakePair(0, 0) << qMakePair(11, 1) << qMakePair(23, 2) << qMakePair(36, 3)
+        << quarterCycle(48));
+
+    QCOMPARE(stepsMismatch(steps, expected), QString());
+    cr.postRun(&timer, QList<Universe*>());
+}
+
+void ChaserRunner_Test::writeBeatsStartLateInBeat()
+{
+    addFourthStep(m_doc, m_chaser);
+    setupBeatsChaser(m_chaser, 250);
+    MasterTimer timer(m_doc);
+    setupBeatsTimer(timer);
+
+    // start 30 ticks after a beat (position 600): the first step lasts until
+    // the next beat plus its own duration, then the steps follow the beat grid
+    ChaserRunner cr(m_doc, m_chaser);
+    cr.m_beatClockStarted = true;
+    cr.m_msSinceBeat = MasterTimer::tick() * 29;
+
+    QVector<int> steps = runBeats(cr, timer, 80, QList<int>() << 20 << 70);
+
+    QVector<int> expected = expectedSteps(80, QList<QPair<int, int>>()
+        << qMakePair(0, 0) << qMakePair(33, 1) << qMakePair(45, 2) << qMakePair(58, 3)
+        << quarterCycle(70));
+
+    QCOMPARE(stepsMismatch(steps, expected), QString());
+    cr.postRun(&timer, QList<Universe*>());
+}
+
 void ChaserRunner_Test::adjustIntensity()
 {
     m_chaser->setDirection(Function::Forward);

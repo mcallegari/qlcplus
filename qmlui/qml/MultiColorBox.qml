@@ -26,7 +26,6 @@ Rectangle
     id: boxRoot
     width: UISettings.mediumItemHeight
     height: UISettings.listItemHeight
-    color: primary
 
     property bool biColor: false
 
@@ -38,30 +37,45 @@ Rectangle
     // biColor = true -> represents the secondary color of a color wheel
     property color secondary: "black"
 
-    Rectangle
-    {
-        visible: biColor ? false : true
-        anchors.fill: parent
-        radius: parent.radius
-        color: "white"
-        opacity: secondary.r
+    // Computed color for additive mixing (when biColor is false)
+    property color mixedColor: {
+        if (biColor)
+            return primary
+
+        var r = primary.r
+        var g = primary.g
+        var b = primary.b
+
+        // Add White (brightens all channels equally)
+        if (secondary.r > 0) {
+            r = Math.min(1.0, r + secondary.r)
+            g = Math.min(1.0, g + secondary.r)
+            b = Math.min(1.0, b + secondary.r)
+        }
+
+        // Add Amber (R=1.0, G=0.49, B=0.0)
+        if (secondary.g > 0) {
+            r = Math.min(1.0, r + secondary.g * 1.0)
+            g = Math.min(1.0, g + secondary.g * 0.49)
+            b = Math.min(1.0, b + secondary.g * 0.0)
+        }
+
+        // Add UV (R=0.58, G=0.0, B=0.83)
+        if (secondary.b > 0) {
+            r = Math.min(1.0, r + secondary.b * 0.58)
+            g = Math.min(1.0, g + secondary.b * 0.0)
+            b = Math.min(1.0, b + secondary.b * 0.83)
+        }
+
+        // Add Lime (R=0.68, G=1.0, B=0.18) - secondary doesn't have this channel,
+        // so this is for future use if ColorTool is extended
+        // Add Indigo (R=0.29, G=0.0, B=0.51) - secondary doesn't have this channel,
+        // so this is for future use if ColorTool is extended
+
+        return Qt.rgba(r, g, b, 1.0)
     }
-    Rectangle
-    {
-        visible: biColor ? false : true
-        anchors.fill: parent
-        radius: parent.radius
-        color: "#FF7E00"
-        opacity: secondary.g
-    }
-    Rectangle
-    {
-        visible: biColor ? false : true
-        anchors.fill: parent
-        radius: parent.radius
-        color: "#9400D3"
-        opacity: secondary.b
-    }
+
+    color: mixedColor
 
     Rectangle
     {
@@ -81,5 +95,4 @@ Rectangle
             color: secondary
         }
     }
-
 }

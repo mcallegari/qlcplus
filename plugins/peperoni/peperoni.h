@@ -110,13 +110,17 @@ public:
     void rescanDevices();
 
 protected:
-    /** Get a PeperoniDevice entry by its usbdev struct */
-    bool device(libusb_device *usbdev) const;
+    /** Get a PeperoniDevice entry by its usbdev struct, or NULL */
+    PeperoniDevice *device(libusb_device *usbdev) const;
+
+    /** Get the list of unique devices, ordered by base line */
+    QList<PeperoniDevice *> uniqueDevices() const;
 
 protected:
-    struct libusb_context* m_ctx;
+    struct libusb_context* m_ctx = nullptr;
 
-    /** List of available devices */
+    /** Map of plugin lines to devices. Lines are contiguous from 0.
+     *  A USBDMX21 occupies two consecutive lines. */
     QHash <quint32, PeperoniDevice*> m_devices;
 
     /********************************************************************

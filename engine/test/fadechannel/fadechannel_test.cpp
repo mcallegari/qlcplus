@@ -69,6 +69,79 @@ void FadeChannel_Test::addressInUniverse()
     QCOMPARE(fc2.addressInUniverse(), QLCChannel::invalid());
 }
 
+void FadeChannel_Test::crossUniverse()
+{
+    // 120 RGB pixels (360 channels) at address 361: only 152 channels left in U0
+    auto createRow = [](Doc *doc, Fixture::CrossUniverseMode mode)
+    {
+        Fixture *fxi = new Fixture(doc);
+        QLCFixtureDef *rowDef = fxi->genericRGBPanelDef(120, Fixture::RGB, false);
+        QLCFixtureMode *rowMode = fxi->genericRGBPanelMode(rowDef, Fixture::RGB, false, 3000, 50);
+        fxi->setFixtureDefinition(rowDef, rowMode);
+        fxi->setUniverse(0);
+        fxi->setAddress(360);
+        fxi->setCrossUniverse(mode);
+        doc->addFixture(fxi);
+        return fxi;
+    };
+
+    /* Pixel: U0 360-509 + U1 0-209 */
+    {
+        Doc doc(this);
+        Fixture *fxi = createRow(&doc, Fixture::CrossUniversePixel);
+
+        FadeChannel fc(&doc, fxi->id(), 149);
+        QCOMPARE(fc.universe(), quint32(0));
+        QCOMPARE(fc.address(), quint32(509));
+        QCOMPARE(fc.addressInUniverse(), quint32(509));
+
+        FadeChannel fc1(&doc, fxi->id(), 150);
+        QCOMPARE(fc1.universe(), quint32(1));
+        QCOMPARE(fc1.address(), quint32(0));
+        QCOMPARE(fc1.addressInUniverse(), quint32(0));
+
+        FadeChannel fc2(&doc, fxi->id(), 359);
+        QCOMPARE(fc2.universe(), quint32(1));
+        QCOMPARE(fc2.addressInUniverse(), quint32(209));
+
+        /* Absolute address (SimpleDesk style): resolved to the fixture channel */
+        FadeChannel fc3(&doc, Fixture::invalidId(), 512);
+        QCOMPARE(fc3.fixture(), fxi->id());
+        QCOMPARE(fc3.channel(), quint32(150));
+        QCOMPARE(fc3.universe(), quint32(1));
+        QCOMPARE(fc3.addressInUniverse(), quint32(0));
+
+        FadeChannel fc4(&doc, Fixture::invalidId(), 512 + 209);
+        QCOMPARE(fc4.fixture(), fxi->id());
+        QCOMPARE(fc4.channel(), quint32(359));
+        QCOMPARE(fc4.addressInUniverse(), quint32(209));
+
+        /* Unused channel at the end of U0: no fixture */
+        FadeChannel fc5(&doc, Fixture::invalidId(), 510);
+        QCOMPARE(fc5.fixture(), Fixture::invalidId());
+    }
+
+    /* Fill: U0 360-511 + U1 0-207 */
+    {
+        Doc doc(this);
+        Fixture *fxi = createRow(&doc, Fixture::CrossUniverseFill);
+
+        FadeChannel fc(&doc, fxi->id(), 151);
+        QCOMPARE(fc.universe(), quint32(0));
+        QCOMPARE(fc.addressInUniverse(), quint32(511));
+
+        FadeChannel fc1(&doc, fxi->id(), 152);
+        QCOMPARE(fc1.universe(), quint32(1));
+        QCOMPARE(fc1.address(), quint32(0));
+        QCOMPARE(fc1.addressInUniverse(), quint32(0));
+
+        FadeChannel fc2(&doc, Fixture::invalidId(), 512 + 207);
+        QCOMPARE(fc2.fixture(), fxi->id());
+        QCOMPARE(fc2.channel(), quint32(359));
+        QCOMPARE(fc2.addressInUniverse(), quint32(207));
+    }
+}
+
 void FadeChannel_Test::comparison()
 {
     Doc doc(this);
