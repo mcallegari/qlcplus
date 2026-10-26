@@ -19,6 +19,7 @@
 */
 
 #include <QDebug>
+#include <climits>
 #include <libusb.h>
 
 #include "peperonidevice.h"
@@ -51,17 +52,21 @@ PeperoniDevice::PeperoniDevice(Peperoni* parent, struct libusb_device* device,
     , m_baseLine(line)
     , m_device(device)
     , m_handle(NULL)
-    , m_descriptor(desc)
+    , m_descriptor(*desc)
+    , m_running(false)
 {
     Q_ASSERT(device != NULL);
+
+    /* Keep the libusb device alive for as long as this object exists,
+       so the pointer stays valid after the device list is freed */
+    libusb_ref_device(m_device);
 
     /* Store fw version so we don't need to rely on libusb's volatile data */
     m_firmwareVersion = desc->bcdDevice;
     qDebug() << "[Peperoni] detected device firmware version:" << QString::number(m_firmwareVersion, 16);
 
-    m_operatingModes[line] = CloseMode;
-    if (desc->idProduct == PEPERONI_PID_USBDMX21)
-        m_operatingModes[line + 1] = CloseMode;
+    for (int i = 0; i < linesCount(); i++)
+        m_operatingModes[i] = CloseMode;
 
     extractName();
 }
@@ -69,6 +74,7 @@ PeperoniDevice::PeperoniDevice(Peperoni* parent, struct libusb_device* device,
 PeperoniDevice::~PeperoniDevice()
 {
     closeAll();
+    libusb_unref_device(m_device);
 }
 
 /****************************************************************************
@@ -106,7 +112,7 @@ bool PeperoniDevice::isPeperoniDevice(int vid, int pid)
     return false;
 }
 
-int PeperoniDevice::outputsNumber(libusb_device_descriptor *desc)
+int PeperoniDevice::outputsNumber(const libusb_device_descriptor *desc)
 {
     /* If there's nothing to inspect, it can't be what we're looking for */
     if (desc == NULL)
@@ -132,6 +138,26 @@ int PeperoniDevice::outputsNumber(libusb_device_descriptor *desc)
     return 0;
 }
 
+int PeperoniDevice::linesCount() const
+{
+    return outputsNumber(&m_descriptor);
+}
+
+quint32 PeperoniDevice::baseLine() const
+{
+    return m_baseLine;
+}
+
+void PeperoniDevice::setBaseLine(quint32 line)
+{
+    m_baseLine = line;
+}
+
+quint32 PeperoniDevice::lineIndex(quint32 line) const
+{
+    return line - m_baseLine;
+}
+
 void PeperoniDevice::extractName()
 {
     Q_ASSERT(m_device != NULL);
@@ -144,7 +170,7 @@ void PeperoniDevice::extractName()
         int len = 0;
 
         /* Extract the name */
-        len = libusb_get_string_descriptor_ascii(handle, m_descriptor->iProduct,
+        len = libusb_get_string_descriptor_ascii(handle, m_descriptor.iProduct,
                                                (uchar*) &buf, sizeof(buf));
         if (len > 0)
         {
@@ -152,26 +178,50 @@ void PeperoniDevice::extractName()
         }
         else
         {
-            m_name = tr("Unknown");
+            m_name = modelName();
             qWarning() << "Unable to get product name:" << len;
         }
 /*
         // UID
-        len = libusb_get_string_descriptor_ascii(handle, m_descriptor->iSerialNumber,
+        len = libusb_get_string_descriptor_ascii(handle, m_descriptor.iSerialNumber,
                                                (uchar*) &buf, sizeof(buf));
         if (len > 0)
             m_serial = QString(QByteArray(buf, len));
         else
             qWarning() << "Unable to get device serial:" << len;
 */
+        libusb_close(handle);
     }
-    libusb_close(handle);
+    else
+    {
+        m_name = modelName();
+        qWarning() << "[Peperoni] Unable to open" << m_name << ":" << libusb_strerror(libusb_error(r));
+#if defined(WIN32) || defined(Q_OS_WIN)
+        if (r == LIBUSB_ERROR_NOT_SUPPORTED || r == LIBUSB_ERROR_ACCESS)
+            qWarning() << "[Peperoni] The device is not bound to the WinUSB driver."
+                       << "Update the device firmware (>= 0x1000) or install WinUSB with Zadig.";
+#endif
+    }
+}
+
+QString PeperoniDevice::modelName() const
+{
+    switch (m_descriptor.idProduct)
+    {
+        case PEPERONI_PID_XSWITCH:    return QString("X-Switch");
+        case PEPERONI_PID_RODIN1:     return QString("Rodin 1");
+        case PEPERONI_PID_RODIN1_MK3: return QString("Rodin 1 MK3");
+        case PEPERONI_PID_RODIN2:     return QString("Rodin 2");
+        case PEPERONI_PID_RODINT:     return QString("Rodin T");
+        case PEPERONI_PID_USBDMX21:   return QString("USBDMX21");
+        default:                      return tr("Unknown");
+    }
 }
 
 QString PeperoniDevice::name(quint32 line) const
 {
-    if (m_descriptor->idProduct == PEPERONI_PID_USBDMX21)
-        return QString("%1 - %2 %3").arg(m_name).arg(tr("Universe")).arg((line - m_baseLine) + 1);
+    if (m_descriptor.idProduct == PEPERONI_PID_USBDMX21)
+        return QString("%1 - %2 %3").arg(m_name).arg(tr("Universe")).arg(lineIndex(line) + 1);
 
     return m_name;
 }
@@ -208,7 +258,7 @@ QString PeperoniDevice::inputInfoText(quint32 line) const
     if (m_device != NULL)
     {
         info += QString("<B>%1:</B> ").arg(tr("Input line"));
-        if (m_operatingModes[line] & InputMode)
+        if (m_operatingModes.value(lineIndex(line)) & InputMode)
             info += QString("%1").arg(tr("Open"));
         else
             info += QString("%1").arg(tr("Close"));
@@ -225,7 +275,7 @@ QString PeperoniDevice::outputInfoText(quint32 line) const
     if (m_device != NULL)
     {
         info += QString("<B>%1:</B> ").arg(tr("Output line"));
-        if (m_operatingModes[line] & OutputMode)
+        if (m_operatingModes.value(lineIndex(line)) & OutputMode)
             info += QString("%1").arg(tr("Open"));
         else
             info += QString("%1").arg(tr("Close"));
@@ -241,31 +291,37 @@ QString PeperoniDevice::outputInfoText(quint32 line) const
 
 bool PeperoniDevice::open(quint32 line, OperatingMode mode)
 {
-    m_operatingModes[line] |= mode;
+    quint32 index = lineIndex(line);
+    if (m_device == NULL || m_operatingModes.contains(index) == false)
+        return false;
 
-    if (m_device != NULL && m_handle == NULL)
+    if (m_handle == NULL)
     {
-        int r = -1;
-        int configuration = PEPERONI_CONF_TXRX;
+        QMutexLocker lock(&m_ioMutex);
 
-        r = libusb_open(m_device, &m_handle);
+        int r = libusb_open(m_device, &m_handle);
         if (r < 0)
         {
-            qWarning() << "Unable to open PeperoniDevice with idProduct:" << m_descriptor->idProduct;
+            qWarning() << "Unable to open PeperoniDevice with idProduct:" << m_descriptor.idProduct
+                       << libusb_strerror(libusb_error(r));
             m_handle = NULL;
             return false;
         }
 
         /* Use configuration #2 on X-Switch */
-        if (m_descriptor->idProduct == PEPERONI_PID_XSWITCH)
-            configuration = PEPERONI_CONF_TXRX;
-        else
-            configuration = PEPERONI_CONF_TXONLY;
+        int configuration = (m_descriptor.idProduct == PEPERONI_PID_XSWITCH) ?
+                                PEPERONI_CONF_TXRX : PEPERONI_CONF_TXONLY;
 
-        /* Set selected configuration */
-        r = libusb_set_configuration(m_handle, configuration);
-        if (r < 0)
-            qWarning() << "PeperoniDevice is unable to set configuration #" << configuration;
+        /* Set selected configuration, only if needed: changing it is not
+           supported by the WinUSB driver on Windows (stuck on #1) */
+        int current = 0;
+        if (libusb_get_configuration(m_handle, &current) < 0 || current != configuration)
+        {
+            r = libusb_set_configuration(m_handle, configuration);
+            if (r < 0)
+                qWarning() << "PeperoniDevice is unable to set configuration #" << configuration
+                           << libusb_strerror(libusb_error(r));
+        }
 
         /* We must claim the interface before doing anything */
         r = libusb_claim_interface(m_handle, PEPERONI_IFACE_EP0);
@@ -308,7 +364,10 @@ bool PeperoniDevice::open(quint32 line, OperatingMode mode)
         }
     }
 
-    if (m_operatingModes[line] & InputMode && m_running == false)
+    /* Mark the line as open only once the device is actually usable */
+    m_operatingModes[index] |= mode;
+
+    if (m_operatingModes[index] & InputMode && m_running == false)
     {
         qDebug() << "[Peperoni] open input line:" << m_baseLine;
         m_dmxInputBuffer.clear();
@@ -321,7 +380,11 @@ bool PeperoniDevice::open(quint32 line, OperatingMode mode)
 
 void PeperoniDevice::close(quint32 line, OperatingMode mode)
 {
-    m_operatingModes[line] &= ~mode;
+    quint32 index = lineIndex(line);
+    if (m_operatingModes.contains(index) == false)
+        return;
+
+    m_operatingModes[index] &= ~mode;
 
     if (mode == InputMode && m_running == true)
     {
@@ -329,8 +392,13 @@ void PeperoniDevice::close(quint32 line, OperatingMode mode)
         wait();
     }
 
-    if (m_operatingModes[line] != CloseMode)
-        return;
+    /* The USB handle is shared by all the lines of this device
+       (USBDMX21 has two), so keep it open while any line still uses it */
+    foreach (int lineMode, m_operatingModes)
+    {
+        if (lineMode != CloseMode)
+            return;
+    }
 
     QMutexLocker lock(&m_ioMutex);
 
@@ -352,13 +420,15 @@ void PeperoniDevice::close(quint32 line, OperatingMode mode)
 
 void PeperoniDevice::closeAll()
 {
-    qDebug() << "[Peperoni] close input...";
-    close(m_baseLine, InputMode);
-    qDebug() << "[Peperoni] close output...";
-    close(m_baseLine, OutputMode);
+    for (int i = 0; i < linesCount(); i++)
+    {
+        qDebug() << "[Peperoni] close input and output of line" << m_baseLine + i;
+        close(m_baseLine + i, InputMode);
+        close(m_baseLine + i, OutputMode);
+    }
 }
 
-const struct libusb_device* PeperoniDevice::device() const
+const libusb_device* PeperoniDevice::device() const
 {
     return m_device;
 }
@@ -490,14 +560,14 @@ void PeperoniDevice::run()
 
 void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
 {
-    Q_UNUSED(line)
     int r = -1;
-
-    if (m_handle == NULL)
-        return;
 
     {
     QMutexLocker lock(&m_ioMutex);
+
+    /* Check under the lock, since close() may release the handle */
+    if (m_handle == NULL)
+        return;
     /* Choose write method based on firmware version. One has to unplug
        and then re-plug the dongle in apple for bulk write to work,
        so disable it for apple, since control msg should work for all. */
@@ -523,7 +593,7 @@ void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
     else if (m_firmwareVersion < PEPERONI_FW_NEW_BULK_SUPPORT)
     {
         char requestType = char(PEPERONI_OLD_BULK_HEADER_REQUEST_TX_SET);
-        if (line - m_baseLine == 1)
+        if (lineIndex(line) == 1)
             requestType = PEPERONI_OLD_BULK_HEADER_REQUEST_TX2_SET;
 
         //qDebug() << "Old bulk pipe write. Size:" << universe.size();
@@ -569,7 +639,7 @@ void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
         m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_ID4));
         m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_REQUEST_SET));
         /** universe number: Rodins only support index 0, DMX21 supports 0 and 1 */
-        m_bulkBuffer.append(char(line - m_baseLine));
+        m_bulkBuffer.append(char(lineIndex(line)));
 
         m_bulkBuffer.append(char(0x07)); /** length of data stage (512 + 7 bytes), LSB */
         m_bulkBuffer.append(char(0x02)); /** length of data state (512 + 7 bytes), MSB */

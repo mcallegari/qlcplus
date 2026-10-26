@@ -24,6 +24,12 @@
 #include <QQueue>
 #include <QPair>
 #include <QMap>
+#include <QHash>
+#include <QSet>
+#include <QMutex>
+#include <QWaitCondition>
+#include <QElapsedTimer>
+#include <atomic>
 #include "function.h"
 
 class GenericFader;
@@ -252,26 +258,64 @@ private:
     /** Common code to enqueue function */
     bool enqueueFunction(quint32 fID, FunctionOperation operation);
 
+    /**
+     * Packs a (universe, fixture, channel) triple into the 64 bit key used by
+     * m_fixtureValueQueue: 16 bits for the universe, 24 for the fixture ID and
+     * 24 for the channel.
+     */
+    static quint64 fixtureValueKey(quint32 universe, quint32 fixtureID, quint32 channel);
+
+    /**
+     * Runs a JS garbage collection pass if GC_INTERVAL_MS have elapsed since
+     * the last one. Must be called from the script thread, without holding
+     * m_mutex.
+     */
+    void maybeCollectGarbage();
+
 private:
     Doc *m_doc;
     QString m_content;
-    bool m_running;
+
+    // Whether the script is running. It is read by the JS exported methods and
+    // write() (different threads) and written by execute()/stop()/run(), so it
+    // has to be atomic.
+    std::atomic<bool> m_running;
 
     QJSEngine *m_engine;
     // Queue holding the Function IDs to start/stop
     QQueue<QPair<quint32, FunctionOperation>> m_functionQueue;
-    // Queue holding Fixture values to send to Universes
-    QQueue<FixtureValue> m_fixtureValueQueue;
+    // Fixture values to send to Universes on the next write(). Keyed by
+    // (universe, fixture, channel) so a channel set several times between two
+    // ticks only keeps its latest value, instead of growing without bound.
+    QHash<quint64, FixtureValue> m_fixtureValueQueue;
     // Indicate to add (true) or to not add (false) to the Functions started by this script
     bool m_stopOnExit;
-    // IDs of the Functions started by this script
-    QList <quint32> m_startedFunctions;
+    // IDs of the Functions started by this script. A set, so starting the same
+    // Function repeatedly does not accumulate duplicate entries.
+    QSet<quint32> m_startedFunctions;
     // Timer ticks to wait before executing the next line
     quint32 m_waitCount;
+    // Condition variable used by waitTime() to sleep until write() (on the
+    // MasterTimer thread) has counted m_waitCount down to zero. Used together
+    // with m_mutex.
+    QWaitCondition m_waitCondition;
+
     // ID of the function that the script is waiting for
     quint32 m_waitFunctionId;
     // Map used to lookup a GenericFader instance for a Universe ID
     QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
+
+    // Time elapsed since the last garbage collection pass
+    QElapsedTimer m_gcTimer;
+
+    // Guards m_functionQueue, m_fixtureValueQueue, m_startedFunctions,
+    // m_waitCount, m_waitFunctionId and m_fadersMap (m_running is atomic).
+    // They are touched by the script thread (the JS exported methods), by
+    // write() on the MasterTimer thread, and by slotWaitFunctionStarted/Stopped
+    // on the thread this object lives in.
+    // Never call into Functions or Universes with it held. The JS engine is
+    // only touched under it to interrupt or delete it (see stop()/run()).
+    mutable QMutex m_mutex;
 };
 
 #endif

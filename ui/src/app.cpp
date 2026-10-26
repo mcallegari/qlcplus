@@ -571,10 +571,11 @@ void App::slotUniverseWritten(quint32 idx, const QByteArray &ua)
 {
     foreach (Fixture *fixture, m_doc->fixtures())
     {
-        if (fixture->universe() != idx)
+        // a cross-universe fixture spans more universes
+        if (idx < fixture->universe() || idx > fixture->lastUniverse())
             continue;
 
-        fixture->setChannelValues(ua);
+        fixture->setUniverseValues(idx, ua);
     }
 }
 

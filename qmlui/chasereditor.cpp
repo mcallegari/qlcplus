@@ -715,7 +715,7 @@ void ChaserEditor::setTempoType(int tempoType)
         Tardis::instance()->enqueueAction(Tardis::ChaserSetStepFadeOut, m_chaser->id(), QVariant::fromValue(oldFadeOut),
                                           QVariant::fromValue(UIntPair(index, step.fadeOut)));
 
-        step.duration = step.fadeIn + step.hold;
+        step.duration = Function::speedAdd(step.fadeIn, step.hold);
         Tardis::instance()->enqueueAction(Tardis::ChaserSetStepDuration, m_chaser->id(), QVariant::fromValue(oldDuration),
                                           QVariant::fromValue(UIntPair(index, step.duration)));
 

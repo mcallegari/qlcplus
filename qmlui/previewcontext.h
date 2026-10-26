@@ -22,6 +22,8 @@
 
 #include <QObject>
 #include <QScreen>
+#include <QPointer>
+#include <QQuickItem>
 #include <QQuickView>
 
 class Doc;
@@ -125,7 +127,9 @@ protected:
     /** Reference to the project workspace */
     Doc *m_doc;
 
-    QQuickItem *m_contextItem;
+    /** The QML item hosting this context. It belongs to the QML scene,
+     *  so it can be destroyed at any time: QPointer resets it to nullptr */
+    QPointer<QQuickItem> m_contextItem;
 
     /** The context unique identifier string */
     QString m_name;
@@ -153,8 +157,10 @@ protected:
       * The value Universe::invalid() means "All universes" */
     quint32 m_universeFilter;
 
-    /** Map of QLC+ objects with ID and QML items */
-    QMap<quint32, QQuickItem*> m_itemsMap;
+    /** Map of QLC+ objects with ID and QML items.
+     *  Items are guarded, so an entry becomes nullptr if its item
+     *  gets destroyed outside of this context */
+    QMap<quint32, QPointer<QQuickItem>> m_itemsMap;
 };
 
 #endif // PREVIEWCONTEXT_H

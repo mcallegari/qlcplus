@@ -455,7 +455,7 @@ void SimpleDesk::resetChannel(quint32 address)
         if (fc == NULL)
             return;
 
-        quint32 ch = address - fxi->universeAddress();
+        quint32 ch = fxi->channelIndexForAddress(address);
 
         if (fxi->id() % 2 == 0)
             fc->setChannelStylesheet(ch, ssOdd);
@@ -510,7 +510,7 @@ void SimpleDesk::initUniverseSliders()
             slider = new ConsoleChannel(this, m_doc, Fixture::invalidId(), i, false);
         else
         {
-            uint ch = (start + i) - fxi->universeAddress();
+            uint ch = fxi->channelIndexForAddress(start + i);
             slider = new ConsoleChannel(this, m_doc, fxi->id(), ch, false);
             slider->setValue(uchar(fxi->channelValueAt(ch)));
         }
@@ -576,13 +576,13 @@ void SimpleDesk::initSliderView(bool fullMode)
                 console = new FixtureConsole(scrollArea, m_doc, FixtureConsole::GroupEven, false);
             console->setFixture(fixture->id());
             console->enableResetButton(true);
-            quint32 absoluteAddr = fixture->universeAddress();
             QByteArray fxValues = fixture->channelValues();
             for (quint32 i = 0; i < fixture->channels(); i++)
             {
-                if (m_engine->hasChannel(absoluteAddr + i))
+                quint32 absoluteAddr = fixture->channelAddress(i);
+                if (m_engine->hasChannel(absoluteAddr))
                 {
-                    SceneValue scv(fixture->id(), i, m_engine->value(absoluteAddr + i));
+                    SceneValue scv(fixture->id(), i, m_engine->value(absoluteAddr));
                     console->setSceneValue(scv);
                     console->setChannelStylesheet(i, ssOverride);
                 }
@@ -755,7 +755,7 @@ void SimpleDesk::slotUniversePageChanged(int page)
         }
         else
         {
-            uint ch = (absoluteAddr + i) - fx->universeAddress();
+            uint ch = fx->channelIndexForAddress(absoluteAddr + i);
             slider = new ConsoleChannel(this, m_doc, fx->id(), ch, false);
             slider->setVisible(false);
             if (m_engine->hasChannel(absoluteAddr + i))
@@ -837,7 +837,7 @@ void SimpleDesk::slotChannelResetClicked(quint32 fxID, quint32 channel)
         if (fixture == NULL)
             return;
 
-        quint32 absAddr = fixture->universeAddress() + channel;
+        quint32 absAddr = fixture->channelAddress(channel);
         m_engine->resetChannel(absAddr);
 
         if (m_viewModeButton->isChecked() == true)
@@ -894,7 +894,7 @@ void SimpleDesk::slotAliasChanged()
             ConsoleChannel *newCC = new ConsoleChannel(this, m_doc, fxi->id(), chIndex, false);
             newCC->setVisible(false);
 
-            if (m_engine->hasChannel(fxi->universeAddress() + chIndex))
+            if (m_engine->hasChannel(fxi->channelAddress(chIndex)))
             {
                 newCC->setChannelStyleSheet(ssOverride);
             }
@@ -908,7 +908,7 @@ void SimpleDesk::slotAliasChanged()
 
             newCC->setValue(cc->value());
             newCC->showResetButton(true);
-            newCC->setProperty(PROP_ADDRESS, fxi->universeAddress() + chIndex);
+            newCC->setProperty(PROP_ADDRESS, fxi->channelAddress(chIndex));
             newCC->setVisible(true);
 
             connect(newCC, SIGNAL(valueChanged(quint32,quint32,uchar)),
@@ -952,7 +952,7 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar
         if (fixture == NULL)
             return;
 
-        quint32 chanAbsAddr = fixture->universeAddress() + chan;
+        quint32 chanAbsAddr = fixture->channelAddress(chan);
         if (m_viewModeButton->isChecked() == true &&
             m_engine->hasChannel(chanAbsAddr) == false)
         {
@@ -1177,7 +1177,7 @@ void SimpleDesk::slotGroupValueChanged(quint32 groupID, uchar value)
         Fixture *fixture = m_doc->fixture(scv.fxi);
         if (fixture == NULL)
             continue;
-        quint32 absAddr = fixture->universeAddress() + scv.channel;
+        quint32 absAddr = fixture->channelAddress(scv.channel);
 
         // Update sliders on screen
         if (m_viewModeButton->isChecked() == false)

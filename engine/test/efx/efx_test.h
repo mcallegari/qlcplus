@@ -93,6 +93,8 @@ private slots:
 
     void preRunPostRun();
     void adjustIntensity();
+    void removeMultiHeadFixture();
+    void missingFixture();
 
     void timeLoopUnchanged();
     void beatsTempoSwitch();

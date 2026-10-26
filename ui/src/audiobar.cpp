@@ -117,7 +117,7 @@ void AudioBar::attachDmxChannels(Doc *doc, QList<SceneValue> list)
         Fixture *fx = doc->fixture(scv.fxi);
         if (fx != NULL)
         {
-            quint32 absAddr = fx->universeAddress() + scv.channel;
+            quint32 absAddr = fx->channelAddress(scv.channel);
             m_absDmxChannels.append(absAddr);
         }
     }

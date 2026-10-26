@@ -92,7 +92,7 @@ QQuickView *PreviewContext::view() const
 
 QQuickItem *PreviewContext::contextItem() const
 {
-    return m_contextItem;
+    return m_contextItem.data();
 }
 
 void PreviewContext::setContextItem(QQuickItem *item)

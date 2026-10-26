@@ -19,6 +19,7 @@
 
 #include <QMessageBox>
 #include <QString>
+#include <QSet>
 #include <QDebug>
 #include <libusb.h>
 
@@ -31,6 +32,12 @@
 
 Peperoni::~Peperoni()
 {
+    /* Devices hold libusb references, so release them before the context */
+    qDeleteAll(uniqueDevices());
+    m_devices.clear();
+
+    if (m_ctx != NULL)
+        libusb_exit(m_ctx);
 }
 
 void Peperoni::init()
@@ -38,7 +45,11 @@ void Peperoni::init()
     m_ctx = NULL;
 
     if (libusb_init(&m_ctx) != 0)
+    {
         qWarning() << "Unable to initialize libusb context!";
+        m_ctx = NULL;
+        return;
+    }
 
     rescanDevices();
 }
@@ -78,10 +89,10 @@ void Peperoni::closeOutput(quint32 output, quint32 universe)
 QStringList Peperoni::outputs()
 {
     QStringList list;
-    int i = 0;
 
-    foreach (PeperoniDevice* dev, m_devices)
-        list << dev->name(i++);
+    /* Lines are contiguous, so walk them in order (QHash order is random) */
+    for (quint32 i = 0; i < quint32(m_devices.count()); i++)
+        list << m_devices.value(i)->name(i);
 
     return list;
 }
@@ -150,8 +161,9 @@ bool Peperoni::openInput(quint32 input, quint32 universe)
 
     if (m_devices[input] != NULL)
     {
-        connect(m_devices[input], SIGNAL(valueChanged(quint32, quint32,quint32,uchar)),
-                this, SIGNAL(valueChanged(quint32, quint32,quint32,uchar)));
+        connect(m_devices[input], SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
+                this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
+                Qt::UniqueConnection);
         return m_devices[input]->open(input, PeperoniDevice::InputMode);
     }
     return false;
@@ -170,13 +182,7 @@ void Peperoni::closeInput(quint32 input, quint32 universe)
 
 QStringList Peperoni::inputs()
 {
-    QStringList list;
-    int i = 0;
-
-    foreach (PeperoniDevice* dev, m_devices)
-        list << dev->name(i++);
-
-    return list;
+    return outputs();
 }
 
 QString Peperoni::inputInfo(quint32 input)
@@ -224,14 +230,21 @@ bool Peperoni::canConfigure() const
 
 void Peperoni::rescanDevices()
 {
-    /* Treat all devices as dead first, until we find them again. Those
-       that aren't found, get destroyed at the end of this function. */
-    QHash <quint32, PeperoniDevice*> destroyList(m_devices);
-    quint32 line = 0;
-    int devCount = m_devices.count();
+    if (m_ctx == NULL)
+        return;
 
     libusb_device** devices = NULL;
     ssize_t count = libusb_get_device_list(m_ctx, &devices);
+    if (count < 0)
+    {
+        qWarning() << "[Peperoni] Unable to get USB device list:" << libusb_strerror(libusb_error(count));
+        return;
+    }
+
+    /* Find which known devices are still there and which ones are new */
+    QSet<PeperoniDevice*> stillPresent;
+    QList<PeperoniDevice*> newDevices;
+
     for (ssize_t i = 0; i < count; i++)
     {
         libusb_device* dev = devices[i];
@@ -245,53 +258,71 @@ void Peperoni::rescanDevices()
             continue;
         }
 
-        if (device(dev) == true)
-        {
-            /* We already have this device and it's still
-               there. Remove from the destroy list and
-               continue iterating. */
-            destroyList.remove(line);
-            line++;
+        if (PeperoniDevice::isPeperoniDevice(&desc) == false)
             continue;
-        }
-        else if (PeperoniDevice::isPeperoniDevice(&desc) == true)
-        {
-            /* This is a new device. Create and append. */
-            PeperoniDevice* pepdev = new PeperoniDevice(this, dev, &desc, line);
-            m_devices[line] = pepdev;
-            if (PeperoniDevice::outputsNumber(&desc) == 2)
-            {
-                line++;
-                /* reserve another line with the same device reference */
-                m_devices[line] = pepdev;
-            }
-            line++;
-        }
+
+        PeperoniDevice *known = device(dev);
+        if (known != NULL)
+            stillPresent.insert(known);
+        else
+            newDevices.append(new PeperoniDevice(this, dev, &desc, 0));
     }
 
-    //qDebug() << "[Peperoni] Need to destroy" << destroyList.count() << "devices";
-    QHashIterator<quint32, PeperoniDevice*> it(destroyList);
-    while (it.hasNext())
+    /* Each PeperoniDevice holds its own reference to its libusb device */
+    libusb_free_device_list(devices, 1);
+
+    /* Keep surviving devices in their previous order, regardless of the
+       order libusb reports them in, and append the new ones at the end */
+    QList<PeperoniDevice*> ordered;
+    QList<PeperoniDevice*> deadDevices;
+    foreach (PeperoniDevice *dev, uniqueDevices())
     {
-        it.next();
-        PeperoniDevice *dev = m_devices.take(it.key());
-        dev->closeAll();
-        delete dev;
+        if (stillPresent.contains(dev))
+            ordered.append(dev);
+        else
+            deadDevices.append(dev);
+    }
+    ordered.append(newDevices);
+
+    /* destructor calls closeAll() */
+    qDeleteAll(deadDevices);
+
+    /* Assign contiguous lines. A USBDMX21 owns two consecutive lines */
+    m_devices.clear();
+    quint32 line = 0;
+    foreach (PeperoniDevice *dev, ordered)
+    {
+        dev->setBaseLine(line);
+        for (int l = 0; l < dev->linesCount(); l++)
+            m_devices[line++] = dev;
     }
 
-    //qDebug() << "[Peperoni] devices found:" << m_devices.count();
-    if (m_devices.count() != devCount)
+    if (deadDevices.isEmpty() == false || newDevices.isEmpty() == false)
         emit configurationChanged();
 }
 
-bool Peperoni::device(struct libusb_device* usbdev) const
+PeperoniDevice *Peperoni::device(libusb_device *usbdev) const
 {
     foreach (PeperoniDevice* dev, m_devices)
     {
         if (dev->device() == usbdev)
-            return true;
+            return dev;
     }
-    return false;
+    return NULL;
+}
+
+QList<PeperoniDevice *> Peperoni::uniqueDevices() const
+{
+    QList<PeperoniDevice *> list;
+
+    for (quint32 i = 0; i < quint32(m_devices.count()); i++)
+    {
+        PeperoniDevice *dev = m_devices.value(i);
+        if (list.isEmpty() || list.last() != dev)
+            list.append(dev);
+    }
+
+    return list;
 }
 
 

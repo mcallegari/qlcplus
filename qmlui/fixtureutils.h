@@ -49,6 +49,16 @@ public:
     static QPointF item2DPosition(const MonitorProperties *monProps, int pointOfView, QVector3D pos);
     static float item2DRotation(int pointOfView, QVector3D rot);
     static QSizeF item2DDimension(const QLCFixtureMode *fxMode, int pointOfView);
+
+    /** Compute the 2D geometry of a fixture item by projecting its 3D box,
+     *  rotated like in the 3D view, onto the $pointOfView plane.
+     *  The item is oriented along its width (where heads are laid out) and
+     *  keeps the same center as item2DPosition/item2DDimension.
+     *  Needed by fixtures like LED bars and RGB panels, whose 3D orientation
+     *  can't be represented by a single rotation component */
+    static void item2DProjection(const MonitorProperties *monProps, int pointOfView,
+                                 const QLCFixtureMode *fxMode, QVector3D pos, QVector3D rot,
+                                 QPointF &point, QSizeF &size, qreal &rotation);
     static void alignItem(QVector3D refPos, QVector3D &origPos, int pointOfView, int alignment);
 
     static QVector3D item3DPosition(const MonitorProperties *monProps, QPointF point, float thirdVal);

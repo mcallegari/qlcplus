@@ -127,7 +127,7 @@ Column
         {
             title = "#" + (stepIndex + 1) + " " + holdCol.label
             timeValueString = stepItem.stepHold
-            timeEditTool.allowFractions = QLCFunction.NoFractions
+            timeEditTool.allowFractions = QLCFunction.ByTwoFractions
         }
         else if (type === QLCFunction.FadeOut)
         {
@@ -139,7 +139,7 @@ Column
         {
             title = "#" + (stepIndex + 1) + " " + durCol.label
             timeValueString = stepItem.stepDuration
-            timeEditTool.allowFractions = QLCFunction.NoFractions
+            timeEditTool.allowFractions = QLCFunction.ByTwoFractions
         }
 
         timeEditTool.show(-1, stepItem.mapToItem(mainView, 0, 0).y, title, timeValueString, type)

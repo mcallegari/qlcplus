@@ -36,6 +36,8 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 #include "qlcmodifierscache.h"
+#include "inputoutputmap.h"
+#include "universe.h"
 #include "fixture.h"
 #include "tardis.h"
 #include "doc.h"
@@ -1525,8 +1527,10 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
     if (propItem == nullptr)
         return false;
 
-    int address = propItem->property("address").toInt();
+    // the UI address is 1-based, here we work 0-based
+    int address = propItem->property("address").toInt() - 1;
     int uniIndex = propItem->property("universeIndex").toInt();
+    Fixture::CrossUniverseMode crossMode = Fixture::CrossUniverseMode(propItem->property("crossUniverse").toInt());
 
     int rows = propItem->property("rows").toInt();
     int columns = propItem->property("columns").toInt();
@@ -1567,8 +1571,6 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
         transpose = 1;
     }
 
-    QLCFixtureDef *rowDef = nullptr;
-    QLCFixtureMode *rowMode = nullptr;
     int currRow = 0;
     int rowInc = 1;
     int xPosStart = 0;
@@ -1604,6 +1606,14 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
         }
     }
 
+    const int compNum = components == Fixture::RGBW ? 4 : 3;
+    const int rowChannels = columns * compNum;
+    const float gridUnits = m_monProps->gridUnits() == MonitorProperties::Meters ? 1000.0 : 304.8;
+
+    InputOutputMap *ioMap = m_doc->inputOutputMap();
+    QLCFixtureDef *rowDef = nullptr;
+    QLCFixtureMode *rowMode = nullptr;
+
     // temporarily disconnect this signal since we want to use the given position
     disconnect(m_doc, SIGNAL(fixtureAdded(quint32)), this, SLOT(slotFixtureAdded(quint32)));
 
@@ -1619,76 +1629,99 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
         fxi->setFixtureDefinition(rowDef, rowMode);
 
         // Check universe span
-        if (address + fxi->channels() > 512)
+        if (address + rowChannels > int(UNIVERSE_SIZE))
         {
+            switch (crossMode)
+            {
+                case Fixture::CrossUniverseNone:
+                    // move the entire row to the next universe.
+                    // A row larger than a universe is split by pixel
+                    if (rowChannels <= int(UNIVERSE_SIZE))
+                    {
+                        uniIndex++;
+                        address = 0;
+                    }
+                    else
+                    {
+                        if (address > 0)
+                        {
+                            uniIndex++;
+                            address = 0;
+                        }
+                        fxi->setCrossUniverse(Fixture::CrossUniversePixel);
+                    }
+                break;
+                case Fixture::CrossUniversePixel:
+                    // not even a pixel fits: start from the next universe
+                    if (int(UNIVERSE_SIZE) - address < compNum)
+                    {
+                        uniIndex++;
+                        address = 0;
+                    }
+                    if (address + rowChannels > int(UNIVERSE_SIZE))
+                        fxi->setCrossUniverse(Fixture::CrossUniversePixel);
+                break;
+                case Fixture::CrossUniverseFill:
+                    fxi->setCrossUniverse(Fixture::CrossUniverseFill);
+                break;
+            }
+        }
+
+        if (ioMap->getUniverseID(uniIndex) == ioMap->invalidUniverse())
+        {
+            ioMap->addUniverse();
+            ioMap->startUniverses();
+        }
+
+        fxi->setUniverse(ioMap->getUniverseID(uniIndex));
+        fxi->setAddress(address);
+
+        // Doc takes care of adding the universes spanned by a cross-universe fixture
+        if (m_doc->addFixture(fxi) == false)
+        {
+            qWarning() << "[addRGBPanel] cannot add fixture" << fxi->name();
+            delete fxi;
+            yPos += (qreal)phyHeight;
+            currRow += rowInc;
+            continue;
+        }
+
+        // next row starts right after the last channel of this one
+        quint32 lastAddress = fxi->channelAddress(fxi->channels() - 1);
+        uniIndex += (lastAddress >> 9) - fxi->universe();
+        address = (lastAddress & 0x01FF) + 1;
+        if (address >= int(UNIVERSE_SIZE))
+        {
+            address = 0;
             uniIndex++;
-            if (m_doc->inputOutputMap()->getUniverseID(uniIndex) == m_doc->inputOutputMap()->invalidUniverse())
-            {
-                m_doc->inputOutputMap()->addUniverse();
-                m_doc->inputOutputMap()->startUniverses();
-            }
-            address = 1;
         }
 
-        fxi->setUniverse(m_doc->inputOutputMap()->getUniverseID(uniIndex));
-        fxi->setAddress(address - 1);
-        address += fxi->channels();
-        m_doc->addFixture(fxi);
+        bool reversed = (displacement == Snake && (i % 2));
+        int headX = reversed ? xPosEnd : xPosStart;
+        int headInc = reversed ? -xPosInc : xPosInc;
 
-        if (displacement == ZigZag)
+        for (int h = 0; h < fxi->heads(); h++)
         {
-            int xPos = xPosStart;
-            for (int h = 0; h < fxi->heads(); h++)
-            {
-                if (transpose)
-                    grp->assignHead(QLCPoint(currRow, xPos), GroupHead(fxi->id(), h));
-                else
-                    grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
-                xPos += xPosInc;
-            }
-        }
-        else if (displacement == Snake)
-        {
-            if (i%2 == 0)
-            {
-                int xPos = xPosStart;
-                for (int h = 0; h < fxi->heads(); h++)
-                {
-                    if (transpose)
-                        grp->assignHead(QLCPoint(currRow, xPos), GroupHead(fxi->id(), h));
-                    else
-                        grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
-                    xPos += xPosInc;
-                }
-            }
+            if (transpose)
+                grp->assignHead(QLCPoint(currRow, headX), GroupHead(fxi->id(), h));
             else
-            {
-                int xPos = xPosEnd;
-                for (int h = 0; h < fxi->heads(); h++)
-                {
-                    if (transpose)
-                        grp->assignHead(QLCPoint(currRow, xPos), GroupHead(fxi->id(), h));
-                    else
-                        grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
-                    xPos += (-xPosInc);
-                }
-            }
+                grp->assignHead(QLCPoint(headX, currRow), GroupHead(fxi->id(), h));
+            headX += headInc;
         }
 
         QVector3D pos;
         QVector3D rot = QVector3D(0, 0, 0);
-        float gridUnits = m_monProps->gridUnits() == MonitorProperties::Meters ? 1000.0 : 304.8;
 
         switch (m_monProps->pointOfView())
         {
             case MonitorProperties::TopView:
                 pos = QVector3D(xPos, 1000, yPos);
-                if (displacement == Snake && i % 2)
+                if (reversed)
                     rot.setY(180);
             break;
             case MonitorProperties::LeftSideView:
                 pos = QVector3D(0, yPos, xPos);
-                if (displacement == Snake && i % 2)
+                if (reversed)
                     rot.setY(-90);
                 else
                     rot.setY(90);
@@ -1696,7 +1729,7 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
             break;
             case MonitorProperties::RightSideView:
                 pos = QVector3D(0, yPos, (m_monProps->gridSize().z() * gridUnits) - xPos);
-                if (displacement == Snake && i % 2)
+                if (reversed)
                     rot.setY(90);
                 else
                     rot.setY(-90);
@@ -1704,7 +1737,7 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
             break;
             default:
                 pos = QVector3D(xPos, (m_monProps->gridSize().y() * gridUnits) - yPos, 0);
-                if (displacement == Snake && i % 2)
+                if (reversed)
                     rot.setZ(180);
                 rot.setX(-90);
             break;
@@ -1751,6 +1784,50 @@ QString FixtureManager::getTooltip(quint32 address)
     return fixture->name();
 }
 
+/* Get the range of channel indices [first, last) of $fx patched in universe $uni.
+ * A cross-universe fixture may span multiple universes */
+static bool channelRangeInUniverse(Fixture *fx, quint32 uni, quint32 &first, quint32 &last)
+{
+    if (fx->universe() > uni || fx->lastUniverse() < uni)
+        return false;
+
+    if (fx->crossUniverse() == Fixture::CrossUniverseNone)
+    {
+        first = 0;
+        last = fx->channels();
+        return true;
+    }
+
+    first = fx->channels();
+    last = 0;
+
+    for (quint32 cn = 0; cn < fx->channels(); cn++)
+    {
+        if ((fx->channelAddress(cn) >> 9) != uni)
+            continue;
+        if (cn < first)
+            first = cn;
+        last = cn + 1;
+    }
+
+    return first < last;
+}
+
+int FixtureManager::universeChannelOffset(quint32 fxID)
+{
+    Fixture *fixture = m_doc->fixture(fxID);
+    if (fixture == nullptr)
+        return 0;
+
+    quint32 uniFilter = m_universeFilter == Universe::invalid() ? 0 : m_universeFilter;
+    quint32 first, last;
+
+    if (channelRangeInUniverse(fixture, uniFilter, first, last) == false)
+        return 0;
+
+    return int(first);
+}
+
 QVariantList FixtureManager::fixturesMap()
 {
     bool odd = true;
@@ -1778,14 +1855,15 @@ QVariantList FixtureManager::fixturesMap()
         if (fx == nullptr)
             continue;
 
-        if (fx->universe() != uniFilter)
+        // a cross-universe fixture may start in a previous universe
+        quint32 firstCh, lastCh;
+        if (channelRangeInUniverse(fx, uniFilter, firstCh, lastCh) == false)
             continue;
 
-        quint32 startAddress = fx->address();
-        for (quint32 cn = 0; cn < fx->channels(); cn++)
+        for (quint32 cn = firstCh; cn < lastCh; cn++)
         {
             fixturesMap.append(fx->id());
-            fixturesMap.append(startAddress + cn);
+            fixturesMap.append(fx->channelAddress(cn) & 0x01FF);
 
             if (odd)
                 fixturesMap.append(1);
@@ -1801,8 +1879,8 @@ QVariantList FixtureManager::fixturesMap()
         odd = !odd;
 
         fixtureNamesMap.append(fx->id());
-        fixtureNamesMap.append(fx->address());
-        fixtureNamesMap.append(fx->channels());
+        fixtureNamesMap.append(fx->channelAddress(firstCh) & 0x01FF);
+        fixtureNamesMap.append(lastCh - firstCh);
         fixtureNamesMap.append(fx->name());
     }
     setFixturesMap(fixturesMap);

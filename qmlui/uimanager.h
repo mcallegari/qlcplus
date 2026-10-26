@@ -21,6 +21,7 @@
 #define UIMANAGER_H
 
 #include <QQuickView>
+#include <QPointer>
 #include <QObject>
 
 typedef struct
@@ -40,8 +41,15 @@ public:
     UiManager(QQuickView *view, Doc *doc, QObject *parent = nullptr);
     ~UiManager();
 
-    void initialize();
+    /** Initialize the UI settings and load the user configuration.
+     *  Return true if the scaling factor has been automatically set
+     *  to fit the screen and stored as a user setting */
+    bool initialize();
     void setDefaultParameter(QString category, QString name, QVariant value);
+
+    /** Set the default scaling factor, evaluated to fit the UI
+     *  on the current screen. A user modified value is preserved */
+    void setDefaultScalingFactor(qreal factor);
 
     Q_INVOKABLE QVariant getDefault(QString name) const;
 
@@ -59,7 +67,8 @@ private:
     Doc *m_doc;
 
     /** Reference to the UI QML settings */
-    QObject *m_uiStyle;
+    /** The QML UISettings singleton, guarded since owned by the QML engine */
+    QPointer<QObject> m_uiStyle;
 
     /** A map ok key,value representing every UI parameter
      *  that can be changed at runtime */

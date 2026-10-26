@@ -153,7 +153,7 @@ VCXYPad::~VCXYPad()
     clearPresets();
 
     if (m_item)
-        delete m_item;
+        delete m_item.data();
 }
 
 QString VCXYPad::defaultCaption() const
@@ -184,6 +184,8 @@ void VCXYPad::render(QQuickView *view, QQuickItem *parent)
         return;
     }
 
+    // release the item of a previous rendering (e.g. VC page reloaded)
+    delete m_item.data();
     m_item = qobject_cast<QQuickItem*>(component->create());
     if (m_item == nullptr)
         qWarning() << Q_FUNC_INFO << "Unable to create XY pad component" << component->errors();

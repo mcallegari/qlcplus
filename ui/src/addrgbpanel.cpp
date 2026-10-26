@@ -45,6 +45,10 @@ AddRGBPanel::AddRGBPanel(QWidget *parent, const Doc *doc)
     m_compCombo->addItem("RBG");
     m_compCombo->addItem("RGBW");
 
+    m_crossUniverseCombo->addItem(tr("Split entire row"), Fixture::CrossUniverseNone);
+    m_crossUniverseCombo->addItem(tr("Split by pixel"), Fixture::CrossUniversePixel);
+    m_crossUniverseCombo->addItem(tr("Split anywhere (fill universe)"), Fixture::CrossUniverseFill);
+
     checkAddressAvailability();
 
     QSettings settings;
@@ -217,9 +221,9 @@ bool AddRGBPanel::is16Bit() const
     return m_16bitCheck->isChecked();
 }
 
-bool AddRGBPanel::crossUniverse() const
+Fixture::CrossUniverseMode AddRGBPanel::crossUniverse() const
 {
-    return m_crossUniverseCheck->isChecked();
+    return Fixture::CrossUniverseMode(m_crossUniverseCombo->currentData().toInt());
 }
 
 void AddRGBPanel::slotSizeChanged(int)

@@ -24,10 +24,7 @@
 #include <QThread>
 #include <QMutex>
 #include <QHash>
-
-struct libusb_device;
-struct libusb_device_handle;
-struct libusb_device_descriptor;
+#include <libusb.h>
 
 class QString;
 class QByteArray;
@@ -52,7 +49,16 @@ public:
     static bool isPeperoniDevice(int vid, int pid);
 
     /** Returns the number of output universes this device supports */
-    static int outputsNumber(libusb_device_descriptor *desc);
+    static int outputsNumber(const libusb_device_descriptor *desc);
+
+    /** Returns the number of lines (universes) this device occupies */
+    int linesCount() const;
+
+    /** Returns the first plugin line used by this device */
+    quint32 baseLine() const;
+
+    /** Set the first plugin line used by this device (on rescan) */
+    void setBaseLine(quint32 line);
 
     /********************************************************************
      * Device information
@@ -65,6 +71,9 @@ public:
 
 protected:
     void extractName();
+
+    /** Model name derived from the USB product ID */
+    QString modelName() const;
 
 protected:
     /** The interface name */
@@ -97,15 +106,17 @@ public:
 
     const libusb_device *device() const;
 
-    /** The device operating mode for each line */
+protected:
+    /** Convert an absolute plugin line to this device's universe index */
+    quint32 lineIndex(quint32 line) const;
+
+    /** The device operating mode for each universe index (0 or 1) */
     QHash<quint32, int> m_operatingModes;
 
-protected:
     struct libusb_device* m_device;
     struct libusb_device_handle* m_handle;
-    struct libusb_device_descriptor* m_descriptor;
+    struct libusb_device_descriptor m_descriptor;
     int m_firmwareVersion;
-    int m_blockingControlWrite;
     QByteArray m_bulkBuffer;
 
     /********************************************************************

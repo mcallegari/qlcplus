@@ -23,6 +23,7 @@
 #include <QQmlEngine>
 #include <QQuickView>
 #include <QQuickItem>
+#include <QPointer>
 #include <QObject>
 #include "doc.h"
 
@@ -180,7 +181,7 @@ public:
     /** Return the physical diagonal size of the current screen, in inches */
     qreal screenDiagonal() const;
 
-    /** Return true if the current screen is a small one (7 inches or below),
+    /** Return true if the current screen is a small one (8 inches or below),
      *  where the UI needs to compact itself to save space */
     bool smallScreen() const;
 
@@ -317,7 +318,9 @@ protected slots:
     void slotItemReadyForPrinting();
 
 private:
-    QQuickItem *m_printItem;
+    /** The item being printed. The grab is asynchronous and the print
+     *  dialog is modal, so the item might be destroyed in the meantime */
+    QPointer<QQuickItem> m_printItem;
     QSharedPointer<QQuickItemGrabResult> m_printerImage;
 
     /*********************************************************************
