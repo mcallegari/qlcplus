@@ -730,6 +730,16 @@ int Tardis::processAction(TardisAction &action, bool undo)
             m_contextManager->get3DView()->updateGenericItemScale(action.m_objID, value->value<QVector3D>());
         }
         break;
+        case GenericItemSetName:
+        {
+            m_contextManager->get3DView()->updateGenericItemName(action.m_objID, value->toString());
+        }
+        break;
+        case GenericItemSetColor:
+        {
+            m_contextManager->get3DView()->updateGenericItemColor(action.m_objID, value->value<QColor>());
+        }
+        break;
 
         /* *********************** Input/Output manager actions ************************ */
         case IOAddUniverse:
@@ -1719,6 +1729,21 @@ int Tardis::processAction(TardisAction &action, bool undo)
             VCAnimation *animation = qobject_cast<VCAnimation *>(m_virtualConsole->widget(action.m_objID));
             if (animation)
                 animation->applyPreset(value->toUInt());
+        }
+        break;
+        case VCFrameSetDisabled:
+        {
+            VCFrame *frame = qobject_cast<VCFrame *>(m_virtualConsole->widget(action.m_objID));
+            if (frame)
+                frame->setDisabled(value->toBool());
+        }
+        break;
+        case VCSliderSetClickAndGoColors:
+        {
+            VCSlider *slider = qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID));
+            QVariantList colors = value->toList();
+            if (slider && colors.count() == 2)
+                slider->setClickAndGoColors(colors.at(0).value<QColor>(), colors.at(1).value<QColor>());
         }
         break;
 

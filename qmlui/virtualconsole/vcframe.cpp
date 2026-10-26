@@ -66,7 +66,7 @@ VCFrame::~VCFrame()
     deleteChildren();
 
     if (m_item)
-        delete m_item;
+        delete m_item.data();
 }
 
 void VCFrame::initializeProperties()
@@ -104,6 +104,8 @@ void VCFrame::render(QQuickView *view, QQuickItem *parent)
         return;
     }
 
+    // release the item of a previous rendering (e.g. VC page reloaded)
+    delete m_item.data();
     m_item = qobject_cast<QQuickItem*>(component->create());
     if (m_item == nullptr)
         qWarning() << Q_FUNC_INFO << "Unable to create frame component" << component->errors();
@@ -751,6 +753,9 @@ void VCFrame::removeWidgetFromPageMap(VCWidget *widget)
 
 void VCFrame::setDisabled(bool disable)
 {
+    if (isDisabled() != disable)
+        Tardis::instance()->enqueueAction(Tardis::VCFrameSetDisabled, id(), isDisabled(), disable);
+
     for (VCWidget *widget : children(true)) // C++11
         widget->setDisabled(disable);
 

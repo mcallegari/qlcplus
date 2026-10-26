@@ -764,12 +764,7 @@ void ShowManager::deleteShowItem(ShowFunction *sf)
         emit clipboardItemsCountChanged(m_clipboard.count());
 
     quint32 sfId = sf->id();
-    QQuickItem *item = m_itemsMap.value(sfId, nullptr);
-    if (item != nullptr)
-    {
-        m_itemsMap.remove(sfId);
-        delete item;
-    }
+    delete m_itemsMap.take(sfId).data();
 }
 
 bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int newTrackIdx, int newStartTime)
@@ -1434,11 +1429,11 @@ void ShowManager::resetView()
         emit selectedItemsCountChanged(0);
     }
 
-    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    QMapIterator<quint32, QPointer<QQuickItem>> it(m_itemsMap);
     while (it.hasNext())
     {
         it.next();
-        delete it.value();
+        delete it.value().data();
     }
     m_itemsMap.clear();
 }
@@ -1723,6 +1718,12 @@ void ShowManager::slotShowFinished()
 
 void ShowManager::slotShowStopped()
 {
+    /* The stopped signal is emitted by the MasterTimer thread and so arrives
+       queued. Ignore it if the Show has been started again in the meantime,
+       like when resuming playback after moving the cursor during a pause */
+    if (m_currentShow != nullptr && m_currentShow->stopped() == false)
+        return;
+
     setPlaybackState(false, false);
 }
 

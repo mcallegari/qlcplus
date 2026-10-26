@@ -727,7 +727,12 @@ void Scene::processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, c
     if (fixture == NULL)
         return;
 
-    int universeIndex = floor((fixture->universeAddress() + scv.channel) / 512);
+    // a cross-universe fixture channel may belong to a following universe
+    quint32 absAddress = fixture->channelAddress(scv.channel);
+    if (absAddress == QLCChannel::invalid())
+        return;
+
+    int universeIndex = absAddress >> 9;
     if (universeIndex >= ua.count())
         return;
 

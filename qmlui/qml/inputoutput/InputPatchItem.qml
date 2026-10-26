@@ -201,8 +201,7 @@ Rectangle
                 return mdl
             }
 
-            // reflect the line currently patched as feedback, without
-            // triggering a write back to the engine (see onValueChanged)
+            // reflect the line currently patched as feedback
             currValue:
             {
                 for (let i = 0; i < sourcesList.length; i++)
@@ -211,13 +210,17 @@ Rectangle
                 return -1
             }
 
-            onValueChanged: (value) =>
+            // Write back to the engine only on a user pick. valueChanged also
+            // fires on model/index updates triggered by hasFeedbackChanged,
+            // which is emitted while InputOutputMap holds its (non recursive)
+            // universe mutex: calling setFeedbackLine from there deadlocks
+            onActivated: (index) =>
             {
-                if (value < 0 || value >= sourcesList.length)
+                if (index < 0 || index >= sourcesList.length)
                     return
-                if (sourcesList[value].checked)
-                    return // just reflecting current state, not a user pick
-                ioManager.setFeedbackLine(ipRoot.universeID, sourcesList[value].plugin, sourcesList[value].line)
+                if (sourcesList[index].checked)
+                    return
+                ioManager.setFeedbackLine(ipRoot.universeID, sourcesList[index].plugin, sourcesList[index].line)
             }
         }
     }

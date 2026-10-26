@@ -1430,12 +1430,45 @@ void FixtureManager::slotAddRGBPanel()
             fxi->setFixtureDefinition(rowDef, rowMode);
 
             // Check universe span
-            if (address + fxi->channels() > 512)
+            quint32 rowChannels = fxi->channels();
+            if (address + rowChannels > 512)
             {
-                if (!rgb.crossUniverse())
+                // channels of a single pixel (6 or 8 when 16bit)
+                quint32 pixelSize = fxi->heads() > 0 ? rowChannels / fxi->heads() : 1;
+
+                switch (rgb.crossUniverse())
                 {
-                    uniIndex++;
-                    address = 0;
+                    case Fixture::CrossUniverseNone:
+                        // move the entire row to the next universe.
+                        // A row larger than a universe is split by pixel
+                        if (rowChannels <= 512)
+                        {
+                            uniIndex++;
+                            address = 0;
+                        }
+                        else
+                        {
+                            if (address > 0)
+                            {
+                                uniIndex++;
+                                address = 0;
+                            }
+                            fxi->setCrossUniverse(Fixture::CrossUniversePixel);
+                        }
+                    break;
+                    case Fixture::CrossUniversePixel:
+                        // not even a pixel fits: start from the next universe
+                        if (512 - address < pixelSize)
+                        {
+                            uniIndex++;
+                            address = 0;
+                        }
+                        if (address + rowChannels > 512)
+                            fxi->setCrossUniverse(Fixture::CrossUniversePixel);
+                    break;
+                    case Fixture::CrossUniverseFill:
+                        fxi->setCrossUniverse(Fixture::CrossUniverseFill);
+                    break;
                 }
             }
             if (m_doc->inputOutputMap()->getUniverseID(uniIndex) == m_doc->inputOutputMap()->invalidUniverse())
@@ -1445,15 +1478,17 @@ void FixtureManager::slotAddRGBPanel()
             }
 
             fxi->setUniverse(m_doc->inputOutputMap()->getUniverseID(uniIndex));
-            if (address + fxi->channels() > 512)
-                fxi->setCrossUniverse(rgb.crossUniverse());
             fxi->setAddress(address);
-            m_doc->addFixture(fxi, Fixture::invalidId(), rgb.crossUniverse());
+            // Doc takes care of adding the universes spanned by a cross-universe fixture
+            m_doc->addFixture(fxi, Fixture::invalidId());
 
-            address += fxi->channels();
-            if (address >= 512 && rgb.crossUniverse())
+            // next row starts right after the last channel of this one
+            quint32 lastAddress = fxi->channelAddress(rowChannels - 1);
+            uniIndex += (lastAddress >> 9) - fxi->universe();
+            address = (lastAddress & 0x01FF) + 1;
+            if (address >= 512)
             {
-                address -= 512;
+                address = 0;
                 uniIndex++;
             }
 

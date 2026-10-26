@@ -102,6 +102,13 @@ private:
 private:
     FunctionParent functionParent() const;
 
+    /** Return true if $function is in the running queue for any item */
+    bool isQueued(Function *function) const;
+
+    /** Start the Function of $sf with the given $startTime offset and add it
+     *  to the running queue. Does not restart an already running Function */
+    void startShowFunction(ShowFunction *sf, Function *f, quint32 startTime);
+
 signals:
     void timeChanged(quint32 time);
     void showFinished();

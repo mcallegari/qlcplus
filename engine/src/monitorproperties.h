@@ -291,6 +291,11 @@ public:
     QVector3D itemScale(quint32 itemID) const;
     void setItemScale(quint32 itemID, QVector3D scale);
 
+    /** Get/Set the base color of an item with ID $itemID.
+     *  An invalid color means the item uses its original mesh colors */
+    QColor itemColor(quint32 itemID) const;
+    void setItemColor(quint32 itemID, QColor color);
+
     /** Get/Set the flags of an item with ID $itemID */
     quint32 itemFlags(quint32 itemID) const;
     void setItemFlags(quint32 itemID, quint32 flags);

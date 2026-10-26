@@ -48,6 +48,8 @@ class Doc;
 #define KXMLFixtureName             QStringLiteral("Name")
 #define KXMLFixtureUniverse         QStringLiteral("Universe")
 #define KXMLFixtureCrossUniverse    QStringLiteral("CrossUniverse")
+#define KXMLFixtureCrossUniversePixel QStringLiteral("Pixel")
+#define KXMLFixtureCrossUniverseFill  QStringLiteral("Fill")
 #define KXMLFixtureAddress          QStringLiteral("Address")
 #define KXMLFixtureID               QStringLiteral("ID")
 #define KXMLFixtureGeneric          QStringLiteral("Generic")
@@ -181,18 +183,35 @@ public:
      */
     quint32 universe() const;
 
-    /** Set if this Fixture crosses a DMX universe
-     *
-     *  @param cross-universe enable flag
-     */
-    void setCrossUniverse(bool enable);
+    /** How the fixture channels are patched when exceeding a DMX universe */
+    enum CrossUniverseMode
+    {
+        CrossUniverseNone,  ///< the fixture must fit a single universe
+        CrossUniversePixel, ///< split after the last whole head (pixel) that fits
+        CrossUniverseFill   ///< fill the universe up to the last channel
+    };
+    Q_ENUM(CrossUniverseMode)
+
+    /** Set if and how this Fixture crosses a DMX universe */
+    void setCrossUniverse(CrossUniverseMode mode);
 
     /**
-     * Get the fixture cross universe flag
+     * Get the fixture cross universe mode
      *
-     * @return true if this Fixture crosses a universe
+     * @return CrossUniverseNone if this Fixture doesn't cross a universe
      */
-    bool crossUniverse() const;
+    CrossUniverseMode crossUniverse() const;
+
+    /** Return the index of the last universe used by this fixture */
+    quint32 lastUniverse() const;
+
+protected:
+    /** Number of channels of a head ("pixel") used by CrossUniversePixel.
+     *  Heads are expected to have the same size: if they don't cover
+     *  all the fixture channels, 1 is returned */
+    quint32 crossUniversePixelSize() const;
+
+public:
 
     /*********************************************************************
      * Address
@@ -251,10 +270,22 @@ public:
     const QLCChannel* channel(quint32 channel) const;
 
     /**
-     * Get a fixture's channel's DMX address.
+     * Get a fixture's channel's absolute DMX address (universe << 9 | address),
+     * taking into account the cross universe mode.
      *
+     * @param channel The fixture channel index
+     * @return The absolute address or QLCChannel::invalid()
      */
     quint32 channelAddress(quint32 channel) const;
+
+    /**
+     * Reverse of channelAddress: get the fixture channel index patched
+     * at the given absolute DMX address (universe << 9 | address)
+     *
+     * @param absAddress The absolute DMX address
+     * @return The channel index or QLCChannel::invalid()
+     */
+    quint32 channelIndexForAddress(quint32 absAddress) const;
 
     /**
      * Get a channel from the given group of channels and by its primary color
@@ -335,8 +366,8 @@ protected:
     /** DMX address & universe */
     quint32 m_address;
 
-    /** Flag that indicates if this fixture crosses a DMX Universe */
-    bool m_crossUniverse;
+    /** Indicates if and how this fixture crosses a DMX Universe */
+    CrossUniverseMode m_crossUniverse;
 
     /** Number of channels (ONLY for dimmer fixtures!) */
     quint32 m_channels;
@@ -362,6 +393,12 @@ public:
     /** Store DMX values for this fixture. If values have changed,
      * it returns true, otherwise false */
     bool setChannelValues(const QByteArray &values);
+
+    /** Store the DMX values of the fixture channels patched in $universe.
+     *  Unlike setChannelValues, this handles cross-universe fixtures,
+     *  that receive their values from more than one universe.
+     *  If values have changed, it returns true, otherwise false */
+    bool setUniverseValues(quint32 universe, const QByteArray &values);
 
     /** Return the current DMX values of this fixture */
     QByteArray channelValues();

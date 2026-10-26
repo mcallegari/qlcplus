@@ -23,6 +23,7 @@
 #include <QQmlEngine>
 #include <QQuickView>
 #include <QQuickItem>
+#include <QPointer>
 #include <QObject>
 #include "doc.h"
 
@@ -317,7 +318,9 @@ protected slots:
     void slotItemReadyForPrinting();
 
 private:
-    QQuickItem *m_printItem;
+    /** The item being printed. The grab is asynchronous and the print
+     *  dialog is modal, so the item might be destroyed in the meantime */
+    QPointer<QQuickItem> m_printItem;
     QSharedPointer<QQuickItemGrabResult> m_printerImage;
 
     /*********************************************************************

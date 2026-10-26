@@ -34,12 +34,6 @@ class SceneEditor;
 class FunctionEditor;
 class GenericDMXSource;
 
-typedef struct
-{
-    quint32 m_fID;
-    QQuickItem *m_item;
-} selectedFunction;
-
 class FunctionManager final : public QObject
 {
     Q_OBJECT

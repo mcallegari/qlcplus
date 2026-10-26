@@ -70,7 +70,8 @@ public:
     Direction direction() const;
     Fixture::Components components() const;
     bool is16Bit() const;
-    bool crossUniverse() const;
+    /** How rows are patched when they don't fit in the current universe */
+    Fixture::CrossUniverseMode crossUniverse() const;
 
 private:
     /** Check if an address is available for contiguous channels.
