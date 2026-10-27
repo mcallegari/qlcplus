@@ -94,6 +94,14 @@ void MeshItem::setVisible(bool visible)
     notifyParent();
 }
 
+void MeshItem::setLocked(bool locked)
+{
+    if (m_locked == locked)
+        return;
+    m_locked = locked;
+    emit lockedChanged();
+}
+
 void MeshItem::notifyParent()
 {
     auto *item = qobject_cast<QQuickItem *>(parent());

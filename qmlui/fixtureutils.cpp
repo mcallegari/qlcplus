@@ -20,7 +20,6 @@
 #include <QDebug>
 #include <QtMath>
 #include <QQuaternion>
-#include <Qt3DCore/QTransform>
 
 #include "monitorproperties.h"
 #include "qlcfixturemode.h"
@@ -203,10 +202,12 @@ void FixtureUtils::item2DProjection(const MonitorProperties *monProps, int point
     float height = phy.height() ? phy.height() : 300;
     float depth = phy.depth() ? phy.depth() : 300;
 
-    // same rotation applied by MainView3D::updateFixtureRotation
-    QQuaternion q = Qt3DCore::QTransform::fromAxesAndAngles(QVector3D(1, 0, 0), -rot.x(),
-                                                            QVector3D(0, 1, 0), -rot.y(),
-                                                            QVector3D(0, 0, 1), -rot.z());
+    // same rotation applied by MainView3D::updateFixtureRotation, i.e.
+    // Qt3DCore::QTransform::fromAxesAndAngles(X, Y, Z), written with plain
+    // quaternions so it doesn't depend on Qt3D (not available with RHI3D)
+    QQuaternion q = QQuaternion::fromAxisAndAngle(QVector3D(0, 0, 1), -rot.z()) *
+                    QQuaternion::fromAxisAndAngle(QVector3D(0, 1, 0), -rot.y()) *
+                    QQuaternion::fromAxisAndAngle(QVector3D(1, 0, 0), -rot.x());
 
     // project a 3D vector onto the 2D view plane (2D Y axis points down)
     auto project = [pointOfView](QVector3D v) -> QPointF

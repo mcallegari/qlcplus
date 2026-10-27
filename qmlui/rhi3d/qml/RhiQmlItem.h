@@ -29,6 +29,8 @@
 #include <QtCore/QPointF>
 #include <QtCore/Qt>
 
+#include <atomic>
+
 #include "scene/Scene.h"
 
 class QTimer;
@@ -158,6 +160,11 @@ public:
     Q_INVOKABLE void setObjectRotation(QObject *item, const QVector3D &rotation);
     void updateSelectableItems(const QVector<QObject *> &items);
 
+    /** Called by the renderer (render thread) for each rendered frame */
+    void countRenderedFrame() { m_renderedFrames.fetch_add(1, std::memory_order_relaxed); }
+    /** Return the number of frames rendered since the last call, and reset it */
+    int takeRenderedFrames() { return m_renderedFrames.exchange(0, std::memory_order_relaxed); }
+
 Q_SIGNALS:
     void cameraPositionChanged();
     void cameraTargetChanged();
@@ -234,6 +241,7 @@ private:
     QVector<PickRequest> m_pendingPickRequests;
     QVector<DragRequest> m_pendingDragRequests;
     QSet<QObject *> m_selectableItems;
+    std::atomic<int> m_renderedFrames { 0 };
     QObject *m_selectedItem = nullptr;
     bool m_leftDown = false;
 };

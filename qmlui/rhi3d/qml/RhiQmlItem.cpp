@@ -102,6 +102,8 @@ struct MeshRecord
     bool selected = false;
     bool selectable = true;
     bool visible = true;
+    QColor colorOverride;
+    QVector<QVector3D> origBaseColors;
     int firstMesh = 0;
     int meshCount = 0;
     int armMesh = -1;
@@ -417,6 +419,38 @@ static void applySelectionDomain(QVector<Mesh> &meshes,
                 mesh.selectionDirty = true;
         }
     }
+}
+
+/* Override (or restore, if $color is invalid) the base color of all the
+   meshes of a model record. The original colors are captured the first time */
+static void applyModelColorOverride(MeshRecord &record, QVector<Mesh> &meshes, const QColor &color)
+{
+    if (record.origBaseColors.size() != record.meshCount)
+    {
+        record.origBaseColors.clear();
+        for (int i = record.firstMesh; i < record.firstMesh + record.meshCount && i < meshes.size(); ++i)
+            record.origBaseColors.push_back(meshes[i].material.baseColor);
+    }
+
+    // the picked color is sRGB, while material colors are linear
+    const QVector3D linearColor = color.isValid()
+            ? QVector3D(qPow(color.redF(), 2.2f), qPow(color.greenF(), 2.2f), qPow(color.blueF(), 2.2f))
+            : QVector3D();
+
+    for (int i = 0; i < record.origBaseColors.size(); ++i)
+    {
+        const int meshIndex = record.firstMesh + i;
+        if (meshIndex >= meshes.size())
+            break;
+        Mesh &mesh = meshes[meshIndex];
+        const QVector3D target = color.isValid() ? linearColor : record.origBaseColors.at(i);
+        if (mesh.material.baseColor != target)
+        {
+            mesh.material.baseColor = target;
+            mesh.materialDirty = true;
+        }
+    }
+    record.colorOverride = color;
 }
 
 static void applyMaterial(QVector<Mesh> &meshes,
@@ -859,6 +893,9 @@ static void pruneMissingRecords(QVector<MeshRecord> &records,
 
 class RhiQmlItemRenderer final : public QQuickRhiItemRenderer
 {
+    /** The item this renderer draws, set on every synchronize() */
+    RhiQmlItem *m_qmlItem = nullptr;
+
 public:
     enum DragType
     {
@@ -888,6 +925,7 @@ public:
     void synchronize(QQuickRhiItem *item) override
     {
         auto *qmlItem = static_cast<RhiQmlItem *>(item);
+        m_qmlItem = qmlItem;
         struct LightTransform
         {
             QMatrix4x4 matrix;
@@ -1118,6 +1156,9 @@ public:
                 {
                     syncTransformFromItem(*record, meshItem, m_scene.meshes());
                     syncSelectionVisibilityFromItem(*record, meshItem, m_scene.meshes());
+                    const QColor colorOverride = static_cast<const ModelItem *>(meshItem)->colorOverride();
+                    if (record->colorOverride != colorOverride)
+                        applyModelColorOverride(*record, m_scene.meshes(), colorOverride);
                 }
                 else if (type == MeshItem::MeshType::StaticLight)
                 {
@@ -1618,6 +1659,12 @@ public:
                 }
             }
 
+            if (type == MeshItem::MeshType::Model)
+            {
+                const QColor colorOverride = static_cast<const ModelItem *>(meshItem)->colorOverride();
+                applyModelColorOverride(newRecord, m_scene.meshes(), colorOverride);
+            }
+
             m_qmlMeshes.push_back(newRecord);
         }
 
@@ -1938,6 +1985,9 @@ public:
                     hasSelected = true;
                     for (const SelectedTransform &entry : m_dragSelection)
                     {
+                        // locked items keep their position
+                        if (entry.locked)
+                            continue;
                         const QVector3D newPos = entry.startPos + axisDir * delta;
                         QMetaObject::invokeMethod(qmlItem, "setObjectPosition", Qt::QueuedConnection,
                                                   Q_ARG(QObject *, entry.item),
@@ -1975,11 +2025,15 @@ public:
                                     newRot.setY(entry.startRot.y() + angleDeg);
                                 else
                                     newRot.setZ(entry.startRot.z() + angleDeg);
-                                const QVector3D offset = entry.startPos - m_dragOrigin;
-                                const QVector3D newPos = m_dragOrigin + rot.rotatedVector(offset);
-                                QMetaObject::invokeMethod(qmlItem, "setObjectPosition", Qt::QueuedConnection,
-                                                          Q_ARG(QObject *, entry.item),
-                                                          Q_ARG(QVector3D, newPos));
+                                // locked items rotate in place, keeping their position
+                                if (!entry.locked)
+                                {
+                                    const QVector3D offset = entry.startPos - m_dragOrigin;
+                                    const QVector3D newPos = m_dragOrigin + rot.rotatedVector(offset);
+                                    QMetaObject::invokeMethod(qmlItem, "setObjectPosition", Qt::QueuedConnection,
+                                                              Q_ARG(QObject *, entry.item),
+                                                              Q_ARG(QVector3D, newPos));
+                                }
                                 QMetaObject::invokeMethod(qmlItem, "setObjectRotation", Qt::QueuedConnection,
                                                           Q_ARG(QObject *, entry.item),
                                                           Q_ARG(QVector3D, newRot));
@@ -2045,6 +2099,10 @@ public:
         uploadVideoFrames(cb);
         m_renderer.render(&m_scene);
         m_rhiContext.clearExternalFrame();
+
+        // feed the FPS counter. The item outlives its renderer
+        if (m_qmlItem)
+            m_qmlItem->countRenderedFrame();
     }
 
 private:
@@ -2159,6 +2217,7 @@ private:
         QObject *item = nullptr;
         QVector3D startPos;
         QVector3D startRot;
+        bool locked = false;
     };
     QVector<GizmoPart> m_gizmoParts;
     QVector<SelectedTransform> m_dragSelection;
@@ -2278,7 +2337,8 @@ private:
                 continue;
             m_dragSelection.push_back({ const_cast<MeshItem *>(record.item),
                                         record.position,
-                                        record.rotationDegrees });
+                                        record.rotationDegrees,
+                                        record.item->locked() });
         }
     }
 

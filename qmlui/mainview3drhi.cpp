@@ -20,13 +20,16 @@
 #include <QDateTime>
 #include <QDebug>
 #include <QDir>
+#include <QFile>
 #include <QFileInfo>
 #include <QHash>
+#include <QRegularExpression>
 #include <QModelIndex>
 #include <QPointer>
 #include <QQuaternion>
 #include <QQuickItem>
 #include <QSet>
+#include <QTimer>
 #include <QtMath>
 #include <QQmlComponent>
 #include <QQmlContext>
@@ -40,6 +43,7 @@
 #include "mainview3drhi.h"
 #include "monitorproperties.h"
 #include "qlccapability.h"
+#include "qlcchannel.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
 #include "qlcfixturemode.h"
@@ -232,6 +236,66 @@ static const char *fixtureTypeName(QLCFixtureDef::FixtureType type)
     }
 }
 
+/* A colour changer with several heads and nothing that moves them (a T-bar
+   of PARs, a multi-head wash bar) lights each head separately, but the PAR
+   mesh has a single emitter, so every head would collapse into one light.
+   Draw it as a beam bar instead, which has one emitter per head, laid out
+   according to the fixture physical size and emitters layout. */
+static bool isMultiParFixture(const Fixture *fixture)
+{
+    return fixture != nullptr &&
+           fixture->type() == QLCFixtureDef::ColorChanger &&
+           fixture->heads() > 1 &&
+           fixture->channelNumber(QLCChannel::Pan, QLCChannel::MSB) == QLCChannel::invalid() &&
+           fixture->channelNumber(QLCChannel::Tilt, QLCChannel::MSB) == QLCChannel::invalid();
+}
+
+/* Name of the RHI scene item type used to draw $fixture and, if any,
+   the mesh file it loads. An empty $meshName means a procedural item */
+static void fixtureRhiItemInfo(const Fixture *fixture, QString &typeName, QString &meshName)
+{
+    typeName = QStringLiteral("StaticLight");
+    meshName = QStringLiteral("par.glb");
+
+    if (fixture == nullptr)
+        return;
+
+    switch (fixture->type())
+    {
+        case QLCFixtureDef::ColorChanger:
+            if (isMultiParFixture(fixture))
+            {
+                typeName = QStringLiteral("BeamBar");
+                meshName.clear();
+            }
+        break;
+        case QLCFixtureDef::Dimmer:
+        break;
+        case QLCFixtureDef::MovingHead:
+        case QLCFixtureDef::Scanner:
+            typeName = QStringLiteral("MovingHeadLight");
+            meshName = QStringLiteral("moving_head.glb");
+        break;
+        case QLCFixtureDef::LEDBarPixels:
+        case QLCFixtureDef::Strobe:
+            typeName = QStringLiteral("PixelBar");
+            meshName.clear();
+        break;
+        case QLCFixtureDef::LEDBarBeams:
+            typeName = QStringLiteral("BeamBar");
+            meshName.clear();
+        break;
+        case QLCFixtureDef::Hazer:
+            meshName = QStringLiteral("hazer.glb");
+        break;
+        case QLCFixtureDef::Smoke:
+            meshName = QStringLiteral("smoke.glb");
+        break;
+        default:
+        break;
+    }
+}
+
 static float dmxToUnit(uchar value)
 {
     return qBound(0.0f, float(value) / 255.0f, 1.0f);
@@ -392,6 +456,7 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "3D", parent)
     , m_monProps(doc->monitorProperties())
     , m_frameCountEnabled(false)
+    , m_fpsTimer(nullptr)
     , m_frameCount(0)
     , m_minFrameCount(0)
     , m_maxFrameCount(0)
@@ -422,14 +487,22 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
                                                "Can't create an MainView3D!");
     }
 
+    m_fpsTimer = new QTimer(this);
+    m_fpsTimer->setInterval(1000);
+    connect(m_fpsTimer, &QTimer::timeout, this, &MainView3D::slotSampleFrameCount);
+
     setContextResource("qrc:/3DViewRhi/3DView.qml");
     setContextTitle(tr("3D View"));
 
     m_stagesList << tr("Simple ground") << tr("Simple box") << tr("Rock stage") << tr("Theatre stage");
+    m_stageResourceList << QStringLiteral(":/3DViewRhi/StageSimpleRhi.qml")
+                        << QStringLiteral(":/3DViewRhi/StageBoxRhi.qml")
+                        << QStringLiteral(":/3DViewRhi/StageRockRhi.qml")
+                        << QStringLiteral(":/3DViewRhi/StageTheatreRhi.qml");
 
     m_genericItemsList = new ListModel(this);
     QStringList listRoles;
-    listRoles << "itemID" << "name" << "isSelected";
+    listRoles << "itemID" << "name" << "itemColor" << "isSelected" << "isLocked";
     m_genericItemsList->setRoleNames(listRoles);
 
     resetCameraPosition();
@@ -451,6 +524,7 @@ void MainView3D::enableContext(bool enable)
     {
         resetItems();
         rhiState(this).renderer = nullptr;
+        updateFrameCounter();
         return;
     }
 
@@ -522,13 +596,21 @@ void MainView3D::resetItems()
     if (m_genericItemsList)
         m_genericItemsList->clear();
     emit genericSelectedCountChanged();
+    emit genericSelectedLockedChanged();
+    emit genericItemsNameChanged();
+    emit genericItemsColorChanged();
     emit genericItemsListChanged();
 
+    // reset the counters but keep the user's "Show FPS" preference,
+    // so it survives switching to another view and back
     m_frameCount = 0;
     m_minFrameCount = 0;
     m_maxFrameCount = 0;
     m_avgFrameCount = 1.0f;
-    setFrameCountEnabled(false);
+    emit FPSChanged(m_frameCount);
+    emit minFPSChanged(m_minFrameCount);
+    emit maxFPSChanged(m_maxFrameCount);
+    emit avgFPSChanged(m_avgFrameCount);
 
     s_zoomLensDebugState.clear();
 }
@@ -617,8 +699,73 @@ void MainView3D::setFrameCountEnabled(bool enable)
         m_minFrameCount = 0;
         m_maxFrameCount = 0;
         m_avgFrameCount = 1.0f;
+        emit FPSChanged(m_frameCount);
+        emit minFPSChanged(m_minFrameCount);
+        emit maxFPSChanged(m_maxFrameCount);
+        emit avgFPSChanged(m_avgFrameCount);
     }
+    updateFrameCounter();
     emit frameCountEnabledChanged();
+}
+
+void MainView3D::updateFrameCounter()
+{
+    RhiQmlItem *rhiRenderer = qobject_cast<RhiQmlItem *>(rhiState(this).renderer.data());
+    const bool run = m_frameCountEnabled && isEnabled() && rhiRenderer != nullptr;
+
+    if (run == m_fpsTimer->isActive())
+        return;
+
+    if (run)
+    {
+        // discard the frames rendered before sampling started
+        rhiRenderer->takeRenderedFrames();
+        m_fpsElapsed.start();
+        m_fpsTimer->start();
+    }
+    else
+    {
+        m_fpsTimer->stop();
+    }
+}
+
+void MainView3D::slotSampleFrameCount()
+{
+    RhiQmlItem *rhiRenderer = qobject_cast<RhiQmlItem *>(rhiState(this).renderer.data());
+    if (rhiRenderer == nullptr)
+    {
+        updateFrameCounter();
+        return;
+    }
+
+    const qint64 elapsed = m_fpsElapsed.restart();
+    if (elapsed <= 0)
+        return;
+
+    // frames are rendered on demand, so normalize on the actual sampling period
+    const int frames = rhiRenderer->takeRenderedFrames();
+    m_frameCount = qRound(frames * 1000.0 / double(elapsed));
+    emit FPSChanged(m_frameCount);
+
+    // an idle scene renders no frames at all: that says nothing about
+    // the rendering performance, so keep it out of the statistics
+    if (m_frameCount == 0)
+        return;
+
+    if (m_minFrameCount == 0 || m_frameCount < m_minFrameCount)
+    {
+        m_minFrameCount = m_frameCount;
+        emit minFPSChanged(m_minFrameCount);
+    }
+    if (m_frameCount > m_maxFrameCount)
+    {
+        m_maxFrameCount = m_frameCount;
+        emit maxFPSChanged(m_maxFrameCount);
+    }
+
+    // exponential moving average with an alpha of 0.92, as the Qt3D view
+    m_avgFrameCount = 0.92f * m_avgFrameCount + 0.08f * float(m_frameCount);
+    emit avgFPSChanged(m_avgFrameCount);
 }
 
 void MainView3D::initialize3DProperties()
@@ -650,6 +797,9 @@ void MainView3D::initialize3DProperties()
         connect(rhiRenderer, &RhiQmlItem::objectRotationEdited,
                 this, &MainView3D::syncSceneItemRotation, Qt::UniqueConnection);
     }
+
+    // restore the FPS counter if the user had it enabled
+    updateFrameCounter();
 }
 
 void MainView3D::syncSceneItemPosition(QObject *item, const QVector3D &scenePos)
@@ -713,6 +863,11 @@ void MainView3D::syncSceneItemPosition(QObject *item, const QVector3D &scenePos)
                                    (scenePos.y() - (extents.y() * 0.5f)) * 1000.0f,
                                    (scenePos.z() + (gridMeters.z() * 0.5f) - (extents.z() * 0.5f)) * 1000.0f);
         const quint32 itemID = it.key();
+
+        // locked items are not moved by the view drag, so nothing to sync
+        if (m_monProps->itemFlags(itemID) & MonitorProperties::LockedFlag)
+            return;
+
         const QVector3D currPos = m_monProps->itemPosition(itemID);
         if ((currPos - monitorPos).lengthSquared() < 0.25f)
             return;
@@ -849,40 +1004,11 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
             physicalSize.setZ(float(phy.depth()) / 1000.0f);
     }
 
-    QString typeName = QStringLiteral("StaticLight");
-    QString meshName = QStringLiteral("par.glb");
-    switch (fixture->type())
-    {
-        case QLCFixtureDef::ColorChanger:
-        case QLCFixtureDef::Dimmer:
-            typeName = QStringLiteral("StaticLight");
-            meshName = QStringLiteral("par.glb");
-        break;
-        case QLCFixtureDef::MovingHead:
-        case QLCFixtureDef::Scanner:
-            typeName = QStringLiteral("MovingHeadLight");
-            meshName = QStringLiteral("moving_head.glb");
-        break;
-        case QLCFixtureDef::LEDBarPixels:
-        case QLCFixtureDef::Strobe:
-            typeName = QStringLiteral("PixelBar");
-            meshName.clear();
-        break;
-        case QLCFixtureDef::LEDBarBeams:
-            typeName = QStringLiteral("BeamBar");
-            meshName.clear();
-        break;
-        case QLCFixtureDef::Hazer:
-            meshName = QStringLiteral("hazer.glb");
-        break;
-        case QLCFixtureDef::Smoke:
-            meshName = QStringLiteral("smoke.glb");
-        break;
-        default:
-            typeName = QStringLiteral("StaticLight");
-            meshName = QStringLiteral("par.glb");
-        break;
-    }
+    QString typeName;
+    QString meshName;
+    fixtureRhiItemInfo(fixture, typeName, meshName);
+    // multi-head color changers are drawn as beam bars (see isMultiParFixture)
+    const bool beamBarLayout = fixture->type() == QLCFixtureDef::LEDBarBeams || isMultiParFixture(fixture);
 
     QQmlComponent component(m_view->engine());
     bool usingFixtureWrapper = false;
@@ -966,9 +1092,9 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
 
     if (hasProperty(newItem, "emitterCount"))
         newItem->setProperty("emitterCount", fixture->heads());
-    if (fixture->type() == QLCFixtureDef::LEDBarBeams && hasProperty(newItem, "baseColor"))
+    if (beamBarLayout && hasProperty(newItem, "baseColor"))
         newItem->setProperty("baseColor", QVector3D(0.64f, 0.64f, 0.64f));
-    if (fixture->type() == QLCFixtureDef::LEDBarBeams && hasProperty(newItem, "headsLayout"))
+    if (beamBarLayout && hasProperty(newItem, "headsLayout"))
     {
         QSize layout(1, 1);
         if (QLCFixtureMode *fxMode = fixture->fixtureMode())
@@ -1122,6 +1248,7 @@ void MainView3D::setFixtureFlags(quint32 itemID, quint32 flags)
     item->setProperty("visible", (flags & MonitorProperties::HiddenFlag) ? false : true);
     item->setProperty("invertedPan", (flags & MonitorProperties::InvertedPanFlag) ? true : false);
     item->setProperty("invertedTilt", (flags & MonitorProperties::InvertedTiltFlag) ? true : false);
+    item->setProperty("locked", (flags & MonitorProperties::LockedFlag) ? true : false);
 }
 
 QVector3D MainView3D::lightPosition(quint32 itemID) const
@@ -1754,6 +1881,127 @@ void MainView3D::updateFixtureRotation(quint32 itemID, QVector3D degrees)
     state.items[itemID].lightMatrix = matrix;
 }
 
+QVector3D MainView3D::fixtureExtents(quint32 itemID) const
+{
+    MainView3D *self = const_cast<MainView3D *>(this);
+    const RhiViewState &state = rhiState(self);
+    auto it = state.items.constFind(itemID);
+    if (it == state.items.constEnd() || !it.value().placementExtentsValid)
+        return QVector3D(0.0f, 0.0f, 0.0f);
+
+    return it.value().placementExtents;
+}
+
+qreal MainView3D::trussHalfSize() const
+{
+    // The stage QML declares the truss size. Read it straight out of the
+    // source of the current stage rather than duplicating the number here,
+    // since the 3D view might not exist (the Stage Wizard runs while the
+    // user is on another context)
+    const int stageType = m_monProps ? int(m_monProps->stageType()) : 0;
+    if (stageType < 0 || stageType >= m_stageResourceList.count())
+        return 0.0;
+
+    QFile qml(m_stageResourceList.at(stageType));
+    if (qml.open(QIODevice::ReadOnly | QIODevice::Text) == false)
+        return 0.0;
+
+    static const QRegularExpression re(QStringLiteral("property\\s+real\\s+trussHalfSize\\s*:\\s*([0-9.]+)"));
+    const QRegularExpressionMatch m = re.match(QString::fromUtf8(qml.readAll()));
+    if (m.hasMatch())
+        return m.captured(1).toDouble();
+
+    // stage model without trusses: nothing to snap to
+    return 0.0;
+}
+
+void MainView3D::trussVerticalSpan(qreal &bottomY, qreal &topY) const
+{
+    const qreal half = trussHalfSize();
+    if (half <= 0.0)
+    {
+        bottomY = topY = 0.0;
+        return;
+    }
+
+    // StageRockRhi.qml places the bar centres at `sizeMeters.y + trussHalfSize`,
+    // i.e. the truss sits entirely above the environment box. In monitor
+    // space (y measured from the floor) the underside is the grid height
+    const float unitScale = m_monProps->gridUnits() == MonitorProperties::Meters ? 1.0f : 0.3048f;
+    const qreal gridY = m_monProps->gridSize().y() * unitScale;
+
+    bottomY = gridY;
+    topY = gridY + half * 2.0;
+}
+
+QString MainView3D::fixtureMeshPath(const Fixture *fixture) const
+{
+    QString typeName;
+    QString meshName;
+    fixtureRhiItemInfo(fixture, typeName, meshName);
+    if (fixture == nullptr || meshName.isEmpty())
+        return QString();
+
+    return meshDirectory() + "fixtures" + QDir::separator() + meshName;
+}
+
+QVector3D MainView3D::meshFileExtents(const QString &meshPath) const
+{
+    if (meshPath.isEmpty())
+        return QVector3D(0.0f, 0.0f, 0.0f);
+
+    const QString key = genericBoundsCacheKey(meshPath);
+    auto cached = m_meshFileExtents.constFind(key);
+    if (cached != m_meshFileExtents.constEnd())
+        return cached.value();
+
+    const GenericModelBounds bounds = computeGenericModelBounds(meshPath);
+    const QVector3D extents = bounds.valid ? bounds.extents : QVector3D(0.0f, 0.0f, 0.0f);
+    if (!bounds.valid)
+        qWarning() << "MainView3D(RHI): cannot compute the extents of mesh" << meshPath;
+
+    m_meshFileExtents.insert(key, extents);
+    return extents;
+}
+
+QVector3D MainView3D::fixtureDrawnSize(quint32 fixtureID) const
+{
+    Fixture *fixture = m_doc->fixture(fixtureID);
+    if (fixture == nullptr)
+        return QVector3D(0.0f, 0.0f, 0.0f);
+
+    // declared physical size: the box the mesh gets fitted into, and the
+    // answer outright for fixture types drawn without a mesh
+    QVector3D declared(0.3f, 0.3f, 0.3f);
+    if (QLCFixtureMode *fxMode = fixture->fixtureMode())
+    {
+        const QLCPhysical phy = fxMode->physical();
+        if (phy.width() > 0)
+            declared.setX(float(phy.width()) / 1000.0f);
+        if (phy.height() > 0)
+            declared.setY(float(phy.height()) / 1000.0f);
+        if (phy.depth() > 0)
+            declared.setZ(float(phy.depth()) / 1000.0f);
+    }
+
+    // if the item is already in the scene, its extents are authoritative
+    const QVector3D live = fixtureExtents(FixtureUtils::fixtureItemID(fixtureID, 0, 0));
+    if (live.x() > 0.0f && live.y() > 0.0f && live.z() > 0.0f)
+        return live;
+
+    const QVector3D mesh = meshFileExtents(fixtureMeshPath(fixture));
+    if (mesh.x() <= 0.0f || mesh.y() <= 0.0f || mesh.z() <= 0.0f)
+        return declared;
+
+    // same uniform fit createFixtureItem() applies: the mesh keeps its aspect ratio
+    const float scale = qMin(declared.x() / mesh.x(),
+                             qMin(declared.y() / mesh.y(), declared.z() / mesh.z()));
+    if (!qIsFinite(scale) || scale <= 0.0f)
+        return declared;
+
+    return mesh * scale;
+}
+
 void MainView3D::removeFixtureItem(quint32 itemID)
 {
     RhiViewState &state = rhiState(this);
@@ -1925,6 +2173,8 @@ void MainView3D::createGenericItem(QString filename, int itemID)
     newItem->setProperty("visible", true);
     newItem->setProperty("isSelected", m_genericSelectedItems.contains(int(targetID)));
     newItem->setProperty("genericItem", true);
+    newItem->setProperty("locked", (m_monProps->itemFlags(targetID) & MonitorProperties::LockedFlag) ? true : false);
+    newItem->setProperty("colorOverride", m_monProps->itemColor(targetID));
 
     const QString boundsKey = genericBoundsCacheKey(modelPath);
     GenericModelBounds bounds;
@@ -1962,23 +2212,23 @@ void MainView3D::setItemSelection(int itemID, bool enable, int keyModifiers)
             auto it = state.genericItems.find(quint32(selectedID));
             if (it != state.genericItems.end() && it.value().item)
                 it.value().item->setProperty("isSelected", false);
+            setGenericItemListSelection(selectedID, false);
         }
         m_genericSelectedItems.clear();
         emit genericSelectedCountChanged();
+        emit genericSelectedLockedChanged();
 
         if (itemID < 0)
         {
-            updateGenericItemsList();
+            emit genericItemsNameChanged();
+            emit genericItemsColorChanged();
             return;
         }
     }
 
     auto it = state.genericItems.find(quint32(itemID));
     if (it == state.genericItems.end())
-    {
-        updateGenericItemsList();
         return;
-    }
 
     if (it.value().item)
         it.value().item->setProperty("isSelected", enable);
@@ -1993,8 +2243,34 @@ void MainView3D::setItemSelection(int itemID, bool enable, int keyModifiers)
         m_genericSelectedItems.removeAll(itemID);
     }
 
+    // keep the QML items list in sync with the 3D view selection
+    setGenericItemListSelection(itemID, enable);
+
     emit genericSelectedCountChanged();
-    updateGenericItemsList();
+    emit genericSelectedLockedChanged();
+    emit genericItemsNameChanged();
+    emit genericItemsColorChanged();
+}
+
+void MainView3D::setGenericItemListSelection(int itemID, bool selected)
+{
+    if (m_genericItemsList == nullptr)
+        return;
+
+    const int row = m_monProps->genericItemsID().indexOf(quint32(itemID));
+    if (row < 0 || row >= m_genericItemsList->rowCount())
+        return;
+
+    m_genericItemsList->setDataWithRole(m_genericItemsList->index(row, 0), "isSelected", selected);
+}
+
+void MainView3D::setItemSelectionByIndex(int index, bool enable, int keyModifiers)
+{
+    const QList<quint32> ids = m_monProps->genericItemsID();
+    if (index < 0 || index >= ids.count())
+        return;
+
+    setItemSelection(int(ids.at(index)), enable, keyModifiers);
 }
 
 int MainView3D::sceneItemMonitorID(QObject *item) const
@@ -2057,6 +2333,53 @@ int MainView3D::genericSelectedCount() const
     return m_genericSelectedItems.count();
 }
 
+bool MainView3D::genericSelectedLocked() const
+{
+    for (int id : m_genericSelectedItems)
+    {
+        if (m_monProps->itemFlags(quint32(id)) & MonitorProperties::LockedFlag)
+            return true;
+    }
+
+    return false;
+}
+
+void MainView3D::applyGenericItemLock(quint32 itemID)
+{
+    RhiViewState &state = rhiState(this);
+    auto it = state.genericItems.find(itemID);
+    if (it == state.genericItems.end() || it.value().item == nullptr)
+        return;
+
+    it.value().item->setProperty("locked", (m_monProps->itemFlags(itemID) & MonitorProperties::LockedFlag) ? true : false);
+}
+
+void MainView3D::toggleGenericItemsLock()
+{
+    if (m_genericSelectedItems.isEmpty())
+        return;
+
+    // if any of the selected items is locked, unlock them all;
+    // otherwise lock them all
+    const bool lock = !genericSelectedLocked();
+
+    for (int id : std::as_const(m_genericSelectedItems))
+    {
+        quint32 flags = m_monProps->itemFlags(quint32(id));
+        if (lock)
+            flags |= MonitorProperties::LockedFlag;
+        else
+            flags &= ~MonitorProperties::LockedFlag;
+
+        m_monProps->setItemFlags(quint32(id), flags);
+        applyGenericItemLock(quint32(id));
+    }
+
+    m_doc->setModified();
+    updateGenericItemsList();
+    emit genericSelectedLockedChanged();
+}
+
 void MainView3D::removeSelectedGenericItems()
 {
     RhiViewState &state = rhiState(this);
@@ -2076,9 +2399,12 @@ void MainView3D::removeSelectedGenericItems()
 
     m_genericSelectedItems.clear();
     emit genericSelectedCountChanged();
+    emit genericSelectedLockedChanged();
     emit genericItemsPositionChanged();
     emit genericItemsRotationChanged();
     emit genericItemsScaleChanged();
+    emit genericItemsNameChanged();
+    emit genericItemsColorChanged();
     updateGenericItemsList();
 }
 
@@ -2130,7 +2456,9 @@ void MainView3D::updateGenericItemsList()
         QVariantMap itemMap;
         itemMap.insert("itemID", itemID);
         itemMap.insert("name", m_monProps->itemName(itemID));
+        itemMap.insert("itemColor", m_monProps->itemColor(itemID));
         itemMap.insert("isSelected", m_genericSelectedItems.contains(int(itemID)));
+        itemMap.insert("isLocked", (m_monProps->itemFlags(itemID) & MonitorProperties::LockedFlag) ? true : false);
         m_genericItemsList->addDataMap(itemMap);
     }
 
@@ -2181,17 +2509,15 @@ void MainView3D::setGenericItemsPosition(QVector3D pos)
     if (m_genericSelectedItems.isEmpty())
         return;
 
-    if (m_genericSelectedItems.count() == 1)
+    // relative position change
+    for (int itemID : std::as_const(m_genericSelectedItems))
     {
-        updateGenericItemPosition(quint32(m_genericSelectedItems.first()), pos);
-    }
-    else
-    {
-        for (int itemID : std::as_const(m_genericSelectedItems))
-        {
-            const QVector3D newPos = m_monProps->itemPosition(quint32(itemID)) + pos;
-            updateGenericItemPosition(quint32(itemID), newPos);
-        }
+        // do not move locked items
+        if (m_monProps->itemFlags(quint32(itemID)) & MonitorProperties::LockedFlag)
+            continue;
+
+        const QVector3D newPos = m_monProps->itemPosition(quint32(itemID)) + pos;
+        updateGenericItemPosition(quint32(itemID), newPos);
     }
 
     emit genericItemsPositionChanged();
@@ -2229,27 +2555,22 @@ void MainView3D::setGenericItemsRotation(QVector3D rot)
     if (m_genericSelectedItems.isEmpty())
         return;
 
-    if (m_genericSelectedItems.count() == 1)
+    // relative rotation change
+    for (int itemID : std::as_const(m_genericSelectedItems))
     {
-        updateGenericItemRotation(quint32(m_genericSelectedItems.first()), rot);
-    }
-    else
-    {
-        for (int itemID : std::as_const(m_genericSelectedItems))
-        {
-            QVector3D newRot = m_monProps->itemRotation(quint32(itemID)) + rot;
+        QVector3D newRot = m_monProps->itemRotation(quint32(itemID)) + rot;
 
-            if (newRot.x() < 0.0f) newRot.setX(newRot.x() + 360.0f);
-            else if (newRot.x() >= 360.0f) newRot.setX(newRot.x() - 360.0f);
+        // normalize back to a 0-359 range
+        if (newRot.x() < 0.0f) newRot.setX(newRot.x() + 360.0f);
+        else if (newRot.x() >= 360.0f) newRot.setX(newRot.x() - 360.0f);
 
-            if (newRot.y() < 0.0f) newRot.setY(newRot.y() + 360.0f);
-            else if (newRot.y() >= 360.0f) newRot.setY(newRot.y() - 360.0f);
+        if (newRot.y() < 0.0f) newRot.setY(newRot.y() + 360.0f);
+        else if (newRot.y() >= 360.0f) newRot.setY(newRot.y() - 360.0f);
 
-            if (newRot.z() < 0.0f) newRot.setZ(newRot.z() + 360.0f);
-            else if (newRot.z() >= 360.0f) newRot.setZ(newRot.z() - 360.0f);
+        if (newRot.z() < 0.0f) newRot.setZ(newRot.z() + 360.0f);
+        else if (newRot.z() >= 360.0f) newRot.setZ(newRot.z() - 360.0f);
 
-            updateGenericItemRotation(quint32(itemID), newRot);
-        }
+        updateGenericItemRotation(quint32(itemID), newRot);
     }
 
     emit genericItemsRotationChanged();
@@ -2305,6 +2626,93 @@ void MainView3D::setGenericItemsScale(QVector3D scale)
     }
 
     emit genericItemsScaleChanged();
+}
+
+void MainView3D::updateGenericItemName(quint32 itemID, QString name)
+{
+    if (m_monProps->containsItem(itemID) == false)
+        return;
+
+    const QString currName = m_monProps->itemName(itemID);
+    if (currName == name)
+        return;
+
+    Tardis::instance()->enqueueAction(Tardis::GenericItemSetName, itemID, QVariant(currName), QVariant(name));
+
+    m_monProps->setItemName(itemID, name);
+
+    // update the single row, to preserve the list selection
+    const int row = m_monProps->genericItemsID().indexOf(itemID);
+    if (row >= 0 && m_genericItemsList)
+        m_genericItemsList->setDataWithRole(m_genericItemsList->index(row, 0), "name", m_monProps->itemName(itemID));
+
+    if (m_genericSelectedItems.count() == 1 && m_genericSelectedItems.first() == int(itemID))
+        emit genericItemsNameChanged();
+}
+
+QString MainView3D::genericItemsName() const
+{
+    if (m_genericSelectedItems.count() == 1)
+        return m_monProps->itemName(quint32(m_genericSelectedItems.first()));
+
+    return QString();
+}
+
+void MainView3D::setGenericItemsName(QString name)
+{
+    if (m_genericSelectedItems.count() != 1)
+        return;
+
+    updateGenericItemName(quint32(m_genericSelectedItems.first()), name);
+}
+
+void MainView3D::updateGenericItemColor(quint32 itemID, QColor color)
+{
+    if (m_monProps->containsItem(itemID) == false)
+        return;
+
+    const QColor currColor = m_monProps->itemColor(itemID);
+    if (currColor == color)
+        return;
+
+    Tardis::instance()->enqueueAction(Tardis::GenericItemSetColor, itemID, QVariant(currColor), QVariant(color));
+
+    m_monProps->setItemColor(itemID, color);
+
+    // an invalid color makes the renderer restore the original mesh colors
+    RhiViewState &state = rhiState(this);
+    auto it = state.genericItems.find(itemID);
+    if (it != state.genericItems.end() && it.value().item != nullptr)
+        it.value().item->setProperty("colorOverride", color);
+
+    // update the single row, to preserve the list selection
+    const int row = m_monProps->genericItemsID().indexOf(itemID);
+    if (row >= 0 && m_genericItemsList)
+        m_genericItemsList->setDataWithRole(m_genericItemsList->index(row, 0), "itemColor", color);
+
+    if (m_genericSelectedItems.contains(int(itemID)))
+        emit genericItemsColorChanged();
+}
+
+QColor MainView3D::genericItemsColor() const
+{
+    if (m_genericSelectedItems.isEmpty())
+        return QColor();
+
+    return m_monProps->itemColor(quint32(m_genericSelectedItems.first()));
+}
+
+void MainView3D::setGenericItemsColor(QColor color)
+{
+    // copy the list, as Tardis may trigger selection changes
+    const QList<int> selection = m_genericSelectedItems;
+    for (int itemID : selection)
+        updateGenericItemColor(quint32(itemID), color);
+}
+
+void MainView3D::resetGenericItemsColor()
+{
+    setGenericItemsColor(QColor());
 }
 
 QStringList MainView3D::stagesList() const

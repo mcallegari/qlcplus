@@ -20,6 +20,9 @@
 #ifndef MAINVIEW3DRHI_H
 #define MAINVIEW3DRHI_H
 
+#include <QColor>
+#include <QElapsedTimer>
+#include <QHash>
 #include <QObject>
 #include <QQuickView>
 #include <QVector3D>
@@ -33,6 +36,7 @@
 class Doc;
 class Fixture;
 class ListModel;
+class QTimer;
 class MonitorProperties;
 
 class MainView3D final : public PreviewContext
@@ -56,9 +60,12 @@ class MainView3D final : public PreviewContext
 
     Q_PROPERTY(QVariant genericItemsList READ genericItemsList NOTIFY genericItemsListChanged)
     Q_PROPERTY(int genericSelectedCount READ genericSelectedCount NOTIFY genericSelectedCountChanged)
+    Q_PROPERTY(bool genericSelectedLocked READ genericSelectedLocked NOTIFY genericSelectedLockedChanged)
     Q_PROPERTY(QVector3D genericItemsPosition READ genericItemsPosition WRITE setGenericItemsPosition NOTIFY genericItemsPositionChanged)
     Q_PROPERTY(QVector3D genericItemsRotation READ genericItemsRotation WRITE setGenericItemsRotation NOTIFY genericItemsRotationChanged)
     Q_PROPERTY(QVector3D genericItemsScale READ genericItemsScale WRITE setGenericItemsScale NOTIFY genericItemsScaleChanged)
+    Q_PROPERTY(QString genericItemsName READ genericItemsName WRITE setGenericItemsName NOTIFY genericItemsNameChanged)
+    Q_PROPERTY(QColor genericItemsColor READ genericItemsColor WRITE setGenericItemsColor NOTIFY genericItemsColorChanged)
 
 public:
     explicit MainView3D(QQuickView *view, Doc *doc, QObject *parent = nullptr);
@@ -98,6 +105,32 @@ public:
     void updateFixturePosition(quint32 itemID, QVector3D pos);
     void updateFixtureRotation(quint32 itemID, QVector3D degrees);
 
+    /** Bounding-box extents (metres) of the item with $itemID as drawn,
+     *  or a zero vector if the item is not present in the 3D scene */
+    QVector3D fixtureExtents(quint32 itemID) const;
+
+    /** Full path of the mesh this view uses to draw $fixture, or an empty
+     *  string for fixture types drawn without a mesh (LED bars, strobes,
+     *  multi-head color changers) */
+    QString fixtureMeshPath(const Fixture *fixture) const;
+
+    /** Bounding-box extents (metres) of the mesh file at $meshPath.
+     *  Results are cached per path. Returns a zero vector when the file
+     *  cannot be loaded */
+    QVector3D meshFileExtents(const QString &meshPath) const;
+
+    /** Half-thickness (metres) of the truss bars of the current stage,
+     *  or 0 when the current stage has no trusses */
+    Q_INVOKABLE qreal trussHalfSize() const;
+
+    /** Vertical span (metres, monitor space) of the truss bars: the
+     *  underside and the top face. Both are 0 when there are no trusses */
+    void trussVerticalSpan(qreal &bottomY, qreal &topY) const;
+
+    /** Size (metres) $fixtureID will actually be drawn at: the mesh is
+     *  fitted into the declared physical size keeping its aspect ratio */
+    Q_INVOKABLE QVector3D fixtureDrawnSize(quint32 fixtureID) const;
+
     void removeFixtureItem(quint32 itemID);
 
     QVector3D lightPosition(quint32 itemID) const;
@@ -105,10 +138,20 @@ public:
 
     Q_INVOKABLE void createGenericItem(QString filename, int itemID);
     Q_INVOKABLE void setItemSelection(int itemID, bool enable, int keyModifiers);
+    /** Select/deselect a generic item by its row $index in the items list model */
+    Q_INVOKABLE void setItemSelectionByIndex(int index, bool enable, int keyModifiers);
     Q_INVOKABLE int sceneItemMonitorID(QObject *item) const;
     Q_INVOKABLE bool isGenericSceneItem(QObject *item) const;
     Q_INVOKABLE bool isFixtureSceneItem(QObject *item) const;
     int genericSelectedCount() const;
+
+    /** Returns true if at least one of the selected generic items is locked */
+    bool genericSelectedLocked() const;
+
+    /** Lock/unlock the position of the selected generic items. If any
+     *  selected item is unlocked, all get locked; otherwise all get unlocked */
+    Q_INVOKABLE void toggleGenericItemsLock();
+
     Q_INVOKABLE void removeSelectedGenericItems();
     Q_INVOKABLE void normalizeSelectedGenericItems();
     QVariant genericItemsList() const;
@@ -121,6 +164,19 @@ public:
     void updateGenericItemScale(quint32 itemID, QVector3D scale) const;
     QVector3D genericItemsScale() const;
     void setGenericItemsScale(QVector3D scale);
+
+    /** Get/Set the custom name of the selected generic item.
+     *  Only meaningful when exactly one item is selected */
+    void updateGenericItemName(quint32 itemID, QString name);
+    QString genericItemsName() const;
+    void setGenericItemsName(QString name);
+
+    /** Get/Set the base color of the selected generic items.
+     *  An invalid color restores the original mesh colors */
+    void updateGenericItemColor(quint32 itemID, QColor color);
+    QColor genericItemsColor() const;
+    void setGenericItemsColor(QColor color);
+    Q_INVOKABLE void resetGenericItemsColor();
 
     QStringList stagesList() const;
     int stageIndex() const;
@@ -151,9 +207,12 @@ signals:
 
     void genericItemsListChanged();
     void genericSelectedCountChanged();
+    void genericSelectedLockedChanged();
     void genericItemsPositionChanged();
     void genericItemsRotationChanged();
     void genericItemsScaleChanged();
+    void genericItemsNameChanged();
+    void genericItemsColorChanged();
 
 protected:
     QString meshDirectory() const;
@@ -162,7 +221,16 @@ protected:
 private:
     void initialize3DProperties();
     void updateGenericItemsList();
+    /** Set the selection state of the row of $itemID in the QML items list */
+    void setGenericItemListSelection(int itemID, bool selected);
+    /** Push the lock state of $itemID to its scene item */
+    void applyGenericItemLock(quint32 itemID);
     void syncSceneItemPosition(QObject *item, const QVector3D &scenePos);
+    /** Start/stop the FPS sampling, depending on the user setting
+     *  and on the 3D renderer availability */
+    void updateFrameCounter();
+    /** Read the frames rendered in the last period and update the FPS stats */
+    void slotSampleFrameCount();
     void syncSceneItemRotation(QObject *item, const QVector3D &sceneRot);
 
 private:
@@ -172,12 +240,18 @@ private:
     QVector3D m_cameraViewCenter;
 
     bool m_frameCountEnabled;
+    QTimer *m_fpsTimer;
+    QElapsedTimer m_fpsElapsed;
     int m_frameCount;
     int m_minFrameCount;
     int m_maxFrameCount;
     float m_avgFrameCount;
 
     QStringList m_stagesList;
+    QStringList m_stageResourceList;
+
+    /** Mesh file extents (metres), keyed by path. Filled lazily by meshFileExtents() */
+    mutable QHash<QString, QVector3D> m_meshFileExtents;
 
     float m_ambientIntensity;
     float m_smokeAmount;

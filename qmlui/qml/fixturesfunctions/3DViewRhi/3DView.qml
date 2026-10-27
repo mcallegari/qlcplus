@@ -42,7 +42,10 @@ Rectangle {
     RhiQmlItem {
         id: renderer
         objectName: "sceneRenderer"
-        anchors.fill: parent
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: groupsBar.visible ? groupsBar.bottom : parent.top
+        anchors.bottom: parent.bottom
         focus: true
 
         freeCameraEnabled: true
@@ -112,6 +115,12 @@ Rectangle {
         onCameraTargetChanged: View3D.cameraViewCenter = cameraTarget
 
         onMeshPicked: function(item, worldPos, hit, modifiers) {
+            // mark the preview as the last clicked area, so CTRL+A
+            // is handled here instead of being stolen from other
+            // focused widgets like text fields
+            if (contextManager)
+                contextManager.setLastClickedType(App.FixtureDragItem)
+
             if (contextManager && contextManager.positionPicking && hit)
                 contextManager.setPositionPickPoint(worldPos)
 
@@ -157,6 +166,9 @@ Rectangle {
     Rectangle {
         visible: View3D.frameCountEnabled
         z: 4
+        // top-right corner of the 3D area, left of the settings panel when open
+        anchors.top: renderer.top
+        anchors.right: settingsPanel.visible ? settingsPanel.left : parent.right
         opacity: 0.6
         color: UISettings.bgMedium
         width: height
@@ -166,14 +178,14 @@ Rectangle {
             RobotoText { height: UISettings.bigItemHeight / 4; label: "FPS: " + View3D.FPS }
             RobotoText { height: UISettings.bigItemHeight / 4; label: "Min: " + View3D.minFPS }
             RobotoText { height: UISettings.bigItemHeight / 4; label: "Max: " + View3D.maxFPS }
-            RobotoText { height: UISettings.bigItemHeight / 4; label: "Avg: " + View3D.avgFPS }
+            RobotoText { height: UISettings.bigItemHeight / 4; label: "Avg: " + View3D.avgFPS.toFixed(1) }
         }
     }
 
     ViewGizmo {
         id: viewGizmo
         anchors.left: parent.left
-        anchors.top: parent.top
+        anchors.top: renderer.top
         anchors.margins: 8
         renderer: renderer
         z: 6
@@ -184,5 +196,15 @@ Rectangle {
         visible: false
         x: parent.width - width
         z: 5
+    }
+
+    FixtureGroupsBar {
+        id: groupsBar
+        visible: contextManager ? contextManager.showFixtureGroups : false
+        anchors.left: parent.left
+        // leave the side settings panel space untouched when it is open
+        anchors.right: settingsPanel.visible ? settingsPanel.left : parent.right
+        anchors.top: parent.top
+        z: 6
     }
 }

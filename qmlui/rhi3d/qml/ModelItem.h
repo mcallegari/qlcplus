@@ -21,10 +21,15 @@
 
 #include "qml/MeshItem.h"
 
+#include <QtGui/QColor>
+
 class ModelItem : public MeshItem
 {
     Q_OBJECT
     Q_PROPERTY(QString path READ path WRITE setPath NOTIFY pathChanged)
+    /** Base color applied to all the model materials.
+     *  An invalid color keeps the original mesh colors */
+    Q_PROPERTY(QColor colorOverride READ colorOverride WRITE setColorOverride NOTIFY colorOverrideChanged)
 
 public:
     explicit ModelItem(QObject *parent = nullptr);
@@ -34,9 +39,14 @@ public:
     QString path() const { return m_path; }
     void setPath(const QString &path);
 
+    QColor colorOverride() const { return m_colorOverride; }
+    void setColorOverride(const QColor &color);
+
 Q_SIGNALS:
     void pathChanged();
+    void colorOverrideChanged();
 
 private:
     QString m_path;
+    QColor m_colorOverride;
 };

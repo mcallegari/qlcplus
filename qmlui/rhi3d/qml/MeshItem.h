@@ -32,6 +32,8 @@ class MeshItem : public QObject
     Q_PROPERTY(bool isSelected READ isSelected WRITE setIsSelected NOTIFY isSelectedChanged)
     Q_PROPERTY(bool selectable READ selectable WRITE setSelectable NOTIFY selectableChanged)
     Q_PROPERTY(bool visible READ visible WRITE setVisible NOTIFY visibleChanged)
+    /** A locked item keeps its position when dragged in the view */
+    Q_PROPERTY(bool locked READ locked WRITE setLocked NOTIFY lockedChanged)
 
 public:
     enum class MeshType
@@ -72,6 +74,9 @@ public:
     bool visible() const { return m_visible; }
     void setVisible(bool visible);
 
+    bool locked() const { return m_locked; }
+    void setLocked(bool locked);
+
 Q_SIGNALS:
     void itemIDChanged();
     void positionChanged();
@@ -80,6 +85,7 @@ Q_SIGNALS:
     void isSelectedChanged();
     void selectableChanged();
     void visibleChanged();
+    void lockedChanged();
 
 protected:
     void notifyParent();
@@ -91,4 +97,5 @@ protected:
     bool m_isSelected = false;
     bool m_selectable = true;
     bool m_visible = true;
+    bool m_locked = false;
 };

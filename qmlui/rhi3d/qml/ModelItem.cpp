@@ -32,3 +32,12 @@ void ModelItem::setPath(const QString &path)
     emit pathChanged();
     notifyParent();
 }
+
+void ModelItem::setColorOverride(const QColor &color)
+{
+    if (m_colorOverride == color)
+        return;
+    m_colorOverride = color;
+    emit colorOverrideChanged();
+    notifyParent();
+}
