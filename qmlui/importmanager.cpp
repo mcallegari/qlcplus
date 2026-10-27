@@ -793,7 +793,7 @@ void ImportManager::updateFunctionsTree()
     for (Function *func : m_importDoc->functions()) // C++11
     {
         if (func == nullptr || func->isVisible() == false)
-            return;
+            continue;
 
         bool expandAll = m_functionSearchFilter.length() >= SEARCH_MIN_CHARS;
 
