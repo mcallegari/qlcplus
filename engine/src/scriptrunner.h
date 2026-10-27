@@ -266,6 +266,12 @@ private:
     static quint64 fixtureValueKey(quint32 universe, quint32 fixtureID, quint32 channel);
 
     /**
+     * Blocks the script thread until write() (MasterTimer thread) has resolved
+     * the queued WAIT_START/WAIT_STOP request for fID, or the script is stopped.
+     */
+    bool waitForFunctionOperation(quint32 fID, FunctionOperation operation);
+
+    /**
      * Runs a JS garbage collection pass if GC_INTERVAL_MS have elapsed since
      * the last one. Must be called from the script thread, without holding
      * m_mutex.
