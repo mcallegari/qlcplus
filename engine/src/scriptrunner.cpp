@@ -652,14 +652,41 @@ bool ScriptRunner::waitTime(QString time)
     return waitTime(Function::stringToSpeed(time));
 }
 
+bool ScriptRunner::waitForFunctionOperation(quint32 fID, FunctionOperation operation)
+{
+    const QPair<quint32, FunctionOperation> pair(fID, operation);
+
+    while (m_running)
+    {
+        {
+            QMutexLocker locker(&m_mutex);
+            // still queued, or write() is currently waiting for this Function
+            if (!m_functionQueue.contains(pair) && m_waitFunctionId != fID)
+                return true;
+        }
+
+        // never with the mutex held, see waitTime()
+        maybeCollectGarbage();
+        usleep(10000);
+    }
+
+    return false;
+}
+
 bool ScriptRunner::waitFunctionStart(quint32 fID)
 {
-    return enqueueFunction(fID, FunctionOperation::WAIT_START);
+    if (!enqueueFunction(fID, FunctionOperation::WAIT_START))
+        return false;
+
+    return waitForFunctionOperation(fID, FunctionOperation::WAIT_START);
 }
 
 bool ScriptRunner::waitFunctionStop(quint32 fID)
 {
-    return enqueueFunction(fID, FunctionOperation::WAIT_STOP);
+    if (!enqueueFunction(fID, FunctionOperation::WAIT_STOP))
+        return false;
+
+    return waitForFunctionOperation(fID, FunctionOperation::WAIT_STOP);
 }
 
 bool ScriptRunner::setBlackout(bool enable)
