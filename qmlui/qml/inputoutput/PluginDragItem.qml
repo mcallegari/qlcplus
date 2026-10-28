@@ -34,6 +34,11 @@ Rectangle
     property string pluginName
     property string pluginLine
     property string lineName
+    property bool sourceAvailable: true
+    property bool canConfigure: false
+    property string statusText: ""
+
+    opacity: sourceAvailable ? 1.0 : 0.65
 
     Row
     {
@@ -70,7 +75,9 @@ Rectangle
         {
             height: pluginDragItem.height
             width: pluginDragItem.width - pIcon.width
-            label: lineName
+            label: sourceAvailable ? lineName :
+                       pluginName + "\n" + statusText +
+                       (canConfigure ? " (" + qsTr("click to configure") + ")" : "")
             wrapText: true
         }
     }
