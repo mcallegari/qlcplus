@@ -1370,6 +1370,11 @@ void VCSlider::setSliderValue(uchar value, bool scale, bool external)
     if (m_slider->isSliderDown() == false && val != m_slider->value())
        emit requestSliderUpdate(val);
 
+    /* Send Feedback for motorized faders */
+    if (external) {
+        sendFeedback(val);
+    }
+
     switch (sliderMode())
     {
         case Level:
