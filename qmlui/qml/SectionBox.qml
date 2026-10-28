@@ -43,7 +43,8 @@ Rectangle
             id: cPropsHeader
             width: parent.width
             height: UISettings.listItemHeight
-            color: headerMouseArea.containsMouse ? UISettings.highlight : UISettings.sectionHeader
+            color: headerMouseArea.containsMouse || headerMouseArea.activeFocus ?
+                       UISettings.highlight : UISettings.sectionHeader
 
             RobotoText
             {
@@ -65,10 +66,31 @@ Rectangle
             MouseArea
             {
                 id: headerMouseArea
+                objectName: "sectionHeader"
                 anchors.fill: parent
                 hoverEnabled: true
+                activeFocusOnTab: true
 
-                onClicked: boxRoot.isExpanded = !boxRoot.isExpanded
+                Accessible.role: Accessible.Button
+                Accessible.name: boxRoot.sectionLabel
+
+                function toggleSection()
+                {
+                    boxRoot.isExpanded = !boxRoot.isExpanded
+                }
+
+                onClicked: toggleSection()
+                Keys.onSpacePressed: event =>
+                {
+                    toggleSection()
+                    event.accepted = true
+                }
+                Keys.onReturnPressed: event =>
+                {
+                    toggleSection()
+                    event.accepted = true
+                }
+                Accessible.onPressAction: toggleSection()
             }
 
             Rectangle
@@ -84,7 +106,7 @@ Rectangle
         {
             id: sectionLoader
             width: parent.width
-            sourceComponent: isExpanded ? boxRoot.sectionContents : null
+            sourceComponent: boxRoot.isExpanded ? boxRoot.sectionContents : null
         }
     }
 }
