@@ -309,6 +309,15 @@ public:
       * $modifier can be NULL if the channel has no modifier */
     void setChannelModifier(ushort channel, ChannelModifier *modifier);
 
+    /**
+     * Bring a channel back to the state of a channel not used by any
+     * fixture: no capabilities, no modifier and a zero value.
+     * Used when a fixture is moved away from the channel or deleted.
+     *
+     * @param channel The channel absolute index in the universe
+     */
+    void resetChannelCapability(ushort channel);
+
     /** Return the Channel Modifier assigned to the given channel
       * or NULL if none or not valid */
     ChannelModifier *channelModifier(ushort channel);
