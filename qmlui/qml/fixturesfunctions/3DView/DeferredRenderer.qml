@@ -24,7 +24,7 @@ import Qt3D.Render
 RenderSettings
 {
     pickingSettings.pickMethod: PickingSettings.TrianglePicking
-    //renderPolicy: RenderSettings.OnDemand
+    renderPolicy: RenderSettings.OnDemand
 
     property alias camera: sceneCameraSelector.camera
     property alias myCameraSelector: sceneCameraSelector

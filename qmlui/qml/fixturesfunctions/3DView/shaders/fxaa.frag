@@ -119,5 +119,6 @@ void main()
 {
     vec2 resolution = vec2(1024.0, 1024.0);
     vec2 fragCoord = fsUv * resolution;
-    MGL_FRAG_COLOR = apply(colorTex, fragCoord, resolution);
+    // this is the last pass and it draws on the screen: keep it opaque
+    MGL_FRAG_COLOR = vec4(apply(colorTex, fragCoord, resolution).rgb, 1.0);
 }
