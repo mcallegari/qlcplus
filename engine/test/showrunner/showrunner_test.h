@@ -42,6 +42,10 @@ private slots:
     void sameFunctionOverlappingItems();
     void differentFunctionsConsecutiveItems();
     void beatItemsWhenStartingMidway();
+    void tempoMapClockSurvivesRestart();
+    void tempoMapRunner();
+    void tempoMapCollection();
+    void tempoMapStepEndsWithItem();
 
 private:
     Scene *createScene();

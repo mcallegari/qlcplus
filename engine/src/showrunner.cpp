@@ -48,6 +48,7 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
     , m_syncBeatsTime(0)
     , m_totalRunTime(0)
     , m_totalRunBeats(0)
+    , m_tempoMapActive(false)
 {
     Q_ASSERT(m_doc != NULL);
     Q_ASSERT(showID != Show::invalidId());
@@ -55,6 +56,10 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
     m_show = qobject_cast<Show*>(m_doc->function(showID));
     if (m_show == NULL)
         return;
+
+    m_tempoMapActive = m_show->itemsInMs();
+    if (m_tempoMapActive)
+        m_tempoMap = m_show->tempoMap();
 
     /* startTime (e.g. coming from the cursor position) is always real
        milliseconds. If playback doesn't start from 0, m_elapsedBeats needs
@@ -90,12 +95,14 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
                 continue;
 
             // beat-based items are placed in "beats as ms", so they must be
-            // compared with the beat position, not with real milliseconds
-            quint32 startPosition = f->tempoType() == Function::Time ? startTime : m_elapsedBeats;
+            // compared with the beat position, not with real milliseconds.
+            // With a tempo map, every item is positioned in ms
+            bool inMs = f->tempoType() == Function::Time || m_tempoMapActive;
+            quint32 startPosition = inMs ? startTime : m_elapsedBeats;
             if (sfunc->startTime() + sfunc->duration(m_doc) <= startPosition)
                 continue;
 
-            if (f->tempoType() == Function::Time)
+            if (inMs)
             {
                 m_timeFunctions.append(sfunc);
                 if (sfunc->startTime() + sfunc->duration(m_doc) > m_totalRunTime)
@@ -200,7 +207,19 @@ void ShowRunner::startShowFunction(ShowFunction *sf, Function *f, quint32 startT
             }
         }
 
-        f->start(m_doc->masterTimer(), functionParent(), startTime);
+        if (m_tempoMapActive && (f->tempoType() == Function::Beats || f->type() == Function::CollectionType))
+        {
+            // run the Function beats on the tempo map, from the item start.
+            // A Collection hands the clock to its Beats tempo members
+            TempoMapClock clock(m_tempoMap, sf->startTime());
+            f->start(m_doc->masterTimer(), functionParent(), startTime,
+                     Function::defaultSpeed(), Function::defaultSpeed(), Function::defaultSpeed(),
+                     Function::Original, &clock);
+        }
+        else
+        {
+            f->start(m_doc->masterTimer(), functionParent(), startTime);
+        }
     }
 
     m_runningQueue.append(QPair<Function *, quint32>(f, sf->startTime() + sf->duration(m_doc)));
@@ -245,7 +264,7 @@ void ShowRunner::write(MasterTimer *timer)
     {
         Function *func = m_runningQueue.at(i).first;
         quint32 stopTime = m_runningQueue.at(i).second;
-        quint32 currTime = func->tempoType() == Function::Time ? m_elapsedTime : m_elapsedBeats;
+        quint32 currTime = (func->tempoType() == Function::Time || m_tempoMapActive) ? m_elapsedTime : m_elapsedBeats;
 
         // if we passed the function stop time
         if (currTime >= stopTime)

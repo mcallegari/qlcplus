@@ -38,6 +38,7 @@
 #include "audio.h"
 #include "video.h"
 #include "scene.h"
+#include "tempomap.h"
 #include "show.h"
 #include "efx.h"
 #include "doc.h"
@@ -572,6 +573,55 @@ uint Function::beatsToTime(uint beats, int beatDuration)
     return ((float)beats / 1000.0) * beatDuration;
 }
 
+QSharedPointer<const TempoMapClock> Function::tempoMapClock() const
+{
+    return m_tempoMapClock;
+}
+
+uint Function::speedToBeats(uint time, double bpm, double resolution)
+{
+    if (time == 0 || time == Function::infiniteSpeed() || time == Function::defaultSpeed() ||
+        bpm <= 0 || resolution <= 0)
+        return time;
+
+    double beats = (time * bpm) / 60000.0;
+    double rounded = qMax(resolution, qRound64(beats / resolution) * resolution);
+
+    return uint(qRound64(rounded * 1000.0));
+}
+
+uint Function::speedToTime(uint beats, double bpm)
+{
+    if (beats == 0 || beats == Function::infiniteSpeed() || beats == Function::defaultSpeed() ||
+        bpm <= 0)
+        return beats;
+
+    return uint(qRound64((beats / 1000.0) * (60000.0 / bpm)));
+}
+
+void Function::convertTempoType(TempoType type, double bpm, double resolution)
+{
+    if (type == tempoType() || bpm <= 0)
+        return;
+
+    bool toBeats = type == Function::Beats;
+    auto convert = [=](uint value)
+    {
+        return toBeats ? speedToBeats(value, bpm, resolution) : speedToTime(value, bpm);
+    };
+
+    uint newFadeIn = convert(fadeInSpeed());
+    uint newFadeOut = convert(fadeOutSpeed());
+    uint newDuration = convert(duration());
+
+    // setTempoType() converts the speeds with the global BPM,
+    // so they are set again afterwards
+    setTempoType(type);
+    setFadeInSpeed(newFadeIn);
+    setFadeOutSpeed(newFadeOut);
+    setDuration(newDuration);
+}
+
 Function::TempoType Function::overrideTempoType() const
 {
     return m_overrideTempoType;
@@ -1062,6 +1112,14 @@ void Function::postRun(MasterTimer *timer, QList<Universe *> universes)
         m_functionStopped.wakeAll();
     }
 
+    {
+        // a Function restarted in place has already been given its new
+        // source (and clock) by start(); only a real stop drops the clock
+        QMutexLocker sourcesLocker(&m_sourcesMutex);
+        if (m_sources.isEmpty())
+            m_tempoMapClock.clear();
+    }
+
     m_paused = false;
     m_running = false;
     emit stopped(m_id);
@@ -1139,7 +1197,8 @@ void Function::roundElapsed(quint32 roundTime)
  *****************************************************************************/
 
 void Function::start(MasterTimer* timer, FunctionParent source, quint32 startTime,
-                     uint overrideFadeIn, uint overrideFadeOut, uint overrideDuration, TempoType overrideTempoType)
+                     uint overrideFadeIn, uint overrideFadeOut, uint overrideDuration, TempoType overrideTempoType,
+                     const TempoMapClock *tempoClock)
 {
     qDebug() << "Function start(). Name:" << m_name << "ID: " << m_id << "source:" << source.type() << source.id() << ", startTime:" << startTime;
 
@@ -1168,6 +1227,10 @@ void Function::start(MasterTimer* timer, FunctionParent source, quint32 startTim
     m_overrideFadeOutSpeed = overrideFadeOut;
     m_overrideDuration = overrideDuration;
     m_overrideTempoType = overrideTempoType == Original ? tempoType() : overrideTempoType;
+    if (tempoClock != NULL)
+        m_tempoMapClock = QSharedPointer<const TempoMapClock>(new TempoMapClock(*tempoClock));
+    else
+        m_tempoMapClock.clear();
 
     m_stop = false;
     timer->startFunction(this);

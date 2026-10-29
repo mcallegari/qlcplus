@@ -45,12 +45,20 @@ ChaserEditor::ChaserEditor(QQuickView *view, Doc *doc, QObject *parent)
 void ChaserEditor::setFunctionID(quint32 ID)
 {
     if (m_chaser)
+    {
         disconnect(m_chaser, SIGNAL(currentStepChanged(int)), this, SLOT(slotStepIndexChanged(int)));
+        disconnect(m_chaser, SIGNAL(tempoTypeChanged()), this, SLOT(slotTempoTypeChanged()));
+    }
 
     m_chaser = qobject_cast<Chaser *>(m_doc->function(ID));
     FunctionEditor::setFunctionID(ID);
     if (m_chaser != nullptr)
+    {
         connect(m_chaser, SIGNAL(currentStepChanged(int)), this, SLOT(slotStepIndexChanged(int)));
+        // queued, as a tempo conversion changes the step times after the type
+        connect(m_chaser, SIGNAL(tempoTypeChanged()), this, SLOT(slotTempoTypeChanged()),
+                Qt::QueuedConnection);
+    }
 
     updateStepsList(m_doc, m_chaser, m_stepsList);
     emit stepsListChanged();
@@ -673,10 +681,26 @@ int ChaserEditor::tempoType() const
     return m_chaser->tempoType();
 }
 
+void ChaserEditor::slotTempoTypeChanged()
+{
+    if (m_chaser == nullptr)
+        return;
+
+    emit tempoTypeChanged(m_chaser->tempoType());
+    emit fadeInSpeedChanged(m_chaser->fadeInSpeed());
+    emit fadeOutSpeedChanged(m_chaser->fadeOutSpeed());
+    emit durationChanged(m_chaser->duration());
+    updateStepsList(m_doc, m_chaser, m_stepsList);
+    emit stepsListChanged();
+}
+
 void ChaserEditor::setTempoType(int tempoType)
 {
     if (m_chaser == nullptr || m_chaser->tempoType() == Function::TempoType(tempoType))
         return;
+
+    // recorded before the steps, so that a redo converts the Chaser first
+    Tardis::instance()->enqueueAction(Tardis::FunctionSetTempoType, m_chaser->id(), m_chaser->tempoType(), tempoType);
 
     m_chaser->setTempoType(Function::TempoType(tempoType));
 

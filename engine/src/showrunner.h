@@ -25,6 +25,7 @@
 #include <QMap>
 
 #include <function.h>
+#include "tempomap.h"
 
 class ShowFunction;
 class Function;
@@ -95,6 +96,13 @@ private:
     /** Total time (in beats, expressed as ms, i.e. 1000 per beat) the
      *  runner has to run, computed from m_beatFunctions */
     quint32 m_totalRunBeats;
+
+    /** A copy of the Show tempo map, when it drives the Show (see
+     *  Show::itemsInMs()). All the items are then positioned in ms and
+     *  Beats tempo Functions run on the tempo map beats, which follow the
+     *  global BPM where there are no sections */
+    bool m_tempoMapActive;
+    TempoMap m_tempoMap;
 
     /** List of the currently running Functions and their stop time */
     QList < QPair<Function *, quint32> > m_runningQueue;
