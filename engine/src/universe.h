@@ -52,6 +52,7 @@ class Doc;
 #define KXMLQLCUniverseName         QStringLiteral("Name")
 #define KXMLQLCUniverseID           QStringLiteral("ID")
 #define KXMLQLCUniversePassthrough  QStringLiteral("Passthrough")
+#define KXMLQLCUniversePassthroughMode QStringLiteral("PassthroughMode")
 
 #define KXMLQLCUniverseInputPatch    QStringLiteral("Input")
 #define KXMLQLCUniverseOutputPatch   QStringLiteral("Output")
@@ -74,6 +75,7 @@ class Universe : public QThread
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(quint32 id READ id CONSTANT)
     Q_PROPERTY(bool passthrough READ passthrough WRITE setPassthrough NOTIFY passthroughChanged)
+    Q_PROPERTY(PassthroughMode passthroughMode READ passthroughMode WRITE setPassthroughMode NOTIFY passthroughModeChanged)
     Q_PROPERTY(InputPatch *inputPatch READ inputPatch NOTIFY inputPatchChanged)
     Q_PROPERTY(int outputPatchesCount READ outputPatchesCount NOTIFY outputPatchesCountChanged)
     Q_PROPERTY(bool hasFeedback READ hasFeedback NOTIFY hasFeedbackChanged)
@@ -96,6 +98,17 @@ public:
         HTP        = 1 << 1,
         Intensity  = 1 << 2
     };
+
+    /**
+     * How the input values of a passthrough universe are combined
+     * with the values produced internally by QLC+
+     */
+    enum PassthroughMode
+    {
+        PassthroughMerge = 0, /** HTP merge of input and internal values */
+        PassthroughReplace    /** Input values only, internal values are ignored */
+    };
+    Q_ENUM(PassthroughMode)
 
     static quint32 invalid() { return UINT_MAX; }
 
@@ -145,6 +158,21 @@ public:
     bool passthrough() const;
 
     /**
+     * Set how input values are combined with internal values
+     * when the universe is in passthrough mode
+     */
+    void setPassthroughMode(PassthroughMode mode);
+
+    /**
+     * Returns how input values are combined with internal values
+     * when the universe is in passthrough mode
+     */
+    PassthroughMode passthroughMode() const;
+
+    static QString passthroughModeToString(PassthroughMode mode);
+    static PassthroughMode stringToPassthroughMode(const QString &mode);
+
+    /**
      * Enable or disable the monitor mode for this universe
      */
     void setMonitor(bool enable);
@@ -179,6 +207,7 @@ protected:
 signals:
     void nameChanged();
     void passthroughChanged();
+    void passthroughModeChanged();
 
 protected:
     /** The universe ID */
@@ -189,6 +218,8 @@ protected:
     GrandMaster *m_grandMaster;
     /** Variable that determine if a universe is in passthrough mode */
     bool m_passthrough;
+    /** How input values are combined with internal values in passthrough mode */
+    PassthroughMode m_passthroughMode;
     /** Flag to monitor the universe changes */
     bool m_monitor;
 

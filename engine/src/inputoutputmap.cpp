@@ -251,6 +251,20 @@ bool InputOutputMap::getUniversePassthrough(int index) const
     return m_universeArray.at(index)->passthrough();
 }
 
+void InputOutputMap::setUniversePassthroughMode(int index, Universe::PassthroughMode mode)
+{
+    if (index < 0 || index >= m_universeArray.count())
+        return;
+    m_universeArray.at(index)->setPassthroughMode(mode);
+}
+
+Universe::PassthroughMode InputOutputMap::getUniversePassthroughMode(int index) const
+{
+    if (index < 0 || index >= m_universeArray.count())
+        return Universe::PassthroughMerge;
+    return m_universeArray.at(index)->passthroughMode();
+}
+
 void InputOutputMap::setUniverseMonitor(int index, bool enable)
 {
     if (index < 0 || index >= m_universeArray.count())
@@ -1291,6 +1305,10 @@ void InputOutputMap::loadDefaults()
         if (passthrough == true)
             m_universeArray.at(i)->setPassthrough(passthrough);
 
+        key = QString("/inputmap/universe%1/passthroughmode/").arg(i);
+        m_universeArray.at(i)->setPassthroughMode(
+            Universe::stringToPassthroughMode(settings.value(key).toString()));
+
         /* Do the mapping */
         if (plugin != KInputNone && input != KInputNone)
             setInputPatch(i, plugin, "", "", input.toUInt(), profileName);
@@ -1363,6 +1381,13 @@ void InputOutputMap::saveDefaults() const
         bool passthrough = m_universeArray.at(i)->passthrough();
         if (passthrough == true)
             settings.setValue(key, passthrough);
+        else
+            settings.remove(key);
+
+        key = QString("/inputmap/universe%1/passthroughmode/").arg(i);
+        Universe::PassthroughMode passthroughMode = m_universeArray.at(i)->passthroughMode();
+        if (passthroughMode != Universe::PassthroughMerge)
+            settings.setValue(key, Universe::passthroughModeToString(passthroughMode));
         else
             settings.remove(key);
     }
