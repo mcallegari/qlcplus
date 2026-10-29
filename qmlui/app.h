@@ -215,9 +215,11 @@ protected slots:
                                  QString peerAddress, quint16 peerPort);
     void slotClientAccessRequestCancelled(QString sessionId);
 
+public slots:
     /** Serve the current workspace to a client that requested it */
     void slotClientProjectRequest(QString sessionId);
 
+protected slots:
     void slotAccessMaskChanged(int mask);
     void slotDocAutosave();
 
