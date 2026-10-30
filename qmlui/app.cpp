@@ -220,11 +220,8 @@ void App::startup()
             this, &App::slotClientAccessRequest);
     connect(m_networkManager, &NetworkManager::clientAccessRequestCancelled,
             this, &App::slotClientAccessRequestCancelled);
-    connect(m_networkManager, &NetworkManager::clientAutoAuthorized, this,
-            [this](const QString &sessionId)
-    {
-        m_networkManager->sendWorkspaceToClient(sessionId, fileName());
-    });
+    connect(m_networkManager, &NetworkManager::clientAutoAuthorized,
+            this, &App::slotClientProjectRequest);
     connect(m_networkManager, &NetworkManager::accessMaskChanged, this, &App::setAccessMask);
     connect(m_networkManager, &NetworkManager::requestProjectLoad, this, &App::slotLoadDocFromMemory);
     connect(m_networkManager, &NetworkManager::requestProjectClear, this, &App::slotClearDocFromNetwork);
