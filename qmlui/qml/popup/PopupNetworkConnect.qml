@@ -228,7 +228,7 @@ CustomPopupDialog
                         deciding = true
                         popupRoot.close()
                         if (networkManager.setClientAccess(allowedSession, true, access, alwaysCheck.checked))
-                            networkManager.sendWorkspaceToClient(allowedSession, qlcplus.fileName())
+                            qlcplus.slotClientProjectRequest(allowedSession)
                     }
                 }
             }

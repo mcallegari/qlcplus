@@ -42,6 +42,8 @@
 #include "efx.h"
 #include "bus.h"
 #include "doc.h"
+#include "universe.h"
+#include "inputoutputmap.h"
 
 #include "doc_test.h"
 
@@ -1278,6 +1280,121 @@ void Doc_Test::createBusNode(QXmlStreamWriter &doc, quint32 id, quint32 val)
 
     /* End the <Bus> tag */
     doc.writeEndElement();
+}
+
+void Doc_Test::movedFixtureChannels()
+{
+    Fixture *fxi = new Fixture(m_doc);
+    fxi->setAddress(100);
+    fxi->setUniverse(0);
+    fxi->setChannels(1);
+    QVERIFY(m_doc->addFixture(fxi));
+
+    Universe *uni = m_doc->inputOutputMap()->universes().at(0);
+    const uchar intensity = Universe::HTP | Universe::Intensity;
+    QCOMPARE(uni->channelCapabilities(100), intensity);
+    QCOMPARE(uni->channelCapabilities(300), uchar(Universe::Undefined));
+
+    // the channel capabilities must follow the fixture
+    fxi->setAddress(300);
+    QCOMPARE(uni->channelCapabilities(100), uchar(Universe::Undefined));
+    QCOMPARE(uni->channelCapabilities(300), intensity);
+}
+
+void Doc_Test::deletedFixtureChannels()
+{
+    Fixture *fxi = new Fixture(m_doc);
+    fxi->setAddress(10);
+    fxi->setUniverse(0);
+    fxi->setChannels(1);
+    fxi->setForcedLTPChannels(QList<int>() << 0);
+    QVERIFY(m_doc->addFixture(fxi));
+
+    Universe *uni = m_doc->inputOutputMap()->universes().at(0);
+    QCOMPARE(uni->channelCapabilities(10) & Universe::LTP, int(Universe::LTP));
+
+    // an LTP value is kept by the universe until something else changes it
+    uni->write(10, 200);
+    QCOMPARE(uni->preGMValue(10), uchar(200));
+
+    // once the fixture is gone, the channel must be free and at zero
+    QVERIFY(m_doc->deleteFixture(fxi->id()));
+    QCOMPARE(uni->channelCapabilities(10), uchar(Universe::Undefined));
+    QCOMPARE(uni->preGMValue(10), uchar(0));
+}
+
+void Doc_Test::renamedFixtureKeepsValues()
+{
+    Fixture *fxi = new Fixture(m_doc);
+    fxi->setAddress(20);
+    fxi->setUniverse(0);
+    fxi->setChannels(1);
+    fxi->setForcedLTPChannels(QList<int>() << 0);
+    QVERIFY(m_doc->addFixture(fxi));
+
+    Universe *uni = m_doc->inputOutputMap()->universes().at(0);
+    uni->write(20, 150);
+
+    // a change that doesn't move the fixture must not reset its channels
+    fxi->setName("Renamed");
+    QCOMPARE(uni->preGMValue(20), uchar(150));
+    QCOMPARE(uni->channelCapabilities(20) & Universe::LTP, int(Universe::LTP));
+}
+
+void Doc_Test::movedFixtureBeyondUniverse()
+{
+    Fixture *fxi = new Fixture(m_doc);
+    fxi->setAddress(10);
+    fxi->setUniverse(0);
+    fxi->setChannels(4);
+    QVERIFY(m_doc->addFixture(fxi));
+
+    Universe *uni = m_doc->inputOutputMap()->universes().at(0);
+    const uchar intensity = Universe::HTP | Universe::Intensity;
+    QCOMPARE(uni->channelCapabilities(10), intensity);
+
+    // straddling the end of the universe: the channels that don't fit are
+    // ignored, the ones that do are set up and the old ones are freed
+    fxi->setAddress(510);
+    QCOMPARE(uni->channelCapabilities(10), uchar(Universe::Undefined));
+    QCOMPARE(uni->channelCapabilities(510), intensity);
+    QCOMPARE(uni->channelCapabilities(511), intensity);
+}
+
+void Doc_Test::movedFixtureOverFixtureInBetween()
+{
+    Fixture *a = new Fixture(m_doc);
+    a->setUniverse(1);
+    a->setAddress(100);
+    a->setChannels(4);
+    QVERIFY(m_doc->addFixture(a));
+
+    Fixture *b = new Fixture(m_doc);
+    b->setUniverse(0);
+    b->setAddress(100);
+    b->setChannels(4);
+    QVERIFY(m_doc->addFixture(b));
+
+    Universe *uni = m_doc->inputOutputMap()->universes().at(1);
+    const uchar intensity = Universe::HTP | Universe::Intensity;
+    QCOMPARE(uni->channelCapabilities(100), intensity);
+
+    // Moving a fixture sets its universe and its address one after the other,
+    // so it is briefly on the channels of another fixture: those must stay
+    // with their fixture, which must not lose its address or its channels
+    b->setUniverse(1);
+    b->setAddress(300);
+
+    QCOMPARE(m_doc->fixtureForAddress((1 << 9) + 100), a->id());
+    QCOMPARE(m_doc->fixtureForAddress((1 << 9) + 103), a->id());
+    QCOMPARE(uni->channelCapabilities(100), intensity);
+    QCOMPARE(uni->channelCapabilities(103), intensity);
+
+    // and the moved fixture ends up on its new channels only
+    QCOMPARE(m_doc->fixtureForAddress((1 << 9) + 300), b->id());
+    QCOMPARE(uni->channelCapabilities(300), intensity);
+    QCOMPARE(uni->channelCapabilities(303), intensity);
+    QCOMPARE(m_doc->fixtureForAddress(100), Fixture::invalidId());
 }
 
 QTEST_APPLESS_MAIN(Doc_Test)

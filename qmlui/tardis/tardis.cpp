@@ -1356,19 +1356,19 @@ int Tardis::processAction(TardisAction &action, bool undo)
             if (scv.channel == QLCChannel::invalid())
             {
                 SceneValue newVal = action.m_newValue.value<SceneValue>();
-                m_simpleDesk->resetChannel(newVal.channel);
+                m_simpleDesk->resetAbsoluteChannel(newVal.channel);
             }
             else
-                m_simpleDesk->setValue(scv.fxi, scv.channel, scv.value);
+                m_simpleDesk->setAbsoluteChannelValue(scv.channel, scv.value);
         }
         break;
         case SimpleDeskResetChannel:
         {
             SceneValue scv = value->value<SceneValue>();
             if (undo)
-                m_simpleDesk->setValue(scv.fxi, scv.channel, scv.value);
+                m_simpleDesk->setAbsoluteChannelValue(scv.channel, scv.value);
             else
-                m_simpleDesk->resetChannel(scv.channel);
+                m_simpleDesk->resetAbsoluteChannel(scv.channel);
         }
         break;
 
