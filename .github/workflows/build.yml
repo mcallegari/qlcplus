@@ -186,6 +186,9 @@ jobs:
         run: |
           cmake --build build --target install
           cp -v resources/icons/svg/qlcplus.svg ${INSTALL_ROOT}
+          # recent appimagetool builds only accept .png/.xpm icons
+          cp -v resources/icons/png/qlcplus.png ${INSTALL_ROOT}
+          ln -sf qlcplus.png ${INSTALL_ROOT}/.DirIcon
           cp -v platforms/linux/qlcplus.desktop ${INSTALL_ROOT}
           # QLC+ 5 keeps its translations in a separate directory, so that the
           # two flavours don't overwrite each other's .qm files
