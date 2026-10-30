@@ -38,4 +38,7 @@ endif()
 
 #    add_subdirectory(uart)
 #    add_subdirectory(gpio)
+
+    # service plugins are loaded only on desktop platforms
+    add_subdirectory(services)
 endif()

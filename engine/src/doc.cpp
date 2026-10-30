@@ -34,6 +34,7 @@
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
 #include "qlcrdmservice.h"
+#include "qlclinkservice.h"
 
 #include "monitorproperties.h"
 #include "audioplugincache.h"
@@ -289,6 +290,10 @@ void Doc::slotServiceAvailable(const QString &id)
             return;
         }
         rdm->setTransportProvider(m_ioMap);
+    }
+    else if (id == QLCLINK_SERVICE_ID)
+    {
+        m_masterTimer->setLinkService(m_serviceLoader->service(id));
     }
 }
 

@@ -21,6 +21,7 @@
 #include <QDebug>
 #include <QSettings>
 #include <QMutexLocker>
+#include <cmath>
 
 #if defined(WIN32) || defined(Q_OS_WIN)
 #   include "mastertimer-win32.h"
@@ -29,6 +30,7 @@
 #   include "mastertimer-unix.h"
 #endif
 
+#include "qlclinkservice.h"
 #include "inputoutputmap.h"
 #include "genericfader.h"
 #include "mastertimer.h"
@@ -39,6 +41,9 @@
 
 #define MASTERTIMER_FREQUENCY "mastertimer/frequency"
 #define LATE_TO_BEAT_THRESHOLD 25
+
+/** Number of beats in a bar, used to align the phase with the Link session */
+#define LINK_QUANTUM 4.0
 
 /** The timer tick frequency in Hertz */
 uint MasterTimer::s_frequency = 50;
@@ -66,6 +71,10 @@ MasterTimer::MasterTimer(Doc* doc)
     , m_beatTimeDuration(500)
     , m_beatRequested(false)
     , m_lastBeatOffset(0)
+    , m_link(NULL)
+    , m_lastLinkBeat(0)
+    , m_linkBeatValid(false)
+    , m_linkTimeToNextBeat(0)
 {
     Q_ASSERT(doc != NULL);
     Q_ASSERT(d_ptr != NULL);
@@ -139,6 +148,10 @@ void MasterTimer::timerTick()
         }
         break;
         case External:
+        break;
+
+        case Link:
+            timerTickLink();
         break;
 
         case None:
@@ -363,10 +376,29 @@ void MasterTimer::setBeatSourceType(MasterTimer::BeatsSourceType type)
     if (type == m_beatSourceType)
         return;
 
+    if (type == Link && m_link == NULL)
+    {
+        qWarning() << "[MasterTimer] Ableton Link requested, but the service is not available";
+        type = None;
+    }
+
+    // leaving Link: stop taking part in the network session
+    if (m_beatSourceType == Link)
+        m_link->setEnabled(false);
+
     // alright, this causes a time drift of maximum 1ms per beat
     // but at the moment I am not looking for a better solution
     m_beatTimeDuration = 60000 / m_currentBPM;
     m_beatTimer.restart();
+
+    if (type == Link)
+    {
+        m_linkBeatValid = false;
+        // This is only a proposal: when joining an existing session,
+        // Link adopts the session tempo instead of this one
+        m_link->setTempo(m_currentBPM);
+        m_link->setEnabled(true);
+    }
 
     m_beatSourceType = type;
 }
@@ -378,6 +410,14 @@ MasterTimer::BeatsSourceType MasterTimer::beatSourceType() const
 
 void MasterTimer::requestBpmNumber(int bpm)
 {
+    // with Link, a new tempo is proposed to the session. The next
+    // tick reads the resulting session tempo and notifies it
+    if (m_beatSourceType == Link)
+    {
+        m_link->setTempo(bpm);
+        return;
+    }
+
     if (bpm == m_currentBPM)
         return;
 
@@ -400,6 +440,9 @@ int MasterTimer::beatTimeDuration() const
 
 int MasterTimer::timeToNextBeat() const
 {
+    if (m_beatSourceType == Link)
+        return m_linkTimeToNextBeat - m_beatTimer.elapsed();
+
     return m_beatTimeDuration - m_beatTimer.elapsed();
 }
 
@@ -431,4 +474,76 @@ void MasterTimer::requestBeat()
     // forceful request of a beat, processed at
     // the next timerTick call
     m_beatRequested = true;
+}
+
+/*************************************************************************
+ * Ableton Link
+ *************************************************************************/
+
+void MasterTimer::setLinkService(QObject *service)
+{
+    QLCLinkService *link = qobject_cast<QLCLinkService*>(service);
+    if (link == NULL)
+    {
+        qWarning() << "[MasterTimer] The Link service doesn't implement the expected interface";
+        return;
+    }
+
+    m_link = link;
+
+    // emitted by a Link thread, so this connection is queued
+    connect(service, SIGNAL(numPeersChanged(int)), this, SIGNAL(linkPeersChanged(int)));
+}
+
+bool MasterTimer::linkAvailable() const
+{
+    return m_link != NULL;
+}
+
+int MasterTimer::linkPeers() const
+{
+    return m_link == NULL ? 0 : m_link->numPeers();
+}
+
+void MasterTimer::timerTickLink()
+{
+    QLCLinkTimeline timeline;
+
+    if (m_link->captureTimeline(LINK_QUANTUM, timeline) == false || timeline.tempo <= 0)
+    {
+        m_beatRequested = false;
+        return;
+    }
+
+    // use the exact (fractional) Link tempo for the beat duration,
+    // while the BPM number is just for display and old style users
+    double beatMs = 60000.0 / timeline.tempo;
+    m_beatTimeDuration = qMax(1, qRound(beatMs));
+
+    int bpm = qRound(timeline.tempo);
+    if (bpm != m_currentBPM)
+    {
+        m_currentBPM = bpm;
+        emit bpmNumberChanged(bpm);
+    }
+
+    // look half a tick ahead, so that a beat is fired on the tick
+    // closest to it, instead of always on the tick after it
+    double halfTickBeats = (double(s_tick) / 2.0) / beatMs;
+    double beatIndex = std::floor(timeline.beat + halfTickBeats);
+
+    // a backward jump of the session timeline doesn't fire a beat
+    if (m_linkBeatValid && beatIndex > m_lastLinkBeat)
+    {
+        m_beatRequested = true;
+        emit beat();
+    }
+
+    m_lastLinkBeat = beatIndex;
+    m_linkBeatValid = true;
+
+    // time to the beat following the last fired one. timeToNextBeat()
+    // subtracts the time elapsed from this tick
+    m_linkTimeToNextBeat = qRound((beatIndex + 1.0 - timeline.beat) * beatMs);
+    m_beatTimer.restart();
 }

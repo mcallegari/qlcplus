@@ -27,6 +27,7 @@
 #include "audioplugincache.h"
 #include "audiorenderer.h"
 #include "audiocapture.h"
+#include "mastertimer.h"
 #include "qlcioplugin.h"
 #include "outputpatch.h"
 #include "inputpatch.h"
@@ -67,6 +68,7 @@ InputOutputManager::InputOutputManager(QQuickView *view, Doc *doc, QObject *pare
     connect(m_ioMap, SIGNAL(beat()), this, SIGNAL(beat()), Qt::QueuedConnection);
     connect(m_ioMap, SIGNAL(beatGeneratorTypeChanged()), this, SLOT(slotBeatTypeChanged()));
     connect(m_ioMap, SIGNAL(bpmNumberChanged(int)), this, SIGNAL(bpmNumberChanged(int)));
+    connect(m_doc->masterTimer(), SIGNAL(linkPeersChanged(int)), this, SIGNAL(linkPeersChanged(int)));
 }
 
 void InputOutputManager::slotDocLoaded()
@@ -932,6 +934,18 @@ QVariant InputOutputManager::beatGeneratorsList()
     internalMap.insert("privateName", "");
     genList.append(internalMap);
 
+    // add Ableton Link, if the service plugin is available
+    if (m_doc->masterTimer()->linkAvailable())
+    {
+        QVariantMap linkMap;
+        linkMap.insert("type", "LINK");
+        linkMap.insert("name", tr("Ableton Link"));
+        linkMap.insert("uni", 0);
+        linkMap.insert("line", 0);
+        linkMap.insert("privateName", "");
+        genList.append(linkMap);
+    }
+
     // add the currently open input devices that support beats
     foreach (Universe *uni, m_ioMap->universes())
     {
@@ -1007,6 +1021,8 @@ void InputOutputManager::setBeatType(QString beatType)
         m_ioMap->setBeatGeneratorType(InputOutputMap::Plugin);
     else if (m_beatType == "AUDIO")
         m_ioMap->setBeatGeneratorType(InputOutputMap::Audio);
+    else if (m_beatType == "LINK")
+        m_ioMap->setBeatGeneratorType(InputOutputMap::Link);
     else
         m_ioMap->setBeatGeneratorType(InputOutputMap::Disabled);
 
@@ -1022,6 +1038,7 @@ void InputOutputManager::slotBeatTypeChanged()
         case InputOutputMap::Internal: m_beatType = "INTERNAL"; break;
         case InputOutputMap::Plugin: m_beatType = "PLUGIN"; break;
         case InputOutputMap::Audio: m_beatType = "AUDIO"; break;
+        case InputOutputMap::Link: m_beatType = "LINK"; break;
         case InputOutputMap::Disabled:
         default:
             m_beatType = "OFF";
@@ -1043,5 +1060,10 @@ void InputOutputManager::setBpmNumber(int bpmNumber)
 
     m_ioMap->setBpmNumber(bpmNumber);
     emit bpmNumberChanged(bpmNumber);
+}
+
+int InputOutputManager::linkPeers() const
+{
+    return m_doc->masterTimer()->linkPeers();
 }
 

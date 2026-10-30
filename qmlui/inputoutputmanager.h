@@ -57,6 +57,7 @@ class InputOutputManager final : public PreviewContext
 
     Q_PROPERTY(QString beatType READ beatType WRITE setBeatType NOTIFY beatTypeChanged)
     Q_PROPERTY(int bpmNumber READ bpmNumber WRITE setBpmNumber NOTIFY bpmNumberChanged)
+    Q_PROPERTY(int linkPeers READ linkPeers NOTIFY linkPeersChanged)
 
     Q_PROPERTY(QString profileUserFolder READ profileUserFolder CONSTANT)
 
@@ -216,10 +217,14 @@ public:
     int bpmNumber() const;
     void setBpmNumber(int bpmNumber);
 
+    /** Get the number of other peers in the Ableton Link session */
+    int linkPeers() const;
+
 signals:
     void beatTypeChanged(QString beatType);
     void beat();
     void bpmNumberChanged(int bpmNumber);
+    void linkPeersChanged(int peers);
 
 protected slots:
     void slotBeatTypeChanged();

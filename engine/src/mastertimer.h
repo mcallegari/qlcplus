@@ -29,6 +29,7 @@
 #include <atomic>
 
 class MasterTimerPrivate;
+class QLCLinkService;
 class GenericFader;
 class FadeChannel;
 class DMXSource;
@@ -181,8 +182,9 @@ public:
     {
         None,       //! MasterTimer won't bother to perform any beat generation
         Internal,   //! MasterTimer will be the beat generator
-        External    //! Beats requests will come from an external source,
+        External,   //! Beats requests will come from an external source,
                     //! like MIDI beat clock or AudioInput BPM detection
+        Link        //! Beats and tempo follow the Ableton Link session
     };
 
     /** Set the type of source for beats generation. */
@@ -231,6 +233,9 @@ signals:
     void beat();
 
 private:
+    /** Run the Link beat source for the current tick */
+    void timerTickLink();
+
     /** The current type of beat source */
     BeatsSourceType m_beatSourceType;
     /** The current number of beats per minute emitted by a generator */
@@ -243,6 +248,33 @@ private:
     QElapsedTimer m_beatTimer;
     /** Time offset in milliseconds when the last beat occurred */
     int m_lastBeatOffset;
+
+    /*************************************************************************
+     * Ableton Link
+     *************************************************************************/
+public:
+    /** Set the object implementing QLCLinkService, provided by the
+     *  Link service plugin. Called once, when the plugin is loaded. */
+    void setLinkService(QObject *service);
+
+    /** Return true if the Link service plugin is available */
+    bool linkAvailable() const;
+
+    /** Return the number of other peers in the Link session */
+    int linkPeers() const;
+
+signals:
+    void linkPeersChanged(int peers);
+
+private:
+    /** The Link service, or NULL if the plugin is not loaded */
+    QLCLinkService *m_link;
+    /** The Link beat index seen at the previous tick, to detect beats */
+    double m_lastLinkBeat;
+    /** False until the first Link tick, to avoid a spurious first beat */
+    bool m_linkBeatValid;
+    /** Time in milliseconds to the next Link beat, at the last tick */
+    int m_linkTimeToNextBeat;
 };
 
 /** @} */

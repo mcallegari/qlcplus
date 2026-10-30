@@ -7,6 +7,7 @@ add_library(${module_name} ${QLC_LIB_TYPE}
     ../../plugins/interfaces/utils.h
     ../../plugins/interfaces/qlcserviceplugin.h
     ../../plugins/interfaces/qlcrdmservice.h
+    ../../plugins/interfaces/qlclinkservice.h
     avolitesd4parser.cpp avolitesd4parser.h
     bus.cpp bus.h
     channelmodifier.cpp channelmodifier.h

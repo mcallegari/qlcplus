@@ -60,6 +60,7 @@ InputOutputMap::InputOutputMap(const Doc *doc, quint32 universes)
     connect(doc->ioPluginCache(), SIGNAL(pluginConfigurationChanged(QLCIOPlugin*)),
             this, SLOT(slotPluginConfigurationChanged(QLCIOPlugin*)));
     connect(doc->masterTimer(), SIGNAL(beat()), this, SLOT(slotMasterTimerBeat()));
+    connect(doc->masterTimer(), SIGNAL(bpmNumberChanged(int)), this, SLOT(slotMasterTimerBpmChanged(int)));
 }
 
 InputOutputMap::~InputOutputMap()
@@ -1064,6 +1065,22 @@ void InputOutputMap::setBeatGeneratorType(InputOutputMap::BeatGeneratorType type
             m_inputCapture->registerBandsNumber(4);
         }
         break;
+        case Link:
+        {
+            if (m_doc->masterTimer()->linkAvailable() == false)
+            {
+                qWarning() << "[InputOutputMap] Ableton Link is not available. Using the internal beat generator";
+                m_beatGeneratorType = Disabled;
+                setBeatGeneratorType(Internal);
+                return;
+            }
+            // Don't use setBpmNumber here: it would push the current
+            // tempo to an existing Link session, overriding its tempo
+            m_currentBPM = m_doc->masterTimer()->bpmNumber();
+            m_doc->masterTimer()->setBeatSourceType(MasterTimer::Link);
+            emit bpmNumberChanged(m_currentBPM);
+        }
+        break;
         case Disabled:
         default:
             m_doc->masterTimer()->setBeatSourceType(MasterTimer::None);
@@ -1086,6 +1103,7 @@ QString InputOutputMap::beatTypeToString(BeatGeneratorType type) const
         case Internal:  return "Internal";
         case Plugin:    return "Plugin";
         case Audio:     return "Audio";
+        case Link:      return "Link";
         default:        return "Disabled";
     }
 }
@@ -1098,6 +1116,8 @@ InputOutputMap::BeatGeneratorType InputOutputMap::stringToBeatType(QString str)
         return Plugin;
     else if (str == "Audio")
         return Audio;
+    else if (str == "Link")
+        return Link;
 
     return Disabled;
 }
@@ -1160,10 +1180,21 @@ void InputOutputMap::slotProcessBeat(int bpm)
 
 void InputOutputMap::slotMasterTimerBeat()
 {
-    if (m_beatGeneratorType != Internal)
+    if (m_beatGeneratorType != Internal && m_beatGeneratorType != Link)
         return;
 
     emit beat();
+}
+
+void InputOutputMap::slotMasterTimerBpmChanged(int bpm)
+{
+    // only Link changes the tempo from MasterTimer. Don't call
+    // setBpmNumber, that would send the rounded tempo back to the session
+    if (m_beatGeneratorType != Link || bpm == m_currentBPM)
+        return;
+
+    m_currentBPM = bpm;
+    emit bpmNumberChanged(m_currentBPM);
 }
 
 void InputOutputMap::slotPluginBeat(quint32 universe, quint32 channel, uchar value, const QString &key)

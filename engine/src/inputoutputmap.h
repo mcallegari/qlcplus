@@ -592,7 +592,8 @@ public:
         Disabled,   //! No one is generating beats
         Internal,   //! MasterTimer is the beat generator
         Plugin,     //! A plugin is the beat generator
-        Audio       //! An audio input device is the beat generator
+        Audio,      //! An audio input device is the beat generator
+        Link        //! The Ableton Link session is the beat generator
     };
 
     void setBeatGeneratorType(BeatGeneratorType type);
@@ -606,6 +607,10 @@ public:
 
 protected slots:
     void slotMasterTimerBeat();
+
+    /** The tempo changed in MasterTimer. Used to follow the Link session */
+    void slotMasterTimerBpmChanged(int bpm);
+
     void slotPluginBeat(quint32 universe, quint32 channel, uchar value, const QString &key);
 
     /** Process a beat from the current beat source. @a bpm is the

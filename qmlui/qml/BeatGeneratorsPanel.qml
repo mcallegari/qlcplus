@@ -144,7 +144,9 @@ Rectangle
                         }
                         RobotoText
                         {
-                            label: modelData.name
+                            label: modelData.type === "LINK" ?
+                                       modelData.name + " (" + qsTr("peers: %1").arg(ioManager.linkPeers) + ")" :
+                                       modelData.name
                         }
                     }
                 }
@@ -157,7 +159,8 @@ Rectangle
             height: UISettings.iconSizeDefault * 6
             showDMXcontrol: false
             showTapButton: true
-            visible: ioManager.beatType === "INTERNAL"
+            // with Link, a new tempo is proposed to the whole session
+            visible: ioManager.beatType === "INTERNAL" || ioManager.beatType === "LINK"
             commandString: ioManager.bpmNumber
 
             onExecuteCommand: (cmd) =>
