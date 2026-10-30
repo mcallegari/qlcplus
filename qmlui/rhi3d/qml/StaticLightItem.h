@@ -32,6 +32,8 @@ class StaticLightItem : public MeshItem
     Q_PROPERTY(bool beamMode READ beamMode WRITE setBeamMode NOTIFY beamModeChanged)
     Q_PROPERTY(float beamRadius READ beamRadius WRITE setBeamRadius NOTIFY beamRadiusChanged)
     Q_PROPERTY(QString goboPath READ goboPath WRITE setGoboPath NOTIFY goboPathChanged)
+    Q_PROPERTY(float goboRotation READ goboRotation WRITE setGoboRotation NOTIFY goboRotationChanged)
+    Q_PROPERTY(float goboShake READ goboShake WRITE setGoboShake NOTIFY goboShakeChanged)
 
 public:
     explicit StaticLightItem(QObject *parent = nullptr);
@@ -59,6 +61,14 @@ public:
     QString goboPath() const { return m_goboPath; }
     void setGoboPath(const QString &path);
 
+    /** Gobo rotation around the beam axis, in degrees */
+    float goboRotation() const { return m_goboRotation; }
+    void setGoboRotation(float degrees);
+
+    /** Gobo shake lateral deviation, in degrees */
+    float goboShake() const { return m_goboShake; }
+    void setGoboShake(float degrees);
+
     Light toLight() const;
 
 Q_SIGNALS:
@@ -69,6 +79,8 @@ Q_SIGNALS:
     void beamModeChanged();
     void beamRadiusChanged();
     void goboPathChanged();
+    void goboRotationChanged();
+    void goboShakeChanged();
 
 private:
     QString m_path;
@@ -78,4 +90,6 @@ private:
     bool m_beamMode = false;
     float m_beamRadius = 0.05f;
     QString m_goboPath;
+    float m_goboRotation = 0.0f;
+    float m_goboShake = 0.0f;
 };

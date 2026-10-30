@@ -47,6 +47,9 @@
 #define MIN_GOBO_SPEED      500 // ms
 #define MAX_GOBO_SPEED      5000 // ms
 
+#define MIN_GOBO_SHAKE_PERIOD   150 // ms
+#define MAX_GOBO_SHAKE_PERIOD   1000 // ms
+
 QString FixtureUtils::fixtureLightResource(const Fixture *fixture)
 {
     if (fixture == nullptr)
@@ -649,6 +652,17 @@ bool FixtureUtils::goboTiming(const QLCCapability *cap, uchar value, int &speed)
     }
 
     return clockwise;
+}
+
+int FixtureUtils::goboShakeTiming(const QLCCapability *cap, uchar value)
+{
+    if (cap == nullptr)
+        return 0;
+
+    if (cap->max() <= cap->min())
+        return (MIN_GOBO_SHAKE_PERIOD + MAX_GOBO_SHAKE_PERIOD) / 2;
+
+    return SCALE(value, cap->min(), cap->max(), MAX_GOBO_SHAKE_PERIOD, MIN_GOBO_SHAKE_PERIOD);
 }
 
 int FixtureUtils::shutterTimings(const QLCChannel *ch, uchar value, int &highTime, int &lowTime)

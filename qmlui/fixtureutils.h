@@ -98,6 +98,11 @@ public:
     /** Calculate the gobo wheel speed depending on $cap preset */
     static bool goboTiming(const QLCCapability *cap, uchar value, int &speed);
 
+    /** Calculate the period of a full gobo shake oscillation, in milliseconds,
+     *  for a GoboShakeMacro $cap. The lowest value of the capability range is
+     *  the slowest shake, the highest is the fastest. */
+    static int goboShakeTiming(const QLCCapability *cap, uchar value);
+
     /** Calculate the rise/fall periods for a shutter channel $ch, considering presets */
     static int shutterTimings(const QLCChannel *ch, uchar value, int &highTime, int &lowTime);
 };

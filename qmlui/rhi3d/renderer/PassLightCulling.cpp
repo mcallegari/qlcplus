@@ -129,7 +129,8 @@ void PassLightCulling::execute(FrameContext &ctx)
         lightData.posRange[i] = QVector4D(l.position, l.range);
         lightData.colorIntensity[i] = QVector4D(l.color, l.intensity);
         lightData.dirInner[i] = QVector4D(dir, qCos(l.innerCone));
-        lightData.lightBeam[i] = QVector4D(l.beamRadius, float(l.beamShape), 0.0f, 0.0f);
+        lightData.lightBeam[i] = QVector4D(l.beamRadius, float(l.beamShape),
+                                           l.goboRotation, l.goboShake);
         float extraZ = 0.0f;
         float extraW = 0.0f;
         if (l.type == Light::Type::Area)

@@ -54,6 +54,8 @@ struct Light
     bool castShadows = true;
     int qualitySteps = 8;
     QString goboPath;
+    float goboRotation = 0.0f; // radians, around the beam axis
+    float goboShake = 0.0f;    // radians, lateral image deviation
     float beamRadius = 0.15f;
     BeamShapeType beamShape = BeamShapeType::ConeShape;
 };

@@ -70,6 +70,52 @@ StaticLight {
         }
     }
 
+    /* **************** Gobo rotation and shake **************** */
+
+    // maximum lateral deviation of the gobo image while shaking, in degrees
+    property real goboShakeAmplitude: 1.0
+
+    function setGoboSpeed(cw, speed) {
+        goboAnim.stop()
+        if (speed <= 0)
+            return
+
+        // continue from the current angle to avoid visible jumps
+        var start = goboRotation % 360
+        goboAnim.from = start
+        goboAnim.to = cw ? start + 360 : start - 360
+        goboAnim.duration = speed
+        goboAnim.start()
+    }
+
+    // period: duration in ms of a full oscillation. 0 stops shaking
+    function setGoboShake(period) {
+        goboShakeAnim.stop()
+        if (period <= 0) {
+            goboShake = 0
+            return
+        }
+        shakeOutPhase.duration = period / 4
+        shakeSwingPhase.duration = period / 2
+        shakeBackPhase.duration = period / 4
+        goboShakeAnim.start()
+    }
+
+    NumberAnimation on goboRotation {
+        id: goboAnim
+        running: false
+        loops: Animation.Infinite
+    }
+
+    SequentialAnimation on goboShake {
+        id: goboShakeAnim
+        running: false
+        loops: Animation.Infinite
+        NumberAnimation { id: shakeOutPhase; from: 0; to: root.goboShakeAmplitude; easing.type: Easing.OutSine }
+        NumberAnimation { id: shakeSwingPhase; from: root.goboShakeAmplitude; to: -root.goboShakeAmplitude; easing.type: Easing.InOutSine }
+        NumberAnimation { id: shakeBackPhase; from: -root.goboShakeAmplitude; to: 0; easing.type: Easing.InSine }
+    }
+
     SequentialAnimation on shutterValue
     {
         id: shutterAnim

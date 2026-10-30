@@ -35,6 +35,8 @@ bool lightEquals(const Light &a, const Light &b)
             && a.castShadows == b.castShadows
             && a.qualitySteps == b.qualitySteps
             && a.goboPath == b.goboPath
+            && a.goboRotation == b.goboRotation
+            && a.goboShake == b.goboShake
             && a.beamRadius == b.beamRadius
             && a.beamShape == b.beamShape;
 }

@@ -34,6 +34,8 @@ class MovingHeadItem : public MeshItem
     Q_PROPERTY(float pan READ pan WRITE setPan NOTIFY panChanged)
     Q_PROPERTY(float tilt READ tilt WRITE setTilt NOTIFY tiltChanged)
     Q_PROPERTY(QString goboPath READ goboPath WRITE setGoboPath NOTIFY goboPathChanged)
+    Q_PROPERTY(float goboRotation READ goboRotation WRITE setGoboRotation NOTIFY goboRotationChanged)
+    Q_PROPERTY(float goboShake READ goboShake WRITE setGoboShake NOTIFY goboShakeChanged)
 
 public:
     explicit MovingHeadItem(QObject *parent = nullptr);
@@ -67,6 +69,14 @@ public:
     QString goboPath() const { return m_goboPath; }
     void setGoboPath(const QString &path);
 
+    /** Gobo rotation around the beam axis, in degrees */
+    float goboRotation() const { return m_goboRotation; }
+    void setGoboRotation(float degrees);
+
+    /** Gobo shake lateral deviation, in degrees */
+    float goboShake() const { return m_goboShake; }
+    void setGoboShake(float degrees);
+
     Light toLight() const;
 
 Q_SIGNALS:
@@ -79,6 +89,8 @@ Q_SIGNALS:
     void panChanged();
     void tiltChanged();
     void goboPathChanged();
+    void goboRotationChanged();
+    void goboShakeChanged();
 
 private:
     QString m_path;
@@ -90,4 +102,6 @@ private:
     float m_pan = 0.0f;
     float m_tilt = 0.0f;
     QString m_goboPath;
+    float m_goboRotation = 0.0f;
+    float m_goboShake = 0.0f;
 };

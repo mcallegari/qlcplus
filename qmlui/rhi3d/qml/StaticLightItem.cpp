@@ -117,6 +117,24 @@ void StaticLightItem::setGoboPath(const QString &path)
     notifyParent();
 }
 
+void StaticLightItem::setGoboRotation(float degrees)
+{
+    if (qFuzzyCompare(m_goboRotation, degrees))
+        return;
+    m_goboRotation = degrees;
+    emit goboRotationChanged();
+    notifyParent();
+}
+
+void StaticLightItem::setGoboShake(float degrees)
+{
+    if (qFuzzyCompare(m_goboShake, degrees))
+        return;
+    m_goboShake = degrees;
+    emit goboShakeChanged();
+    notifyParent();
+}
+
 Light StaticLightItem::toLight() const
 {
     Light light;
@@ -135,5 +153,7 @@ Light StaticLightItem::toLight() const
     light.innerCone = halfAngle * 0.8f;
     light.castShadows = true;
     light.goboPath = m_goboPath;
+    light.goboRotation = qDegreesToRadians(m_goboRotation);
+    light.goboShake = qDegreesToRadians(m_goboShake);
     return light;
 }

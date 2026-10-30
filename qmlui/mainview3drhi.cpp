@@ -1399,6 +1399,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
     bool colorWheelActive = false;
     QString goboMacroPath;
     bool goboMacroUpdated = false;
+    int goboShakePeriod = 0;
     const quint32 itemFlags = m_monProps->fixtureFlags(fixture->id(), headIndex, linkedIndex);
     const bool invertedPan = (itemFlags & MonitorProperties::InvertedPanFlag);
     const bool invertedTilt = (itemFlags & MonitorProperties::InvertedTiltFlag);
@@ -1541,6 +1542,19 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                         goboPath = QDir::cleanPath(goboDirectory() + QDir::separator() + goboPath);
                     goboMacroPath = goboPath;
                     goboMacroUpdated = true;
+                    goboShakePeriod = (cap->preset() == QLCCapability::GoboShakeMacro)
+                            ? FixtureUtils::goboShakeTiming(cap, value) : 0;
+                }
+                else
+                {
+                    int speed;
+                    const bool clockwise = FixtureUtils::goboTiming(cap, value, speed);
+                    if (speed != -1)
+                    {
+                        QMetaObject::invokeMethod(fixtureItem, "setGoboSpeed",
+                                                  Q_ARG(QVariant, clockwise),
+                                                  Q_ARG(QVariant, speed));
+                    }
                 }
             }
             break;
@@ -1677,6 +1691,12 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
             if (decodeDoubleColorGoboPath(currentPath, currentColorA, currentColorB, &embeddedGoboPath))
                 fixtureItem->setProperty("goboPath", embeddedGoboPath);
         }
+    }
+
+    if (goboMacroUpdated)
+    {
+        QMetaObject::invokeMethod(fixtureItem, "setGoboShake",
+                                  Q_ARG(QVariant, goboShakePeriod));
     }
 
     if (zoomSet && hasProperty(fixtureItem, "zoom"))
