@@ -166,9 +166,9 @@ Rectangle {
     Rectangle {
         visible: View3D.frameCountEnabled
         z: 4
-        // top-right corner of the 3D area, left of the settings panel when open
+        // top-left corner of the 3D area
         anchors.top: renderer.top
-        anchors.right: settingsPanel.visible ? settingsPanel.left : parent.right
+        anchors.left: parent.left
         opacity: 0.6
         color: UISettings.bgMedium
         width: height
@@ -184,11 +184,17 @@ Rectangle {
 
     ViewGizmo {
         id: viewGizmo
-        anchors.left: parent.left
+        // top-right corner of the 3D area, left of the settings panel when open
+        anchors.right: settingsPanel.visible ? settingsPanel.left : parent.right
         anchors.top: renderer.top
         anchors.margins: 8
         renderer: renderer
         z: 6
+
+        onHomeRequested: {
+            View3D.resetCameraPosition()
+            animateCamera(View3D.cameraPosition, View3D.cameraViewCenter)
+        }
     }
 
     SettingsView3DRhi {

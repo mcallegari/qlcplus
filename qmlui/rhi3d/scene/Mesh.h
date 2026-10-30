@@ -84,6 +84,8 @@ struct Mesh
     bool gpuReady = false;
     int gizmoAxis = -1;
     int gizmoType = 0;
+    bool gizmoDraw = true;   // false: invisible pick proxy
+    bool gizmoPick = true;   // false: decoration only
     int selectionGroup = -1;
     SelectionDomain selectionDomain = SelectionDomain::FixtureItem;
     Material material;

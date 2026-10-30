@@ -2056,6 +2056,30 @@ public:
         updateGizmoMeshes(hasSelected ? selectedPos : QVector3D(),
                           m_scene.camera().position(), hasSelected);
 
+        // highlight: the part being dragged, otherwise the part under the mouse
+        int hotAxis = -1;
+        bool hotRing = false;
+        if (m_axisDragActive)
+            hotAxis = m_axisDrag;
+        else if (m_rotateDragActive)
+        {
+            hotAxis = m_rotateAxis;
+            hotRing = true;
+        }
+        else if (hasSelected)
+        {
+            QPointF hoverPos;
+            PickHit hoverHit;
+            if (qmlItem->hoverPosition(hoverPos)
+                && pickSceneMesh(m_scene, m_rhiContext.rhi(), hoverPos, PickFilter::GizmosOnly, hoverHit))
+            {
+                const Mesh &mesh = m_scene.meshes()[hoverHit.meshIndex];
+                hotAxis = mesh.gizmoAxis;
+                hotRing = (mesh.gizmoType == 2);
+            }
+        }
+        highlightGizmo(hotAxis, hotRing);
+
         QVector<RhiQmlItem::PickRequest> picks;
         qmlItem->takePendingPickRequests(picks);
         if (!picks.isEmpty() && !skipPick)
@@ -2210,7 +2234,8 @@ private:
     {
         int meshIndex = -1;
         int axis = -1;
-        int type = 0;
+        int type = 0; // GizmoShape
+        QVector3D color;
     };
     struct SelectedTransform
     {
@@ -2342,124 +2367,159 @@ private:
         }
     }
 
+    enum GizmoShape
+    {
+        GizmoRing,
+        GizmoRingProxy,
+        GizmoShaft,
+        GizmoShaftProxy,
+        GizmoHead,
+        GizmoCenterOutline,
+        GizmoCenter
+    };
+
+    // proportions, relative to the axis length
+    static constexpr float kGizmoRingRadius = 0.6f;
+    static constexpr float kGizmoLineRadius = 0.008f;
+    static constexpr float kGizmoProxyRadius = 0.05f;
+    static constexpr float kGizmoCenterRadius = 0.07f;
+    static constexpr float kGizmoHeadLength = 0.2f;
+    static constexpr float kGizmoHeadRadius = 0.065f;
+
+    void addGizmoMesh(Mesh mesh, int axis, int type, int shape, const QVector3D &color,
+                      bool draw = true, bool pick = true)
+    {
+        mesh.selectable = false;
+        mesh.gizmoAxis = axis;
+        mesh.gizmoType = type;
+        mesh.gizmoDraw = draw;
+        mesh.gizmoPick = pick;
+        mesh.material.baseColor = color;
+        mesh.material.emissive = color;
+        const int meshIndex = m_scene.meshes().size();
+        m_scene.meshes().push_back(mesh);
+        m_gizmoParts.push_back({ meshIndex, axis, shape, color });
+    }
+
     void ensureGizmoMeshes()
     {
         if (!m_gizmoParts.isEmpty())
             return;
         const QVector3D colors[3] = {
-            QVector3D(1.0f, 0.1f, 0.1f),
-            QVector3D(0.1f, 1.0f, 0.1f),
-            QVector3D(0.1f, 0.3f, 1.0f)
+            QVector3D(0.90f, 0.24f, 0.24f),
+            QVector3D(0.33f, 0.72f, 0.24f),
+            QVector3D(0.24f, 0.42f, 0.95f)
         };
-        const float arcRadius = 1.0f;
-        const float arcThickness = 0.03f;
-        const float arcSpan = float(M_PI) * 0.5f;
-        const int arcSegments = 24;
-        const int arcSides = 10;
+        const int ringSegments = 96;
+        const int ringSides = 8;
+        // ring meshes are built with a unit major radius and scaled at update time
+        const float ringTube = kGizmoLineRadius / kGizmoRingRadius;
+        const float ringProxyTube = kGizmoProxyRadius / kGizmoRingRadius;
+        const float fullTurn = float(M_PI) * 2.0f;
+
+        // drawing follows insertion order and has no depth test:
+        // rings first, then arrows, then the center handle on top
         for (int axis = 0; axis < 3; ++axis)
         {
-            for (int part = 0; part < 2; ++part)
-            {
-                Mesh mesh = createUnitCubeMesh();
-                mesh.selectable = false;
-                mesh.gizmoAxis = axis;
-                mesh.gizmoType = part;
-                mesh.material.baseColor = colors[axis];
-                mesh.material.emissive = colors[axis] * 2.0f;
-                const int meshIndex = m_scene.meshes().size();
-                m_scene.meshes().push_back(mesh);
-                m_gizmoParts.push_back({ meshIndex, axis, part });
-            }
-            Mesh arc = createArcMesh(arcRadius, arcThickness, 0.0f, arcSpan,
-                                     arcSegments, arcSides);
-            arc.selectable = false;
-            arc.gizmoAxis = axis;
-            arc.gizmoType = 2;
-            arc.material.baseColor = colors[axis];
-            arc.material.emissive = colors[axis] * 2.0f;
-            const int arcIndex = m_scene.meshes().size();
-            m_scene.meshes().push_back(arc);
-            m_gizmoParts.push_back({ arcIndex, axis, 2 });
+            addGizmoMesh(createArcMesh(1.0f, ringTube, 0.0f, fullTurn, ringSegments, ringSides),
+                         axis, 2, GizmoRing, colors[axis]);
+            addGizmoMesh(createArcMesh(1.0f, ringProxyTube, 0.0f, fullTurn, 48, 6),
+                         axis, 2, GizmoRingProxy, colors[axis], false, true);
+        }
+        for (int axis = 0; axis < 3; ++axis)
+        {
+            addGizmoMesh(createCylinderMesh(1.0f, 1.0f, 8), axis, 0, GizmoShaft, colors[axis]);
+            addGizmoMesh(createCylinderMesh(1.0f, 1.0f, 6), axis, 0, GizmoShaftProxy, colors[axis],
+                         false, true);
+            addGizmoMesh(createCylinderMesh(1.0f, 0.0f, 20), axis, 1, GizmoHead, colors[axis]);
+        }
+        addGizmoMesh(createSphereMesh(1.0f, 12, 20), 0, 3, GizmoCenterOutline,
+                     QVector3D(0.35f, 0.35f, 0.35f), true, false);
+        addGizmoMesh(createSphereMesh(1.0f, 12, 20), 0, 3, GizmoCenter,
+                     QVector3D(0.92f, 0.92f, 0.92f), true, false);
+    }
+
+    // brighten the arrow (shaft + head) or the ring under the mouse/being dragged.
+    // ring = true selects the rotation ring, false the translation arrow
+    void highlightGizmo(int axis, bool ring)
+    {
+        for (const GizmoPart &part : m_gizmoParts)
+        {
+            Mesh &mesh = m_scene.meshes()[part.meshIndex];
+            const bool partIsRing = (mesh.gizmoType == 2);
+            const bool hot = mesh.gizmoPick && axis >= 0 && part.axis == axis && partIsRing == ring;
+            const QVector3D color = hot ? part.color + (QVector3D(1.0f, 1.0f, 1.0f) - part.color) * 0.55f
+                                        : part.color;
+            mesh.material.baseColor = color;
+            mesh.material.emissive = color;
         }
     }
 
     void updateGizmoMeshes(const QVector3D &pos, const QVector3D &cameraPos, bool visible)
     {
         const float distance = (cameraPos - pos).length();
-        const float axisLength = qMax(0.2f, distance * 0.2f);
-        const float shaftRadius = axisLength * 0.06f;
-        const float headSize = axisLength * 0.14f;
-        const float arcRadius = axisLength * 0.5f;
-        const float arcScale = arcRadius;
+        const float axisLength = qMax(0.15f, distance * 0.15f);
+        const float centerRadius = axisLength * kGizmoCenterRadius;
+        const float headLength = axisLength * kGizmoHeadLength;
+        const float headRadius = axisLength * kGizmoHeadRadius;
+        const float shaftStart = centerRadius;
+        const float shaftLength = axisLength - headLength - shaftStart;
+        const float ringRadius = axisLength * kGizmoRingRadius;
 
         for (const GizmoPart &part : m_gizmoParts)
         {
             Mesh &mesh = m_scene.meshes()[part.meshIndex];
+            mesh.modelDirty = true;
+            mesh.worldBoundsDirty = true;
+            QMatrix4x4 m;
             if (!visible)
             {
-                QMatrix4x4 hidden;
-                hidden.setToIdentity();
-                hidden.scale(0.0f);
-                mesh.modelMatrix = hidden;
-                mesh.modelDirty = true;
-                mesh.worldBoundsDirty = true;
+                m.scale(0.0f);
+                mesh.modelMatrix = m;
                 continue;
             }
 
-            const int axis = part.axis;
-            const QVector3D dir = axisVector(axis);
-            if (part.type == 0)
-            {
-                QMatrix4x4 shaftM;
-                shaftM.translate(pos + dir * (axisLength * 0.5f));
-                if (axis == 0)
-                    shaftM.scale(axisLength, shaftRadius, shaftRadius);
-                else if (axis == 1)
-                    shaftM.scale(shaftRadius, axisLength, shaftRadius);
-                else
-                    shaftM.scale(shaftRadius, shaftRadius, axisLength);
-                mesh.modelMatrix = shaftM;
-                mesh.modelDirty = true;
-                mesh.worldBoundsDirty = true;
-            }
-            else if (part.type == 1)
-            {
-                QMatrix4x4 headM;
-                headM.translate(pos + dir * (axisLength + headSize * 0.5f));
-                headM.scale(headSize, headSize, headSize);
-                mesh.modelMatrix = headM;
-                mesh.modelDirty = true;
-                mesh.worldBoundsDirty = true;
-            }
-            else
-            {
-                QVector3D u(1.0f, 0.0f, 0.0f);
-                QVector3D v(0.0f, 1.0f, 0.0f);
-                QVector3D axisDir = dir;
-                if (axis == 0) {
-                    axisDir = QVector3D(1.0f, 0.0f, 0.0f);
-                    u = QVector3D(0.0f, 1.0f, 0.0f);
-                    v = QVector3D(0.0f, 0.0f, 1.0f);
-                } else if (axis == 1) {
-                    axisDir = QVector3D(0.0f, 1.0f, 0.0f);
-                    u = QVector3D(1.0f, 0.0f, 0.0f);
-                    v = QVector3D(0.0f, 0.0f, 1.0f);
-                } else {
-                    axisDir = QVector3D(0.0f, 0.0f, 1.0f);
-                    u = QVector3D(1.0f, 0.0f, 0.0f);
-                    v = QVector3D(0.0f, 1.0f, 0.0f);
-                }
+            const QVector3D dir = axisVector(part.axis);
+            // unit meshes are built along +Y
+            const QQuaternion toAxis = QQuaternion::rotationTo(QVector3D(0.0f, 1.0f, 0.0f), dir);
 
-                QMatrix4x4 arcM;
-                arcM.setToIdentity();
-                arcM.setColumn(0, QVector4D(u * arcScale, 0.0f));
-                arcM.setColumn(1, QVector4D(v * arcScale, 0.0f));
-                arcM.setColumn(2, QVector4D(axisDir * arcScale, 0.0f));
-                arcM.setColumn(3, QVector4D(pos, 1.0f));
-                mesh.modelMatrix = arcM;
-                mesh.modelDirty = true;
-                mesh.worldBoundsDirty = true;
+            switch (part.type)
+            {
+            case GizmoRing:
+            case GizmoRingProxy:
+            {
+                // arc meshes lie in their local XY plane, around Z
+                const QQuaternion toRing = QQuaternion::rotationTo(QVector3D(0.0f, 0.0f, 1.0f), dir);
+                m.translate(pos);
+                m.rotate(toRing);
+                m.scale(ringRadius);
             }
+            break;
+            case GizmoShaft:
+            case GizmoShaftProxy:
+            {
+                const float r = axisLength * (part.type == GizmoShaft ? kGizmoLineRadius : kGizmoProxyRadius);
+                m.translate(pos + dir * shaftStart);
+                m.rotate(toAxis);
+                m.scale(r, shaftLength, r);
+            }
+            break;
+            case GizmoHead:
+                m.translate(pos + dir * (axisLength - headLength));
+                m.rotate(toAxis);
+                m.scale(headRadius, headLength, headRadius);
+            break;
+            case GizmoCenterOutline:
+                m.translate(pos);
+                m.scale(centerRadius * 1.25f);
+            break;
+            case GizmoCenter:
+            default:
+                m.translate(pos);
+                m.scale(centerRadius);
+            break;
+            }
+            mesh.modelMatrix = m;
         }
     }
 };
@@ -2470,6 +2530,7 @@ RhiQmlItem::RhiQmlItem(QQuickItem *parent)
     : QQuickRhiItem(parent)
 {
     setAcceptedMouseButtons(Qt::LeftButton | Qt::RightButton | Qt::MiddleButton);
+    setAcceptHoverEvents(true);
     setFlag(ItemIsFocusScope, true);
     m_cameraTick = new QTimer(this);
     m_cameraTick->setInterval(16);
@@ -2817,7 +2878,10 @@ void RhiQmlItem::mouseMoveEvent(QMouseEvent *event)
         const QVector3D right = QVector3D::crossProduct(forward, QVector3D(0.0f, 1.0f, 0.0f)).normalized();
         const QVector3D up = QVector3D::crossProduct(right, forward).normalized();
         const float dist = (m_cameraTarget - m_cameraPosition).length();
-        const float scale = qMax(0.001f, dist) * 0.006f;
+        // world units per pixel at the target distance, so the scene follows the cursor
+        const float viewH = qMax(1.0f, float(height()));
+        const float scale = 2.0f * qMax(0.001f, dist)
+                * qTan(qDegreesToRadians(m_cameraFov) * 0.5f) / viewH;
         const QVector3D pan = (-right * float(delta.x()) + up * float(delta.y())) * scale;
         m_cameraPosition += pan;
         m_cameraTarget += pan;
@@ -2836,6 +2900,8 @@ void RhiQmlItem::mouseMoveEvent(QMouseEvent *event)
             const QPointF pos = event->position();
             const QPointF normPos(pos.x() / w, pos.y() / h);
             m_pendingDragRequests.push_back({ normPos, 1 });
+            m_hoverNormPos = normPos;
+            m_hoverValid = true;
             update();
         }
     }
@@ -2848,9 +2914,11 @@ void RhiQmlItem::mouseMoveEvent(QMouseEvent *event)
     const QPointF delta = pos - m_lastMousePos;
     m_lastMousePos = pos;
 
-    const float sensitivity = m_lookSensitivity * 5.0f;
+    // degrees per pixel (0.4 with the default sensitivity)
+    const float sensitivity = m_lookSensitivity * 2.0f;
     float yawDelta = -float(delta.x()) * sensitivity;
-    float pitchDelta = float(delta.y()) * sensitivity;
+    // same direction as dragging on the view gizmo
+    float pitchDelta = -float(delta.y()) * sensitivity;
 
     if (event->modifiers() & Qt::ShiftModifier)
     {
@@ -3035,6 +3103,35 @@ void RhiQmlItem::takePendingPickRequests(QVector<PickRequest> &out)
 {
     out = std::move(m_pendingPickRequests);
     m_pendingPickRequests.clear();
+}
+
+bool RhiQmlItem::hoverPosition(QPointF &normPos) const
+{
+    if (!m_hoverValid)
+        return false;
+    normPos = m_hoverNormPos;
+    return true;
+}
+
+void RhiQmlItem::hoverMoveEvent(QHoverEvent *event)
+{
+    const float w = width();
+    const float h = height();
+    if (w > 0.0f && h > 0.0f)
+    {
+        const QPointF pos = event->position();
+        m_hoverNormPos = QPointF(pos.x() / w, pos.y() / h);
+        m_hoverValid = true;
+        update();
+    }
+    QQuickRhiItem::hoverMoveEvent(event);
+}
+
+void RhiQmlItem::hoverLeaveEvent(QHoverEvent *event)
+{
+    m_hoverValid = false;
+    update();
+    QQuickRhiItem::hoverLeaveEvent(event);
 }
 
 void RhiQmlItem::takePendingDragRequests(QVector<DragRequest> &out)

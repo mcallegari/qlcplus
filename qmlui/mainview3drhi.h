@@ -75,7 +75,7 @@ public:
     void setUniverseFilter(quint32 universeFilter) override;
 
     void resetItems();
-    void resetCameraPosition();
+    Q_INVOKABLE void resetCameraPosition();
 
     QVector3D cameraPosition() const;
     void setCameraPosition(const QVector3D &newCameraPosition);

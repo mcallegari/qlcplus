@@ -30,5 +30,7 @@ Mesh createSphereMesh(float radius = 0.5f, int rings = 16, int sectors = 24);
 Mesh createArcMesh(float majorRadius, float tubeRadius,
                    float startAngle, float endAngle,
                    int segments, int sides);
+// Capped cylinder along +Y, from y = 0 to y = 1. topRadius = 0 gives a cone.
+Mesh createCylinderMesh(float bottomRadius, float topRadius, int sides);
 
 }

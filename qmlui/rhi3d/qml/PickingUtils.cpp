@@ -159,7 +159,7 @@ bool pickSceneMesh(const RhiScene &scene, QRhi *rhi, const QPointF &normPos,
             continue;
         if (filter == PickFilter::SelectableOnly && !mesh.selectable)
             continue;
-        if (filter == PickFilter::GizmosOnly && mesh.gizmoAxis < 0)
+        if (filter == PickFilter::GizmosOnly && (mesh.gizmoAxis < 0 || !mesh.gizmoPick))
             continue;
         if (mesh.vertices.isEmpty())
             continue;

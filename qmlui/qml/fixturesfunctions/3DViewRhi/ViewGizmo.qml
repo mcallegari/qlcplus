@@ -1,246 +1,297 @@
 import QtQuick 2.15
 
+import ".."
+
+// Blender-style navigation gizmo: one bubble per world axis direction.
+// Click a bubble to look along that axis, drag to orbit,
+// click the home button to restore the default camera.
 Item {
-    id: viewCube
+    id: viewGizmo
     property var renderer: null
+    // optional override, called with the desired camera forward direction
     property var snapCamera: null
-    width: 120
-    height: 120
+
+    // emitted when the home button is clicked
+    signal homeRequested()
+
+    width: 116
+    height: 116
     z: 10
+
+    readonly property real gizmoRadius: 50
+    readonly property real axisLength: 34
+    readonly property real bubbleRadius: 10
+    readonly property real cx: width - gizmoRadius - 2
+    readonly property real cy: height - gizmoRadius - 2
 
     property vector3d camForward: Qt.vector3d(0, 0, -1)
     property vector3d camRight: Qt.vector3d(1, 0, 0)
     property vector3d camUp: Qt.vector3d(0, 1, 0)
 
+    property int hoverAxis: -1
+    property bool hoverGizmo: false
+
+    // index: 0 = +X, 1 = +Y, 2 = +Z, 3 = -X, 4 = -Y, 5 = -Z
+    readonly property var axisColors: ["#e63d3d", "#54b83d", "#3d6bf2"]
+    readonly property var axisLabels: ["X", "Y", "Z"]
+
+    function axisDir(i) {
+        var s = i < 3 ? 1 : -1
+        switch (i % 3) {
+        case 0: return Qt.vector3d(s, 0, 0)
+        case 1: return Qt.vector3d(0, s, 0)
+        default: return Qt.vector3d(0, 0, s)
+        }
+    }
+
     function vdot(a, b) { return a.x * b.x + a.y * b.y + a.z * b.z }
     function vcross(a, b) {
-        return Qt.vector3d(
-            a.y * b.z - a.z * b.y,
-            a.z * b.x - a.x * b.z,
-            a.x * b.y - a.y * b.x
-        )
+        return Qt.vector3d(a.y * b.z - a.z * b.y,
+                           a.z * b.x - a.x * b.z,
+                           a.x * b.y - a.y * b.x)
     }
-    function vlen(a) { return Math.sqrt(a.x * a.x + a.y * a.y + a.z * a.z) }
+    function vlen(a) { return Math.sqrt(vdot(a, a)) }
+    function vscale(a, k) { return Qt.vector3d(a.x * k, a.y * k, a.z * k) }
+    function vadd(a, b) { return Qt.vector3d(a.x + b.x, a.y + b.y, a.z + b.z) }
+    function vsub(a, b) { return Qt.vector3d(a.x - b.x, a.y - b.y, a.z - b.z) }
     function vnorm(a) {
         var l = vlen(a)
         if (l <= 0.00001)
             return Qt.vector3d(0, 0, -1)
-        return Qt.vector3d(a.x / l, a.y / l, a.z / l)
+        return vscale(a, 1.0 / l)
     }
 
     function updateBasis() {
         if (!renderer)
             return
-        var f = vnorm(Qt.vector3d(renderer.cameraTarget.x - renderer.cameraPosition.x,
-                                  renderer.cameraTarget.y - renderer.cameraPosition.y,
-                                  renderer.cameraTarget.z - renderer.cameraPosition.z))
-        var upWorld = Qt.vector3d(0, 1, 0)
-        var r = vcross(f, upWorld)
+        var f = vnorm(vsub(renderer.cameraTarget, renderer.cameraPosition))
+        var r = vcross(f, Qt.vector3d(0, 1, 0))
+        // same fallback as the renderer camera when looking straight up/down
         if (vlen(r) < 0.0001)
-            r = vcross(f, Qt.vector3d(0, 0, 1))
+            r = vcross(f, Qt.vector3d(0, 0, -1))
         r = vnorm(r)
-        var u = vnorm(vcross(r, f))
         camForward = f
         camRight = r
-        camUp = u
+        camUp = vnorm(vcross(r, f))
+    }
+
+    // screen position and depth (positive = toward the viewer) of each bubble
+    function projectedAxes() {
+        var list = []
+        for (var i = 0; i < 6; ++i) {
+            var v = axisDir(i)
+            list.push({
+                index: i,
+                x: cx + vdot(v, camRight) * axisLength,
+                y: cy - vdot(v, camUp) * axisLength,
+                depth: -vdot(v, camForward)
+            })
+        }
+        return list
+    }
+
+    function axisAt(x, y) {
+        var axes = projectedAxes()
+        axes.sort(function(a, b) { return b.depth - a.depth })
+        for (var i = 0; i < axes.length; ++i) {
+            var dx = x - axes[i].x
+            var dy = y - axes[i].y
+            if (dx * dx + dy * dy <= bubbleRadius * bubbleRadius)
+                return axes[i].index
+        }
+        return -1
+    }
+
+    function insideGizmo(x, y) {
+        var dx = x - cx
+        var dy = y - cy
+        return dx * dx + dy * dy <= gizmoRadius * gizmoRadius
     }
 
     function cameraDistance() {
         if (!renderer)
             return 5.0
-        var dx = renderer.cameraTarget.x - renderer.cameraPosition.x
-        var dy = renderer.cameraTarget.y - renderer.cameraPosition.y
-        var dz = renderer.cameraTarget.z - renderer.cameraPosition.z
-        var dist = Math.sqrt(dx * dx + dy * dy + dz * dz)
-        return Math.max(dist, 0.5)
+        return Math.max(vlen(vsub(renderer.cameraTarget, renderer.cameraPosition)), 0.5)
     }
 
-    function faceForward(faceIndex) {
-        switch (faceIndex) {
-        case 0: return Qt.vector3d(0, 0, 1)   // back (-Z face)
-        case 1: return Qt.vector3d(0, 0, -1)  // front (+Z face)
-        case 2: return Qt.vector3d(0, 1, 0)   // bottom (-Y face)
-        case 3: return Qt.vector3d(0, -1, 0)  // top (+Y face)
-        case 4: return Qt.vector3d(1, 0, 0)   // left (-X face)
-        case 5: return Qt.vector3d(-1, 0, 0)  // right (+X face)
-        default: return Qt.vector3d(0, 0, -1)
+    /* ---------------- camera animation ---------------- */
+
+    property vector3d animFromTarget
+    property vector3d animToTarget
+    property vector3d animFromDir
+    property vector3d animToDir
+    property real animFromDist: 1
+    property real animToDist: 1
+    property real animT: 0
+
+    function slerpDir(a, b, t) {
+        var d = Math.max(-1, Math.min(1, vdot(a, b)))
+        if (d > 0.9999)
+            return b
+        if (d < -0.9999) {
+            // opposite directions: turn around the current screen up axis
+            var axis = camUp
+            var ang = Math.PI * t
+            var c = Math.cos(ang), s = Math.sin(ang)
+            return vnorm(vadd(vscale(a, c), vscale(vcross(axis, a), s)))
         }
+        var theta = Math.acos(d)
+        var sinT = Math.sin(theta)
+        var wa = Math.sin((1 - t) * theta) / sinT
+        var wb = Math.sin(t * theta) / sinT
+        return vnorm(vadd(vscale(a, wa), vscale(b, wb)))
     }
 
-    function snapToDirection(dir) {
+    onAnimTChanged: {
+        if (!renderer || !camAnim.running)
+            return
+        var t = animT
+        var target = vadd(animFromTarget, vscale(vsub(animToTarget, animFromTarget), t))
+        var dir = slerpDir(animFromDir, animToDir, t)
+        var dist = animFromDist + (animToDist - animFromDist) * t
+        renderer.cameraTarget = target
+        renderer.cameraPosition = vadd(target, vscale(dir, dist))
+    }
+
+    NumberAnimation {
+        id: camAnim
+        target: viewGizmo
+        property: "animT"
+        from: 0
+        to: 1
+        duration: 250
+        easing.type: Easing.InOutQuad
+    }
+
+    // move the camera to look at toTarget from toPos
+    function animateCamera(toPos, toTarget) {
         if (!renderer)
             return
-        var n = vnorm(dir)
-        var dist = cameraDistance()
+        camAnim.stop()
+        var fromOffset = vsub(renderer.cameraPosition, renderer.cameraTarget)
+        var toOffset = vsub(toPos, toTarget)
+        animFromTarget = renderer.cameraTarget
+        animToTarget = toTarget
+        animFromDir = vnorm(fromOffset)
+        animToDir = vnorm(toOffset)
+        animFromDist = vlen(fromOffset)
+        animToDist = vlen(toOffset)
+        animT = 0
+        camAnim.start()
+    }
+
+    function snapToDirection(forward) {
+        if (!renderer)
+            return
+        var n = vnorm(forward)
+        // keep a tiny tilt on top/bottom views so orbiting keeps working
+        if (Math.abs(n.y) > 0.999)
+            n = vnorm(Qt.vector3d(0, n.y, -0.03))
         var target = renderer.cameraTarget
-        renderer.cameraPosition = Qt.vector3d(target.x - n.x * dist,
-                                              target.y - n.y * dist,
-                                              target.z - n.z * dist)
-        renderer.cameraTarget = target
+        animateCamera(vsub(target, vscale(n, cameraDistance())), target)
     }
 
-    function pointInTriangle(px, py, ax, ay, bx, by, cx, cy) {
-        var v0x = cx - ax
-        var v0y = cy - ay
-        var v1x = bx - ax
-        var v1y = by - ay
-        var v2x = px - ax
-        var v2y = py - ay
-
-        var dot00 = v0x * v0x + v0y * v0y
-        var dot01 = v0x * v1x + v0y * v1y
-        var dot02 = v0x * v2x + v0y * v2y
-        var dot11 = v1x * v1x + v1y * v1y
-        var dot12 = v1x * v2x + v1y * v2y
-
-        var denom = dot00 * dot11 - dot01 * dot01
-        if (Math.abs(denom) < 0.00001)
-            return false
-        var invDenom = 1.0 / denom
-        var u = (dot11 * dot02 - dot01 * dot12) * invDenom
-        var v = (dot00 * dot12 - dot01 * dot02) * invDenom
-        return u >= 0.0 && v >= 0.0 && (u + v) <= 1.0
+    function viewFromAxis(i) {
+        var v = axisDir(i)
+        // clicking the axis we're already looking from flips to the opposite side
+        if (vdot(camForward, v) < -0.99)
+            v = vscale(v, -1)
+        var forward = vscale(v, -1)
+        if (snapCamera)
+            snapCamera(forward)
+        else
+            snapToDirection(forward)
     }
 
-    function pointInQuad(px, py, p0, p1, p2, p3) {
-        return pointInTriangle(px, py, p0.x, p0.y, p1.x, p1.y, p2.x, p2.y)
-                || pointInTriangle(px, py, p0.x, p0.y, p2.x, p2.y, p3.x, p3.y)
-    }
+    /* ---------------- drawing ---------------- */
 
-    function hitFaceAt(x, y) {
-        var cx = width * 0.5
-        var cy = height * 0.5
-        var scale = width * 0.32
-
-        function rot(v) {
-            return Qt.vector3d(
-                vdot(v, viewCube.camRight),
-                vdot(v, viewCube.camUp),
-                vdot(v, Qt.vector3d(-viewCube.camForward.x, -viewCube.camForward.y, -viewCube.camForward.z))
-            )
-        }
-        function proj(v) {
-            return Qt.point(cx + v.x * scale, cy - v.y * scale)
-        }
-
-        var verts = [
-            Qt.vector3d(-1, -1, -1), Qt.vector3d(1, -1, -1), Qt.vector3d(1, 1, -1), Qt.vector3d(-1, 1, -1),
-            Qt.vector3d(-1, -1, 1), Qt.vector3d(1, -1, 1), Qt.vector3d(1, 1, 1), Qt.vector3d(-1, 1, 1)
-        ]
-        var faces = [
-            [0, 1, 2, 3], [4, 5, 6, 7], [0, 1, 5, 4], [3, 2, 6, 7], [0, 3, 7, 4], [1, 2, 6, 5]
-        ]
-
-        var rverts = []
-        for (var i = 0; i < verts.length; ++i)
-            rverts.push(rot(verts[i]))
-
-        var candidates = []
-        for (var f = 0; f < faces.length; ++f) {
-            var face = faces[f]
-            var depth = (rverts[face[0]].z + rverts[face[1]].z + rverts[face[2]].z + rverts[face[3]].z) * 0.25
-            candidates.push({ index: f, depth: depth })
-        }
-
-        candidates.sort(function(a, b) { return b.depth - a.depth })
-
-        for (var c = 0; c < candidates.length; ++c) {
-            var idx = candidates[c].index
-            var faceVerts = faces[idx]
-            var p0 = proj(rverts[faceVerts[0]])
-            var p1 = proj(rverts[faceVerts[1]])
-            var p2 = proj(rverts[faceVerts[2]])
-            var p3 = proj(rverts[faceVerts[3]])
-            if (pointInQuad(x, y, p0, p1, p2, p3))
-                return idx
-        }
-
-        return -1
+    function shade(hex, k) {
+        // mix the color toward the dark background by factor k
+        var c = Qt.color(hex)
+        var bg = [0.16, 0.17, 0.20]
+        return "rgb(" + Math.round((c.r * (1 - k) + bg[0] * k) * 255) + ","
+                      + Math.round((c.g * (1 - k) + bg[1] * k) * 255) + ","
+                      + Math.round((c.b * (1 - k) + bg[2] * k) * 255) + ")"
     }
 
     Canvas {
-        id: cubeCanvas
+        id: canvas
         anchors.fill: parent
+        antialiasing: true
+
         onPaint: {
             var ctx = getContext("2d")
+            ctx.reset()
             ctx.clearRect(0, 0, width, height)
-            var cx = width * 0.5
-            var cy = height * 0.5
-            var scale = width * 0.32
-            var lightDir = Qt.vector3d(0.4, 0.6, 0.7)
-            var lightLen = Math.sqrt(lightDir.x * lightDir.x + lightDir.y * lightDir.y + lightDir.z * lightDir.z)
-            if (lightLen > 0.0001)
-                lightDir = Qt.vector3d(lightDir.x / lightLen, lightDir.y / lightLen, lightDir.z / lightLen)
 
-            function rot(v) {
-                return Qt.vector3d(
-                    vdot(v, viewCube.camRight),
-                    vdot(v, viewCube.camUp),
-                    vdot(v, Qt.vector3d(-viewCube.camForward.x, -viewCube.camForward.y, -viewCube.camForward.z))
-                )
-            }
-            function proj(v) {
-                return Qt.point(cx + v.x * scale, cy - v.y * scale)
-            }
-
-            var verts = [
-                Qt.vector3d(-1, -1, -1), Qt.vector3d(1, -1, -1), Qt.vector3d(1, 1, -1), Qt.vector3d(-1, 1, -1),
-                Qt.vector3d(-1, -1, 1), Qt.vector3d(1, -1, 1), Qt.vector3d(1, 1, 1), Qt.vector3d(-1, 1, 1)
-            ]
-            var edges = [
-                [0, 1], [1, 2], [2, 3], [3, 0], [4, 5], [5, 6], [6, 7], [7, 4], [0, 4], [1, 5], [2, 6], [3, 7]
-            ]
-            var faces = [
-                [0, 1, 2, 3], [4, 5, 6, 7], [0, 1, 5, 4], [3, 2, 6, 7], [0, 3, 7, 4], [1, 2, 6, 5]
-            ]
-
-            var rverts = []
-            for (var i = 0; i < verts.length; ++i)
-                rverts.push(rot(verts[i]))
-
-            function faceDepth(face) {
-                return (rverts[face[0]].z + rverts[face[1]].z + rverts[face[2]].z + rverts[face[3]].z) * 0.25
-            }
-
-            function faceNormal(face) {
-                var a = rverts[face[0]]
-                var b = rverts[face[1]]
-                var c = rverts[face[2]]
-                var ab = Qt.vector3d(b.x - a.x, b.y - a.y, b.z - a.z)
-                var ac = Qt.vector3d(c.x - a.x, c.y - a.y, c.z - a.z)
-                return vnorm(vcross(ab, ac))
-            }
-
-            var faceOrder = faces.slice()
-            faceOrder.sort(function(a, b) { return faceDepth(a) - faceDepth(b) })
-
-            for (var f = 0; f < faceOrder.length; ++f) {
-                var face = faceOrder[f]
-                var n = faceNormal(face)
-                var lit = Math.max(0.1, vdot(n, lightDir))
-                var shade = Math.floor(90 + 140 * lit)
-                ctx.fillStyle = "rgb(" + shade + "," + shade + "," + shade + ")"
-                ctx.beginPath()
-                var p0 = proj(rverts[face[0]])
-                ctx.moveTo(p0.x, p0.y)
-                for (var k = 1; k < 4; ++k) {
-                    var pk = proj(rverts[face[k]])
-                    ctx.lineTo(pk.x, pk.y)
-                }
-                ctx.closePath()
-                ctx.fill()
-            }
-
-            ctx.lineWidth = 2
-            ctx.strokeStyle = "#f3e86b"
+            // background disc
             ctx.beginPath()
-            for (var e = 0; e < edges.length; ++e) {
-                var a = proj(rverts[edges[e][0]])
-                var b = proj(rverts[edges[e][1]])
-                ctx.moveTo(a.x, a.y)
-                ctx.lineTo(b.x, b.y)
+            ctx.arc(cx, cy, gizmoRadius, 0, Math.PI * 2)
+            ctx.fillStyle = hoverGizmo ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.05)"
+            ctx.fill()
+
+            var axes = projectedAxes()
+            axes.sort(function(a, b) { return a.depth - b.depth })
+
+            for (var i = 0; i < axes.length; ++i) {
+                var a = axes[i]
+                var axis = a.index % 3
+                var positive = a.index < 3
+                var color = axisColors[axis]
+                var hovered = a.index === hoverAxis
+
+                // stem from the center to the bubble edge
+                var dx = a.x - cx
+                var dy = a.y - cy
+                var len = Math.sqrt(dx * dx + dy * dy)
+                if (len > bubbleRadius) {
+                    var ex = cx + dx * (len - bubbleRadius) / len
+                    var ey = cy + dy * (len - bubbleRadius) / len
+                    ctx.beginPath()
+                    ctx.moveTo(cx, cy)
+                    ctx.lineTo(ex, ey)
+                    ctx.lineWidth = 3
+                    ctx.lineCap = "round"
+                    ctx.strokeStyle = positive ? color : shade(color, 0.35)
+                    ctx.stroke()
+                }
+
+                // bubble
+                ctx.beginPath()
+                ctx.arc(a.x, a.y, positive ? bubbleRadius : bubbleRadius - 1.5, 0, Math.PI * 2)
+                if (positive) {
+                    ctx.fillStyle = color
+                    ctx.fill()
+                } else {
+                    ctx.fillStyle = hovered ? shade(color, 0.3) : shade(color, 0.75)
+                    ctx.fill()
+                    ctx.lineWidth = 2.5
+                    ctx.strokeStyle = shade(color, 0.2)
+                    ctx.stroke()
+                }
+
+                if (hovered) {
+                    ctx.beginPath()
+                    ctx.arc(a.x, a.y, bubbleRadius + 1, 0, Math.PI * 2)
+                    ctx.lineWidth = 1.5
+                    ctx.strokeStyle = "#ffffff"
+                    ctx.stroke()
+                }
+
+                if (positive || hovered) {
+                    ctx.fillStyle = "#ffffff"
+                    ctx.font = "bold 12px sans-serif"
+                    ctx.textAlign = "center"
+                    ctx.textBaseline = "middle"
+                    ctx.fillText((positive ? "" : "-") + axisLabels[axis], a.x, a.y + 0.5)
+                }
             }
-            ctx.stroke()
+
+            // center dot
+            ctx.beginPath()
+            ctx.arc(cx, cy, 2.5, 0, Math.PI * 2)
+            ctx.fillStyle = "#c8c8c8"
+            ctx.fill()
         }
     }
 
@@ -249,44 +300,91 @@ Item {
         hoverEnabled: true
         property point pressPos: Qt.point(0, 0)
         property bool dragging: false
+        property bool pressedInside: false
 
+        function updateHover(x, y) {
+            var inside = insideGizmo(x, y)
+            var axis = (inside && !dragging) ? axisAt(x, y) : -1
+            if (inside !== hoverGizmo || axis !== hoverAxis) {
+                hoverGizmo = inside
+                hoverAxis = axis
+                canvas.requestPaint()
+            }
+        }
+
+        onExited: {
+            hoverGizmo = false
+            hoverAxis = -1
+            canvas.requestPaint()
+        }
         onPressed: function(mouse) {
+            pressedInside = insideGizmo(mouse.x, mouse.y)
+            mouse.accepted = pressedInside
             pressPos = Qt.point(mouse.x, mouse.y)
             dragging = false
         }
         onPositionChanged: function(mouse) {
-            if (!pressed || !renderer)
+            if (!pressed || !renderer) {
+                updateHover(mouse.x, mouse.y)
                 return
+            }
             var dx = mouse.x - pressPos.x
             var dy = mouse.y - pressPos.y
-            if (Math.abs(dx) > 1 || Math.abs(dy) > 1) {
-                dragging = true
-                renderer.rotateFreeCamera(dx * 0.2, dy * 0.2)
+            if (dragging || Math.abs(dx) > 2 || Math.abs(dy) > 2) {
+                if (!dragging) {
+                    dragging = true
+                    camAnim.stop()
+                    hoverAxis = -1
+                }
+                renderer.rotateFreeCamera(dx * 0.4, dy * 0.4)
                 pressPos = Qt.point(mouse.x, mouse.y)
             }
         }
         onReleased: function(mouse) {
-            if (!renderer || dragging)
+            var wasDragging = dragging
+            dragging = false
+            if (!renderer || wasDragging || !pressedInside)
                 return
-            var faceIndex = hitFaceAt(mouse.x, mouse.y)
-            if (faceIndex < 0)
-                return
-            var dir = faceForward(faceIndex)
-            if (snapCamera)
-                snapCamera(dir)
-            else
-                snapToDirection(dir)
+            var axis = axisAt(mouse.x, mouse.y)
+            if (axis >= 0)
+                viewFromAxis(axis)
+        }
+    }
+
+    // home button
+    Rectangle {
+        id: homeButton
+        x: 10
+        y: 10
+        width: 35
+        height: 35
+        radius: width / 2
+        color: homeArea.containsMouse ? Qt.rgba(1, 1, 1, 0.22) : Qt.rgba(1, 1, 1, 0.08)
+
+        Text {
+            anchors.centerIn: parent
+            font.family: UISettings.fontAwesomeFontName
+            font.pixelSize: parent.height * 0.55
+            color: "#e0e0e0"
+            text: FontAwesome.fa_house
+        }
+
+        MouseArea {
+            id: homeArea
+            anchors.fill: parent
+            hoverEnabled: true
+            onClicked: viewGizmo.homeRequested()
         }
     }
 
     Component.onCompleted: {
         updateBasis()
-        cubeCanvas.requestPaint()
+        canvas.requestPaint()
     }
 
     Connections {
         target: renderer
-        function onCameraPositionChanged() { viewCube.updateBasis(); cubeCanvas.requestPaint() }
-        function onCameraTargetChanged() { viewCube.updateBasis(); cubeCanvas.requestPaint() }
+        function onCameraPositionChanged() { viewGizmo.updateBasis(); canvas.requestPaint() }
+        function onCameraTargetChanged() { viewGizmo.updateBasis(); canvas.requestPaint() }
     }
 }

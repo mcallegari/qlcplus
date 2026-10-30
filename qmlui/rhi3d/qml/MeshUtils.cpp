@@ -210,4 +210,59 @@ Mesh createArcMesh(float majorRadius, float tubeRadius,
     return mesh;
 }
 
+Mesh createCylinderMesh(float bottomRadius, float topRadius, int sides)
+{
+    Mesh mesh;
+    sides = qMax(3, sides);
+    const float slope = bottomRadius - topRadius;
+
+    // side wall
+    for (int i = 0; i <= sides; ++i)
+    {
+        const float u = float(i) / float(sides);
+        const float a = u * float(M_PI * 2.0);
+        const float c = qCos(a);
+        const float s = qSin(a);
+        const QVector3D n = QVector3D(c, slope, s).normalized();
+        mesh.vertices.push_back({ c * bottomRadius, 0.0f, s * bottomRadius, n.x(), n.y(), n.z(), u, 0.0f });
+        mesh.vertices.push_back({ c * topRadius, 1.0f, s * topRadius, n.x(), n.y(), n.z(), u, 1.0f });
+    }
+    for (int i = 0; i < sides; ++i)
+    {
+        const quint32 a = quint32(i * 2);
+        mesh.indices << a << a + 1 << a + 2;
+        mesh.indices << a + 2 << a + 1 << a + 3;
+    }
+
+    // caps
+    auto addCap = [&](float y, float radius, float ny)
+    {
+        if (radius <= 0.0f)
+            return;
+        const quint32 center = quint32(mesh.vertices.size());
+        mesh.vertices.push_back({ 0.0f, y, 0.0f, 0.0f, ny, 0.0f, 0.5f, 0.5f });
+        for (int i = 0; i <= sides; ++i)
+        {
+            const float a = float(i) / float(sides) * float(M_PI * 2.0);
+            const float c = qCos(a);
+            const float s = qSin(a);
+            mesh.vertices.push_back({ c * radius, y, s * radius, 0.0f, ny, 0.0f,
+                                      0.5f + c * 0.5f, 0.5f + s * 0.5f });
+        }
+        for (int i = 0; i < sides; ++i)
+            mesh.indices << center << center + 1 + quint32(i) << center + 2 + quint32(i);
+    };
+    addCap(0.0f, bottomRadius, -1.0f);
+    addCap(1.0f, topRadius, 1.0f);
+
+    mesh.indexCount = mesh.indices.size();
+    mesh.modelMatrix.setToIdentity();
+    mesh.baseModelMatrix = mesh.modelMatrix;
+    const float r = qMax(bottomRadius, topRadius);
+    mesh.boundsMin = QVector3D(-r, 0.0f, -r);
+    mesh.boundsMax = QVector3D(r, 1.0f, r);
+    mesh.boundsValid = true;
+    return mesh;
+}
+
 }

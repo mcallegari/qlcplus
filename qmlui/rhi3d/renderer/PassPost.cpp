@@ -452,7 +452,7 @@ void PassPost::execute(FrameContext &ctx)
 
         for (Mesh &mesh : ctx.scene->meshes())
         {
-            if (mesh.gizmoAxis < 0)
+            if (mesh.gizmoAxis < 0 || !mesh.gizmoDraw)
                 continue;
             ensureGizmoMeshBuffers(ctx, mesh, gizmoUpdates);
             if (!mesh.modelUbo || !mesh.materialUbo)
@@ -480,7 +480,7 @@ void PassPost::execute(FrameContext &ctx)
 
         for (Mesh &mesh : ctx.scene->meshes())
         {
-            if (mesh.gizmoAxis < 0)
+            if (mesh.gizmoAxis < 0 || !mesh.gizmoDraw)
                 continue;
             if (!mesh.vertexBuffer || !mesh.indexBuffer || mesh.indexCount == 0)
                 continue;

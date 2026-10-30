@@ -46,7 +46,13 @@ void Camera::lookAt(const QVector3D &target, const QVector3D &up)
 {
     QMatrix4x4 view;
     view.setToIdentity();
-    view.lookAt(m_pos, target, up);
+    // looking straight along the up vector makes lookAt degenerate
+    // (e.g. top/bottom views): fall back to -Z as screen up
+    QVector3D viewUp = up;
+    const QVector3D fwd = (target - m_pos).normalized();
+    if (qAbs(QVector3D::dotProduct(fwd, up.normalized())) > 0.9999f)
+        viewUp = QVector3D(0.0f, 0.0f, -1.0f);
+    view.lookAt(m_pos, target, viewUp);
     if (view == m_view)
         return;
     m_view = view;

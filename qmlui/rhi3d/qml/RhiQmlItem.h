@@ -148,6 +148,8 @@ public:
         int type = 0;
     };
     void takePendingDragRequests(QVector<DragRequest> &out);
+    // last mouse hover position, normalized to the item size
+    bool hoverPosition(QPointF &normPos) const;
     Q_INVOKABLE void dispatchPickResult(QObject *item, const QVector3D &worldPos, bool hit, int modifiers);
     Q_INVOKABLE void handlePick(QObject *item, bool hit, int modifiers);
     Q_INVOKABLE void removeSelectedItems();
@@ -194,6 +196,8 @@ protected:
     void mousePressEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
+    void hoverMoveEvent(QHoverEvent *event) override;
+    void hoverLeaveEvent(QHoverEvent *event) override;
 
 private:
     void orbitCameraAroundTarget(float yawDeltaDeg, float pitchDeltaDeg);
@@ -240,6 +244,8 @@ private:
     QVector<Light> m_pendingLights;
     QVector<PickRequest> m_pendingPickRequests;
     QVector<DragRequest> m_pendingDragRequests;
+    QPointF m_hoverNormPos;
+    bool m_hoverValid = false;
     QSet<QObject *> m_selectableItems;
     std::atomic<int> m_renderedFrames { 0 };
     QObject *m_selectedItem = nullptr;
