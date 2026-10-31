@@ -902,8 +902,8 @@ Rectangle
     {
         id: horScrollBar
         x: timelineHeader.x
-        y: showMgrContainer.height - height
-        z: 10
+        y: showMgrContainer.height - height - (bottomPanel.visible ? bottomPanel.height : 0)
+        z: 5
         width: timelineHeader.width
         orientation: Qt.Horizontal
     }
