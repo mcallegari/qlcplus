@@ -18,6 +18,7 @@
 */
 
 #include <QQmlContext>
+#include <QSettings>
 #include <QtMath>
 #include <QVector>
 #include <algorithm>
@@ -33,6 +34,8 @@
 #include "doc.h"
 #include "app.h"
 
+#define SETTINGS_SNAP_TO_ITEMS QStringLiteral("showmanager/snaptoitems")
+
 ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "SHOWMGR", parent)
     , m_cursorMovedDuringPause(false)
@@ -41,13 +44,22 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_currentShow(nullptr)
     , m_stretchFunctions(false)
     , m_gridEnabled(false)
+    , m_snapToItems(true)
     , m_snapGuideX(-1.0)
     , m_timeScale(5.0)
     , m_currentTime(0)
     , m_selectedTrackId(-1)
     , m_itemsColor(Qt::gray)
     , m_multipleSelection(false)
+    , m_groupDragActive(false)
+    , m_boxSelectMode(false)
+    , m_clipboardIsCut(false)
 {
+    QSettings settings;
+    QVariant snap = settings.value(SETTINGS_SNAP_TO_ITEMS);
+    if (snap.isValid())
+        m_snapToItems = snap.toBool();
+
     view->rootContext()->setContextProperty("showManager", this);
     qmlRegisterUncreatableType<Show>("org.qlcplus.classes", 1, 0, "Show", "Can't create a Show");
     qmlRegisterType<Track>("org.qlcplus.classes", 1, 0, "Track");
@@ -186,6 +198,24 @@ void ShowManager::setGridEnabled(bool gridEnabled)
     emit gridEnabledChanged(m_gridEnabled);
 }
 
+bool ShowManager::snapToItems() const
+{
+    return m_snapToItems;
+}
+
+void ShowManager::setSnapToItems(bool snapToItems)
+{
+    if (m_snapToItems == snapToItems)
+        return;
+
+    m_snapToItems = snapToItems;
+
+    QSettings settings;
+    settings.setValue(SETTINGS_SNAP_TO_ITEMS, m_snapToItems);
+
+    emit snapToItemsChanged(m_snapToItems);
+}
+
 double ShowManager::snapGuideX() const
 {
     return m_snapGuideX;
@@ -209,6 +239,7 @@ QVariantList ShowManager::getSnapEdges(quint32 excludeFuncId,
         return edges;
 
     int beatsDivision = m_currentShow->beatsDivision();
+    int bpm = m_doc->inputOutputMap()->bpmNumber();
 
     for (Track *track : m_currentShow->tracks())
     {
@@ -217,18 +248,37 @@ QVariantList ShowManager::getSnapEdges(quint32 excludeFuncId,
             if (sf->functionID() == excludeFuncId)
                 continue;
 
+            // an item's times are in its Function's own unit (ms or beats as ms),
+            // so convert them the same way ShowItem.qml updateGeometry() does
+            Function *func = m_doc->function(sf->functionID());
+            bool itemIsBeats = func != nullptr && func->tempoType() == Function::Beats;
+            double startTime = sf->startTime();
+            double endTime = startTime + sf->duration();
             double startX, endX;
-            quint32 endTime = sf->startTime() + sf->duration();
 
             if (timeDivision() == Show::Time)
             {
-                startX = ((double)sf->startTime() * m_tickSize) / (m_timeScale * 1000.0);
-                endX = ((double)endTime * m_tickSize) / (m_timeScale * 1000.0);
+                if (itemIsBeats)
+                {
+                    // beats as ms -> real ms
+                    double beatMs = bpm > 0 ? 60000.0 / bpm : 0;
+                    startTime = (startTime / 1000.0) * beatMs;
+                    endTime = (endTime / 1000.0) * beatMs;
+                }
+                startX = (startTime * m_tickSize) / (m_timeScale * 1000.0);
+                endX = (endTime * m_tickSize) / (m_timeScale * 1000.0);
+            }
+            else if (itemIsBeats)
+            {
+                startX = (m_tickSize / beatsDivision) * (startTime / 1000.0);
+                endX = (m_tickSize / beatsDivision) * (endTime / 1000.0);
             }
             else
             {
-                startX = (m_tickSize / beatsDivision) * ((double)sf->startTime() / 1000.0);
-                endX = (m_tickSize / beatsDivision) * ((double)endTime / 1000.0);
+                // real ms -> position on the bar-based ruler
+                double barDuration = bpm > 0 ? (60000.0 / bpm) * beatsDivision : 0;
+                startX = barDuration > 0 ? (m_tickSize * startTime) / barDuration : 0;
+                endX = barDuration > 0 ? (m_tickSize * endTime) / barDuration : 0;
             }
 
             // filter: skip items entirely outside the visible viewport
@@ -451,6 +501,33 @@ void ShowManager::moveTrack(int index, int direction)
     emit tracksChanged();
 }
 
+void ShowManager::selectTrackOfSelectedItems()
+{
+    if (m_currentShow == nullptr || m_selectedItems.isEmpty())
+        return;
+
+    QList<Track *> tracks = m_currentShow->tracks();
+    int topIdx = -1;
+
+    for (const SelectedShowItem &ssi : std::as_const(m_selectedItems))
+    {
+        if (ssi.m_showFunc == nullptr)
+            continue;
+
+        int idx = tracks.indexOf(m_currentShow->getTrackFromShowFunctionID(ssi.m_showFunc->id()));
+        if (idx >= 0 && (topIdx < 0 || idx < topIdx))
+            topIdx = idx;
+    }
+
+    if (topIdx < 0 || int(tracks.at(topIdx)->id()) == m_selectedTrackId)
+        return;
+
+    // unlike setSelectedTrackId(), the items keep the keyboard shortcuts
+    // (e.g. Delete must remove the items, not the Track)
+    m_selectedTrackId = tracks.at(topIdx)->id();
+    emit selectedTrackIdChanged(m_selectedTrackId);
+}
+
 void ShowManager::deleteSelectedTrack()
 {
     if (m_currentShow == nullptr)
@@ -477,6 +554,11 @@ void ShowManager::deleteSelectedTrack()
 
     m_currentShow->removeTrack(selectedTrackId());
     m_doc->setModified();
+
+    // the deleted Track can't stay selected, or pasting would silently
+    // fall back to the items own Tracks while the UI shows no selection
+    m_selectedTrackId = -1;
+    emit selectedTrackIdChanged(m_selectedTrackId);
 
     QQuickItem *itemsArea = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("showItemsArea"));
     renderView(itemsArea);
@@ -725,7 +807,10 @@ void ShowManager::deleteShowItems(QVariantList data)
     emit selectedItemsCountChanged(0);
 
     if (m_clipboard.count() != clipboardCount)
+    {
         emit clipboardItemsCountChanged(m_clipboard.count());
+        emit cutItemIdsChanged();
+    }
 }
 
 void ShowManager::refreshView()
@@ -761,7 +846,10 @@ void ShowManager::deleteShowItem(ShowFunction *sf)
             m_clipboard.removeAt(i);
     }
     if (m_clipboard.count() != clipboardCount)
+    {
         emit clipboardItemsCountChanged(m_clipboard.count());
+        emit cutItemIdsChanged();
+    }
 
     quint32 sfId = sf->id();
     delete m_itemsMap.take(sfId).data();
@@ -813,11 +901,124 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
 
         Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetTrack, sf->id(),
                                           originalTrackIdx, newTrackIdx);
+
+        // keep the selection in sync, as deleting items relies on it
+        for (SelectedShowItem &ssi : m_selectedItems)
+        {
+            if (ssi.m_showFunc == sf)
+                ssi.m_trackIndex = newTrackIdx;
+        }
     }
 
     m_doc->setModified();
 
     return true;
+}
+
+bool ShowManager::moveShowItems(QVariantList items, QVariantList trackIndexes, QVariantList startTimes)
+{
+    if (m_currentShow == nullptr)
+        return false;
+
+    if (items.count() != trackIndexes.count() || items.count() != startTimes.count())
+        return false;
+
+    struct ItemMove
+    {
+        QQuickItem *item;
+        ShowFunction *sf;
+        Track *srcTrack;
+        int srcTrackIdx;
+        int dstTrackIdx;
+        quint32 startTime;
+    };
+
+    QList<Track *> tracks = m_currentShow->tracks();
+    QList<ItemMove> moves;
+    QList<ShowFunction *> movingFuncs;
+
+    for (int i = 0; i < items.count(); i++)
+    {
+        ItemMove move;
+        move.item = items.at(i).value<QQuickItem *>();
+        if (move.item == nullptr)
+            return false;
+
+        move.sf = move.item->property("sfRef").value<ShowFunction *>();
+        move.srcTrack = move.sf ? m_currentShow->getTrackFromShowFunctionID(move.sf->id()) : nullptr;
+        if (move.srcTrack == nullptr)
+            return false;
+
+        move.srcTrackIdx = tracks.indexOf(move.srcTrack);
+        move.dstTrackIdx = trackIndexes.at(i).toInt();
+        if (move.dstTrackIdx < 0 || move.dstTrackIdx >= tracks.count())
+            return false;
+
+        int startTime = startTimes.at(i).toInt();
+        move.startTime = startTime < 0 ? 0 : quint32(startTime);
+
+        moves.append(move);
+        movingFuncs.append(move.sf);
+    }
+
+    // check all the destinations before moving anything
+    for (int i = 0; i < moves.count(); i++)
+    {
+        const ItemMove &move = moves.at(i);
+
+        if (checkOverlapping(tracks.at(move.dstTrackIdx), movingFuncs, move.startTime, move.sf->duration()))
+            return false;
+
+        for (int j = i + 1; j < moves.count(); j++)
+        {
+            const ItemMove &other = moves.at(j);
+            if (other.dstTrackIdx != move.dstTrackIdx)
+                continue;
+
+            if (move.startTime < other.startTime + other.sf->duration() &&
+                other.startTime < move.startTime + move.sf->duration())
+                return false;
+        }
+    }
+
+    for (const ItemMove &move : moves)
+    {
+        if (move.sf->startTime() != move.startTime)
+        {
+            Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetStartTime, move.sf->id(),
+                                              move.sf->startTime(), move.startTime);
+            move.sf->setStartTime(move.startTime);
+        }
+
+        if (move.dstTrackIdx != move.srcTrackIdx)
+        {
+            move.srcTrack->removeShowFunction(move.sf, false);
+            tracks.at(move.dstTrackIdx)->addShowFunction(move.sf);
+
+            Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetTrack, move.sf->id(),
+                                              move.srcTrackIdx, move.dstTrackIdx);
+
+            move.item->setProperty("trackIndex", move.dstTrackIdx);
+
+            for (SelectedShowItem &ssi : m_selectedItems)
+            {
+                if (ssi.m_showFunc == move.sf)
+                    ssi.m_trackIndex = move.dstTrackIdx;
+            }
+        }
+    }
+
+    m_doc->setModified();
+
+    return true;
+}
+
+int ShowManager::tracksCount() const
+{
+    if (m_currentShow == nullptr)
+        return 0;
+
+    return m_currentShow->tracks().count();
 }
 
 bool ShowManager::moveShowItemToTrack(ShowFunction *sf, int trackIdx)
@@ -883,6 +1084,97 @@ bool ShowManager::setShowItemDuration(ShowFunction *sf, int duration)
     sf->setDuration(duration);
 
     return true;
+}
+
+bool ShowManager::setShowItemStartTimeAndDuration(ShowFunction *sf, int startTime, int duration)
+{
+    if (sf == nullptr)
+        return false;
+
+    Track *track = m_currentShow->getTrackFromShowFunctionID(sf->id());
+    if (track == nullptr)
+        return false;
+
+    bool overlapping = checkOverlapping(track, sf, startTime, duration);
+    if (overlapping)
+        return false;
+
+    Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetStartTime, sf->id(), sf->startTime(), startTime);
+    sf->setStartTime(startTime);
+    Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetDuration, sf->id(), sf->duration(), duration);
+    sf->setDuration(duration);
+
+    return true;
+}
+
+bool ShowManager::resizeAdjacentShowItems(ShowFunction *leftSf, int leftDuration,
+                                          ShowFunction *rightSf, int rightStartTime, int rightDuration)
+{
+    if (m_currentShow == nullptr || leftSf == nullptr || rightSf == nullptr || leftSf == rightSf)
+        return false;
+
+    Track *track = m_currentShow->getTrackFromShowFunctionID(leftSf->id());
+    if (track == nullptr || track != m_currentShow->getTrackFromShowFunctionID(rightSf->id()))
+        return false;
+
+    // the two items must stay adjacent: the boundary is what's moving,
+    // not either item's other edge
+    if (quint32(leftSf->startTime()) + quint32(leftDuration) != quint32(rightStartTime))
+        return false;
+
+    QList<ShowFunction *> exclude = { leftSf, rightSf };
+
+    if (checkOverlapping(track, exclude, leftSf->startTime(), quint32(leftDuration)) ||
+        checkOverlapping(track, exclude, quint32(rightStartTime), quint32(rightDuration)))
+    {
+        return false;
+    }
+
+    if (leftSf->duration() != quint32(leftDuration))
+    {
+        Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetDuration, leftSf->id(), leftSf->duration(), leftDuration);
+        leftSf->setDuration(leftDuration);
+    }
+
+    if (rightSf->startTime() != quint32(rightStartTime))
+    {
+        Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetStartTime, rightSf->id(), rightSf->startTime(), rightStartTime);
+        rightSf->setStartTime(rightStartTime);
+    }
+
+    if (rightSf->duration() != quint32(rightDuration))
+    {
+        Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetDuration, rightSf->id(), rightSf->duration(), rightDuration);
+        rightSf->setDuration(rightDuration);
+    }
+
+    m_doc->setModified();
+
+    return true;
+}
+
+QQuickItem *ShowManager::adjacentShowItemView(ShowFunction *sf, bool previous) const
+{
+    if (m_currentShow == nullptr || sf == nullptr)
+        return nullptr;
+
+    Track *track = m_currentShow->getTrackFromShowFunctionID(sf->id());
+    if (track == nullptr)
+        return nullptr;
+
+    quint32 edge = previous ? sf->startTime() : sf->startTime() + sf->duration();
+
+    foreach (ShowFunction *other, track->showFunctions())
+    {
+        if (other == sf)
+            continue;
+
+        quint32 otherEdge = previous ? other->startTime() + other->duration() : other->startTime();
+        if (otherEdge == edge)
+            return m_itemsMap.value(other->id(), nullptr);
+    }
+
+    return nullptr;
 }
 
 int ShowManager::minimumTimelineDuration(Show::TimeDivision division) const
@@ -1394,6 +1686,7 @@ void ShowManager::resetContents()
     emit currentTimeChanged(m_currentTime);
 
     m_selectedTrackId = -1;
+    emit selectedTrackIdChanged(m_selectedTrackId);
     m_cursorMovedDuringPause = false;
 
     if (m_currentShow != nullptr)
@@ -1413,6 +1706,7 @@ void ShowManager::resetContents()
         m_clipboard.clear();
         emit clipboardItemsCountChanged(0);
     }
+    clearCutState();
 
     emit tracksChanged();
     emit isEditingChanged();
@@ -1587,6 +1881,20 @@ void ShowManager::setMultipleSelection(bool multipleSelection)
     emit multipleSelectionChanged();
 }
 
+bool ShowManager::boxSelectMode() const
+{
+    return m_boxSelectMode;
+}
+
+void ShowManager::setBoxSelectMode(bool enable)
+{
+    if (m_boxSelectMode == enable)
+        return;
+
+    m_boxSelectMode = enable;
+    emit boxSelectModeChanged();
+}
+
 void ShowManager::setItemSelection(int trackIdx, ShowFunction *sf, QQuickItem *item, bool selected, int keyModifiers)
 {
     bool allowMulti = m_multipleSelection
@@ -1644,7 +1952,10 @@ void ShowManager::setItemSelection(int trackIdx, ShowFunction *sf, QQuickItem *i
         }
     }
     if (changed)
+    {
+        selectTrackOfSelectedItems();
         emit selectedItemsCountChanged(m_selectedItems.count());
+    }
     emit itemClicked(App::ShowDragItem);
 }
 
@@ -1657,6 +1968,161 @@ void ShowManager::resetItemsSelection()
     }
     m_selectedItems.clear();
     emit selectedItemsCountChanged(m_selectedItems.count());
+}
+
+bool ShowManager::selectAllTrackItems()
+{
+    if (m_currentShow == nullptr)
+        return false;
+
+    QList<Track *> tracks = m_currentShow->tracks();
+    int trackIdx = -1;
+
+    for (int i = 0; i < tracks.count(); i++)
+    {
+        if (int(tracks.at(i)->id()) == m_selectedTrackId)
+        {
+            trackIdx = i;
+            break;
+        }
+    }
+
+    // no Track selected: use the one of the last selected item
+    if (trackIdx < 0 && m_selectedItems.isEmpty() == false)
+        trackIdx = m_selectedItems.last().m_trackIndex;
+
+    if (trackIdx < 0 || trackIdx >= tracks.count())
+        return false;
+
+    foreach (SelectedShowItem ssi, m_selectedItems)
+    {
+        if (ssi.m_item != nullptr)
+            ssi.m_item->setProperty("isSelected", false);
+    }
+    m_selectedItems.clear();
+
+    foreach (ShowFunction *sf, tracks.at(trackIdx)->showFunctions())
+    {
+        QQuickItem *item = m_itemsMap.value(sf->id(), nullptr);
+        if (item == nullptr)
+            continue;
+
+        item->setProperty("isSelected", true);
+
+        SelectedShowItem selection;
+        selection.m_trackIndex = trackIdx;
+        selection.m_showFunc = sf;
+        selection.m_item = item;
+        m_selectedItems.append(selection);
+    }
+
+    selectTrackOfSelectedItems();
+    emit selectedItemsCountChanged(m_selectedItems.count());
+
+    return true;
+}
+
+QVariantList ShowManager::selectedItemViews() const
+{
+    QVariantList list;
+    foreach (SelectedShowItem si, m_selectedItems)
+    {
+        if (si.m_item != nullptr)
+            list.append(QVariant::fromValue(si.m_item.data()));
+    }
+    return list;
+}
+
+bool ShowManager::groupDragActive() const
+{
+    return m_groupDragActive;
+}
+
+void ShowManager::setGroupDragActive(bool active)
+{
+    if (m_groupDragActive == active)
+        return;
+
+    m_groupDragActive = active;
+    emit groupDragActiveChanged();
+}
+
+QPointF ShowManager::groupDragOffset() const
+{
+    return m_groupDragOffset;
+}
+
+void ShowManager::setGroupDragOffset(QPointF offset)
+{
+    if (m_groupDragOffset == offset)
+        return;
+
+    m_groupDragOffset = offset;
+    emit groupDragOffsetChanged();
+}
+
+void ShowManager::selectItemsInRect(QRectF rect, bool addToSelection)
+{
+    if (m_currentShow == nullptr)
+        return;
+
+    int prevCount = m_selectedItems.count();
+
+    if (addToSelection == false)
+    {
+        foreach (SelectedShowItem ssi, m_selectedItems)
+        {
+            if (ssi.m_item != nullptr)
+                ssi.m_item->setProperty("isSelected", false);
+        }
+        m_selectedItems.clear();
+    }
+
+    int trkIdx = 0;
+
+    foreach (Track *track, m_currentShow->tracks())
+    {
+        foreach (ShowFunction *sf, track->showFunctions())
+        {
+            QQuickItem *item = m_itemsMap.value(sf->id(), nullptr);
+            if (item == nullptr)
+                continue;
+
+            QRectF itemRect(item->x(), item->y(), item->width(), item->height());
+            if (rect.contains(itemRect) == false)
+                continue;
+
+            bool alreadySelected = false;
+            foreach (SelectedShowItem si, m_selectedItems)
+            {
+                if (si.m_showFunc == sf)
+                {
+                    alreadySelected = true;
+                    break;
+                }
+            }
+
+            if (alreadySelected)
+                continue;
+
+            item->setProperty("isSelected", true);
+
+            SelectedShowItem selection;
+            selection.m_trackIndex = trkIdx;
+            selection.m_showFunc = sf;
+            selection.m_item = item;
+            m_selectedItems.append(selection);
+        }
+
+        trkIdx++;
+    }
+
+    if (addToSelection == false || m_selectedItems.count() != prevCount)
+    {
+        selectTrackOfSelectedItems();
+        emit selectedItemsCountChanged(m_selectedItems.count());
+    }
+    emit itemClicked(App::ShowDragItem);
 }
 
 QVariantList ShowManager::selectedItemRefs() const
@@ -1759,9 +2225,39 @@ bool ShowManager::checkOverlapping(Track *track, ShowFunction *sourceFunc,
         Function *func = m_doc->function(sf->functionID());
         if (func != nullptr)
         {
+            // items are half-open intervals [start, start + duration), so an
+            // item starting exactly where another one ends is not overlapping
             quint32 fst = sf->startTime();
-            if ((startTime >= fst && startTime <= fst + sf->duration()) ||
-                (fst >= startTime && fst <= startTime + duration))
+            if (startTime == fst ||
+                (startTime < fst + sf->duration() && fst < startTime + duration))
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+bool ShowManager::checkOverlapping(Track *track, const QList<ShowFunction *> &exclude,
+                                   quint32 startTime, quint32 duration) const
+{
+    if (track == nullptr)
+        return false;
+
+    foreach (ShowFunction *sf, track->showFunctions())
+    {
+        if (exclude.contains(sf))
+            continue;
+
+        Function *func = m_doc->function(sf->functionID());
+        if (func != nullptr)
+        {
+            // items are half-open intervals [start, start + duration), so an
+            // item starting exactly where another one ends is not overlapping
+            quint32 fst = sf->startTime();
+            if (startTime == fst ||
+                (startTime < fst + sf->duration() && fst < startTime + duration))
             {
                 return true;
             }
@@ -1841,12 +2337,97 @@ QVariantList ShowManager::previewData(Function *f) const
 
 void ShowManager::copyToClipboard()
 {
+    // copying nothing keeps what is already in the clipboard
+    if (m_selectedItems.isEmpty())
+        return;
+
     m_clipboard.clear();
 
     for (SelectedShowItem item : m_selectedItems)
         m_clipboard.append(item);
 
+    clearCutState();
     emit clipboardItemsCountChanged(m_clipboard.count());
+}
+
+bool ShowManager::cutToClipboard()
+{
+    if (m_selectedItems.isEmpty())
+        return false;
+
+    // pasting cut items moves them, which a lock forbids
+    if (selectedItemsLocked())
+    {
+        emit clipboardActionFailed(tr("Cut error"),
+                                   tr("Locked items cannot be cut. Unlock them first, or copy them instead."));
+        return false;
+    }
+
+    m_clipboard.clear();
+
+    for (SelectedShowItem item : m_selectedItems)
+        m_clipboard.append(item);
+
+    m_clipboardIsCut = true;
+    emit clipboardItemsCountChanged(m_clipboard.count());
+    emit cutItemIdsChanged();
+
+    return true;
+}
+
+QVariantList ShowManager::cutItemIds() const
+{
+    QVariantList list;
+
+    if (m_clipboardIsCut == false)
+        return list;
+
+    for (const SelectedShowItem &item : m_clipboard)
+    {
+        if (item.m_showFunc != nullptr)
+            list.append(item.m_showFunc->id());
+    }
+
+    return list;
+}
+
+void ShowManager::clearCutState()
+{
+    if (m_clipboardIsCut == false)
+        return;
+
+    m_clipboardIsCut = false;
+    emit cutItemIdsChanged();
+}
+
+quint32 ShowManager::showToFunctionTime(const Function *func, quint32 value) const
+{
+    bool showIsBeats = timeDivision() != Show::Time;
+    bool funcIsBeats = func->tempoType() == Function::Beats;
+
+    if (showIsBeats == funcIsBeats)
+        return value;
+
+    int bpm = m_doc->inputOutputMap()->bpmNumber();
+    int beatDuration = bpm > 0 ? (60000 / bpm) : 500;
+
+    return funcIsBeats ? Function::timeToBeats(value, beatDuration)
+                       : Function::beatsToTime(value, beatDuration);
+}
+
+quint32 ShowManager::functionToShowTime(const Function *func, quint32 value) const
+{
+    bool showIsBeats = timeDivision() != Show::Time;
+    bool funcIsBeats = func->tempoType() == Function::Beats;
+
+    if (showIsBeats == funcIsBeats)
+        return value;
+
+    int bpm = m_doc->inputOutputMap()->bpmNumber();
+    int beatDuration = bpm > 0 ? (60000 / bpm) : 500;
+
+    return showIsBeats ? Function::timeToBeats(value, beatDuration)
+                       : Function::beatsToTime(value, beatDuration);
 }
 
 bool ShowManager::pasteFromClipboard()
@@ -1854,77 +2435,172 @@ bool ShowManager::pasteFromClipboard()
     if (m_currentShow == nullptr)
         return false;
 
+    struct PasteItem
+    {
+        ShowFunction *sf;
+        Function *func;
+        int srcTrackIdx;
+        int dstTrackIdx;
+        quint32 showTime;   // source start time, in the Show timeline unit
+        quint32 dstTime;    // destination start time, in the unit of func
+    };
+
+    QList<Track *> tracks = m_currentShow->tracks();
+    QList<PasteItem> pasteList;
+    QList<ShowFunction *> cutFuncs;
     quint32 lowerTime = UINT_MAX;
-    quint32 lowerTrack = UINT_MAX;
+    int topTrack = INT_MAX;
+    int bottomTrack = -1;
 
-    // pre-parse copied items to find the ones with the
-    // lowest start time and the topmost track
-    for (SelectedShowItem item : m_clipboard)
+    // pre-parse the clipboard items to find the one with the
+    // lowest start time, and the topmost and bottommost tracks
+    for (const SelectedShowItem &item : std::as_const(m_clipboard))
     {
         if (item.m_showFunc == nullptr)
             continue;
 
-        if (item.m_showFunc->startTime() < lowerTime)
-            lowerTime = item.m_showFunc->startTime();
-
-        if (item.m_trackIndex < lowerTrack)
-            lowerTrack = item.m_trackIndex;
-    }
-
-    QList<Track*> trackList = m_currentShow->tracks();
-
-    // paste on the currently selected track, if any. Items copied from
-    // multiple tracks keep their relative track offset, just like they
-    // keep their relative start time
-    int targetTrack = trackList.indexOf(m_currentShow->track(selectedTrackId()));
-    if (targetTrack < 0)
-        targetTrack = int(lowerTrack);
-
-    bool overlapping = false;
-    int pasted = 0;
-
-    // now add the ShowFunctions on the proper tracks
-    // while keeping the delta time of the original items
-    for (SelectedShowItem item : m_clipboard)
-    {
-        if (item.m_showFunc == nullptr)
+        PasteItem pi;
+        pi.sf = item.m_showFunc.data();
+        pi.func = m_doc->function(pi.sf->functionID());
+        if (pi.func == nullptr)
             continue;
 
-        int trackIdx = targetTrack + (int(item.m_trackIndex) - int(lowerTrack));
-
-        // don't paste outside the existing tracks
-        if (trackIdx < 0 || trackIdx >= trackList.count())
-            continue;
-
-        Track *track = trackList.at(trackIdx);
-
-        if (checkOverlapping(track, item.m_showFunc, m_currentTime, item.m_showFunc->duration()))
+        // a Sequence can't be pasted without its bound Scene
+        if (pi.func->type() == Function::SequenceType)
         {
-            overlapping = true;
-            continue;
-        }
-
-        Function *func = m_doc->function(item.m_showFunc->functionID());
-        if (func == nullptr)
-            continue;
-
-        if (func->type() == Function::SequenceType)
-        {
-            Sequence *sequence = qobject_cast<Sequence*>(func);
-            Scene *scene = qobject_cast<Scene*>(m_doc->function(sequence->boundSceneID()));
-            if (scene == nullptr)
+            Sequence *sequence = qobject_cast<Sequence*>(pi.func);
+            if (m_doc->function(sequence->boundSceneID()) == nullptr)
                 continue;
-
-            sequence->setBoundSceneID(scene->id());
         }
 
-        addItems(contextItem(), trackIdx,
-                 m_currentTime + item.m_showFunc->startTime() - lowerTime,
-                 QVariantList() << func->id(), item.m_showFunc.data());
-        pasted++;
+        // the items may have been moved since they were copied,
+        // so use the Track they are on now
+        Track *srcTrack = m_currentShow->getTrackFromShowFunctionID(pi.sf->id());
+        pi.srcTrackIdx = srcTrack != nullptr ? tracks.indexOf(srcTrack) : int(item.m_trackIndex);
+        pi.dstTrackIdx = pi.srcTrackIdx;
+
+        // items can mix time and beat based Functions, so compare
+        // their start times on the Show timeline
+        pi.showTime = functionToShowTime(pi.func, pi.sf->startTime());
+        pi.dstTime = 0;
+
+        lowerTime = qMin(lowerTime, pi.showTime);
+        topTrack = qMin(topTrack, pi.srcTrackIdx);
+        bottomTrack = qMax(bottomTrack, pi.srcTrackIdx);
+
+        pasteList.append(pi);
+        if (m_clipboardIsCut)
+            cutFuncs.append(pi.sf);
     }
 
-    // signal a failure only if overlapping prevented
-    // every single item from being pasted
-    return pasted > 0 || overlapping == false;
+    if (pasteList.isEmpty())
+    {
+        emit clipboardActionFailed(tr("Paste error"), tr("There are no items to paste."));
+        return false;
+    }
+
+    // the topmost Track of the items lands on the selected Track, and the
+    // others follow below, gap Tracks included. With no Track selected,
+    // the items land on the Tracks they come from
+    int selectedIdx = tracks.indexOf(m_currentShow->track(m_selectedTrackId));
+    int trackOffset = selectedIdx >= 0 ? selectedIdx - topTrack : 0;
+
+    if (bottomTrack + trackOffset >= tracks.count())
+    {
+        emit clipboardActionFailed(tr("Paste error"),
+            tr("The items span %1 tracks, but only %2 tracks are available from the selected track downwards.")
+                .arg(bottomTrack - topTrack + 1).arg(tracks.count() - (topTrack + trackOffset)));
+        return false;
+    }
+
+    quint32 cursorTime = m_currentTime > 0 ? quint32(m_currentTime) : 0;
+
+    // check every destination before pasting anything
+    for (PasteItem &pi : pasteList)
+    {
+        if (m_clipboardIsCut && pi.sf->isLocked())
+        {
+            emit clipboardActionFailed(tr("Paste error"),
+                tr("\"%1\" has been locked since it was cut, so it cannot be moved.").arg(pi.func->name()));
+            return false;
+        }
+
+        pi.dstTrackIdx = pi.srcTrackIdx + trackOffset;
+        pi.dstTime = showToFunctionTime(pi.func, cursorTime + (pi.showTime - lowerTime));
+
+        // cut items leave their place, so they don't prevent pasting over it
+        Track *dstTrack = tracks.at(pi.dstTrackIdx);
+        if (checkOverlapping(dstTrack, cutFuncs, pi.dstTime, pi.sf->duration()))
+        {
+            emit clipboardActionFailed(tr("Paste error"),
+                tr("\"%1\" would overlap an existing item on track \"%2\".")
+                    .arg(pi.func->name(), dstTrack->name()));
+            return false;
+        }
+    }
+
+    QList<ShowFunction *> pastedFuncs;
+
+    if (m_clipboardIsCut)
+    {
+        QVariantList views, trackIndexes, startTimes;
+
+        for (const PasteItem &pi : std::as_const(pasteList))
+        {
+            views.append(QVariant::fromValue(m_itemsMap.value(pi.sf->id(), nullptr)));
+            trackIndexes.append(pi.dstTrackIdx);
+            startTimes.append(pi.dstTime);
+            pastedFuncs.append(pi.sf);
+        }
+
+        if (moveShowItems(views, trackIndexes, startTimes) == false)
+        {
+            emit clipboardActionFailed(tr("Paste error"), tr("The cut items could not be moved."));
+            return false;
+        }
+
+        // the moved items stay in the clipboard, now as a copy
+        clearCutState();
+    }
+    else
+    {
+        for (const PasteItem &pi : std::as_const(pasteList))
+        {
+            addItems(contextItem(), pi.dstTrackIdx, cursorTime + (pi.showTime - lowerTime),
+                     QVariantList() << pi.func->id(), pi.sf);
+
+            Track *dstTrack = tracks.at(pi.dstTrackIdx);
+            if (dstTrack->showFunctions().isEmpty() == false)
+                pastedFuncs.append(dstTrack->showFunctions().last());
+        }
+    }
+
+    // the pasted items replace the selection
+    for (const SelectedShowItem &ssi : std::as_const(m_selectedItems))
+    {
+        if (ssi.m_item != nullptr)
+            ssi.m_item->setProperty("isSelected", false);
+    }
+    m_selectedItems.clear();
+
+    for (ShowFunction *sf : std::as_const(pastedFuncs))
+    {
+        QQuickItem *view = m_itemsMap.value(sf->id(), nullptr);
+        if (view == nullptr)
+            continue;
+
+        view->setProperty("isSelected", true);
+
+        SelectedShowItem selection;
+        selection.m_trackIndex = tracks.indexOf(m_currentShow->getTrackFromShowFunctionID(sf->id()));
+        selection.m_showFunc = sf;
+        selection.m_item = view;
+        m_selectedItems.append(selection);
+    }
+
+    selectTrackOfSelectedItems();
+    emit selectedItemsCountChanged(m_selectedItems.count());
+    emit showDurationChanged(m_currentShow->totalDuration());
+
+    return true;
 }

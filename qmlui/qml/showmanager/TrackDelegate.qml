@@ -35,6 +35,7 @@ Rectangle
     property bool isSelected: false
 
     signal trackSelected()
+    signal trackDeselected()
 
     CustomTextInput
     {
@@ -120,8 +121,26 @@ Rectangle
         propagateComposedEvents: true
         onClicked: (mouse) =>
         {
-            showManager.selectedTrackId = trackRef.id
-            trackRoot.trackSelected()
+            // Ctrl+click on the selected Track deselects it
+            if (isSelected && (mouse.modifiers & Qt.ControlModifier))
+            {
+                showManager.selectedTrackId = -1
+                trackRoot.trackDeselected()
+            }
+            else
+            {
+                showManager.selectedTrackId = trackRef.id
+                trackRoot.trackSelected()
+            }
+            // every mouse press resets the last clicked item type, and
+            // clicking the Track already selected doesn't change the
+            // selection, so claim the keyboard shortcuts explicitly
+            showManager.itemClicked(App.TrackDragItem)
+            mouse.accepted = false
+        }
+        onDoubleClicked: (mouse) =>
+        {
+            showManager.itemClicked(App.TrackDragItem)
             mouse.accepted = false
         }
     }
