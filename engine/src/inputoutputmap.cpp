@@ -1214,7 +1214,12 @@ int InputOutputMap::stringToNetworkServerType(const QString &str) const
 
     // a legacy project stores a single type, while a
     // recent one can store a '|' separated list of types
+
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+    for (const QString &token : str.split('|', QString::SkipEmptyParts))
+#else
     for (const QString &token : str.split('|', Qt::SkipEmptyParts))
+#endif
     {
         QString type = token.trimmed();
 
