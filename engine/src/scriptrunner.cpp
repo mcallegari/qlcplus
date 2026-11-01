@@ -656,21 +656,23 @@ bool ScriptRunner::waitForFunctionOperation(quint32 fID, FunctionOperation opera
 {
     const QPair<quint32, FunctionOperation> pair(fID, operation);
 
-    while (m_running)
-    {
-        {
-            QMutexLocker locker(&m_mutex);
-            // still queued, or write() is currently waiting for this Function
-            if (!m_functionQueue.contains(pair) && m_waitFunctionId != fID)
-                return true;
-        }
+    QMutexLocker locker(&m_mutex);
 
-        // never with the mutex held, see waitTime()
+    // Still queued, or write() is currently waiting for this Function
+    while (m_running && (m_functionQueue.contains(pair) || m_waitFunctionId == fID))
+    {
+        // write() wakes us up as soon as it has dealt with the request. The
+        // timeout only makes sure a stop request is noticed even if no
+        // wake-up arrives.
+        m_waitCondition.wait(&m_mutex, 10);
+
+        // Never with the mutex held, see waitTime()
+        locker.unlock();
         maybeCollectGarbage();
-        usleep(10000);
+        locker.relock();
     }
 
-    return false;
+    return m_running;
 }
 
 bool ScriptRunner::waitFunctionStart(quint32 fID)
