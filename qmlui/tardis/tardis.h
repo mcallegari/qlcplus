@@ -106,6 +106,7 @@ public:
         FunctionSetFadeIn,
         FunctionSetFadeOut,
         FunctionSetDuration,
+        FunctionSetAutostart,
 
         /* Scene editing actions */
         SceneSetChannelValue = 0x1100,
@@ -125,6 +126,12 @@ public:
         ChaserSetStepHold,
         ChaserSetStepFadeOut,
         ChaserSetStepDuration,
+        ChaserSetFadeInMode,
+        ChaserSetFadeOutMode,
+        ChaserSetDurationMode,
+        ChaserSetStepNote,
+        ChaserSetStepValue,
+        ChaserUnsetStepValue,
 
         /* EFX editing actions */
         EFXAddFixture = 0x1300,
@@ -142,6 +149,10 @@ public:
         EFXSetYFrequency,
         EFXSetXPhase,
         EFXSetYPhase,
+        EFXSetDimmerControl,
+        EFXSetFixtureMode,
+        EFXSetFixtureReversed,
+        EFXSetFixtureOffset,
 
         /* Collection editing actions */
         CollectionAddFunction = 0x1400,
@@ -163,6 +174,8 @@ public:
         RGBMatrixSetImage,
         RGBMatrixSetOffset,
         RGBMatrixSetAnimationStyle,
+        RGBMatrixSetBlendMode,
+        RGBMatrixSetControlMode,
 
         /* Audio editing actions */
         AudioSetSource = 0x1600,
@@ -176,6 +189,9 @@ public:
         VideoSetRotation,
         VideoSetLayer,
 
+        /* Script editing actions */
+        ScriptSetContent = 0x1800,
+
         /* Show Manager actions */
         ShowManagerAddTrack = 0xB000,
         ShowManagerDeleteTrack,
@@ -184,6 +200,10 @@ public:
         ShowManagerItemSetStartTime,
         ShowManagerItemSetDuration,
         ShowManagerItemSetTrack,
+        ShowManagerSetTimeDivision,
+        ShowManagerTrackSetMute,
+        ShowManagerMoveTrack,
+        ShowManagerItemSetLock,
 
         /* Simple Desk actions */
         SimpleDeskSetChannel = 0xC000,

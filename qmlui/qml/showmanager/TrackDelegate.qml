@@ -101,7 +101,7 @@ Rectangle
         imgSource: ""
         checkable: true
         tooltip: qsTr("Mute this track")
-        onToggled: if (trackRef) trackRef.mute = checked
+        onToggled: if (trackRef) showManager.setTrackMute(trackRef.id, checked)
 
         RobotoText
         {

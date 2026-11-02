@@ -284,6 +284,9 @@ void ShowManager::setTimeDivision(Show::TimeDivision division)
     if (division == m_currentShow->timeDivisionType())
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::ShowManagerSetTimeDivision, m_currentShow->id(),
+                                      int(m_currentShow->timeDivisionType()), int(division));
+
     /* A beat tempo Function's items are always positioned in "beats as ms"
        (1000 units per beat) regardless of the Show's own timeline
        division, and are not affected by this switch. However, since they
@@ -422,20 +425,26 @@ void ShowManager::setSelectedTrackId(int id)
     emit itemClicked(App::TrackDragItem);
 }
 
-void ShowManager::setTrackSolo(int index, bool solo)
+void ShowManager::setTrackSolo(int trackId, bool solo)
 {
-    QList<Track*> tracks = m_currentShow->tracks();
-
-    if (index < 0 || index >= tracks.count())
+    if (m_currentShow == nullptr || m_currentShow->track(trackId) == nullptr)
         return;
 
-    for (int i = 0; i < tracks.count(); i++)
-    {
-        if (i == index)
-            tracks.at(i)->setMute(false);
-        else
-            tracks.at(i)->setMute(solo);
-    }
+    for (Track *track : m_currentShow->tracks())
+        setTrackMute(track->id(), int(track->id()) == trackId ? false : solo);
+}
+
+void ShowManager::setTrackMute(int trackId, bool mute)
+{
+    Track *track = m_currentShow ? m_currentShow->track(trackId) : nullptr;
+
+    if (track == nullptr || track->isMute() == mute)
+        return;
+
+    Tardis::instance()->enqueueAction(Tardis::ShowManagerTrackSetMute, m_currentShow->id(),
+                                      QVariant::fromValue(UIntPair(trackId, track->isMute())),
+                                      QVariant::fromValue(UIntPair(trackId, mute)));
+    track->setMute(mute);
 }
 
 void ShowManager::moveTrack(int index, int direction)
@@ -445,7 +454,16 @@ void ShowManager::moveTrack(int index, int direction)
     if (index < 0 || index >= tracks.count())
         return;
 
-    m_currentShow->moveTrack(tracks.at(index), direction);
+    // moving a Track swaps its ID with the neighbour one
+    Track *track = tracks.at(index);
+    quint32 trackId = track->id();
+
+    m_currentShow->moveTrack(track, direction);
+
+    if (track->id() != trackId)
+        Tardis::instance()->enqueueAction(Tardis::ShowManagerMoveTrack, m_currentShow->id(),
+                                          QVariant::fromValue(UIntPair(track->id(), uint(-direction))),
+                                          QVariant::fromValue(UIntPair(trackId, uint(direction))));
     m_doc->setModified();
 
     emit tracksChanged();
@@ -1700,8 +1718,12 @@ void ShowManager::setSelectedItemsLock(bool lock)
 {
     foreach (SelectedShowItem si, m_selectedItems)
     {
-        if (si.m_showFunc != nullptr)
+        if (si.m_showFunc != nullptr && si.m_showFunc->isLocked() != lock)
+        {
+            Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetLock, si.m_showFunc->id(),
+                                              si.m_showFunc->isLocked(), lock);
             si.m_showFunc->setLocked(lock);
+        }
     }
 }
 

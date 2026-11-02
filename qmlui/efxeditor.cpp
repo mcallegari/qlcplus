@@ -351,6 +351,7 @@ void EFXEditor::setDimmerControl(bool dimmerControl)
     if (m_efx == nullptr || dimmerControl == m_efx->dimmerControlEnabled())
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::EFXSetDimmerControl, m_efx->id(), m_efx->dimmerControlEnabled(), dimmerControl);
     m_efx->setDimmerControlEnabled(dimmerControl);
     emit dimmerControlChanged();
 }
@@ -580,7 +581,12 @@ void EFXEditor::setFixtureMode(quint32 fixtureID, int headIndex, int modeIndex)
     EFXFixture *ef = m_efx->fixture(fixtureID, headIndex);
 
     if (ef != nullptr)
+    {
+        Tardis::instance()->enqueueAction(Tardis::EFXSetFixtureMode, m_efx->id(),
+                                          QVariantList({ int(fixtureID), headIndex, int(ef->mode()) }),
+                                          QVariantList({ int(fixtureID), headIndex, modeIndex }));
         ef->setMode(EFXFixture::Mode(modeIndex));
+    }
 }
 
 void EFXEditor::setFixtureReversed(quint32 fixtureID, int headIndex, bool reversed)
@@ -592,6 +598,9 @@ void EFXEditor::setFixtureReversed(quint32 fixtureID, int headIndex, bool revers
 
     if (ef != nullptr)
     {
+        Tardis::instance()->enqueueAction(Tardis::EFXSetFixtureReversed, m_efx->id(),
+                                          QVariantList({ int(fixtureID), headIndex, ef->direction() == Function::Backward ? 1 : 0 }),
+                                          QVariantList({ int(fixtureID), headIndex, reversed ? 1 : 0 }));
         ef->setDirection(reversed ? Function::Backward : Function::Forward);
         updateAlgorithmData();
     }
@@ -606,6 +615,9 @@ void EFXEditor::setFixtureOffset(quint32 fixtureID, int headIndex, int offset)
 
     if (ef != nullptr)
     {
+        Tardis::instance()->enqueueAction(Tardis::EFXSetFixtureOffset, m_efx->id(),
+                                          QVariantList({ int(fixtureID), headIndex, ef->startOffset() }),
+                                          QVariantList({ int(fixtureID), headIndex, offset }));
         ef->setStartOffset(offset);
         updateAlgorithmData();
     }
@@ -622,7 +634,12 @@ void EFXEditor::setFixturesOffset(int offset, int mode)
     {
         // The same absolute offset on every fixture
         for (EFXFixture *ef : fixtures)
+        {
+            Tardis::instance()->enqueueAction(Tardis::EFXSetFixtureOffset, m_efx->id(),
+                                              QVariantList({ int(ef->head().fxi), ef->head().head, ef->startOffset() }),
+                                              QVariantList({ int(ef->head().fxi), ef->head().head, offset }));
             ef->setStartOffset(offset);
+        }
     }
     else
     {
@@ -646,7 +663,13 @@ void EFXEditor::setFixturesOffset(int offset, int mode)
         }
 
         for (int i = 0; i < fixtures.count(); i++)
-            fixtures.at(i)->setStartOffset(offsets.at(i));
+        {
+            EFXFixture *ef = fixtures.at(i);
+            Tardis::instance()->enqueueAction(Tardis::EFXSetFixtureOffset, m_efx->id(),
+                                              QVariantList({ int(ef->head().fxi), ef->head().head, ef->startOffset() }),
+                                              QVariantList({ int(ef->head().fxi), ef->head().head, offsets.at(i) }));
+            ef->setStartOffset(offsets.at(i));
+        }
     }
 
     updateFixtureList();
