@@ -310,6 +310,7 @@ Rectangle
 
                     IconPopupButton
                     {
+                        id: tempoButton
                         model: [
                             { mLabel: qsTr("Time"), mTextIcon: "T", mValue: QLCFunction.Time },
                             { mLabel: qsTr("Beats"), mTextIcon: "B", mValue: QLCFunction.Beats }
@@ -317,6 +318,14 @@ Rectangle
 
                         currValue: chaserEditor.tempoType
                         onValueChanged: (value) => chaserEditor.tempoType = value
+
+                        // a selection breaks the binding above: follow the
+                        // changes made elsewhere too (e.g. undo)
+                        Connections
+                        {
+                            target: chaserEditor
+                            function onTempoTypeChanged() { tempoButton.currValue = chaserEditor.tempoType }
+                        }
                     }
                     RobotoText
                     {

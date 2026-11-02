@@ -183,7 +183,6 @@ public:
     Q_INVOKABLE void setStepNote(int index, QString text);
 
 signals:
-    void tempoTypeChanged(int tempoType);
     void stepsFadeInChanged(int stepsFadeIn);
     void stepsFadeOutChanged(int stepsFadeOut);
     void stepsDurationChanged(int stepsDuration);

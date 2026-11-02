@@ -23,6 +23,9 @@
 #include <QObject>
 
 class Doc;
+class EFX;
+class MasterTimerStub;
+
 class EFX_Test final : public QObject
 {
     Q_OBJECT
@@ -92,6 +95,24 @@ private slots:
     void adjustIntensity();
     void removeMultiHeadFixture();
     void missingFixture();
+
+    void timeLoopUnchanged();
+    void beatsTempoSwitch();
+    void beatsSaveLoad();
+    void beatsFreeRunning();
+    void beatsBpmChange();
+    void beatsLockOntoBeats();
+    void beatsFollowBeatsTempo();
+    void beatsPauseResume();
+    void beatsSingleShot();
+    void beatsPingPong();
+    void beatsSerialOffset();
+    void beatsFadeIn();
+    void beatsChaserFadeOverride();
+
+private:
+    EFX *createEFX(int fixtures);
+    void writeTick(EFX *efx, MasterTimerStub *timer, bool beat = false);
 
 private:
     Doc* m_doc;

@@ -52,6 +52,10 @@ EFX::EFX(Doc* doc)
     , m_fixturesMutex(QMutex::Recursive)
 #endif
     , m_legacyHoldBus(Bus::invalid())
+    , m_beatPosition(0)
+    , m_beatUnits(0)
+    , m_beatCorrection(0)
+    , m_beatCorrectionRate(0)
 {
     updateRotationCache();
     setName(tr("New EFX"));
@@ -148,7 +152,7 @@ void EFX::setDuration(uint ms)
 
 uint EFX::loopDuration() const
 {
-    uint fadeIn = overrideFadeInSpeed() == defaultSpeed() ? fadeInSpeed() : overrideFadeInSpeed();
+    uint fadeIn = tempoFadeInSpeed();
 
     // With a fade in not shorter than the duration, the subtraction would
     // wrap around to a huge loop and the EFX would look frozen: use the
@@ -157,6 +161,27 @@ uint EFX::loopDuration() const
         return duration();
 
     return duration() - fadeIn;
+}
+
+uint EFX::tempoFadeInSpeed() const
+{
+    if (overrideFadeInSpeed() == defaultSpeed())
+        return fadeInSpeed();
+
+    uint fadeIn = overrideFadeInSpeed();
+
+    // a Chaser hands its fades in its own tempo
+    if (overrideTempoType() != Original && overrideTempoType() != tempoType() &&
+        fadeIn != infiniteSpeed())
+    {
+        int beatDuration = doc()->masterTimer()->beatTimeDuration();
+        if (tempoType() == Beats)
+            fadeIn = timeToBeats(fadeIn, beatDuration);
+        else
+            fadeIn = beatsToTime(fadeIn, beatDuration);
+    }
+
+    return fadeIn;
 }
 
 /*****************************************************************************
@@ -322,10 +347,10 @@ void EFX::rotateAndScale(float *x, float *y) const
 
     if (isRunning())
     {
-        uint fadeIn = overrideFadeInSpeed() == defaultSpeed() ? fadeInSpeed() : overrideFadeInSpeed();
-        if (fadeIn > 0 && elapsed() <= fadeIn)
+        uint fadeIn = tempoFadeInSpeed();
+        if (fadeIn > 0 && tempoElapsed() <= fadeIn)
         {
-            fadeScale = SCALE(float(elapsed()),
+            fadeScale = SCALE(float(tempoElapsed()),
                               float(0), float(fadeIn),
                               float(0), float(1.0));
         }
@@ -1196,6 +1221,12 @@ void EFX::preRun(MasterTimer* timer)
     int serialNumber = 0;
 
     QMutexLocker locker(&m_fixturesMutex);
+
+    m_beatPosition = 0;
+    m_beatUnits = 0;
+    m_beatCorrection = 0;
+    m_beatCorrectionRate = 0;
+
     QListIterator <EFXFixture*> it(m_fixtures);
     while (it.hasNext() == true)
     {
@@ -1211,13 +1242,15 @@ void EFX::preRun(MasterTimer* timer)
 
 void EFX::write(MasterTimer *timer, QList<Universe*> universes)
 {
-    Q_UNUSED(timer);
-
     if (isPaused())
         return;
 
     int done = 0;
     int count = 0;
+    uint increment = MasterTimer::tick();
+
+    if (tempoType() == Beats)
+        increment = advanceBeatClock(timer);
 
     {
         QMutexLocker locker(&m_fixturesMutex);
@@ -1235,7 +1268,7 @@ void EFX::write(MasterTimer *timer, QList<Universe*> universes)
                     continue;
 
                 QSharedPointer<GenericFader> fader = getFader(universes, ef->universe());
-                ef->nextStep(universes, fader);
+                ef->nextStep(universes, fader, increment);
             }
             else
             {
@@ -1249,6 +1282,54 @@ void EFX::write(MasterTimer *timer, QList<Universe*> universes)
     /* Check for stop condition */
     if (done == count)
         stop(FunctionParent::master());
+}
+
+quint32 EFX::tempoElapsed() const
+{
+    if (tempoType() == Beats)
+        return quint32(qMin(m_beatUnits, quint64(UINT_MAX)));
+
+    return elapsed();
+}
+
+uint EFX::advanceBeatClock(MasterTimer *timer)
+{
+    int bpm = timer->bpmNumber();
+    double beatDuration = 60000.0 / (bpm > 0 ? bpm : 120);
+    double step = MasterTimer::tick() / beatDuration;
+
+    // ease a pending phase correction in, over a beat
+    if (m_beatCorrection != 0)
+    {
+        double correction = m_beatCorrectionRate * step;
+        if (qAbs(correction) >= qAbs(m_beatCorrection))
+            correction = m_beatCorrection;
+        m_beatCorrection -= correction;
+        step += correction;
+    }
+
+    m_beatPosition += step;
+
+    // On a beat, a whole beat of the EFX should be due too. Measure how far
+    // off it is and correct it over the next beat, so the EFX locks onto the
+    // beats (also when started between two beats) without any jump. Errors
+    // within a tick are just the beat detection granularity
+    if (timer->isBeat())
+    {
+        double error = m_beatPosition - floor(m_beatPosition + 0.5);
+        if (qAbs(error) * beatDuration > MasterTimer::tick())
+            m_beatCorrection = -error;
+        else
+            m_beatCorrection = 0;
+        m_beatCorrectionRate = m_beatCorrection;
+    }
+
+    // the epsilon absorbs the rounding errors piled up by the additions
+    quint64 units = quint64(m_beatPosition * 1000.0 + 1e-6);
+    uint increment = uint(units - m_beatUnits);
+    m_beatUnits = units;
+
+    return increment;
 }
 
 void EFX::postRun(MasterTimer *timer, QList<Universe *> universes)

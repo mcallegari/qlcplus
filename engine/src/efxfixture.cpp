@@ -459,7 +459,7 @@ void EFXFixture::stop()
     m_started = false;
 }
 
-void EFXFixture::nextStep(QList<Universe *> universes, QSharedPointer<GenericFader> fader)
+void EFXFixture::nextStep(QList<Universe *> universes, QSharedPointer<GenericFader> fader, uint increment)
 {
     // Nothing to do
     if (m_parent->loopDuration() == 0)
@@ -470,10 +470,10 @@ void EFXFixture::nextStep(QList<Universe *> universes, QSharedPointer<GenericFad
     if (m_done == true || isValid() == false)
         return;
 
-    m_elapsed += MasterTimer::tick();
+    m_elapsed += increment;
 
     // Check time wrapping
-    if (m_elapsed > m_parent->loopDuration())
+    while (m_done == false && m_elapsed > m_parent->loopDuration())
     {
         if (m_parent->runOrder() == Function::PingPong)
         {
@@ -490,7 +490,12 @@ void EFXFixture::nextStep(QList<Universe *> universes, QSharedPointer<GenericFad
             stop();
         }
 
-        m_elapsed = 0;
+        // A Beats tempo EFX keeps what went past the loop end, not to
+        // lose a little of each loop and drift off the beats
+        if (m_parent->tempoType() == Function::Beats && m_done == false)
+            m_elapsed -= m_parent->loopDuration();
+        else
+            m_elapsed = 0;
     }
 
     // Bail out without doing anything if this fixture is waiting for its turn.

@@ -685,6 +685,7 @@ Rectangle
                         }
                         CustomComboBox
                         {
+                            id: tempoCombo
                             Layout.columnSpan: 2
                             Layout.fillWidth: true
                             height: UISettings.listItemHeight
@@ -694,7 +695,15 @@ Rectangle
                             ]
 
                             currValue: rgbMatrixEditor.tempoType
-                            onValueChanged: rgbMatrixEditor.tempoType = value
+                            onValueChanged: (value) => rgbMatrixEditor.tempoType = value
+
+                            // a selection breaks the binding above: follow the
+                            // changes made elsewhere too (e.g. undo)
+                            Connections
+                            {
+                                target: rgbMatrixEditor
+                                function onTempoTypeChanged() { tempoCombo.currValue = rgbMatrixEditor.tempoType }
+                            }
                         }
                         Item
                         {

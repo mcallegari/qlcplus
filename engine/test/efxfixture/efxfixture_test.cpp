@@ -556,7 +556,7 @@ void EFXFixture_Test::nextStepLoop()
     {
         for (; i < max; i += MasterTimer::tick())
         {
-            ef->nextStep(ua, fader);
+            ef->nextStep(ua, fader, MasterTimer::tick());
             QVERIFY(ef->isDone() == false); // Loop is never ready
             QCOMPARE(ef->m_elapsed, i);
         }
@@ -596,7 +596,7 @@ void EFXFixture_Test::nextStepLoopZeroDuration()
     {
         for (; i < max; i += MasterTimer::tick())
         {
-            ef->nextStep(ua, fader);
+            ef->nextStep(ua, fader, MasterTimer::tick());
             QVERIFY(ef->isDone() == false); // Loop is never ready
             QVERIFY(ef->m_elapsed == 0); // elapsed is never increased
         }
@@ -636,12 +636,12 @@ void EFXFixture_Test::nextStepSingleShot()
     uint max = (MasterTimer::tick() * MasterTimer::frequency()) + MasterTimer::tick();
     for (uint i = MasterTimer::tick(); i < max; i += MasterTimer::tick())
     {
-        ef->nextStep(ua, fader);
+        ef->nextStep(ua, fader, MasterTimer::tick());
         QVERIFY(ef->isDone() == false);
         QCOMPARE(ef->m_elapsed, i);
     }
 
-    ef->nextStep(ua, fader);
+    ef->nextStep(ua, fader, MasterTimer::tick());
 
     /* Single-shot EFX should now be ready */
     QVERIFY(ef->isDone() == true);
