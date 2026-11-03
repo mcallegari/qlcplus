@@ -43,8 +43,16 @@ VCWidgetItem
 
     onIsCollapsedChanged:
     {
-        frameRoot.width = isCollapsed ? UISettings.bigItemHeight * 2 : frameObj.geometry.width
-        frameRoot.height = isCollapsed ? UISettings.listItemHeight : frameObj.geometry.height
+        if (isCollapsed)
+        {
+            frameRoot.width = UISettings.bigItemHeight * 2
+            frameRoot.height = UISettings.listItemHeight
+        }
+        else
+        {
+            // follow the frame geometry again
+            restoreGeometryBindings()
+        }
     }
 
     // Frame header

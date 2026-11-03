@@ -23,6 +23,7 @@
 #include "qlcinputchannel.h"
 #include "inputpatch.h"
 #include "vcwidget.h"
+#include "vcpage.h"
 #include "tardis.h"
 #include "doc.h"
 
@@ -1407,8 +1408,8 @@ bool VCWidget::saveXMLCommon(QXmlStreamWriter *doc) const
     /* Caption */
     doc->writeAttribute(KXMLQLCVCCaption, caption());
 
-    /* ID */
-    if (id() != VCWidget::invalidId())
+    /* ID. A page ID is assigned at runtime and is not saved */
+    if (id() != VCWidget::invalidId() && qobject_cast<const VCPage *>(this) == nullptr)
         doc->writeAttribute(KXMLQLCVCWidgetID, QString::number(id()));
 
     /* Page */

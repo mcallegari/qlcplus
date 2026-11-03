@@ -190,7 +190,11 @@ protected:
      *********************************************************************/
 public:
     int value() const;
-    void setValue(int value, bool setDMX = true, bool updateFeedback = true);
+
+    /** Set the slider value. In Adjust mode, the value is also applied
+     *  to the controlled Function on the next DMX write, unless $adjust
+     *  is false (to only display a change of the Function itself) */
+    void setValue(int value, bool setDMX = true, bool updateFeedback = true, bool adjust = true);
 
     /** Get/Set the external input values catching */
     bool catchValues() const;
