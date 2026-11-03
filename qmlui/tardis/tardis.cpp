@@ -48,7 +48,7 @@
 #include "vcframe.h"
 #include "rgbtext.h"
 #include "chaser.h"
-#include "script.h"
+#include "scriptwrapper.h"
 #include "scene.h"
 #include "audio.h"
 #include "video.h"
