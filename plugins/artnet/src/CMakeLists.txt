@@ -7,7 +7,7 @@ set(TS_FILES
     ArtNet_fr_FR.ts
     ArtNet_it_IT.ts
     ArtNet_nl_NL.ts
-    ArtNet_cz_CZ.ts
+    ArtNet_cs_CZ.ts
     ArtNet_pt_BR.ts
     ArtNet_ca_ES.ts
     ArtNet_ja_JP.ts

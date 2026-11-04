@@ -9,7 +9,7 @@ set(TS_FILES
     DMX_USB_fr_FR.ts
     DMX_USB_it_IT.ts
     DMX_USB_nl_NL.ts
-    DMX_USB_cz_CZ.ts
+    DMX_USB_cs_CZ.ts
     DMX_USB_pt_BR.ts
     DMX_USB_ca_ES.ts
     DMX_USB_ja_JP.ts

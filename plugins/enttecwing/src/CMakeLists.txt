@@ -7,7 +7,7 @@ set(TS_FILES
     ENTTEC_Wing_fr_FR.ts
     ENTTEC_Wing_it_IT.ts
     ENTTEC_Wing_nl_NL.ts
-    ENTTEC_Wing_cz_CZ.ts
+    ENTTEC_Wing_cs_CZ.ts
     ENTTEC_Wing_pt_BR.ts
     ENTTEC_Wing_ca_ES.ts
     ENTTEC_Wing_ja_JP.ts

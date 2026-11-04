@@ -7,7 +7,7 @@ set(TS_FILES
     OLA_fr_FR.ts
     OLA_it_IT.ts
     OLA_nl_NL.ts
-    OLA_cz_CZ.ts
+    OLA_cs_CZ.ts
     OLA_pt_BR.ts
     OLA_ca_ES.ts
     OLA_ja_JP.ts

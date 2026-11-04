@@ -9,7 +9,7 @@ set(TS_FILES
     qlcplus_de_DE.ts
     qlcplus_it_IT.ts
     qlcplus_nl_NL.ts
-    qlcplus_cz_CZ.ts
+    qlcplus_cs_CZ.ts
     qlcplus_pt_BR.ts
     qlcplus_ca_ES.ts
     qlcplus_ja_JP.ts

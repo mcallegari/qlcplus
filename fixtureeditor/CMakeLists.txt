@@ -7,7 +7,7 @@ set(TS_FILES
     fixtureeditor_es_ES.ts
     fixtureeditor_it_IT.ts
     fixtureeditor_nl_NL.ts
-    fixtureeditor_cz_CZ.ts
+    fixtureeditor_cs_CZ.ts
     fixtureeditor_pt_BR.ts
     fixtureeditor_ca_ES.ts
     fixtureeditor_ja_JP.ts

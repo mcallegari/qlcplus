@@ -9,7 +9,7 @@ set(TS_FILES
     webaccess_es_ES.ts
     webaccess_it_IT.ts
     webaccess_nl_NL.ts
-    webaccess_cz_CZ.ts
+    webaccess_cs_CZ.ts
     webaccess_pt_BR.ts
     webaccess_ca_ES.ts
     webaccess_ja_JP.ts

@@ -7,7 +7,7 @@ set(TS_FILES
     loopback_fr_FR.ts
     loopback_it_IT.ts
     loopback_nl_NL.ts
-    loopback_cz_CZ.ts
+    loopback_cs_CZ.ts
     loopback_pt_BR.ts
     loopback_ca_ES.ts
     loopback_ja_JP.ts

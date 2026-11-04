@@ -16,7 +16,7 @@ set(TS_FILES
     Peperoni_fr_FR.ts
     Peperoni_it_IT.ts
     Peperoni_nl_NL.ts
-    Peperoni_cz_CZ.ts
+    Peperoni_cs_CZ.ts
     Peperoni_pt_BR.ts
     Peperoni_ca_ES.ts
     Peperoni_ja_JP.ts

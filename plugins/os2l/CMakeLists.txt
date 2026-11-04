@@ -7,7 +7,7 @@ set(TS_FILES
     OS2L_fr_FR.ts
     OS2L_it_IT.ts
     OS2L_nl_NL.ts
-    # OS2L_cz_CZ.ts
+    # OS2L_cs_CZ.ts
     # OS2L_pt_BR.ts
     OS2L_ca_ES.ts
     OS2L_ja_JP.ts

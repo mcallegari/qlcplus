@@ -7,7 +7,7 @@ set(TS_FILES
     GPIO_fr_FR.ts
     GPIO_it_IT.ts
     GPIO_nl_NL.ts
-    GPIO_cz_CZ.ts
+    GPIO_cs_CZ.ts
     GPIO_pt_BR.ts
     GPIO_ca_ES.ts
     GPIO_ja_JP.ts

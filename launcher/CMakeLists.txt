@@ -7,7 +7,7 @@ set(TS_FILES
     launcher_es_ES.ts
     launcher_it_IT.ts
     launcher_nl_NL.ts
-    launcher_cz_CZ.ts
+    launcher_cs_CZ.ts
     launcher_pt_BR.ts
     launcher_ca_ES.ts
     launcher_ja_JP.ts

@@ -9,7 +9,7 @@ set(TS_FILES
     uDMX_fr_FR.ts
     uDMX_it_IT.ts
     uDMX_nl_NL.ts
-    uDMX_cz_CZ.ts
+    uDMX_cs_CZ.ts
     uDMX_pt_BR.ts
     uDMX_ca_ES.ts
     uDMX_ja_JP.ts

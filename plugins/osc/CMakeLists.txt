@@ -7,7 +7,7 @@ set(TS_FILES
     OSC_fr_FR.ts
     OSC_it_IT.ts
     OSC_nl_NL.ts
-    OSC_cz_CZ.ts
+    OSC_cs_CZ.ts
     OSC_pt_BR.ts
     OSC_ca_ES.ts
     OSC_ja_JP.ts
