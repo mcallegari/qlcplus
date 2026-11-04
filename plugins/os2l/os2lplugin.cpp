@@ -24,6 +24,7 @@
 
 #include "utils.h"
 #include "os2lplugin.h"
+#include "dnssdresponder.h"
 #include "os2lconfiguration.h"
 
 /*****************************************************************************
@@ -40,6 +41,7 @@ void OS2LPlugin::init()
     m_inputUniverse = UINT_MAX;
     m_hostPort = OS2L_DEFAULT_PORT;
     m_tcpServer = NULL;
+    m_dnssd = new DNSSDResponder(this);
 }
 
 QString OS2LPlugin::name() const
@@ -146,12 +148,15 @@ bool OS2LPlugin::enableTCPServer(bool enable)
         }
         connect(m_tcpServer, SIGNAL(newConnection()), this, SLOT(slotProcessNewTCPConnection()));
         qDebug() << "[OS2L] listening on TCP port" << m_hostPort;
+
+        m_dnssd->registerService("QLC+", "_os2l._tcp", m_hostPort);
     }
     else
     {
         if (m_tcpServer == NULL)
             return true;
 
+        m_dnssd->unregisterService();
         disconnect(m_tcpServer, SIGNAL(newConnection()), this, SLOT(slotProcessNewTCPConnection()));
         m_tcpServer->close();
         delete m_tcpServer;

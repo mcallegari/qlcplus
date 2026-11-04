@@ -25,6 +25,7 @@ add_library(${module_name} ${QLC_PLUGIN_TYPE}
 
 target_sources(${module_name} PRIVATE
     ../interfaces/qlcioplugin.cpp ../interfaces/qlcioplugin.h
+    ../interfaces/dnssdresponder.cpp ../interfaces/dnssdresponder.h
     os2lconfiguration.cpp os2lconfiguration.h os2lconfiguration.ui
     os2lplugin.cpp os2lplugin.h
 )

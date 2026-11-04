@@ -28,6 +28,7 @@
 #define OS2L_DEFAULT_PORT 9996
 
 class QTcpServer;
+class DNSSDResponder;
 
 class OS2LPlugin final : public QLCIOPlugin
 {
@@ -94,6 +95,9 @@ protected:
 
     /** Reference to the TCP listener for incoming connections */
     QTcpServer *m_tcpServer;
+
+    /** Reference to the DNS-SD responder advertising the OS2L service */
+    DNSSDResponder *m_dnssd;
 
     /** Every time a OS2L message is received, the plugin will calculate a 16 bit checksum
       * of the OS2L command string and add it to
