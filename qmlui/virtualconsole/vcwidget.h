@@ -128,7 +128,7 @@ public:
     virtual bool supportsPresets() const;
 
     /** Remap this widget's channels using the provided $remapMap */
-    virtual void remapChannels(const QMap<SceneValue, SceneValue> &remapMap);
+    virtual void remapChannels(const QMultiMap<SceneValue, SceneValue> &remapMap);
 
     /** Return a QML resource for preset properties */
     virtual QString presetsResource() const;

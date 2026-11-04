@@ -148,7 +148,7 @@ VCWidget *VCAudioTriggers::createCopy(VCWidget *parent) const
     return audioTrigger;
 }
 
-void VCAudioTriggers::remapChannels(const QMap<SceneValue, SceneValue> &remapMap)
+void VCAudioTriggers::remapChannels(const QMultiMap<SceneValue, SceneValue> &remapMap)
 {
     for (AudioBar &bar : m_spectrumBars)
     {
@@ -158,8 +158,7 @@ void VCAudioTriggers::remapChannels(const QMap<SceneValue, SceneValue> &remapMap
             for (const SceneValue &val : bar.m_dmxChannels)
             {
                 SceneValue key(val.fxi, val.channel);
-                if (remapMap.contains(key))
-                    newList.append(remapMap.value(key));
+                newList.append(remapMap.values(key));
             }
             bar.m_dmxChannels = newList;
             rebuildBarAbsDmxChannels(bar);

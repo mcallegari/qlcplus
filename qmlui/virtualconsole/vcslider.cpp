@@ -188,15 +188,14 @@ VCWidget* VCSlider::createCopy(VCWidget* parent) const
     return slider;
 }
 
-void VCSlider::remapChannels(const QMap<SceneValue, SceneValue> &remapMap)
+void VCSlider::remapChannels(const QMultiMap<SceneValue, SceneValue> &remapMap)
 {
     QList<SceneValue> newChannels;
 
     for (const SceneValue &val : m_levelChannels)
     {
         SceneValue key(val.fxi, val.channel);
-        if (remapMap.contains(key))
-            newChannels.append(remapMap.value(key));
+        newChannels.append(remapMap.values(key));
     }
 
     m_levelChannels = newChannels;

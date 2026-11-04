@@ -84,7 +84,7 @@ public:
     VCWidget *createCopy(VCWidget *parent) const override;
 
     /** @reimp */
-    void remapChannels(const QMap<SceneValue, SceneValue> &remapMap) override;
+    void remapChannels(const QMultiMap<SceneValue, SceneValue> &remapMap) override;
 
 protected:
     /** @reimp */

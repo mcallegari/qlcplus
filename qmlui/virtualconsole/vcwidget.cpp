@@ -59,7 +59,7 @@ bool VCWidget::supportsPresets() const
     return false;
 }
 
-void VCWidget::remapChannels(const QMap<SceneValue, SceneValue> &remapMap)
+void VCWidget::remapChannels(const QMultiMap<SceneValue, SceneValue> &remapMap)
 {
     Q_UNUSED(remapMap)
 }
