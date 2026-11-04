@@ -4,23 +4,12 @@
 <context>
     <name>Peperoni</name>
     <message>
-        <location filename="win32/peperoni.cpp" line="124"/>
-        <source>This plugin provides DMX output support for Peperoni DMX devices.</source>
-        <translation>Questa plugin permette la trasmissione di segnale DMX su interfacce Peperoni.</translation>
-    </message>
-    <message>
-        <location filename="win32/peperoni.cpp" line="138"/>
-        <source>The shared library usbdmx.dll could not be found or is too old to be used with QLC.</source>
-        <translation>La libreria dinamica usbdmx.dll non è stata trovata o è troppo vecchia per essere usata da QLC+.</translation>
-    </message>
-    <message>
-        <location filename="unix/peperoni.cpp" line="210"/>
-        <location filename="win32/peperoni.cpp" line="221"/>
+        <location filename="peperoni.cpp" line="216"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation>Vuoi rifare la scansione delle tue interfacce?</translation>
     </message>
     <message>
-        <location filename="unix/peperoni.cpp" line="101"/>
+        <location filename="peperoni.cpp" line="112"/>
         <source>This plugin provides DMX input and output support for Peperoni DMX devices.</source>
         <translation>Questa plugin permette la ricezione e la trasmissione di segnale DMX su interfacce Peperoni Lighting.</translation>
     </message>
@@ -28,66 +17,54 @@
 <context>
     <name>PeperoniDevice</name>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="187"/>
-        <location filename="win32/peperonidevice.cpp" line="70"/>
+        <location filename="peperonidevice.cpp" line="237"/>
         <source>Device is working correctly.</source>
         <translation>L&apos;interfaccia funziona correttamente.</translation>
     </message>
     <message>
-        <location filename="win32/peperonidevice.cpp" line="72"/>
-        <source>Device might not work correctly.</source>
-        <translation>Il dispositivo potrebbe non funzionare correttamente.</translation>
-    </message>
-    <message>
-        <location filename="win32/peperonidevice.cpp" line="94"/>
-        <source>Nothing</source>
-        <translation>Nessuno</translation>
-    </message>
-    <message>
-        <location filename="unix/peperonidevice.cpp" line="155"/>
-        <location filename="win32/peperonidevice.cpp" line="111"/>
+        <location filename="peperonidevice.cpp" line="217"/>
         <source>Unknown</source>
         <translation>Sconosciuto</translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="174"/>
+        <location filename="peperonidevice.cpp" line="224"/>
         <source>Universe</source>
         <translation>Universo</translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="189"/>
+        <location filename="peperonidevice.cpp" line="239"/>
         <source>Firmware version: %1</source>
         <translation>Versione Firmware: %1</translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="195"/>
+        <location filename="peperonidevice.cpp" line="245"/>
         <source>Unknown device</source>
         <translation>Dispositivo sconosciuto</translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="198"/>
+        <location filename="peperonidevice.cpp" line="248"/>
         <source>Cannot connect to USB device.</source>
         <translation>Non posso connettere l&apos;interfaccia USB.</translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="210"/>
+        <location filename="peperonidevice.cpp" line="260"/>
         <source>Input line</source>
         <translation>Linea di ingresso</translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="212"/>
-        <location filename="unix/peperonidevice.cpp" line="229"/>
+        <location filename="peperonidevice.cpp" line="262"/>
+        <location filename="peperonidevice.cpp" line="279"/>
         <source>Open</source>
         <translation>Aperta</translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="214"/>
-        <location filename="unix/peperonidevice.cpp" line="231"/>
+        <location filename="peperonidevice.cpp" line="264"/>
+        <location filename="peperonidevice.cpp" line="281"/>
         <source>Close</source>
         <translation>Chiusa</translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="227"/>
+        <location filename="peperonidevice.cpp" line="277"/>
         <source>Output line</source>
         <translation>Linea di uscita</translation>
     </message>

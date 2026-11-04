@@ -67,16 +67,16 @@ Rectangle
                         {
                             id: speedModel
                             ListElement { mLabel: qsTr("(Not sent)"); mValue: VCSpeedDial.None }
-                            ListElement { mLabel: qsTr("0"); mValue: VCSpeedDial.Zero }
-                            ListElement { mLabel: qsTr("1/16"); mValue: VCSpeedDial.OneSixteenth }
-                            ListElement { mLabel: qsTr("1/8"); mValue: VCSpeedDial.OneEighth }
-                            ListElement { mLabel: qsTr("1/4"); mValue: VCSpeedDial.OneFourth }
-                            ListElement { mLabel: qsTr("1/2"); mValue: VCSpeedDial.Half }
-                            ListElement { mLabel: qsTr("1"); mValue: VCSpeedDial.One }
-                            ListElement { mLabel: qsTr("2"); mValue: VCSpeedDial.Two }
-                            ListElement { mLabel: qsTr("4"); mValue: VCSpeedDial.Four }
-                            ListElement { mLabel: qsTr("8"); mValue: VCSpeedDial.Eight }
-                            ListElement { mLabel: qsTr("16"); mValue: VCSpeedDial.Sixteen }
+                            ListElement { mLabel: "0"; mValue: VCSpeedDial.Zero }
+                            ListElement { mLabel: "1/16"; mValue: VCSpeedDial.OneSixteenth }
+                            ListElement { mLabel: "1/8"; mValue: VCSpeedDial.OneEighth }
+                            ListElement { mLabel: "1/4"; mValue: VCSpeedDial.OneFourth }
+                            ListElement { mLabel: "1/2"; mValue: VCSpeedDial.Half }
+                            ListElement { mLabel: "1"; mValue: VCSpeedDial.One }
+                            ListElement { mLabel: "2"; mValue: VCSpeedDial.Two }
+                            ListElement { mLabel: "4"; mValue: VCSpeedDial.Four }
+                            ListElement { mLabel: "8"; mValue: VCSpeedDial.Eight }
+                            ListElement { mLabel: "16"; mValue: VCSpeedDial.Sixteen }
                         }
 
                         model: widgetRef ? widgetRef.functionsList : null
