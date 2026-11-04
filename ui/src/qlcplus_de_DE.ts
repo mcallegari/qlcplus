@@ -220,12 +220,12 @@
     <message>
         <location filename="addrgbpanel.ui" line="109"/>
         <source>Universe split</source>
-        <translation type="unfinished"></translation>
+        <translation>Universumsaufteilung</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="116"/>
         <source>How a row is patched when it doesn&apos;t fit in the current universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Wie eine Zeile angepasst werden soll, wenn sie nicht in das aktuelle Universum passt</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="136"/>
@@ -358,17 +358,17 @@
     <message>
         <location filename="addrgbpanel.cpp" line="48"/>
         <source>Split entire row</source>
-        <translation type="unfinished"></translation>
+        <translation>An ganzen Zeilen aufteilen</translation>
     </message>
     <message>
         <location filename="addrgbpanel.cpp" line="49"/>
         <source>Split by pixel</source>
-        <translation type="unfinished"></translation>
+        <translation>An Pixel aufteilen</translation>
     </message>
     <message>
         <location filename="addrgbpanel.cpp" line="50"/>
         <source>Split anywhere (fill universe)</source>
-        <translation type="unfinished"></translation>
+        <translation>Beliebig aufteilen (Universum auffüllen)</translation>
     </message>
 </context>
 <context>
@@ -3393,7 +3393,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <location filename="functionstreewidget.cpp" line="201"/>
         <location filename="functionstreewidget.cpp" line="207"/>
         <source>New folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuer Ordner</translation>
     </message>
 </context>
 <context>
