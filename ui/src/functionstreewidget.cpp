@@ -198,13 +198,13 @@ void FunctionsTreeWidget::addFolder()
     if (fullPath.endsWith('/') == false)
         fullPath.append("/");
 
-    QString newName = "New folder";
+    QString newName(tr("New folder"));
 
     int folderCount = 1;
 
     while (m_foldersMap.contains(fullPath + newName))
     {
-        newName = "New Folder " + QString::number(folderCount++);
+        newName = tr("New folder") + " " + QString::number(folderCount++);
     }
 
     fullPath += newName;

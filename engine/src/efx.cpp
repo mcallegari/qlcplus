@@ -46,11 +46,11 @@ EFX::EFX(Doc* doc)
     , m_yFrequency(3)
     , m_xPhase(M_PI / 2.0)
     , m_yPhase(0)
-    , m_propagationMode(Parallel)
-    , m_legacyFadeBus(Bus::invalid())
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     , m_fixturesMutex(QMutex::Recursive)
 #endif
+    , m_propagationMode(Parallel)
+    , m_legacyFadeBus(Bus::invalid())
     , m_legacyHoldBus(Bus::invalid())
 {
     updateRotationCache();

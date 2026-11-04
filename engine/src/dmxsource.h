@@ -35,7 +35,7 @@ class Universe;
 class DMXSource
 {
 public:
-    DMXSource() { m_changed = false; }
+    DMXSource() : m_changed(false) {}
     virtual ~DMXSource() {}
 
     /**
