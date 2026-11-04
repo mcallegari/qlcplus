@@ -59,7 +59,7 @@ LUPDATE="$(which_qt lupdate)" || {
 }
 
 ACTION="${1:-}"
-UI_LANGS="de_DE es_ES fr_FR it_IT nl_NL cz_CZ pt_BR ca_ES ja_JP"
+UI_LANGS="de_DE es_ES fr_FR it_IT nl_NL cs_CZ pt_BR ca_ES ja_JP"
 QMLUI_LANGS="de_DE es_ES fr_FR it_IT nl_NL ru_RU ca_ES ja_JP uk_UA pl_PL"
 
 die() { echo "Error: $*" >&2; exit 1; }
@@ -128,7 +128,7 @@ case "$ACTION" in
       # Gather files
       files_tmp="$(mktemp)"
       if [[ "$FLAVOR" == "qmlui" ]]; then
-        find . -type f -path "./qmlui/*" -name "*_${lang}.ts" > "$files_tmp"
+        find ./qmlui ./webaccess ./plugins -type f -name "*_${lang}.ts" > "$files_tmp"
       else
         find . -type f -not -path "./qmlui/*" -name "*_${lang}.ts" > "$files_tmp"
       fi
@@ -156,7 +156,7 @@ case "$ACTION" in
     # Collect reference TS files for the flavor
     refs_tmp="$(mktemp)"
     if [[ "$FLAVOR" == "qmlui" ]]; then
-      find . -type f -path "./qmlui/*" -name "*_[a-z][a-z]_[A-Z][A-Z].ts" > "$refs_tmp"
+      find ./qmlui ./webaccess ./plugins -type f -name "*_[a-z][a-z]_[A-Z][A-Z].ts" > "$refs_tmp"
     else
       find . -type f -not -path "./qmlui/*" -name "*_[a-z][a-z]_[A-Z][A-Z].ts" > "$refs_tmp"
     fi
@@ -200,7 +200,7 @@ case "$ACTION" in
   report)
     # Report the number of unfinished translations per .ts file.
     # Files with 0 unfinished entries are not listed.
-    # Optional flavor filter: 'qmlui' (only qmlui/) or 'ui' (everything else).
+    # Optional flavor filter: 'qmlui' (qmlui/, webaccess/, plugins/) or 'ui' (everything but qmlui/).
     FLAVOR="${2:-}"
     [[ -z "$FLAVOR" || "$FLAVOR" == "ui" || "$FLAVOR" == "qmlui" ]] \
       || die "Flavor must be 'ui' or 'qmlui'"
@@ -213,7 +213,7 @@ case "$ACTION" in
       is_cmake_build_dir "$d" && continue
       # apply flavor filter
       case "$FLAVOR" in
-        qmlui) [[ "$f" == ./qmlui/* ]] || continue ;;
+        qmlui) [[ "$f" == ./qmlui/* || "$f" == ./webaccess/* || "$f" == ./plugins/* ]] || continue ;;
         ui)    [[ "$f" == ./qmlui/* ]] && continue ;;
       esac
       count="$(grep -c 'type="unfinished"' "$f" 2>/dev/null || true)"
