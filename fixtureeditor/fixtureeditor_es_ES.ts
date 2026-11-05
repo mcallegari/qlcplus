@@ -881,7 +881,8 @@ No se puede guardar el fixture.</translation>
         <location filename="fixtureeditor.cpp" line="266"/>
         <source>Invalid definition: no modes provided.
 Without modes, this fixture will not appear in the list!</source>
-        <translation type="unfinished"></translation>
+        <translation>Definición no válida: no se han proporcionado modos.
+Sin modos, este dispositivo no aparecerá en la lista!</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="674"/>

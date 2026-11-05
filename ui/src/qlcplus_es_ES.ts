@@ -220,12 +220,12 @@
     <message>
         <location filename="addrgbpanel.ui" line="109"/>
         <source>Universe split</source>
-        <translation type="unfinished"></translation>
+        <translation>División del Universo</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="116"/>
         <source>How a row is patched when it doesn&apos;t fit in the current universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Cómo se corrige una fila cuando no encaja en el universo actual</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="136"/>
@@ -358,17 +358,17 @@
     <message>
         <location filename="addrgbpanel.cpp" line="48"/>
         <source>Split entire row</source>
-        <translation type="unfinished"></translation>
+        <translation>Dividir toda la fila</translation>
     </message>
     <message>
         <location filename="addrgbpanel.cpp" line="49"/>
         <source>Split by pixel</source>
-        <translation type="unfinished"></translation>
+        <translation>Dividir por pixel</translation>
     </message>
     <message>
         <location filename="addrgbpanel.cpp" line="50"/>
         <source>Split anywhere (fill universe)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dividir en cualquier punto (llenar el universo)</translation>
     </message>
 </context>
 <context>
@@ -3394,7 +3394,7 @@ li.checked::marker { contenido: &quot;\2612&quot;; }
         <location filename="functionstreewidget.cpp" line="201"/>
         <location filename="functionstreewidget.cpp" line="207"/>
         <source>New folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Nueva Carpeta</translation>
     </message>
 </context>
 <context>

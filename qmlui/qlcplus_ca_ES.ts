@@ -1695,22 +1695,22 @@ Si us plau, proporcioneu un nom diferent.</translation>
     <message>
         <location filename="qml/stagewizard/FixtureGroupRoleDelegate.qml" line="187"/>
         <source>RGB</source>
-        <translation type="unfinished">RGB</translation>
+        <translation>RGB</translation>
     </message>
     <message>
         <location filename="qml/stagewizard/FixtureGroupRoleDelegate.qml" line="188"/>
         <source>Gobo</source>
-        <translation type="unfinished">Gobo</translation>
+        <translation>Gobo</translation>
     </message>
     <message>
         <location filename="qml/stagewizard/FixtureGroupRoleDelegate.qml" line="189"/>
         <source>Shutter</source>
-        <translation type="unfinished">Obturador</translation>
+        <translation>Obturador</translation>
     </message>
     <message>
         <location filename="qml/stagewizard/FixtureGroupRoleDelegate.qml" line="190"/>
         <source>Dimmer</source>
-        <translation type="unfinished">Dimmer</translation>
+        <translation>Dimmer</translation>
     </message>
 </context>
 <context>
@@ -5239,7 +5239,7 @@ Si us plau, proporcioneu un nom diferent.</translation>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="477"/>
         <source>Move the selected track up</source>
-        <translation type="unfinished">jMou la pista seleccionada cap amunt</translation>
+        <translation>Mou la pista seleccionada cap amunt</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="493"/>
@@ -5313,7 +5313,7 @@ arrossega una funció a la línia de temps</translation>
     <message>
         <location filename="qml/stagewizard/ShowWizard.qml" line="60"/>
         <source>Summary</source>
-        <translation type="unfinished">Resum</translation>
+        <translation>Resum</translation>
     </message>
     <message>
         <location filename="qml/stagewizard/ShowWizard.qml" line="142"/>
@@ -5426,7 +5426,7 @@ arrossega una funció a la línia de temps</translation>
         <location filename="stagewizard/stagewizard.cpp" line="478"/>
         <location filename="stagewizard/stagewizard_functions.cpp" line="372"/>
         <source>Dimmer</source>
-        <translation type="unfinished">Dimmer</translation>
+        <translation>Dimmer</translation>
     </message>
     <message>
         <location filename="stagewizard/stagewizard.cpp" line="492"/>
@@ -5524,7 +5524,7 @@ arrossega una funció a la línia de temps</translation>
         <location filename="stagewizard/stagewizard.cpp" line="707"/>
         <location filename="stagewizard/stagewizard_vc.cpp" line="524"/>
         <source>Intensity</source>
-        <translation type="unfinished">Intensitat</translation>
+        <translation>Intensitat</translation>
     </message>
     <message>
         <location filename="stagewizard/stagewizard.cpp" line="705"/>
@@ -5554,7 +5554,7 @@ arrossega una funció a la línia de temps</translation>
         <location filename="stagewizard/stagewizard.cpp" line="714"/>
         <location filename="stagewizard/stagewizard.cpp" line="715"/>
         <source>Movement</source>
-        <translation type="unfinished">Moviment</translation>
+        <translation>Moviment</translation>
     </message>
     <message>
         <location filename="stagewizard/stagewizard.cpp" line="711"/>
@@ -5710,7 +5710,7 @@ arrossega una funció a la línia de temps</translation>
     <message>
         <location filename="stagewizard/stagewizard.cpp" line="945"/>
         <source>Functions</source>
-        <translation type="unfinished">Funcions</translation>
+        <translation>Funcions</translation>
     </message>
     <message>
         <location filename="stagewizard/stagewizard.cpp" line="946"/>
@@ -5720,7 +5720,7 @@ arrossega una funció a la línia de temps</translation>
     <message>
         <location filename="stagewizard/stagewizard.cpp" line="951"/>
         <source>Virtual Console</source>
-        <translation type="unfinished">Consola Virtual</translation>
+        <translation>Consola Virtual</translation>
     </message>
     <message>
         <location filename="stagewizard/stagewizard.cpp" line="955"/>
@@ -5764,7 +5764,7 @@ arrossega una funció a la línia de temps</translation>
         <location filename="stagewizard/stagewizard_vc.cpp" line="310"/>
         <location filename="stagewizard/stagewizard_vc.cpp" line="732"/>
         <source>Colors</source>
-        <translation type="unfinished">Colors</translation>
+        <translation>Colors</translation>
     </message>
     <message>
         <location filename="stagewizard/stagewizard_controller.cpp" line="263"/>
@@ -5772,7 +5772,7 @@ arrossega una funció a la línia de temps</translation>
         <location filename="stagewizard/stagewizard_vc.cpp" line="312"/>
         <location filename="stagewizard/stagewizard_vc.cpp" line="734"/>
         <source>Gobos</source>
-        <translation type="unfinished">Gobos</translation>
+        <translation>Gobos</translation>
     </message>
     <message>
         <location filename="stagewizard/stagewizard_controller.cpp" line="265"/>
@@ -5828,7 +5828,7 @@ arrossega una funció a la línia de temps</translation>
         <location filename="stagewizard/stagewizard_vc.cpp" line="311"/>
         <location filename="stagewizard/stagewizard_vc.cpp" line="732"/>
         <source>Color Wheel</source>
-        <translation type="unfinished">Roda de Color</translation>
+        <translation>Roda de Color</translation>
     </message>
     <message>
         <location filename="stagewizard/stagewizard_functions.cpp" line="294"/>
@@ -5852,32 +5852,32 @@ arrossega una funció a la línia de temps</translation>
     <message>
         <location filename="stagewizard/stagewizard_functions.cpp" line="346"/>
         <source>Red</source>
-        <translation type="unfinished">Vermell</translation>
+        <translation>Vermell</translation>
     </message>
     <message>
         <location filename="stagewizard/stagewizard_functions.cpp" line="347"/>
         <source>Green</source>
-        <translation type="unfinished">Verd</translation>
+        <translation>Verd</translation>
     </message>
     <message>
         <location filename="stagewizard/stagewizard_functions.cpp" line="348"/>
         <source>Blue</source>
-        <translation type="unfinished">Blau</translation>
+        <translation>Blau</translation>
     </message>
     <message>
         <location filename="stagewizard/stagewizard_functions.cpp" line="349"/>
         <source>Cyan</source>
-        <translation type="unfinished">Cian</translation>
+        <translation>Cian</translation>
     </message>
     <message>
         <location filename="stagewizard/stagewizard_functions.cpp" line="350"/>
         <source>Magenta</source>
-        <translation type="unfinished">Magenta</translation>
+        <translation>Magenta</translation>
     </message>
     <message>
         <location filename="stagewizard/stagewizard_functions.cpp" line="351"/>
         <source>Yellow</source>
-        <translation type="unfinished">Groc</translation>
+        <translation>Groc</translation>
     </message>
     <message>
         <location filename="stagewizard/stagewizard_functions.cpp" line="352"/>
@@ -5894,14 +5894,14 @@ arrossega una funció a la línia de temps</translation>
         <location filename="stagewizard/stagewizard_functions.cpp" line="1255"/>
         <location filename="stagewizard/stagewizard_functions.cpp" line="1284"/>
         <source>White</source>
-        <translation type="unfinished">Blanc</translation>
+        <translation>Blanc</translation>
     </message>
     <message>
         <location filename="stagewizard/stagewizard_functions.cpp" line="375"/>
         <location filename="stagewizard/stagewizard_functions.cpp" line="1252"/>
         <location filename="stagewizard/stagewizard_functions.cpp" line="1281"/>
         <source>Full</source>
-        <translation type="unfinished">Complet</translation>
+        <translation>Complet</translation>
     </message>
     <message>
         <location filename="stagewizard/stagewizard_functions.cpp" line="376"/>
@@ -5911,7 +5911,7 @@ arrossega una funció a la línia de temps</translation>
     <message>
         <location filename="stagewizard/stagewizard_functions.cpp" line="377"/>
         <source>Off</source>
-        <translation type="unfinished">Desactivat</translation>
+        <translation>Desactivat</translation>
     </message>
     <message>
         <location filename="stagewizard/stagewizard_functions.cpp" line="382"/>
@@ -5929,7 +5929,7 @@ arrossega una funció a la línia de temps</translation>
         <location filename="stagewizard/stagewizard_functions.cpp" line="390"/>
         <location filename="stagewizard/stagewizard_functions.cpp" line="462"/>
         <source>Shutter</source>
-        <translation type="unfinished">Obturador</translation>
+        <translation>Obturador</translation>
     </message>
     <message>
         <location filename="stagewizard/stagewizard_functions.cpp" line="391"/>
@@ -6103,7 +6103,7 @@ arrossega una funció a la línia de temps</translation>
     <message>
         <location filename="stagewizard/stagewizard_vc.cpp" line="423"/>
         <source>Blackout</source>
-        <translation type="unfinished">Blackout</translation>
+        <translation>Blackout</translation>
     </message>
     <message>
         <location filename="stagewizard/stagewizard_vc.cpp" line="457"/>
@@ -6123,7 +6123,7 @@ arrossega una funció a la línia de temps</translation>
     <message>
         <location filename="stagewizard/stagewizard_vc.cpp" line="812"/>
         <source>Position</source>
-        <translation type="unfinished">Posició</translation>
+        <translation>Posició</translation>
     </message>
     <message>
         <location filename="stagewizard/stagewizard_vc.cpp" line="906"/>
@@ -7474,7 +7474,7 @@ No hi ha prou espai o l&apos;univers de destinació no és vàlid</translation>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="167"/>
         <source>Cut the selected widgets to clipboard</source>
         <oldsource>Paste widgets from clipboard</oldsource>
-        <translation type="unfinished">Enganxa els widgets des del porta-retalls</translation>
+        <translation>Enganxa els widgets des del porta-retalls</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="180"/>
@@ -8122,7 +8122,7 @@ el giny per a omplir aquesta llista</translation>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="501"/>
         <source>Distribution</source>
-        <translation type="unfinished">Distribució</translation>
+        <translation>Distribució</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="516"/>
@@ -8707,7 +8707,7 @@ el giny per a omplir aquesta llista</translation>
     <message>
         <location filename="qml/stagewizard/WizardStep1ShowType.qml" line="37"/>
         <source>RGB</source>
-        <translation type="unfinished">RGB</translation>
+        <translation>RGB</translation>
     </message>
     <message>
         <location filename="qml/stagewizard/WizardStep1ShowType.qml" line="37"/>
@@ -8737,7 +8737,7 @@ el giny per a omplir aquesta llista</translation>
     <message>
         <location filename="qml/stagewizard/WizardStep1ShowType.qml" line="46"/>
         <source>Position</source>
-        <translation type="unfinished">Posició</translation>
+        <translation>Posició</translation>
     </message>
     <message>
         <location filename="qml/stagewizard/WizardStep1ShowType.qml" line="46"/>
@@ -8747,7 +8747,7 @@ el giny per a omplir aquesta llista</translation>
     <message>
         <location filename="qml/stagewizard/WizardStep1ShowType.qml" line="46"/>
         <source>EFX</source>
-        <translation type="unfinished">EFX</translation>
+        <translation>EFX</translation>
     </message>
     <message>
         <location filename="qml/stagewizard/WizardStep1ShowType.qml" line="50"/>
@@ -8767,7 +8767,7 @@ el giny per a omplir aquesta llista</translation>
     <message>
         <location filename="qml/stagewizard/WizardStep1ShowType.qml" line="55"/>
         <source>Scenes</source>
-        <translation type="unfinished">Escenes</translation>
+        <translation>Escenes</translation>
     </message>
     <message>
         <location filename="qml/stagewizard/WizardStep1ShowType.qml" line="55"/>
@@ -8777,7 +8777,7 @@ el giny per a omplir aquesta llista</translation>
     <message>
         <location filename="qml/stagewizard/WizardStep1ShowType.qml" line="55"/>
         <source>Gobo</source>
-        <translation type="unfinished">Gobo</translation>
+        <translation>Gobo</translation>
     </message>
     <message>
         <location filename="qml/stagewizard/WizardStep1ShowType.qml" line="55"/>
@@ -8817,12 +8817,12 @@ el giny per a omplir aquesta llista</translation>
     <message>
         <location filename="qml/stagewizard/WizardStep1ShowType.qml" line="64"/>
         <source>Loop</source>
-        <translation type="unfinished">Bucle</translation>
+        <translation>Bucle</translation>
     </message>
     <message>
         <location filename="qml/stagewizard/WizardStep1ShowType.qml" line="68"/>
         <source>Custom</source>
-        <translation type="unfinished">Personalitzat</translation>
+        <translation>Personalitzat</translation>
     </message>
     <message>
         <location filename="qml/stagewizard/WizardStep1ShowType.qml" line="70"/>
@@ -8880,7 +8880,7 @@ el giny per a omplir aquesta llista</translation>
     <message>
         <location filename="qml/stagewizard/WizardStep2Fixtures.qml" line="32"/>
         <source>Effect</source>
-        <translation type="unfinished">Efecte</translation>
+        <translation>Efecte</translation>
     </message>
     <message>
         <location filename="qml/stagewizard/WizardStep2Fixtures.qml" line="32"/>
@@ -8915,7 +8915,7 @@ el giny per a omplir aquesta llista</translation>
     <message>
         <location filename="qml/stagewizard/WizardStep2Fixtures.qml" line="154"/>
         <source>Fixture Groups</source>
-        <translation type="unfinished">Grups de Fixtures</translation>
+        <translation>Grups de Fixtures</translation>
     </message>
     <message>
         <location filename="qml/stagewizard/WizardStep2Fixtures.qml" line="164"/>
@@ -8958,7 +8958,7 @@ el giny per a omplir aquesta llista</translation>
     <message>
         <location filename="qml/stagewizard/WizardStep3Venue.qml" line="36"/>
         <source>Custom</source>
-        <translation type="unfinished">Personalitzat</translation>
+        <translation>Personalitzat</translation>
     </message>
     <message>
         <location filename="qml/stagewizard/WizardStep3Venue.qml" line="40"/>
@@ -9023,17 +9023,17 @@ el giny per a omplir aquesta llista</translation>
     <message>
         <location filename="qml/stagewizard/WizardStep3Venue.qml" line="236"/>
         <source>Width</source>
-        <translation type="unfinished">Amplada</translation>
+        <translation>Amplada</translation>
     </message>
     <message>
         <location filename="qml/stagewizard/WizardStep3Venue.qml" line="237"/>
         <source>Height</source>
-        <translation type="unfinished">Alçada</translation>
+        <translation>Alçada</translation>
     </message>
     <message>
         <location filename="qml/stagewizard/WizardStep3Venue.qml" line="238"/>
         <source>Depth</source>
-        <translation type="unfinished">Profunditat</translation>
+        <translation>Profunditat</translation>
     </message>
     <message>
         <location filename="qml/stagewizard/WizardStep3Venue.qml" line="296"/>
@@ -9273,7 +9273,7 @@ el giny per a omplir aquesta llista</translation>
     <message>
         <location filename="qml/stagewizard/WizardStep6Summary.qml" line="318"/>
         <source>Blackout</source>
-        <translation type="unfinished">Blackout</translation>
+        <translation>Blackout</translation>
     </message>
     <message>
         <location filename="qml/stagewizard/WizardStep6Summary.qml" line="425"/>
