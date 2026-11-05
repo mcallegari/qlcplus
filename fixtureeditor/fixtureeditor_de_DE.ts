@@ -885,7 +885,8 @@ Kann Gerät nicht speichern.</translation>
         <location filename="fixtureeditor.cpp" line="266"/>
         <source>Invalid definition: no modes provided.
 Without modes, this fixture will not appear in the list!</source>
-        <translation type="unfinished"></translation>
+        <translation>Ungültige Definition: Es wurden keine Modi angegeben.
+Ohne Modi wird dieses Gerät nicht in der Liste angezeigt!</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="674"/>
