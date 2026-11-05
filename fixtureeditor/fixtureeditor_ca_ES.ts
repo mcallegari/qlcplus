@@ -878,7 +878,8 @@ No es pot desar el fixture.</translation>
         <location filename="fixtureeditor.cpp" line="266"/>
         <source>Invalid definition: no modes provided.
 Without modes, this fixture will not appear in the list!</source>
-        <translation type="unfinished"></translation>
+        <translation>Definició no vàlida: no s&apos;ha proporcionat cap mode.
+Sense modes, aquest fixture no apareixerà a la llista!</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="674"/>
