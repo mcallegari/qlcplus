@@ -42,9 +42,12 @@
 #define FREQ_SUBBANDS_MAX_NUMBER        32
 #define FREQ_SUBBANDS_DEFAULT_NUMBER    16
 #define SPECTRUM_MIN_FREQUENCY          40
-#define SPECTRUM_MAX_FREQUENCY          5000
-/** Band level mapped to 0 (bar empty). 0 dBFS is a full scale sine (bar full) */
-#define SPECTRUM_DB_FLOOR               -60.0
+#define SPECTRUM_MAX_FREQUENCY          10000
+/** Band levels (dB relative to a full scale sine, with the band energy
+ *  normalized to FREQ_SUBBANDS_DEFAULT_NUMBER bands) mapped to an empty
+ *  and a full bar */
+#define SPECTRUM_DB_FLOOR               -68.0
+#define SPECTRUM_DB_CEILING             -38.0
 /** Band level boost per octave, pivoting on 1kHz.
  *  Band energy of pink noise is flat, music rolls off at about 4.5dB/octave */
 #define SPECTRUM_TILT_DB_OCTAVE         1.5

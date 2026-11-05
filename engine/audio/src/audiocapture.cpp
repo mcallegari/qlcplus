@@ -106,7 +106,7 @@ void AudioCapture::registerBandsNumber(int number)
     QMutexLocker locker(&m_mutex);
 
     bool firstBand = m_fftMagnitudeMap.isEmpty();
-    if (number > 0 && number <= FREQ_SUBBANDS_MAX_NUMBER)
+    if (number >= 0 && number <= FREQ_SUBBANDS_MAX_NUMBER)
     {
         if (m_fftMagnitudeMap.contains(number) == false)
         {
@@ -163,10 +163,14 @@ double AudioCapture::fillBandsData(int number)
     // Consider the configured spectrum range and split it into logarithmic
     // bands, which better match audio perception.
     // Each band value is the band energy (sum of the bins power) expressed
-    // in dBFS and mapped on a fixed [SPECTRUM_DB_FLOOR..0] dB scale to [0..1].
+    // in dBFS and mapped on a fixed [SPECTRUM_DB_FLOOR..SPECTRUM_DB_CEILING]
+    // dB scale to [0..1]. The band energy is normalized to the default
+    // number of bands, so the bars height doesn't depend on the bars number.
     // Summing power makes pink noise (equal energy per octave) read flat,
     // and an extra tilt compensates the typical roll-off of music.
     // Returns the sum of the average band magnitudes, used for the volume bar.
+    // With 0 bands, the whole range is processed as a single band, just
+    // to compute the volume.
     double magnitudeTotal = 0.;
 #ifdef HAS_FFTW3
     fftw_complex *fft = reinterpret_cast<fftw_complex*>(m_fftOutputBuffer);
@@ -176,7 +180,7 @@ double AudioCapture::fillBandsData(int number)
     const double maxFreq = qMin(double(SPECTRUM_MAX_FREQUENCY), nyquist);
     const double logRange = (maxFreq > minFreq) ? qLn(maxFreq / minFreq) : 0.0;
 
-    if (number <= 0 || maxBin <= 1 || logRange <= 0.0)
+    if (number < 0 || maxBin <= 1 || logRange <= 0.0)
     {
         if (number > 0 && m_fftMagnitudeMap.contains(number))
             m_fftMagnitudeMap[number].m_fftMagnitudeBuffer.fill(0.0);
@@ -187,11 +191,13 @@ double AudioCapture::fillBandsData(int number)
     // peak bin = N/4, times the window equivalent noise bandwidth (1.5 bins)
     const double fullScalePower = 3.0 * double(m_bufferSize) * double(m_bufferSize) / 32.0;
     const int maxFreqBin = qBound(1, int(qCeil((maxFreq * m_bufferSize) / double(m_sampleRate))), maxBin + 1);
+    const int bandsCount = qMax(1, number);
+    const double bandsNormDb = 10.0 * std::log10(double(bandsCount) / FREQ_SUBBANDS_DEFAULT_NUMBER);
 
-    for (int b = 0; b < number; b++)
+    for (int b = 0; b < bandsCount; b++)
     {
-        const double bandStartFreq = minFreq * qExp(logRange * (double(b) / double(number)));
-        const double bandEndFreq = minFreq * qExp(logRange * (double(b + 1) / double(number)));
+        const double bandStartFreq = minFreq * qExp(logRange * (double(b) / double(bandsCount)));
+        const double bandEndFreq = minFreq * qExp(logRange * (double(b + 1) / double(bandsCount)));
 
         int startBin = qBound(1, int(qFloor((bandStartFreq * m_bufferSize) / double(m_sampleRate))), maxBin);
         int endBin = qBound(1, int(qCeil((bandEndFreq * m_bufferSize) / double(m_sampleRate))), maxFreqBin);
@@ -211,15 +217,18 @@ double AudioCapture::fillBandsData(int number)
         const int bandWidth = endBin - startBin;
         magnitudeTotal += magnitudeSum / (double(bandWidth) * M_2PI);
 
+        if (number == 0)
+            break;
+
         // spectral tilt, pivoting on 1kHz
         const double centerFreq = qSqrt(bandStartFreq * bandEndFreq);
         const double tiltDb = SPECTRUM_TILT_DB_OCTAVE * qLn(centerFreq / 1000.0) / M_LN2;
         const double bandDb = (powerSum > 0.0)
-                ? 10.0 * std::log10(powerSum / fullScalePower) + tiltDb
+                ? 10.0 * std::log10(powerSum / fullScalePower) + bandsNormDb + tiltDb
                 : SPECTRUM_DB_FLOOR;
 
         m_fftMagnitudeMap[number].m_fftMagnitudeBuffer[b] =
-                qBound(0.0, 1.0 - (bandDb / SPECTRUM_DB_FLOOR), 1.0);
+                qBound(0.0, (bandDb - SPECTRUM_DB_FLOOR) / (SPECTRUM_DB_CEILING - SPECTRUM_DB_FLOOR), 1.0);
     }
 #else
     Q_UNUSED(number)
@@ -333,7 +342,7 @@ void AudioCapture::processData()
     for (int barsNumber : m_fftMagnitudeMap.keys())
     {
         const double pwrSum = fillBandsData(barsNumber);
-        const double rawPower = 32768.0 * pwrSum * qSqrt(M_2PI) / double(barsNumber);
+        const double rawPower = 32768.0 * pwrSum * qSqrt(M_2PI) / double(qMax(1, barsNumber));
         m_signalPower = smoothPower(rawPower);
         emit dataProcessed(m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer.data(),
                            m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer.size(),
