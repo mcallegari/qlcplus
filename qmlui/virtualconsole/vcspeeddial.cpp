@@ -826,6 +826,47 @@ bool VCSpeedDial::loadXML(QXmlStreamReader &root)
         {
             loadXMLInputSource(root, VCWIDGET_AUTODETECT_INPUT_ID);
         }
+        /* LEGACY: QLC+ 4 saves the button controls in their own elements */
+        else if (root.name() == KXMLQLCVCSpeedDialTap)
+        {
+            loadXMLSources(root, INPUT_TAP_ID);
+        }
+        else if (root.name() == KXMLQLCVCSpeedDialMult)
+        {
+            loadXMLSources(root, INPUT_MULT_ID);
+        }
+        else if (root.name() == KXMLQLCVCSpeedDialDiv)
+        {
+            loadXMLSources(root, INPUT_DIV_ID);
+        }
+        else if (root.name() == KXMLQLCVCSpeedDialMultDivReset)
+        {
+            loadXMLSources(root, INPUT_RESET_ID);
+        }
+        else if (root.name() == KXMLQLCVCSpeedDialApply)
+        {
+            loadXMLSources(root, INPUT_APPLY_ID);
+        }
+        else if (root.name() == KXMLQLCVCSpeedDialTapKey ||
+                 root.name() == KXMLQLCVCSpeedDialMultKey ||
+                 root.name() == KXMLQLCVCSpeedDialDivKey ||
+                 root.name() == KXMLQLCVCSpeedDialMultDivResetKey ||
+                 root.name() == KXMLQLCVCSpeedDialApplyKey)
+        {
+            quint32 id = INPUT_TAP_ID;
+            if (root.name() == KXMLQLCVCSpeedDialMultKey)
+                id = INPUT_MULT_ID;
+            else if (root.name() == KXMLQLCVCSpeedDialDivKey)
+                id = INPUT_DIV_ID;
+            else if (root.name() == KXMLQLCVCSpeedDialMultDivResetKey)
+                id = INPUT_RESET_ID;
+            else if (root.name() == KXMLQLCVCSpeedDialApplyKey)
+                id = INPUT_APPLY_ID;
+
+            QKeySequence seq(root.readElementText());
+            if (seq.isEmpty() == false)
+                addKeySequence(seq, id);
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown speed dial tag:" << root.name().toString();
