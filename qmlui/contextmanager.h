@@ -271,6 +271,12 @@ public:
     /** Distribute the currently selected Fixtures with the provided $direction */
     Q_INVOKABLE void setFixturesDistribution(int direction);
 
+private:
+    /** Get the 2D position/size in millimeters of an item, as displayed */
+    void item2DGeometry(quint32 itemID, QPointF &pos, QSizeF &size) const;
+
+public:
+
     /** Add or remove a linked fixture based on the provided $itemID */
     Q_INVOKABLE void setLinkedFixture(quint32 itemID);
 
