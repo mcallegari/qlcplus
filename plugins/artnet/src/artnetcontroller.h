@@ -147,6 +147,11 @@ public:
     /** Is the UDP socket capable of receiving packets ? */
     bool socketBound() const;
 
+    /** Mutex serializing every access to the UDP socket. The socket is shared
+     *  by all the controllers and used concurrently by the universe threads
+     *  (sendDmx) and the main thread (poll, refresh timer, read) */
+    static QMutex &socketMutex();
+
     /** Send a complete RDM frame (start code included) as ArtRdm.
      *  Discovery class frames are not carried: ArtNet gateways run the discovery
      *  by themselves and expose the result through requestRDMTod() */
@@ -179,6 +184,10 @@ private:
 
     /** The UDP socket used to send/receive ArtNet packets */
     QSharedPointer<QUdpSocket> m_udpSocket;
+
+    /** Send a packet through the shared UDP socket, holding socketMutex().
+     *  Return the number of bytes sent, or -1 on error */
+    qint64 writeDatagram(const QByteArray &packet, const QHostAddress &address);
 
     /** Helper class used to create or parse ArtNet packets */
     QScopedPointer<ArtNetPacketizer> m_packetizer;
