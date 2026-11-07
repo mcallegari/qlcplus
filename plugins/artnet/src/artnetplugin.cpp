@@ -454,10 +454,18 @@ void ArtNetPlugin::slotReadyRead()
 
     QByteArray datagram;
     QHostAddress senderAddress;
-    while (udpSocket->hasPendingDatagrams())
+    forever
     {
-        datagram.resize(udpSocket->pendingDatagramSize());
-        udpSocket->readDatagram(datagram.data(), datagram.size(), &senderAddress);
+        {
+            // the socket is shared with the universe threads writing to it.
+            // Do not hold the lock in handlePacket, which can write replies
+            QMutexLocker locker(&ArtNetController::socketMutex());
+            if (!udpSocket->hasPendingDatagrams())
+                break;
+
+            datagram.resize(udpSocket->pendingDatagramSize());
+            udpSocket->readDatagram(datagram.data(), datagram.size(), &senderAddress);
+        }
         handlePacket(datagram, senderAddress);
     }
 }
