@@ -225,6 +225,23 @@ void AudioRendererQt6::resume()
     m_audioSink->resume();
 }
 
+void AudioRendererQt6::flushOutput()
+{
+    if (m_audioSink == NULL)
+        return;
+
+    /* drop what the sink has buffered, keeping the device open */
+    bool suspended = m_audioSink->state() == QAudio::SuspendedState;
+    m_audioSink->reset();
+    m_output = m_audioSink->start();
+    if (suspended)
+        m_audioSink->suspend();
+
+    /* restart the drain accounting used to detect the end of stream */
+    m_bytesWritten = 0;
+    m_processedUsecsBase = m_audioSink->processedUSecs();
+}
+
 void AudioRendererQt6::run()
 {
     if (m_audioSink == NULL)

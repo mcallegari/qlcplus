@@ -150,6 +150,8 @@ QString VCWidget::typeToString(int type)
         case AudioTriggersWidget: return QString(tr("Audio Triggers"));
         case AnimationWidget: return QString(tr("Animation"));
         case ClockWidget: return QString(tr("Clock"));
+        case AudioTimerWidget: return QString(tr("Audio Timer"));
+        case PaletteWidget: return QString(tr("Palettes"));
         case UnknownWidget:
         default:
              return QString(tr("Unknown"));
@@ -172,6 +174,8 @@ QIcon VCWidget::typeToIcon(int type)
         case AudioTriggersWidget: return QIcon(":/audioinput.png");
         case AnimationWidget: return QIcon(":/rgbmatrix.png");
         case ClockWidget: return QIcon(":/clock.png");
+        case AudioTimerWidget: return QIcon(":/audio.png");
+        case PaletteWidget: return QIcon(":/colorwheel.png");
         case UnknownWidget:
         default:
              return QIcon(":/virtualconsole.png");
