@@ -94,7 +94,35 @@ quint64 ArtNetController::getPacketReceivedNumber()
 
 bool ArtNetController::socketBound() const
 {
+    QMutexLocker locker(&socketMutex());
     return m_udpSocket->state() == QAbstractSocket::BoundState;
+}
+
+QMutex &ArtNetController::socketMutex()
+{
+    static QMutex mutex;
+    return mutex;
+}
+
+qint64 ArtNetController::writeDatagram(const QByteArray &packet, const QHostAddress &address)
+{
+    QMutexLocker locker(&socketMutex());
+    qint64 sent = m_udpSocket->writeDatagram(packet, address, ARTNET_PORT);
+    if (sent < 0)
+    {
+        // copy the error while holding the lock: another thread failing a
+        // write at the same time would reassign the socket error string
+        QAbstractSocket::SocketError error = m_udpSocket->error();
+        QString errorString = m_udpSocket->errorString();
+        locker.unlock();
+        qWarning() << "[ArtNet] Unable to send packet to" << address.toString()
+                   << ": errno=" << error << "(" << errorString << ")";
+    }
+    else
+    {
+        m_packetSent++;
+    }
+    return sent;
 }
 
 QString ArtNetController::getNetworkIP()
@@ -287,17 +315,7 @@ void ArtNetController::slotSendAllUniverses()
 
             m_packetizer->setupArtNetDmx(dmxPacket, info.outputUniverse, info.outputData);
 
-            qint64 sent = m_udpSocket->writeDatagram(dmxPacket, info.outputAddress, ARTNET_PORT);
-            if (sent < 0)
-            {
-                qWarning() << "sendDmx failed";
-                qWarning() << "Errno: " << m_udpSocket->error();
-                qWarning() << "Errmgs: " << m_udpSocket->errorString();
-            }
-            else
-            {
-                m_packetSent++;
-            }
+            writeDatagram(dmxPacket, info.outputAddress);
         }
     }
 }
@@ -339,17 +357,7 @@ void ArtNetController::sendDmx(const quint32 universe, const QByteArray &data, b
         m_packetizer->setupArtNetDmx(dmxPacket, outUniverse, data);
     }
 
-    qint64 sent = m_udpSocket->writeDatagram(dmxPacket, outAddress, ARTNET_PORT);
-    if (sent < 0)
-    {
-        qWarning() << "sendDmx failed";
-        qWarning() << "Errno: " << m_udpSocket->error();
-        qWarning() << "Errmgs: " << m_udpSocket->errorString();
-    }
-    else
-    {
-        m_packetSent++;
-    }
+    writeDatagram(dmxPacket, outAddress);
 }
 
 bool ArtNetController::sendRDMFrame(const quint32 universe, int type, const QByteArray &frame)
@@ -371,17 +379,7 @@ bool ArtNetController::sendRDMFrame(const quint32 universe, int type, const QByt
 
     m_packetizer->setupArtNetRdmFrame(rdmPacket, outUniverse, frame);
 
-    qint64 sent = m_udpSocket->writeDatagram(rdmPacket, outAddress, ARTNET_PORT);
-    if (sent < 0)
-    {
-        qWarning() << "sendRDMFrame failed";
-        qWarning() << "Errno: " << m_udpSocket->error();
-        qWarning() << "Errmgs: " << m_udpSocket->errorString();
-        return false;
-    }
-
-    m_packetSent++;
-    return true;
+    return writeDatagram(rdmPacket, outAddress) >= 0;
 }
 
 bool ArtNetController::requestRDMTod(const quint32 universe)
@@ -399,17 +397,7 @@ bool ArtNetController::requestRDMTod(const quint32 universe)
 
     m_packetizer->setupArtNetTodRequest(todRequest, outUniverse);
 
-    qint64 sent = m_udpSocket->writeDatagram(todRequest, outAddress, ARTNET_PORT);
-    if (sent < 0)
-    {
-        qWarning() << "requestRDMTod failed";
-        qWarning() << "Errno: " << m_udpSocket->error();
-        qWarning() << "Errmgs: " << m_udpSocket->errorString();
-        return false;
-    }
-
-    m_packetSent++;
-    return true;
+    return writeDatagram(todRequest, outAddress) >= 0;
 }
 
 bool ArtNetController::handleArtNetPollReply(QByteArray const& datagram, QHostAddress const& senderAddress)
@@ -447,8 +435,7 @@ bool ArtNetController::handleArtNetPoll(QByteArray const& datagram, QHostAddress
         bool isInput = (info.type & Input) ? true : false;
 
         m_packetizer->setupArtNetPollReply(pollReplyPacket, m_ipAddr, m_MACAddress, universe, isInput);
-        m_udpSocket->writeDatagram(pollReplyPacket, senderAddress, ARTNET_PORT);
-        ++m_packetSent;
+        writeDatagram(pollReplyPacket, senderAddress);
     }
     ++m_packetReceived;
     return true;
@@ -589,20 +576,12 @@ void ArtNetController::slotSendPoll()
     {
         QByteArray pollPacket;
         m_packetizer->setupArtNetPoll(pollPacket);
-        qint64 sent = m_udpSocket->writeDatagram(pollPacket, addr, ARTNET_PORT);
-        if (sent < 0)
-            qWarning() << "Unable to send Poll packet: errno=" << m_udpSocket->error() << "(" << m_udpSocket->errorString() << ")";
-        else
-            m_packetSent++;
+        writeDatagram(pollPacket, addr);
     }
 #else
     QByteArray pollPacket;
     m_packetizer->setupArtNetPoll(pollPacket);
 
-    qint64 sent = m_udpSocket->writeDatagram(pollPacket, m_broadcastAddr, ARTNET_PORT);
-    if (sent < 0)
-        qWarning() << "Unable to send Poll packet: errno=" << m_udpSocket->error() << "(" << m_udpSocket->errorString() << ")";
-    else
-        m_packetSent++;
+    writeDatagram(pollPacket, m_broadcastAddr);
 #endif
 }
