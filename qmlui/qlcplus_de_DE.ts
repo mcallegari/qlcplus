@@ -2264,6 +2264,26 @@ in diesen Bereich ziehen</translation>
         <source>Internal generator</source>
         <translation>Interner Taktgenerator</translation>
     </message>
+    <message>
+        <location filename="inputoutputmanager.cpp" line="455"/>
+        <source>No input lines detected</source>
+        <translation>Keine Eingänge erkannt</translation>
+    </message>
+    <message>
+        <location filename="inputoutputmanager.cpp" line="456"/>
+        <source>No unpatched input lines available</source>
+        <translation>Keine freien Eingänge verfügbar</translation>
+    </message>
+    <message>
+        <location filename="inputoutputmanager.cpp" line="517"/>
+        <source>No output lines detected</source>
+        <translation>Keine Ausgänge erkannt</translation>
+    </message>
+    <message>
+        <location filename="inputoutputmanager.cpp" line="518"/>
+        <source>No unpatched output lines available</source>
+        <translation>Keine freien Ausgänge verfügbar</translation>
+    </message>
 </context>
 <context>
     <name>InputPatchItem</name>
@@ -3018,6 +3038,14 @@ Er kann in den UI-Einstellungen im Aktionsmenü angepasst werden.</translation>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="346"/>
         <source>DMX Connector</source>
         <translation>DMX-Anschluss</translation>
+    </message>
+</context>
+<context>
+    <name>PluginDragItem</name>
+    <message>
+        <location filename="qml/inputoutput/PluginDragItem.qml" line="80"/>
+        <source>click to configure</source>
+        <translation>zum Konfigurieren klicken</translation>
     </message>
 </context>
 <context>
