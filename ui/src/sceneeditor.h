@@ -141,11 +141,14 @@ private:
 
     bool addFixtureItem(Fixture* fixture);
     void removeFixtureItem(quint32 fixtureID);
+    void moveFixture(int offset);
 
 private slots:
     void slotNameEdited(const QString& name);
     void slotAddFixtureClicked();
     void slotRemoveFixtureClicked();
+    void slotMoveFixtureUpClicked();
+    void slotMoveFixtureDownClicked();
 
     void slotEnableAll();
     void slotDisableAll();
