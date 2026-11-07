@@ -1434,6 +1434,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
     loadXMLCommon(root);
 
     int currentPage = 0;
+    bool disableState = false;
 
     /* Children */
     while (root.readNextStartElement())
@@ -1470,6 +1471,21 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
                 setShowEnable(true);
             else
                 setShowEnable(false);
+        }
+        else if (root.name() == KXMLQLCVCFrameIsDisabled)
+        {
+            /* applied once the children are loaded, since it propagates to them */
+            if (root.readElementText() == KXMLQLCTrue)
+                disableState = true;
+        }
+        else if (root.name() == KXMLQLCVCFrameAllowResize)
+        {
+            setAllowResize(root.readElementText() == KXMLQLCTrue);
+        }
+        else if (root.name() == KXMLQLCVCFrameAllowChildren)
+        {
+            /* LEGACY: QLC+ 4 design mode setting, not used anymore */
+            root.skipCurrentElement();
         }
         else if (this->type() == SoloFrameWidget && root.name() == KXMLQLCVCSoloFrameMixing)
         {
@@ -1569,6 +1585,9 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
 
     if (multiPageMode() == true)
         setCurrentPage(currentPage);
+
+    if (disableState)
+        setDisabled(true);
 
     return true;
 }
