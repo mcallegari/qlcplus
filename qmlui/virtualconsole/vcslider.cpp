@@ -1357,6 +1357,13 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
             }
         }
 
+        // the slider cannot go beyond its range: a channel driven above the
+        // high limit (or below the low limit) by a function shows the slider
+        // at the limit, like QLC+ 4 does. Otherwise the value is out of the
+        // widget range and the external feedback is scaled beyond 255
+        if (monitorSliderValue != -1)
+            monitorSliderValue = qBound(int(rangeLowLimit()), monitorSliderValue, int(rangeHighLimit()));
+
         // check if all the DMX channels controlled by this slider
         // have the same value. If so, move the widget slider or knob
         // to the detected position
