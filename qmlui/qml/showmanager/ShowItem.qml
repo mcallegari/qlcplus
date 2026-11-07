@@ -29,7 +29,8 @@ Item
     id: itemRoot
     height: UISettings.mediumItemHeight
     y: trackIndex >= 0 ? parseInt(height) * trackIndex : 0
-    z: 2
+    // raised above the other items while it's being dragged
+    z: (dragActive || groupFollow) ? 3 : 2
     property ShowFunction sfRef: null
     property QLCFunction funcRef: null
     property int startTime: sfRef ? sfRef.startTime : -1
@@ -40,6 +41,9 @@ Item
     property real tickSize: showManager.tickSize
     property int beatsDivision: showManager.beatsDivision
     property bool isSelected: false
+    // cut items are dimmed until they are moved by a paste
+    property bool isCutPending: sfRef ? showManager.cutItemIds.indexOf(sfRef.id) >= 0 : false
+    opacity: isCutPending ? 0.5 : 1.0
     property bool isDragging: false
     property color globalColor: showManager.itemsColor
     property string infoText: ""
@@ -55,16 +59,172 @@ Item
     property real pressMouseX: 0
     property real pressMouseY: 0
     property bool dragActive: false
+    /* MouseArea emits clicked() right after released(), by which point
+       dragActive has already been cleared, so the end of a drag would
+       otherwise run the selection handler below - and with Ctrl held down to
+       suspend snapping, or Shift to lock the drag axis, that would toggle the
+       item out of the selection */
+    property bool dragWasActive: false
     property bool itemSnapped: false
+
+    /* Offset of the item body from its original position while dragging.
+       The body snaps vertically to the Tracks, so dragOffsetY is always a
+       whole number of Tracks, stored in dragTrackDelta */
+    property real dragOffsetX: 0
+    property real dragOffsetY: 0
+    property int dragTrackDelta: 0
+
+    /* Holding Shift while dragging locks the movement to the axis the item
+       was moving along when Shift was seen: horizontally to change only the
+       start time, or vertically to change only the Track */
+    readonly property int axisNone: 0
+    readonly property int axisHorizontal: 1
+    readonly property int axisVertical: 2
+    property int dragAxisLock: axisNone
+
+    /* Dragging a selected item drags the whole selection. groupItems holds
+       the other selected (and unlocked) items, which follow the dragged one
+       through showManager.groupDragOffset */
+    property bool groupDrag: false
+    property var groupItems: []
+    property bool groupFollow: isSelected && !dragActive && showManager.groupDragActive
+                               && !(sfRef && sfRef.locked)
+
+    /* When resizing a handle, the adjacent item (if any) that shares the
+       boundary being dragged - see adjacentPairItem() */
+    property var pairItem: null
+    property real pairOrigX: 0
+    property real pairOrigWidth: 0
+
+    /* The neighbour that would be (or is being) resized along with this item,
+       and which of this item's edges is the shared boundary. It is set while
+       hovering a handle as well, so that a boundary resize can be told apart
+       from an ordinary one before the drag begins */
+    property var boundaryPartner: null
+    property bool boundaryPartnerPrevious: false
+    readonly property bool leftBoundaryActive: boundaryPartner !== null && boundaryPartnerPrevious
+    readonly property bool rightBoundaryActive: boundaryPartner !== null && !boundaryPartnerPrevious
+
+    /* Set by the neighbour on the other side of a shared boundary, so that
+       both handles light up while that boundary is hovered or dragged */
+    property bool leftHandleHighlighted: false
+    property bool rightHandleHighlighted: false
+
+    // a handle resizing this item alone, versus one moving a shared boundary
+    readonly property color trimHandleColor: "#7FFFFF00"
+    readonly property color rollHandleColor: "#7F00FFFF"
+
+    // the range of Tracks the dragged item(s) can be moved by
+    property int minTrackDelta: 0
+    property int maxTrackDelta: 0
+    // how far left the dragged item(s) can be moved before reaching 0
+    property real minOffsetX: 0
+
+    /* Width of the resize handles: at most 10 pixels, but never more than a
+       quarter of the item each, so that at least half of a thin item is left
+       to click on to select it or drag it. It is updated in updateGeometry(),
+       so that it doesn't change while resizing */
+    property real handleWidth: 10
+    property bool handlesVisible: (sfRef ? (sfRef.locked ? false : true) : false) && handleWidth >= 2
+
+    /* Snapping is suspended for the duration of a single gesture while the
+       Ctrl modifier is held down, which is what allows an item to be placed
+       freely right next to another one's edge or to a grid division without
+       having to turn snapping off in the toolbar. Both this and the toolbar
+       flag are read on every mouse move and on release, so pressing or
+       releasing Ctrl halfway through a drag takes effect immediately */
+    function snapSuspended(modifiers)
+    {
+        return (modifiers & Qt.ControlModifier) !== 0
+    }
+
+    function snappingActive(modifiers)
+    {
+        return showManager.snapToItems && !snapSuspended(modifiers)
+    }
 
     function getVisibleSnapEdges()
     {
+        // nothing to snap to when snapping is off, which spares us from
+        // walking all the Show tracks on every press
+        if (!showManager.snapToItems)
+            return []
+
         // itemRoot.parent is the Flickable's contentItem,
         // itemRoot.parent.parent is the Flickable (itemsArea)
         var flickable = itemRoot.parent ? itemRoot.parent.parent : null
         if (flickable && flickable.contentX !== undefined)
             return showManager.getSnapEdges(sfRef.functionID, flickable.contentX, flickable.contentX + flickable.width)
         return showManager.getSnapEdges(sfRef.functionID)
+    }
+
+    /* Returns the unlocked item touching this item's start ($wantPrevious) or
+       end (!$wantPrevious) edge, when dragging that edge should move the
+       boundary the two of them share - resizing both at once instead of just
+       this one. That is the case when both items are selected, so that the
+       intent to treat them as a pair is explicit, or when $forcePair is set,
+       which pairs them up for a single gesture without selecting anything.
+       Returns null when the edge is to be resized on its own.
+
+       $forcePair comes from where the handle was grabbed rather than a
+       keyboard modifier: a modifier has no equivalent on a touchscreen, and
+       on desktop a held Alt is intercepted by most Linux window managers as
+       "move the window" before the application ever sees it. Grabbing right
+       on the seam shared with the neighbour is unambiguous on any input
+       device and needs no modifier at all */
+    function adjacentPairItem(wantPrevious, forcePair)
+    {
+        if (sfRef === null || sfRef.locked)
+            return null
+
+        var partner = showManager.adjacentShowItemView(sfRef, wantPrevious)
+        if (!partner || !partner.sfRef || partner.sfRef.locked)
+            return null
+
+        if (!forcePair && !(isSelected && partner.isSelected))
+            return null
+
+        return partner
+    }
+
+    /* Light up both sides of the boundary shared with $partner ($wantPrevious
+       tells which of this item's edges it is), or clear the highlight when
+       $partner is null */
+    function setBoundaryPartner(partner, wantPrevious)
+    {
+        if (boundaryPartner === partner && boundaryPartnerPrevious === wantPrevious)
+            return
+
+        if (boundaryPartner)
+        {
+            boundaryPartner.leftHandleHighlighted = false
+            boundaryPartner.rightHandleHighlighted = false
+        }
+
+        boundaryPartner = partner
+        boundaryPartnerPrevious = wantPrevious
+
+        if (partner)
+        {
+            if (wantPrevious)
+                partner.rightHandleHighlighted = true
+            else
+                partner.leftHandleHighlighted = true
+        }
+    }
+
+    /* Remove $item's own edges from a snapEdges list, so a paired resize
+       doesn't "snap" to the very edge it is itself moving */
+    function withoutItemEdges(edges, item)
+    {
+        var out = []
+        for (var i = 0; i < edges.length; i++)
+        {
+            if (Math.abs(edges[i] - item.x) < 0.5 || Math.abs(edges[i] - (item.x + item.width)) < 0.5)
+                continue
+            out.push(edges[i])
+        }
+        return out
     }
 
     onStartTimeChanged: updateGeometry()
@@ -98,6 +258,41 @@ Item
         // updateGeometry())
         target: ioManager
         function onBpmNumberChanged() { updateGeometry() }
+    }
+
+    /* Snap the edge being resized, at $xPos, while the handle is dragged:
+       to the nearest item edge within snapThreshold, otherwise to the grid.
+       Sets itemSnapped and the snap guide when an item edge is hit */
+    function snapResizeEdge(xPos, modifiers)
+    {
+        showManager.snapGuideX = -1
+        itemSnapped = false
+
+        if (snappingActive(modifiers))
+        {
+            var bestDist = snapThreshold + 1
+            var bestSnapX = -1
+            for (var i = 0; i < snapEdges.length; i++)
+            {
+                var dist = Math.abs(snapEdges[i] - xPos)
+                if (dist < bestDist)
+                {
+                    bestDist = dist
+                    bestSnapX = snapEdges[i]
+                }
+            }
+            if (bestSnapX >= 0 && bestDist <= snapThreshold)
+            {
+                showManager.snapGuideX = bestSnapX
+                itemSnapped = true
+                return bestSnapX
+            }
+        }
+
+        if (showManager.gridEnabled && !snapSuspended(modifiers))
+            return Math.round(xPos / tickSize) * tickSize
+
+        return xPos
     }
 
     function updateGeometry()
@@ -142,6 +337,26 @@ Item
                 width = TimeUtils.timeToBeatSize(duration, ioManager.bpmNumber, beatsDivision, tickSize)
             }
         }
+
+        handleWidth = Math.min(10, width / 4)
+        // dragging the right handler breaks its position binding
+        horRightHandler.x = Qt.binding(function() { return itemRoot.width - itemRoot.handleWidth })
+    }
+
+    /* Convert an X position on the timeline to a start time expressed in
+       THIS item's own Function unit (see updateGeometry()) */
+    function positionToTime(xPos)
+    {
+        var itemIsBeats = funcRef && funcRef.tempoType === QLCFunction.Beats
+
+        if (timeDivision === Show.Time)
+            return itemIsBeats
+                    ? TimeUtils.posToBeatsMsOnTimeline(xPos, timeScale, tickSize, ioManager.bpmNumber)
+                    : TimeUtils.posToMs(xPos, timeScale, tickSize)
+        else
+            return itemIsBeats
+                    ? TimeUtils.posToBeat(xPos, tickSize, beatsDivision)
+                    : TimeUtils.posToBeatMs(xPos, tickSize, ioManager.bpmNumber, beatsDivision)
     }
 
     /* Convert a value expressed in THIS item's own Function unit (real ms
@@ -401,12 +616,17 @@ Item
     {
         id: sfMouseArea
         anchors.fill: parent
+        // in box selection mode, presses fall through to the timeline
+        // so that a selection box can be started on top of an item
+        enabled: !showManager.boxSelectMode
         hoverEnabled: true
         preventStealing: true
 
         Rectangle
         {
             id: showItemBody
+            x: dragActive ? dragOffsetX : (groupFollow ? showManager.groupDragOffset.x : 0)
+            y: dragActive ? dragOffsetY : (groupFollow ? showManager.groupDragOffset.y : 0)
             width: itemRoot.width
             height: itemRoot.height
             color: sfRef ? sfRef.color : UISettings.bgLight
@@ -452,8 +672,44 @@ Item
             pressMouseY = mouse.y
             isDragging = true
             dragActive = false
+            dragWasActive = false
             itemSnapped = false
+            dragOffsetX = 0
+            dragOffsetY = 0
+            dragTrackDelta = 0
+            dragAxisLock = axisNone
             snapEdges = getVisibleSnapEdges()
+
+            groupItems = []
+            if (isSelected && showManager.selectedItemsCount > 1)
+            {
+                var views = showManager.selectedItemViews()
+                var others = []
+                for (var i = 0; i < views.length; i++)
+                {
+                    var v = views[i]
+                    if (v && v !== itemRoot && v.sfRef && !v.sfRef.locked)
+                        others.push(v)
+                }
+                groupItems = others
+            }
+            groupDrag = groupItems.length > 0
+
+            // a single item can be dropped past the last Track to create a
+            // new one, while a selection can only be moved across existing ones
+            var minTrack = trackIndex
+            var maxTrack = trackIndex
+            var minX = itemRoot.x
+            for (var j = 0; j < groupItems.length; j++)
+            {
+                minTrack = Math.min(minTrack, groupItems[j].trackIndex)
+                maxTrack = Math.max(maxTrack, groupItems[j].trackIndex)
+                minX = Math.min(minX, groupItems[j].x)
+            }
+            var tracksCount = showManager.tracksCount()
+            minTrackDelta = -minTrack
+            maxTrackDelta = (groupDrag ? tracksCount - 1 : tracksCount) - maxTrack
+            minOffsetX = -minX
         }
         onPositionChanged: (mouse) =>
         {
@@ -472,42 +728,92 @@ Item
                 if (Math.abs(dx) < 30 && Math.abs(dy) < 30)
                     return
                 dragActive = true
-                itemRoot.z++
                 infoTextBox.height = itemRoot.height / 4
                 infoTextBox.textHAlign = Text.AlignLeft
-            }
 
-            // snap-to-item: check start edge if clicked on first half,
-            // end edge if clicked on second half
-            var checkStart = (pressMouseX < itemRoot.width / 2)
-            var edgePos = checkStart ? (itemRoot.x + dx) : (itemRoot.x + dx + itemRoot.width)
-            var bestDelta = snapThreshold + 1
-            var bestSnapX = -1
-
-            for (var i = 0; i < snapEdges.length; i++)
-            {
-                var d = snapEdges[i] - edgePos
-                if (Math.abs(d) < Math.abs(bestDelta))
+                if (groupDrag)
                 {
-                    bestDelta = d
-                    bestSnapX = snapEdges[i]
+                    // the other selected items move along, so their
+                    // edges are no targets to snap to
+                    var edges = []
+                    for (var e = 0; e < snapEdges.length; e++)
+                    {
+                        var moving = false
+                        for (var g = 0; g < groupItems.length; g++)
+                        {
+                            var gi = groupItems[g]
+                            if (Math.abs(snapEdges[e] - gi.x) < 0.5 ||
+                                Math.abs(snapEdges[e] - (gi.x + gi.width)) < 0.5)
+                            {
+                                moving = true
+                                break
+                            }
+                        }
+                        if (!moving)
+                            edges.push(snapEdges[e])
+                    }
+                    snapEdges = edges
+                    showManager.groupDragOffset = Qt.point(0, 0)
+                    showManager.groupDragActive = true
                 }
             }
 
-            if (Math.abs(bestDelta) <= snapThreshold)
+            if (mouse.modifiers & Qt.ShiftModifier)
             {
-                dx += bestDelta
-                showManager.snapGuideX = bestSnapX
-                itemSnapped = true
+                if (dragAxisLock === axisNone)
+                    dragAxisLock = Math.abs(dx) >= Math.abs(dy) ? axisHorizontal : axisVertical
             }
             else
             {
-                showManager.snapGuideX = -1
-                itemSnapped = false
+                dragAxisLock = axisNone
             }
 
-            showItemBody.x = dx
-            showItemBody.y = dy
+            if (dragAxisLock === axisHorizontal)
+                dy = 0
+            else if (dragAxisLock === axisVertical)
+                dx = 0
+
+            // snap vertically to the nearest Track
+            dragTrackDelta = Math.max(minTrackDelta, Math.min(maxTrackDelta, Math.round(dy / itemRoot.height)))
+            dy = dragTrackDelta * itemRoot.height
+
+            showManager.snapGuideX = -1
+            itemSnapped = false
+
+            if (dragAxisLock !== axisVertical && snappingActive(mouse.modifiers))
+            {
+                // snap-to-item: check start edge if clicked on first half,
+                // end edge if clicked on second half
+                var checkStart = (pressMouseX < itemRoot.width / 2)
+                var edgePos = checkStart ? (itemRoot.x + dx) : (itemRoot.x + dx + itemRoot.width)
+                var bestDelta = snapThreshold + 1
+                var bestSnapX = -1
+
+                for (var i = 0; i < snapEdges.length; i++)
+                {
+                    var d = snapEdges[i] - edgePos
+                    if (Math.abs(d) < Math.abs(bestDelta))
+                    {
+                        bestDelta = d
+                        bestSnapX = snapEdges[i]
+                    }
+                }
+
+                if (Math.abs(bestDelta) <= snapThreshold)
+                {
+                    dx += bestDelta
+                    showManager.snapGuideX = bestSnapX
+                    itemSnapped = true
+                }
+            }
+
+            // never move an item before the beginning of the Show
+            dx = Math.max(dx, minOffsetX)
+
+            dragOffsetX = dx
+            dragOffsetY = dy
+            if (groupDrag)
+                showManager.groupDragOffset = Qt.point(dx, dy)
 
             var txt
             if (timeDivision === Show.Time)
@@ -528,32 +834,50 @@ Item
             {
                 infoText = ""
 
-                // a Function keeps its own tempo type regardless of the Show's
-                // ruler (see updateGeometry() above), so the dropped position
-                // must be converted using ITS OWN unit, like the resize handlers do
-                var itemIsBeats = funcRef && funcRef.tempoType === QLCFunction.Beats
-                var dropX = itemRoot.x + showItemBody.x
+                var moveX = dragOffsetX
+                var dropX = itemRoot.x + moveX
 
                 // grid snapping: snap to the nearest beat on a BPM ruler
-                // (skipped if already snapped to another item's edge)
-                if (showManager.gridEnabled && !itemSnapped && timeDivision !== Show.Time)
+                // (skipped if already snapped to another item's edge, if the
+                // item hasn't moved horizontally, or while Ctrl suspends snapping)
+                if (showManager.gridEnabled && !itemSnapped && moveX !== 0
+                        && !snapSuspended(mouse.modifiers) && timeDivision !== Show.Time)
+                {
                     dropX = Math.round(dropX / (tickSize / beatsDivision)) * (tickSize / beatsDivision)
+                    moveX = dropX - itemRoot.x
+                }
 
-                var newTime
-                if (timeDivision === Show.Time)
-                    newTime = itemIsBeats
-                            ? TimeUtils.posToBeatsMsOnTimeline(dropX, timeScale, tickSize, ioManager.bpmNumber)
-                            : TimeUtils.posToMs(dropX, timeScale, tickSize)
-                else
-                    newTime = itemIsBeats
-                            ? TimeUtils.posToBeat(dropX, tickSize, beatsDivision)
-                            : TimeUtils.posToBeatMs(dropX, tickSize, ioManager.bpmNumber, beatsDivision)
-
-                var newTrackIdx = Math.round((itemRoot.y + showItemBody.y) / itemRoot.height)
+                // a Function keeps its own tempo type regardless of the Show's
+                // ruler (see updateGeometry() above), so the dropped position
+                // must be converted using ITS OWN unit, like the resize handlers do.
+                // An item moved only across Tracks keeps its exact start time.
+                // Round to the nearest unit: truncating a snapped position that is
+                // a hair below the edge would make the item overlap its neighbour
+                var newTime = moveX === 0 ? startTime : Math.round(positionToTime(dropX))
+                var newTrackIdx = trackIndex + dragTrackDelta
                 if (newTime < 0)
                     newTime = 0
 
-                if (newTrackIdx >= 0)
+                if (groupDrag)
+                {
+                    var items = [ itemRoot ]
+                    var tracks = [ newTrackIdx ]
+                    var times = [ newTime ]
+
+                    for (var i = 0; i < groupItems.length; i++)
+                    {
+                        var gi = groupItems[i]
+                        items.push(gi)
+                        tracks.push(gi.trackIndex + dragTrackDelta)
+                        times.push(moveX === 0 ? gi.startTime : Math.max(0, Math.round(gi.positionToTime(gi.x + moveX))))
+                    }
+
+                    showManager.moveShowItems(items, tracks, times)
+                    showManager.groupDragActive = false
+                    showManager.groupDragOffset = Qt.point(0, 0)
+                    prCanvas.requestPaint()
+                }
+                else if (newTrackIdx >= 0)
                 {
                     var res = showManager.checkAndMoveItem(sfRef, trackIndex, newTrackIdx, newTime)
 
@@ -563,23 +887,49 @@ Item
                     prCanvas.requestPaint()
                 }
 
-                showItemBody.x = 0
-                showItemBody.y = 0
-                itemRoot.z--
+                dragOffsetX = 0
+                dragOffsetY = 0
             }
 
             showManager.enableFlicking(true)
             updateTooltipText()
             isDragging = false
+            dragWasActive = dragActive
             dragActive = false
+            groupDrag = false
+            groupItems = []
+            itemSnapped = false
+            updateGeometry()
+        }
+
+        onCanceled:
+        {
+            // put everything back, including the items following a group drag
+            if (groupDrag)
+            {
+                showManager.groupDragActive = false
+                showManager.groupDragOffset = Qt.point(0, 0)
+            }
+            showManager.snapGuideX = -1
+            showManager.enableFlicking(true)
+            infoText = ""
+            dragOffsetX = 0
+            dragOffsetY = 0
+            isDragging = false
+            dragActive = false
+            groupDrag = false
+            groupItems = []
             itemSnapped = false
             updateGeometry()
         }
 
         onClicked: (mouse) =>
         {
-            if (dragActive)
+            if (dragWasActive)
+            {
+                dragWasActive = false
                 return
+            }
             var multi = ((mouse.modifiers & Qt.ControlModifier) || (mouse.modifiers & Qt.ShiftModifier))
                     || (showManager && showManager.multipleSelection)
             if (multi)
@@ -636,18 +986,22 @@ Item
     {
         id: horLeftHandler
         z: 2
-        width: 10
+        width: handleWidth
         height: itemRoot.height
-        color: horLeftHdlMa.containsMouse ? "#7FFFFF00" : "transparent"
-        visible: sfRef ? (sfRef.locked ? false : true) : false
+        color: leftHandleHighlighted ? rollHandleColor
+               : horLeftHdlMa.containsMouse ? (leftBoundaryActive ? rollHandleColor : trimHandleColor)
+               : "transparent"
+        visible: handlesVisible
 
         MouseArea
         {
             id: horLeftHdlMa
             anchors.fill: parent
+            enabled: !showManager.boxSelectMode
             preventStealing: true
             hoverEnabled: true
-            cursorShape: containsMouse ? Qt.SizeHorCursor : Qt.ArrowCursor
+            cursorShape: containsMouse ? (leftBoundaryActive ? Qt.SplitHCursor : Qt.SizeHorCursor)
+                                       : Qt.ArrowCursor
 
             property real pressX: 0
             property real origItemX: 0
@@ -661,51 +1015,65 @@ Item
                 pressX = mapToItem(itemRoot.parent, mouse.x, mouse.y).x
                 origItemX = itemRoot.x
                 origItemW = itemRoot.width
+
+                /* whether the drag moves the shared boundary is decided here,
+                   from the press position, so that moving off the seam
+                   halfway through doesn't turn a boundary resize into an
+                   ordinary one */
+                pairItem = adjacentPairItem(true, mouse.x <= handleWidth / 2)
+                setBoundaryPartner(pairItem, true)
+                if (pairItem)
+                {
+                    pairOrigX = pairItem.x
+                    pairOrigWidth = pairItem.width
+                    pairItem.isDragging = true
+                    snapEdges = withoutItemEdges(snapEdges, pairItem)
+                }
             }
+
+            // the leave event alone is not enough: a resize can move the
+            // handle out from under a stationary pointer
+            onContainsMouseChanged: if (!containsMouse && !pressed) setBoundaryPartner(null, true)
 
             onPositionChanged: (mouse) =>
             {
                 if (!pressed)
+                {
+                    /* preview what a drag started now would resize. The pointer
+                       may have left the handle already - hover events outlive a
+                       resize that moved it away - and this item may be the one
+                       being resized from the other side, which keeps it under
+                       the pointer for that whole drag */
+                    setBoundaryPartner(containsMouse && !isDragging
+                                       ? adjacentPairItem(true, mouse.x <= handleWidth / 2) : null, true)
                     return
+                }
 
                 var globalX = mapToItem(itemRoot.parent, mouse.x, mouse.y).x
                 var dx = globalX - pressX
-                var newX = origItemX + dx
-
-                // snap-to-item: check left edge
-                var bestDist = snapThreshold + 1
-                var bestSnapX = -1
-                for (var i = 0; i < snapEdges.length; i++)
-                {
-                    var dist = Math.abs(snapEdges[i] - newX)
-                    if (dist < bestDist)
-                    {
-                        bestDist = dist
-                        bestSnapX = snapEdges[i]
-                    }
-                }
-                if (bestSnapX >= 0 && bestDist <= snapThreshold)
-                {
-                    newX = bestSnapX
-                    showManager.snapGuideX = bestSnapX
-                    itemSnapped = true
-                }
-                else
-                {
-                    showManager.snapGuideX = -1
-                    itemSnapped = false
-                }
+                var newX = snapResizeEdge(origItemX + dx, mouse.modifiers)
 
                 // clamp: don't allow shrinking past minimum width
                 var maxX = origItemX + origItemW - horLeftHandler.width
                 if (newX > maxX)
                     newX = maxX
 
+                // clamp: don't allow shrinking the paired item past its own minimum width
+                if (pairItem)
+                {
+                    var minXForPair = pairOrigX + pairItem.handleWidth
+                    if (newX < minXForPair)
+                        newX = minXForPair
+                }
+
                 itemRoot.width = origItemW + (origItemX - newX)
                 itemRoot.x = newX
                 infoTextBox.height = itemRoot.height / 2
                 infoTextBox.textHAlign = Text.AlignLeft
                 updateTooltipText()
+
+                if (pairItem)
+                    pairItem.width = newX - pairOrigX
             }
             onReleased: (mouse) =>
             {
@@ -713,18 +1081,10 @@ Item
 
                 if (sfRef)
                 {
-                    if (itemRoot.x < 0)
+                    if (!pairItem && itemRoot.x < 0)
                     {
                         itemRoot.width += itemRoot.x
                         itemRoot.x = 0
-                    }
-
-                    // check grid snapping (skip if item-snapped)
-                    if (!itemSnapped && itemRoot.x && showManager.gridEnabled)
-                    {
-                        var currX = itemRoot.x
-                        itemRoot.x = Math.round(itemRoot.x / tickSize) * tickSize
-                        itemRoot.width += (currX - itemRoot.x)
                     }
 
                     var newDuration, newStartTime
@@ -757,13 +1117,37 @@ Item
                         }
                     }
 
-                    if (showManager.setShowItemStartTime(sfRef, newStartTime) === true)
-                        showManager.setShowItemDuration(sfRef, newDuration)
-                    else
-                        updateGeometry()
+                    newStartTime = Math.round(newStartTime)
+                    newDuration = Math.round(newDuration)
 
-                    if (funcRef && showManager.stretchFunctions === true)
+                    if (pairItem)
+                    {
+                        var pairDuration = Math.round(pairItem.positionToTime(pairItem.width))
+
+                        if (showManager.resizeAdjacentShowItems(pairItem.sfRef, pairDuration,
+                                                                sfRef, newStartTime, newDuration) === false)
+                        {
+                            updateGeometry()
+                            pairItem.updateGeometry()
+                        }
+                        else
+                        {
+                            if (funcRef && showManager.stretchFunctions === true)
+                                funcRef.totalDuration = sfRef.duration
+                            if (pairItem.funcRef && showManager.stretchFunctions === true)
+                                pairItem.funcRef.totalDuration = pairItem.sfRef.duration
+                        }
+                    }
+                    // the left edge moves the start and changes the duration while
+                    // the end stays put, so both must be checked together
+                    else if (showManager.setShowItemStartTimeAndDuration(sfRef, newStartTime, newDuration) === false)
+                    {
+                        updateGeometry()
+                    }
+                    else if (funcRef && showManager.stretchFunctions === true)
+                    {
                         funcRef.totalDuration = sfRef.duration
+                    }
 
                     prCanvas.requestPaint()
                 }
@@ -771,6 +1155,35 @@ Item
                 isDragging = false
                 itemSnapped = false
                 updateGeometry()
+
+                if (pairItem)
+                {
+                    pairItem.isDragging = false
+                    pairItem.updateGeometry()
+                    pairItem.updateTooltipText()
+                    pairItem.setBoundaryPartner(null, false)
+                    pairItem = null
+                }
+                setBoundaryPartner(null, true)
+            }
+
+            onCanceled:
+            {
+                // a cancelled press never reaches onReleased, and the paired
+                // item would be left frozen by its isDragging flag
+                infoText = ""
+                isDragging = false
+                itemSnapped = false
+                updateGeometry()
+
+                if (pairItem)
+                {
+                    pairItem.isDragging = false
+                    pairItem.updateGeometry()
+                    pairItem.setBoundaryPartner(null, false)
+                    pairItem = null
+                }
+                setBoundaryPartner(null, true)
             }
         }
     }
@@ -779,71 +1192,93 @@ Item
     Rectangle
     {
         id: horRightHandler
-        x: itemRoot.width - 10
+        x: itemRoot.width - handleWidth
         z: 2
-        width: 10
+        width: handleWidth
         height: itemRoot.height
-        color: horRightHdlMa.containsMouse ? "#7FFFFF00" : "transparent"
-        visible: sfRef ? (sfRef.locked ? false : true) : false
+        color: rightHandleHighlighted ? rollHandleColor
+               : horRightHdlMa.containsMouse ? (rightBoundaryActive ? rollHandleColor : trimHandleColor)
+               : "transparent"
+        visible: handlesVisible
 
         MouseArea
         {
             id: horRightHdlMa
             anchors.fill: parent
+            enabled: !showManager.boxSelectMode
             preventStealing: true
             hoverEnabled: true
-            cursorShape: containsMouse ? Qt.SizeHorCursor : Qt.ArrowCursor
+            cursorShape: containsMouse ? (rightBoundaryActive ? Qt.SplitHCursor : Qt.SizeHorCursor)
+                                       : Qt.ArrowCursor
 
             drag.target: horRightHandler
             drag.axis: Drag.XAxis
             drag.minimumX: horLeftHandler.x + width
 
-            onPressed:
+            onPressed: (mouse) =>
             {
                 isDragging = true
                 itemSnapped = false
                 snapEdges = getVisibleSnapEdges()
+
+                /* see the left handle: the pair is decided from the press
+                   position, so that drifting off the seam mid-drag doesn't
+                   change what is resized */
+                pairItem = adjacentPairItem(false, mouse.x >= handleWidth / 2)
+                setBoundaryPartner(pairItem, false)
+                if (pairItem)
+                {
+                    pairOrigX = pairItem.x
+                    pairOrigWidth = pairItem.width
+                    pairItem.isDragging = true
+                    snapEdges = withoutItemEdges(snapEdges, pairItem)
+                }
             }
+
+            // see the left handle
+            onContainsMouseChanged: if (!containsMouse && !pressed) setBoundaryPartner(null, false)
 
             onPositionChanged: (mouse) =>
             {
+                if (!pressed)
+                {
+                    // see the left handle
+                    setBoundaryPartner(containsMouse && !isDragging
+                                       ? adjacentPairItem(false, mouse.x >= handleWidth / 2) : null, false)
+                    return
+                }
+
                 if (drag.active === true)
                 {
                     var obj = mapToItem(itemRoot, mouseX, mouseY)
                     var newWidth = obj.x + (horRightHdlMa.width - mouse.x)
+                    newWidth = snapResizeEdge(itemRoot.x + newWidth, mouse.modifiers) - itemRoot.x
 
-                    // snap-to-item: check right edge
-                    var rightEdge = itemRoot.x + newWidth
-                    var bestDist = snapThreshold + 1
-                    var bestSnapX = -1
-                    for (var i = 0; i < snapEdges.length; i++)
+                    // clamp: snapping must not shrink the item past its minimum width
+                    if (newWidth < horLeftHandler.width)
+                        newWidth = horLeftHandler.width
+
+                    // clamp: don't allow shrinking the paired item past its own minimum width
+                    if (pairItem)
                     {
-                        var dist = Math.abs(snapEdges[i] - rightEdge)
-                        if (dist < bestDist)
-                        {
-                            bestDist = dist
-                            bestSnapX = snapEdges[i]
-                        }
-                    }
-                    if (bestSnapX >= 0 && bestDist <= snapThreshold)
-                    {
-                        newWidth = bestSnapX - itemRoot.x
-                        showManager.snapGuideX = bestSnapX
-                        itemSnapped = true
-                    }
-                    else
-                    {
-                        showManager.snapGuideX = -1
-                        itemSnapped = false
+                        var maxWidth = (pairOrigX + pairOrigWidth) - itemRoot.x - pairItem.handleWidth
+                        if (newWidth > maxWidth)
+                            newWidth = maxWidth
                     }
 
                     itemRoot.width = newWidth
                     infoTextBox.height = itemRoot.height / 4
                     infoTextBox.textHAlign = Text.AlignRight
                     updateTooltipText()
+
+                    if (pairItem)
+                    {
+                        pairItem.x = itemRoot.x + newWidth
+                        pairItem.width = (pairOrigX + pairOrigWidth) - pairItem.x
+                    }
                 }
             }
-            onReleased:
+            onReleased: (mouse) =>
             {
                 if (drag.active === false)
                     return
@@ -852,13 +1287,6 @@ Item
 
                 if (sfRef)
                 {
-                    // check grid snapping (skip if item-snapped)
-                    if (!itemSnapped && showManager.gridEnabled)
-                    {
-                        var snappedEndPos = Math.round((itemRoot.x + itemRoot.width) / tickSize) * tickSize
-                        itemRoot.width = snappedEndPos - itemRoot.x
-                    }
-
                     var newDuration
                     var itemIsBeats = funcRef && funcRef.tempoType === QLCFunction.Beats
 
@@ -875,11 +1303,35 @@ Item
                                 : TimeUtils.posToBeatMs(itemRoot.width, tickSize, ioManager.bpmNumber, beatsDivision)
                     }
 
-                    if (showManager.setShowItemDuration(sfRef, newDuration) === false)
-                        updateGeometry()
+                    newDuration = Math.round(newDuration)
 
-                    if (funcRef && showManager.stretchFunctions === true)
+                    if (pairItem)
+                    {
+                        var pairStartTime = Math.round(pairItem.positionToTime(pairItem.x))
+                        var pairDuration = Math.round(pairItem.positionToTime(pairItem.width))
+
+                        if (showManager.resizeAdjacentShowItems(sfRef, newDuration,
+                                                                pairItem.sfRef, pairStartTime, pairDuration) === false)
+                        {
+                            updateGeometry()
+                            pairItem.updateGeometry()
+                        }
+                        else
+                        {
+                            if (funcRef && showManager.stretchFunctions === true)
+                                funcRef.totalDuration = sfRef.duration
+                            if (pairItem.funcRef && showManager.stretchFunctions === true)
+                                pairItem.funcRef.totalDuration = pairItem.sfRef.duration
+                        }
+                    }
+                    else if (showManager.setShowItemDuration(sfRef, newDuration) === false)
+                    {
+                        updateGeometry()
+                    }
+                    else if (funcRef && showManager.stretchFunctions === true)
+                    {
                         funcRef.totalDuration = sfRef.duration
+                    }
 
                     prCanvas.requestPaint()
                 }
@@ -887,6 +1339,34 @@ Item
                 isDragging = false
                 itemSnapped = false
                 updateGeometry()
+
+                if (pairItem)
+                {
+                    pairItem.isDragging = false
+                    pairItem.updateGeometry()
+                    pairItem.updateTooltipText()
+                    pairItem.setBoundaryPartner(null, false)
+                    pairItem = null
+                }
+                setBoundaryPartner(null, false)
+            }
+
+            onCanceled:
+            {
+                // see the left handle
+                infoText = ""
+                isDragging = false
+                itemSnapped = false
+                updateGeometry()
+
+                if (pairItem)
+                {
+                    pairItem.isDragging = false
+                    pairItem.updateGeometry()
+                    pairItem.setBoundaryPartner(null, false)
+                    pairItem = null
+                }
+                setBoundaryPartner(null, false)
             }
         }
     }
