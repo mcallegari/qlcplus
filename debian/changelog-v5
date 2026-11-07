@@ -1,3 +1,7 @@
+qlcplus (5.4.0) stable; urgency=low
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 29 Dec 2026 10:47:15 +0200
+
 qlcplus (5.3.1) stable; urgency=low
 
   * qmlui: fix remapping on VC slider values (#2239)
