@@ -104,6 +104,8 @@ QList<QPair<quint32, quint32>> FixtureRemapper::autoConnectFixtures(Fixture *src
                 ChannelModifier *chMod = src->channelModifier(s);
                 if (chMod != nullptr)
                     tgt->setChannelModifier(s, chMod);
+                else
+                    tgt->setUnknownChannelModifier(s, src->channelModifierName(s));
             }
         }
         else
