@@ -35,6 +35,11 @@ if [ "$TARGET" == "ui" ]; then
     test[$COUNT]="$DEST_DIR/ui/src"
 COUNT=$((COUNT+1))
 fi
+if [ "$TARGET" == "qmlui" ]; then
+    # the QML UI sources under test are built in the test library
+    test[$COUNT]="$DEST_DIR/qmlui/test"
+COUNT=$((COUNT+1))
+fi
 test[$COUNT]="$DEST_DIR/plugins/artnet/test"
 COUNT=$((COUNT+1))
 test[$COUNT]="$DEST_DIR/plugins/enttecwing/src"
@@ -128,6 +133,7 @@ lcov -r coverage/coverage.info *.h -o coverage/coverage.info # Q_OBJECT etc.
 lcov -r coverage/coverage.info *moc_* -o coverage/coverage.info
 lcov -r coverage/coverage.info *usr* -o coverage/coverage.info
 lcov -r coverage/coverage.info *_test* -o coverage/coverage.info
+lcov -r coverage/coverage.info */qmlui/test/common/* -o coverage/coverage.info # test stubs
 lcov -r coverage/coverage.info */ui_* -o coverage/coverage.info
 lcov -r coverage/coverage.info */$DEST_DIR/* -o coverage/coverage.info
 lcov -r coverage/coverage.info *Library* -o coverage/coverage.info # OSX

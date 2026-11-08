@@ -89,7 +89,8 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
     {
         VCPage *page = new VCPage(view, m_doc, this, i, this);
         QQmlEngine::setObjectOwnership(page, QQmlEngine::CppOwnership);
-        m_contextManager->registerContext(page->previewContext());
+        if (m_contextManager != nullptr)
+            m_contextManager->registerContext(page->previewContext());
         m_pages.append(page);
     }
 
