@@ -11,6 +11,7 @@ set(TS_FILES
     ArtNet_pt_BR.ts
     ArtNet_ca_ES.ts
     ArtNet_ja_JP.ts
+    ArtNet_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)
