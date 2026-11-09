@@ -11,6 +11,7 @@ set(TS_FILES
     # OS2L_pt_BR.ts
     OS2L_ca_ES.ts
     OS2L_ja_JP.ts
+    OS2L_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)
