@@ -11,6 +11,7 @@ set(TS_FILES
     ENTTEC_Wing_pt_BR.ts
     ENTTEC_Wing_ca_ES.ts
     ENTTEC_Wing_ja_JP.ts
+    ENTTEC_Wing_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)
