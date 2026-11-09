@@ -21,12 +21,12 @@
     <message>
         <location filename="webaccess-qml.cpp" line="362"/>
         <source>Simple Desk</source>
-        <translation type="unfinished">Pupitre traditionnel</translation>
+        <translation>Pupitre traditionnel</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="367"/>
         <source>Universe</source>
-        <translation type="unfinished">Univers</translation>
+        <translation>Univers</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="381"/>
@@ -42,12 +42,12 @@
     <message>
         <location filename="webaccess-qml.cpp" line="396"/>
         <source>Page</source>
-        <translation type="unfinished">Page</translation>
+        <translation>Page</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="404"/>
         <source>Back</source>
-        <translation type="unfinished">Retour</translation>
+        <translation>Retour</translation>
     </message>
 </context>
 <context>
@@ -78,7 +78,7 @@
         <location filename="webaccess.cpp" line="765"/>
         <location filename="webaccess.cpp" line="875"/>
         <source>Back</source>
-        <translation type="unfinished">Retour</translation>
+        <translation>Retour</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="773"/>
@@ -187,7 +187,7 @@
     <message>
         <location filename="webaccessbase.cpp" line="323"/>
         <source>Loading project...</source>
-        <translation type="unfinished">Chargement du projet...</translation>
+        <translation>Chargement du projet...</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="411"/>
@@ -202,28 +202,28 @@
     <message>
         <location filename="webaccessbase.cpp" line="441"/>
         <source>Fixture stored and loaded</source>
-        <translation type="unfinished">Appareils enregistrés et chargés</translation>
+        <translation>Appareil enregistré et chargé</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="667"/>
         <source>Username and password are required fields.</source>
-        <translation type="unfinished">Le nom d&apos;utilisateur et le mot de passe sont des champs requis.</translation>
+        <translation>Le nom d&apos;utilisateur et le mot de passe sont des champs requis.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="674"/>
         <location filename="webaccessbase.cpp" line="707"/>
         <source>User level has to be a positive integer.</source>
-        <translation type="unfinished">Le niveau de l&apos;utilisateur doit être un entier positif.</translation>
+        <translation>Le niveau de l&apos;utilisateur doit être un entier positif.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="700"/>
         <source>Username is required.</source>
-        <translation type="unfinished">Un nom d&apos;utilisateur est requis.</translation>
+        <translation>Un nom d&apos;utilisateur est requis.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="722"/>
         <source>Error while saving passwords file.</source>
-        <translation type="unfinished">Erreur lors de la sauvegarde du fichier de mots de passe.</translation>
+        <translation>Erreur lors de la sauvegarde du fichier de mots de passe.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="745"/>
@@ -233,7 +233,7 @@
     <message>
         <location filename="webaccessbase.cpp" line="751"/>
         <source>Network configuration changed. Reboot to apply the changes.</source>
-        <translation type="unfinished">La configuration réseau a été modifiée. Veuillez redémarrer pour appliquer les changements.</translation>
+        <translation>La configuration réseau a été modifiée. Veuillez redémarrer pour appliquer les changements.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="753"/>
@@ -258,7 +258,7 @@
     <message>
         <location filename="webaccessbase.cpp" line="794"/>
         <source>Autostart configuration changed</source>
-        <translation type="unfinished">Configuration du démarrage automatique modifiée</translation>
+        <translation>Configuration du démarrage automatique modifiée</translation>
     </message>
 </context>
 <context>
@@ -266,7 +266,7 @@
     <message>
         <location filename="webaccessconfiguration.cpp" line="71"/>
         <source>Universe</source>
-        <translation type="unfinished">Univers</translation>
+        <translation>Univers</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="71"/>
@@ -446,7 +446,7 @@
     <message>
         <location filename="webaccessnetwork.cpp" line="126"/>
         <source>Enable</source>
-        <translation type="unfinished">Activer</translation>
+        <translation>Activer</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="127"/>

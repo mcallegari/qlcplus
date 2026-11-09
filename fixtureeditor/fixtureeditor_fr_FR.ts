@@ -396,7 +396,7 @@
     <message>
         <location filename="editmode.ui" line="171"/>
         <source>Acts On</source>
-        <translation type="unfinished"></translation>
+        <translation>Agit sur</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="193"/>
@@ -883,7 +883,8 @@ Impossible d&apos;enregistrer l&apos;appareil.</translation>
         <location filename="fixtureeditor.cpp" line="266"/>
         <source>Invalid definition: no modes provided.
 Without modes, this fixture will not appear in the list!</source>
-        <translation type="unfinished"></translation>
+        <translation>Définition invalide : aucun mode fourni.
+Sans mode, cet appareil n&apos;apparaîtra pas dans la liste !</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="674"/>
