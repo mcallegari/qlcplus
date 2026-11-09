@@ -6,24 +6,24 @@
     <message>
         <location filename="addchannelsdialog.ui" line="33"/>
         <source>Fixture Mode Channels Editor</source>
-        <translation>Gerätemodus-Kanaleditor</translation>
+        <translation>Редактор режимов каналов</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="114"/>
         <source>Available channels</source>
         <oldsource>All channels</oldsource>
-        <translation>Verfügbare Kanäle</translation>
+        <translation>Доступно каналов</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="106"/>
         <location filename="addchannelsdialog.ui" line="135"/>
         <source>Name</source>
-        <translation>Name</translation>
+        <translation>Название</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="121"/>
         <source>Mode channels</source>
-        <translation>Kanäle im Modus</translation>
+        <translation>Каналы режима</translation>
     </message>
 </context>
 <context>
@@ -31,73 +31,73 @@
     <message>
         <location filename="app.cpp" line="122"/>
         <source>Unrecognized file extension: %1</source>
-        <translation>Unbekannte Dateinamenerweiterung: %1</translation>
+        <translation>Нераспознанное расширение файла: %1</translation>
     </message>
     <message>
         <location filename="app.cpp" line="150"/>
         <source>Fixture loading failed</source>
-        <translation>Laden der Gerätedefinition fehlgeschlagen</translation>
+        <translation>Не удалось загрузить прибор</translation>
     </message>
     <message>
         <location filename="app.cpp" line="151"/>
         <source>Unable to load fixture definition: </source>
-        <translation>Gerätedefinition konnte nicht geladen werden: </translation>
+        <translation>Не удалось загрузить параметры прибора: </translation>
     </message>
     <message>
         <location filename="app.cpp" line="245"/>
         <source>&amp;New</source>
-        <translation>&amp;Neu</translation>
+        <translation>&amp;Новый</translation>
     </message>
     <message>
         <location filename="app.cpp" line="251"/>
         <source>&amp;Open</source>
-        <translation>&amp;Öffnen</translation>
+        <translation>&amp;Открыть</translation>
     </message>
     <message>
         <location filename="app.cpp" line="257"/>
         <source>&amp;Save</source>
-        <translation>&amp;Speichern</translation>
+        <translation>&amp;Сохранить</translation>
     </message>
     <message>
         <location filename="app.cpp" line="263"/>
         <source>Save &amp;As...</source>
         <oldsource>Save &amp;As</oldsource>
-        <translation>Speichern &amp;unter…</translation>
+        <translation>Сохранить &amp;как…</translation>
     </message>
     <message>
         <location filename="app.cpp" line="269"/>
         <source>&amp;Quit</source>
-        <translation>&amp;Beenden</translation>
+        <translation>&amp;Выйти</translation>
     </message>
     <message>
         <location filename="app.cpp" line="276"/>
         <source>Index</source>
-        <translation>Handbuch</translation>
+        <translation>Индекс</translation>
     </message>
     <message>
         <location filename="app.cpp" line="282"/>
         <source>About Fixture Definition Editor...</source>
-        <translation>Über Fixture Definition Editor…</translation>
+        <translation>О редакторе настроек приборов...</translation>
     </message>
     <message>
         <location filename="app.cpp" line="287"/>
         <source>About Qt...</source>
-        <translation>Über Qt…</translation>
+        <translation>О фреймворке Qt…</translation>
     </message>
     <message>
         <location filename="app.cpp" line="314"/>
         <source>&amp;File</source>
-        <translation>&amp;Datei</translation>
+        <translation>&amp;Файл</translation>
     </message>
     <message>
         <location filename="app.cpp" line="324"/>
         <source>&amp;Help</source>
-        <translation>&amp;Hilfe</translation>
+        <translation>&amp;Помощь</translation>
     </message>
     <message>
         <location filename="app.cpp" line="362"/>
         <source>Open a fixture definition</source>
-        <translation>Eine Gerätedefinition öffnen</translation>
+        <translation>Открыть параметры прибора</translation>
     </message>
 </context>
 <context>
@@ -105,67 +105,67 @@
     <message>
         <location filename="capabilitywizard.ui" line="33"/>
         <source>Capability Wizard</source>
-        <translation>Funktions-Assistent</translation>
+        <translation>Помощник по параметрам</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="39"/>
         <source>Values</source>
-        <translation>Werte</translation>
+        <translation>Значения</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="45"/>
         <source>Start</source>
-        <translation>Anfang</translation>
+        <translation>Начало</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="52"/>
         <source>The starting DMX value</source>
-        <translation>Der Anfangs-DMX-Wert</translation>
+        <translation>Начальное значение DMX</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="62"/>
         <source>Width</source>
-        <translation>Breite</translation>
+        <translation>Диапазон</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="69"/>
         <source>Number of values per capability</source>
-        <translation>Anzahl der DMX-Werte pro Funktion</translation>
+        <translation>Количество значений для каждого параметра</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="85"/>
         <source>Amount</source>
-        <translation>Anzahl</translation>
+        <translation>Количество</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="92"/>
         <source>Number of capabilities to create</source>
-        <translation>Anzahl der Funktionen, die erstellt werden sollen</translation>
+        <translation>Количество создаваемых параметров</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="108"/>
         <source>Name</source>
-        <translation>Name</translation>
+        <translation>Название</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="114"/>
         <source>The common base name for all capabilities. Use hash &apos;#&apos; to create a running number.</source>
-        <translation>Der gemeinsame Basisname für alle Funktionen. Verwende die Raute „#“, um eine Nummerierung zu erstellen.</translation>
+        <translation>Базовое название для всех параметров. Используйте решетку &apos;#&apos; для автонумерации.</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="117"/>
         <source>Capability #</source>
-        <translation>Funktion #</translation>
+        <translation>Параметр #</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="127"/>
         <source>Sample</source>
-        <translation>Beispiel</translation>
+        <translation>Образец</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="133"/>
         <source>A list of capabilities that would be created with these settings</source>
-        <translation>Liste der Funktionen, die mit diesen Einstellungen erstellt würden</translation>
+        <translation>Список параметров, которые будут созданы с данными настройками</translation>
     </message>
 </context>
 <context>
@@ -173,101 +173,99 @@
     <message>
         <location filename="editchannel.ui" line="33"/>
         <source>Edit Channel</source>
-        <translation>Kanal bearbeiten</translation>
+        <translation>Редактировать канал</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="114"/>
         <source>&lt;font color=&quot;red&quot;&gt;&lt;b&gt;Capability overlapping detected. Please fix.&lt;/b&gt;&lt;/font&gt;</source>
-        <translation>&lt;font color=&quot;red&quot;&gt;&lt;b&gt;Überlappende Funktionen erkannt. Bitte beheben.&lt;/b&gt;&lt;/font&gt;</translation>
+        <translation>&lt;font color=&quot;red&quot;&gt;&lt;b&gt;Обнаружено перекрытие параметров. Пожалуйста, исправьте.&lt;/b&gt;&lt;/font&gt;</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="198"/>
         <source>Name</source>
-        <translation>Name</translation>
+        <translation>Название</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="240"/>
         <source>Default value</source>
-        <translation>Standardwert</translation>
+        <translation>Значение по умолчанию</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="253"/>
         <source>Type</source>
-        <translation>Typ</translation>
+        <translation>Тип</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="260"/>
         <location filename="editchannel.ui" line="303"/>
         <source>Preset</source>
-        <translation>Voreinstellung</translation>
+        <translation>Пресет</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="267"/>
         <source>The name of this channel</source>
-        <translation>Kanalname</translation>
+        <translation>Название этого канала</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="274"/>
         <source>Role</source>
-        <translation>Auflösung</translation>
+        <translation>Роль</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="336"/>
         <source>Color 1</source>
-        <translation>Farbe 1</translation>
+        <translation>Цвет 1</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="360"/>
         <source>Color 2</source>
-        <translation>Farbe 2</translation>
+        <translation>Цвет 2</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="387"/>
         <source>Value 1</source>
-        <translation>Wert 1</translation>
+        <translation>Значение 1</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="401"/>
         <source>Value 2</source>
-        <translation>Wert 2</translation>
+        <translation>Значение 2</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="430"/>
         <source>Preview</source>
-        <translation>Vorschau</translation>
+        <translation>Просмотр</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="227"/>
         <source>The group this channel belongs to</source>
-        <translation>Die Gruppe, zu der dieser Kanal gehört</translation>
+        <translation>Группа, к которой принадлежит этот канал</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="322"/>
         <source>Picture</source>
-        <translation>Bild</translation>
+        <translation>Изображение</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="283"/>
         <source>Coarse (MSB)</source>
-        <translatorcomment>Nicht ganz sicher über die Bedeutung. Yep, it&apos;s OK -Heikki</translatorcomment>
-        <translation>Grob (MSB)</translation>
+        <translation>Грубо (MSB)</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="290"/>
         <source>Fine (LSB)</source>
-        <translatorcomment>Nicht ganz sicher über die Bedeutung. Yep, it&apos;s OK -Heikki</translatorcomment>
-        <translation>Fein (LSB)</translation>
+        <translation>Точно (LSB)</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="55"/>
         <source>Capabilities</source>
-        <translation>Funktionen</translation>
+        <translation>Параметры</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="90"/>
         <location filename="editchannel.cpp" line="571"/>
         <source>Minimum value</source>
-        <translation>Unterer Wert</translation>
+        <translation>Минимальное значение</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="95"/>
@@ -336,17 +334,17 @@
     <message>
         <location filename="edithead.ui" line="33"/>
         <source>Edit Head</source>
-        <translation>Head bearbeiten</translation>
+        <translation>Редактирование излучателя</translation>
     </message>
     <message>
         <location filename="edithead.ui" line="52"/>
         <source>Channel</source>
-        <translation>Kanal</translation>
+        <translation>Канал</translation>
     </message>
     <message>
         <location filename="edithead.ui" line="57"/>
         <source>Name</source>
-        <translation>Name</translation>
+        <translation>Название</translation>
     </message>
 </context>
 <context>
@@ -355,77 +353,77 @@
         <location filename="editmode.ui" line="33"/>
         <source>Edit Mode</source>
         <translatorcomment>Gibt es einen bessere Bezeichnung für Mode?</translatorcomment>
-        <translation>Modus bearbeiten</translation>
+        <translation>Режим редактирования</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="39"/>
         <source>Mode Name</source>
-        <translation>Modusname</translation>
+        <translation>Название режима</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="53"/>
         <source>Channels</source>
-        <translation>Kanäle</translation>
+        <translation>Каналы</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="161"/>
         <source>Number</source>
-        <translation>Nummer</translation>
+        <translation>Номер</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="166"/>
         <source>Name</source>
-        <translation>Name</translation>
+        <translation>Название</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="79"/>
         <source>Add channel(s) to this mode</source>
-        <translation>Kanal/Kanäle zum Modus hinzufügen</translation>
+        <translation>Добавить канал(ы) к этому режиму</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="59"/>
         <source>Remove the selected channel</source>
-        <translation>Ausgewählten Kanal entfernen</translation>
+        <translation>Удалить выбранные каналы</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="99"/>
         <source>Raise the selected channel</source>
-        <translation>Ausgewählten Kanal nach oben verschieben</translation>
+        <translation>Поднять выделенные каналы</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="119"/>
         <source>Lower the selected channel</source>
-        <translation>Ausgewählten Kanal nach unten verschieben</translation>
+        <translation>Опустить выделенные каналы</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="171"/>
         <source>Acts On</source>
-        <translation>Beeinflusst</translation>
+        <translation>Взаимодействует с</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="193"/>
         <source>Heads</source>
-        <translation>Heads</translation>
+        <translation>Головы</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="206"/>
         <source>Head</source>
-        <translation>Head</translation>
+        <translation>Голова</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="214"/>
         <source>Compose a new head</source>
-        <translation>Neuen Head erstellen</translation>
+        <translation>Создать новый излучатель</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="234"/>
         <source>Remove the selected head</source>
-        <translation>Ausgewählten Head entfernen</translation>
+        <translation>Убрать выбранный излучатель</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="254"/>
         <source>Edit the channels that belong to the selected head</source>
-        <translation>Zugewiesene Kanäle des ausgewählten Heads bearbeiten</translation>
+        <translation>Измените каналы, относящиеся к выбранному излучателю</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="274"/>
@@ -458,132 +456,132 @@
     <message>
         <location filename="editphysical.ui" line="277"/>
         <source>Bulb</source>
-        <translation>Leuchtmittel</translation>
+        <translation>Источник</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="45"/>
         <location filename="editphysical.ui" line="283"/>
         <source>Type</source>
-        <translation>Typ</translation>
+        <translation>Тип</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="515"/>
         <source>Lumens</source>
-        <translation>Lumen</translation>
+        <translation>Яркость (лм)</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="535"/>
         <source>Colour Temp (K)</source>
-        <translation>Farbtemperatur</translation>
+        <translation>Цветовая температура (K)</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="708"/>
         <source>Dimensions</source>
-        <translation>Maße</translation>
+        <translation>Размеры</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="784"/>
         <source>Weight</source>
-        <translation>Gewicht</translation>
+        <translation>Вес</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="714"/>
         <source>kg</source>
-        <translation>kg</translation>
+        <translation>кг</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="724"/>
         <source>Width</source>
-        <translation>Breite</translation>
+        <translation>Ширина</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="734"/>
         <location filename="editphysical.ui" line="754"/>
         <location filename="editphysical.ui" line="774"/>
         <source>mm</source>
-        <translation>mm</translation>
+        <translation>мм</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="744"/>
         <source>Height</source>
-        <translation>Höhe</translation>
+        <translation>Высота</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="764"/>
         <source>Depth</source>
-        <translation>Tiefe</translation>
+        <translation>Глубина</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="39"/>
         <source>Head(s)</source>
-        <translation>Head(s)</translation>
+        <translation>Излучатели</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="630"/>
         <source>Lens</source>
-        <translation>Linse</translation>
+        <translation>Объектив</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="636"/>
         <source>Name</source>
-        <translation>Name</translation>
+        <translation>Название</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="665"/>
         <source>Min Degrees</source>
-        <translation>Min. Grad</translation>
+        <translation>Мин. угол</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="672"/>
         <source>Max Degrees</source>
-        <translation>Max. Grad</translation>
+        <translation>Макс. угол</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="79"/>
         <source>Pan Max Degrees</source>
-        <translation>Pan max. Grad</translation>
+        <translation>Панорама макс</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="96"/>
         <source>Tilt Max Degrees</source>
-        <translation>Tilt max. Grad</translation>
+        <translation>Наклон макс</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="113"/>
         <source>Layout
 (Columns x Rows)</source>
-        <translation>Anordnung
-(Spalten x Zeilen)</translation>
+        <translation>Раскладка
+(столбцы x строки)</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="158"/>
         <source>Electrical</source>
-        <translation>Anschlussdaten</translation>
+        <translation>Электрические параметры</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="164"/>
         <source>Power Consumption</source>
-        <translation>Leistungsaufnahme</translation>
+        <translation>Потребляемая мощность</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="174"/>
         <source>W</source>
-        <translation>W</translation>
+        <translation>Вт</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="184"/>
         <source>DMX Connector</source>
-        <translation>DMX-Anschluss</translation>
+        <translation>Разъем DMX</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="241"/>
         <source>Copy physical information to clipboard</source>
-        <translation>Physische Informationen in die Zwischenablage kopieren</translation>
+        <translation>Копировать физические параметры в буфер</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="258"/>
         <source>Paste physical information from clipboard</source>
-        <translation>Physische Informationen aus der Zwischenablage einfügen</translation>
+        <translation>Вставить физические параметры из буфера</translation>
     </message>
 </context>
 <context>
@@ -591,145 +589,145 @@
     <message>
         <location filename="fixtureeditor.ui" line="33"/>
         <source>Fixture</source>
-        <translation>Gerät</translation>
+        <translation>Световой прибор</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="43"/>
         <source>General</source>
-        <translation>Allgemein</translation>
+        <translation>Основное</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="55"/>
         <source>Manufacturer</source>
-        <translation>Hersteller</translation>
+        <translation>Производитель</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="68"/>
         <source>The manufacturer name for this fixture (e.g. Martin)</source>
-        <translation>Der Name des Herstellers dieses Geräts (z.B.: Martin)</translation>
+        <translation>Название производителя этого прибора (напр.: Martin)</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="75"/>
         <source>Model</source>
-        <translation>Modell</translation>
+        <translation>Модель</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="88"/>
         <source>The model name for this fixture (e.g. MAC250)</source>
-        <translation>Der Modellname dieses Geräts (z.B.: MAC250)</translation>
+        <translation>Модель этого прибора (напр.: MAC250)</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="95"/>
         <source>Type</source>
-        <translation>Typ</translation>
+        <translation>Тип</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="108"/>
         <source>The general type of this fixture</source>
-        <translation>Der Gerätetyp (z.B.: Moving Head)</translation>
+        <translation>Основной тип этого прибора</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="247"/>
         <source>Author</source>
-        <translation>Autor</translation>
+        <translation>Автор(ы)</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="254"/>
         <source>The name of the author of this fixture definition</source>
         <oldsource>The author name of this fixture definition</oldsource>
-        <translation>Der Name des Autors dieser Gerätedefinition</translation>
+        <translation>Автор(ы) этого прибора</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="298"/>
         <location filename="fixtureeditor.ui" line="498"/>
         <source>Channels</source>
-        <translation>Kanäle</translation>
+        <translation>Каналы</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="320"/>
         <location filename="fixtureeditor.ui" line="493"/>
         <source>Name</source>
-        <translation>Name</translation>
+        <translation>Название</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="325"/>
         <source>Group</source>
-        <translation>Gruppe</translation>
+        <translation>Группа</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="333"/>
         <source>Add a channel</source>
-        <translation>Einen Kanal hinzufügen</translation>
+        <translation>Добавить канал</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="353"/>
         <source>Remove the selected channel</source>
-        <translation>Ausgewählten Kanal entfernen</translation>
+        <translation>Убрать выбранный канал</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="373"/>
         <source>Edit the selected channel</source>
-        <translation>Ausgewählten Kanal bearbeiten</translation>
+        <translation>Изменить выбранный канал</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="400"/>
         <source>Copy the selected channel to the clipboard</source>
-        <translation>Ausgewählten Kanal in die Zwischenablage kopieren</translation>
+        <translation>Копировать выбранный канал в буфер обмена</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="420"/>
         <source>Paste the channel in clipboard to this fixture</source>
-        <translation>Kanal aus der Zwischenablage hier einfügen</translation>
+        <translation>Вставить канал из буфера обмена</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="453"/>
         <source>Open/close all channel items</source>
-        <translation>Öffne/Schließe alle Kanäle</translation>
+        <translation>Открыть/закрыть все элементы канала</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="474"/>
         <source>Modes</source>
-        <translation>Modus</translation>
+        <translation>Режимы</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="503"/>
         <source>Heads</source>
-        <translation>Heads</translation>
+        <translation>Излучатели</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="511"/>
         <source>Add a mode</source>
-        <translation>Einen Modus hinzufügen</translation>
+        <translation>Добавить режим</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="531"/>
         <source>Remove the selected mode</source>
-        <translation>Ausgewählten Modus entfernen</translation>
+        <translation>Убрать выбранный режим</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="551"/>
         <source>Edit the selected mode</source>
-        <translation>Ausgewählten Modus bearbeiten</translation>
+        <translation>Изменить выбранный режим</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="578"/>
         <source>Create a copy of the selected mode</source>
-        <translation>Eine Kopie des ausgewählten Modus erstellen</translation>
+        <translation>Создать копию выбранного режима</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="611"/>
         <source>Open/close all mode items</source>
-        <translation>Öffne/Schließe alle Modi</translation>
+        <translation>Открыть/закрыть все элементы режима</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="632"/>
         <source>Aliases</source>
-        <translation>Aliase</translation>
+        <translation>Псевдонимы</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="650"/>
         <source>In mode</source>
-        <translation>Im Modus</translation>
+        <translation>В режиме</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="667"/>
@@ -790,36 +788,36 @@
         <source>Do you want to save changes to fixture
 &quot;%1&quot;
 before closing?</source>
-        <translation>Willst du die Änderungen am Gerät
+        <translation>Вы хотите сохранить изменения в приборе
 „%1“
-vor dem Schließen speichern?</translation>
+перед закрытием?</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="236"/>
         <location filename="fixtureeditor.cpp" line="246"/>
         <location filename="fixtureeditor.cpp" line="265"/>
         <source>Missing important information</source>
-        <translation>Wichtige Informationen fehlen</translation>
+        <translation>Пропущена важная информация</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="237"/>
         <source>Missing manufacturer name.
 Unable to save fixture.</source>
-        <translation>Fehlender Herstellername.
-Kann Gerät nicht speichern.</translation>
+        <translation>Пропущено название производителя.
+Исправьте перед сохранением.</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="247"/>
         <source>Missing fixture model name.
 Unable to save fixture.</source>
-        <translation>Fehlender Modellname.
-Kann Gerät nicht speichern.</translation>
+        <translation>Пропущено название модели прибора.
+Исправьте перед сохранением.</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="285"/>
         <location filename="fixtureeditor.cpp" line="344"/>
         <source>Fixture saving failed</source>
-        <translation>Speichern fehlgeschlagen</translation>
+        <translation>Не удалось сохранить параметры прибора</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="286"/>
@@ -827,146 +825,146 @@ Kann Gerät nicht speichern.</translation>
         <source>Unable to save fixture definition:
 %1</source>
         <oldsource>Unable to save fixture definition: </oldsource>
-        <translation>Konnte die Gerätedefinition nicht speichern:
+        <translation>Невозможно сохранить параметр:
 %1</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="301"/>
         <source>Save fixture definition</source>
-        <translation>Gerätedefinition speichern</translation>
+        <translation>Сохранить параметры прибора</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="378"/>
         <source>New Fixture</source>
-        <translation>Neues Gerät</translation>
+        <translation>Новый прибор</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="455"/>
         <location filename="fixtureeditor.cpp" line="553"/>
         <source>Channel already exists</source>
-        <translation>Kanal existiert bereits</translation>
+        <translation>Канал уже существует</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="456"/>
         <location filename="fixtureeditor.cpp" line="554"/>
         <source>A channel by the name &quot;%1&quot; already exists!</source>
-        <translation>Ein Kanal mit dem Namen „%1“ existiert bereits!</translation>
+        <translation>Канал с названием „%1“ уже существует!</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="463"/>
         <location filename="fixtureeditor.cpp" line="560"/>
         <source>Channel has no name</source>
-        <translation>Kanal hat keinen Namen</translation>
+        <translation>У канала должно быть название</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="464"/>
         <location filename="fixtureeditor.cpp" line="561"/>
         <source>You must give the channel a descriptive name!</source>
-        <translation>Du musst dem Kanal einen beschreibenden Namen geben!</translation>
+        <translation>Вы должны дать каналу описательное название!</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="501"/>
         <source>Are you sure you wish to remove channel: %1?</source>
-        <translation>Bist du dir sicher, dass du den Kanal %1 entfernen möchtest?</translation>
+        <translation>Вы действительно хотите удалить канал %1?</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="832"/>
         <source>Are you sure you wish to remove mode: %1?</source>
-        <translation>Bist du dir sicher, dass du den Modus %1 entfernen möchtest?</translation>
+        <translation>Вы действительно хотите удалить режим %1?</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="673"/>
         <location filename="fixtureeditor.cpp" line="708"/>
         <location filename="fixtureeditor.cpp" line="945"/>
         <source>Edit</source>
-        <translation>Bearbeiten</translation>
+        <translation>Изменить</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="266"/>
         <source>Invalid definition: no modes provided.
 Without modes, this fixture will not appear in the list!</source>
-        <translation>Ungültige Definition: Es wurden keine Modi angegeben.
-Ohne Modi wird dieses Gerät nicht in der Liste angezeigt!</translation>
+        <translation>Некорректное определение: не указаны режимы.
+Без режимов этот прибор не появится в списке!</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="674"/>
         <location filename="fixtureeditor.cpp" line="710"/>
         <source>Copy</source>
-        <translation>Kopieren</translation>
+        <translation>Копировать</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="675"/>
         <location filename="fixtureeditor.cpp" line="712"/>
         <source>Paste</source>
-        <translation>Einfügen</translation>
+        <translation>Вставить</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="676"/>
         <location filename="fixtureeditor.cpp" line="714"/>
         <location filename="fixtureeditor.cpp" line="951"/>
         <source>Remove</source>
-        <translation>Entfernen</translation>
+        <translation>Убрать</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="687"/>
         <source>Channels</source>
-        <translation>Kanäle</translation>
+        <translation>Каналы</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="785"/>
         <location filename="fixtureeditor.cpp" line="794"/>
         <source>Unable to add mode</source>
-        <translation>Modus kann nicht hinzugefügt werden</translation>
+        <translation>Не удалось добавить режим</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="786"/>
         <source>Another mode by that name already exists</source>
-        <translation>Ein anderer Modus mit diesem Namen existiert bereits</translation>
+        <translation>Другой режим с таким названием уже существует</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="795"/>
         <source>You must give a name to the mode</source>
-        <translation>Du musst dem Modus einen Namen geben</translation>
+        <translation>Вы должны указать название для режима</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="831"/>
         <source>Remove Mode</source>
-        <translation>Modus entfernen</translation>
+        <translation>Убрать режим</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="891"/>
         <source>Rename new mode</source>
-        <translation>Neuen Modus umbenennen</translation>
+        <translation>Переименовать новый режим</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="892"/>
         <source>Give a unique name for the mode</source>
-        <translation>Gib dem Modus einen eindeutigen Namen</translation>
+        <translation>Задайте уникальное название для режима</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="894"/>
         <source>Copy of %1</source>
-        <translation>Kopie von %1</translation>
+        <translation>Копия %1</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="904"/>
         <source>Invalid name</source>
-        <translation>Ungültiger Name</translation>
+        <translation>Некорректное название</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="905"/>
         <source>Another mode by that name already exists.</source>
-        <translation>Ein anderer Modus mit diesem Namen existiert bereits.</translation>
+        <translation>Другой режим с таким названием уже существует.</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="948"/>
         <source>Clone</source>
-        <translation>Klonen</translation>
+        <translation>Клонировать</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="956"/>
         <source>Modes</source>
-        <translation>Modi</translation>
+        <translation>Режимы</translation>
     </message>
 </context>
 </TS>
