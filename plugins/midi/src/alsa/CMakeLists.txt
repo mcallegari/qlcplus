@@ -12,6 +12,7 @@ set(TS_FILES
     ../MIDI_pt_BR.ts
     ../MIDI_ca_ES.ts
     ../MIDI_ja_JP.ts
+    ../MIDI_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)
