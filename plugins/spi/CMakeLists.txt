@@ -11,6 +11,7 @@ set(TS_FILES
     SPI_pt_BR.ts
     SPI_ca_ES.ts
     SPI_ja_JP.ts
+    SPI_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)
