@@ -1449,22 +1449,22 @@ Please set another DMX address.</source>
     <message>
         <location filename="qml/fixturesfunctions/FixtureChannelDelegate.qml" line="152"/>
         <source>Auto (HTP)</source>
-        <translation>Автоматически наивысшее значение</translation>
+        <translation>Авто HTP (приоритет наивысшего значения)</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureChannelDelegate.qml" line="153"/>
         <source>Auto (LTP)</source>
-        <translation>Автоматически последнее значение</translation>
+        <translation>Авто LTP (приоритет последнего значения)</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureChannelDelegate.qml" line="154"/>
         <source>Forced HTP</source>
-        <translation>Принудительно наивысшее значение</translation>
+        <translation>Принуд. HTP (приоритет наивысшего значения)</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureChannelDelegate.qml" line="155"/>
         <source>Forced LTP</source>
-        <translation>Принудительно последнее значение</translation>
+        <translation>Принуд. LTP (приоритет последнего значения)</translation>
     </message>
 </context>
 <context>
@@ -1669,7 +1669,7 @@ Please provide a different name.</source>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="441"/>
         <source>Can fade</source>
-        <translation>Может изменяться плавно</translation>
+        <translation>Затухание</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="443"/>
@@ -5369,7 +5369,7 @@ drag a function on the timeline</source>
     <message>
         <location filename="qml/SimpleDesk.qml" line="337"/>
         <source>Fixture List</source>
-        <translation>Список световых приборов</translation>
+        <translation>Задействованные световые приборы</translation>
     </message>
     <message>
         <location filename="qml/SimpleDesk.qml" line="406"/>
@@ -6480,7 +6480,7 @@ There is either not enough space or the target universe is invalid</source>
     <message>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="151"/>
         <source>Print the universe summary</source>
-        <translation>Показать сводку по Вселенным DMX</translation>
+        <translation>Распечатать сводку по используемым световым приборам</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="41"/>
@@ -8887,12 +8887,12 @@ the widget to populate this list</source>
     <message>
         <location filename="qml/stagewizard/WizardStep2Fixtures.qml" line="32"/>
         <source>Effect</source>
-        <translation>Эффект</translation>
+        <translation>Эффекты</translation>
     </message>
     <message>
         <location filename="qml/stagewizard/WizardStep2Fixtures.qml" line="32"/>
         <source>Strip / Bar</source>
-        <translation>Линейный LED</translation>
+        <translation>Линейные LED</translation>
     </message>
     <message>
         <location filename="qml/stagewizard/WizardStep2Fixtures.qml" line="33"/>
