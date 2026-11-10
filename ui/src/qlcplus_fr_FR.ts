@@ -126,7 +126,7 @@
     <message>
         <location filename="addfixture.ui" line="93"/>
         <source>Add fixture to this universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter un appareil à cet univers</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="100"/>
@@ -220,12 +220,12 @@
     <message>
         <location filename="addrgbpanel.ui" line="109"/>
         <source>Universe split</source>
-        <translation type="unfinished"></translation>
+        <translation>Répartition sur les univers</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="116"/>
         <source>How a row is patched when it doesn&apos;t fit in the current universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Manière dont une ligne est patchée lorsqu&apos;elle ne tient pas dans l&apos;univers courant</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="136"/>
@@ -358,17 +358,17 @@
     <message>
         <location filename="addrgbpanel.cpp" line="48"/>
         <source>Split entire row</source>
-        <translation type="unfinished"></translation>
+        <translation>Répartir la ligne entière</translation>
     </message>
     <message>
         <location filename="addrgbpanel.cpp" line="49"/>
         <source>Split by pixel</source>
-        <translation type="unfinished"></translation>
+        <translation>Répartir par pixel</translation>
     </message>
     <message>
         <location filename="addrgbpanel.cpp" line="50"/>
         <source>Split anywhere (fill universe)</source>
-        <translation type="unfinished"></translation>
+        <translation>Répartir n&apos;importe où (remplir l&apos;univers)</translation>
     </message>
 </context>
 <context>
@@ -931,7 +931,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="audioeditor.ui" line="316"/>
         <source>Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Volume</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="157"/>
@@ -1706,76 +1706,76 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="customfeedbackdialog.ui" line="14"/>
         <source>Custom Feedback Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuration personnalisée du retour d&apos;info</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="21"/>
         <source>Value</source>
-        <translation type="unfinished">Valeur</translation>
+        <translation>Valeur</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="26"/>
         <source>Label</source>
-        <translation type="unfinished">Étiquette</translation>
+        <translation>Étiquette</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="31"/>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="45"/>
         <source>Values</source>
-        <translation type="unfinished">Valeurs</translation>
+        <translation>Valeurs</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="56"/>
         <source>Lower Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valeur basse</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="82"/>
         <source>Monitor Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valeur de contrôle</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="94"/>
         <source>Upper Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valeur haute</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="114"/>
         <location filename="customfeedbackdialog.ui" line="124"/>
         <location filename="customfeedbackdialog.ui" line="134"/>
         <source>Color Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélection de la couleur</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="170"/>
         <source>MIDI Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal MIDI</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="176"/>
         <source>Upper Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal haut</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="189"/>
         <source>Lower Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal bas</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="209"/>
         <source>Monitor Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal de contrôle</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.cpp" line="90"/>
         <location filename="customfeedbackdialog.cpp" line="91"/>
         <location filename="customfeedbackdialog.cpp" line="92"/>
         <source>From plugin settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Depuis les paramètres du plugin</translation>
     </message>
 </context>
 <context>
@@ -1783,7 +1783,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="debugbox.ui" line="39"/>
         <source>QLC+ debug window</source>
-        <translation type="unfinished"></translation>
+        <translation>Fenêtre de débogage de QLC+</translation>
     </message>
 </context>
 <context>
@@ -2141,7 +2141,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="efxeditor.cpp" line="244"/>
         <source>Enable dimmer control</source>
-        <translation type="unfinished"></translation>
+        <translation>Activer le contrôle du gradateur</translation>
     </message>
     <message>
         <location filename="efxeditor.cpp" line="750"/>
@@ -2164,12 +2164,12 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="fixturegroupeditor.ui" line="175"/>
         <source>Add/replace fixtures to current column, going down starting from selected cell</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter/Remplacer des appareils dans la colonne courante, vers le bas à partir de la cellule sélectionnée</translation>
     </message>
     <message>
         <location filename="fixturegroupeditor.ui" line="192"/>
         <source>Add/replace fixtures to current column, going up starting from selected cell</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter/Remplacer des appareils dans la colonne courante, vers le haut à partir de la cellule sélectionnée</translation>
     </message>
     <message>
         <location filename="fixturegroupeditor.ui" line="217"/>
@@ -2201,13 +2201,13 @@ Celui-ci a dû être déplacé ou effacé.</translation>
         <location filename="fixturegroupeditor.ui" line="141"/>
         <source>Add/replace fixtures to current row, going right starting from selected cell</source>
         <oldsource>Add/replace fixtures to current row, starting from selected cell</oldsource>
-        <translation type="unfinished">Ajouter/Remplacer des appareils horizontalement depuis la position actuelle</translation>
+        <translation>Ajouter/Remplacer des appareils dans la ligne courante, vers la droite à partir de la cellule sélectionnée</translation>
     </message>
     <message>
         <location filename="fixturegroupeditor.ui" line="158"/>
         <source>Add/replace fixtures to current row, going backwards starting from selected cell</source>
         <oldsource>Add/replace fixtures to current column, starting from selected cell</oldsource>
-        <translation type="unfinished">Ajouter/Remplacer des appareils verticalement depuis la position actuelle</translation>
+        <translation>Ajouter/Remplacer des appareils dans la ligne courante, vers la gauche à partir de la cellule sélectionnée</translation>
     </message>
 </context>
 <context>
@@ -2270,151 +2270,151 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="891"/>
         <source>Manufacturer</source>
-        <translation type="unfinished">Fabricant</translation>
+        <translation>Fabricant</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="892"/>
         <source>Model</source>
-        <translation type="unfinished">Modèle</translation>
+        <translation>Modèle</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="893"/>
         <source>Mode</source>
-        <translation type="unfinished">Mode</translation>
+        <translation>Mode</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="894"/>
         <location filename="fixturemanager.cpp" line="971"/>
         <location filename="fixturemanager.cpp" line="997"/>
         <source>Type</source>
-        <translation type="unfinished">Type</translation>
+        <translation>Type</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="898"/>
         <source>Universe</source>
-        <translation type="unfinished">Univers</translation>
+        <translation>Univers</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="902"/>
         <source>Address Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Plage d&apos;adresses</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="922"/>
         <source>Binary Address (DIP)</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresse binaire (DIP)</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="930"/>
         <location filename="fixturemanager.cpp" line="1070"/>
         <source>Channel</source>
-        <translation type="unfinished">Canal</translation>
+        <translation>Canal</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="931"/>
         <source>DMX</source>
-        <translation type="unfinished">DMX</translation>
+        <translation>DMX</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="949"/>
         <source>Physical</source>
-        <translation type="unfinished">Données physiques</translation>
+        <translation>Données physiques</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="956"/>
         <source>Width</source>
-        <translation type="unfinished">Largeur</translation>
+        <translation>Largeur</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="958"/>
         <source>Height</source>
-        <translation type="unfinished">Hauteur</translation>
+        <translation>Hauteur</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="960"/>
         <source>Depth</source>
-        <translation type="unfinished"></translation>
+        <translation>Profondeur</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="962"/>
         <source>Weight</source>
-        <translation type="unfinished"></translation>
+        <translation>Poids</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="964"/>
         <source>Power consumption</source>
-        <translation type="unfinished"></translation>
+        <translation>Consommation électrique</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="965"/>
         <source>DMX Connector</source>
-        <translation type="unfinished"></translation>
+        <translation>Connecteur DMX</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="970"/>
         <source>Bulb</source>
-        <translation type="unfinished"></translation>
+        <translation>Lampe</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="972"/>
         <source>Luminous Flux</source>
-        <translation type="unfinished"></translation>
+        <translation>Flux lumineux</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="973"/>
         <source>Colour Temperature</source>
-        <translation type="unfinished"></translation>
+        <translation>Température de couleur</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="979"/>
         <source>Lens</source>
-        <translation type="unfinished"></translation>
+        <translation>Optique</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="984"/>
         <location filename="fixturemanager.cpp" line="989"/>
         <source>Beam Angle</source>
-        <translation type="unfinished"></translation>
+        <translation>Angle du faisceau</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="996"/>
         <source>Head(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tête(s)</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="998"/>
         <source>Pan Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Plage de Pan</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="999"/>
         <source>Tilt Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Plage de Tilt</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1002"/>
         <source>Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Disposition</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1014"/>
         <source>Fixture definition author: </source>
-        <translation type="unfinished"></translation>
+        <translation>Auteur de la définition d&apos;appareil : </translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1069"/>
         <source>Fixture</source>
-        <translation type="unfinished">Appareil</translation>
+        <translation>Appareil</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1071"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Description</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1089"/>
         <source>Channel %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal %1</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1113"/>
@@ -2455,13 +2455,13 @@ Celui-ci a dû être déplacé ou effacé.</translation>
         <location filename="fixturemanager.cpp" line="1144"/>
         <source>Move channel group up...</source>
         <oldsource>Move group up...</oldsource>
-        <translation type="unfinished">Monter le groupe...</translation>
+        <translation>Monter le groupe de canaux...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1150"/>
         <source>Move channel group down...</source>
         <oldsource>Move group down...</oldsource>
-        <translation type="unfinished">Descendre le groupe...</translation>
+        <translation>Descendre le groupe de canaux...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1156"/>
@@ -2502,12 +2502,12 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="362"/>
         <source>Fixture Groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Groupes d&apos;appareils</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="378"/>
         <source>Channel Groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Groupes de canaux</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="606"/>
@@ -2606,7 +2606,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="fixtureremap.ui" line="47"/>
         <source>Import a fixture list...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importer une liste d&apos;appareils...</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="67"/>
@@ -2668,27 +2668,27 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="fixtureremap.cpp" line="217"/>
         <source>Import Fixtures List</source>
-        <translation type="unfinished">Importer une liste d&apos;appareils</translation>
+        <translation>Importer une liste d&apos;appareils</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="222"/>
         <source>Fixtures List (*%1)</source>
-        <translation type="unfinished">Liste d&apos;appareils (*%1)</translation>
+        <translation>Liste d&apos;appareils (*%1)</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="224"/>
         <source>All Files (*.*)</source>
-        <translation type="unfinished">Tous les fichiers (*.*)</translation>
+        <translation>Tous les fichiers (*.*)</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="226"/>
         <source>All Files (*)</source>
-        <translation type="unfinished">Tous les fichiers (*)</translation>
+        <translation>Tous les fichiers (*)</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="252"/>
         <source>Do you want to automatically connect fixtures with the same name?</source>
-        <translation type="unfinished"></translation>
+        <translation>Voulez-vous connecter automatiquement les appareils portant le même nom ?</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="386"/>
@@ -3162,7 +3162,22 @@ li.checked::marker { content: &quot;\2612&quot;; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3- add widgets to the Virtual Console&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To move from a step to another press the &amp;quot;Next&amp;quot; button&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Bienvenue dans l&apos;assistant QLC+ !&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Cette procédure guidée vous permettra de commencer à utiliser QLC+ en quelques minutes.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Elle se résume à trois étapes simples :&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1- ajouter des appareils&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2- sélectionner des capacités pour créer des fonctions&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3- ajouter des widgets à la console virtuelle&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Pour passer d&apos;une étape à l&apos;autre, appuyez sur le bouton « Suivant »&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="198"/>
@@ -3174,7 +3189,14 @@ li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Add the fixtures for which you want to create functions and widgets&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Ajoutez les appareils pour lesquels vous voulez créer des fonctions et des widgets&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="287"/>
@@ -3186,42 +3208,49 @@ li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Based on the functions you selected, I can create the following widgets on your Virtual Console. Just check which ones you need.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; D&apos;après les fonctions sélectionnées, je peux créer les widgets suivants dans votre console virtuelle. Cochez simplement ceux dont vous avez besoin.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="329"/>
         <source>Slider Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Largeur des faders</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="336"/>
         <source>Slider Height</source>
-        <translation type="unfinished"></translation>
+        <translation>Hauteur des faders</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="356"/>
         <source>Heads</source>
-        <translation type="unfinished">Têtes</translation>
+        <translation>Têtes</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="363"/>
         <source>All</source>
-        <translation type="unfinished">Tous</translation>
+        <translation>Tous</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="386"/>
         <source>Widgets/Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Widgets/Ligne</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="403"/>
         <source>Channel Frame Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Pages du cadre de canaux</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="410"/>
         <source>Channels Monitored</source>
-        <translation type="unfinished"></translation>
+        <translation>Canaux surveillés</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="450"/>
@@ -3263,11 +3292,14 @@ li.checked::marker { content: &quot;\2612&quot;; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Add the fixtures for which you want to create functions and widgets&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</oldsource>
-        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Ajoutez les appareils pour lesquels vous voulez créer des fonctions&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; D&apos;après les appareils ajoutés, je peux créer les fonctions listées à gauche. Sélectionnez simplement ce dont vous avez besoin et voyez le résultat à droite !&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="213"/>
@@ -3368,7 +3400,7 @@ p, li { white-space: pre-wrap; }
         <location filename="functionstreewidget.cpp" line="201"/>
         <location filename="functionstreewidget.cpp" line="207"/>
         <source>New folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouveau dossier</translation>
     </message>
 </context>
 <context>
@@ -3805,7 +3837,7 @@ Veuillez vous référer à la documentation du plugin.</translation>
     <message>
         <location filename="inputprofileeditor.ui" line="134"/>
         <source>Input Mapping</source>
-        <translation type="unfinished"></translation>
+        <translation>Mapping des entrées</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="140"/>
@@ -3821,52 +3853,52 @@ Veuillez vous référer à la documentation du plugin.</translation>
         <location filename="inputprofileeditor.ui" line="398"/>
         <location filename="inputprofileeditor.cpp" line="692"/>
         <source>MIDI channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal MIDI</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="412"/>
         <source>Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleurs</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="418"/>
         <source>Remove the selected color</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer la couleur sélectionnée</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="438"/>
         <source>Add a new color</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter une couleur</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="472"/>
         <source>Value</source>
-        <translation type="unfinished">Valeur</translation>
+        <translation>Valeur</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="477"/>
         <source>Label</source>
-        <translation type="unfinished">Étiquette</translation>
+        <translation>Étiquette</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="482"/>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="491"/>
         <source>MIDI Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Canaux MIDI</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="497"/>
         <source>Add a new MIDI channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter un canal MIDI</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="517"/>
         <source>Remove the selected MIDI channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer le canal MIDI sélectionné</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="222"/>
@@ -3921,7 +3953,7 @@ Veuillez vous référer à la documentation du plugin.</translation>
     <message>
         <location filename="inputprofileeditor.cpp" line="226"/>
         <source>From plugin settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Depuis les paramètres du plugin</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="338"/>
@@ -3973,28 +4005,28 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
         <location filename="inputprofileeditor.cpp" line="666"/>
         <location filename="inputprofileeditor.cpp" line="692"/>
         <source>Enter value</source>
-        <translation type="unfinished"></translation>
+        <translation>Saisir la valeur</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="666"/>
         <source>Feedback value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valeur de retour d&apos;info</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="672"/>
         <location filename="inputprofileeditor.cpp" line="696"/>
         <source>Enter label</source>
-        <translation type="unfinished"></translation>
+        <translation>Saisir l&apos;étiquette</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="672"/>
         <source>Color label</source>
-        <translation type="unfinished"></translation>
+        <translation>Étiquette de couleur</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="696"/>
         <source>MIDI channel label</source>
-        <translation type="unfinished"></translation>
+        <translation>Étiquette du canal MIDI</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="738"/>
@@ -4373,14 +4405,14 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
         <location filename="palettegenerator.cpp" line="364"/>
         <source>%1 (Even)</source>
         <oldsource>%1 - %2 (Even)</oldsource>
-        <translation type="unfinished">%1 - %2 (pair)</translation>
+        <translation>%1 (pair)</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="256"/>
         <location filename="palettegenerator.cpp" line="365"/>
         <source>%1 (Odd)</source>
         <oldsource>%1 - %2 (Odd)</oldsource>
-        <translation type="unfinished">%1 - %2 (impair)</translation>
+        <translation>%1 (impair)</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="280"/>
@@ -4576,7 +4608,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="virtualconsole/vcspeeddialfunction.cpp" line="99"/>
         <source>(Not Sent)</source>
-        <translation type="unfinished"></translation>
+        <translation>(Non envoyé)</translation>
     </message>
 </context>
 <context>
@@ -4584,88 +4616,88 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="rdmmanager.ui" line="22"/>
         <source>Scan for RDM devices...</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechercher des appareils RDM...</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="75"/>
         <source>Retrieve the selected fixture information</source>
-        <translation type="unfinished"></translation>
+        <translation>Récupérer les informations de l&apos;appareil sélectionné</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="101"/>
         <source>Model</source>
-        <translation type="unfinished">Modèle</translation>
+        <translation>Modèle</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="106"/>
         <source>Universe</source>
-        <translation type="unfinished">Univers</translation>
+        <translation>Univers</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="111"/>
         <source>Address</source>
-        <translation type="unfinished">Adresse</translation>
+        <translation>Adresse</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="116"/>
         <source>Channel</source>
-        <translation type="unfinished">Canal</translation>
+        <translation>Canal</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="121"/>
         <source>UID</source>
-        <translation type="unfinished"></translation>
+        <translation>UID</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="129"/>
         <source>Manual controls</source>
-        <translation type="unfinished"></translation>
+        <translation>Contrôles manuels</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="140"/>
         <source>Arguments</source>
-        <translation type="unfinished"></translation>
+        <translation>Arguments</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="154"/>
         <source>A list of comma separated arguments</source>
         <extracomment>Enter the (optional) arguments to read the PID, separated by commas</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Liste d&apos;arguments séparés par des virgules</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="168"/>
         <source>Write</source>
-        <translation type="unfinished"></translation>
+        <translation>Écrire</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="183"/>
         <source>Byte</source>
-        <translation type="unfinished"></translation>
+        <translation>Octet</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="188"/>
         <source>Short</source>
-        <translation type="unfinished"></translation>
+        <translation>Short</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="193"/>
         <source>Long</source>
-        <translation type="unfinished"></translation>
+        <translation>Long</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="198"/>
         <source>Array (Hex)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tableau (hex)</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="206"/>
         <source>Read</source>
-        <translation type="unfinished"></translation>
+        <translation>Lire</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="215"/>
         <source>Response</source>
-        <translation type="unfinished"></translation>
+        <translation>Réponse</translation>
     </message>
 </context>
 <context>
@@ -4713,27 +4745,27 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="rgbmatrixeditor.ui" line="363"/>
         <source>Matrix color 3</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur de matrice 3</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="376"/>
         <source>Matrix color 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur de matrice 1</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="420"/>
         <source>Matrix color 5</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur de matrice 5</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="433"/>
         <source>Reset color 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialiser la couleur 2</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="451"/>
         <source>Reset color 3</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialiser la couleur 3</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="496"/>
@@ -4743,22 +4775,22 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="rgbmatrixeditor.ui" line="503"/>
         <source>Matrix color 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur de matrice 2</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="519"/>
         <source>Matrix color 4</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur de matrice 4</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="535"/>
         <source>Reset color 4</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialiser la couleur 4</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="546"/>
         <source>Reset color 5</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialiser la couleur 5</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="581"/>
@@ -4853,37 +4885,37 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="rgbmatrixeditor.ui" line="413"/>
         <source>Control mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode de contrôle</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="463"/>
         <source>Default (RGB)</source>
-        <translation type="unfinished"></translation>
+        <translation>Par défaut (RVB)</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="468"/>
         <source>White</source>
-        <translation type="unfinished">Blanc</translation>
+        <translation>Blanc</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="473"/>
         <source>Amber</source>
-        <translation type="unfinished"></translation>
+        <translation>Ambre</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="478"/>
         <source>UV</source>
-        <translation type="unfinished"></translation>
+        <translation>UV</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="483"/>
         <source>Dimmer</source>
-        <translation type="unfinished"></translation>
+        <translation>Gradateur</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="488"/>
         <source>Shutter</source>
-        <translation type="unfinished"></translation>
+        <translation>Obturateur</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="57"/>
@@ -5959,12 +5991,12 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="83"/>
         <source>Override priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Priorité forcée</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="90"/>
         <source>Force LTP</source>
-        <translation type="unfinished"></translation>
+        <translation>Forcer LTP</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="250"/>
@@ -6492,97 +6524,97 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="956"/>
         <source>Color 2 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialisation couleur 2</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="968"/>
         <source>Color 3 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialisation couleur 3</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="980"/>
         <source>Color 4 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialisation couleur 4</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="992"/>
         <source>Color 5 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialisation couleur 5</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1031"/>
         <source>Color 1 Red component</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur 1, composante rouge</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1033"/>
         <source>Color 1 Green component</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur 1, composante vert</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1035"/>
         <source>Color 1 Blue component</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur 1, composante bleu</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1047"/>
         <source>Color 2 Red component</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur 2, composante rouge</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1049"/>
         <source>Color 2 Green component</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur 2, composante vert</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1051"/>
         <source>Color 2 Blue component</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur 2, composante bleu</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1063"/>
         <source>Color 3 Red component</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur 3, composante rouge</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1065"/>
         <source>Color 3 Green component</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur 3, composante vert</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1067"/>
         <source>Color 3 Blue component</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur 3, composante bleu</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1079"/>
         <source>Color 4 Red component</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur 4, composante rouge</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1081"/>
         <source>Color 4 Green component</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur 4, composante vert</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1083"/>
         <source>Color 4 Blue component</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur 4, composante bleu</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1095"/>
         <source>Color 5 Red component</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur 5, composante rouge</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1097"/>
         <source>Color 5 Green component</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur 5, composante vert</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1099"/>
         <source>Color 5 Blue component</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur 5, composante bleu</translation>
     </message>
 </context>
 <context>
@@ -6670,28 +6702,28 @@ Durée : %3
         <location filename="virtualconsole/vcmatrixproperties.ui" line="157"/>
         <source>Show Color 1 Button</source>
         <oldsource>Show Start Color Button</oldsource>
-        <translation type="unfinished">Afficher le bouton de couleur de départ</translation>
+        <translation>Afficher le bouton de la couleur 1</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="164"/>
         <source>Show Color 2 Button</source>
         <oldsource>Show End Color Button</oldsource>
-        <translation type="unfinished">Afficher le bouton de couleur de fin</translation>
+        <translation>Afficher le bouton de la couleur 2</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="171"/>
         <source>Show Color 3 Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher le bouton de la couleur 3</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="178"/>
         <source>Show Color 4 Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher le bouton de la couleur 4</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="185"/>
         <source>Show Color 5 Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher le bouton de la couleur 5</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="192"/>
@@ -6762,22 +6794,22 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="324"/>
         <source>Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleurs</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="359"/>
         <source> Add color</source>
-        <translation type="unfinished"></translation>
+        <translation> Ajouter une couleur</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="370"/>
         <source> Add color knobs</source>
-        <translation type="unfinished"></translation>
+        <translation> Ajouter des boutons rotatifs de couleur</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="381"/>
         <source> Add color reset</source>
-        <translation type="unfinished"></translation>
+        <translation> Ajouter des réinitialisations de couleur</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="429"/>
@@ -6803,76 +6835,76 @@ Durée : %3
         <location filename="virtualconsole/vcmatrixproperties.ui" line="331"/>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="233"/>
         <source>Color 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur 1</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="239"/>
         <source>Color 1 Knob</source>
-        <translation type="unfinished"></translation>
+        <translation>Bouton rotatif couleur 1</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="336"/>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="247"/>
         <source>Color 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur 2</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="253"/>
         <source>Color 2 Knob</source>
-        <translation type="unfinished"></translation>
+        <translation>Bouton rotatif couleur 2</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="259"/>
         <source>Color 2 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialisation couleur 2</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="341"/>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="263"/>
         <source>Color 3</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur 3</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="269"/>
         <source>Color 3 Knob</source>
-        <translation type="unfinished"></translation>
+        <translation>Bouton rotatif couleur 3</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="275"/>
         <source>Color 3 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialisation couleur 3</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="346"/>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="279"/>
         <source>Color 4</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur 4</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="285"/>
         <source>Color 4 Knob</source>
-        <translation type="unfinished"></translation>
+        <translation>Bouton rotatif couleur 4</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="291"/>
         <source>Color 4 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialisation couleur 4</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="351"/>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="295"/>
         <source>Color 5</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur 5</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="301"/>
         <source>Color 5 Knob</source>
-        <translation type="unfinished"></translation>
+        <translation>Bouton rotatif couleur 5</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="307"/>
         <source>Color 5 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialisation couleur 5</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="312"/>
@@ -7137,12 +7169,12 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="807"/>
         <source>Show Grand Master slider on the virtual console and the web interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher le fader Grand Master dans la console virtuelle et l&apos;interface web</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="810"/>
         <source>Visible</source>
-        <translation type="unfinished"></translation>
+        <translation>Visible</translation>
     </message>
 </context>
 <context>
@@ -7160,7 +7192,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcslider.cpp" line="1068"/>
         <source>Flash Function</source>
-        <translation type="unfinished"></translation>
+        <translation>Fonction Flash</translation>
     </message>
 </context>
 <context>
@@ -7279,7 +7311,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="530"/>
         <source>Flash Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Bouton Flash</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="553"/>
@@ -7478,7 +7510,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcsoloframeproperties.cpp" line="48"/>
         <source>Exclude Monitored Functions</source>
-        <translation type="unfinished"></translation>
+        <translation>Exclure les fonctions surveillées</translation>
     </message>
 </context>
 <context>
@@ -8004,7 +8036,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="97"/>
         <source>Pan Fine</source>
-        <translation type="unfinished"></translation>
+        <translation>Pan fin</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="110"/>
@@ -8039,7 +8071,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="123"/>
         <source>Tilt Fine</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilt fin</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="136"/>
@@ -8350,7 +8382,7 @@ Veuillez en choisir une qui affecte un des deux.</translation>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="370"/>
         <source>VC Fixture Widget Wizard</source>
-        <translation type="unfinished"></translation>
+        <translation>Assistant de widgets d&apos;appareil pour la console virtuelle</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="387"/>
