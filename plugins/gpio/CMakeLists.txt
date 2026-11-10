@@ -11,6 +11,7 @@ set(TS_FILES
     GPIO_pt_BR.ts
     GPIO_ca_ES.ts
     GPIO_ja_JP.ts
+    GPIO_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)

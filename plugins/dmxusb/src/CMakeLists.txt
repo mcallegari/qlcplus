@@ -13,6 +13,7 @@ set(TS_FILES
     DMX_USB_pt_BR.ts
     DMX_USB_ca_ES.ts
     DMX_USB_ja_JP.ts
+    DMX_USB_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)

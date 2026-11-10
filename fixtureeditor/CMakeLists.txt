@@ -11,6 +11,7 @@ set(TS_FILES
     fixtureeditor_pt_BR.ts
     fixtureeditor_ca_ES.ts
     fixtureeditor_ja_JP.ts
+    fixtureeditor_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)

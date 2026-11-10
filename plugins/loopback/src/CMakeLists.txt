@@ -11,6 +11,7 @@ set(TS_FILES
     loopback_pt_BR.ts
     loopback_ca_ES.ts
     loopback_ja_JP.ts
+    loopback_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)

@@ -13,6 +13,7 @@ set(TS_FILES
     uDMX_pt_BR.ts
     uDMX_ca_ES.ts
     uDMX_ja_JP.ts
+    uDMX_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)

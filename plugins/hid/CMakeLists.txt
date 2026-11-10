@@ -11,6 +11,7 @@ set(TS_FILES
     HID_pt_BR.ts
     HID_ca_ES.ts
     HID_ja_JP.ts
+    HID_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)

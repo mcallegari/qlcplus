@@ -11,6 +11,7 @@ set(TS_FILES
     E131_pt_BR.ts
     E131_ca_ES.ts
     E131_ja_JP.ts
+    E131_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)

@@ -15,6 +15,7 @@ set(TS_FILES
     UART_pt_BR.ts
     UART_ca_ES.ts
     UART_ja_JP.ts
+    UART_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)

@@ -20,6 +20,7 @@ set(TS_FILES
     Peperoni_pt_BR.ts
     Peperoni_ca_ES.ts
     Peperoni_ja_JP.ts
+    Peperoni_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)

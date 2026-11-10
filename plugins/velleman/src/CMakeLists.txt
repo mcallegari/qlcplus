@@ -11,6 +11,7 @@ set(TS_FILES
     Velleman_pt_BR.ts
     Velleman_ca_ES.ts
     Velleman_ja_JP.ts
+    Velleman_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)

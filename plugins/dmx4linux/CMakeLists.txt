@@ -11,6 +11,7 @@ set(TS_FILES
     DMX4Linux_pt_BR.ts
     DMX4Linux_ca_ES.ts
     DMX4Linux_ja_JP.ts
+    DMX4Linux_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)

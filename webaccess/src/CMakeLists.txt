@@ -13,6 +13,7 @@ set(TS_FILES
     webaccess_pt_BR.ts
     webaccess_ca_ES.ts
     webaccess_ja_JP.ts
+    webaccess_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)
