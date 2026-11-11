@@ -391,7 +391,8 @@ void VirtualConsole::addPage(int index)
 
     emit pagesCountChanged();
 
-    if (index == m_selectedPage)
+    /* a page inserted before (or at) the selected one shifts it */
+    if (index <= m_selectedPage)
     {
         m_selectedPage++;
         emit selectedPageChanged(m_selectedPage);
@@ -417,7 +418,12 @@ void VirtualConsole::deletePage(int index)
 
     emit pagesCountChanged();
 
-    if (index > 0)
+    /* move the selection back only when the selected page, or a page
+     * before it, was deleted. Decrementing it for any deleted page made it
+     * negative when loading a project with less pages than the default ones
+     * (e.g. any QLC+ 4 project): no page was displayed and every external
+     * input was ignored, since it is forwarded only to the selected page */
+    if (index <= m_selectedPage && m_selectedPage > 0)
     {
         m_selectedPage--;
         emit selectedPageChanged(m_selectedPage);
