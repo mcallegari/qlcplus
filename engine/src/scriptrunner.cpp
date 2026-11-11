@@ -652,14 +652,43 @@ bool ScriptRunner::waitTime(QString time)
     return waitTime(Function::stringToSpeed(time));
 }
 
+bool ScriptRunner::waitForFunctionOperation(quint32 fID, FunctionOperation operation)
+{
+    const QPair<quint32, FunctionOperation> pair(fID, operation);
+
+    QMutexLocker locker(&m_mutex);
+
+    // Still queued, or write() is currently waiting for this Function
+    while (m_running && (m_functionQueue.contains(pair) || m_waitFunctionId == fID))
+    {
+        // write() wakes us up as soon as it has dealt with the request. The
+        // timeout only makes sure a stop request is noticed even if no
+        // wake-up arrives.
+        m_waitCondition.wait(&m_mutex, 10);
+
+        // Never with the mutex held, see waitTime()
+        locker.unlock();
+        maybeCollectGarbage();
+        locker.relock();
+    }
+
+    return m_running;
+}
+
 bool ScriptRunner::waitFunctionStart(quint32 fID)
 {
-    return enqueueFunction(fID, FunctionOperation::WAIT_START);
+    if (!enqueueFunction(fID, FunctionOperation::WAIT_START))
+        return false;
+
+    return waitForFunctionOperation(fID, FunctionOperation::WAIT_START);
 }
 
 bool ScriptRunner::waitFunctionStop(quint32 fID)
 {
-    return enqueueFunction(fID, FunctionOperation::WAIT_STOP);
+    if (!enqueueFunction(fID, FunctionOperation::WAIT_STOP))
+        return false;
+
+    return waitForFunctionOperation(fID, FunctionOperation::WAIT_STOP);
 }
 
 bool ScriptRunner::setBlackout(bool enable)
