@@ -118,7 +118,12 @@ Entity
             {
                 id: headDelegate
                 property real dimmerValue: 0
-                property real lightIntensity: dimmerValue * shutterValue
+                /* Scaled by the global "Fixture light" setting, like the spotlight
+                   passes are. These cells are emissive geometry rather than a cone,
+                   so their own surface IS the whole light contribution of the
+                   fixture: scaling it here scales that contribution exactly once. */
+                property real lightIntensity:
+                    dimmerValue * shutterValue * (View3D ? View3D.fixtureLightIntensity : 1.0)
                 property real headWidth: phySize.x / headsLayout.width
                 property real headHeight: phySize.z / headsLayout.height
                 property color lightColor: Qt.rgba(0, 0, 0, 1)
