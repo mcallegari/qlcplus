@@ -222,7 +222,15 @@ void PreviewContext::slotRefreshView()
 
 void ContextQuickView::keyPressEvent(QKeyEvent *e)
 {
+    /* Same as App::keyPressEvent: a context that acts on the key accepts
+     * the event, and it must not be delivered to the QML scene as well */
+    e->ignore();
     emit keyPressed(e);
+
+    if (e->isAccepted())
+        return;
+
+    e->accept();
     QQuickView::keyPressEvent(e);
 }
 
