@@ -165,9 +165,12 @@ void OutputPatch::setPluginParameter(QString prop, QVariant value)
 QMap<QString, QVariant> OutputPatch::getPluginParameters()
 {
     if (m_plugin != NULL)
-        return m_plugin->getParameters(m_universe, m_pluginLine, QLCIOPlugin::Output);
-
-    return QMap<QString, QVariant>();
+    {
+        const auto params = m_plugin->getParameters(m_universe, m_pluginLine, QLCIOPlugin::Output);
+        if (!params.isEmpty())
+            return params;
+    }
+    return m_parametersCache;
 }
 
 /*****************************************************************************
