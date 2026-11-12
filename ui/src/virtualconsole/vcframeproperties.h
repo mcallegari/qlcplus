@@ -63,6 +63,7 @@ protected:
     VCFrame *m_frame;
     Doc* m_doc;
     InputSelectionWidget *m_inputEnableWidget;
+    InputSelectionWidget *m_inputCollapseWidget;
     InputSelectionWidget *m_inputNextPageWidget;
     InputSelectionWidget *m_inputPrevPageWidget;
     QList<VCFramePageShortcut*> m_shortcuts;
