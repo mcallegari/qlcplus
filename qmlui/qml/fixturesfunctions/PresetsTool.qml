@@ -39,7 +39,7 @@ Rectangle
     property int selectedChannel: -1
     property bool showPalette: false
     property int paletteType: QLCPalette.Undefined
-    property int currentValue: 0 // as DMX value
+    property int currentValue: -1 // as DMX value; -1 means unavailable
     property int currentPreset: QLCCapability.Custom
     property int rangeLowLimit: 0
     property int rangeHighLimit: 255
@@ -47,11 +47,50 @@ Rectangle
     signal presetSelected(QLCCapability cap, int fxID, int chIdx, int value)
     signal valueChanged(int value)
 
-    function updatePresets(presetModel)
+    function selectPresetChannel(channelData, valueOverride)
     {
-        selectedFixture = -1
+        if (channelData === undefined || channelData === null)
+        {
+            selectedFixture = -1
+            selectedChannel = -1
+            currentValue = -1
+            capRepeater.model = null
+            return
+        }
+
+        selectedFixture = channelData.fixtureID
+        selectedChannel = channelData.channelIdx
+        currentValue = typeof valueOverride !== "undefined" ? valueOverride :
+                       (typeof channelData.currentValue !== "undefined" ? channelData.currentValue : -1)
+        capRepeater.model = null
+        capRepeater.model = fixtureManager.presetCapabilities(selectedFixture, selectedChannel)
+        prFlickable.contentY = 0
+    }
+
+    function updatePresets(newModel, valueOverride)
+    {
+        var previousFixture = selectedFixture
+        var previousChannel = selectedChannel
+        var selectedIndex = -1
+
         prList.model = null // force reload
-        prList.model = presetModel
+        prList.model = newModel
+
+        for (var i = 0; i < newModel.length; ++i)
+        {
+            if (newModel[i].fixtureID === previousFixture &&
+                    newModel[i].channelIdx === previousChannel)
+            {
+                selectedIndex = i
+                break
+            }
+        }
+
+        if (selectedIndex < 0 && newModel.length > 0)
+            selectedIndex = 0
+
+        selectPresetChannel(selectedIndex >= 0 ? newModel[selectedIndex] : null,
+                            valueOverride)
     }
 
     MouseArea
@@ -103,17 +142,6 @@ Rectangle
                         property int fxID: modelData.fixtureID
                         property int chIdx: modelData.channelIdx
 
-                        Component.onCompleted:
-                        {
-                            if (selectedFixture === -1)
-                            {
-                                selectedFixture = fxID
-                                selectedChannel = chIdx
-                                capRepeater.model = fixtureManager.presetCapabilities(selectedFixture, selectedChannel)
-                                prFlickable.contentY = 0
-                            }
-                        }
-
                         RobotoText
                         {
                             x: 3
@@ -133,10 +161,7 @@ Rectangle
 
                             onClicked:
                             {
-                                selectedFixture = delegateRoot.fxID
-                                selectedChannel = delegateRoot.chIdx
-                                capRepeater.model = fixtureManager.presetCapabilities(selectedFixture, selectedChannel)
-                                prFlickable.contentY = 0
+                                toolRoot.selectPresetChannel(modelData)
                             }
                         }
                     }
@@ -165,6 +190,7 @@ Rectangle
                     {
                         capability: modelData
                         capIndex: index + 1
+                        currentValue: toolRoot.currentValue
                         visible: (capability.min <= toolRoot.rangeHighLimit || capability.max <= toolRoot.rangeLowLimit)
                         onValueChanged: function(value)
                         {
