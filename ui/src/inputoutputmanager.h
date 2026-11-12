@@ -29,6 +29,7 @@ class QListWidget;
 class QSplitter;
 class QLineEdit;
 class QCheckBox;
+class QComboBox;
 class QToolBar;
 class QTimer;
 class QIcon;
@@ -71,6 +72,7 @@ public slots:
 private:
     /** Update the contents of the input universe to the item */
     void updateItem(QListWidgetItem *item, quint32 universe);
+    void updatePassthroughModeCombo(int uniIdx);
 
 private slots:
     /** Listens to input data and displays a small icon to indicate a
@@ -94,6 +96,7 @@ private slots:
     void slotUniverseNameChanged(QString name);
     void slotUniverseAdded(quint32 universe);
     void slotPassthroughChanged(bool checked);
+    void slotPassthroughModeChanged(int index);
 
 protected:
     /** @reimp */
@@ -107,6 +110,7 @@ private:
     QAction* m_deleteUniverseAction;
     QLineEdit *m_uniNameEdit;
     QCheckBox *m_uniPassthroughCheck;
+    QComboBox *m_uniPassthroughModeCombo;
     QListWidget *m_list;
     QIcon m_icon;
     QTimer* m_timer;
