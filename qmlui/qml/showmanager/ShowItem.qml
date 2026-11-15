@@ -198,8 +198,12 @@ Item
     /* Waveform for audio items */
     Item
     {
+        // follow showItemBody so it moves along with the item while dragging
+        x: showItemBody.x
+        y: showItemBody.y
         z: 3
-        anchors.fill: parent
+        width: itemRoot.width
+        height: itemRoot.height
         clip: true
         visible: funcRef && funcRef.type === QLCFunction.AudioType
 
@@ -422,18 +426,6 @@ Item
 
             RobotoText
             {
-                x: 3
-                y: 3
-                width: parent.width - 6
-                height: parent.height - 6
-                label: funcRef ? funcRef.name : ""
-                fontSize: UISettings.textSizeDefault * 0.7
-                textVAlign: Text.AlignTop
-                wrapText: true
-            }
-
-            RobotoText
-            {
                 id: infoTextBox
                 x: 3
                 y: itemRoot.height - height - 3
@@ -487,7 +479,8 @@ Item
             var bestDelta = snapThreshold + 1
             var bestSnapX = -1
 
-            for (var i = 0; i < snapEdges.length; i++)
+            // holding CTRL disables item snapping
+            for (var i = 0; !(mouse.modifiers & Qt.ControlModifier) && i < snapEdges.length; i++)
             {
                 var d = snapEdges[i] - edgePos
                 if (Math.abs(d) < Math.abs(bestDelta))
@@ -539,8 +532,8 @@ Item
 
                 // grid snapping: snap to the nearest tick on a Time ruler or
                 // to the nearest beat on a BPM ruler
-                // (skipped if already snapped to another item's edge)
-                if (showManager.gridEnabled && !itemSnapped)
+                // (skipped if already snapped to another item's edge or CTRL is held)
+                if (showManager.gridEnabled && !itemSnapped && !(mouse.modifiers & Qt.ControlModifier))
                 {
                     var gridStep = (timeDivision === Show.Time) ? tickSize : (tickSize / beatsDivision)
                     dropX = Math.round(dropX / gridStep) * gridStep
@@ -597,6 +590,21 @@ Item
         }
 
         onDoubleClicked: functionManager.setEditorFunction(sfRef.functionID, true, false)
+    }
+
+    /* Function name, kept at root level with a z above the audio waveform.
+       It follows showItemBody so it moves along with the item while dragging */
+    RobotoText
+    {
+        x: showItemBody.x + 3
+        y: showItemBody.y + 3
+        z: 4
+        width: itemRoot.width - 6
+        height: itemRoot.height - 6
+        label: funcRef ? funcRef.name : ""
+        fontSize: UISettings.textSizeDefault * 0.7
+        textVAlign: Text.AlignTop
+        wrapText: true
     }
 
     /* Function type icon and locker image. These are kept at root level with a
@@ -682,7 +690,8 @@ Item
                 // snap-to-item: check left edge
                 var bestDist = snapThreshold + 1
                 var bestSnapX = -1
-                for (var i = 0; i < snapEdges.length; i++)
+                // holding CTRL disables item snapping
+                for (var i = 0; !(mouse.modifiers & Qt.ControlModifier) && i < snapEdges.length; i++)
                 {
                     var dist = Math.abs(snapEdges[i] - newX)
                     if (dist < bestDist)
@@ -726,8 +735,8 @@ Item
                         itemRoot.x = 0
                     }
 
-                    // check grid snapping (skip if item-snapped)
-                    if (!itemSnapped && itemRoot.x && showManager.gridEnabled)
+                    // check grid snapping (skip if item-snapped or CTRL is held)
+                    if (!itemSnapped && itemRoot.x && showManager.gridEnabled && !(mouse.modifiers & Qt.ControlModifier))
                     {
                         var currX = itemRoot.x
                         itemRoot.x = Math.round(itemRoot.x / tickSize) * tickSize
@@ -823,7 +832,8 @@ Item
                     var rightEdge = itemRoot.x + newWidth
                     var bestDist = snapThreshold + 1
                     var bestSnapX = -1
-                    for (var i = 0; i < snapEdges.length; i++)
+                    // holding CTRL disables item snapping
+                    for (var i = 0; !(mouse.modifiers & Qt.ControlModifier) && i < snapEdges.length; i++)
                     {
                         var dist = Math.abs(snapEdges[i] - rightEdge)
                         if (dist < bestDist)
@@ -850,7 +860,7 @@ Item
                     updateTooltipText()
                 }
             }
-            onReleased:
+            onReleased: (mouse) =>
             {
                 if (drag.active === false)
                     return
@@ -859,8 +869,8 @@ Item
 
                 if (sfRef)
                 {
-                    // check grid snapping (skip if item-snapped)
-                    if (!itemSnapped && showManager.gridEnabled)
+                    // check grid snapping (skip if item-snapped or CTRL is held)
+                    if (!itemSnapped && showManager.gridEnabled && !(mouse.modifiers & Qt.ControlModifier))
                     {
                         var snappedEndPos = Math.round((itemRoot.x + itemRoot.width) / tickSize) * tickSize
                         itemRoot.width = snappedEndPos - itemRoot.x
