@@ -567,15 +567,11 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
     for (QVariant &vID : idsList) // C++11
     {
         quint32 functionID = vID.toUInt();
-        if (functionID == m_currentShow->id())
-        {
-            /* TODO: a popup displaying the user stupidity would be nice here... */
-            continue;
-        }
 
-        // and now create the actual ShowFunction and the QML item
+        // and now create the actual ShowFunction and the QML item.
+        // Forbid self-containment, either direct or through other Functions
         Function *func = m_doc->function(functionID);
-        if (func == nullptr)
+        if (func == nullptr || func->contains(m_currentShow->id()))
             continue;
 
         ShowFunction *showFunc = selectedTrack->createShowFunction(functionID);

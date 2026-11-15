@@ -143,6 +143,11 @@ bool Track::addShowFunction(ShowFunction *func)
     if (func == NULL || func->functionID() == Function::invalidId())
         return false;
 
+    // forbid self-containment
+    Show *show = qobject_cast<Show *>(parent());
+    if (show != NULL && func->functionID() == show->id())
+        return false;
+
     m_functions.append(func);
 
     return true;

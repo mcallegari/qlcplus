@@ -22,6 +22,8 @@
 #include <QXmlStreamWriter>
 
 #include "show_test.h"
+#include "collection.h"
+#include "scene.h"
 #include "show.h"
 
 void Show_Test::initTestCase()
@@ -271,6 +273,77 @@ void Show_Test::load()
     QCOMPARE(t2->name(), "Read track 2");
     QVERIFY(t2->getSceneID() == 222);
     QCOMPARE(t2->isMute(), true);
+}
+
+void Show_Test::loadSelfReference()
+{
+    Doc doc(this);
+
+    Scene *scene = new Scene(&doc);
+    QVERIFY(doc.addFunction(scene, 1) == true);
+
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    // Show 0 containing a ShowFunction referencing Show 0 itself
+    xmlWriter.writeStartElement("Function");
+    xmlWriter.writeAttribute("ID", "0");
+    xmlWriter.writeAttribute("Type", "Show");
+    xmlWriter.writeAttribute("Name", "Self referencing Show");
+
+    xmlWriter.writeStartElement("Track");
+    xmlWriter.writeAttribute("ID", "0");
+    xmlWriter.writeAttribute("Name", "Track 1");
+    xmlWriter.writeAttribute("isMute", "0");
+
+    xmlWriter.writeStartElement("ShowFunction");
+    xmlWriter.writeAttribute("ID", "0");
+    xmlWriter.writeAttribute("StartTime", "1000");
+    xmlWriter.writeAttribute("Duration", "500");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeStartElement("ShowFunction");
+    xmlWriter.writeAttribute("ID", "1");
+    xmlWriter.writeAttribute("StartTime", "2000");
+    xmlWriter.writeAttribute("Duration", "500");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndElement(); // Track
+    xmlWriter.writeEndElement(); // Function
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(Function::loader(xmlReader, &doc) == true);
+
+    Show *show = qobject_cast<Show *>(doc.function(0));
+    QVERIFY(show != NULL);
+    QCOMPARE(show->getTracksCount(), 1);
+
+    // the self reference must be dropped, the Scene must be kept
+    Track *track = show->tracks().first();
+    QCOMPARE(track->showId(), quint32(0));
+    QCOMPARE(track->showFunctions().count(), 1);
+    QCOMPARE(track->showFunctions().first()->functionID(), quint32(1));
+
+    // a Collection containing the Show must not recurse endlessly
+    Collection *coll = new Collection(&doc);
+    QVERIFY(doc.addFunction(coll, 2) == true);
+    QVERIFY(coll->addFunction(0) == true);
+
+    show->postLoad();
+    coll->postLoad();
+
+    QCOMPARE(track->showFunctions().count(), 1);
+    QCOMPARE(coll->functions().count(), 1);
+    QVERIFY(show->contains(1) == true);
+    QVERIFY(show->contains(2) == false);
 }
 
 void Show_Test::save()

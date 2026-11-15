@@ -37,6 +37,7 @@ private slots:
     void tracks();
     void duration();
     void load();
+    void loadSelfReference();
     void save();
 
 private:

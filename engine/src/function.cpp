@@ -954,6 +954,9 @@ bool Function::loader(QXmlStreamReader &root, Doc* doc)
     function->setPath(path);
     function->setVisible(visible);
     function->setBlendMode(blendMode);
+    /* Set the ID before loading, so that a Function can detect
+       references to itself (e.g. a Show containing itself) */
+    function->setID(id);
     if (function->loadXML(root) == true)
     {
         if (doc->addFunction(function, id) == true)
