@@ -59,6 +59,9 @@ Item
 
     function getVisibleSnapEdges()
     {
+        if (!showManager.gridEnabled)
+            return []
+
         // itemRoot.parent is the Flickable's contentItem,
         // itemRoot.parent.parent is the Flickable (itemsArea)
         var flickable = itemRoot.parent ? itemRoot.parent.parent : null
@@ -534,10 +537,14 @@ Item
                 var itemIsBeats = funcRef && funcRef.tempoType === QLCFunction.Beats
                 var dropX = itemRoot.x + showItemBody.x
 
-                // grid snapping: snap to the nearest beat on a BPM ruler
+                // grid snapping: snap to the nearest tick on a Time ruler or
+                // to the nearest beat on a BPM ruler
                 // (skipped if already snapped to another item's edge)
-                if (showManager.gridEnabled && !itemSnapped && timeDivision !== Show.Time)
-                    dropX = Math.round(dropX / (tickSize / beatsDivision)) * (tickSize / beatsDivision)
+                if (showManager.gridEnabled && !itemSnapped)
+                {
+                    var gridStep = (timeDivision === Show.Time) ? tickSize : (tickSize / beatsDivision)
+                    dropX = Math.round(dropX / gridStep) * gridStep
+                }
 
                 var newTime
                 if (timeDivision === Show.Time)
