@@ -59,6 +59,7 @@ private slots:
 
     void channelGroups();
     void palettes();
+    void deletePaletteReferences();
 
     void monitorProperties();
 

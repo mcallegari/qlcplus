@@ -779,6 +779,45 @@ void Doc_Test::palettes()
     QCOMPARE(spy2[1][0].toUInt(), quint32(1));
 }
 
+void Doc_Test::deletePaletteReferences()
+{
+    QLCPalette *p0 = new QLCPalette(QLCPalette::Color);
+    QLCPalette *p1 = new QLCPalette(QLCPalette::Dimmer);
+    QVERIFY(m_doc->addPalette(p0) == true);
+    QVERIFY(m_doc->addPalette(p1) == true);
+    QCOMPARE(p0->id(), quint32(0));
+    QCOMPARE(p1->id(), quint32(1));
+
+    Scene *s1 = new Scene(m_doc);
+    s1->addPalette(0);
+    QVERIFY(m_doc->addFunction(s1) == true);
+
+    Scene *s2 = new Scene(m_doc);
+    s2->addPalette(0);
+    s2->addPalette(1);
+    QVERIFY(m_doc->addFunction(s2) == true);
+
+    /* deleting a palette removes it from every Scene */
+    QVERIFY(m_doc->deletePalette(0) == true);
+    QCOMPARE(s1->palettes().count(), 0);
+    QCOMPARE(s2->palettes().count(), 1);
+    QCOMPARE(s2->palettes().at(0), quint32(1));
+
+    /* a new palette reusing the deleted ID must not end up in the Scenes */
+    QLCPalette *p2 = new QLCPalette(QLCPalette::Color);
+    QVERIFY(m_doc->addPalette(p2) == true);
+    QCOMPARE(p2->id(), quint32(0));
+    QCOMPARE(s1->palettes().count(), 0);
+    QVERIFY(s2->palettes().contains(0) == false);
+
+    /* dangling references (e.g. from a broken project) are dropped on load */
+    s1->addPalette(42);
+    s1->addPalette(1);
+    s1->postLoad();
+    QCOMPARE(s1->palettes().count(), 1);
+    QCOMPARE(s1->palettes().at(0), quint32(1));
+}
+
 void Doc_Test::monitorProperties()
 {
     Fixture *f1 = new Fixture(m_doc);

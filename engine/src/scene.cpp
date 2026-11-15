@@ -641,6 +641,14 @@ void Scene::postLoad()
         if (fxi == NULL || fxi->channel(value.channel) == NULL)
             it.remove();
     }
+
+    // Remove references to palettes that don't exist
+    QMutableListIterator <quint32> pit(m_palettes);
+    while (pit.hasNext() == true)
+    {
+        if (doc()->palette(pit.next()) == NULL)
+            pit.remove();
+    }
 }
 
 /****************************************************************************
