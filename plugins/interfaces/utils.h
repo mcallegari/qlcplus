@@ -70,13 +70,6 @@ struct Utils
     \note This function is a 16-bit cache conserving (16 entry table)
     implementation of the CRC-16-CCITT algorithm.
 */
-    static constexpr quint16 crc_tbl[16] = {
-        0x0000, 0x1081, 0x2102, 0x3183,
-        0x4204, 0x5285, 0x6306, 0x7387,
-        0x8408, 0x9489, 0xa50a, 0xb58b,
-        0xc60c, 0xd68d, 0xe70e, 0xf78f
-    };
-
     static quint16 getChecksum(QByteArray data)
     {
 #if 0
@@ -87,6 +80,13 @@ struct Utils
         return qChecksum(bav);
 #endif
 #else
+        static constexpr quint16 crc_tbl[16] = {
+            0x0000, 0x1081, 0x2102, 0x3183,
+            0x4204, 0x5285, 0x6306, 0x7387,
+            0x8408, 0x9489, 0xa50a, 0xb58b,
+            0xc60c, 0xd68d, 0xe70e, 0xf78f
+        };
+
         quint16 crc = 0xffff;
         uchar c;
         const uchar *p = reinterpret_cast<const uchar *>(data.data());

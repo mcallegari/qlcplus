@@ -37,7 +37,7 @@
     </message>
     <message>
         <source>Reset the selected universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Reimposta l&apos;universo selezionato</translation>
     </message>
 </context>
 <context>
@@ -195,15 +195,15 @@
     </message>
     <message>
         <source>Invalid fixture upload payload</source>
-        <translation type="unfinished"></translation>
+        <translation>Dati di caricamento della fixture non validi</translation>
     </message>
     <message>
         <source>Unable to store fixture definition</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile salvare la definizione della fixture</translation>
     </message>
     <message>
         <source>Invalid network configuration request.</source>
-        <translation type="unfinished"></translation>
+        <translation>Richiesta di configurazione di rete non valida.</translation>
     </message>
 </context>
 <context>

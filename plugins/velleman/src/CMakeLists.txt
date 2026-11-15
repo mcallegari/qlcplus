@@ -7,10 +7,11 @@ set(TS_FILES
     Velleman_fr_FR.ts
     Velleman_it_IT.ts
     Velleman_nl_NL.ts
-    Velleman_cz_CZ.ts
+    Velleman_cs_CZ.ts
     Velleman_pt_BR.ts
     Velleman_ca_ES.ts
     Velleman_ja_JP.ts
+    Velleman_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)

@@ -1,6 +1,66 @@
+qlcplus (5.4.0) stable; urgency=low
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 29 Dec 2026 10:47:15 +0200
+
 qlcplus (5.3.1) stable; urgency=low
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 28 Nov 2026 10:47:15 +0200
+  * qmlui: fix remapping on VC slider values (#2239)
+  * qmlui: fix VC page external control not restored on project load (#2201)
+  * qmlui: hide VC item snapping button in kiosk mode
+  * qmlui: add simple desk universe reset action (#2236)
+  * qmlui: save/load VC Animation widget presets external controls
+  * qmlui: fix Show manager horizontal scrollbar overlapping scene editor bottom panel
+  * qmlui: serve unsaved project to auto-authorized clients
+  * qmlui: fix Simple Desk channels set by native clients
+  * qmlui: additive spectral mixing for tertiary colors (2/3D preview displays and ColortoolFull toolbox) (#2176)
+  * qmlui: allow to set name/color for 3d view generic items
+  * plugins/peperoni: reworked to use libusb on every platform
+  * qmlui: fix setting input feedback hanging the app
+  * qmlui: improve Chaser fractional beat support (#2189)
+  * engine: reworked ChaserRunner to improve beat support
+  * qmlui: improve UI settings editor layout
+  * engine/ui/qmlui: handle universe split options for RGB panels (#1694)
+  * qmlui: show VC Clock enable button if there are schedules (#2225)
+  * engine: script runner Optimizations (#2197)
+  * qmlui: add a scrollbar to UI settings editor when it doesn't fit
+  * qmlui: keep the appearance of VC widgets restored by undo
+  * qmlui: fixture group editor selection improvements
+  * qmlui: auto-detect small screen and auto-set a scaling factor
+  * qmlui: reflect a stopped Function on an Adjust slider without adjusting it
+  * qmlui: improve faders scaling
+  * qmlui: fix a hang loading a Virtual Console with no pages
+  * qmlui: fix Cue List previous/next step when not playing
+  * qmlui: fix VC Slider attributes copy
+  * qmlui: improve 2D item label visibility and orientation (#2220)
+  * plugins/peperoni: fix USBDMX21 detection and refresh (#2195)
+  * engine: keep a fixture's channels when another fixture moves over them
+  * engine: skip fixture channels beyond the universe size when patching
+  * qmlui: keep infinite holds when switching the Chaser tempo type
+  * engine: fix an EFX freezing when its fade in is not shorter than its duration
+  * engine: a Collection lasts as long as its longest member
+  * engine: fix random Chaser steps that don't exist and steps added while running
+  * qmlui: fix a hang loading a Virtual Console with no pages
+  * qmlui: fix 2D fixture distribution in front and side views
+  * qmlui: fix VC widgets lost by cut/paste, delete and undo
+  * engine: don't crash running an EFX with a missing fixture
+  * engine: don't advance a Chaser step in the write that starts it
+  * engine: resume paused faders when they fade out
+  * engine: keep universe channel setup in step with fixture patching
+  * qmlui: fix VC widgets lost after a drag and drop
+  * engine: fix running Functions using deleted groups and fixtures
+  * qmlui: keep the VC Frame page selector on the current page
+  * qmlui: don't lose VC Frame widgets when reducing the pages number
+  * qmlui: fix Cue List previous/next step when not playing
+  * qmlui: fix VC Adjust slider stopping its restarted Function
+  * engine: absolute and pink-flat audio spectrum band levels (#2190)
+  * qmlui: fix VC audio triggers spectrum bars number (#2190)
+  * qmlui: fix audio triggers in solo frames (#2193)
+  * qmlui: handle xypad and audiotriggers disable state (#2184)
+  * linux: add Wayland platform plugin (#2186)
+  * qmlui: keep the Show playback state when resuming after a seek
+  * macos: add CFBundleIdentifier (#2183)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Thu, 05 Nov 2026 10:47:15 +0200
 
 qlcplus (5.3.0) stable; urgency=low
 

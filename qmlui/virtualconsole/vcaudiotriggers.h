@@ -66,7 +66,7 @@ public:
     VCWidget *createCopy(VCWidget *parent) const override;
 
     /** @reimp */
-    void remapChannels(const QMap<SceneValue, SceneValue> &remapMap) override;
+    void remapChannels(const QMultiMap<SceneValue, SceneValue> &remapMap) override;
 
     /** @reimp */
     void notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity, bool excludeMonitored) override;

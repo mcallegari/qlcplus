@@ -8,10 +8,11 @@ set(TS_FILES
     ../MIDI_fr_FR.ts
     ../MIDI_it_IT.ts
     ../MIDI_nl_NL.ts
-    ../MIDI_cz_CZ.ts
+    ../MIDI_cs_CZ.ts
     ../MIDI_pt_BR.ts
     ../MIDI_ca_ES.ts
     ../MIDI_ja_JP.ts
+    ../MIDI_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)

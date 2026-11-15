@@ -19,6 +19,7 @@
 
 #include "scripteditor.h"
 #include "scriptwrapper.h"
+#include "tardis.h"
 #include "doc.h"
 
 ScriptEditor::ScriptEditor(QQuickView *view, Doc *doc, QObject *parent)
@@ -41,9 +42,10 @@ QString ScriptEditor::scriptContent() const
 
 void ScriptEditor::setScriptContent(QString scriptContent)
 {
-    if (m_script == nullptr)
+    if (m_script == nullptr || m_script->data() == scriptContent)
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::ScriptSetContent, m_script->id(), m_script->data(), scriptContent);
     m_script->setData(scriptContent);
     emit scriptContentChanged(scriptContent);
 }

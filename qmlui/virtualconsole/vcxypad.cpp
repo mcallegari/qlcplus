@@ -226,7 +226,7 @@ VCWidget *VCXYPad::createCopy(VCWidget *parent) const
     return XYPad;
 }
 
-void VCXYPad::remapChannels(const QMap<SceneValue, SceneValue> &remapMap)
+void VCXYPad::remapChannels(const QMultiMap<SceneValue, SceneValue> &remapMap)
 {
     for (int i = 0; i < m_fixtures.count(); i++)
     {

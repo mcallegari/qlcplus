@@ -11,7 +11,7 @@
     <message>
         <location filename="gpioconfiguration.ui" line="46"/>
         <source>Selected chip</source>
-        <translation type="unfinished"></translation>
+        <translation>Puce sélectionnée</translation>
     </message>
     <message>
         <location filename="gpioconfiguration.ui" line="57"/>
@@ -26,7 +26,7 @@
     <message>
         <location filename="gpioconfiguration.ui" line="67"/>
         <source>Channel number</source>
-        <translation type="unfinished"></translation>
+        <translation>Numéro de canal</translation>
     </message>
     <message>
         <location filename="gpioconfiguration.cpp" line="89"/>

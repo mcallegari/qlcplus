@@ -36,7 +36,7 @@ QString webAccessJsStringEscaped(const QString &text);
 #define PROJECT_LOADED_JS \
     "var websocket;\n" \
     "window.onload = function() {\n" \
-    " var url = 'ws://' + window.location.host + '/qlcplusWS';\n" \
+    " var url = (window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.host + '/qlcplusWS';\n" \
     " websocket = new WebSocket(url);\n" \
     " setInterval(checkProjectLoaded, 100);\n" \
     " websocket.onmessage = function(ev) {\n" \

@@ -411,6 +411,7 @@ Rectangle
 
             ZoomItem
             {
+                id: zoomItem
                 implicitWidth: UISettings.mediumItemHeight * 1.3
                 implicitHeight: parent.height - 2
                 fontColor: "#222"
@@ -643,6 +644,31 @@ Rectangle
             ScrollBar.horizontal: horScrollBar
 
             onContentXChanged: xViewOffset = contentX
+
+            // CTRL + mouse wheel zooms the timeline in/out,
+            // keeping the time under the mouse pointer in place
+            WheelHandler
+            {
+                acceptedModifiers: Qt.ControlModifier
+                target: null
+                onWheel: (event) =>
+                {
+                    var isTime = showManager.timeDivision === Show.Time
+                    var mouseX = point.position.x
+                    var viewX = mouseX - xViewOffset
+                    var mouseTime = isTime ? TimeUtils.posToMs(mouseX, timeScale, tickSize)
+                                           : TimeUtils.posToBeatMs(mouseX, tickSize, ioManager.bpmNumber, showManager.beatsDivision)
+
+                    if (event.angleDelta.y > 0)
+                        zoomItem.zoomInClicked()
+                    else if (event.angleDelta.y < 0)
+                        zoomItem.zoomOutClicked()
+
+                    var newX = isTime ? TimeUtils.timeToSize(mouseTime, timeScale, tickSize)
+                                      : TimeUtils.timeToBeatPosition(mouseTime, tickSize, ioManager.bpmNumber, showManager.beatsDivision)
+                    xViewOffset = Math.max(0, newX - viewX)
+                }
+            }
 
             MouseArea
             {
@@ -902,8 +928,8 @@ Rectangle
     {
         id: horScrollBar
         x: timelineHeader.x
-        y: showMgrContainer.height - height
-        z: 10
+        y: showMgrContainer.height - height - (bottomPanel.visible ? bottomPanel.height : 0)
+        z: 5
         width: timelineHeader.width
         orientation: Qt.Horizontal
     }

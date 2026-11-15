@@ -7,10 +7,11 @@ set(TS_FILES
     E131_fr_FR.ts
     E131_it_IT.ts
     E131_nl_NL.ts
-    E131_cz_CZ.ts
+    E131_cs_CZ.ts
     E131_pt_BR.ts
     E131_ca_ES.ts
     E131_ja_JP.ts
+    E131_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)

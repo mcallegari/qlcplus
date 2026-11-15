@@ -47,6 +47,7 @@
 #include "universe.h"
 #include "sequence.h"
 #include "fixture.h"
+#include "scene.h"
 #include "chaser.h"
 #include "show.h"
 #include "doc.h"
@@ -1072,6 +1073,15 @@ bool Doc::deletePalette(quint32 id)
     {
         QLCPalette *palette = m_palettes.take(id);
         Q_ASSERT(palette != NULL);
+
+        // remove the palette from the Scenes referencing it,
+        // otherwise a new palette might reuse its ID
+        foreach (Function *function, m_functions)
+        {
+            Scene *scene = qobject_cast<Scene *>(function);
+            if (scene != NULL)
+                scene->removePalette(id);
+        }
 
         emit paletteRemoved(id);
         setModified();

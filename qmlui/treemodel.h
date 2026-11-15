@@ -23,9 +23,11 @@
 #include <QAbstractListModel>
 #include <QStringList>
 
-#define SEARCH_MIN_CHARS    3
+/* TreeModelItem must be complete for the meta type checks of the
+ * signals/slots below, done by moc */
+#include "treemodelitem.h"
 
-class TreeModelItem;
+#define SEARCH_MIN_CHARS    3
 
 class TreeModel final : public QAbstractListModel
 {

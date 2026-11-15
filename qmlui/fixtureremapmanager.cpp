@@ -477,7 +477,7 @@ void FixtureRemapManager::applyRemap()
     const QList<SceneValue> &srcList = m_remapper.sourceList();
     const QList<SceneValue> &tgtList = m_remapper.targetList();
 
-    QMap<SceneValue, SceneValue> channelRemap;
+    QMultiMap<SceneValue, SceneValue> channelRemap;
     for (int i = 0; i < srcList.count(); i++)
         channelRemap.insert(srcList.at(i), tgtList.at(i));
 

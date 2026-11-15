@@ -6,180 +6,180 @@
     <message>
         <location filename="webaccessauth.cpp" line="201"/>
         <source>Unauthorized</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei oikeuksia</translation>
     </message>
     <message>
         <location filename="webaccessauth.cpp" line="204"/>
         <source>401 Unauthorized</source>
-        <translation type="unfinished"></translation>
+        <translation>401 Ei oikeuksia</translation>
     </message>
     <message>
         <location filename="webaccessauth.cpp" line="205"/>
         <source>Access to this resource requires proper authorization and you have failed to authenticate.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämän resurssin käyttö vaatii valtuutuksen, ja tunnistautuminen epäonnistui.</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="362"/>
         <source>Simple Desk</source>
-        <translation type="unfinished"></translation>
+        <translation>Yksinkertainen pöytä</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="367"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Universumi</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="381"/>
         <location filename="webaccess-qml.cpp" line="382"/>
         <source>Reset the selected universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Nollaa valittu universumi</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="385"/>
         <source>Faders</source>
-        <translation type="unfinished"></translation>
+        <translation>Liukusäätimet</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="396"/>
         <source>Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Sivu</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="404"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Takaisin</translation>
     </message>
 </context>
 <context>
     <name>WebAccess</name>
     <message>
-        <location filename="webaccess.cpp" line="649"/>
+        <location filename="webaccess.cpp" line="656"/>
         <source>Widget not supported (yet) for web access</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="webaccess.cpp" line="722"/>
-        <location filename="webaccess.cpp" line="832"/>
-        <source>Page: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Widgetiä ei (vielä) tueta verkkokäytössä</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="729"/>
         <location filename="webaccess.cpp" line="839"/>
+        <source>Page: %1</source>
+        <translation>Sivu: %1</translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="736"/>
+        <location filename="webaccess.cpp" line="846"/>
         <source>Expand/Collapse</source>
-        <translation type="unfinished"></translation>
+        <translation>Laajenna/Supista</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="743"/>
+        <location filename="webaccess.cpp" line="750"/>
         <source>Enable/Disable frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Ota kehys käyttöön/pois käytöstä</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="758"/>
-        <location filename="webaccess.cpp" line="868"/>
+        <location filename="webaccess.cpp" line="765"/>
+        <location filename="webaccess.cpp" line="875"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Takaisin</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="766"/>
-        <location filename="webaccess.cpp" line="876"/>
+        <location filename="webaccess.cpp" line="773"/>
+        <location filename="webaccess.cpp" line="883"/>
         <source>Forward</source>
-        <translation type="unfinished"></translation>
+        <translation>Eteenpäin</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="853"/>
+        <location filename="webaccess.cpp" line="860"/>
         <source>Enable/Disable Solo frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Ota soolokehys käyttöön/pois käytöstä</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1115"/>
+        <location filename="webaccess.cpp" line="1122"/>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Ota käyttöön</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1318"/>
+        <location filename="webaccess.cpp" line="1333"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nimi</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1319"/>
+        <location filename="webaccess.cpp" line="1334"/>
         <source>Fade In</source>
-        <translation type="unfinished"></translation>
+        <translation>Häivytys sisään</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1320"/>
+        <location filename="webaccess.cpp" line="1335"/>
         <source>Fade Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Häivytys ulos</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1321"/>
+        <location filename="webaccess.cpp" line="1336"/>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Kesto</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1322"/>
+        <location filename="webaccess.cpp" line="1337"/>
         <source>Notes</source>
-        <translation type="unfinished"></translation>
+        <translation>Muistiinpanot</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1438"/>
+        <location filename="webaccess.cpp" line="1453"/>
         <source>Slider</source>
-        <translation type="unfinished"></translation>
+        <translation>Liukusäädin</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1472"/>
+        <location filename="webaccess.cpp" line="1487"/>
         <source>Play Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Toista cue-lista</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1476"/>
+        <location filename="webaccess.cpp" line="1491"/>
         <source>Stop Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Pysäytä cue-lista</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1480"/>
+        <location filename="webaccess.cpp" line="1495"/>
         <source>Go to the previous step in the list</source>
-        <translation type="unfinished"></translation>
+        <translation>Siirry listan edelliseen askeleeseen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1484"/>
+        <location filename="webaccess.cpp" line="1499"/>
         <source>Go to the next step in the list</source>
-        <translation type="unfinished"></translation>
+        <translation>Siirry listan seuraavaan askeleeseen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1706"/>
+        <location filename="webaccess.cpp" line="1721"/>
         <source>Color 2 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Värin 2 nollaus</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1715"/>
+        <location filename="webaccess.cpp" line="1730"/>
         <source>Color 3 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Värin 3 nollaus</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1724"/>
+        <location filename="webaccess.cpp" line="1739"/>
         <source>Color 4 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Värin 4 nollaus</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1733"/>
+        <location filename="webaccess.cpp" line="1748"/>
         <source>Color 5 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Värin 5 nollaus</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1974"/>
+        <location filename="webaccess.cpp" line="1989"/>
         <source>Load project</source>
-        <translation type="unfinished"></translation>
+        <translation>Lataa projekti</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1976"/>
+        <location filename="webaccess.cpp" line="1991"/>
         <source>Simple Desk</source>
-        <translation type="unfinished"></translation>
+        <translation>Yksinkertainen pöytä</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1978"/>
+        <location filename="webaccess.cpp" line="1993"/>
         <source>Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Asetukset</translation>
     </message>
 </context>
 <context>
@@ -187,78 +187,78 @@
     <message>
         <location filename="webaccessbase.cpp" line="323"/>
         <source>Loading project...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ladataan projektia...</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="411"/>
         <source>Invalid fixture upload payload</source>
-        <translation type="unfinished"></translation>
+        <translation>Virheellinen valaisimen lähetysdata</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="427"/>
         <source>Unable to store fixture definition</source>
-        <translation type="unfinished"></translation>
+        <translation>Valaisinmäärittelyä ei voitu tallentaa</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="441"/>
         <source>Fixture stored and loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>Valaisin tallennettu ja ladattu</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="667"/>
         <source>Username and password are required fields.</source>
-        <translation type="unfinished"></translation>
+        <translation>Käyttäjätunnus ja salasana ovat pakollisia kenttiä.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="674"/>
         <location filename="webaccessbase.cpp" line="707"/>
         <source>User level has to be a positive integer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Käyttäjätason on oltava positiivinen kokonaisluku.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="700"/>
         <source>Username is required.</source>
-        <translation type="unfinished"></translation>
+        <translation>Käyttäjätunnus on pakollinen.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="722"/>
         <source>Error while saving passwords file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Virhe salasanatiedoston tallennuksessa.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="745"/>
         <source>Invalid network configuration request.</source>
-        <translation type="unfinished"></translation>
+        <translation>Virheellinen verkkoasetuspyyntö.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="751"/>
         <source>Network configuration changed. Reboot to apply the changes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Verkkoasetukset muuttuivat. Käynnistä uudelleen ottaaksesi muutokset käyttöön.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="753"/>
         <source>An error occurred while updating the network configuration.</source>
-        <translation type="unfinished"></translation>
+        <translation>Verkkoasetusten päivityksessä tapahtui virhe.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="770"/>
         <source>Wi-Fi hotspot successfully activated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wi-Fi-tukiasema otettu käyttöön.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="772"/>
         <source>An error occurred while creating a Wi-Fi hotspot.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wi-Fi-tukiaseman luomisessa tapahtui virhe.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="777"/>
         <source>Wi-Fi hotspot successfully deactivated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wi-Fi-tukiasema poistettu käytöstä.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="794"/>
         <source>Autostart configuration changed</source>
-        <translation type="unfinished"></translation>
+        <translation>Automaattisen käynnistyksen asetus muuttui</translation>
     </message>
 </context>
 <context>
@@ -266,162 +266,162 @@
     <message>
         <location filename="webaccessconfiguration.cpp" line="71"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Universumi</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="71"/>
         <location filename="webaccessconfiguration.cpp" line="159"/>
         <source>Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Sisääntulo</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="71"/>
         <location filename="webaccessconfiguration.cpp" line="159"/>
         <source>Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Ulostulo</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="71"/>
         <source>Feedback</source>
-        <translation type="unfinished"></translation>
+        <translation>Palaute</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="71"/>
         <source>Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Profiili</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="71"/>
         <location filename="webaccessconfiguration.cpp" line="144"/>
         <source>Passthrough</source>
-        <translation type="unfinished"></translation>
+        <translation>Läpivienti</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="163"/>
         <location filename="webaccessconfiguration.cpp" line="165"/>
         <source>Default device</source>
-        <translation type="unfinished"></translation>
+        <translation>Oletuslaite</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="204"/>
         <source>File name</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiedoston nimi</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="217"/>
         <source>Load fixture</source>
-        <translation type="unfinished"></translation>
+        <translation>Lataa valaisin</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="228"/>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Käyttäjätunnus</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="229"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Salasana</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="230"/>
         <source>Access level</source>
-        <translation type="unfinished"></translation>
+        <translation>Käyttöoikeustaso</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="231"/>
         <source>Action</source>
-        <translation type="unfinished"></translation>
+        <translation>Toiminto</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="244"/>
         <source>Leave blank to not change</source>
-        <translation type="unfinished"></translation>
+        <translation>Jätä tyhjäksi, jos et halua muuttaa</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="251"/>
         <location filename="webaccessconfiguration.cpp" line="281"/>
         <source>Only Virtual Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Vain virtuaalikonsoli</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="256"/>
         <location filename="webaccessconfiguration.cpp" line="283"/>
         <source>Virtual Console and Simple Desk</source>
-        <translation type="unfinished"></translation>
+        <translation>Virtuaalikonsoli ja yksinkertainen pöytä</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="261"/>
         <location filename="webaccessconfiguration.cpp" line="285"/>
         <source>Everything</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaikki</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="267"/>
         <location filename="webaccessconfiguration.cpp" line="292"/>
         <source>Change</source>
-        <translation type="unfinished"></translation>
+        <translation>Muuta</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="269"/>
         <location filename="webaccessconfiguration.cpp" line="293"/>
         <source>Delete user</source>
-        <translation type="unfinished"></translation>
+        <translation>Poista käyttäjä</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="275"/>
         <source>New username...</source>
-        <translation type="unfinished"></translation>
+        <translation>Uusi käyttäjätunnus...</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="276"/>
         <location filename="webaccessconfiguration.cpp" line="295"/>
         <source>New password...</source>
-        <translation type="unfinished"></translation>
+        <translation>Uusi salasana...</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="294"/>
         <source>Username and password are required fields.</source>
-        <translation type="unfinished"></translation>
+        <translation>Käyttäjätunnus ja salasana ovat pakollisia kenttiä.</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="297"/>
         <source>Add user</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisää käyttäjä</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="302"/>
         <source>Note: if there isn&apos;t at least one user with access level &quot;Everything&quot; on the list authorization will be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Huom: jos listalla ei ole vähintään yhtä käyttäjää, jonka käyttöoikeustaso on &quot;Kaikki&quot;, valtuutus poistetaan käytöstä.</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="335"/>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation>Järjestelmä</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="344"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Takaisin</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="352"/>
         <source>Universes configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Universumien asetukset</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="359"/>
         <source>Audio configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Ääniasetukset</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="367"/>
         <source>User loaded fixtures</source>
-        <translation type="unfinished"></translation>
+        <translation>Käyttäjän lataamat valaisimet</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="376"/>
         <source>Authorized users</source>
-        <translation type="unfinished"></translation>
+        <translation>Valtuutetut käyttäjät</translation>
     </message>
 </context>
 <context>
@@ -429,100 +429,100 @@
     <message>
         <location filename="webaccessnetwork.cpp" line="116"/>
         <source>Wi-Fi Hotspot</source>
-        <translation type="unfinished"></translation>
+        <translation>Wi-Fi-tukiasema</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="120"/>
         <location filename="webaccessnetwork.cpp" line="138"/>
         <source>Access point name (SSID): </source>
-        <translation type="unfinished"></translation>
+        <translation>Tukiaseman nimi (SSID): </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="122"/>
         <location filename="webaccessnetwork.cpp" line="140"/>
         <source>WPA-PSK Password: </source>
-        <translation type="unfinished"></translation>
+        <translation>WPA-PSK-salasana: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="126"/>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Ota käyttöön</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="127"/>
         <source>Disable</source>
-        <translation type="unfinished"></translation>
+        <translation>Poista käytöstä</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="132"/>
         <source>Network interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Verkkoliitäntä</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="146"/>
         <source>Dynamic (DHCP)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dynaaminen (DHCP)</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="148"/>
         <source>Static</source>
-        <translation type="unfinished"></translation>
+        <translation>Staattinen</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="153"/>
         <source>IP Address: </source>
-        <translation type="unfinished"></translation>
+        <translation>IP-osoite: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="155"/>
         <source>Netmask: </source>
-        <translation type="unfinished"></translation>
+        <translation>Aliverkon peite: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="157"/>
         <source>Gateway: </source>
-        <translation type="unfinished"></translation>
+        <translation>Yhdyskäytävä: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="160"/>
         <location filename="webaccessnetwork.cpp" line="345"/>
         <source>Apply changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Ota muutokset käyttöön</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="328"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Takaisin</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="334"/>
         <source>Network configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Verkkoasetukset</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="339"/>
         <source>Project autostart</source>
-        <translation type="unfinished"></translation>
+        <translation>Projektin automaattinen käynnistys</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="343"/>
         <source>No project</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei projektia</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="344"/>
         <source>Use current project</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytä nykyistä projektia</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="349"/>
         <source>Reboot</source>
-        <translation type="unfinished"></translation>
+        <translation>Käynnistä uudelleen</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="350"/>
         <source>Shutdown</source>
-        <translation type="unfinished"></translation>
+        <translation>Sammuta</translation>
     </message>
 </context>
 <context>
@@ -530,32 +530,32 @@
     <message>
         <location filename="webaccesssimpledesk.cpp" line="53"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Takaisin</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="59"/>
         <source>Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Sivu</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="60"/>
         <source>Previous page</source>
-        <translation type="unfinished"></translation>
+        <translation>Edellinen sivu</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="68"/>
         <source>Next page</source>
-        <translation type="unfinished"></translation>
+        <translation>Seuraava sivu</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="71"/>
         <source>Reset universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Nollaa universumi</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="73"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Universumi</translation>
     </message>
 </context>
 </TS>

@@ -6,17 +6,17 @@
     <message>
         <location filename="webaccessauth.cpp" line="201"/>
         <source>Unauthorized</source>
-        <translation type="unfinished"></translation>
+        <translation>Niet geautoriseerd</translation>
     </message>
     <message>
         <location filename="webaccessauth.cpp" line="204"/>
         <source>401 Unauthorized</source>
-        <translation type="unfinished"></translation>
+        <translation>401 Niet geautoriseerd</translation>
     </message>
     <message>
         <location filename="webaccessauth.cpp" line="205"/>
         <source>Access to this resource requires proper authorization and you have failed to authenticate.</source>
-        <translation type="unfinished"></translation>
+        <translation>Toegang tot deze bron vereist autorisatie en de authenticatie is mislukt.</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="362"/>
@@ -32,12 +32,12 @@
         <location filename="webaccess-qml.cpp" line="381"/>
         <location filename="webaccess-qml.cpp" line="382"/>
         <source>Reset the selected universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Geselecteerde universe resetten</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="385"/>
         <source>Faders</source>
-        <translation type="unfinished"></translation>
+        <translation>Faders</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="396"/>
@@ -53,131 +53,131 @@
 <context>
     <name>WebAccess</name>
     <message>
-        <location filename="webaccess.cpp" line="649"/>
+        <location filename="webaccess.cpp" line="656"/>
         <source>Widget not supported (yet) for web access</source>
         <translation>Widget wordt (nog) niet ondersteund in webmodus</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="722"/>
-        <location filename="webaccess.cpp" line="832"/>
-        <source>Page: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="webaccess.cpp" line="729"/>
         <location filename="webaccess.cpp" line="839"/>
+        <source>Page: %1</source>
+        <translation>Pagina: %1</translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="736"/>
+        <location filename="webaccess.cpp" line="846"/>
         <source>Expand/Collapse</source>
-        <translation type="unfinished"></translation>
+        <translation>Uitklappen/Inklappen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="743"/>
+        <location filename="webaccess.cpp" line="750"/>
         <source>Enable/Disable frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Frame in-/uitschakelen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="758"/>
-        <location filename="webaccess.cpp" line="868"/>
+        <location filename="webaccess.cpp" line="765"/>
+        <location filename="webaccess.cpp" line="875"/>
         <source>Back</source>
         <translation type="unfinished">Terug</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="766"/>
-        <location filename="webaccess.cpp" line="876"/>
+        <location filename="webaccess.cpp" line="773"/>
+        <location filename="webaccess.cpp" line="883"/>
         <source>Forward</source>
-        <translation type="unfinished"></translation>
+        <translation>Vooruit</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="853"/>
+        <location filename="webaccess.cpp" line="860"/>
         <source>Enable/Disable Solo frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Solo-frame in-/uitschakelen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1115"/>
+        <location filename="webaccess.cpp" line="1122"/>
         <source>Enable</source>
         <translation>Inschakelen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1318"/>
+        <location filename="webaccess.cpp" line="1333"/>
         <source>Name</source>
         <translation>Naam</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1319"/>
+        <location filename="webaccess.cpp" line="1334"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1320"/>
+        <location filename="webaccess.cpp" line="1335"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1321"/>
+        <location filename="webaccess.cpp" line="1336"/>
         <source>Duration</source>
         <translation>Duur</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1322"/>
+        <location filename="webaccess.cpp" line="1337"/>
         <source>Notes</source>
         <translation>Notities</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1438"/>
+        <location filename="webaccess.cpp" line="1453"/>
         <source>Slider</source>
-        <translation type="unfinished"></translation>
+        <translation>Fader</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1472"/>
+        <location filename="webaccess.cpp" line="1487"/>
         <source>Play Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Cuelijst afspelen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1476"/>
+        <location filename="webaccess.cpp" line="1491"/>
         <source>Stop Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Cuelijst stoppen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1480"/>
+        <location filename="webaccess.cpp" line="1495"/>
         <source>Go to the previous step in the list</source>
-        <translation type="unfinished"></translation>
+        <translation>Ga naar de vorige stap in de lijst</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1484"/>
+        <location filename="webaccess.cpp" line="1499"/>
         <source>Go to the next step in the list</source>
-        <translation type="unfinished"></translation>
+        <translation>Ga naar de volgende stap in de lijst</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1706"/>
+        <location filename="webaccess.cpp" line="1721"/>
         <source>Color 2 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Kleur 2 resetten</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1715"/>
+        <location filename="webaccess.cpp" line="1730"/>
         <source>Color 3 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Kleur 3 resetten</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1724"/>
+        <location filename="webaccess.cpp" line="1739"/>
         <source>Color 4 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Kleur 4 resetten</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1733"/>
+        <location filename="webaccess.cpp" line="1748"/>
         <source>Color 5 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Kleur 5 resetten</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1974"/>
+        <location filename="webaccess.cpp" line="1989"/>
         <source>Load project</source>
         <translation>Project laden</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1976"/>
+        <location filename="webaccess.cpp" line="1991"/>
         <source>Simple Desk</source>
         <translation>Eenvoudig paneel</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1978"/>
+        <location filename="webaccess.cpp" line="1993"/>
         <source>Configuration</source>
         <translation>Configuratie</translation>
     </message>
@@ -192,12 +192,12 @@
     <message>
         <location filename="webaccessbase.cpp" line="411"/>
         <source>Invalid fixture upload payload</source>
-        <translation type="unfinished"></translation>
+        <translation>Ongeldige gegevens bij uploaden van fixture</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="427"/>
         <source>Unable to store fixture definition</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan fixturedefinitie niet opslaan</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="441"/>
@@ -207,28 +207,28 @@
     <message>
         <location filename="webaccessbase.cpp" line="667"/>
         <source>Username and password are required fields.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruikersnaam en wachtwoord zijn verplichte velden.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="674"/>
         <location filename="webaccessbase.cpp" line="707"/>
         <source>User level has to be a positive integer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruikersniveau moet een positief geheel getal zijn.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="700"/>
         <source>Username is required.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruikersnaam is verplicht.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="722"/>
         <source>Error while saving passwords file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fout bij het opslaan van het wachtwoordbestand.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="745"/>
         <source>Invalid network configuration request.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ongeldig verzoek voor netwerkconfiguratie.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="751"/>
@@ -238,22 +238,22 @@
     <message>
         <location filename="webaccessbase.cpp" line="753"/>
         <source>An error occurred while updating the network configuration.</source>
-        <translation type="unfinished"></translation>
+        <translation>Er is een fout opgetreden bij het bijwerken van de netwerkconfiguratie.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="770"/>
         <source>Wi-Fi hotspot successfully activated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wi-Fi-hotspot succesvol geactiveerd.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="772"/>
         <source>An error occurred while creating a Wi-Fi hotspot.</source>
-        <translation type="unfinished"></translation>
+        <translation>Er is een fout opgetreden bij het aanmaken van een Wi-Fi-hotspot.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="777"/>
         <source>Wi-Fi hotspot successfully deactivated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wi-Fi-hotspot succesvol gedeactiveerd.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="794"/>
@@ -272,23 +272,23 @@
         <location filename="webaccessconfiguration.cpp" line="71"/>
         <location filename="webaccessconfiguration.cpp" line="159"/>
         <source>Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Invoer</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="71"/>
         <location filename="webaccessconfiguration.cpp" line="159"/>
         <source>Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Uitvoer</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="71"/>
         <source>Feedback</source>
-        <translation type="unfinished"></translation>
+        <translation>Feedback</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="71"/>
         <source>Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Profiel</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="71"/>
@@ -300,12 +300,12 @@
         <location filename="webaccessconfiguration.cpp" line="163"/>
         <location filename="webaccessconfiguration.cpp" line="165"/>
         <source>Default device</source>
-        <translation type="unfinished"></translation>
+        <translation>Standaardapparaat</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="204"/>
         <source>File name</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestandsnaam</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="217"/>
@@ -315,83 +315,83 @@
     <message>
         <location filename="webaccessconfiguration.cpp" line="228"/>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruikersnaam</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="229"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Wachtwoord</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="230"/>
         <source>Access level</source>
-        <translation type="unfinished"></translation>
+        <translation>Toegangsniveau</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="231"/>
         <source>Action</source>
-        <translation type="unfinished"></translation>
+        <translation>Actie</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="244"/>
         <source>Leave blank to not change</source>
-        <translation type="unfinished"></translation>
+        <translation>Leeg laten om niet te wijzigen</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="251"/>
         <location filename="webaccessconfiguration.cpp" line="281"/>
         <source>Only Virtual Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Alleen Virtuele Console</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="256"/>
         <location filename="webaccessconfiguration.cpp" line="283"/>
         <source>Virtual Console and Simple Desk</source>
-        <translation type="unfinished"></translation>
+        <translation>Virtuele Console en Eenvoudig paneel</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="261"/>
         <location filename="webaccessconfiguration.cpp" line="285"/>
         <source>Everything</source>
-        <translation type="unfinished"></translation>
+        <translation>Alles</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="267"/>
         <location filename="webaccessconfiguration.cpp" line="292"/>
         <source>Change</source>
-        <translation type="unfinished"></translation>
+        <translation>Wijzigen</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="269"/>
         <location filename="webaccessconfiguration.cpp" line="293"/>
         <source>Delete user</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruiker verwijderen</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="275"/>
         <source>New username...</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuwe gebruikersnaam...</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="276"/>
         <location filename="webaccessconfiguration.cpp" line="295"/>
         <source>New password...</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuw wachtwoord...</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="294"/>
         <source>Username and password are required fields.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruikersnaam en wachtwoord zijn verplichte velden.</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="297"/>
         <source>Add user</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruiker toevoegen</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="302"/>
         <source>Note: if there isn&apos;t at least one user with access level &quot;Everything&quot; on the list authorization will be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Let op: als er niet minstens één gebruiker met toegangsniveau &quot;Alles&quot; in de lijst staat, wordt autorisatie uitgeschakeld.</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="335"/>
@@ -421,7 +421,7 @@
     <message>
         <location filename="webaccessconfiguration.cpp" line="376"/>
         <source>Authorized users</source>
-        <translation type="unfinished"></translation>
+        <translation>Geautoriseerde gebruikers</translation>
     </message>
 </context>
 <context>
@@ -429,7 +429,7 @@
     <message>
         <location filename="webaccessnetwork.cpp" line="116"/>
         <source>Wi-Fi Hotspot</source>
-        <translation type="unfinished"></translation>
+        <translation>Wi-Fi-hotspot</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="120"/>
@@ -451,12 +451,12 @@
     <message>
         <location filename="webaccessnetwork.cpp" line="127"/>
         <source>Disable</source>
-        <translation type="unfinished"></translation>
+        <translation>Uitschakelen</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="132"/>
         <source>Network interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Netwerkinterface</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="146"/>

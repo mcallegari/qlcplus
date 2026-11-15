@@ -7,10 +7,11 @@ set(TS_FILES
     SPI_fr_FR.ts
     SPI_it_IT.ts
     SPI_nl_NL.ts
-    SPI_cz_CZ.ts
+    SPI_cs_CZ.ts
     SPI_pt_BR.ts
     SPI_ca_ES.ts
     SPI_ja_JP.ts
+    SPI_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)

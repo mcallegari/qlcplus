@@ -115,12 +115,12 @@ Rectangle
                     {
                         Layout.fillWidth: true
                         height: gridItemsHeight
-                        // AudioCapture accepts 1 to FREQ_SUBBANDS_MAX_NUMBER bands
-                        from: 1
+                        // AudioCapture accepts 0 (volume only) to FREQ_SUBBANDS_MAX_NUMBER bands
+                        from: 0
                         to: 32
                         // fallback must be >= from, or CustomSpinBox's
                         // onFromChanged overwrites (and breaks) this binding
-                        value: widgetRef ? widgetRef.barsNumber - 1 : 1
+                        value: widgetRef ? widgetRef.barsNumber - 1 : 0
                         onValueModified: if (widgetRef) widgetRef.barsNumber = value + 1
                     }
 

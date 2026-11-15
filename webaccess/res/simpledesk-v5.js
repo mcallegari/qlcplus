@@ -166,7 +166,7 @@ function applyChannelType(chNum, type) {
 }
 
 function connect() {
-  var url = "ws://" + window.location.host + "/qlcplusWS";
+  var url = (window.location.protocol === "https:" ? "wss://" : "ws://") + window.location.host + "/qlcplusWS";
   websocket = new WebSocket(url);
   setStatus(false);
 

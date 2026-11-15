@@ -191,6 +191,7 @@ Rectangle
                 {
                     width: vcToolbar.height
                     height: width
+                    visible: qlcplus.accessMask & App.AC_VCEditing
                     imgSource: "qrc:/grid.svg"
                     tooltip: qsTr("Enable/Disable widgets snapping")
                     checkable: true

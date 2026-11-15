@@ -7,7 +7,7 @@ set(TS_FILES
     Dummy_fr_FR.ts
     Dummy_it_IT.ts
     Dummy_nl_NL.ts
-    Dummy_cz_CZ.ts
+    Dummy_cs_CZ.ts
     Dummy_pt_BR.ts
     Dummy_ca_ES.ts
     Dummy_ja_JP.ts

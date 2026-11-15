@@ -51,7 +51,7 @@
     <message>
         <location filename="configuree131.ui" line="101"/>
         <source>Seconds to wait for an interface to be ready</source>
-        <translation type="unfinished"></translation>
+        <translation>Délai d&apos;attente (en secondes) avant que l&apos;interface soit prête</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="61"/>

@@ -7,10 +7,11 @@ set(TS_FILES
     DMX4Linux_fr_FR.ts
     DMX4Linux_it_IT.ts
     DMX4Linux_nl_NL.ts
-    DMX4Linux_cz_CZ.ts
+    DMX4Linux_cs_CZ.ts
     DMX4Linux_pt_BR.ts
     DMX4Linux_ca_ES.ts
     DMX4Linux_ja_JP.ts
+    DMX4Linux_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)

@@ -10,7 +10,7 @@ jobs:
     strategy:
       #fail-fast: false
       matrix:
-        task: [build-v4, build-v5, coverage-build-v4]
+        task: [build-v4, build-v5, coverage-build-v5]
     env:
       CI_REPO_SLUG: ${{ github.repository }}
       CI_BRANCH: ${{ github.head_ref }}
@@ -156,9 +156,9 @@ jobs:
           cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dqmlui=ON -Dappimage=ON -DINSTALL_ROOT=${INSTALL_ROOT} -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
       - name: Configure for coverage build
-        if: ${{ matrix.task == 'coverage-build-v4' }}
+        if: ${{ matrix.task == 'coverage-build-v5' }}
         run: |
-          cmake -DCMAKE_PREFIX_PATH="/opt/Qt/$QT_VERSION/gcc_64/lib/cmake" -Dcoverage=ON -DINSTALL_ROOT=${INSTALL_ROOT} -B build
+          cmake -DCMAKE_PREFIX_PATH="/opt/Qt/$QT_VERSION/gcc_64/lib/cmake" -Dqmlui=ON -Dcoverage=ON -DINSTALL_ROOT=${INSTALL_ROOT} -B build
 
       - name: Build
         run: |

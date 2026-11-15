@@ -132,6 +132,36 @@ done
 fi
 
 #############################################################################
+# QML UI tests (they run on the offscreen platform, no display needed)
+#############################################################################
+
+if [ "$TARGET" == "qmlui" ]; then
+
+TESTDIR=qmlui/test
+TESTS=$(find ${TESTDIR} -maxdepth 1 -mindepth 1 -type d)
+for test in ${TESTS}
+do
+    # Run only the directories with a test script
+    # (this skips common, CMakeFiles and the autogen folders)
+    if [ ! -x ${test}/test.sh ]; then
+        continue
+    fi
+
+    $SLEEPCMD
+    # Execute the test
+    pushd ${test}
+    eval $TESTPREFIX ./test.sh
+    RESULT=${?}
+    popd
+    if [ ${RESULT} != 0 ]; then
+        echo "${RESULT} QML UI unit tests failed. Please fix before commit."
+        exit ${RESULT}
+    fi
+done
+
+fi
+
+#############################################################################
 # Enttec wing tests
 #############################################################################
 

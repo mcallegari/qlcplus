@@ -1102,7 +1102,7 @@ bool VCAnimation::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCVCAnimationPreset)
         {
             VCAnimationPreset *control = new VCAnimationPreset(0xff);
-            if (control->loadXML(root))
+            if (control->loadXML(root, this))
                 addControlInternal(control);
             else
                 delete control;
@@ -1151,7 +1151,7 @@ bool VCAnimation::saveXML(QXmlStreamWriter *doc) const
 
     /* Custom controls / presets */
     for (const VCAnimationPreset *control : controls())
-        control->saveXML(doc);
+        control->saveXML(doc, this);
 
     /* Write the <end> tag */
     doc->writeEndElement();

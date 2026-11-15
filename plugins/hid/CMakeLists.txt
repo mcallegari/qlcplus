@@ -7,10 +7,11 @@ set(TS_FILES
     HID_fr_FR.ts
     HID_it_IT.ts
     HID_nl_NL.ts
-    HID_cz_CZ.ts
+    HID_cs_CZ.ts
     HID_pt_BR.ts
     HID_ca_ES.ts
     HID_ja_JP.ts
+    HID_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)

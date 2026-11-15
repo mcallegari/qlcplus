@@ -275,6 +275,7 @@ void SimpleDesk::resetUniverse(int universe)
 {
     // remove values previously set on universe
     QMutexLocker locker(&m_mutex);
+    QVariantList oldValues;
     QHashIterator <uint,uchar> it(m_values);
     while (it.hasNext() == true)
     {
@@ -283,6 +284,7 @@ void SimpleDesk::resetUniverse(int universe)
         int uni = absChannel >> 9;
         if (uni == universe)
         {
+            oldValues.append(QVariant::fromValue(SceneValue(Fixture::invalidId(), absChannel, it.value())));
             m_values.remove(absChannel);
 
             // remove the override flag from the displayed channel
@@ -295,6 +297,9 @@ void SimpleDesk::resetUniverse(int universe)
 
     // add command to queue. Will be taken care of at the next writeDMX call
     m_commandQueue.append(QPair<int,quint32>(ResetUniverse, universe));
+
+    Tardis::instance()->enqueueAction(Tardis::SimpleDeskResetUniverse, 0, oldValues, universe);
+
     setChanged(true);
 }
 

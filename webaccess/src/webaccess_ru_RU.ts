@@ -1,185 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="cs_CZ">
+<TS version="2.1" language="ru_RU">
 <context>
     <name>QObject</name>
     <message>
         <location filename="webaccessauth.cpp" line="201"/>
         <source>Unauthorized</source>
-        <translation type="unfinished"></translation>
+        <translation>Неавторизованный</translation>
     </message>
     <message>
         <location filename="webaccessauth.cpp" line="204"/>
         <source>401 Unauthorized</source>
-        <translation type="unfinished"></translation>
+        <translation>401 Неавторизованный</translation>
     </message>
     <message>
         <location filename="webaccessauth.cpp" line="205"/>
         <source>Access to this resource requires proper authorization and you have failed to authenticate.</source>
-        <translation type="unfinished"></translation>
+        <translation>Для доступа к этому ресурсу требуется авторизация, а вы не прошли аутентификацию.</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="362"/>
         <source>Simple Desk</source>
-        <translation type="unfinished">Jednoduchý pult</translation>
+        <translation>Простой пульт</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="367"/>
         <source>Universe</source>
-        <translation type="unfinished">Větev</translation>
+        <translation>Вселенная DMX</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="381"/>
         <location filename="webaccess-qml.cpp" line="382"/>
         <source>Reset the selected universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Сбросить выбранную Вселенную</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="385"/>
         <source>Faders</source>
-        <translation type="unfinished"></translation>
+        <translation>Фейдеры</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="396"/>
         <source>Page</source>
-        <translation type="unfinished">Strana</translation>
+        <translation>Страница</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="404"/>
         <source>Back</source>
-        <translation type="unfinished">Zpět</translation>
+        <translation>Назад</translation>
     </message>
 </context>
 <context>
     <name>WebAccess</name>
     <message>
-        <location filename="webaccess.cpp" line="649"/>
+        <location filename="webaccess.cpp" line="656"/>
         <source>Widget not supported (yet) for web access</source>
-        <translation>Ovládací prvek (zatím) není podporován pro vzdálený přístup</translation>
-    </message>
-    <message>
-        <location filename="webaccess.cpp" line="722"/>
-        <location filename="webaccess.cpp" line="832"/>
-        <source>Page: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Виджет не поддерживает (пока) доступ через веб</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="729"/>
         <location filename="webaccess.cpp" line="839"/>
+        <source>Page: %1</source>
+        <translation>Страница: %1</translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="736"/>
+        <location filename="webaccess.cpp" line="846"/>
         <source>Expand/Collapse</source>
-        <translation type="unfinished"></translation>
+        <translation>Размернуть/Свернуть</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="743"/>
+        <location filename="webaccess.cpp" line="750"/>
         <source>Enable/Disable frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Активировать/Деактивировать виджет</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="758"/>
-        <location filename="webaccess.cpp" line="868"/>
+        <location filename="webaccess.cpp" line="765"/>
+        <location filename="webaccess.cpp" line="875"/>
         <source>Back</source>
-        <translation type="unfinished">Zpět</translation>
+        <translation>Назад</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="766"/>
-        <location filename="webaccess.cpp" line="876"/>
+        <location filename="webaccess.cpp" line="773"/>
+        <location filename="webaccess.cpp" line="883"/>
         <source>Forward</source>
-        <translation type="unfinished"></translation>
+        <translation>Вперёд</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="853"/>
+        <location filename="webaccess.cpp" line="860"/>
         <source>Enable/Disable Solo frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Активировать/Деактивировать Соло-рамку</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1115"/>
+        <location filename="webaccess.cpp" line="1122"/>
         <source>Enable</source>
-        <translation>Zapnout</translation>
+        <translation>Активировать</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1318"/>
+        <location filename="webaccess.cpp" line="1333"/>
         <source>Name</source>
-        <translation>Název</translation>
+        <translation>Название</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1319"/>
+        <location filename="webaccess.cpp" line="1334"/>
         <source>Fade In</source>
-        <translation>Zesílení</translation>
+        <translation>Появление</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1320"/>
+        <location filename="webaccess.cpp" line="1335"/>
         <source>Fade Out</source>
-        <translation>Zeslabení</translation>
+        <translation>Исчезание</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1321"/>
+        <location filename="webaccess.cpp" line="1336"/>
         <source>Duration</source>
-        <translation>Trvání</translation>
+        <translation>Длительность</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1322"/>
+        <location filename="webaccess.cpp" line="1337"/>
         <source>Notes</source>
-        <translation>Poznámky</translation>
+        <translation>Примечания</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1438"/>
+        <location filename="webaccess.cpp" line="1453"/>
         <source>Slider</source>
-        <translation type="unfinished"></translation>
+        <translation>Фейдер</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1472"/>
+        <location filename="webaccess.cpp" line="1487"/>
         <source>Play Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Воспроизвести плейлист</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1476"/>
+        <location filename="webaccess.cpp" line="1491"/>
         <source>Stop Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Остановить плейлист</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1480"/>
+        <location filename="webaccess.cpp" line="1495"/>
         <source>Go to the previous step in the list</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейти к предыдущему шагу в списке</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1484"/>
+        <location filename="webaccess.cpp" line="1499"/>
         <source>Go to the next step in the list</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейти к следующему шагу в списке</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1706"/>
+        <location filename="webaccess.cpp" line="1721"/>
         <source>Color 2 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Сбросить цвет 2</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1715"/>
+        <location filename="webaccess.cpp" line="1730"/>
         <source>Color 3 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Сбросить цвет 3</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1724"/>
+        <location filename="webaccess.cpp" line="1739"/>
         <source>Color 4 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Сбросить цвет 4</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1733"/>
+        <location filename="webaccess.cpp" line="1748"/>
         <source>Color 5 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Сбросить цвет 5</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1974"/>
+        <location filename="webaccess.cpp" line="1989"/>
         <source>Load project</source>
-        <translation>Načíst projekt</translation>
+        <translation>Открыть проект</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1976"/>
+        <location filename="webaccess.cpp" line="1991"/>
         <source>Simple Desk</source>
-        <translation>Jednoduchý pult</translation>
+        <translation>Простой пульт</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1978"/>
+        <location filename="webaccess.cpp" line="1993"/>
         <source>Configuration</source>
-        <translation>Konfigurace</translation>
+        <translation>Настройки</translation>
     </message>
 </context>
 <context>
@@ -187,78 +187,78 @@
     <message>
         <location filename="webaccessbase.cpp" line="323"/>
         <source>Loading project...</source>
-        <translation type="unfinished">Načítání projektu...</translation>
+        <translation>Загрузка проекта...</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="411"/>
         <source>Invalid fixture upload payload</source>
-        <translation type="unfinished"></translation>
+        <translation>Некорректные световые приборы для загрузки</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="427"/>
         <source>Unable to store fixture definition</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось сохранить файл с настройками прибора</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="441"/>
         <source>Fixture stored and loaded</source>
-        <translation type="unfinished">Zařízení uložena a načtena</translation>
+        <translation>Настройки светового прибора сохранены и загружены</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="667"/>
         <source>Username and password are required fields.</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя пользователя и пароль — обязательные поля.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="674"/>
         <location filename="webaccessbase.cpp" line="707"/>
         <source>User level has to be a positive integer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Уровень пользователя должен быть положительным целым числом.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="700"/>
         <source>Username is required.</source>
-        <translation type="unfinished"></translation>
+        <translation>Необходимо указать имя пользователя.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="722"/>
         <source>Error while saving passwords file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка при сохранении файла паролей.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="745"/>
         <source>Invalid network configuration request.</source>
-        <translation type="unfinished"></translation>
+        <translation>Некорректный запрос на настройку сети.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="751"/>
         <source>Network configuration changed. Reboot to apply the changes.</source>
-        <translation type="unfinished">Konfigurace sítě byla změněna. Restartuje pro aplikování změn.</translation>
+        <translation>Конфигурация сети изменена. Перезагрузитесь, чтобы применить изменения.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="753"/>
         <source>An error occurred while updating the network configuration.</source>
-        <translation type="unfinished"></translation>
+        <translation>При обновлении конфигурации сети произошла ошибка.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="770"/>
         <source>Wi-Fi hotspot successfully activated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Точка доступа Wi-Fi успешно активирована.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="772"/>
         <source>An error occurred while creating a Wi-Fi hotspot.</source>
-        <translation type="unfinished"></translation>
+        <translation>При создании точки доступа Wi-Fi произошла ошибка.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="777"/>
         <source>Wi-Fi hotspot successfully deactivated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Точка доступа Wi-Fi успешно отключена.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="794"/>
         <source>Autostart configuration changed</source>
-        <translation type="unfinished">Postartovní konfigurace změněna</translation>
+        <translation>Конфигурация автозапуска изменена</translation>
     </message>
 </context>
 <context>
@@ -266,162 +266,162 @@
     <message>
         <location filename="webaccessconfiguration.cpp" line="71"/>
         <source>Universe</source>
-        <translation type="unfinished">Větev</translation>
+        <translation>Вселенная DMX</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="71"/>
         <location filename="webaccessconfiguration.cpp" line="159"/>
         <source>Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Вход</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="71"/>
         <location filename="webaccessconfiguration.cpp" line="159"/>
         <source>Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Выход</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="71"/>
         <source>Feedback</source>
-        <translation type="unfinished"></translation>
+        <translation>Обратная связь</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="71"/>
         <source>Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Профиль</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="71"/>
         <location filename="webaccessconfiguration.cpp" line="144"/>
         <source>Passthrough</source>
-        <translation>Průchozí</translation>
+        <translation>Сквозная передача</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="163"/>
         <location filename="webaccessconfiguration.cpp" line="165"/>
         <source>Default device</source>
-        <translation type="unfinished"></translation>
+        <translation>Устройство по умолчанию</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="204"/>
         <source>File name</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя файла</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="217"/>
         <source>Load fixture</source>
-        <translation>Načíst zařízení</translation>
+        <translation>Загрузить световой прибор</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="228"/>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя пользователя</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="229"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Пароль</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="230"/>
         <source>Access level</source>
-        <translation type="unfinished"></translation>
+        <translation>Уровень доступа</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="231"/>
         <source>Action</source>
-        <translation type="unfinished"></translation>
+        <translation>Действие</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="244"/>
         <source>Leave blank to not change</source>
-        <translation type="unfinished"></translation>
+        <translation>Оставьте пустым, чтобы не менять</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="251"/>
         <location filename="webaccessconfiguration.cpp" line="281"/>
         <source>Only Virtual Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Только Виртуальная консоль</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="256"/>
         <location filename="webaccessconfiguration.cpp" line="283"/>
         <source>Virtual Console and Simple Desk</source>
-        <translation type="unfinished"></translation>
+        <translation>Виртуальная консоль и Простой пульт</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="261"/>
         <location filename="webaccessconfiguration.cpp" line="285"/>
         <source>Everything</source>
-        <translation type="unfinished"></translation>
+        <translation>Всё</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="267"/>
         <location filename="webaccessconfiguration.cpp" line="292"/>
         <source>Change</source>
-        <translation type="unfinished"></translation>
+        <translation>Изменить</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="269"/>
         <location filename="webaccessconfiguration.cpp" line="293"/>
         <source>Delete user</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить пользователя</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="275"/>
         <source>New username...</source>
-        <translation type="unfinished"></translation>
+        <translation>Новый пользователь...</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="276"/>
         <location filename="webaccessconfiguration.cpp" line="295"/>
         <source>New password...</source>
-        <translation type="unfinished"></translation>
+        <translation>Новый пароль...</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="294"/>
         <source>Username and password are required fields.</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя пользователя и пароль — обязательные поля.</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="297"/>
         <source>Add user</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить пользователя</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="302"/>
         <source>Note: if there isn&apos;t at least one user with access level &quot;Everything&quot; on the list authorization will be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Примечание: если в списке нет хотя бы одного пользователя с уровнем доступа «Всё» (Everything), авторизация будет отключена.</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="335"/>
         <source>System</source>
-        <translation>Systém</translation>
+        <translation>Система</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="344"/>
         <source>Back</source>
-        <translation>Zpět</translation>
+        <translation>Назад</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="352"/>
         <source>Universes configuration</source>
-        <translation>Konfigurace větví</translation>
+        <translation>Настройки Вселенной DMX</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="359"/>
         <source>Audio configuration</source>
-        <translation>Konfigurace zvuku</translation>
+        <translation>Настройки аудио</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="367"/>
         <source>User loaded fixtures</source>
-        <translation>Uživatelem načtená zařízení</translation>
+        <translation>Пользователь загрузил параметры световых приборов</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="376"/>
         <source>Authorized users</source>
-        <translation type="unfinished"></translation>
+        <translation>Авторизованные пользователи</translation>
     </message>
 </context>
 <context>
@@ -429,100 +429,100 @@
     <message>
         <location filename="webaccessnetwork.cpp" line="116"/>
         <source>Wi-Fi Hotspot</source>
-        <translation type="unfinished"></translation>
+        <translation>Точка доступа Wi-Fi</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="120"/>
         <location filename="webaccessnetwork.cpp" line="138"/>
         <source>Access point name (SSID): </source>
-        <translation>Název bezdrátového přístupového bodu (SSID):</translation>
+        <translation>Название точки доступа (SSID): </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="122"/>
         <location filename="webaccessnetwork.cpp" line="140"/>
         <source>WPA-PSK Password: </source>
-        <translation>WPA-PSK Heslo:</translation>
+        <translation>Пароль WPA-PSK: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="126"/>
         <source>Enable</source>
-        <translation type="unfinished">Zapnout</translation>
+        <translation>Активировать</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="127"/>
         <source>Disable</source>
-        <translation type="unfinished"></translation>
+        <translation>Деактивировать</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="132"/>
         <source>Network interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Сетевой интерфейс</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="146"/>
         <source>Dynamic (DHCP)</source>
-        <translation>Dynamická (DHCP)</translation>
+        <translation>Динамический (DHCP)</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="148"/>
         <source>Static</source>
-        <translation>Statická</translation>
+        <translation>Статический</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="153"/>
         <source>IP Address: </source>
-        <translation>IP Adresa:</translation>
+        <translation>IP-адрес: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="155"/>
         <source>Netmask: </source>
-        <translation>Maska podsítě:</translation>
+        <translation>Маска сети: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="157"/>
         <source>Gateway: </source>
-        <translation>Výchozí brána:</translation>
+        <translation>Шлюз: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="160"/>
         <location filename="webaccessnetwork.cpp" line="345"/>
         <source>Apply changes</source>
-        <translation>Použít změny</translation>
+        <translation>Применить изменения</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="328"/>
         <source>Back</source>
-        <translation>Zpět</translation>
+        <translation>Назад</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="334"/>
         <source>Network configuration</source>
-        <translation>Konfigurace sítě</translation>
+        <translation>Настройки сети</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="339"/>
         <source>Project autostart</source>
-        <translation>Automatický start projektu</translation>
+        <translation>Автозапуск проекта</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="343"/>
         <source>No project</source>
-        <translation>Žádný zvolený projekt</translation>
+        <translation>Нет проекта</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="344"/>
         <source>Use current project</source>
-        <translation>Použít aktuální projekt</translation>
+        <translation>Использовать текущий проект</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="349"/>
         <source>Reboot</source>
-        <translation>Restartovat</translation>
+        <translation>Перезагрузить</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="350"/>
         <source>Shutdown</source>
-        <translation>Vypnout</translation>
+        <translation>Выключить</translation>
     </message>
 </context>
 <context>
@@ -530,32 +530,32 @@
     <message>
         <location filename="webaccesssimpledesk.cpp" line="53"/>
         <source>Back</source>
-        <translation>Zpět</translation>
+        <translation>Назад</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="59"/>
         <source>Page</source>
-        <translation>Strana</translation>
+        <translation>Страница</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="60"/>
         <source>Previous page</source>
-        <translation>Předchozí strana</translation>
+        <translation>Предыдущая страница</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="68"/>
         <source>Next page</source>
-        <translation>Následující strana</translation>
+        <translation>Следующая страница</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="71"/>
         <source>Reset universe</source>
-        <translation>Resetovat větve</translation>
+        <translation>Сбросить Вселенную DMX</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="73"/>
         <source>Universe</source>
-        <translation>Větev</translation>
+        <translation>Вселенная DMX</translation>
     </message>
 </context>
 </TS>

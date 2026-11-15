@@ -9,10 +9,11 @@ set(TS_FILES
     webaccess_es_ES.ts
     webaccess_it_IT.ts
     webaccess_nl_NL.ts
-    webaccess_cz_CZ.ts
+    webaccess_cs_CZ.ts
     webaccess_pt_BR.ts
     webaccess_ca_ES.ts
     webaccess_ja_JP.ts
+    webaccess_ru_RU.ts
 )
 
 if(QT_VERSION_MAJOR GREATER 5)

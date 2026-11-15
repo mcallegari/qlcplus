@@ -128,7 +128,7 @@ public:
     virtual bool supportsPresets() const;
 
     /** Remap this widget's channels using the provided $remapMap */
-    virtual void remapChannels(const QMap<SceneValue, SceneValue> &remapMap);
+    virtual void remapChannels(const QMultiMap<SceneValue, SceneValue> &remapMap);
 
     /** Return a QML resource for preset properties */
     virtual QString presetsResource() const;
@@ -636,6 +636,25 @@ public:
     virtual bool loadXML(QXmlStreamReader &root);
     virtual bool saveXML(QXmlStreamWriter *doc) const;
 
+    /** Load an input source from $root with the given $id */
+    bool loadXMLInputSource(QXmlStreamReader &root, const quint8& id = 0);
+
+    /** Load an input key sequence from $root with the given $id */
+    bool loadXMLInputKey(QXmlStreamReader &root, const quint8& id = 0);
+
+    /** Save all the input sources and key combination with the given
+     *  $controlId in a tag with the given $tagName
+     *  When $unified is set to true, an input control will look like this
+     *
+     *  <Input ID="1" Universe="0" Channel="68" Key="G"/>
+     *
+     *  When false, it will look like this
+     *
+     *  <Input ID="1" Universe="0" Channel="68"/>
+     *  <Key>G</Key>
+     */
+    bool saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, bool unified = true, QString tagName = QString()) const;
+
 protected:
     bool loadXMLCommon(QXmlStreamReader &root);
 
@@ -660,12 +679,6 @@ protected:
     bool loadXMLWindowState(QXmlStreamReader &root, int* x, int* y,
                             int* w, int* h, bool* visible);
 
-    /** Load an input source from $root with the given $id */
-    bool loadXMLInputSource(QXmlStreamReader &root, const quint8& id = 0);
-
-    /** Load an input key sequence from $root with the given $id */
-    bool loadXMLInputKey(QXmlStreamReader &root, const quint8& id = 0);
-
     /** Parse the $root XML section and:
      *  - set an input source with the given $id
      *  - if present, set an input key sequence with the given $id
@@ -680,19 +693,6 @@ protected:
 
     /** Write this widget's geometry and visibility to an XML document */
     bool saveXMLWindowState(QXmlStreamWriter *doc) const;
-
-    /** Save all the input sources and key combination with the given
-     *  $controlId in a tag with the given $tagName
-     *  When $unified is set to true, an input control will look like this
-     *
-     *  <Input ID="1" Universe="0" Channel="68" Key="G"/>
-     *
-     *  When false, it will look like this
-     *
-     *  <Input ID="1" Universe="0" Channel="68"/>
-     *  <Key>G</Key>
-     */
-    bool saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, bool unified = true, QString tagName = QString()) const;
 };
 
 #endif

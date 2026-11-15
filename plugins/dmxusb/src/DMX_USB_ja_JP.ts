@@ -4,39 +4,39 @@
 <context>
     <name>DMXUSB</name>
     <message>
-        <location filename="dmxusb.cpp" line="152"/>
+        <location filename="dmxusb.cpp" line="156"/>
         <source>This plugin provides DMX output support for</source>
         <translation type="unfinished">このプラグインは、DMX-USB変換機器(例: </translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="156"/>
+        <location filename="dmxusb.cpp" line="160"/>
         <source>and compatible devices.</source>
         <translation type="unfinished">) と QLC+ の間でDMX信号を送受信します。</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="170"/>
+        <location filename="dmxusb.cpp" line="174"/>
         <source>No output support available.</source>
         <translation type="unfinished">出力対応機器: 未接続</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="172"/>
+        <location filename="dmxusb.cpp" line="176"/>
         <source>Make sure that you have your hardware firmly plugged in. NOTE: FTDI VCP interface is not supported by this plugin.</source>
         <translation type="unfinished">デバイスが正しく接続されているか確認してください。(FTDI VCP インターフェースはこのプラグインではサポートしていません)</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="181"/>
-        <location filename="dmxusb.cpp" line="280"/>
+        <location filename="dmxusb.cpp" line="185"/>
+        <location filename="dmxusb.cpp" line="284"/>
         <source>Device is operating correctly.</source>
         <translation type="unfinished">デバイスは正常に動作しています</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="183"/>
-        <location filename="dmxusb.cpp" line="282"/>
+        <location filename="dmxusb.cpp" line="187"/>
+        <location filename="dmxusb.cpp" line="286"/>
         <source>Driver in use: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="267"/>
+        <location filename="dmxusb.cpp" line="271"/>
         <source>No input support available.</source>
         <translation type="unfinished">入力対応機器: 未接続</translation>
     </message>
@@ -178,18 +178,18 @@
 <context>
     <name>EnttecDMXUSBPro</name>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="314"/>
-        <location filename="enttecdmxusbpro.cpp" line="316"/>
+        <location filename="enttecdmxusbpro.cpp" line="310"/>
+        <location filename="enttecdmxusbpro.cpp" line="312"/>
         <source>Protocol</source>
         <translation type="unfinished">Protocol</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="319"/>
+        <location filename="enttecdmxusbpro.cpp" line="315"/>
         <source>Manufacturer</source>
         <translation type="unfinished">メーカー名</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="321"/>
+        <location filename="enttecdmxusbpro.cpp" line="317"/>
         <source>Serial number</source>
         <translation type="unfinished">シリアルナンバー</translation>
     </message>
@@ -233,22 +233,22 @@
         <translation type="unfinished">シリアルナンバー</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="579"/>
+        <location filename="enttecdmxusbpro.cpp" line="575"/>
         <source>MIDI Input</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="581"/>
+        <location filename="enttecdmxusbpro.cpp" line="577"/>
         <source>DMX Input</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="586"/>
+        <location filename="enttecdmxusbpro.cpp" line="582"/>
         <source>MIDI Output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="588"/>
+        <location filename="enttecdmxusbpro.cpp" line="584"/>
         <source>DMX Output</source>
         <translation type="unfinished"></translation>
     </message>

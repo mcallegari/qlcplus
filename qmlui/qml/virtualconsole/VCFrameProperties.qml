@@ -175,7 +175,8 @@ Rectangle
                     {
                         Layout.fillWidth: true
                         height: gridItemsHeight
-                        from: 1
+                        // pages with widgets can't be removed
+                        from: widgetRef ? widgetRef.usedPagesNumber : 1
                         to: 100
                         value: widgetRef ? widgetRef.totalPagesNumber : 1
                         onValueChanged: if (widgetRef) widgetRef.totalPagesNumber = value

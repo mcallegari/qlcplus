@@ -787,6 +787,7 @@ before closing?</source>
     <message>
         <location filename="fixtureeditor.cpp" line="236"/>
         <location filename="fixtureeditor.cpp" line="246"/>
+        <location filename="fixtureeditor.cpp" line="265"/>
         <source>Missing important information</source>
         <translation>Belangrijke informatie ontbreekt</translation>
     </message>
@@ -803,146 +804,152 @@ Unable to save fixture.</source>
         <translation>Naam van het model ontbreekt. Opslaan van deze fixture is niet mogelijk.</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="277"/>
-        <location filename="fixtureeditor.cpp" line="336"/>
+        <location filename="fixtureeditor.cpp" line="285"/>
+        <location filename="fixtureeditor.cpp" line="344"/>
         <source>Fixture saving failed</source>
         <translation>Opslaan fixture mislukt</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="278"/>
-        <location filename="fixtureeditor.cpp" line="337"/>
+        <location filename="fixtureeditor.cpp" line="286"/>
+        <location filename="fixtureeditor.cpp" line="345"/>
         <source>Unable to save fixture definition:
 %1</source>
         <translation>Fixturedefinitie %1 kan niet opgeslagen worden</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="293"/>
+        <location filename="fixtureeditor.cpp" line="301"/>
         <source>Save fixture definition</source>
         <translation>Sla fixture definite op</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="370"/>
+        <location filename="fixtureeditor.cpp" line="378"/>
         <source>New Fixture</source>
         <translation>Nieuwe Fixture</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="447"/>
-        <location filename="fixtureeditor.cpp" line="545"/>
+        <location filename="fixtureeditor.cpp" line="455"/>
+        <location filename="fixtureeditor.cpp" line="553"/>
         <source>Channel already exists</source>
         <translation>Kanaal bestaat al</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="448"/>
-        <location filename="fixtureeditor.cpp" line="546"/>
+        <location filename="fixtureeditor.cpp" line="456"/>
+        <location filename="fixtureeditor.cpp" line="554"/>
         <source>A channel by the name &quot;%1&quot; already exists!</source>
         <translation>Een kanaal met de naam &quot;%1&quot; bestaat al!</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="455"/>
-        <location filename="fixtureeditor.cpp" line="552"/>
+        <location filename="fixtureeditor.cpp" line="463"/>
+        <location filename="fixtureeditor.cpp" line="560"/>
         <source>Channel has no name</source>
         <translation>Naam van het kanaal ontbreekt</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="456"/>
-        <location filename="fixtureeditor.cpp" line="553"/>
+        <location filename="fixtureeditor.cpp" line="464"/>
+        <location filename="fixtureeditor.cpp" line="561"/>
         <source>You must give the channel a descriptive name!</source>
         <translation>Je moet het kanaal een naam geven!</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="493"/>
+        <location filename="fixtureeditor.cpp" line="501"/>
         <source>Are you sure you wish to remove channel: %1?</source>
         <translation>Kanaal verwijderen: %1?</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="824"/>
+        <location filename="fixtureeditor.cpp" line="832"/>
         <source>Are you sure you wish to remove mode: %1?</source>
         <translation>Verwijder mode %1?</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="665"/>
-        <location filename="fixtureeditor.cpp" line="700"/>
-        <location filename="fixtureeditor.cpp" line="937"/>
+        <location filename="fixtureeditor.cpp" line="673"/>
+        <location filename="fixtureeditor.cpp" line="708"/>
+        <location filename="fixtureeditor.cpp" line="945"/>
         <source>Edit</source>
         <translation>Wijzig</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="666"/>
-        <location filename="fixtureeditor.cpp" line="702"/>
+        <location filename="fixtureeditor.cpp" line="266"/>
+        <source>Invalid definition: no modes provided.
+Without modes, this fixture will not appear in the list!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixtureeditor.cpp" line="674"/>
+        <location filename="fixtureeditor.cpp" line="710"/>
         <source>Copy</source>
         <translation>Kopiëren</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="667"/>
-        <location filename="fixtureeditor.cpp" line="704"/>
+        <location filename="fixtureeditor.cpp" line="675"/>
+        <location filename="fixtureeditor.cpp" line="712"/>
         <source>Paste</source>
         <translation>Plakken</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="668"/>
-        <location filename="fixtureeditor.cpp" line="706"/>
-        <location filename="fixtureeditor.cpp" line="943"/>
+        <location filename="fixtureeditor.cpp" line="676"/>
+        <location filename="fixtureeditor.cpp" line="714"/>
+        <location filename="fixtureeditor.cpp" line="951"/>
         <source>Remove</source>
         <translation>Verwijderen</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="679"/>
+        <location filename="fixtureeditor.cpp" line="687"/>
         <source>Channels</source>
         <translation>Kanalen</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="777"/>
-        <location filename="fixtureeditor.cpp" line="786"/>
+        <location filename="fixtureeditor.cpp" line="785"/>
+        <location filename="fixtureeditor.cpp" line="794"/>
         <source>Unable to add mode</source>
         <translation>Toevoegen mode niet mogelijk</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="778"/>
+        <location filename="fixtureeditor.cpp" line="786"/>
         <source>Another mode by that name already exists</source>
         <translation>Een mode met deze naam bestaat al</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="787"/>
+        <location filename="fixtureeditor.cpp" line="795"/>
         <source>You must give a name to the mode</source>
         <translation>De mode moet een naam hebben</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="823"/>
+        <location filename="fixtureeditor.cpp" line="831"/>
         <source>Remove Mode</source>
         <translation>Verwijder mode</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="883"/>
+        <location filename="fixtureeditor.cpp" line="891"/>
         <source>Rename new mode</source>
         <translation>Hernoem nieuwe mode</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="884"/>
+        <location filename="fixtureeditor.cpp" line="892"/>
         <source>Give a unique name for the mode</source>
         <translation>Geef de mode een unieke naam</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="886"/>
+        <location filename="fixtureeditor.cpp" line="894"/>
         <source>Copy of %1</source>
         <translation>Kopie van %1</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="896"/>
+        <location filename="fixtureeditor.cpp" line="904"/>
         <source>Invalid name</source>
         <translation>Ongeldige naam</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="897"/>
+        <location filename="fixtureeditor.cpp" line="905"/>
         <source>Another mode by that name already exists.</source>
         <translation>Een mode met dezelfde naam bestaat al.</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="940"/>
+        <location filename="fixtureeditor.cpp" line="948"/>
         <source>Clone</source>
         <translation>Klonen</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="948"/>
+        <location filename="fixtureeditor.cpp" line="956"/>
         <source>Modes</source>
         <translation>Modes</translation>
     </message>

@@ -175,9 +175,13 @@ public:
     /** Remove $widget from the global VC widgets map */
     void removeWidgetFromMap(VCWidget* widget);
 
-    /** Return a reference to the VC widget with the specified $id.
+    /** Return a reference to the VC widget or page with the specified $id.
      *  On invalid $id, NULL is returned */
     VCWidget *widget(quint32 id) const;
+
+    /** Create a new page ID. Pages are not in the widgets map and
+     *  their IDs are never used by a widget */
+    quint32 newPageId() const;
 
     Q_INVOKABLE void setWidgetSelection(quint32 wID, QQuickItem *item, bool enable, bool multi);
 
@@ -229,6 +233,9 @@ protected:
     /** Create a new widget ID */
     quint32 newWidgetId();
 
+    /** Return the page with the specified $id, or NULL if there is none */
+    VCPage *pageById(quint32 id) const;
+
 protected:
     /** A map of all the VC widgets references with their IDs */
     QHash <quint32, VCWidget *> m_widgetsMap;
@@ -251,11 +258,10 @@ public:
     /** Return true if the clipboard content comes from a cut operation */
     bool clipboardIsCut() const;
 
-    /** If the clipboard holds a cut, delete the source widgets and
-     *  reset the clipboard. To be called once the widgets have been pasted.
-     *  $targetFrameID is the frame the widgets have been pasted into and
-     *  is never deleted, even if present in the clipboard */
-    void flushClipboardAfterPaste(quint32 targetFrameID = VCWidget::invalidId());
+    /** If the clipboard holds a cut, delete the source widgets listed
+     *  in $pastedIDs and reset the clipboard. To be called once the widgets
+     *  have been pasted. Widgets that could not be pasted are not deleted */
+    void flushClipboardAfterPaste(QVariantList pastedIDs);
 
 signals:
     void clipboardItemsCountChanged();
@@ -294,6 +300,11 @@ public:
     /** Resets and update the lookup maps dedicated to input signals
      *  destined to VC pages */
     void updatePageInputs();
+
+    /** Add the input sources and key sequences of $widget, and of its
+     *  children if it is a frame, to the lookup maps of the page it belongs
+     *  to. To be used when widgets are added after the project has been loaded */
+    void mapWidgetInputs(VCWidget *widget);
 
     Q_INVOKABLE QVariant inputChannelsModel();
     Q_INVOKABLE QVariantList universeListModel() const;
