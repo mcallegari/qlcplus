@@ -803,9 +803,11 @@ void Doc_Test::deletePaletteReferences()
     QCOMPARE(s2->palettes().count(), 1);
     QCOMPARE(s2->palettes().at(0), quint32(1));
 
-    /* a new palette reusing the deleted ID must not end up in the Scenes */
+    /* a new palette reusing the deleted ID must not end up in the Scenes.
+       IDs are reused after a project reload, when the ID counter restarts
+       from 0, so force the ID here to simulate it */
     QLCPalette *p2 = new QLCPalette(QLCPalette::Color);
-    QVERIFY(m_doc->addPalette(p2) == true);
+    QVERIFY(m_doc->addPalette(p2, 0) == true);
     QCOMPARE(p2->id(), quint32(0));
     QCOMPARE(s1->palettes().count(), 0);
     QVERIFY(s2->palettes().contains(0) == false);
