@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.3.1</Version>
+  <Author>Cyrille Polier</Author>
+ </Creator>
+ <Manufacturer>Eliminator Lighting</Manufacturer>
+ <Model>Mega Wash 24</Model>
+ <Type>LED Bar (Pixels)</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Ultra Violet" Preset="IntensityUV"/>
+ <Channel Name="AutoMode / SoundControl">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="17">Auto Mode 1</Capability>
+  <Capability Min="18" Max="25">Auto Mode 2</Capability>
+  <Capability Min="26" Max="33">Auto Mode 3</Capability>
+  <Capability Min="34" Max="41">Auto Mode 4</Capability>
+  <Capability Min="42" Max="49">Auto Mode 5</Capability>
+  <Capability Min="50" Max="57">Auto Mode 6</Capability>
+  <Capability Min="58" Max="65">Auto Mode 7</Capability>
+  <Capability Min="66" Max="73">Auto Mode 8</Capability>
+  <Capability Min="74" Max="81">Auto Mode 9</Capability>
+  <Capability Min="82" Max="89">Auto Mode 10</Capability>
+  <Capability Min="90" Max="97">Auto Mode 11</Capability>
+  <Capability Min="98" Max="105">Auto Mode 12</Capability>
+  <Capability Min="106" Max="113">Auto Mode 13</Capability>
+  <Capability Min="114" Max="121">Auto Mode 14</Capability>
+  <Capability Min="122" Max="129">Auto Mode 15</Capability>
+  <Capability Min="130" Max="137">Auto Mode 16</Capability>
+  <Capability Min="138" Max="145">Auto Mode 17</Capability>
+  <Capability Min="146" Max="153">Auto Mode 1 - 17 Cycling</Capability>
+  <Capability Min="154" Max="161">Sound Mode 1</Capability>
+  <Capability Min="162" Max="169">Sound Mode 2</Capability>
+  <Capability Min="170" Max="177">Sound Mode 3</Capability>
+  <Capability Min="178" Max="185">Sound Mode 4</Capability>
+  <Capability Min="186" Max="193">Sound Mode 5</Capability>
+  <Capability Min="194" Max="201">Sound Mode 6</Capability>
+  <Capability Min="202" Max="209">Sound Mode 7</Capability>
+  <Capability Min="210" Max="217">Sound Mode 8</Capability>
+  <Capability Min="218" Max="225">Sound Mode 9</Capability>
+  <Capability Min="226" Max="233">Sound Mode 10</Capability>
+  <Capability Min="234" Max="241">Sound Mode 11</Capability>
+  <Capability Min="242" Max="255">Sound Mode 1 - 11 Cycling</Capability>
+ </Channel>
+ <Channel Name="AutoMode Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">1 - 100 %</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobing">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9">Full On</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe Speed, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Red Zone 1" Preset="IntensityRed"/>
+ <Channel Name="Red Zone 2" Preset="IntensityRed"/>
+ <Channel Name="Red Zone 3" Preset="IntensityRed"/>
+ <Channel Name="Red Zone 4" Preset="IntensityRed"/>
+ <Channel Name="Red Zone 5" Preset="IntensityRed"/>
+ <Channel Name="Red Zone 6" Preset="IntensityRed"/>
+ <Channel Name="Green Zone 1" Preset="IntensityGreen"/>
+ <Channel Name="Green Zone 2" Preset="IntensityGreen"/>
+ <Channel Name="Green Zone 3" Preset="IntensityGreen"/>
+ <Channel Name="Green Zone 4" Preset="IntensityGreen"/>
+ <Channel Name="Green Zone 5" Preset="IntensityGreen"/>
+ <Channel Name="Green Zone 6" Preset="IntensityGreen"/>
+ <Channel Name="Blue Zone 1" Preset="IntensityBlue"/>
+ <Channel Name="Blue Zone 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue Zone 3" Preset="IntensityBlue"/>
+ <Channel Name="Blue Zone 4" Preset="IntensityBlue"/>
+ <Channel Name="Blue Zone 5" Preset="IntensityBlue"/>
+ <Channel Name="Blue Zone 6" Preset="IntensityBlue"/>
+ <Channel Name="White Zone 1" Preset="IntensityWhite"/>
+ <Channel Name="White Zone 2" Preset="IntensityWhite"/>
+ <Channel Name="White Zone 3" Preset="IntensityWhite"/>
+ <Channel Name="White Zone 4" Preset="IntensityWhite"/>
+ <Channel Name="White Zone 5" Preset="IntensityWhite"/>
+ <Channel Name="White Zone 6" Preset="IntensityWhite"/>
+ <Channel Name="Amber Zone 1" Preset="IntensityAmber"/>
+ <Channel Name="Amber Zone 2" Preset="IntensityAmber"/>
+ <Channel Name="Amber Zone 3" Preset="IntensityAmber"/>
+ <Channel Name="Amber Zone 4" Preset="IntensityAmber"/>
+ <Channel Name="Amber Zone 5" Preset="IntensityAmber"/>
+ <Channel Name="Amber Zone 6" Preset="IntensityAmber"/>
+ <Channel Name="UV Zone 1" Preset="IntensityUV"/>
+ <Channel Name="UV Zone 2" Preset="IntensityUV"/>
+ <Channel Name="UV Zone 3" Preset="IntensityUV"/>
+ <Channel Name="UV Zone 4" Preset="IntensityUV"/>
+ <Channel Name="UV Zone 5" Preset="IntensityUV"/>
+ <Channel Name="UV Zone 6" Preset="IntensityUV"/>
+ <Mode Name="3CH">
+  <Channel Number="0">AutoMode Speed</Channel>
+  <Channel Number="1">Master Dimmer</Channel>
+  <Channel Number="2">AutoMode / SoundControl</Channel>
+ </Mode>
+ <Mode Name="6CH">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Ultra Violet</Channel>
+ </Mode>
+ <Mode Name="10CH">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Ultra Violet</Channel>
+  <Channel Number="6">Strobing</Channel>
+  <Channel Number="7">AutoMode / SoundControl</Channel>
+  <Channel Number="8">AutoMode Speed</Channel>
+  <Channel Number="9">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="40CH">
+  <Channel Number="0">AutoMode / SoundControl</Channel>
+  <Channel Number="1" ActsOn="0">AutoMode Speed</Channel>
+  <Channel Number="2" ActsOn="0">Master Dimmer</Channel>
+  <Channel Number="3" ActsOn="0">Strobing</Channel>
+  <Channel Number="4" ActsOn="1">Red Zone 1</Channel>
+  <Channel Number="5">Green Zone 1</Channel>
+  <Channel Number="6">Blue Zone 1</Channel>
+  <Channel Number="7">White Zone 1</Channel>
+  <Channel Number="8">Amber Zone 1</Channel>
+  <Channel Number="9">UV Zone 1</Channel>
+  <Channel Number="10">Red Zone 2</Channel>
+  <Channel Number="11">Green Zone 2</Channel>
+  <Channel Number="12">Blue Zone 2</Channel>
+  <Channel Number="13">White Zone 2</Channel>
+  <Channel Number="14">Amber Zone 2</Channel>
+  <Channel Number="15">UV Zone 2</Channel>
+  <Channel Number="16">Red Zone 3</Channel>
+  <Channel Number="17">Green Zone 3</Channel>
+  <Channel Number="18">Blue Zone 3</Channel>
+  <Channel Number="19">White Zone 3</Channel>
+  <Channel Number="20">Amber Zone 3</Channel>
+  <Channel Number="21">UV Zone 3</Channel>
+  <Channel Number="22">Red Zone 4</Channel>
+  <Channel Number="23">Green Zone 4</Channel>
+  <Channel Number="24">Blue Zone 4</Channel>
+  <Channel Number="25">White Zone 4</Channel>
+  <Channel Number="26">Amber Zone 4</Channel>
+  <Channel Number="27">UV Zone 4</Channel>
+  <Channel Number="28">Red Zone 5</Channel>
+  <Channel Number="29">Green Zone 5</Channel>
+  <Channel Number="30">Blue Zone 5</Channel>
+  <Channel Number="31">White Zone 5</Channel>
+  <Channel Number="32">Amber Zone 5</Channel>
+  <Channel Number="33">UV Zone 5</Channel>
+  <Channel Number="34">Red Zone 6</Channel>
+  <Channel Number="35">Green Zone 6</Channel>
+  <Channel Number="36">Blue Zone 6</Channel>
+  <Channel Number="37">White Zone 6</Channel>
+  <Channel Number="38">Amber Zone 6</Channel>
+  <Channel Number="39">UV Zone 6</Channel>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="6600" ColourTemperature="0"/>
+  <Dimensions Weight="3.57" Width="310" Height="252" Depth="218"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="24"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="3" Height="2"/>
+  <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>
