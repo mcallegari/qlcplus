@@ -56,6 +56,8 @@
 #include "vclabel.h"
 #include "vcxypad.h"
 #include "vcclock.h"
+#include "vcaudiotimer.h"
+#include "vcpalette.h"
 #include "functionwizard.h"
 #include "doc.h"
 
@@ -96,6 +98,8 @@ VirtualConsole::VirtualConsole(QWidget* parent, Doc* doc)
     , m_addLabelAction(NULL)
     , m_addAudioTriggersAction(NULL)
     , m_addClockAction(NULL)
+    , m_addAudioTimerAction(NULL)
+    , m_addPaletteAction(NULL)
     , m_addAnimationAction(NULL)
 
     , m_toolsSettingsAction(NULL)
@@ -339,6 +343,12 @@ void VirtualConsole::initActions()
     m_addClockAction = new QAction(QIcon(":/clock.png"), tr("New Clock"), this);
     connect(m_addClockAction, SIGNAL(triggered(bool)), this, SLOT(slotAddClock()), Qt::QueuedConnection);
 
+    m_addAudioTimerAction = new QAction(QIcon(":/audio.png"), tr("New Audio Timer"), this);
+    connect(m_addAudioTimerAction, SIGNAL(triggered(bool)), this, SLOT(slotAddAudioTimer()), Qt::QueuedConnection);
+
+    m_addPaletteAction = new QAction(QIcon(":/colorwheel.png"), tr("New Palettes"), this);
+    connect(m_addPaletteAction, SIGNAL(triggered(bool)), this, SLOT(slotAddPalette()), Qt::QueuedConnection);
+
     m_addAnimationAction = new QAction(QIcon(":/animation.png"), tr("New Animation"), this);
     connect(m_addAnimationAction, SIGNAL(triggered(bool)), this, SLOT(slotAddAnimation()), Qt::QueuedConnection);
 
@@ -358,6 +368,8 @@ void VirtualConsole::initActions()
     m_addActionGroup->addAction(m_addLabelAction);
     m_addActionGroup->addAction(m_addAudioTriggersAction);
     m_addActionGroup->addAction(m_addClockAction);
+    m_addActionGroup->addAction(m_addAudioTimerAction);
+    m_addActionGroup->addAction(m_addPaletteAction);
     m_addActionGroup->addAction(m_addAnimationAction);
 
     /* Tools menu actions */
@@ -496,6 +508,8 @@ void VirtualConsole::initMenuBar()
     m_addMenu->addAction(m_addSoloFrameAction);
     m_addMenu->addAction(m_addLabelAction);
     m_addMenu->addAction(m_addClockAction);
+    m_addMenu->addAction(m_addAudioTimerAction);
+    m_addMenu->addAction(m_addPaletteAction);
 
     /* Edit menu */
     m_editMenu = new QMenu(this);
@@ -570,6 +584,8 @@ void VirtualConsole::initMenuBar()
     m_toolbar->addAction(m_addLabelAction);
     m_toolbar->addAction(m_addAudioTriggersAction);
     m_toolbar->addAction(m_addClockAction);
+    m_toolbar->addAction(m_addAudioTimerAction);
+    m_toolbar->addAction(m_addPaletteAction);
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_editCutAction);
     m_toolbar->addAction(m_editCopyAction);
@@ -982,6 +998,28 @@ void VirtualConsole::slotAddClock()
 
     VCClock* clock = new VCClock(parent, m_doc);
     setupWidget(clock, parent);
+    m_doc->setModified();
+}
+
+void VirtualConsole::slotAddAudioTimer()
+{
+    VCWidget* parent(closestParent());
+    if (parent == NULL)
+        return;
+
+    VCAudioTimer* timer = new VCAudioTimer(parent, m_doc);
+    setupWidget(timer, parent);
+    m_doc->setModified();
+}
+
+void VirtualConsole::slotAddPalette()
+{
+    VCWidget* parent(closestParent());
+    if (parent == NULL)
+        return;
+
+    VCPalette* palette = new VCPalette(parent, m_doc);
+    setupWidget(palette, parent);
     m_doc->setModified();
 }
 

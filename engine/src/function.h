@@ -758,6 +758,9 @@ protected:
     /** Reset elapsed timer ticks to zero */
     void resetElapsed();
 
+    /** Set the elapsed time in ms, e.g. after a seek */
+    void setElapsed(quint32 ms);
+
     /** Increment the elapsed timer ticks by one */
     void incrementElapsed();
 
