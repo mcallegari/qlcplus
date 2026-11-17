@@ -33,7 +33,10 @@ TechniqueFilter
         Parameter { name: "normalTex"; value: gBuffer.normal },
         Parameter { name: "specularTex"; value: gBuffer.specular },
         Parameter { name: "depthTex"; value: gBuffer.depth },
-        Parameter { name: "ambient"; value: ambientIntensity }
+        Parameter { name: "ambient"; value: ambientIntensity },
+        Parameter { name: "smokeEmitters[0]"; value: View3D.smokeEmitters },
+        Parameter { name: "smokeEmitterCount"; value: View3D.smokeEmitterCount },
+        Parameter { name: "smokeTime"; value: View3D.smokeTime }
     ]
 
     RenderStateSet

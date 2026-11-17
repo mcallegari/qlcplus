@@ -42,6 +42,8 @@ uniform float coneDistCutoff;
 
 uniform float smokeAmount;
 
+#include "smoke_plume.glsl"
+
 uniform sampler2D depthTex;
 uniform mat4 viewProjectionMatrix;
 uniform mat4 inverseViewProjectionMatrix;
@@ -107,7 +109,7 @@ void main()
     vec2 j = gl_FragCoord.xy * 10.2;
     p += rd * stepLength * hash(j.x + j.y * 47.0) * 0.3;
 
-    float accum = 0.0;
+    vec3 accum = vec3(0.0);
     int i;
     float beta = 2.0e-5;
 
@@ -137,17 +139,16 @@ void main()
 
         vec4 gSample = SAMPLE_TEX2D(goboTex, tc.xy);
 
-        float goboMask = gSample.a * gSample.r;
+        // the gobo's own colour tints the beam: a colour gobo stays coloured
+        vec3 goboMask = gSample.rgb * gSample.a;
 
         float contrib =  (1.0 / (1.0  + 0.09 * dist + 0.032 * dist * dist)) * stepLength;
 
         contrib *= shadowMask;
-        contrib *= goboMask;
-
-        accum += contrib;
+        accum += contrib * goboMask * (smokeAmount + 6.0 * plumeDensity(p));
 
         p += rd * stepLength;
     }
-    MGL_FRAG_COLOR = vec4(accum * lightIntensity * smokeAmount * lightColor, 0.0);
+    MGL_FRAG_COLOR = vec4(accum * lightIntensity * lightColor, 0.0);
     //MGL_FRAG_COLOR = vec4(1.0, 0.0, 0.0, 0.0);
 }
