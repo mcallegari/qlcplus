@@ -137,7 +137,7 @@ private:
      *********************************************************************/
 private:
     QTreeWidgetItem* fixtureItem(quint32 fxi_id);
-    QList <Fixture*> selectedFixtures() const;
+    QList <Fixture*> selectedFixtures(bool showAll = false) const;
 
     bool addFixtureItem(Fixture* fixture);
     void removeFixtureItem(quint32 fixtureID);
@@ -213,6 +213,10 @@ private:
     /** Flag to indicate if some fixture channels were
      *  manually selected and copied to clipboard */
     bool m_copyFromSelection;
+
+    /** tab mode: UI_STATE_ALL_FIXTURES: false, UI_STATE_TABBED_FIXTURES: true */
+    bool tabMode() const;
+    void setTabMode(bool tabbed);
 };
 
 /** @} */
