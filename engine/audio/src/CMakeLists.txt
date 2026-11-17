@@ -94,6 +94,15 @@ if((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND}))
     target_link_libraries(${module_name} PUBLIC
         ${FFTW3_LINK_LIBRARIES}
     )
+elseif(IOS)
+    # No FFTW on iOS: use the Accelerate framework (vDSP)
+    target_compile_definitions(${module_name} PUBLIC
+        HAS_VDSP
+    )
+
+    target_link_libraries(${module_name} PUBLIC
+        "-framework Accelerate"
+    )
 endif()
 
 if(UNIX AND NOT ANDROID AND NOT IOS AND NOT APPLE)

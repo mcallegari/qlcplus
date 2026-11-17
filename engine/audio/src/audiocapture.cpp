@@ -26,6 +26,10 @@
 #include "audiocapture.h"
 #include "beattracker.h"
 
+#ifdef HAS_VDSP
+#include <Accelerate/Accelerate.h>
+#endif
+
 #define USE_HANNING
 #define CLEAR_FFT_NOISE
 
@@ -44,6 +48,12 @@ AudioCapture::AudioCapture (QObject* parent)
     , m_smoothedSignalPower(0.0)
     , m_fftInputBuffer(NULL)
     , m_fftOutputBuffer(NULL)
+#if defined(HAS_VDSP)
+    , m_fftSetup(NULL)
+    , m_fftLog2Size(0)
+    , m_fftSplitReal(NULL)
+    , m_fftSplitImag(NULL)
+#endif
 {
     m_bufferSize = AUDIO_DEFAULT_BUFFER_SIZE;
     m_sampleRate = AUDIO_DEFAULT_SAMPLE_RATE;
@@ -67,12 +77,26 @@ AudioCapture::AudioCapture (QObject* parent)
     m_audioBuffer = new int16_t[m_captureSize];
     m_audioMixdown = new int16_t[m_bufferSize];
     m_fftInputBuffer = new double[m_bufferSize];
-#ifdef HAS_FFTW3
-    m_fftOutputBuffer = fftw_malloc(sizeof(fftw_complex) * m_bufferSize);
+#if defined(HAS_FFTW3)
+    m_fftOutputBuffer = reinterpret_cast<double*>(fftw_malloc(sizeof(fftw_complex) * m_bufferSize));
 
     // Init FFTW
     m_plan_forward = fftw_plan_dft_r2c_1d(m_bufferSize, m_fftInputBuffer,
                                           reinterpret_cast<fftw_complex*>(m_fftOutputBuffer), 0);
+#elif defined(HAS_VDSP)
+    // vDSP real FFT works on power of 2 sizes only
+    Q_ASSERT(m_bufferSize >= 2 && (m_bufferSize & (m_bufferSize - 1)) == 0);
+    while ((1U << m_fftLog2Size) < m_bufferSize)
+        m_fftLog2Size++;
+
+    m_fftOutputBuffer = new double[(m_bufferSize / 2 + 1) * 2]();
+    m_fftSplitReal = new double[m_bufferSize / 2];
+    m_fftSplitImag = new double[m_bufferSize / 2];
+
+    // Init vDSP
+    m_fftSetup = vDSP_create_fftsetupD(m_fftLog2Size, kFFTRadix2);
+    if (m_fftSetup == NULL)
+        qWarning() << "[AudioCapture] Failed to create vDSP FFT setup";
 #endif
     m_beatTracker = new BeatTracker(m_sampleRate, m_channels);
 }
@@ -86,11 +110,18 @@ AudioCapture::~AudioCapture()
     delete[] m_audioBuffer;
     delete[] m_audioMixdown;
     delete[] m_fftInputBuffer;
-#ifdef HAS_FFTW3
+#if defined(HAS_FFTW3)
     fftw_destroy_plan(m_plan_forward);
 
     if (m_fftOutputBuffer)
         fftw_free(m_fftOutputBuffer);
+#elif defined(HAS_VDSP)
+    if (m_fftSetup)
+        vDSP_destroy_fftsetupD(m_fftSetup);
+
+    delete[] m_fftOutputBuffer;
+    delete[] m_fftSplitReal;
+    delete[] m_fftSplitImag;
 #endif
 }
 
@@ -172,8 +203,8 @@ double AudioCapture::fillBandsData(int number)
     // With 0 bands, the whole range is processed as a single band, just
     // to compute the volume.
     double magnitudeTotal = 0.;
-#ifdef HAS_FFTW3
-    fftw_complex *fft = reinterpret_cast<fftw_complex*>(m_fftOutputBuffer);
+#ifdef HAS_AUDIO_FFT
+    const double *fft = m_fftOutputBuffer;
     const int maxBin = int(m_bufferSize / 2); // r2c valid bins: 0..N/2
     const double nyquist = double(m_sampleRate) / 2.0;
     const double minFreq = qMax(1.0, double(SPECTRUM_MIN_FREQUENCY));
@@ -209,7 +240,9 @@ double AudioCapture::fillBandsData(int number)
         double powerSum = 0.0;
         for (int i = startBin; i < endBin; i++)
         {
-            const double power = (fft[i][0] * fft[i][0]) + (fft[i][1] * fft[i][1]);
+            const double re = fft[2 * i];
+            const double im = fft[2 * i + 1];
+            const double power = (re * re) + (im * im);
             powerSum += power;
             magnitudeSum += qSqrt(power);
         }
@@ -317,9 +350,37 @@ void AudioCapture::processData()
     // already filled: keep as-is
 #endif
 
-#ifdef HAS_FFTW3
+#ifdef HAS_AUDIO_FFT
     // 3) FFT
+#if defined(HAS_FFTW3)
     fftw_execute(m_plan_forward);
+#elif defined(HAS_VDSP)
+    if (m_fftSetup == NULL)
+        return;
+
+    {
+        const vDSP_Length halfSize = m_bufferSize / 2;
+        DSPDoubleSplitComplex split = { m_fftSplitReal, m_fftSplitImag };
+
+        // pack the real input as N/2 complex values (even -> real, odd -> imag)
+        vDSP_ctozD(reinterpret_cast<const DSPDoubleComplex*>(m_fftInputBuffer), 2, &split, 1, halfSize);
+        vDSP_fft_zripD(m_fftSetup, &split, 1, m_fftLog2Size, kFFTDirection_Forward);
+
+        // vDSP real forward FFT output is 2x the DFT, and packs the
+        // Nyquist bin real part into imagp[0]. Unpack it into the same
+        // layout and scaling of FFTW r2c: bins 0..N/2 as (re, im)
+        const double scale = 0.5;
+        m_fftOutputBuffer[0] = split.realp[0] * scale;
+        m_fftOutputBuffer[1] = 0.0;
+        for (vDSP_Length k = 1; k < halfSize; k++)
+        {
+            m_fftOutputBuffer[2 * k] = split.realp[k] * scale;
+            m_fftOutputBuffer[2 * k + 1] = split.imagp[k] * scale;
+        }
+        m_fftOutputBuffer[2 * halfSize] = split.imagp[0] * scale;
+        m_fftOutputBuffer[2 * halfSize + 1] = 0.0;
+    }
+#endif
 
     // 4) Clear low-bin FFT noise
 #ifdef CLEAR_FFT_NOISE
@@ -330,8 +391,8 @@ void AudioCapture::processData()
     const int noiseBins = qBound(1, int(qRound((noiseFloorHz * m_bufferSize) / double(m_sampleRate))), maxBin);
     for (int n = 0; n < noiseBins; n++)
     {
-        ((fftw_complex*)m_fftOutputBuffer)[n][0] = 0;
-        ((fftw_complex*)m_fftOutputBuffer)[n][1] = 0;
+        m_fftOutputBuffer[2 * n] = 0;
+        m_fftOutputBuffer[2 * n + 1] = 0;
     }
 #endif
 #endif
