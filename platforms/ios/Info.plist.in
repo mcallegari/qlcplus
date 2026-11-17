@@ -24,6 +24,8 @@
     <true/>
     <key>LSRequiresIPhoneOS</key>
     <true/>
+    <key>ITSAppUsesNonExemptEncryption</key>
+    <false/>
     <key>UILaunchStoryboardName</key>
     <string>LaunchScreen</string>
     <key>UISupportedInterfaceOrientations</key>
@@ -35,5 +37,7 @@
     </array>
     <key>NSLocalNetworkUsageDescription</key>
     <string>QLC+ uses the local network to send and receive lighting control data (Art-Net, sACN, OSC, OS2L) and to serve the web interface.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>QLC+ uses the microphone to analyze sound and trigger lighting effects in time with the music.</string>
 </dict>
 </plist>

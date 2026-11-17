@@ -121,16 +121,26 @@ if(ANDROID)
     )
 elseif(IOS)
     string(REGEX MATCH "^[0-9.]+" IOS_BUNDLE_VERSION "${APPVERSION}")
+
+    # Apple Team ID (10 characters), pass it on the cmake command line
+    set(IOS_DEVELOPMENT_TEAM "" CACHE STRING "Apple Developer Team ID")
+
     qt_add_executable(${module_name} MACOSX_BUNDLE ${SRC_FILES} ${QM_FILES})
     set_target_properties(${module_name} PROPERTIES
-        MACOSX_BUNDLE_GUI_IDENTIFIER "org.qlcplus.qlcplus5"
+        MACOSX_BUNDLE_GUI_IDENTIFIER "org.qlcplus.ios"
         MACOSX_BUNDLE_BUNDLE_NAME "QLC+"
         MACOSX_BUNDLE_SHORT_VERSION_STRING "${IOS_BUNDLE_VERSION}"
-        MACOSX_BUNDLE_BUNDLE_VERSION "${IOS_BUNDLE_VERSION}"
-        XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "org.qlcplus.qlcplus5"
+        MACOSX_BUNDLE_BUNDLE_VERSION "1"   # iOS build number (CFBundleVersion). Increase at every release
+        XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "org.qlcplus.ios"
         MACOSX_BUNDLE_INFO_PLIST "${PROJECT_SOURCE_DIR}/platforms/ios/Info.plist.in"
         XCODE_ATTRIBUTE_ASSETCATALOG_COMPILER_APPICON_NAME "AppIcon"
+        XCODE_ATTRIBUTE_CODE_SIGN_STYLE "Automatic"
+        XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY "1,2"
     )
+    if(IOS_DEVELOPMENT_TEAM)
+        set_target_properties(${module_name} PROPERTIES
+            XCODE_ATTRIBUTE_DEVELOPMENT_TEAM "${IOS_DEVELOPMENT_TEAM}")
+    endif()
 
     # App icon
     set(IOS_ASSETS "${PROJECT_SOURCE_DIR}/platforms/ios/Assets.xcassets")
