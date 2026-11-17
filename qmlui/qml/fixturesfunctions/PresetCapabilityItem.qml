@@ -34,6 +34,10 @@ Rectangle
 
     property QLCCapability capability
     property int capIndex
+    property int currentValue: -1
+    property bool isCurrentCapability: capability !== null &&
+                                       currentValue >= capability.min &&
+                                       currentValue <= capability.max
     property real edgeRatio: 0.1
 
     signal valueChanged(int value)
@@ -51,6 +55,27 @@ Rectangle
         var midWidth = iRoot.width - (edgeWidth * 2)
         var midPos = x - edgeWidth
         return ((capability.max - capability.min) * midPos) / midWidth + capability.min
+    }
+
+    function currentValueX()
+    {
+        if (!isCurrentCapability)
+            return 0
+
+        if (capability.max === capability.min)
+            return width / 2
+
+        // Match valueFromX(): the outer areas select the exact range limits,
+        // while intermediate values are distributed across the middle area.
+        var edgeWidth = width * edgeRatio
+        if (currentValue === capability.min)
+            return edgeWidth / 2
+        if (currentValue === capability.max)
+            return width - (edgeWidth / 2)
+
+        var midWidth = width - (edgeWidth * 2)
+        return edgeWidth + ((currentValue - capability.min) /
+                            (capability.max - capability.min)) * midWidth
     }
 
     onCapabilityChanged:
@@ -175,6 +200,27 @@ Rectangle
         height: 5
         z: 10
         color: "blue"
+    }
+    Rectangle
+    {
+        anchors.fill: parent
+        z: 20
+        color: "transparent"
+        border.width: 3
+        border.color: UISettings.highlight
+        visible: iRoot.isCurrentCapability
+    }
+    Rectangle
+    {
+        id: currentValueTick
+        width: 3
+        height: 10
+        x: Math.max(0, Math.min(iRoot.width - width,
+                               iRoot.currentValueX() - (width / 2)))
+        y: parent.height - height
+        z: 21
+        color: UISettings.highlight
+        visible: iRoot.isCurrentCapability
     }
     MouseArea
     {
