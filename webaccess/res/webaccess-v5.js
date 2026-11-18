@@ -776,6 +776,20 @@ function renderSlider(widget) {
       applyRangeValue(input.value, true);
     });
 
+    // While the user drags, value echoes from the server are older than the
+    // finger position and would make the thumb jump back: updateSlider keeps
+    // the latest one and applies it on release
+    const holdRange = () => {
+      const entry = state.widgets[widget.id];
+      if (entry) entry.held = true;
+    };
+    const releaseRange = () => releaseSliderHold(widget.id);
+    input.addEventListener("pointerdown", holdRange);
+    input.addEventListener("touchstart", holdRange, { passive: true });
+    ["pointerup", "pointercancel", "lostpointercapture", "touchend", "touchcancel", "change"].forEach((type) =>
+      input.addEventListener(type, releaseRange)
+    );
+
     const onRangeWheel = (ev) => {
       ev.preventDefault();
       ev.stopPropagation();
@@ -873,9 +887,11 @@ function renderSlider(widget) {
     dialKnob.addEventListener("pointerup", (ev) => {
       knobState.dragging = false;
       dialKnob.releasePointerCapture(ev.pointerId);
+      releaseSliderHold(widget.id);
     });
     dialKnob.addEventListener("pointercancel", () => {
       knobState.dragging = false;
+      releaseSliderHold(widget.id);
     });
     dialKnob.addEventListener("wheel", (ev) => {
       ev.preventDefault();
@@ -2704,9 +2720,40 @@ function updateButtonState(id, stateValue) {
   widget.data.state = val;
 }
 
+function isSliderHeld(widget) {
+  return !!(widget.held || (widget.knobState && widget.knobState.dragging));
+}
+
+function releaseSliderHold(id) {
+  const widget = state.widgets[id];
+  if (!widget || widget.type !== "slider") return;
+  widget.held = false;
+  if (isSliderHeld(widget) || !widget.pendingValue) return;
+  const pending = widget.pendingValue;
+  widget.pendingValue = null;
+  updateSlider(id, pending[0], pending[1]);
+}
+
+// a drag can end outside the slider element: release every held slider
+["pointerup", "pointercancel", "touchend", "touchcancel"].forEach((type) =>
+  window.addEventListener(
+    type,
+    () => {
+      Object.keys(state.widgets).forEach((id) => {
+        if (state.widgets[id] && state.widgets[id].held) releaseSliderHold(id);
+      });
+    },
+    true
+  )
+);
+
 function updateSlider(id, value, displayValue) {
   const widget = state.widgets[id];
   if (!widget) return;
+  if (isSliderHeld(widget)) {
+    widget.pendingValue = [value, displayValue];
+    return;
+  }
   const val = parseInt(value, 10);
   widget.data.value = val;
   widget.valueLabel.textContent = sliderDisplayValue(widget.data, val);
