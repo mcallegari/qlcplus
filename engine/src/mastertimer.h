@@ -28,6 +28,9 @@
 #include <QList>
 #include <atomic>
 
+/** Beats in a bar of a project that doesn't specify it */
+#define MASTERTIMER_DEFAULT_BEATS_PER_BAR 4
+
 class MasterTimerPrivate;
 class QLCLinkService;
 class GenericFader;
@@ -228,6 +231,28 @@ public:
      *  This is quite safe cause even 300bpm should happen every 200ms. */
     void requestBeat();
 
+    /** Get the absolute beat position (fractional) at the current tick.
+     *  With Link this is the session beat count, otherwise the beats counted
+     *  since the beat source was set. Meant to be read by the MasterTimer
+     *  thread (e.g. Function::write()). */
+    double beatPosition() const;
+
+    /** Get the position within the current bar, in [0, beatsPerBar()) */
+    double barPhase() const;
+
+    /** Set/get the number of beats in a bar. It is also the Link quantum,
+     *  used to align the bar phase with the other peers of the session */
+    void setBeatsPerBar(int beats);
+    int beatsPerBar() const;
+
+    /** Set/get a time offset in milliseconds to compensate the output latency
+     *  (DMX output + fixture response), so that lights land on the audible beat.
+     *  A positive value moves beats earlier. It applies to the external beat
+     *  sources (Link and the beat position of plugins/audio) and it is saved
+     *  in the machine settings, not in the project */
+    void setLatencyOffset(int ms);
+    int latencyOffset() const;
+
 signals:
     void bpmNumberChanged(int bpm);
     void beat();
@@ -248,6 +273,14 @@ private:
     QElapsedTimer m_beatTimer;
     /** Time offset in milliseconds when the last beat occurred */
     int m_lastBeatOffset;
+    /** Beats counted since the beat source was set (not used by Link) */
+    quint64 m_beatCount;
+    /** The absolute beat position at the current tick */
+    double m_beatPosition;
+    /** The number of beats in a bar */
+    int m_beatsPerBar;
+    /** The output latency compensation in milliseconds */
+    int m_latencyOffset;
 
     /*************************************************************************
      * Ableton Link

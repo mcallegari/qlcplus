@@ -40,10 +40,12 @@
 #include "doc.h"
 
 #define MASTERTIMER_FREQUENCY "mastertimer/frequency"
+#define MASTERTIMER_LATENCY_OFFSET "mastertimer/latencyoffset"
 #define LATE_TO_BEAT_THRESHOLD 25
 
-/** Number of beats in a bar, used to align the phase with the Link session */
-#define LINK_QUANTUM 4.0
+/** The highest beat fraction estimated while waiting for an external beat,
+ *  so that the beat position never runs past a beat that didn't happen yet */
+#define MAX_EXTERNAL_BEAT_FRACTION 0.999
 
 /** The timer tick frequency in Hertz */
 uint MasterTimer::s_frequency = 50;
@@ -71,6 +73,10 @@ MasterTimer::MasterTimer(Doc* doc)
     , m_beatTimeDuration(500)
     , m_beatRequested(false)
     , m_lastBeatOffset(0)
+    , m_beatCount(0)
+    , m_beatPosition(0)
+    , m_beatsPerBar(MASTERTIMER_DEFAULT_BEATS_PER_BAR)
+    , m_latencyOffset(0)
     , m_link(NULL)
     , m_lastLinkBeat(0)
     , m_linkBeatValid(false)
@@ -85,6 +91,8 @@ MasterTimer::MasterTimer(Doc* doc)
         s_frequency = var.toUInt();
 
     s_tick = uint(double(1000) / double(s_frequency));
+
+    m_latencyOffset = settings.value(MASTERTIMER_LATENCY_OFFSET, 0).toInt();
 }
 
 MasterTimer::~MasterTimer()
@@ -141,13 +149,28 @@ void MasterTimer::timerTick()
                 //qDebug() << "Elapsed:" << elapsedTime << ", delta:" << elapsedTime - m_beatTimeDuration;
                 m_lastBeatOffset = elapsedTime - m_beatTimeDuration;
                 m_beatTimer.restart();
+                m_beatCount++;
+                elapsedTime = m_lastBeatOffset;
 
                 // inform the listening classes that a beat is happening
                 emit beat();
             }
+            m_beatPosition = m_beatCount + double(elapsedTime) / m_beatTimeDuration;
         }
         break;
         case External:
+        {
+            // a beat requested by the external source. Restart the beat
+            // timer here, to estimate the position until the next one
+            if (m_beatRequested)
+            {
+                m_beatCount++;
+                m_beatTimer.restart();
+            }
+            double elapsedTime = double(m_beatTimer.nsecsElapsed()) / 1000000.0 + m_latencyOffset;
+            m_beatPosition = m_beatCount +
+                qBound(0.0, elapsedTime / m_beatTimeDuration, MAX_EXTERNAL_BEAT_FRACTION);
+        }
         break;
 
         case Link:
@@ -390,6 +413,8 @@ void MasterTimer::setBeatSourceType(MasterTimer::BeatsSourceType type)
     // but at the moment I am not looking for a better solution
     m_beatTimeDuration = 60000 / m_currentBPM;
     m_beatTimer.restart();
+    m_beatCount = 0;
+    m_beatPosition = 0;
 
     if (type == Link)
     {
@@ -476,6 +501,44 @@ void MasterTimer::requestBeat()
     m_beatRequested = true;
 }
 
+double MasterTimer::beatPosition() const
+{
+    return m_beatPosition;
+}
+
+double MasterTimer::barPhase() const
+{
+    // the Link session beat can be negative right after joining
+    double phase = std::fmod(m_beatPosition, double(m_beatsPerBar));
+    return phase < 0 ? phase + m_beatsPerBar : phase;
+}
+
+void MasterTimer::setBeatsPerBar(int beats)
+{
+    if (beats < 1)
+        return;
+
+    m_beatsPerBar = beats;
+}
+
+int MasterTimer::beatsPerBar() const
+{
+    return m_beatsPerBar;
+}
+
+void MasterTimer::setLatencyOffset(int ms)
+{
+    m_latencyOffset = ms;
+
+    QSettings settings;
+    settings.setValue(MASTERTIMER_LATENCY_OFFSET, ms);
+}
+
+int MasterTimer::latencyOffset() const
+{
+    return m_latencyOffset;
+}
+
 /*************************************************************************
  * Ableton Link
  *************************************************************************/
@@ -509,11 +572,16 @@ void MasterTimer::timerTickLink()
 {
     QLCLinkTimeline timeline;
 
-    if (m_link->captureTimeline(LINK_QUANTUM, timeline) == false || timeline.tempo <= 0)
+    // capture the timeline ahead by the latency offset, so that beats
+    // and positions are anticipated by the output latency
+    if (m_link->captureTimeline(m_beatsPerBar, m_latencyOffset, timeline) == false ||
+        timeline.tempo <= 0)
     {
         m_beatRequested = false;
         return;
     }
+
+    m_beatPosition = timeline.beat;
 
     // use the exact (fractional) Link tempo for the beat duration,
     // while the BPM number is just for display and old style users

@@ -44,6 +44,13 @@ private slots:
     void stop();
     void restart();
 
+    void beatsPerBar();
+    void barPhase();
+    void latencyOffset();
+    void internalBeatPosition();
+    void externalBeatPosition();
+    void beatSourceChangeResetsPosition();
+
 private:
     Doc* m_doc;
 };

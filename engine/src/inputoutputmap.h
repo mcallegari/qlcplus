@@ -48,6 +48,7 @@ class Doc;
 #define KXMLIOBeatGenerator     QStringLiteral("BeatGenerator")
 #define KXMLIOBeatType          QStringLiteral("BeatType")
 #define KXMLIOBeatsPerMinute    QStringLiteral("BPM")
+#define KXMLIOBeatsPerBar       QStringLiteral("BeatsPerBar")
 #define KXMLIONetworkServer     QStringLiteral("NetworkServer")
 #define KXMLIONetworkType       QStringLiteral("Type")
 #define KXMLIONetworkAutoStart  QStringLiteral("AutoStart")

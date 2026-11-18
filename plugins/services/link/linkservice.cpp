@@ -64,16 +64,16 @@ int LinkService::numPeers() const
     return int(m_link->numPeers());
 }
 
-bool LinkService::captureTimeline(double quantum, QLCLinkTimeline &timeline)
+bool LinkService::captureTimeline(double quantum, int offsetMs, QLCLinkTimeline &timeline)
 {
     if (m_link->isEnabled() == false)
         return false;
 
     const auto state = m_link->captureAudioSessionState();
-    const auto now = m_link->clock().micros();
+    const auto time = m_link->clock().micros() + std::chrono::milliseconds(offsetMs);
 
-    timeline.beat = state.beatAtTime(now, quantum);
-    timeline.phase = state.phaseAtTime(now, quantum);
+    timeline.beat = state.beatAtTime(time, quantum);
+    timeline.phase = state.phaseAtTime(time, quantum);
     timeline.tempo = state.tempo();
     timeline.playing = state.isPlaying();
 

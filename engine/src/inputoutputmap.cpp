@@ -1480,6 +1480,12 @@ bool InputOutputMap::loadXML(QXmlStreamReader &root)
             if (attrs.hasAttribute(KXMLIOBeatsPerMinute))
                 setBpmNumber(attrs.value(KXMLIOBeatsPerMinute).toInt());
 
+            // projects saved without it are 4/4
+            if (attrs.hasAttribute(KXMLIOBeatsPerBar))
+                m_doc->masterTimer()->setBeatsPerBar(attrs.value(KXMLIOBeatsPerBar).toInt());
+            else
+                m_doc->masterTimer()->setBeatsPerBar(MASTERTIMER_DEFAULT_BEATS_PER_BAR);
+
             root.skipCurrentElement();
         }
         else if (root.name() == KXMLIONetworkServer)
@@ -1527,6 +1533,7 @@ bool InputOutputMap::saveXML(QXmlStreamWriter *doc) const
     doc->writeStartElement(KXMLIOBeatGenerator);
     doc->writeAttribute(KXMLIOBeatType, beatTypeToString(m_beatGeneratorType));
     doc->writeAttribute(KXMLIOBeatsPerMinute, QString::number(m_currentBPM));
+    doc->writeAttribute(KXMLIOBeatsPerBar, QString::number(m_doc->masterTimer()->beatsPerBar()));
     doc->writeEndElement();
 
     doc->writeStartElement(KXMLIONetworkServer);

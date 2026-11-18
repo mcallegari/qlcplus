@@ -58,6 +58,8 @@ class InputOutputManager final : public PreviewContext
     Q_PROPERTY(QString beatType READ beatType WRITE setBeatType NOTIFY beatTypeChanged)
     Q_PROPERTY(int bpmNumber READ bpmNumber WRITE setBpmNumber NOTIFY bpmNumberChanged)
     Q_PROPERTY(int linkPeers READ linkPeers NOTIFY linkPeersChanged)
+    Q_PROPERTY(int beatsPerBar READ beatsPerBar WRITE setBeatsPerBar NOTIFY beatsPerBarChanged)
+    Q_PROPERTY(int latencyOffset READ latencyOffset WRITE setLatencyOffset NOTIFY latencyOffsetChanged)
 
     Q_PROPERTY(QString profileUserFolder READ profileUserFolder CONSTANT)
 
@@ -220,11 +222,24 @@ public:
     /** Get the number of other peers in the Ableton Link session */
     int linkPeers() const;
 
+    /** Get/Set the number of beats in a bar (saved in the project) */
+    int beatsPerBar() const;
+    void setBeatsPerBar(int beats);
+
+    /** Get/Set the output latency compensation in milliseconds */
+    int latencyOffset() const;
+    void setLatencyOffset(int ms);
+
+    /** Get the index of the current beat in the bar, from 0 to beatsPerBar - 1 */
+    Q_INVOKABLE int beatInBar() const;
+
 signals:
     void beatTypeChanged(QString beatType);
     void beat();
     void bpmNumberChanged(int bpmNumber);
     void linkPeersChanged(int peers);
+    void beatsPerBarChanged();
+    void latencyOffsetChanged();
 
 protected slots:
     void slotBeatTypeChanged();

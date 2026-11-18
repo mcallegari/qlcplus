@@ -74,6 +74,7 @@ InputOutputManager::InputOutputManager(QQuickView *view, Doc *doc, QObject *pare
 void InputOutputManager::slotDocLoaded()
 {
     emit universesListModelChanged();
+    emit beatsPerBarChanged();
 }
 
 /*********************************************************************
@@ -1065,5 +1066,41 @@ void InputOutputManager::setBpmNumber(int bpmNumber)
 int InputOutputManager::linkPeers() const
 {
     return m_doc->masterTimer()->linkPeers();
+}
+
+int InputOutputManager::beatsPerBar() const
+{
+    return m_doc->masterTimer()->beatsPerBar();
+}
+
+void InputOutputManager::setBeatsPerBar(int beats)
+{
+    if (beats < 1 || beats == beatsPerBar())
+        return;
+
+    m_doc->masterTimer()->setBeatsPerBar(beats);
+    m_doc->setModified();
+    emit beatsPerBarChanged();
+}
+
+int InputOutputManager::latencyOffset() const
+{
+    return m_doc->masterTimer()->latencyOffset();
+}
+
+void InputOutputManager::setLatencyOffset(int ms)
+{
+    if (ms == latencyOffset())
+        return;
+
+    m_doc->masterTimer()->setLatencyOffset(ms);
+    emit latencyOffsetChanged();
+}
+
+int InputOutputManager::beatInBar() const
+{
+    // called on a beat: round to the nearest beat, since the position
+    // can be slightly before or after it
+    return qRound(m_doc->masterTimer()->barPhase()) % beatsPerBar();
 }
 

@@ -484,6 +484,42 @@ Rectangle
                     hoverEnabled: true
                     onClicked: beatSelectionPanel.visible = !beatSelectionPanel.visible
                 }
+
+                // one square per beat of the bar, filled as the beats go
+                Row
+                {
+                    id: barIndicator
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 2
+                    width: parent.width
+                    spacing: 2
+                    visible: ioManager.bpmNumber > 0
+
+                    property int currentBeat: -1
+
+                    Repeater
+                    {
+                        model: ioManager.beatsPerBar
+                        Rectangle
+                        {
+                            width: (barIndicator.width - barIndicator.spacing * (ioManager.beatsPerBar - 1)) / ioManager.beatsPerBar
+                            height: UISettings.iconSizeDefault * 0.15
+                            border.width: 1
+                            border.color: UISettings.fgMedium
+                            color: index <= barIndicator.currentBeat ? "#00FF00" : "transparent"
+                        }
+                    }
+
+                    Connections
+                    {
+                        target: ioManager
+                        function onBeat()
+                        {
+                            barIndicator.currentBeat = ioManager.beatInBar()
+                        }
+                    }
+                }
+
                 BeatGeneratorsPanel
                 {
                     id: beatSelectionPanel

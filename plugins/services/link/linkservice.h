@@ -49,7 +49,7 @@ public:
     int numPeers() const override;
 
     /** @reimp */
-    bool captureTimeline(double quantum, QLCLinkTimeline &timeline) override;
+    bool captureTimeline(double quantum, int offsetMs, QLCLinkTimeline &timeline) override;
 
     /** @reimp */
     void setTempo(double bpm) override;

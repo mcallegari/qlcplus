@@ -18,12 +18,15 @@
 */
 #include <QSignalSpy>
 #include <QtTest>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #define private public
 #include "iopluginstub.h"
 #include "inputoutputmap_test.h"
 #include "inputoutputmap.h"
 #include "qlcinputsource.h"
+#include "mastertimer.h"
 #include "grandmaster.h"
 #include "outputpatch.h"
 #include "inputpatch.h"
@@ -858,6 +861,32 @@ void InputOutputMap_Test::grandMaster()
 
     iom.setGrandMasterValueMode(GrandMaster::Limit);
     QVERIFY(iom.grandMasterValueMode() == GrandMaster::Limit);
+}
+
+void InputOutputMap_Test::beatsPerBarXML()
+{
+    InputOutputMap iom(m_doc, 1);
+    MasterTimer *mt = m_doc->masterTimer();
+
+    // load a project with 3 beats per bar
+    QString xml = QString("<InputOutputMap><BeatGenerator BeatType=\"Disabled\" BPM=\"0\" BeatsPerBar=\"3\"/></InputOutputMap>");
+    QXmlStreamReader reader(xml);
+    reader.readNextStartElement();
+    QVERIFY(iom.loadXML(reader) == true);
+    QCOMPARE(mt->beatsPerBar(), 3);
+
+    // it is saved with the beat generator
+    QString saved;
+    QXmlStreamWriter writer(&saved);
+    QVERIFY(iom.saveXML(&writer) == true);
+    QVERIFY(saved.contains("BeatsPerBar=\"3\""));
+
+    // a project saved without it is 4/4
+    xml = QString("<InputOutputMap><BeatGenerator BeatType=\"Disabled\" BPM=\"0\"/></InputOutputMap>");
+    QXmlStreamReader reader2(xml);
+    reader2.readNextStartElement();
+    QVERIFY(iom.loadXML(reader2) == true);
+    QCOMPARE(mt->beatsPerBar(), MASTERTIMER_DEFAULT_BEATS_PER_BAR);
 }
 
 QTEST_APPLESS_MAIN(InputOutputMap_Test)

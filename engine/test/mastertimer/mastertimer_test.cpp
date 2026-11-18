@@ -367,4 +367,143 @@ void MasterTimer_Test::restart()
     mt->stopAllFunctions();
 }
 
+void MasterTimer_Test::beatsPerBar()
+{
+    MasterTimer* mt = m_doc->masterTimer();
+
+    QCOMPARE(mt->beatsPerBar(), MASTERTIMER_DEFAULT_BEATS_PER_BAR);
+
+    mt->setBeatsPerBar(3);
+    QCOMPARE(mt->beatsPerBar(), 3);
+
+    // invalid values are ignored
+    mt->setBeatsPerBar(0);
+    QCOMPARE(mt->beatsPerBar(), 3);
+    mt->setBeatsPerBar(-2);
+    QCOMPARE(mt->beatsPerBar(), 3);
+
+    mt->setBeatsPerBar(MASTERTIMER_DEFAULT_BEATS_PER_BAR);
+}
+
+void MasterTimer_Test::barPhase()
+{
+    MasterTimer* mt = m_doc->masterTimer();
+    mt->setBeatsPerBar(4);
+
+    mt->m_beatPosition = 0;
+    QCOMPARE(mt->barPhase(), 0.0);
+
+    mt->m_beatPosition = 5.5;
+    QCOMPARE(mt->barPhase(), 1.5);
+
+    mt->m_beatPosition = 8;
+    QCOMPARE(mt->barPhase(), 0.0);
+
+    // the Link session beat can be negative
+    mt->m_beatPosition = -0.5;
+    QCOMPARE(mt->barPhase(), 3.5);
+
+    mt->setBeatsPerBar(3);
+    mt->m_beatPosition = 7.25;
+    QCOMPARE(mt->barPhase(), 1.25);
+
+    mt->setBeatsPerBar(MASTERTIMER_DEFAULT_BEATS_PER_BAR);
+    mt->m_beatPosition = 0;
+}
+
+void MasterTimer_Test::latencyOffset()
+{
+    MasterTimer* mt = m_doc->masterTimer();
+
+    // the offset is saved in the machine settings: restore it at the end
+    int previous = mt->latencyOffset();
+
+    mt->setLatencyOffset(25);
+    QCOMPARE(mt->latencyOffset(), 25);
+
+    mt->setLatencyOffset(-40);
+    QCOMPARE(mt->latencyOffset(), -40);
+
+    mt->setLatencyOffset(previous);
+    QCOMPARE(mt->latencyOffset(), previous);
+}
+
+void MasterTimer_Test::internalBeatPosition()
+{
+    MasterTimer* mt = m_doc->masterTimer();
+
+    mt->setBeatSourceType(MasterTimer::Internal);
+    mt->requestBpmNumber(120);
+    QCOMPARE(mt->beatTimeDuration(), 500);
+
+    // halfway through the third beat
+    mt->m_beatCount = 2;
+    mt->m_lastBeatOffset = 250;
+    mt->timerTick();
+    QVERIFY(mt->beatPosition() >= 2.5);
+    QVERIFY(mt->beatPosition() < 2.6);
+    QCOMPARE(mt->m_beatCount, quint64(2));
+
+    // a full beat elapsed: a beat is fired and the count advances
+    mt->m_beatTimer.restart();
+    mt->m_lastBeatOffset = 500;
+    mt->timerTick();
+    QCOMPARE(mt->m_beatCount, quint64(3));
+    QVERIFY(mt->beatPosition() >= 3.0);
+    QVERIFY(mt->beatPosition() < 3.1);
+
+    mt->setBeatSourceType(MasterTimer::None);
+}
+
+void MasterTimer_Test::externalBeatPosition()
+{
+    MasterTimer* mt = m_doc->masterTimer();
+    int previousLatency = mt->m_latencyOffset;
+
+    mt->setBeatSourceType(MasterTimer::External);
+    mt->m_beatTimeDuration = 500;
+    mt->m_latencyOffset = 0;
+
+    // no beat yet
+    mt->timerTick();
+    QCOMPARE(mt->m_beatCount, quint64(0));
+
+    // an external beat advances the count and restarts the estimate
+    mt->requestBeat();
+    mt->timerTick();
+    QCOMPARE(mt->m_beatCount, quint64(1));
+    QVERIFY(mt->beatPosition() >= 1.0);
+    QVERIFY(mt->beatPosition() < 1.1);
+
+    // the latency offset moves the estimate ahead...
+    mt->m_latencyOffset = 250;
+    mt->timerTick();
+    QVERIFY(mt->beatPosition() >= 1.5);
+    QVERIFY(mt->beatPosition() < 1.6);
+
+    // ...but never past a beat that didn't happen yet
+    mt->m_latencyOffset = 1000;
+    mt->timerTick();
+    QVERIFY(mt->beatPosition() < 2.0);
+    QCOMPARE(mt->m_beatCount, quint64(1));
+
+    mt->m_latencyOffset = previousLatency;
+    mt->setBeatSourceType(MasterTimer::None);
+}
+
+void MasterTimer_Test::beatSourceChangeResetsPosition()
+{
+    MasterTimer* mt = m_doc->masterTimer();
+
+    mt->setBeatSourceType(MasterTimer::Internal);
+    mt->m_beatCount = 7;
+    mt->m_beatPosition = 7.5;
+
+    mt->setBeatSourceType(MasterTimer::External);
+    QCOMPARE(mt->m_beatCount, quint64(0));
+    QCOMPARE(mt->beatPosition(), 0.0);
+
+    mt->setBeatSourceType(MasterTimer::None);
+}
+
 QTEST_MAIN(MasterTimer_Test)

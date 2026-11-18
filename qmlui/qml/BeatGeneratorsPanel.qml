@@ -152,6 +152,53 @@ Rectangle
                 }
         } // end of ListView
 
+        GridLayout
+        {
+            width: parent.width
+            columns: 2
+            columnSpacing: 3
+            rowSpacing: 3
+
+            // same width as a KeyPad button (3 columns, 3px spacing)
+            property real spinWidth: (width - columnSpacing * 2) / 3
+
+            RobotoText
+            {
+                Layout.fillWidth: true
+                height: UISettings.listItemHeight
+                label: qsTr("Beats per bar")
+            }
+            CustomSpinBox
+            {
+                Layout.preferredWidth: parent.spinWidth
+                from: 1
+                to: 16
+                value: ioManager.beatsPerBar
+                onValueModified: ioManager.beatsPerBar = value
+            }
+
+            // the offset applies only to the external beat sources
+            RobotoText
+            {
+                Layout.fillWidth: true
+                height: UISettings.listItemHeight
+                visible: latencySpin.visible
+                label: qsTr("Latency offset")
+            }
+            CustomSpinBox
+            {
+                id: latencySpin
+                Layout.preferredWidth: parent.spinWidth
+                visible: ioManager.beatType === "LINK" || ioManager.beatType === "PLUGIN" ||
+                         ioManager.beatType === "AUDIO"
+                from: -500
+                to: 500
+                suffix: " ms"
+                value: ioManager.latencyOffset
+                onValueModified: ioManager.latencyOffset = value
+            }
+        }
+
         KeyPad
         {
             id: keyPadBox

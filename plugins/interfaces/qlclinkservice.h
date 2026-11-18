@@ -71,11 +71,13 @@ public:
     /** Number of other peers in the current session */
     virtual int numPeers() const = 0;
 
-    /** Capture the timeline at the current time. Realtime safe.
+    /** Capture the timeline at the current time plus an offset. Realtime safe.
      *  @param quantum beats per bar used to align the phase (e.g. 4.0)
+     *  @param offsetMs milliseconds added to the current time, to compensate
+     *                  the output latency (can be negative)
      *  @param timeline [out] the captured values
      *  @return false if Link is not enabled */
-    virtual bool captureTimeline(double quantum, QLCLinkTimeline &timeline) = 0;
+    virtual bool captureTimeline(double quantum, int offsetMs, QLCLinkTimeline &timeline) = 0;
 
     /** Propose a new tempo to the session */
     virtual void setTempo(double bpm) = 0;

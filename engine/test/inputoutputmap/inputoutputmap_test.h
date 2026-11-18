@@ -54,6 +54,7 @@ private slots:
     void claimReleaseDumpReset();
     void blackout();
     void grandMaster();
+    void beatsPerBarXML();
 
 private:
     Doc* m_doc;
