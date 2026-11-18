@@ -6,7 +6,6 @@ Build-Depends:
  debhelper (>= 7.0.50),
  g++,
  libasound2-dev (>= 1.0.16),
- libfftw3-dev,
  libftdi1-dev (>= 0.17),
  libsndfile1-dev,
  qt6-base-dev,

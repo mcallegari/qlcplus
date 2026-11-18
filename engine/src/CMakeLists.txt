@@ -150,13 +150,6 @@ else()
     target_sources(${module_name} PRIVATE script.cpp script.h)
 endif()
 
-if((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND}))
-    target_compile_definitions(${module_name} PUBLIC HAS_FFTW3)
-    target_include_directories(${module_name} PUBLIC ${FFTW3_INCLUDE_DIRS})
-    target_link_directories(${module_name} PUBLIC ${FFTW3_LIBRARY_DIRS})
-    target_link_libraries(${module_name} PUBLIC ${FFTW3_LIBRARIES})
-endif()
-
 # Keep the CMake target name stable ("qlcplusengine") so that all the
 # dependants don't need to know about the flavour, but give the QLC+ 5
 # library a distinct file name, so it can be installed next to the QLC+ 4

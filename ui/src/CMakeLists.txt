@@ -157,8 +157,6 @@ target_include_directories(${module_name} PUBLIC
     virtualconsole
 )
 
-target_include_directories(${module_name} PUBLIC ${FFTW3_INCLUDE_DIRS})
-
 target_link_libraries(${module_name} PUBLIC
     Qt${QT_MAJOR_VERSION}::Core
     Qt${QT_MAJOR_VERSION}::Gui

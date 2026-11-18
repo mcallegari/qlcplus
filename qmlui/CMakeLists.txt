@@ -174,7 +174,6 @@ target_include_directories(${module_name} PRIVATE
     virtualconsole
     stagewizard
 )
-target_include_directories(${module_name} PUBLIC ${FFTW3_INCLUDE_DIRS})
 
 target_compile_definitions(${module_name} PRIVATE
     NO_SSL

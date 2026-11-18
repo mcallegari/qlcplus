@@ -27,7 +27,6 @@ jobs:
         libmad0-dev
         libsndfile1-dev
         liblo-dev
-        libfftw3-dev
         libgl1-mesa-dev
         libxml2-utils
         xvfb
@@ -356,7 +355,6 @@ jobs:
             mingw-w64-x86_64-libmad
             mingw-w64-x86_64-libsndfile
             mingw-w64-x86_64-flac
-            mingw-w64-x86_64-fftw
             mingw-w64-x86_64-libusb
             mingw-w64-x86_64-python-lxml
             mingw-w64-x86_64-nsis
@@ -523,7 +521,7 @@ jobs:
       - name: Dependencies
         run: |
           brew update
-          brew install fftw mad libsndfile libftdi
+          brew install mad libsndfile libftdi
           brew link --overwrite python@3.14
 
       - name: Install Qt

@@ -27,16 +27,15 @@
 #include <QMutex>
 #include <QMap>
 
-#if defined(HAS_FFTW3)
-#include "fftw3.h"
-#elif defined(HAS_VDSP)
+#if defined(HAS_VDSP)
 /** Opaque Accelerate vDSP FFT setup (see <Accelerate/Accelerate.h>) */
 typedef struct OpaqueFFTSetupD *FFTSetupD;
+#else
+/** Opaque KissFFT real FFT state (see kissfft/kiss_fftr.h) */
+struct kiss_fftr_state;
 #endif
 
-#if defined(HAS_FFTW3) || defined(HAS_VDSP)
 #define HAS_AUDIO_FFT
-#endif
 
 #define SETTINGS_AUDIO_INPUT_DEVICE   "audio/input"
 #define SETTINGS_AUDIO_INPUT_SRATE    "audio/samplerate"
@@ -192,15 +191,15 @@ protected:
     /** **************** FFT variables ********************** */
     double *m_fftInputBuffer;
     /** FFT output: m_bufferSize / 2 + 1 bins of interleaved (re, im) doubles,
-     *  with the same unnormalized scaling of FFTW r2c */
+     *  unnormalized (KissFFT kiss_fftr layout and scaling) */
     double *m_fftOutputBuffer;
-#if defined(HAS_FFTW3)
-    fftw_plan m_plan_forward;
-#elif defined(HAS_VDSP)
+#if defined(HAS_VDSP)
     FFTSetupD m_fftSetup;
     unsigned int m_fftLog2Size;
     double *m_fftSplitReal;
     double *m_fftSplitImag;
+#else
+    kiss_fftr_state *m_fftConfig;
 #endif
 
     /** Map of the registered clients (key is the number of bands) */

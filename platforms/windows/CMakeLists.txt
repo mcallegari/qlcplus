@@ -31,7 +31,6 @@ copy_system_library(mmedia_files "libvorbis-0.dll")
 copy_system_library(mmedia_files "libvorbisenc-2.dll")
 copy_system_library(mmedia_files "libFLAC.dll")
 copy_system_library(mmedia_files "libsndfile-1.dll")
-copy_system_library(mmedia_files "libfftw3-3.dll")
 
 install(FILES ${mmedia_files} DESTINATION ${mmedia_path})
 

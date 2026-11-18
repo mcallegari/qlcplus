@@ -44,7 +44,6 @@ target_include_directories(qmluitestlib PUBLIC
     ${QMLUI_DIR}/tardis
     ${QMLUI_DIR}/virtualconsole
     ${CMAKE_CURRENT_SOURCE_DIR}/common
-    ${FFTW3_INCLUDE_DIRS}
 )
 
 target_link_libraries(qmluitestlib PUBLIC

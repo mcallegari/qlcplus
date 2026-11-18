@@ -120,7 +120,6 @@ if(qmlui)
 endif()
 
 # install support libraries
-set(FFTW_LIBNAME "libfftw3.3.dylib")
 set(OGG_LIBNAME "libogg.0.dylib")
 set(FLAC_LIBNAME "libFLAC.12.dylib")
 set(OPUS_LIBNAME "libopus.0.dylib")
@@ -129,7 +128,6 @@ set(LAME_LIBNAME "libmp3lame.0.dylib")
 set(VORBIS_LIBNAME "libvorbis.0.dylib")
 set(VORBISENC_LIBNAME "libvorbisenc.2.dylib")
 
-install(FILES ${FFTW3_LIBDIR}/${FFTW_LIBNAME} DESTINATION ${INSTALLROOT}/${LIBSDIR})
 install(FILES ${LIBFTDI1_libftdi1_LIBDIR}/libftdi1.2.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
 install(FILES ${LIBFTDI1_libftdi1_LIBDIR}/libftdi1.2.5.0.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
 install(FILES ${LIBUSB1_LIBDIR}/libusb-1.0.0.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})

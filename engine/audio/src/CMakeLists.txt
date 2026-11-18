@@ -83,19 +83,18 @@ if((((QT_VERSION_MAJOR LESS 5)) AND (APPLE)))
     endif()
 endif()
 
-if((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND}))
-    target_compile_definitions(${module_name} PUBLIC
-        HAS_FFTW3
+if(NOT IOS)
+    # Bundled KissFFT 131.2.0 (BSD-3-Clause), built in double precision
+    target_sources(${module_name} PRIVATE
+        kissfft/kiss_fft.c kissfft/kiss_fft.h kissfft/_kiss_fft_guts.h kissfft/kiss_fft_log.h
+        kissfft/kiss_fftr.c kissfft/kiss_fftr.h
     )
 
-    target_include_directories(${module_name} PUBLIC
-        ${FFTW3_INCLUDE_DIRS}
+    target_compile_definitions(${module_name} PRIVATE
+        kiss_fft_scalar=double
     )
-    target_link_libraries(${module_name} PUBLIC
-        ${FFTW3_LINK_LIBRARIES}
-    )
-elseif(IOS)
-    # No FFTW on iOS: use the Accelerate framework (vDSP)
+else()
+    # On iOS use the Accelerate framework (vDSP)
     target_compile_definitions(${module_name} PUBLIC
         HAS_VDSP
     )
