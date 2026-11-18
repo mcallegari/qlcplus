@@ -421,6 +421,7 @@ void VCButton::requestStateChange(bool pressed)
                     chaser->setAction(action);
                 }
 
+                m_doc->masterTimer()->requestQuantizedStart(f);
                 f->start(m_doc->masterTimer(), functionParent());
                 setState(Active);
                 emit functionStarting(this, m_functionID);

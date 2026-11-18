@@ -23,6 +23,7 @@
 #include "mastertimer_test.h"
 #include "dmxsource_stub.h"
 #include "function_stub.h"
+#include "inputoutputmap.h"
 #include "mastertimer.h"
 #include "qlcchannel.h"
 #include "universe.h"
@@ -30,6 +31,7 @@
 #include "doc.h"
 #undef private
 
+#include "linkservice_stub.h"
 #include "../common/resource_paths.h"
 
 void MasterTimer_Test::initTestCase()
@@ -399,7 +401,7 @@ void MasterTimer_Test::barPhase()
     mt->m_beatPosition = 8;
     QCOMPARE(mt->barPhase(), 0.0);
 
-    // the Link session beat can be negative
+    // a timeline beat can be negative (e.g. a Link session)
     mt->m_beatPosition = -0.5;
     QCOMPARE(mt->barPhase(), 3.5);
 
@@ -504,6 +506,242 @@ void MasterTimer_Test::beatSourceChangeResetsPosition()
     QCOMPARE(mt->beatPosition(), 0.0);
 
     mt->setBeatSourceType(MasterTimer::None);
+}
+
+/* Run a tick of an Internal beat source, firing a beat if $beat is true */
+static void internalTick(MasterTimer *mt, bool beat)
+{
+    mt->m_beatTimer.restart();
+    mt->m_lastBeatOffset = beat ? mt->m_beatTimeDuration : 0;
+    mt->timerTick();
+}
+
+void MasterTimer_Test::quantizedStartBeat()
+{
+    MasterTimer* mt = m_doc->masterTimer();
+    mt->setBeatSourceType(MasterTimer::Internal);
+    mt->requestBpmNumber(120);
+    mt->setLaunchQuantize(MasterTimer::QuantizeBeat);
+
+    Function_Stub fs(m_doc);
+    mt->requestQuantizedStart(&fs);
+    fs.start(mt, FunctionParent::master());
+
+    // no beat: the start is held
+    internalTick(mt, false);
+    QCOMPARE(mt->runningFunctions(), 0);
+    QCOMPARE(mt->m_heldFunctions.count(), 1);
+    QCOMPARE(mt->m_quantizeRequests.count(), 0);
+
+    // on the beat, the Function starts
+    internalTick(mt, true);
+    QCOMPARE(mt->runningFunctions(), 1);
+    QCOMPARE(mt->m_heldFunctions.count(), 0);
+
+    fs.stop(FunctionParent::master());
+    internalTick(mt, false);
+    QCOMPARE(mt->runningFunctions(), 0);
+
+    mt->setLaunchQuantize(MasterTimer::QuantizeOff);
+    mt->setBeatSourceType(MasterTimer::None);
+}
+
+void MasterTimer_Test::quantizedStartBar()
+{
+    MasterTimer* mt = m_doc->masterTimer();
+    mt->setBeatSourceType(MasterTimer::Internal);
+    mt->requestBpmNumber(120);
+    mt->setBeatsPerBar(4);
+    mt->setLaunchQuantize(MasterTimer::QuantizeBar);
+
+    Function_Stub fs(m_doc);
+    mt->requestQuantizedStart(&fs);
+    fs.start(mt, FunctionParent::master());
+
+    // a beat in the middle of the bar (beat 3 -> 4): still held
+    mt->m_beatCount = 2;
+    internalTick(mt, true);
+    QCOMPARE(mt->runningFunctions(), 0);
+    QCOMPARE(mt->m_heldFunctions.count(), 1);
+
+    // the first beat of the next bar: started
+    mt->m_beatCount = 3;
+    internalTick(mt, true);
+    QCOMPARE(mt->runningFunctions(), 1);
+    QCOMPARE(mt->m_heldFunctions.count(), 0);
+
+    fs.stop(FunctionParent::master());
+    internalTick(mt, false);
+
+    mt->setLaunchQuantize(MasterTimer::QuantizeOff);
+    mt->setBeatSourceType(MasterTimer::None);
+}
+
+void MasterTimer_Test::quantizedStartStoppedWhileHeld()
+{
+    MasterTimer* mt = m_doc->masterTimer();
+    mt->setBeatSourceType(MasterTimer::Internal);
+    mt->requestBpmNumber(120);
+    mt->setLaunchQuantize(MasterTimer::QuantizeBeat);
+
+    Function_Stub fs(m_doc);
+    mt->requestQuantizedStart(&fs);
+    fs.start(mt, FunctionParent::master());
+    internalTick(mt, false);
+    QCOMPARE(mt->m_heldFunctions.count(), 1);
+
+    // stopped before the beat: it never starts
+    fs.stop(FunctionParent::master());
+    internalTick(mt, true);
+    QCOMPARE(mt->runningFunctions(), 0);
+    QCOMPARE(mt->m_heldFunctions.count(), 0);
+
+    // stop all, with nothing running: the held start is dropped too
+    mt->requestQuantizedStart(&fs);
+    fs.start(mt, FunctionParent::master());
+    internalTick(mt, false);
+    QCOMPARE(mt->m_heldFunctions.count(), 1);
+    mt->stopAllFunctions();
+    QCOMPARE(mt->m_heldFunctions.count(), 0);
+    QVERIFY(fs.stopped() == true);
+    internalTick(mt, true);
+    QCOMPARE(mt->runningFunctions(), 0);
+
+    mt->setLaunchQuantize(MasterTimer::QuantizeOff);
+    mt->setBeatSourceType(MasterTimer::None);
+}
+
+void MasterTimer_Test::quantizedStartOff()
+{
+    MasterTimer* mt = m_doc->masterTimer();
+    Function_Stub fs(m_doc);
+
+    // quantize on, but no beat source: immediate start
+    mt->setBeatSourceType(MasterTimer::None);
+    mt->setLaunchQuantize(MasterTimer::QuantizeBar);
+    mt->requestQuantizedStart(&fs);
+    fs.start(mt, FunctionParent::master());
+    mt->timerTick();
+    QCOMPARE(mt->runningFunctions(), 1);
+    fs.stop(FunctionParent::master());
+    mt->timerTick();
+    QCOMPARE(mt->runningFunctions(), 0);
+
+    // beat source, but quantize off: immediate start
+    mt->setBeatSourceType(MasterTimer::Internal);
+    mt->setLaunchQuantize(MasterTimer::QuantizeOff);
+    mt->requestQuantizedStart(&fs);
+    fs.start(mt, FunctionParent::master());
+    internalTick(mt, false);
+    QCOMPARE(mt->runningFunctions(), 1);
+    fs.stop(FunctionParent::master());
+    internalTick(mt, false);
+    QCOMPARE(mt->runningFunctions(), 0);
+
+    // a start without a request is never held
+    mt->setLaunchQuantize(MasterTimer::QuantizeBar);
+    fs.start(mt, FunctionParent::master());
+    internalTick(mt, false);
+    QCOMPARE(mt->runningFunctions(), 1);
+    fs.stop(FunctionParent::master());
+    internalTick(mt, false);
+
+    mt->setLaunchQuantize(MasterTimer::QuantizeOff);
+    mt->setBeatSourceType(MasterTimer::None);
+}
+
+void MasterTimer_Test::timelineBeats()
+{
+    MasterTimer* mt = m_doc->masterTimer();
+    InputOutputMap* iom = m_doc->inputOutputMap();
+    LinkService_Stub link;
+    int previousLatency = mt->m_latencyOffset;
+
+    // Link is the timeline source of InputOutputMap
+    iom->setLinkService(&link);
+    iom->setBeatGeneratorType(InputOutputMap::Link);
+    QVERIFY(link.m_enabled == true);
+    QVERIFY(mt->beatSourceType() == MasterTimer::Timeline);
+    mt->m_latencyOffset = 30;
+
+    QSignalSpy beatSpy(mt, SIGNAL(beat()));
+
+    // first tick: position and tempo are taken, no beat is fired
+    link.m_timeline.beat = 3.5;
+    link.m_timeline.tempo = 128;
+    mt->timerTick();
+    QCOMPARE(mt->beatPosition(), 3.5);
+    QCOMPARE(mt->bpmNumber(), 128);
+    QCOMPARE(link.m_lastOffset, 30);
+    QCOMPARE(beatSpy.count(), 0);
+
+    // the next whole beat fires a beat
+    link.m_timeline.beat = 4.0;
+    mt->timerTick();
+    QCOMPARE(beatSpy.count(), 1);
+    QCOMPARE(mt->barPhase(), 0.0);
+
+    // a backward jump of the timeline doesn't
+    link.m_timeline.beat = 2.0;
+    mt->timerTick();
+    QCOMPARE(beatSpy.count(), 1);
+
+    // the tempo is proposed to the session, not set in MasterTimer
+    iom->setBpmNumber(140);
+    QCOMPARE(link.m_proposedTempo, 140.0);
+    QCOMPARE(mt->bpmNumber(), 128);
+
+    mt->m_latencyOffset = previousLatency;
+    iom->setBeatGeneratorType(InputOutputMap::Disabled);
+    QVERIFY(link.m_enabled == false);
+    QVERIFY(mt->beatSourceType() == MasterTimer::None);
+    iom->m_link = NULL;
+}
+
+void MasterTimer_Test::timelineTransport()
+{
+    MasterTimer* mt = m_doc->masterTimer();
+    InputOutputMap* iom = m_doc->inputOutputMap();
+    LinkService_Stub link;
+
+    iom->setLinkService(&link);
+
+    // without Link as the beat source, the transport is not touched
+    iom->setTransportPlaying(true);
+    QCOMPARE(link.m_playingCalls, 0);
+
+    iom->setBeatGeneratorType(InputOutputMap::Link);
+
+    QSignalSpy playSpy(iom, SIGNAL(transportChanged(bool)));
+
+    // joining a playing session: the state is taken, not notified
+    link.m_timeline.playing = true;
+    mt->timerTick();
+    QCOMPARE(playSpy.count(), 0);
+
+    // the session is already playing: nothing to commit
+    iom->setTransportPlaying(true);
+    QCOMPARE(link.m_playingCalls, 0);
+
+    // the session stops
+    link.m_timeline.playing = false;
+    mt->timerTick();
+    QCOMPARE(playSpy.count(), 1);
+    QCOMPARE(playSpy.at(0).at(0).toBool(), false);
+
+    // QLC+ starts the session
+    iom->setTransportPlaying(true);
+    QCOMPARE(link.m_playingCalls, 1);
+    QVERIFY(link.m_lastPlaying == true);
+
+    // the session starts
+    link.m_timeline.playing = true;
+    mt->timerTick();
+    QCOMPARE(playSpy.count(), 2);
+    QCOMPARE(playSpy.at(1).at(0).toBool(), true);
+
+    iom->setBeatGeneratorType(InputOutputMap::Disabled);
+    iom->m_link = NULL;
 }
 
 QTEST_MAIN(MasterTimer_Test)

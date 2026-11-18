@@ -63,6 +63,10 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     connect(m_doc, SIGNAL(functionChanged(quint32)),
             this, SIGNAL(functionChanged(quint32)));
 
+    /* Follow the transport of the beat timeline */
+    connect(m_doc->inputOutputMap(), SIGNAL(transportChanged(bool)),
+            this, SLOT(slotTransportChanged(bool)));
+
     setContextResource("qrc:/ShowManager.qml");
     setContextTitle(tr("Show Manager"));
 }
@@ -1508,6 +1512,7 @@ void ShowManager::playShow()
     {
         m_cursorMovedDuringPause = false;
         m_currentShow->start(m_doc->masterTimer(), FunctionParent::master(), m_currentTime);
+        m_doc->inputOutputMap()->setTransportPlaying(true);
         setPlaybackState(true, false);
         return;
     }
@@ -1526,10 +1531,12 @@ void ShowManager::playShow()
             m_currentShow->setPause(false);
         }
 
+        m_doc->inputOutputMap()->setTransportPlaying(true);
         setPlaybackState(true, false);
         return;
     }
 
+    // the transport has no pause: it keeps playing
     m_currentShow->setPause(true);
     setPlaybackState(true, true);
 }
@@ -1540,6 +1547,7 @@ void ShowManager::stopShow()
     {
         m_cursorMovedDuringPause = false;
         m_currentShow->stop(FunctionParent::master());
+        m_doc->inputOutputMap()->setTransportPlaying(false);
         setPlaybackState(false, false);
         return;
     }
@@ -1743,6 +1751,16 @@ void ShowManager::slotShowStopped()
         return;
 
     setPlaybackState(false, false);
+}
+
+void ShowManager::slotTransportChanged(bool playing)
+{
+    // play/resume or stop, ignoring the changes requested by this
+    // Show Manager itself (the transport follows its play/stop too)
+    if (playing && (m_isPlaying == false || m_isPaused))
+        playShow();
+    else if (playing == false && m_isPlaying)
+        stopShow();
 }
 
 void ShowManager::setPlaybackState(bool playing, bool paused)

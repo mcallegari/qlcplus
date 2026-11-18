@@ -699,6 +699,7 @@ void VCCueList::startChaser(int startIndex)
     action.m_fadeMode = getFadeMode();
     ch->setAction(action);
 
+    m_doc->masterTimer()->requestQuantizedStart(ch);
     ch->start(m_doc->masterTimer(), functionParent());
     emit functionStarting(this, m_chaserID, intensity());
     emit playbackStatusChanged();

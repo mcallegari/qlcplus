@@ -5,6 +5,7 @@ add_executable(${module_name} WIN32
     ../common/resource_paths.h
     ../function/function_stub.cpp ../function/function_stub.h
     dmxsource_stub.cpp dmxsource_stub.h
+    linkservice_stub.h
     ${module_name}.cpp ${module_name}.h
 )
 target_include_directories(${module_name} PRIVATE

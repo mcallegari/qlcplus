@@ -38,6 +38,9 @@ LinkService::LinkService(QObject *parent)
     m_link->setStartStopCallback([this](bool playing) {
         emit playingChanged(playing);
     });
+
+    /* the session play/stop is always shared */
+    m_link->enableStartStopSync(true);
 }
 
 LinkService::~LinkService()
@@ -75,7 +78,8 @@ bool LinkService::captureTimeline(double quantum, int offsetMs, QLCLinkTimeline 
     timeline.beat = state.beatAtTime(time, quantum);
     timeline.phase = state.phaseAtTime(time, quantum);
     timeline.tempo = state.tempo();
-    timeline.playing = state.isPlaying();
+    // a start can be scheduled in the future (e.g. on the next bar)
+    timeline.playing = state.isPlaying() && time >= state.timeForIsPlaying();
 
     return true;
 }
@@ -90,19 +94,15 @@ void LinkService::setTempo(double bpm)
     m_link->commitAppSessionState(state);
 }
 
-void LinkService::setStartStopSyncEnabled(bool enable)
-{
-    m_link->enableStartStopSync(enable);
-}
-
-bool LinkService::isStartStopSyncEnabled() const
-{
-    return m_link->isStartStopSyncEnabled();
-}
-
 void LinkService::setPlaying(bool playing)
 {
     auto state = m_link->captureAppSessionState();
+
+    // committing the state the session is already in
+    // would move the session start time
+    if (state.isPlaying() == playing)
+        return;
+
     state.setIsPlaying(playing, m_link->clock().micros());
     m_link->commitAppSessionState(state);
 }

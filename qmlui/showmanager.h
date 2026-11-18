@@ -373,6 +373,9 @@ protected slots:
     void slotShowFinished();
     void slotShowStopped();
 
+    /** The transport of the beat timeline started/stopped */
+    void slotTransportChanged(bool playing);
+
 private:
     // Timeline mapping helpers
     int minimumTimelineDuration(Show::TimeDivision division) const;

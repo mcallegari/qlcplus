@@ -68,13 +68,14 @@ InputOutputManager::InputOutputManager(QQuickView *view, Doc *doc, QObject *pare
     connect(m_ioMap, SIGNAL(beat()), this, SIGNAL(beat()), Qt::QueuedConnection);
     connect(m_ioMap, SIGNAL(beatGeneratorTypeChanged()), this, SLOT(slotBeatTypeChanged()));
     connect(m_ioMap, SIGNAL(bpmNumberChanged(int)), this, SIGNAL(bpmNumberChanged(int)));
-    connect(m_doc->masterTimer(), SIGNAL(linkPeersChanged(int)), this, SIGNAL(linkPeersChanged(int)));
+    connect(m_ioMap, SIGNAL(linkPeersChanged(int)), this, SIGNAL(linkPeersChanged(int)));
 }
 
 void InputOutputManager::slotDocLoaded()
 {
     emit universesListModelChanged();
     emit beatsPerBarChanged();
+    emit launchQuantizeChanged();
 }
 
 /*********************************************************************
@@ -936,7 +937,7 @@ QVariant InputOutputManager::beatGeneratorsList()
     genList.append(internalMap);
 
     // add Ableton Link, if the service plugin is available
-    if (m_doc->masterTimer()->linkAvailable())
+    if (m_ioMap->linkAvailable())
     {
         QVariantMap linkMap;
         linkMap.insert("type", "LINK");
@@ -1065,7 +1066,7 @@ void InputOutputManager::setBpmNumber(int bpmNumber)
 
 int InputOutputManager::linkPeers() const
 {
-    return m_doc->masterTimer()->linkPeers();
+    return m_ioMap->linkPeers();
 }
 
 int InputOutputManager::beatsPerBar() const
@@ -1095,6 +1096,21 @@ void InputOutputManager::setLatencyOffset(int ms)
 
     m_doc->masterTimer()->setLatencyOffset(ms);
     emit latencyOffsetChanged();
+}
+
+int InputOutputManager::launchQuantize() const
+{
+    return m_doc->masterTimer()->launchQuantize();
+}
+
+void InputOutputManager::setLaunchQuantize(int quantize)
+{
+    if (quantize == launchQuantize())
+        return;
+
+    m_doc->masterTimer()->setLaunchQuantize(MasterTimer::LaunchQuantize(quantize));
+    m_doc->setModified();
+    emit launchQuantizeChanged();
 }
 
 int InputOutputManager::beatInBar() const

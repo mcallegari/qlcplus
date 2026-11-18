@@ -177,6 +177,25 @@ Rectangle
                 onValueModified: ioManager.beatsPerBar = value
             }
 
+            // VC buttons and cue lists start on the next beat/bar
+            RobotoText
+            {
+                Layout.fillWidth: true
+                height: UISettings.listItemHeight
+                label: qsTr("Launch quantize")
+            }
+            CustomComboBox
+            {
+                Layout.preferredWidth: parent.spinWidth
+                model: [
+                    { mLabel: qsTr("Off"), mValue: 0 },
+                    { mLabel: qsTr("Beat"), mValue: 1 },
+                    { mLabel: qsTr("Bar"), mValue: 2 }
+                ]
+                currValue: ioManager.launchQuantize
+                onValueChanged: (value) => ioManager.launchQuantize = value
+            }
+
             // the offset applies only to the external beat sources
             RobotoText
             {

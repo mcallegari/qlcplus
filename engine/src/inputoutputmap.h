@@ -34,6 +34,7 @@ class QXmlStreamReader;
 class QXmlStreamWriter;
 class QElapsedTimer;
 class QLCInputSource;
+class QLCLinkService;
 class AudioCapture;
 class OutputPatch;
 class InputPatch;
@@ -49,6 +50,7 @@ class Doc;
 #define KXMLIOBeatType          QStringLiteral("BeatType")
 #define KXMLIOBeatsPerMinute    QStringLiteral("BPM")
 #define KXMLIOBeatsPerBar       QStringLiteral("BeatsPerBar")
+#define KXMLIOLaunchQuantize    QStringLiteral("LaunchQuantize")
 #define KXMLIONetworkServer     QStringLiteral("NetworkServer")
 #define KXMLIONetworkType       QStringLiteral("Type")
 #define KXMLIONetworkAutoStart  QStringLiteral("AutoStart")
@@ -630,6 +632,53 @@ private:
     int m_currentBPM;
     QElapsedTimer *m_beatTime;
     AudioCapture *m_inputCapture;
+
+    /*********************************************************************
+     * Beat timeline & transport
+     *********************************************************************/
+public:
+    /** Capture the beat position and tempo of the current beat timeline
+     *  (e.g. the Ableton Link session), ahead by the MasterTimer latency
+     *  offset. Called by MasterTimer at every tick of a Timeline beat
+     *  source, so it runs in the MasterTimer thread and must be realtime safe.
+     *  It also detects the transport changes (see transportChanged()).
+     *  @return false if there is no timeline to follow */
+    bool captureBeatTimeline(double &beatPosition, double &tempo);
+
+    /** Start/stop the transport of the beat timeline, if it has one.
+     *  Not realtime safe: don't call it from the MasterTimer thread */
+    void setTransportPlaying(bool playing);
+
+signals:
+    /** The transport of the beat timeline started/stopped. Emitted by the
+     *  MasterTimer thread, so connections are queued */
+    void transportChanged(bool playing);
+
+    /*********************************************************************
+     * Ableton Link
+     *********************************************************************/
+public:
+    /** Set the object implementing QLCLinkService, provided by the
+     *  Link service plugin. Called once, when the plugin is loaded. */
+    void setLinkService(QObject *service);
+
+    /** Return true if the Link service plugin is available */
+    bool linkAvailable() const;
+
+    /** Return the number of other peers in the Link session */
+    int linkPeers() const;
+
+signals:
+    void linkPeersChanged(int peers);
+
+private:
+    /** The Link service, or NULL if the plugin is not loaded */
+    QLCLinkService *m_link;
+    /** The Link session transport state, at the last tick */
+    bool m_linkPlaying;
+    /** False until the first tick after joining a session, so that the
+     *  transport state found when joining is taken, not notified */
+    bool m_linkPlayingValid;
 
     /*********************************************************************
      * Network server

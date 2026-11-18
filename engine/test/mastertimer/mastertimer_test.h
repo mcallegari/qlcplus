@@ -50,6 +50,12 @@ private slots:
     void internalBeatPosition();
     void externalBeatPosition();
     void beatSourceChangeResetsPosition();
+    void quantizedStartBeat();
+    void quantizedStartBar();
+    void quantizedStartStoppedWhileHeld();
+    void quantizedStartOff();
+    void timelineBeats();
+    void timelineTransport();
 
 private:
     Doc* m_doc;

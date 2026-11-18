@@ -30,7 +30,6 @@
 #   include "mastertimer-unix.h"
 #endif
 
-#include "qlclinkservice.h"
 #include "inputoutputmap.h"
 #include "genericfader.h"
 #include "mastertimer.h"
@@ -77,10 +76,10 @@ MasterTimer::MasterTimer(Doc* doc)
     , m_beatPosition(0)
     , m_beatsPerBar(MASTERTIMER_DEFAULT_BEATS_PER_BAR)
     , m_latencyOffset(0)
-    , m_link(NULL)
-    , m_lastLinkBeat(0)
-    , m_linkBeatValid(false)
-    , m_linkTimeToNextBeat(0)
+    , m_launchQuantize(QuantizeOff)
+    , m_lastTimelineBeat(0)
+    , m_timelineBeatValid(false)
+    , m_timelineTimeToNextBeat(0)
 {
     Q_ASSERT(doc != NULL);
     Q_ASSERT(d_ptr != NULL);
@@ -122,6 +121,12 @@ void MasterTimer::stop()
     QMutexLocker locker(&m_functionListMutex);
     m_functionList.clear();
     m_startQueue.clear();
+
+    // release the sources of the Functions that never started
+    foreach (Function *f, m_heldFunctions)
+        f->stop(FunctionParent::master());
+    m_heldFunctions.clear();
+    m_quantizeRequests.clear();
 }
 
 void MasterTimer::timerTick()
@@ -173,8 +178,8 @@ void MasterTimer::timerTick()
         }
         break;
 
-        case Link:
-            timerTickLink();
+        case Timeline:
+            timerTickTimeline();
         break;
 
         case None:
@@ -223,6 +228,15 @@ void MasterTimer::startFunction(Function* function)
 void MasterTimer::stopAllFunctions()
 {
     m_stopAllFunctions = true;
+
+    {
+        // the Functions waiting for a quantized start are not running:
+        // just release their sources, so they never start
+        QMutexLocker locker(&m_functionListMutex);
+        foreach (Function *f, m_heldFunctions)
+            f->stop(FunctionParent::master());
+        m_heldFunctions.clear();
+    }
 
     /* Wait until all functions have been stopped */
     while (runningFunctions() > 0)
@@ -321,9 +335,39 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
 
     {
         QMutexLocker locker(&m_functionListMutex);
+
+        // the quantize requests already there before processing the start queue
+        QList<Function*> previousRequests(m_quantizeRequests);
+
+        if (m_heldFunctions.isEmpty() == false &&
+            (isQuantizing() == false || isLaunchBoundary()))
+        {
+            // the beat/bar has come: start the held Functions,
+            // unless they have been stopped while waiting
+            foreach (Function *f, m_heldFunctions)
+            {
+                if (f->stopped() == false && m_startQueue.contains(f) == false)
+                    m_startQueue.append(f);
+            }
+            m_heldFunctions.clear();
+        }
+
         while (m_startQueue.size() > 0)
         {
-            QList<Function*> startQueue(m_startQueue);
+            QList<Function*> startQueue;
+            foreach (Function *f, m_startQueue)
+            {
+                // a quantized start waits for the next beat/bar
+                if (m_quantizeRequests.removeAll(f) > 0 && isQuantizing())
+                {
+                    if (m_heldFunctions.contains(f) == false)
+                        m_heldFunctions.append(f);
+                }
+                else
+                {
+                    startQueue.append(f);
+                }
+            }
             m_startQueue.clear();
             locker.unlock();
 
@@ -345,6 +389,12 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
 
             locker.relock();
         }
+
+        // a request is meant for the start that follows it. Drop the requests
+        // of starts that didn't happen (e.g. the Function was already running),
+        // but keep those made while the start queue was being processed
+        foreach (Function *f, previousRequests)
+            m_quantizeRequests.removeAll(f);
     }
 
     if (functionListHasChanged)
@@ -399,16 +449,6 @@ void MasterTimer::setBeatSourceType(MasterTimer::BeatsSourceType type)
     if (type == m_beatSourceType)
         return;
 
-    if (type == Link && m_link == NULL)
-    {
-        qWarning() << "[MasterTimer] Ableton Link requested, but the service is not available";
-        type = None;
-    }
-
-    // leaving Link: stop taking part in the network session
-    if (m_beatSourceType == Link)
-        m_link->setEnabled(false);
-
     // alright, this causes a time drift of maximum 1ms per beat
     // but at the moment I am not looking for a better solution
     m_beatTimeDuration = 60000 / m_currentBPM;
@@ -416,14 +456,7 @@ void MasterTimer::setBeatSourceType(MasterTimer::BeatsSourceType type)
     m_beatCount = 0;
     m_beatPosition = 0;
 
-    if (type == Link)
-    {
-        m_linkBeatValid = false;
-        // This is only a proposal: when joining an existing session,
-        // Link adopts the session tempo instead of this one
-        m_link->setTempo(m_currentBPM);
-        m_link->setEnabled(true);
-    }
+    m_timelineBeatValid = false;
 
     m_beatSourceType = type;
 }
@@ -435,13 +468,9 @@ MasterTimer::BeatsSourceType MasterTimer::beatSourceType() const
 
 void MasterTimer::requestBpmNumber(int bpm)
 {
-    // with Link, a new tempo is proposed to the session. The next
-    // tick reads the resulting session tempo and notifies it
-    if (m_beatSourceType == Link)
-    {
-        m_link->setTempo(bpm);
+    // the timeline provides its own tempo
+    if (m_beatSourceType == Timeline)
         return;
-    }
 
     if (bpm == m_currentBPM)
         return;
@@ -465,8 +494,8 @@ int MasterTimer::beatTimeDuration() const
 
 int MasterTimer::timeToNextBeat() const
 {
-    if (m_beatSourceType == Link)
-        return m_linkTimeToNextBeat - m_beatTimer.elapsed();
+    if (m_beatSourceType == Timeline)
+        return m_timelineTimeToNextBeat - m_beatTimer.elapsed();
 
     return m_beatTimeDuration - m_beatTimer.elapsed();
 }
@@ -508,7 +537,7 @@ double MasterTimer::beatPosition() const
 
 double MasterTimer::barPhase() const
 {
-    // the Link session beat can be negative right after joining
+    // a timeline beat can be negative (e.g. right after joining a session)
     double phase = std::fmod(m_beatPosition, double(m_beatsPerBar));
     return phase < 0 ? phase + m_beatsPerBar : phase;
 }
@@ -539,56 +568,72 @@ int MasterTimer::latencyOffset() const
     return m_latencyOffset;
 }
 
-/*************************************************************************
- * Ableton Link
- *************************************************************************/
-
-void MasterTimer::setLinkService(QObject *service)
+void MasterTimer::setLaunchQuantize(MasterTimer::LaunchQuantize quantize)
 {
-    QLCLinkService *link = qobject_cast<QLCLinkService*>(service);
-    if (link == NULL)
-    {
-        qWarning() << "[MasterTimer] The Link service doesn't implement the expected interface";
+    m_launchQuantize = quantize;
+}
+
+MasterTimer::LaunchQuantize MasterTimer::launchQuantize() const
+{
+    return m_launchQuantize;
+}
+
+void MasterTimer::requestQuantizedStart(Function *function)
+{
+    if (function == NULL)
         return;
+
+    QMutexLocker locker(&m_functionListMutex);
+    if (m_quantizeRequests.contains(function) == false)
+        m_quantizeRequests.append(function);
+}
+
+bool MasterTimer::isQuantizing() const
+{
+    return m_launchQuantize != QuantizeOff && m_beatSourceType != None;
+}
+
+bool MasterTimer::isLaunchBoundary() const
+{
+    if (isBeat() == false)
+        return false;
+
+    if (m_launchQuantize == QuantizeBar)
+    {
+        // a beat can fire slightly before or after the exact beat
+        // position, so round to the nearest one
+        return qRound(barPhase()) % m_beatsPerBar == 0;
     }
 
-    m_link = link;
-
-    // emitted by a Link thread, so this connection is queued
-    connect(service, SIGNAL(numPeersChanged(int)), this, SIGNAL(linkPeersChanged(int)));
+    return true;
 }
 
-bool MasterTimer::linkAvailable() const
-{
-    return m_link != NULL;
-}
+/*************************************************************************
+ * Timeline beat source
+ *************************************************************************/
 
-int MasterTimer::linkPeers() const
+void MasterTimer::timerTickTimeline()
 {
-    return m_link == NULL ? 0 : m_link->numPeers();
-}
+    Doc *doc = qobject_cast<Doc*> (parent());
+    double position = 0;
+    double tempo = 0;
 
-void MasterTimer::timerTickLink()
-{
-    QLCLinkTimeline timeline;
-
-    // capture the timeline ahead by the latency offset, so that beats
+    // the timeline is captured ahead by the latency offset, so that beats
     // and positions are anticipated by the output latency
-    if (m_link->captureTimeline(m_beatsPerBar, m_latencyOffset, timeline) == false ||
-        timeline.tempo <= 0)
+    if (doc->inputOutputMap()->captureBeatTimeline(position, tempo) == false || tempo <= 0)
     {
         m_beatRequested = false;
         return;
     }
 
-    m_beatPosition = timeline.beat;
+    m_beatPosition = position;
 
-    // use the exact (fractional) Link tempo for the beat duration,
+    // use the exact (fractional) tempo for the beat duration,
     // while the BPM number is just for display and old style users
-    double beatMs = 60000.0 / timeline.tempo;
+    double beatMs = 60000.0 / tempo;
     m_beatTimeDuration = qMax(1, qRound(beatMs));
 
-    int bpm = qRound(timeline.tempo);
+    int bpm = qRound(tempo);
     if (bpm != m_currentBPM)
     {
         m_currentBPM = bpm;
@@ -598,20 +643,20 @@ void MasterTimer::timerTickLink()
     // look half a tick ahead, so that a beat is fired on the tick
     // closest to it, instead of always on the tick after it
     double halfTickBeats = (double(s_tick) / 2.0) / beatMs;
-    double beatIndex = std::floor(timeline.beat + halfTickBeats);
+    double beatIndex = std::floor(position + halfTickBeats);
 
-    // a backward jump of the session timeline doesn't fire a beat
-    if (m_linkBeatValid && beatIndex > m_lastLinkBeat)
+    // a backward jump of the timeline doesn't fire a beat
+    if (m_timelineBeatValid && beatIndex > m_lastTimelineBeat)
     {
         m_beatRequested = true;
         emit beat();
     }
 
-    m_lastLinkBeat = beatIndex;
-    m_linkBeatValid = true;
+    m_lastTimelineBeat = beatIndex;
+    m_timelineBeatValid = true;
 
     // time to the beat following the last fired one. timeToNextBeat()
     // subtracts the time elapsed from this tick
-    m_linkTimeToNextBeat = qRound((beatIndex + 1.0 - timeline.beat) * beatMs);
+    m_timelineTimeToNextBeat = qRound((beatIndex + 1.0 - position) * beatMs);
     m_beatTimer.restart();
 }

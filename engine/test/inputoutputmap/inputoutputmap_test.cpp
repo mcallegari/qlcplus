@@ -869,17 +869,19 @@ void InputOutputMap_Test::beatsPerBarXML()
     MasterTimer *mt = m_doc->masterTimer();
 
     // load a project with 3 beats per bar
-    QString xml = QString("<InputOutputMap><BeatGenerator BeatType=\"Disabled\" BPM=\"0\" BeatsPerBar=\"3\"/></InputOutputMap>");
+    QString xml = QString("<InputOutputMap><BeatGenerator BeatType=\"Disabled\" BPM=\"0\" BeatsPerBar=\"3\" LaunchQuantize=\"Bar\"/></InputOutputMap>");
     QXmlStreamReader reader(xml);
     reader.readNextStartElement();
     QVERIFY(iom.loadXML(reader) == true);
     QCOMPARE(mt->beatsPerBar(), 3);
+    QCOMPARE(mt->launchQuantize(), MasterTimer::QuantizeBar);
 
-    // it is saved with the beat generator
+    // they are saved with the beat generator
     QString saved;
     QXmlStreamWriter writer(&saved);
     QVERIFY(iom.saveXML(&writer) == true);
     QVERIFY(saved.contains("BeatsPerBar=\"3\""));
+    QVERIFY(saved.contains("LaunchQuantize=\"Bar\""));
 
     // a project saved without it is 4/4
     xml = QString("<InputOutputMap><BeatGenerator BeatType=\"Disabled\" BPM=\"0\"/></InputOutputMap>");
@@ -887,6 +889,7 @@ void InputOutputMap_Test::beatsPerBarXML()
     reader2.readNextStartElement();
     QVERIFY(iom.loadXML(reader2) == true);
     QCOMPARE(mt->beatsPerBar(), MASTERTIMER_DEFAULT_BEATS_PER_BAR);
+    QCOMPARE(mt->launchQuantize(), MasterTimer::QuantizeOff);
 }
 
 QTEST_APPLESS_MAIN(InputOutputMap_Test)

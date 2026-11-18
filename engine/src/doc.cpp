@@ -294,7 +294,7 @@ void Doc::slotServiceAvailable(const QString &id)
     }
     else if (id == QLCLINK_SERVICE_ID)
     {
-        m_masterTimer->setLinkService(m_serviceLoader->service(id));
+        m_ioMap->setLinkService(m_serviceLoader->service(id));
     }
 }
 

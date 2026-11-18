@@ -35,12 +35,12 @@ struct QLCLinkTimeline
     double beat;    //! absolute beat position (fractional)
     double phase;   //! position within the quantum, in [0, quantum)
     double tempo;   //! session tempo in BPM (fractional)
-    bool playing;   //! session transport state (start/stop sync)
+    bool playing;   //! session transport playing at the capture time (start/stop sync)
 };
 
 /**
  * The Ableton Link feature interface, implemented by the Link service plugin
- * and consumed by the engine (MasterTimer) as a beat source.
+ * and consumed by the engine (InputOutputMap) as a beat timeline and transport.
  *
  * Like QLCRDMService, this is a plain interface (no QObject, no Q_OBJECT) so
  * it can be compiled both into QLC+ and into the plugin. The IID carries the
@@ -82,11 +82,8 @@ public:
     /** Propose a new tempo to the session */
     virtual void setTempo(double bpm) = 0;
 
-    /** Enable/disable the start/stop transport sync */
-    virtual void setStartStopSyncEnabled(bool enable) = 0;
-    virtual bool isStartStopSyncEnabled() const = 0;
-
-    /** Start/stop the session transport (only with start/stop sync enabled) */
+    /** Start/stop the session transport. The start/stop sync is always
+     *  enabled. Nothing is done if the session is already in that state */
     virtual void setPlaying(bool playing) = 0;
 };
 

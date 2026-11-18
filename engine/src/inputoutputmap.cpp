@@ -33,6 +33,7 @@
 #include "inputoutputmap.h"
 #include "qlcinputchannel.h"
 #include "qlcinputsource.h"
+#include "qlclinkservice.h"
 #include "audiocapture.h"
 #include "qlcioplugin.h"
 #include "outputpatch.h"
@@ -50,6 +51,9 @@ InputOutputMap::InputOutputMap(const Doc *doc, quint32 universes)
     , m_localProfilesLoaded(false)
     , m_currentBPM(0)
     , m_beatTime(new QElapsedTimer())
+    , m_link(NULL)
+    , m_linkPlaying(false)
+    , m_linkPlayingValid(false)
     , m_networkServerType(NativeServer)
     , m_networkServerAutoStart(false)
 {
@@ -1034,6 +1038,10 @@ void InputOutputMap::setBeatGeneratorType(InputOutputMap::BeatGeneratorType type
         disconnect(m_inputCapture, SIGNAL(beatDetected(int)), this, SLOT(slotProcessBeat(int)));
     }
 
+    // leaving Link: stop taking part in the network session
+    if (m_beatGeneratorType == Link && m_link != NULL)
+        m_link->setEnabled(false);
+
     m_beatGeneratorType = type;
     qDebug() << "[InputOutputMap] setting beat type:" << m_beatGeneratorType;
 
@@ -1067,7 +1075,7 @@ void InputOutputMap::setBeatGeneratorType(InputOutputMap::BeatGeneratorType type
         break;
         case Link:
         {
-            if (m_doc->masterTimer()->linkAvailable() == false)
+            if (m_link == NULL)
             {
                 qWarning() << "[InputOutputMap] Ableton Link is not available. Using the internal beat generator";
                 m_beatGeneratorType = Disabled;
@@ -1077,7 +1085,14 @@ void InputOutputMap::setBeatGeneratorType(InputOutputMap::BeatGeneratorType type
             // Don't use setBpmNumber here: it would push the current
             // tempo to an existing Link session, overriding its tempo
             m_currentBPM = m_doc->masterTimer()->bpmNumber();
-            m_doc->masterTimer()->setBeatSourceType(MasterTimer::Link);
+
+            // This is only a proposal: when joining an existing session,
+            // Link adopts the session tempo instead of this one
+            m_link->setTempo(m_currentBPM);
+            m_linkPlayingValid = false;
+            m_link->setEnabled(true);
+
+            m_doc->masterTimer()->setBeatSourceType(MasterTimer::Timeline);
             emit bpmNumberChanged(m_currentBPM);
         }
         break;
@@ -1130,7 +1145,11 @@ void InputOutputMap::setBpmNumber(int bpm)
     //qDebug() << "[InputOutputMap] set BPM to" << bpm;
     m_currentBPM = bpm;
 
-    if (bpm != 0)
+    // with Link, a new tempo is proposed to the session. MasterTimer
+    // reads the resulting session tempo at the next tick and notifies it
+    if (bpm != 0 && m_beatGeneratorType == Link)
+        m_link->setTempo(bpm);
+    else if (bpm != 0)
         m_doc->masterTimer()->requestBpmNumber(bpm);
 
     emit bpmNumberChanged(m_currentBPM);
@@ -1195,6 +1214,71 @@ void InputOutputMap::slotMasterTimerBpmChanged(int bpm)
 
     m_currentBPM = bpm;
     emit bpmNumberChanged(m_currentBPM);
+}
+
+/*********************************************************************
+ * Beat timeline & transport
+ *********************************************************************/
+
+bool InputOutputMap::captureBeatTimeline(double &beatPosition, double &tempo)
+{
+    if (m_beatGeneratorType != Link || m_link == NULL)
+        return false;
+
+    MasterTimer *timer = m_doc->masterTimer();
+    QLCLinkTimeline timeline;
+
+    if (m_link->captureTimeline(timer->beatsPerBar(), timer->latencyOffset(), timeline) == false)
+        return false;
+
+    beatPosition = timeline.beat;
+    tempo = timeline.tempo;
+
+    // notify the transport changes. The state found when joining
+    // the session is just taken, not notified
+    if (m_linkPlayingValid && timeline.playing != m_linkPlaying)
+        emit transportChanged(timeline.playing);
+    m_linkPlaying = timeline.playing;
+    m_linkPlayingValid = true;
+
+    return true;
+}
+
+void InputOutputMap::setTransportPlaying(bool playing)
+{
+    if (m_beatGeneratorType != Link || m_link == NULL)
+        return;
+
+    m_link->setPlaying(playing);
+}
+
+/*********************************************************************
+ * Ableton Link
+ *********************************************************************/
+
+void InputOutputMap::setLinkService(QObject *service)
+{
+    QLCLinkService *link = qobject_cast<QLCLinkService*>(service);
+    if (link == NULL)
+    {
+        qWarning() << "[InputOutputMap] The Link service doesn't implement the expected interface";
+        return;
+    }
+
+    m_link = link;
+
+    // emitted by a Link thread, so this connection is queued
+    connect(service, SIGNAL(numPeersChanged(int)), this, SIGNAL(linkPeersChanged(int)));
+}
+
+bool InputOutputMap::linkAvailable() const
+{
+    return m_link != NULL;
+}
+
+int InputOutputMap::linkPeers() const
+{
+    return m_link == NULL ? 0 : m_link->numPeers();
 }
 
 void InputOutputMap::slotPluginBeat(quint32 universe, quint32 channel, uchar value, const QString &key)
@@ -1486,6 +1570,14 @@ bool InputOutputMap::loadXML(QXmlStreamReader &root)
             else
                 m_doc->masterTimer()->setBeatsPerBar(MASTERTIMER_DEFAULT_BEATS_PER_BAR);
 
+            QString quantize = attrs.value(KXMLIOLaunchQuantize).toString();
+            if (quantize == "Beat")
+                m_doc->masterTimer()->setLaunchQuantize(MasterTimer::QuantizeBeat);
+            else if (quantize == "Bar")
+                m_doc->masterTimer()->setLaunchQuantize(MasterTimer::QuantizeBar);
+            else
+                m_doc->masterTimer()->setLaunchQuantize(MasterTimer::QuantizeOff);
+
             root.skipCurrentElement();
         }
         else if (root.name() == KXMLIONetworkServer)
@@ -1534,6 +1626,12 @@ bool InputOutputMap::saveXML(QXmlStreamWriter *doc) const
     doc->writeAttribute(KXMLIOBeatType, beatTypeToString(m_beatGeneratorType));
     doc->writeAttribute(KXMLIOBeatsPerMinute, QString::number(m_currentBPM));
     doc->writeAttribute(KXMLIOBeatsPerBar, QString::number(m_doc->masterTimer()->beatsPerBar()));
+    switch (m_doc->masterTimer()->launchQuantize())
+    {
+        case MasterTimer::QuantizeBeat: doc->writeAttribute(KXMLIOLaunchQuantize, "Beat"); break;
+        case MasterTimer::QuantizeBar: doc->writeAttribute(KXMLIOLaunchQuantize, "Bar"); break;
+        default: break;
+    }
     doc->writeEndElement();
 
     doc->writeStartElement(KXMLIONetworkServer);

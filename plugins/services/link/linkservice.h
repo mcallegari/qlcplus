@@ -55,12 +55,6 @@ public:
     void setTempo(double bpm) override;
 
     /** @reimp */
-    void setStartStopSyncEnabled(bool enable) override;
-
-    /** @reimp */
-    bool isStartStopSyncEnabled() const override;
-
-    /** @reimp */
     void setPlaying(bool playing) override;
 
 signals:

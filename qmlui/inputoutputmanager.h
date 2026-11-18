@@ -60,6 +60,7 @@ class InputOutputManager final : public PreviewContext
     Q_PROPERTY(int linkPeers READ linkPeers NOTIFY linkPeersChanged)
     Q_PROPERTY(int beatsPerBar READ beatsPerBar WRITE setBeatsPerBar NOTIFY beatsPerBarChanged)
     Q_PROPERTY(int latencyOffset READ latencyOffset WRITE setLatencyOffset NOTIFY latencyOffsetChanged)
+    Q_PROPERTY(int launchQuantize READ launchQuantize WRITE setLaunchQuantize NOTIFY launchQuantizeChanged)
 
     Q_PROPERTY(QString profileUserFolder READ profileUserFolder CONSTANT)
 
@@ -230,6 +231,11 @@ public:
     int latencyOffset() const;
     void setLatencyOffset(int ms);
 
+    /** Get/Set the launch quantization (MasterTimer::LaunchQuantize)
+     *  of the VC buttons and cue lists (saved in the project) */
+    int launchQuantize() const;
+    void setLaunchQuantize(int quantize);
+
     /** Get the index of the current beat in the bar, from 0 to beatsPerBar - 1 */
     Q_INVOKABLE int beatInBar() const;
 
@@ -240,6 +246,7 @@ signals:
     void linkPeersChanged(int peers);
     void beatsPerBarChanged();
     void latencyOffsetChanged();
+    void launchQuantizeChanged();
 
 protected slots:
     void slotBeatTypeChanged();
