@@ -223,6 +223,31 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
                 widgetList << ultra;
             }
         }
+        else if (iface->vendorID() == DMXInterface::RASPBERRYPIVID && iface->productID() == DMXInterface::DMXCOREPID)
+        {
+            // The DMX Core USB Interface speaks the ENTTEC Pro protocol with the DMXKing
+            // multi-port labels (0x63 port count, 0x64... output) and its own ESTA ID.
+            // Port 1 is DMX output and input, any other port is output.
+            // RDM works on ports 1 and 2 (labels 7/11 and the Mk2 port 2 labels 0x9D/0xB6).
+            int ESTAID = 0, DEVID = 0;
+            QByteArray portsConfig;
+            QString manName, devName;
+            EnttecDMXUSBPro::detectDMXKingDevice(iface, manName, devName, ESTAID, DEVID, portsConfig);
+
+            QList<int> ports;
+            ports << (DMXUSBWidget::DMX | DMXUSBWidget::Output | DMXUSBWidget::Input);
+            for (int p = 1; p < portsConfig.length(); p++)
+                ports << (DMXUSBWidget::DMX | DMXUSBWidget::Output);
+
+            EnttecDMXUSBPro *dmxcore = new EnttecDMXUSBPro(iface, output_id, input_id);
+            dmxcore->setPortsMapping(ports);
+            dmxcore->setDMXKingMode();
+            if (devName.isEmpty() == false)
+                dmxcore->setRealName(devName);
+            output_id += dmxcore->portFlagsCount(DMXUSBWidget::Output);
+            input_id += dmxcore->portFlagsCount(DMXUSBWidget::Input);
+            widgetList << dmxcore;
+        }
         else if (productName.contains("DMX USB PRO") || productName.contains("ULTRADMX"))
         {
             int ESTAID = 0, DEVID = 0;

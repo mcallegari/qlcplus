@@ -55,6 +55,9 @@
 #define DMXKING_SEND_DMX_PORT1          char(0x64)
 #define DMXKING_SEND_DMX_PORT2          char(0x65)
 
+// DMX Core defines
+#define DMXCORE_ESTA_ID          0x0744  // DMX Pro Sales, maker of DMX Core
+
 #define MAX_READ_ATTEMPTS   5
 
 //#define DEBUG_RDM
@@ -241,8 +244,9 @@ bool EnttecDMXUSBPro::detectDMXKingDevice(DMXInterface *iface,
 
     qDebug() << "--------> ESTA Code: " << QString::number(ESTA_ID, 16) << ", Device ID: " << QString::number(DEV_ID, 16);
 
-    // if this is a DMXKing device, gather ports configuration
-    if (ESTA_ID == DMXKING_ESTA_ID)
+    // if this is a DMXKing device, gather ports configuration.
+    // The DMX Core USB Interface reports its number of ports too (not their direction)
+    if (ESTA_ID == DMXKING_ESTA_ID || ESTA_ID == DMXCORE_ESTA_ID)
     {
         // retrieve the number of ports
         if (writeLabelRequest(iface, DMXKING_DMX_PORT_COUNT) == false)
@@ -263,21 +267,24 @@ bool EnttecDMXUSBPro::detectDMXKingDevice(DMXInterface *iface,
                 portDirection.fill(0x00, portsNumber);
 
                 // retrieve the ports configuration
-                if (writeLabelRequest(iface, DMXKING_DMX_PORT_DIRECTION) == false)
+                if (ESTA_ID == DMXKING_ESTA_ID)
                 {
-                    qDebug() << Q_FUNC_INFO << "Cannot write data to device";
-                    return false;
-                }
+                    if (writeLabelRequest(iface, DMXKING_DMX_PORT_DIRECTION) == false)
+                    {
+                        qDebug() << Q_FUNC_INFO << "Cannot write data to device";
+                        return false;
+                    }
 
-                if (readResponse(iface, DMXKING_DMX_PORT_DIRECTION, payload))
-                {
-                    parsePortFlags(payload, portDirection);
-                    qDebug() << "Port direction" << portDirection;
+                    if (readResponse(iface, DMXKING_DMX_PORT_DIRECTION, payload))
+                    {
+                        parsePortFlags(payload, portDirection);
+                        qDebug() << "Port direction" << portDirection;
+                    }
                 }
             }
         }
 
-        ret = true;
+        ret = (ESTA_ID == DMXKING_ESTA_ID);
     }
 
     iface->close();

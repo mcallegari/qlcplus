@@ -74,6 +74,11 @@ quint8 DMXInterface::busLocation() const
 
 bool DMXInterface::validInterface(quint16 vendor, quint16 product)
 {
+    // the Raspberry Pi VID is shared by many unrelated products,
+    // so accept only the DMX Core product ID with it
+    if (vendor == DMXInterface::RASPBERRYPIVID)
+        return (product == DMXInterface::DMXCOREPID);
+
     if (vendor != DMXInterface::FTDIVID &&
         vendor != DMXInterface::ATMELVID &&
         vendor != DMXInterface::MICROCHIPVID &&
