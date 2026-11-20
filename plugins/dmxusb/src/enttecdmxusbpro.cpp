@@ -56,6 +56,7 @@
 #define DMXKING_SEND_DMX_PORT2          char(0x65)
 
 #define MAX_READ_ATTEMPTS   5
+#define MAX_INPUT_PACKETS   32
 
 //#define DEBUG_RDM
 
@@ -406,6 +407,17 @@ bool EnttecDMXUSBPro::close(quint32 line, bool input)
  * Input
  ************************************************************************/
 
+// Whether the buffer holds a whole packet from its first start byte on
+static bool completePacketBuffered(const QByteArray &buffer)
+{
+    int startIdx = buffer.indexOf(ENTTEC_PRO_START_OF_MSG);
+    if (startIdx == -1 || buffer.size() < startIdx + 5)
+        return false;
+
+    int dataLen = (static_cast<uchar>(buffer[startIdx + 3]) << 8) | static_cast<uchar>(buffer[startIdx + 2]);
+    return buffer.size() >= startIdx + 4 + dataLen + 1;
+}
+
 int EnttecDMXUSBPro::readData(QByteArray &payload, bool &isMIDI, int RDM)
 {
     static QByteArray buffer;
@@ -416,9 +428,14 @@ int EnttecDMXUSBPro::readData(QByteArray &payload, bool &isMIDI, int RDM)
 
     while (attempt < MAX_READ_ATTEMPTS)
     {
-        QByteArray chunk = iface()->read(READ_CHUNK_SIZE);
+        // a whole packet is already buffered: hand it out without
+        // waiting for new data, which might not come
+        bool buffered = completePacketBuffered(buffer);
+        QByteArray chunk;
+        if (buffered == false)
+            chunk = iface()->read(READ_CHUNK_SIZE);
 
-        if (chunk.isEmpty())
+        if (chunk.isEmpty() && buffered == false)
         {
             // among DMX data, the RDM request might be in a queue
             // so give some time to the adapter to output the request
@@ -904,71 +921,84 @@ void EnttecDMXUSBPro::run()
          * ************************************************************ */
         if (readInput)
         {
-            QByteArray payload;
+            QByteArray payload, dmxPayload;
             bool isMIDI = false;
 
-            if (readData(payload, isMIDI))
+            // Take every packet waiting (up to a limit, so the output keeps its rate):
+            // MIDI in order, DMX only the newest, as it carries every channel.
+            // Taking one packet per frame let them pile up whenever the widget sent
+            // more than one during a frame, and the input lagged further and further.
+            for (int packets = 0; packets < MAX_INPUT_PACKETS; packets++)
             {
-                int devLine = isMIDI ? inputsNumber() - 1 : 0;
-                int emitLine = m_inputBaseLine + devLine;
+                if (readData(payload, isMIDI) == 0)
+                    break;
 
                 if (!isMIDI)
                 {
-                    // DMX input optimization
-                    if (payload.size() > 512)
-                        payload.truncate(512);
-
-                    if (m_portsInfo[devLine].m_universeData.size() == 0)
-                        m_portsInfo[devLine].m_universeData.fill(0, 512);
-
-                    // Skip entire processing if data is the same
-                    if (::memcmp(payload.constData(),
-                                 m_portsInfo[devLine].m_universeData.constData(),
-                                 payload.size()) != 0)
-                    {
-                        for (int i = 0; i < payload.size(); ++i)
-                        {
-                            uchar byte = uchar(payload[i]);
-                            if (byte != uchar(m_portsInfo[devLine].m_universeData[i]))
-                            {
-                                m_portsInfo[devLine].m_universeData[i] = byte;
-                                emit valueChanged(UINT_MAX, emitLine, i, byte);
-                            }
-                        }
-                    }
+                    dmxPayload = payload;
+                    continue;
                 }
-                else
+
+                int emitLine = m_inputBaseLine + inputsNumber() - 1;
+
+                // MIDI input optimization — process in chunks of 3
+                const uchar *data = reinterpret_cast<const uchar *>(payload.constData());
+                int length = payload.length();
+
+                for (int i = 0; i < length;)
                 {
-                    // MIDI input optimization — process in chunks of 3
-                    const uchar *data = reinterpret_cast<const uchar *>(payload.constData());
-                    int length = payload.length();
-
-                    for (int i = 0; i < length;)
+                    if (!MIDI_IS_CMD(data[i]))
                     {
-                        if (!MIDI_IS_CMD(data[i]))
+                        i++;
+                        continue;
+                    }
+
+                    uchar midiCmd = data[i];
+                    uchar midiData1 = data[i + 1];
+                    uchar midiData2 = data[i + 2];
+
+                    //qDebug() << "CMD" << midiCmd << "DATA1" << midiData1 << "DATA2" << midiData2;
+
+                    uint channel = 0;
+                    uchar value = 0;
+                    if (QLCMIDIProtocol::midiToInput(midiCmd, midiData1, midiData2,
+                                                     MAX_MIDI_CHANNELS, &channel, &value))
+                    {
+                        emit valueChanged(UINT_MAX, emitLine, channel, value);
+
+                        if (midiCmd >= MIDI_BEAT_CLOCK && midiCmd <= MIDI_BEAT_STOP)
+                            emit valueChanged(UINT_MAX, emitLine, channel, 0);
+                    }
+
+                    i += 3;
+                }
+            }
+
+            if (!dmxPayload.isEmpty())
+            {
+                int devLine = 0;
+                int emitLine = m_inputBaseLine + devLine;
+
+                // DMX input optimization
+                if (dmxPayload.size() > 512)
+                    dmxPayload.truncate(512);
+
+                if (m_portsInfo[devLine].m_universeData.size() == 0)
+                    m_portsInfo[devLine].m_universeData.fill(0, 512);
+
+                // Skip entire processing if data is the same
+                if (::memcmp(dmxPayload.constData(),
+                             m_portsInfo[devLine].m_universeData.constData(),
+                             dmxPayload.size()) != 0)
+                {
+                    for (int i = 0; i < dmxPayload.size(); ++i)
+                    {
+                        uchar byte = uchar(dmxPayload[i]);
+                        if (byte != uchar(m_portsInfo[devLine].m_universeData[i]))
                         {
-                            i++;
-                            continue;
+                            m_portsInfo[devLine].m_universeData[i] = byte;
+                            emit valueChanged(UINT_MAX, emitLine, i, byte);
                         }
-
-                        uchar midiCmd = data[i];
-                        uchar midiData1 = data[i + 1];
-                        uchar midiData2 = data[i + 2];
-
-                        //qDebug() << "CMD" << midiCmd << "DATA1" << midiData1 << "DATA2" << midiData2;
-
-                        uint channel = 0;
-                        uchar value = 0;
-                        if (QLCMIDIProtocol::midiToInput(midiCmd, midiData1, midiData2,
-                                                         MAX_MIDI_CHANNELS, &channel, &value))
-                        {
-                            emit valueChanged(UINT_MAX, emitLine, channel, value);
-
-                            if (midiCmd >= MIDI_BEAT_CLOCK && midiCmd <= MIDI_BEAT_STOP)
-                                emit valueChanged(UINT_MAX, emitLine, channel, 0);
-                        }
-
-                        i += 3;
                     }
                 }
             }
