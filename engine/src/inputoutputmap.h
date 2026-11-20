@@ -29,6 +29,7 @@
 #include "grandmaster.h"
 #include "qlcrdmservice.h"
 #include "qlcioplugin.h"
+#include "universe.h"
 
 class QXmlStreamReader;
 class QXmlStreamWriter;
@@ -37,7 +38,6 @@ class QLCInputSource;
 class AudioCapture;
 class OutputPatch;
 class InputPatch;
-class Universe;
 class Doc;
 
 /** @addtogroup engine Engine
@@ -210,6 +210,22 @@ public:
      * @return true = passthrough, false = normal mode
      */
     bool getUniversePassthrough(int index) const;
+
+    /**
+     * Set how input values are combined with internal values when
+     * the universe with the given index is in passthrough mode
+     * @param index The universe index
+     * @param mode The passthrough mode
+     */
+    void setUniversePassthroughMode(int index, Universe::PassthroughMode mode);
+
+    /**
+     * Retrieve how input values are combined with internal values when
+     * the universe with the given index is in passthrough mode
+     * @param index The universe index
+     * @return The passthrough mode
+     */
+    Universe::PassthroughMode getUniversePassthroughMode(int index) const;
 
     /**
      * Enable/disable the monitor mode for the universe with the given index
