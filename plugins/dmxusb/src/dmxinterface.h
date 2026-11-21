@@ -89,6 +89,7 @@ public:
     static const int ATMELVID = 0x03EB;      //! Atmel Vendor ID
     static const int MICROCHIPVID = 0x04D8;  //! Microchip Vendor ID
     static const int NXPVID = 0x1FC9;        //! NXP Vendor ID
+    static const int RASPBERRYPIVID = 0x2E8A; //! Raspberry Pi Vendor ID
     static const int FTDIPID = 0x6001;       //! FTDI Product ID
     static const int FTDI2PID = 0x6010;      //! FTDI COM485-PLUS2 Product ID
     static const int FTDI4PID = 0x6011;      //! FTDI FT4232H Product ID
@@ -97,6 +98,7 @@ public:
     static const int EUROLITEPID = 0xFA63;   //! Eurolite USB DMX Product ID
     static const int ELECTROTASPID = 0x0000; //! ElectroTAS USB DMX Product ID
     static const int DMXKINGMAXPID = 0x0094; //! DMXKing ultraDMX MAX Product ID
+    static const int DMXCOREPID = 0x1180;    //! DMX Core USB Interface Product ID (Raspberry Pi VID, assigned to DMX Core)
 
     /** Driver types */
     enum Type
