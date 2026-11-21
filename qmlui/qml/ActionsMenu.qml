@@ -316,6 +316,21 @@ Popup
             id: fileEntries
             parent: menuRoot.compactMode ? fileMenu.contentItem : actionsMenuEntries
 
+            Shortcut
+            {
+                sequence: "Ctrl+N"
+                onActivated:
+                {
+                    if (qlcplus.docModified)
+                    {
+                        saveFirstPopup.action = "#OPEN"
+                        saveFirstPopup.open()
+                    }
+                    else
+                        openDialog(App.OpenMode)
+                }
+            }
+
             ContextMenuEntry
             {
                 id: fileNew
@@ -334,6 +349,21 @@ Popup
                     menuRoot.close()
                 }
                 onEntered: fileEntryEntered(null)
+            }
+
+            Shortcut
+            {
+                sequence: "Ctrl+O"
+                onActivated:
+                {
+                    if (qlcplus.docModified)
+                    {
+                        saveFirstPopup.action = "#OPEN"
+                        saveFirstPopup.open()
+                    }
+                    else
+                        openDialog(App.OpenMode)
+                }
             }
 
             ContextMenuEntry
@@ -585,6 +615,15 @@ Popup
             }
         }
 
+        Shortcut
+        {
+            sequence: "Ctrl+F11"
+            onActivated:
+            {
+                qlcplus.toggleFullscreen()
+            }
+        }
+
         ContextMenuEntry
         {
             id: fullScreen
@@ -720,6 +759,16 @@ Popup
             }
         }
 
+        // No help popup so this is the best alternative
+        Shortcut
+        {
+            sequence: "Ctrl+F1"
+            onActivated:
+            {
+                infoPopup.open()
+            }
+        }
+
         ContextMenuEntry
         {
             id: info
@@ -737,6 +786,16 @@ Popup
             {
                 id: infoPopup
                 width: mainView.width / 2
+            }
+        }
+
+        // No menu option
+        Shortcut
+        {
+            sequence: "Ctrl+Alt+Backspace"
+            onActivated:
+            {
+                qlcplus.exit()
             }
         }
     }

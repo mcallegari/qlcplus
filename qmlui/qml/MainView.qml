@@ -534,6 +534,16 @@ Rectangle
             }
 
             // ################## STOP ALL FUNCTIONS ##################
+
+            Shortcut
+            {
+                sequence: "Ctrl+Shift+Esc"
+                onActivated:
+                {
+                    qlcplus.stopAllFunctions()
+                }
+            }
+
             IconButton
             {
                 id: stopAllButton
