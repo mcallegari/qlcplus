@@ -63,6 +63,7 @@ class App final : public QQuickView
     Q_PROPERTY(QStringList recentFiles READ recentFiles NOTIFY recentFilesChanged)
     Q_PROPERTY(QString workingPath READ workingPath WRITE setWorkingPath NOTIFY workingPathChanged)
     Q_PROPERTY(int accessMask READ accessMask WRITE setAccessMask NOTIFY accessMaskChanged)
+    Q_PROPERTY(bool projectActionsAllowed READ projectActionsAllowed NOTIFY accessMaskChanged)
     Q_PROPERTY(int runningFunctionsCount READ runningFunctionsCount NOTIFY runningFunctionsCountChanged)
 
     Q_PROPERTY(QString appName READ appName CONSTANT)
@@ -189,6 +190,13 @@ public:
     int defaultMask() const;
     void setAccessMask(int mask);
     int accessMask() const;
+
+    /** Return true if the whole project can be created, loaded or written to
+     *  disk. These operations replace or dump the entire workspace, and the
+     *  file dialogs they open give access to the filesystem, so they require
+     *  an unrestricted access mask: neither the kiosk mode nor a network
+     *  client holding limited rights is allowed to perform them */
+    bool projectActionsAllowed() const;
 
     /** Get/Set the 3D support status */
     bool is3DSupported() const;

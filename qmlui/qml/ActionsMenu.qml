@@ -46,12 +46,42 @@ Popup
         submenuItem = item ? item : (compactMode ? fileMenu : null)
     }
 
+    /** Project actions. These are also reachable through the global keyboard
+      * shortcuts handled by ContextManager::handleKeyPress, so they must not
+      * assume this menu is currently open */
+    function handleNewAction()
+    {
+        if (qlcplus.docModified)
+        {
+            saveFirstPopup.action = "#NEW"
+            saveFirstPopup.open()
+        }
+        else
+            qlcplus.newWorkspace()
+    }
+
+    function handleOpenAction()
+    {
+        if (qlcplus.docModified)
+        {
+            saveFirstPopup.action = "#OPEN"
+            saveFirstPopup.open()
+        }
+        else
+            openDialog(App.OpenMode)
+    }
+
     function handleSaveAction()
     {
         if (qlcplus.fileName())
             qlcplus.saveWorkspace(qlcplus.fileName())
         else
             openDialog(App.SaveAsMode)
+    }
+
+    function handleSaveAsAction()
+    {
+        openDialog(App.SaveMode)
     }
 
     /** Open a project or fixture file, e.g. dropped onto the main window.
@@ -323,14 +353,7 @@ Popup
                 entryText: qsTr("New project")
                 onClicked:
                 {
-                    if (qlcplus.docModified)
-                    {
-                        saveFirstPopup.action = "#NEW"
-                        saveFirstPopup.open()
-                    }
-                    else
-                        qlcplus.newWorkspace()
-
+                    handleNewAction()
                     menuRoot.close()
                 }
                 onEntered: fileEntryEntered(null)
@@ -343,14 +366,7 @@ Popup
                 entryText: qsTr("Open file")
                 onClicked:
                 {
-                    if (qlcplus.docModified)
-                    {
-                        saveFirstPopup.action = "#OPEN"
-                        saveFirstPopup.open()
-                    }
-                    else
-                        openDialog(App.OpenMode)
-
+                    handleOpenAction()
                     menuRoot.close()
                 }
                 onEntered: fileEntryEntered(recentMenu)
@@ -414,7 +430,7 @@ Popup
 
                 onClicked:
                 {
-                    openDialog(App.SaveMode)
+                    handleSaveAsAction()
                     menuRoot.close()
                 }
             }

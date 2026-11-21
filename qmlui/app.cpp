@@ -435,6 +435,11 @@ int App::defaultMask() const
             AC_ShowManager | AC_SimpleDesk | AC_VCControl | AC_VCEditing;
 }
 
+bool App::projectActionsAllowed() const
+{
+    return m_accessMask == defaultMask();
+}
+
 void App::keyPressEvent(QKeyEvent *e)
 {
     // If a text input item (e.g. an inline name being edited) currently has

@@ -117,9 +117,27 @@ Rectangle
             clientAccessPopup.close()
     }
 
+    /** Entry points for the global keyboard shortcuts documented at
+      * https://docs.qlcplus.org/v5/main-window
+      * They are invoked by ContextManager::handleKeyPress */
+    function newProject()
+    {
+        actionsMenu.handleNewAction()
+    }
+
+    function openProject()
+    {
+        actionsMenu.handleOpenAction()
+    }
+
     function saveProject()
     {
         actionsMenu.handleSaveAction()
+    }
+
+    function saveProjectAs()
+    {
+        actionsMenu.handleSaveAsAction()
     }
 
     function saveBeforeExit()
