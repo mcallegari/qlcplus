@@ -45,7 +45,7 @@ class VCWidgetProperties final
 public:
     VCWidgetProperties();
     VCWidgetProperties(const VCWidgetProperties& properties);
-    virtual ~VCWidgetProperties();
+    ~VCWidgetProperties();
 
     /************************************************************************
      * Properties
@@ -59,17 +59,17 @@ public:
     int height() const;
 
     /** Get properties from the given widget and store them in memory. */
-    virtual void store(QWidget* widget);
+    void store(QWidget* widget);
 
     /************************************************************************
      * Load & Save
      ************************************************************************/
 public:
     /** Load properties from an XML tag */
-    virtual bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** Save stored properties to the given XML document */
-    virtual bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc);
 
 protected:
     QFlags <Qt::WindowState> m_state;

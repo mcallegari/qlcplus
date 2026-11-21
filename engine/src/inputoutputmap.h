@@ -250,18 +250,16 @@ public:
     Universe *universe(quint32 id) const;
 
     /**
-     * Claim access to a universe. This is declared virtual to make
-     * unit testing a bit easier.
+     * Claim access to a universe.
      */
-    virtual QList<Universe*> claimUniverses();
+    QList<Universe*> claimUniverses();
 
     /**
-     * Release access to a universe. This is declared virtual to make
-     * unit testing a bit easier.
+     * Release access to a universe.
      *
      * @param changed Set to true if DMX values were changed
      */
-    virtual void releaseUniverses(bool changed = true);
+    void releaseUniverses(bool changed = true);
 
     /**
      * Reset all universes (useful when starting from scratch)

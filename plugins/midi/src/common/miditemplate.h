@@ -47,7 +47,7 @@ public:
     MidiTemplate(const MidiTemplate& templ);
 
     /** Destructor */
-    virtual ~MidiTemplate();
+    ~MidiTemplate();
 
     /** Assignment operator */
     MidiTemplate& operator=(const MidiTemplate& templ);

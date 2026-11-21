@@ -90,7 +90,7 @@ public:
     QLCFixtureMode(QLCFixtureDef *fixtureDef, const QLCFixtureMode *mode);
 
     /** Destructor */
-    virtual ~QLCFixtureMode();
+    ~QLCFixtureMode();
 
     /** Assignment operator */
     QLCFixtureMode& operator=(const QLCFixtureMode& mode);

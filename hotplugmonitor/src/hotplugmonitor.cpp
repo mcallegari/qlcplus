@@ -70,9 +70,9 @@ void HotPlugMonitor::setWinId(WId id)
     instance()->d_ptr->setWinId(id);
 }
 
-bool HotPlugMonitor::parseWinEvent(void *message, long *result)
+bool HotPlugMonitor::parseWinEvent(void *message)
 {
-    return instance()->d_ptr->processWinEvent((MSG*)message, result);
+    return instance()->d_ptr->processWinEvent((MSG*)message);
 }
 #endif
 

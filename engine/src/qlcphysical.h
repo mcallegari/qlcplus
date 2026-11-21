@@ -75,7 +75,7 @@ public:
     QLCPhysical();
     QLCPhysical(const QLCPhysical &other);
 
-    virtual ~QLCPhysical();
+    ~QLCPhysical();
 
     QLCPhysical& operator=(const QLCPhysical& physical);
 

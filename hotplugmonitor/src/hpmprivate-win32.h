@@ -42,7 +42,7 @@ public:
     void stop();
 
     void setWinId(WId id);
-    bool processWinEvent(MSG* message, long* result);
+    bool processWinEvent(MSG* message);
 
 protected:
     static bool extractVidPid(const QString& dbccName, uint* vid, uint* pid);

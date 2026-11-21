@@ -40,7 +40,7 @@ class QLCFixtureHead final
 public:
     QLCFixtureHead();
     QLCFixtureHead(const QLCFixtureHead& head);
-    virtual ~QLCFixtureHead();
+    ~QLCFixtureHead();
 
     QLCFixtureHead& operator=(const QLCFixtureHead& head);
 

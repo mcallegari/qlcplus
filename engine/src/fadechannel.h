@@ -66,7 +66,7 @@ public:
     FadeChannel(const Doc *doc, quint32 fxi, quint32 channel);
 
     /** Destructor */
-    virtual ~FadeChannel();
+    ~FadeChannel();
 
     FadeChannel& operator=(const FadeChannel& fc);
 

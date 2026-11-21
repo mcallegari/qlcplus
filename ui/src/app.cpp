@@ -346,11 +346,16 @@ void App::setActiveWindow(const QString& name)
 }
 
 #if defined(WIN32) || defined(Q_OS_WIN)
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 bool App::nativeEvent(const QByteArray &eventType, void *message, long *result)
+#else
+bool App::nativeEvent(const QByteArray &eventType, void *message, qintptr *result)
+#endif
 {
     Q_UNUSED(eventType)
+    Q_UNUSED(result)
     //qDebug() << Q_FUNC_INFO << eventType;
-    return HotPlugMonitor::parseWinEvent(message, result);
+    return HotPlugMonitor::parseWinEvent(message);
 }
 
 void App::disableTimerResolutionThrottling()

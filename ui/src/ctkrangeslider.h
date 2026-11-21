@@ -191,8 +191,8 @@ protected:
     // Description:
     // Rendering is done here.
     virtual void paintEvent(QPaintEvent *ev) override;
-    virtual void initMinimumSliderStyleOption(QStyleOptionSlider *option) const;
-    virtual void initMaximumSliderStyleOption(QStyleOptionSlider *option) const;
+    void initMinimumSliderStyleOption(QStyleOptionSlider *option) const;
+    void initMaximumSliderStyleOption(QStyleOptionSlider *option) const;
 
     // Description:
     // Reimplemented for the tooltips

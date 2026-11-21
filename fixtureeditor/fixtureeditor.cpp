@@ -57,7 +57,6 @@
 #include "app.h"
 
 extern App *_app;
-extern int errno;
 
 #define PROP_PTR Qt::UserRole
 

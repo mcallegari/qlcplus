@@ -91,7 +91,11 @@ private:
 
 #if defined(WIN32) || defined(Q_OS_WIN)
 protected:
-    bool nativeEvent(const QByteArray & eventType, void * message, long * result);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    bool nativeEvent(const QByteArray & eventType, void * message, long * result) override;
+#else
+    bool nativeEvent(const QByteArray & eventType, void * message, qintptr * result) override;
+#endif
     void disableTimerResolutionThrottling();
 #endif
 

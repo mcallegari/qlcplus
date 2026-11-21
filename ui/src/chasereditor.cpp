@@ -530,7 +530,7 @@ void ChaserEditor::slotShuffleClicked()
     }
 
     QList <QTreeWidgetItem*> selectedItems(m_tree->selectedItems());
-    int indicesToShuffle[selectedCount];
+    QList <int> indicesToShuffle(selectedCount);
 
     // save the selected scenes and their indices into a sorted array
     QListIterator <QTreeWidgetItem*> it(selectedItems);
@@ -539,7 +539,7 @@ void ChaserEditor::slotShuffleClicked()
         QTreeWidgetItem* item = it.next();
         indicesToShuffle[i] = m_tree->indexOfTopLevelItem(item);
     }
-    std::sort(indicesToShuffle, indicesToShuffle + selectedCount);
+    std::sort(indicesToShuffle.begin(), indicesToShuffle.end());
 
     // shuffle the selected scenes using the Fisher-Yates algorithm
     // see https://bost.ocks.org/mike/shuffle/ for information on the algorithm
