@@ -1,7 +1,7 @@
 project(windows)
 
 # Set paths
-set(SYS_LIBS_PATH $ENV{SystemDrive}/msys64/ucrt64/bin)
+set(SYS_LIBS_PATH $ENV{SystemDrive}/msys64/clang64/bin)
 
 function(copy_system_library target libname)
     if(EXISTS ${SYS_LIBS_PATH}/${libname})

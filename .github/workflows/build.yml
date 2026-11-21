@@ -299,7 +299,7 @@ jobs:
           echo "NPROC=$(nproc)" >> $GITHUB_ENV
           echo "TASK=$(echo '${{matrix.task}}' | cut -d '-' -f 2)" >> $GITHUB_ENV
           echo "QT=${QT:-$(echo '${{matrix.task}}' | cut -d '-' -f 2)}" >> $GITHUB_ENV
-          echo "QTDIR=/d/a/qlcplus/qlcplus/qt/Qt/${{ env.QT_VERSION }}/mingw_64" >> $GITHUB_ENV
+          echo "QTDIR=/d/a/qlcplus/qlcplus/qt/Qt/${{ env.QT_VERSION }}/llvm-mingw_64" >> $GITHUB_ENV
           echo "BUILD_DATE=`date -u '+%Y%m%d'`" >> $GITHUB_ENV
           echo "GIT_REV=`git rev-parse --short HEAD`" >> $GITHUB_ENV
 
@@ -335,29 +335,30 @@ jobs:
           version: ${{ env.QT_VERSION }}
           host: 'windows'
           target: 'desktop'
-          arch: 'win64_mingw'
+          arch: 'win64_llvm_mingw'
           dir: "${{ github.workspace }}/qt/"
           modules: 'qt3d qtimageformats qtmultimedia qtserialport qtwebsockets'
 
       - name: Update and install MSYS2 (64bit)
         uses: msys2/setup-msys2@v2
         with:
-          msystem: ucrt64
+          msystem: clang64
           release: true
           update: false
           path-type: inherit
           install: >-
             wget
             unzip
-            mingw-w64-ucrt-x86_64-gcc
-            mingw-w64-ucrt-x86_64-gcc-libs
-            mingw-w64-ucrt-x86_64-cmake
-            mingw-w64-ucrt-x86_64-libsndfile
-            mingw-w64-ucrt-x86_64-lame
-            mingw-w64-ucrt-x86_64-flac
-            mingw-w64-ucrt-x86_64-libusb
-            mingw-w64-ucrt-x86_64-python-lxml
-            mingw-w64-ucrt-x86_64-nsis
+            mingw-w64-clang-x86_64-clang
+            mingw-w64-clang-x86_64-llvm-tools
+            mingw-w64-clang-x86_64-tools
+            mingw-w64-clang-x86_64-cmake
+            mingw-w64-clang-x86_64-libsndfile
+            mingw-w64-clang-x86_64-lame
+            mingw-w64-clang-x86_64-flac
+            mingw-w64-clang-x86_64-libusb
+            mingw-w64-clang-x86_64-python-lxml
+            mingw-w64-clang-x86_64-nsis
 
       - name: D2XX SDK (64 bit)
         shell: msys2 {0}
@@ -368,7 +369,7 @@ jobs:
           unzip cdm.zip
           cd amd64
           gendef.exe - ftd2xx64.dll > ftd2xx.def
-          dlltool -k --input-def ftd2xx.def --dllname ftd2xx64.dll --output-lib libftd2xx.a
+          dlltool -m i386:x86-64 -k -d ftd2xx.def -D ftd2xx64.dll -l libftd2xx.a
 
       - name: Print program versions
         shell: msys2 {0}
