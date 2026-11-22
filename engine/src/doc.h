@@ -68,7 +68,7 @@ public:
      * @param outputUniverses Number of output (DMX) universes
      * @param inputUniverses Number of input universes
      */
-    Doc(QObject* parent, int universes = 4);
+    explicit Doc(QObject* parent, int universes = 4);
 
     /** Destructor */
     ~Doc();

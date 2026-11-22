@@ -48,7 +48,7 @@ class GenericFader final : public QObject
     Q_OBJECT
 
 public:
-    GenericFader(QObject *parent = 0);
+    explicit GenericFader(QObject *parent = 0);
     ~GenericFader();
 
     /** Get/Set an arbitrary name for this fader */

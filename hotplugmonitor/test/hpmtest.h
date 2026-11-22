@@ -1,4 +1,4 @@
-﻿/*
+/*
   Q Light Controller
   hpmtest.h
 
@@ -30,7 +30,7 @@ class HPMTest final : public QWidget
     Q_OBJECT
 
 public:
-    HPMTest(QWidget* parent = 0);
+    explicit HPMTest(QWidget* parent = 0);
     ~HPMTest();
 
 private slots:

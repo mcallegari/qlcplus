@@ -80,7 +80,7 @@ class Universe : public QThread
 
 public:
     /** Construct a new Universe */
-    Universe(quint32 id = invalid(), GrandMaster *gm = NULL, QObject *parent = 0);
+    explicit Universe(quint32 id = invalid(), GrandMaster *gm = NULL, QObject *parent = 0);
 
     /** Destructor */
     virtual ~Universe();

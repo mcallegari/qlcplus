@@ -30,7 +30,7 @@ class ListModel final : public QAbstractListModel
     Q_OBJECT
     Q_DISABLE_COPY(ListModel)
 public:
-    ListModel(QObject *parent = nullptr);
+    explicit ListModel(QObject *parent = nullptr);
     ~ListModel();
 
     void clear();

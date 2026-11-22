@@ -35,7 +35,7 @@ class AboutBox final : public QDialog, public Ui_AboutBox
     Q_DISABLE_COPY(AboutBox)
 
 public:
-    AboutBox(QWidget* parent);
+    explicit AboutBox(QWidget* parent);
     ~AboutBox();
 
 private slots:

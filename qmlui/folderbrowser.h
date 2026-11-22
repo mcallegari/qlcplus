@@ -34,7 +34,7 @@ class FolderBrowser : public QObject
     Q_PROPERTY(QVariant drivesModel READ drivesModel NOTIFY drivesModelChanged)
 
 public:
-    FolderBrowser(QObject *parent = nullptr);
+    explicit FolderBrowser(QObject *parent = nullptr);
     ~FolderBrowser();
 
     Q_INVOKABLE QString separator() const;

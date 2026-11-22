@@ -267,7 +267,7 @@ void VCSpeedDialProperties::slotAddClicked()
     if (fs.exec() == QDialog::Accepted)
     {
         foreach (quint32 id, fs.selection())
-            createFunctionItem(id);
+            createFunctionItem(VCSpeedDialFunction(id));
     }
 }
 

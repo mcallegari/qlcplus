@@ -34,7 +34,7 @@ class CreateFixtureGroup final : public QDialog, public Ui_CreateFixtureGroup
     Q_DISABLE_COPY(CreateFixtureGroup)
 
 public:
-    CreateFixtureGroup(QWidget* parent);
+    explicit CreateFixtureGroup(QWidget* parent);
     ~CreateFixtureGroup();
 
     QString name() const;

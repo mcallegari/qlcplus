@@ -87,7 +87,7 @@ class Fixture final : public QObject
      *********************************************************************/
 public:
     /** Create a new fixture instance with the given QObject parent. */
-    Fixture(QObject* parent = 0);
+    explicit Fixture(QObject* parent = 0);
 
     /** Destructor */
     ~Fixture();

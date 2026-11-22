@@ -37,7 +37,7 @@ class EditChannel final : public QDialog, public Ui_EditChannel
 {
     Q_OBJECT
 public:
-    EditChannel(QWidget *parent, QLCChannel *channel = NULL);
+    explicit EditChannel(QWidget *parent, QLCChannel *channel = NULL);
     ~EditChannel();
 
 protected:

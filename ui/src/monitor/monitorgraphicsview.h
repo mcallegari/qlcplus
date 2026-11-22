@@ -38,7 +38,7 @@ class MonitorGraphicsView final : public QGraphicsView
     Q_OBJECT
 
 public:
-    MonitorGraphicsView(Doc *doc, QWidget *parent = 0);
+    explicit MonitorGraphicsView(Doc *doc, QWidget *parent = 0);
     ~MonitorGraphicsView();
 
     /** Set the graphics view size in monitor units */

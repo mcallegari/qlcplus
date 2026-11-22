@@ -79,7 +79,7 @@ namespace AppUtil
 class NoEditDelegate final : public QStyledItemDelegate
 {
 public:
-    NoEditDelegate(QObject* parent=0): QStyledItemDelegate(parent) {}
+    explicit NoEditDelegate(QObject* parent = 0) : QStyledItemDelegate(parent) {}
     virtual QWidget* createEditor(QWidget *, const QStyleOptionViewItem &, const QModelIndex &) const override
     {
         return 0;
@@ -103,7 +103,7 @@ public:
      * Create a combobox delegate.
      * @param strings The selectable strings in the combobox, arranged in order.
      */
-    ComboBoxDelegate(const QStringList &strings, QWidget *parent = 0);
+    explicit ComboBoxDelegate(const QStringList &strings, QWidget *parent = 0);
 
     QWidget *createEditor(QWidget *parent,
             const QStyleOptionViewItem &option,

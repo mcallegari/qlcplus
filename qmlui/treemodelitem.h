@@ -30,7 +30,7 @@ class TreeModelItem final : public QObject
     Q_OBJECT
 
 public:
-    TreeModelItem(QString label, QObject *parent = 0);
+    explicit TreeModelItem(QString label, QObject *parent = 0);
     ~TreeModelItem();
 
     /** Get/Set the item display label */

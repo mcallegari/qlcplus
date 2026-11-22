@@ -96,7 +96,7 @@ public:
         StartOffset
     };
 
-    EFX(Doc* doc);
+    explicit EFX(Doc* doc);
     ~EFX();
 
     /** @reimp */

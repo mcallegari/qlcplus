@@ -42,7 +42,7 @@ class CustomTcpServer final : public QTcpServer
     Q_OBJECT
 
 public:
-    CustomTcpServer(QObject *parent);
+    explicit CustomTcpServer(QObject *parent);
 
 protected:
     void incomingConnection(qintptr handle) override;
@@ -77,7 +77,7 @@ class QHttpServer final : public QObject
 public:
     /// Construct a new HTTP Server.
     /** @param parent Parent QObject for the server. */
-    QHttpServer(QObject *parent = 0);
+    explicit QHttpServer(QObject *parent = 0);
 
     virtual ~QHttpServer();
 

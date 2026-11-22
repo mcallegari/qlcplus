@@ -32,7 +32,7 @@ class ModelSelector : public QObject
     Q_PROPERTY(int itemsCount READ itemsCount NOTIFY itemsCountChanged)
 
 public:
-    ModelSelector(QObject *parent = 0);
+    explicit ModelSelector(QObject *parent = 0);
     ~ModelSelector();
 
     /** Add an entry to the selected items list.

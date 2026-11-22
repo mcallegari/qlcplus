@@ -43,7 +43,7 @@ public:
      *
      * @param parent Owning parent widget (optional)
      */
-    Launcher(QWidget* parent = 0);
+    explicit Launcher(QWidget* parent = 0);
 
     /** Destructor */
     ~Launcher();

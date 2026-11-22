@@ -40,7 +40,7 @@ class AssignHotKey final : public QDialog, public Ui_AssignHotKey
      * Initialization
      *********************************************************************/
 public:
-    AssignHotKey(QWidget* parent, const QKeySequence& keySequence = QKeySequence());
+    explicit AssignHotKey(QWidget* parent, const QKeySequence& keySequence = QKeySequence());
     ~AssignHotKey();
 
     /*********************************************************************

@@ -37,7 +37,7 @@ class Sequence final : public Chaser
      * Initialization
      *********************************************************************/
 public:
-    Sequence(Doc* doc);
+    explicit Sequence(Doc* doc);
     virtual ~Sequence();
 
     /** @reimp */

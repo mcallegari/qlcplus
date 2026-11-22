@@ -29,7 +29,7 @@ class Function_Stub final : public Function
     Q_OBJECT
 
 public:
-    Function_Stub(Doc* doc);
+    explicit Function_Stub(Doc* doc);
     ~Function_Stub();
 
     Function* createCopy(Doc* parent, bool addToDoc = true) override;

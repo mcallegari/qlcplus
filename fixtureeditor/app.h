@@ -42,7 +42,7 @@ class App final : public QMainWindow
     Q_OBJECT
 
 public:
-    App(QWidget* parent = 0);
+    explicit App(QWidget* parent = 0);
     ~App();
 
     static QString longName();

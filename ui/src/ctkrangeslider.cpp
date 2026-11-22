@@ -46,7 +46,7 @@ public:
     };
     Q_DECLARE_FLAGS(Handles, Handle);
 
-    ctkRangeSliderPrivate(ctkRangeSlider& object);
+    explicit ctkRangeSliderPrivate(ctkRangeSlider& object);
     void init();
 
     /// Return the handle at the given pos, or none if no handle is at the pos.

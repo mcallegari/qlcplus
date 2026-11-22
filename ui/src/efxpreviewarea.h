@@ -42,7 +42,7 @@ class EFXPreviewArea final : public QWidget
     Q_OBJECT
 
 public:
-    EFXPreviewArea(QWidget* parent);
+    explicit EFXPreviewArea(QWidget* parent);
     ~EFXPreviewArea();
 
     /**

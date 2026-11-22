@@ -34,7 +34,7 @@ class CueStackModel final : public QAbstractItemModel
     Q_OBJECT
 
 public:
-    CueStackModel(QObject* parent = 0);
+    explicit CueStackModel(QObject* parent = 0);
     ~CueStackModel();
 
     void setCueStack(CueStack* cs);

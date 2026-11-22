@@ -54,7 +54,7 @@ class ShowItem : public QObject, public QGraphicsItem
     Q_INTERFACES(QGraphicsItem)
 
 public:
-    ShowItem(ShowFunction *function, QObject *parent = 0);
+    explicit ShowItem(ShowFunction *function, QObject *parent = 0);
 
 protected:
     /**

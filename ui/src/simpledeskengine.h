@@ -52,7 +52,7 @@ class SimpleDeskEngine final : public QObject, public DMXSource
      * Initialization
      ************************************************************************/
 public:
-    SimpleDeskEngine(Doc* doc);
+    explicit SimpleDeskEngine(Doc* doc);
     virtual ~SimpleDeskEngine();
 
     /** Start from scratch; clear everything */

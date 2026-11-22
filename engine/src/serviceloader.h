@@ -46,7 +46,7 @@ class ServiceLoader final : public QObject
     Q_OBJECT
 
 public:
-    ServiceLoader(QObject *parent);
+    explicit ServiceLoader(QObject *parent);
     ~ServiceLoader();
 
     /** Load the service plugins found in the given directory.

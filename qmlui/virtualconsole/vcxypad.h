@@ -63,7 +63,7 @@ class VCXYPad : public VCWidget, public DMXSource
      * Initialization
      *********************************************************************/
 public:
-    VCXYPad(Doc* doc = nullptr, QObject *parent = nullptr);
+    explicit VCXYPad(Doc* doc = nullptr, QObject *parent = nullptr);
     virtual ~VCXYPad();
 
     /** @reimp */

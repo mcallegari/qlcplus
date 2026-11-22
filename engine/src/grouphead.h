@@ -29,7 +29,7 @@
 class GroupHead final
 {
 public:
-    GroupHead(quint32 aFxi = Fixture::invalidId(), int aHead = -1);
+    explicit GroupHead(quint32 aFxi = Fixture::invalidId(), int aHead = -1);
     GroupHead(const GroupHead& another);
     ~GroupHead();
 

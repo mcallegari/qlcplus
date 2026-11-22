@@ -41,7 +41,7 @@ class GrandMaster final : public QObject
 
 public:
     /** Construct a new GrandMaster */
-    GrandMaster(QObject* parent = 0);
+    explicit GrandMaster(QObject* parent = 0);
 
     /** Destructor */
     virtual ~GrandMaster();

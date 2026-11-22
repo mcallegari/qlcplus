@@ -30,7 +30,7 @@
 class RGBItem final
 {
 public:
-    RGBItem(QAbstractGraphicsShapeItem* graphicsItem);
+    explicit RGBItem(QAbstractGraphicsShapeItem* graphicsItem);
 
     void setColor(QRgb rgb);
     QRgb color() const;

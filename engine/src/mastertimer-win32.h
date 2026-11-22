@@ -1,4 +1,4 @@
-﻿/*
+/*
   Q Light Controller Plus
   mastertimer-win32.h
 
@@ -32,7 +32,7 @@ class MasterTimer;
 class MasterTimerPrivate final
 {
 public:
-    MasterTimerPrivate(MasterTimer* masterTimer);
+    explicit MasterTimerPrivate(MasterTimer* masterTimer);
     ~MasterTimerPrivate();
 
     void start();

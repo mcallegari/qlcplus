@@ -31,7 +31,7 @@ class KnobWidget final : public QDial
     Q_OBJECT
 public:
     /** Constructor */
-    KnobWidget(QWidget *parent = 0);
+    explicit KnobWidget(QWidget *parent = 0);
 
     /** Destructor */
     ~KnobWidget();

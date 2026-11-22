@@ -32,7 +32,7 @@ class ConfigureOSC final : public QDialog, public Ui_ConfigureOSC
      * Initialization
      *********************************************************************/
 public:
-    ConfigureOSC(OSCPlugin* plugin, QWidget* parent = 0);
+    explicit ConfigureOSC(OSCPlugin* plugin, QWidget* parent = 0);
     virtual ~ConfigureOSC();
 
     /** @reimp */

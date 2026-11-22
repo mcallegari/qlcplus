@@ -31,7 +31,7 @@ class AudioRendererNull final : public AudioRenderer
 {
     Q_OBJECT
 public:
-    AudioRendererNull(QObject * parent = 0);
+    explicit AudioRendererNull(QObject* parent = 0);
 
     ~AudioRendererNull() { }
 

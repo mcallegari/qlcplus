@@ -30,7 +30,7 @@ class AudioCapturePortAudio final : public AudioCapture
 {
     Q_OBJECT
 public:
-    AudioCapturePortAudio(QObject * parent = 0);
+    explicit AudioCapturePortAudio(QObject* parent = 0);
     ~AudioCapturePortAudio();
 
     /** @reimpl */

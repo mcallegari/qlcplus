@@ -50,7 +50,7 @@ class PhysicalEdit final : public QObject
     Q_PROPERTY(QString dmxConnector READ dmxConnector WRITE setDmxConnector NOTIFY dmxConnectorChanged)
 
 public:
-    PhysicalEdit(QLCPhysical phy, QObject *parent = nullptr);
+    explicit PhysicalEdit(QLCPhysical phy, QObject *parent = nullptr);
     ~PhysicalEdit();
 
     QLCPhysical physical();

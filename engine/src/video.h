@@ -62,7 +62,7 @@ public:
         HeightScale
     };
 
-    Video(Doc* doc);
+    explicit Video(Doc* doc);
     virtual ~Video();
 
     /** @reimp */

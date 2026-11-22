@@ -63,7 +63,7 @@ class InputPatch : public QObject
      * Initialization
      ************************************************************************/
 public:
-    InputPatch(QObject* parent = 0);
+    explicit InputPatch(QObject* parent = 0);
     InputPatch(quint32 inputUniverse, QObject* parent);
     virtual ~InputPatch();
 

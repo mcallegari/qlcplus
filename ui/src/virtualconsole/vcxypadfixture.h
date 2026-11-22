@@ -58,7 +58,7 @@ class VCXYPadFixture final
      * Initialization
      ********************************************************************/
 public:
-    VCXYPadFixture(Doc *doc);
+    explicit VCXYPadFixture(Doc *doc);
 
     /** Initialize from QVariant */
     VCXYPadFixture(Doc *doc, const QVariant& variant);

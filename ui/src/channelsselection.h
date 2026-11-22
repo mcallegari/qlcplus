@@ -62,7 +62,7 @@ public:
         ConfigurationMode
     };
 
-    ChannelsSelection(Doc* doc, QWidget *parent = 0, ChannelSelectionType mode = NormalMode);
+    explicit ChannelsSelection(Doc* doc, QWidget *parent = 0, ChannelSelectionType mode = NormalMode);
     ~ChannelsSelection();
 
     void setChannelsList(QList<SceneValue> list);

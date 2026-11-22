@@ -60,7 +60,7 @@ public:
         Draggable = (1 << 5)
     };
 
-    TreeModel(QObject *parent = 0);
+    explicit TreeModel(QObject *parent = 0);
     ~TreeModel();
 
     static QChar separator();

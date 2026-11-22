@@ -36,7 +36,7 @@ class PlaybackSlider final : public QWidget
     Q_OBJECT
 
 public:
-    PlaybackSlider(QWidget* parent);
+    explicit PlaybackSlider(QWidget* parent);
     ~PlaybackSlider();
 
     void setValue(uchar value);

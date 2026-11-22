@@ -35,7 +35,7 @@ class DMXUSBConfig final : public QDialog
     Q_OBJECT
 
 public:
-    DMXUSBConfig(DMXUSB *plugin, QWidget *parent = 0);
+    explicit DMXUSBConfig(DMXUSB *plugin, QWidget *parent = 0);
     ~DMXUSBConfig();
 
 private slots:

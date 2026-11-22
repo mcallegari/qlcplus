@@ -125,7 +125,7 @@ protected:
      *
      * @param parent A parent object who owns the Bus
      */
-    Bus(QObject* parent);
+    explicit Bus(QObject* parent);
 
 protected:
     QList <BusEntry*> m_buses;

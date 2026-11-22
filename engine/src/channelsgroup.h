@@ -43,7 +43,7 @@ class ChannelsGroup final : public QObject
      ************************************************************************/
 public:
     /** Create a new ChannelsGroup with empty/invalid values */
-    ChannelsGroup(Doc *doc);
+    explicit ChannelsGroup(Doc *doc);
 
     /** Copy constructor */
     ChannelsGroup(Doc* doc, const ChannelsGroup* chg);

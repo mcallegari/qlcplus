@@ -1,4 +1,4 @@
-﻿/*
+/*
   Q Light Controller Plus
   mastertimer-unix.h
 
@@ -38,7 +38,7 @@ class MasterTimer;
 class MasterTimerPrivate final : public QThread
 {
 public:
-    MasterTimerPrivate(MasterTimer* masterTimer);
+    explicit MasterTimerPrivate(MasterTimer* masterTimer);
     ~MasterTimerPrivate();
 
     void stop();

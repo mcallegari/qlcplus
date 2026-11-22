@@ -33,7 +33,7 @@ class VCMatrixPresetSelection final : public QDialog, public Ui_VCMatrixPresetSe
     Q_OBJECT
 
 public:
-    VCMatrixPresetSelection(Doc *doc, QWidget *parent = 0);
+    explicit VCMatrixPresetSelection(Doc *doc, QWidget *parent = 0);
     ~VCMatrixPresetSelection();
 
     QString selectedPreset() const;

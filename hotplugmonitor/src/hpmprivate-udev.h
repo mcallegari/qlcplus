@@ -29,7 +29,7 @@ class HPMPrivate final : public QThread
     Q_OBJECT
 
 public:
-    HPMPrivate(HotPlugMonitor* parent);
+    explicit HPMPrivate(HotPlugMonitor* parent);
     ~HPMPrivate();
 
 public slots:

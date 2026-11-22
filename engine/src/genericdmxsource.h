@@ -43,7 +43,7 @@ class GenericFader;
 class GenericDMXSource final : public DMXSource
 {
 public:
-    GenericDMXSource(Doc* doc);
+    explicit GenericDMXSource(Doc* doc);
     ~GenericDMXSource();
 
     /** Set the value of a fixture channel */

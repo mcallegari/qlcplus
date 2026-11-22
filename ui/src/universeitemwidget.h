@@ -32,7 +32,7 @@ class UniverseItemWidget final : public QItemDelegate
     Q_OBJECT
 
 public:
-    UniverseItemWidget(QWidget *parent = 0);
+    explicit UniverseItemWidget(QWidget *parent = 0);
 
     virtual ~UniverseItemWidget();
 

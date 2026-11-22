@@ -77,7 +77,7 @@ public:
      *
      * @param fixtureDef The parent fixture definition
      */
-    QLCFixtureMode(QLCFixtureDef *fixtureDef);
+    explicit QLCFixtureMode(QLCFixtureDef *fixtureDef);
 
     /**
      * Create a copy of the given mode, taking channels from the given

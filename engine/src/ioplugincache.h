@@ -36,7 +36,7 @@ class IOPluginCache final : public QObject
     Q_OBJECT
 
 public:
-    IOPluginCache(QObject* parent);
+    explicit IOPluginCache(QObject* parent);
     ~IOPluginCache();
 
     /** Load plugins from the given directory. */

@@ -51,7 +51,7 @@ class FixtureGroup final : public QObject
      * Initialization
      ************************************************************************/
 public:
-    FixtureGroup(Doc* parent);
+    explicit FixtureGroup(Doc* parent);
     ~FixtureGroup();
 
     /** Copy properties from $grp to this */

@@ -50,8 +50,8 @@ class OutputPatch : public QObject
      * Initialization
      ********************************************************************/
 public:
-    OutputPatch(QObject* parent = 0);
-    OutputPatch(quint32 universe, QObject* parent = 0);
+    explicit OutputPatch(QObject* parent = 0);
+    explicit OutputPatch(quint32 universe, QObject* parent = 0);
     virtual ~OutputPatch();
 
     /********************************************************************

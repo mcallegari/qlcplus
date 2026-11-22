@@ -64,7 +64,7 @@ class VCCueList : public VCWidget
      * Initialization
      *********************************************************************/
 public:
-    VCCueList(Doc* doc = nullptr, QObject *parent = nullptr);
+    explicit VCCueList(Doc* doc = nullptr, QObject *parent = nullptr);
     virtual ~VCCueList();
 
     /** @reimp */

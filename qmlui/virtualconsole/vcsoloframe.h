@@ -37,7 +37,7 @@ class VCSoloFrame : public VCFrame
      * Initialization
      *********************************************************************/
 public:
-    VCSoloFrame(Doc* doc = nullptr, VirtualConsole *vc = nullptr, QObject *parent = nullptr);
+    explicit VCSoloFrame(Doc* doc = nullptr, VirtualConsole *vc = nullptr, QObject *parent = nullptr);
     ~VCSoloFrame();
 
     /** @reimp */

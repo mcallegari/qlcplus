@@ -68,7 +68,7 @@ class VCAnimation : public VCWidget
      * Initialization
      *********************************************************************/
 public:
-    VCAnimation(Doc* doc = nullptr, QObject *parent = nullptr);
+    explicit VCAnimation(Doc* doc = nullptr, QObject *parent = nullptr);
     virtual ~VCAnimation();
 
     /** @reimp */

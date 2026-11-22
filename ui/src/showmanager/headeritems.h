@@ -46,7 +46,7 @@ class ShowHeaderItem final : public QObject, public QGraphicsItem
     Q_INTERFACES(QGraphicsItem)
 
 public:
-    ShowHeaderItem(int width);
+    explicit ShowHeaderItem(int width);
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
@@ -95,7 +95,7 @@ private:
 class ShowCursorItem final : public QGraphicsItem
 {
 public:
-    ShowCursorItem(int h);
+    explicit ShowCursorItem(int h);
 
     void setHeight(int height);
 

@@ -1,4 +1,4 @@
-﻿/*
+/*
   Q Light Controller
   hpmprivate-win32.h
 
@@ -35,7 +35,7 @@ class HPMPrivate final : public QObject
     Q_OBJECT
 
 public:
-    HPMPrivate(HotPlugMonitor* parent);
+    explicit HPMPrivate(HotPlugMonitor* parent);
     virtual ~HPMPrivate();
 
     void start();

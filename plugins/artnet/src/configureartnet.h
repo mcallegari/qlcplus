@@ -32,7 +32,7 @@ class ConfigureArtNet final : public QDialog, public Ui_ConfigureArtNet
      * Initialization
      *********************************************************************/
 public:
-    ConfigureArtNet(ArtNetPlugin* plugin, QWidget* parent = 0);
+    explicit ConfigureArtNet(ArtNetPlugin* plugin, QWidget* parent = 0);
     virtual ~ConfigureArtNet();
 
     /** @reimp */

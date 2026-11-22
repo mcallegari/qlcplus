@@ -43,7 +43,7 @@ class AudioPluginCache final : public QObject
     Q_OBJECT
 
 public:
-    AudioPluginCache(QObject* parent);
+    explicit AudioPluginCache(QObject* parent);
     ~AudioPluginCache();
 
     /** Load plugins from the given directory. */
