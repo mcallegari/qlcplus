@@ -1,0 +1,118 @@
+/*
+  Q Light Controller Plus
+  android-ftdi-interface.h
+
+  Copyright (c) Massimo Callegari
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+
+#ifndef ANDROIDFTDIINTERFACE_H
+#define ANDROIDFTDIINTERFACE_H
+
+#include <QByteArray>
+
+#include "dmxinterface.h"
+#include "qlcandroidusb.h"
+
+class QObject;
+
+/**
+ * FTDI chips driven with raw USB vendor requests on Android,
+ * where neither libftdi nor D2XX can access the devices.
+ */
+class AndroidFTDIInterface final : public DMXInterface
+{
+public:
+    AndroidFTDIInterface(const QString& serial, const QString& name, const QString& vendor,
+                         quint16 VID, quint16 PID, quint32 id, const QString& path);
+
+    /** Destructor */
+    virtual ~AndroidFTDIInterface();
+
+    static QList<DMXInterface *> interfaces(QList<DMXInterface *> discoveredList);
+
+    /** Invoke @listener's slotDeviceAdded/slotDeviceRemoved on FTDI hotplug */
+    static void setHotplugListener(QObject *listener);
+
+    /************************************************************************
+     * DMX/Serial Interface Methods
+     ************************************************************************/
+public:
+    /** @reimpl */
+    DMXInterface::Type type() const override;
+
+    /** @reimpl */
+    QString typeString() const override;
+
+    /** @reimpl */
+    bool open() override;
+
+    /** @reimpl */
+    bool openByPID(const int FTDIPID) override;
+
+    /** @reimpl */
+    bool close() override;
+
+    /** @reimpl */
+    bool isOpen() const override;
+
+    /** @reimpl */
+    bool reset() override;
+
+    /** @reimpl */
+    bool setLineProperties() override;
+
+    /** @reimpl */
+    bool setBaudRate() override;
+
+    /** @reimpl */
+    bool setFlowControl() override;
+
+    /** @reimpl */
+    bool setLowLatency(bool lowLatency) override;
+
+    /** @reimpl */
+    bool clearRts() override;
+
+    /** @reimpl */
+    bool purgeBuffers() override;
+
+    /** @reimpl */
+    bool setBreak(bool on) override;
+
+    /** @reimpl */
+    bool write(const QByteArray& data) override;
+
+    /** @reimpl */
+    QByteArray read(int size) override;
+
+    /** @reimpl */
+    uchar readByte(bool* ok = NULL) override;
+
+private:
+    /** Send a FTDI vendor request to this interface's port */
+    bool vendorRequest(quint8 request, quint16 value, quint16 index);
+
+    /** Read one bulk transfer into m_readBuffer, stripping the
+     *  2 modem status bytes of each packet. Return the payload size or -1 */
+    int fillReadBuffer();
+
+private:
+    QString m_path;
+    AndroidUSB::Handle m_handle;
+    bool m_isOpen;
+    QByteArray m_readBuffer;
+};
+
+#endif

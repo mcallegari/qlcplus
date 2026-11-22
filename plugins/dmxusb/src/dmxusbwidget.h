@@ -34,6 +34,15 @@
 #if defined(QTSERIAL)
   #include "qtserial-interface.h"
 #endif
+#if defined(Q_OS_ANDROID)
+  #include "android-ftdi-interface.h"
+  #include "android-cdc-interface.h"
+#endif
+
+/* Serial port widgets talk through DMXInterface instead of opening the tty device */
+#if defined(QTSERIAL) || defined(Q_OS_ANDROID)
+  #define DMXUSB_SERIAL_IFACE
+#endif
 
 #define DMX_CHANNELS                512
 #define DEFAULT_OUTPUT_FREQUENCY    44  // 44 Hertz, according to the DMX specs

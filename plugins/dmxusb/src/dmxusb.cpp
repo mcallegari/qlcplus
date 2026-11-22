@@ -41,6 +41,10 @@ DMXUSB::~DMXUSB()
 
 void DMXUSB::init()
 {
+#if defined(Q_OS_ANDROID)
+    AndroidFTDIInterface::setHotplugListener(this);
+    AndroidCDCInterface::setHotplugListener(this);
+#endif
     /* Search for new widgets */
     rescanWidgets();
 }

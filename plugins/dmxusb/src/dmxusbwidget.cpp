@@ -109,6 +109,10 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
 #if defined(LIBFTDI) || defined(LIBFTDI1)
     interfacesList.append(LibFTDIInterface::interfaces(interfacesList));
 #endif
+#if defined(Q_OS_ANDROID)
+    interfacesList.append(AndroidFTDIInterface::interfaces(interfacesList));
+    interfacesList.append(AndroidCDCInterface::interfaces(interfacesList));
+#endif
 
     QMap <QString, QVariant> types(DMXInterface::typeMap());
 

@@ -29,7 +29,9 @@
 #include "hidapi.h"
 #include "hidplugin.h"
 
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+#if defined(Q_OS_ANDROID)
+  #include "hidandroid.h"
+#elif defined(Q_WS_X11) || defined(Q_OS_LINUX)
   #include "hidlinuxjoystick.h"
 #elif defined(WIN32) || defined (Q_OS_WIN)
   #include "win32/hidwindowsjoystick.h"
@@ -43,6 +45,9 @@
 
 void HIDPlugin::init()
 {
+#if defined(Q_OS_ANDROID)
+    hid_android_set_listener(this);
+#endif
     rescanDevices();
 }
 
@@ -282,7 +287,9 @@ void HIDPlugin::rescanDevices()
                                    QString(cur_dev->path));
             addDevice(dev);
         }
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+#if defined(Q_OS_ANDROID)
+        /* No joystick support on Android */
+#elif defined(Q_WS_X11) || defined(Q_OS_LINUX)
         else if (QString(cur_dev->path).contains("js"))
         {
             dev = new HIDLinuxJoystick(this, line++, cur_dev);
@@ -295,8 +302,10 @@ void HIDPlugin::rescanDevices()
         {
             dev = new HIDOSXJoystick(this, line++, cur_dev);
 #endif
+#if !defined(Q_OS_ANDROID)
             addDevice(dev);
         }
+#endif
 
         cur_dev = cur_dev->next;
     }

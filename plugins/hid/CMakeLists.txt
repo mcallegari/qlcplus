@@ -42,7 +42,17 @@ target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::Widgets
 )
 
-if(UNIX AND NOT APPLE)
+if(ANDROID)
+    target_sources(${module_name} PRIVATE
+        android/hidapi.cpp
+        android/hidandroid.h
+        ../interfaces/qlcandroidusb.cpp ../interfaces/qlcandroidusb.h
+    )
+
+    target_include_directories(${module_name} PRIVATE
+        android
+    )
+elseif(UNIX AND NOT APPLE)
     target_sources(${module_name} PRIVATE
         linux/hidapi.cpp
         linux/hidlinuxjoystick.cpp linux/hidlinuxjoystick.h
@@ -82,7 +92,7 @@ if(WIN32)
     )
 endif()
 
-if (UNIX AND NOT APPLE)
+if (UNIX AND NOT APPLE AND NOT ANDROID)
    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/linux/z65-fx5-hid.rules"
            DESTINATION ${UDEVRULESDIR})
    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/linux/org.qlcplus.QLCPlus.hid.metainfo.xml"

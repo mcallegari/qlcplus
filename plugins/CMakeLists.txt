@@ -11,6 +11,11 @@ add_subdirectory(loopback)
 add_subdirectory(osc)
 add_subdirectory(os2l)
 
+if(ANDROID)
+    add_subdirectory(dmxusb)
+    add_subdirectory(hid)
+endif()
+
 if(NOT ANDROID AND NOT IOS)
     # libusb-1.0
     pkg_check_modules(LIBUSB_1 IMPORTED_TARGET libusb-1.0)

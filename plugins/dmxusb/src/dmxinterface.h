@@ -103,7 +103,9 @@ public:
     {
         libFTDI = 0,
         FTD2xx,
-        QtSerial
+        QtSerial,
+        AndroidFTDI,
+        AndroidCDC
     };
 
     /**

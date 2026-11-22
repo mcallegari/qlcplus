@@ -32,7 +32,7 @@ EuroliteUSBDMXPro::~EuroliteUSBDMXPro()
 {
     stop();
 
-#ifdef QTSERIAL
+#ifdef DMXUSB_SERIAL_IFACE
     if (isOpen())
         DMXUSBWidget::close();
 #else
@@ -46,7 +46,7 @@ DMXUSBWidget::Type EuroliteUSBDMXPro::type() const
     return DMXUSBWidget::Eurolite;
 }
 
-#ifndef QTSERIAL
+#ifndef DMXUSB_SERIAL_IFACE
 QString EuroliteUSBDMXPro::getDeviceName()
 {
     QDir sysfsDevDir("/sys/bus/usb/devices");
@@ -108,7 +108,7 @@ bool EuroliteUSBDMXPro::open(quint32 line, bool input)
     Q_UNUSED(line)
     Q_UNUSED(input)
 
-#ifdef QTSERIAL
+#ifdef DMXUSB_SERIAL_IFACE
     if (DMXUSBWidget::open() == false)
         return false;
 #else
@@ -141,7 +141,7 @@ bool EuroliteUSBDMXPro::close(quint32 line, bool input)
 
     stop();
 
-#ifdef QTSERIAL
+#ifdef DMXUSB_SERIAL_IFACE
     if (isOpen())
         return DMXUSBWidget::close();
 #else
@@ -191,7 +191,7 @@ bool EuroliteUSBDMXPro::writeUniverse(quint32 universe, quint32 output, const QB
     Q_UNUSED(universe)
     Q_UNUSED(output)
 
-#ifdef QTSERIAL
+#ifdef DMXUSB_SERIAL_IFACE
     if (isOpen() == false)
         return false;
 #else
@@ -244,14 +244,14 @@ void EuroliteUSBDMXPro::run()
         request.append(m_portsInfo[0].m_universeData);
         request.append(EUROLITE_USB_DMX_PRO_END_OF_MSG); // Stop byte
 
-#ifdef QTSERIAL
+#ifdef DMXUSB_SERIAL_IFACE
         if (iface()->write(request) == false)
 #else
         if (m_file.write(request) == false)
 #endif
         {
             qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
-#ifdef QTSERIAL
+#ifdef DMXUSB_SERIAL_IFACE
             iface()->purgeBuffers();
 #endif
         }

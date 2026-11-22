@@ -32,7 +32,7 @@ NanoDMX::~NanoDMX()
 {
     stop();
 
-#ifdef QTSERIAL
+#ifdef DMXUSB_SERIAL_IFACE
     if (isOpen())
         DMXUSBWidget::close();
 #else
@@ -48,7 +48,7 @@ DMXUSBWidget::Type NanoDMX::type() const
 
 bool NanoDMX::checkReply()
 {
-#ifdef QTSERIAL
+#ifdef DMXUSB_SERIAL_IFACE
     bool ok = false;
     uchar res;
 
@@ -82,7 +82,7 @@ bool NanoDMX::sendChannelValue(int channel, uchar value)
     return iface()->write(chanMsg);
 }
 
-#ifndef QTSERIAL
+#ifndef DMXUSB_SERIAL_IFACE
 QString NanoDMX::getDeviceName()
 {
     QDir sysfsDevDir("/sys/bus/usb/devices");
@@ -144,7 +144,7 @@ bool NanoDMX::open(quint32 line, bool input)
     Q_UNUSED(line)
     Q_UNUSED(input)
 
-#ifdef QTSERIAL
+#ifdef DMXUSB_SERIAL_IFACE
     if (DMXUSBWidget::open() == false)
         return false;
 #else
@@ -168,7 +168,7 @@ bool NanoDMX::open(quint32 line, bool input)
 
     /* Check connection */
     initSequence.append("C?");
-#ifdef QTSERIAL
+#ifdef DMXUSB_SERIAL_IFACE
     if (iface()->write(initSequence) == true)
 #else
     if (m_file.write(initSequence) == true)
@@ -183,7 +183,7 @@ bool NanoDMX::open(quint32 line, bool input)
     /* set the DMX OUT channels number */
     initSequence.clear();
     initSequence.append("N511");
-#ifdef QTSERIAL
+#ifdef DMXUSB_SERIAL_IFACE
     if (iface()->write(initSequence) == true)
 #else
     if (m_file.write(initSequence) == true)
@@ -206,7 +206,7 @@ bool NanoDMX::close(quint32 line, bool input)
 
     stop();
 
-#ifdef QTSERIAL
+#ifdef DMXUSB_SERIAL_IFACE
     if (isOpen())
         return DMXUSBWidget::close();
 #else
@@ -256,7 +256,7 @@ bool NanoDMX::writeUniverse(quint32 universe, quint32 output, const QByteArray& 
     Q_UNUSED(universe)
     Q_UNUSED(output)
 
-#ifdef QTSERIAL
+#ifdef DMXUSB_SERIAL_IFACE
     if (isOpen() == false)
         return false;
 #else
@@ -325,14 +325,14 @@ void NanoDMX::run()
                 fastTrans.append((char)(i - 256));
             }
             fastTrans.append(val);
-#ifdef QTSERIAL
+#ifdef DMXUSB_SERIAL_IFACE
             if (iface()->write(fastTrans) == false)
 #else
             if (m_file.write(fastTrans) <= 0)
 #endif
             {
                 qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
-#ifdef QTSERIAL
+#ifdef DMXUSB_SERIAL_IFACE
                 iface()->purgeBuffers();
 #endif
                 continue;
@@ -340,7 +340,7 @@ void NanoDMX::run()
             else
             {
                 m_portsInfo[0].m_compareData[i] = val;
-#ifdef QTSERIAL
+#ifdef DMXUSB_SERIAL_IFACE
                 if (checkReply() == false)
                     iface()->purgeBuffers();
 #endif
