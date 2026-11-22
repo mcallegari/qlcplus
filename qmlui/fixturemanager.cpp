@@ -669,7 +669,7 @@ void FixtureManager::addFixtureNode(Doc *doc, TreeModel *treeModel, Fixture *fix
     MonitorProperties *monProps = doc->monitorProperties();
     bool expandAll = searchFilter.length() >= SEARCH_MIN_CHARS;
 
-    if (searchFilter.length() < SEARCH_MIN_CHARS || fixture->name().toLower().contains(searchFilter))
+    if (searchFilter.length() < SEARCH_MIN_CHARS || fixture->name().contains(searchFilter, Qt::CaseInsensitive))
         matchMask |= FixtureMatch;
 
     for (quint32 &subID : monProps->fixtureIDList(fixture->id()))
@@ -732,7 +732,7 @@ void FixtureManager::addFixtureNode(Doc *doc, TreeModel *treeModel, Fixture *fix
             for (QLCChannel *channel : mode->channels()) // C++11
             {
                 if (matchMask || searchFilter.length() < SEARCH_MIN_CHARS ||
-                    channel->name().toLower().contains(searchFilter))
+                    channel->name().contains(searchFilter, Qt::CaseInsensitive))
                 {
                     int flags = expandAll ? TreeModel::Expanded : 0;
                     if (checkedChannels.contains(SceneValue(fixture->id(), chIdx)))
@@ -812,7 +812,7 @@ void FixtureManager::addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, Fix
     if (doc == nullptr || treeModel == nullptr || group == nullptr)
         return;
 
-    if (searchFilter.length() < SEARCH_MIN_CHARS || group->name().toLower().contains(searchFilter))
+    if (searchFilter.length() < SEARCH_MIN_CHARS || group->name().contains(searchFilter, Qt::CaseInsensitive))
         matchMask |= GroupMatch;
 
     if (showFlags & ShowChannels)
@@ -839,7 +839,7 @@ void FixtureManager::addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, Fix
             if (fixture == nullptr)
                 continue;
 
-            if (searchFilter.length() >= SEARCH_MIN_CHARS && fixture->name().toLower().contains(searchFilter) == false)
+            if (searchFilter.length() >= SEARCH_MIN_CHARS && fixture->name().contains(searchFilter, Qt::CaseInsensitive) == false)
                 continue;
 
             QString fxPath = QString("%1%2%3").arg(group->name()).arg(TreeModel::separator()).arg(fixture->name());

@@ -87,18 +87,41 @@ CustomPopupDialog
 
                 TextInput
                 {
+                    id: fxSearchInput
                     x: fxSearchIcon.width + 14
                     y: 3
                     height: parent.height - 6
-                    width: parent.width - x
+                    width: parent.width - x - height - 6
                     color: UISettings.fgMain
-                    text: importManager.fixtureSearchFilter
+                    Component.onCompleted: text = importManager.fixtureSearchFilter
                     font.family: UISettings.robotoFontName
                     font.pixelSize: height - 6
                     selectionColor: UISettings.highlightPressed
                     selectByMouse: true
 
-                    onTextEdited: importManager.fixtureSearchFilter = text
+                    onDisplayTextChanged: importManager.fixtureSearchFilter = displayText.trim()
+                }
+
+                MouseArea
+                {
+                    anchors.right: parent.right
+                    anchors.rightMargin: 3
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: height
+                    height: parent.height - 6
+                    visible: fxSearchInput.displayText.length > 0
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: fxSearchInput.clear()
+
+                    Text
+                    {
+                        anchors.centerIn: parent
+                        color: parent.pressed ? UISettings.highlight : parent.containsMouse ? UISettings.hover : "gray"
+                        font.family: UISettings.fontAwesomeFontName
+                        font.pixelSize: parent.height - 6
+                        text: FontAwesome.fa_xmark
+                    }
                 }
             }
 
@@ -127,18 +150,41 @@ CustomPopupDialog
 
                 TextInput
                 {
+                    id: funcSearchInput
                     x: funcSearchIcon.width + 14
                     y: 3
                     height: parent.height - 6
-                    width: parent.width - x
+                    width: parent.width - x - height - 6
                     color: UISettings.fgMain
-                    text: importManager.functionSearchFilter
+                    Component.onCompleted: text = importManager.functionSearchFilter
                     font.family: UISettings.robotoFontName
                     font.pixelSize: height - 6
                     selectionColor: UISettings.highlightPressed
                     selectByMouse: true
 
-                    onTextEdited: importManager.functionSearchFilter = text
+                    onDisplayTextChanged: importManager.functionSearchFilter = displayText.trim()
+                }
+
+                MouseArea
+                {
+                    anchors.right: parent.right
+                    anchors.rightMargin: 3
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: height
+                    height: parent.height - 6
+                    visible: funcSearchInput.displayText.length > 0
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: funcSearchInput.clear()
+
+                    Text
+                    {
+                        anchors.centerIn: parent
+                        color: parent.pressed ? UISettings.highlight : parent.containsMouse ? UISettings.hover : "gray"
+                        font.family: UISettings.fontAwesomeFontName
+                        font.pixelSize: parent.height - 6
+                        text: FontAwesome.fa_xmark
+                    }
                 }
             }
 

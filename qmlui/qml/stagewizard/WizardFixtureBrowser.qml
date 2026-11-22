@@ -65,7 +65,7 @@ Item
             TextInput
             {
                 id: searchInput
-                width: parent.width - 30
+                width: parent.width - 34 - height
                 height: parent.height - 4
                 anchors.verticalCenter: parent.verticalCenter
                 color: UISettings.fgMain
@@ -73,7 +73,27 @@ Item
                 font.pixelSize: UISettings.textSizeDefault
                 selectionColor: UISettings.highlightPressed
                 selectByMouse: true
-                onTextEdited: fixtureBrowser.searchFilter = text
+                onDisplayTextChanged: fixtureBrowser.searchFilter = displayText.trim()
+            }
+
+            MouseArea
+            {
+                anchors.verticalCenter: parent.verticalCenter
+                width: height
+                height: parent.height - 6
+                visible: searchInput.displayText.length > 0
+                hoverEnabled: true
+                cursorShape: Qt.PointingHandCursor
+                onClicked: searchInput.clear()
+
+                Text
+                {
+                    anchors.centerIn: parent
+                    color: parent.pressed ? UISettings.highlight : parent.containsMouse ? UISettings.hover : "gray"
+                    font.family: UISettings.fontAwesomeFontName
+                    font.pixelSize: parent.height - 6
+                    text: FontAwesome.fa_xmark
+                }
             }
         }
     }
@@ -313,7 +333,7 @@ Item
                 {
                     fixtureBrowser.selectedManufacturer = modelData
                     fixtureBrowser.searchFilter = ""
-                    searchInput.text = ""
+                    searchInput.clear()
                 }
             }
         }

@@ -299,7 +299,7 @@ void PaletteManager::updatePaletteList()
         }
 
         if ((m_typeFilter == QLCPalette::Undefined || m_typeFilter & palette->type()) &&
-            (m_searchFilter.length() < SEARCH_MIN_CHARS || palette->name().toLower().contains(m_searchFilter)))
+            (m_searchFilter.length() < SEARCH_MIN_CHARS || palette->name().contains(m_searchFilter, Qt::CaseInsensitive)))
         {
             QVariantMap funcMap;
             funcMap.insert("paletteID", palette->id());

@@ -225,6 +225,7 @@ Rectangle
                 onToggled:
                 {
                     functionManager.searchFilter = ""
+                    sTextInput.clear()
                     if (checked)
                         sTextInput.forceActiveFocus()
                 }
@@ -249,15 +250,37 @@ Rectangle
               id: sTextInput
               y: 3
               height: parent.height - 6
-              width: parent.width
+              width: parent.width - height - 6
               color: UISettings.fgMain
-              text: functionManager.searchFilter
+              Component.onCompleted: text = functionManager.searchFilter
               font.family: UISettings.robotoFontName
               font.pixelSize: parent.height - 6
               selectionColor: UISettings.highlightPressed
               selectByMouse: true
 
-              onTextEdited: functionManager.searchFilter = text
+              onDisplayTextChanged: functionManager.searchFilter = displayText.trim()
+          }
+
+          MouseArea
+          {
+              anchors.right: parent.right
+              anchors.rightMargin: 3
+              anchors.verticalCenter: parent.verticalCenter
+              width: height
+              height: parent.height - 6
+              visible: sTextInput.displayText.length > 0
+              hoverEnabled: true
+              cursorShape: Qt.PointingHandCursor
+              onClicked: sTextInput.clear()
+
+              Text
+              {
+                  anchors.centerIn: parent
+                  color: parent.pressed ? UISettings.highlight : parent.containsMouse ? UISettings.hover : "gray"
+                  font.family: UISettings.fontAwesomeFontName
+                  font.pixelSize: parent.height - 6
+                  text: FontAwesome.fa_xmark
+              }
           }
       }
 

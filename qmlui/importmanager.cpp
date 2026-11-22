@@ -799,7 +799,7 @@ void ImportManager::updateFunctionsTree()
 
         QQmlEngine::setObjectOwnership(func, QQmlEngine::CppOwnership);
 
-        if (m_functionSearchFilter.length() < SEARCH_MIN_CHARS || func->name().toLower().contains(m_functionSearchFilter))
+        if (m_functionSearchFilter.length() < SEARCH_MIN_CHARS || func->name().contains(m_functionSearchFilter, Qt::CaseInsensitive))
         {
             QVariantList params;
             params.append(QVariant::fromValue(func));
