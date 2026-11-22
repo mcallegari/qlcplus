@@ -35,7 +35,7 @@ class AudioCaptureAlsa final : public AudioCapture
 {
     Q_OBJECT
 public:
-    AudioCaptureAlsa(QObject * parent = 0);
+    explicit AudioCaptureAlsa(QObject* parent = 0);
     ~AudioCaptureAlsa();
 
     /** @reimpl */

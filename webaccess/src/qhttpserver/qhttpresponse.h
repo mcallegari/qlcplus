@@ -169,7 +169,7 @@ Q_SIGNALS:
     void done();
 
 private:
-    QHttpResponse(QHttpConnection *connection);
+    explicit QHttpResponse(QHttpConnection *connection);
 
     void writeHeaders();
     void writeHeader(const char *field, const QString &value);

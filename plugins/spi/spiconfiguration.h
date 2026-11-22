@@ -32,7 +32,7 @@ class SPIConfiguration final : public QDialog, public Ui_SPIConfiguration
      * Initialization
      *********************************************************************/
 public:
-    SPIConfiguration(SPIPlugin* plugin, QWidget* parent = 0);
+    explicit SPIConfiguration(SPIPlugin* plugin, QWidget* parent = 0);
     virtual ~SPIConfiguration();
 
     /** @reimp */

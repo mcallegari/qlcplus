@@ -38,7 +38,7 @@ class RGBAudio final : public QObject, public RGBAlgorithm
     Q_OBJECT
 
 public:
-    RGBAudio(Doc * doc);
+    explicit RGBAudio(Doc* doc);
     RGBAudio(const RGBAudio& t, QObject *parent = 0);
     ~RGBAudio();
 

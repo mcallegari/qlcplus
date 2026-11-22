@@ -71,7 +71,7 @@ class VideoContent final : public QObject
     Q_PROPERTY(quint32 id READ id CONSTANT)
 
 public:
-    VideoContent(Video *video, VideoProvider *parent = nullptr);
+    explicit VideoContent(Video *video, VideoProvider *parent = nullptr);
 
     quint32 id() const;
     Q_INVOKABLE void destroyContext();

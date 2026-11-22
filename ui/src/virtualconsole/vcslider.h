@@ -611,7 +611,7 @@ protected:
     class FlashButton : public QToolButton
     {
     public:
-        FlashButton(QWidget *parent)
+        explicit FlashButton(QWidget *parent)
             : QToolButton(parent) {}
     protected:
         void mousePressEvent(QMouseEvent *e) override;

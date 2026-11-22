@@ -59,7 +59,7 @@ class Chaser : public Function
      * Initialization
      *********************************************************************/
 public:
-    Chaser(Doc* doc);
+    explicit Chaser(Doc* doc);
     virtual ~Chaser();
 
     /** @reimp */

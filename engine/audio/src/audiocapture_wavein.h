@@ -34,7 +34,7 @@ class AudioCaptureWaveIn final : public AudioCapture
 {
     Q_OBJECT
 public:
-    AudioCaptureWaveIn(QObject * parent = 0);
+    explicit AudioCaptureWaveIn(QObject* parent = 0);
     ~AudioCaptureWaveIn();
 
     /** @reimpl */

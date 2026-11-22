@@ -39,7 +39,7 @@ class ChannelEdit final : public QObject
     Q_PROPERTY(QVariantList capabilities READ capabilities NOTIFY capabilitiesChanged)
 
 public:
-    ChannelEdit(QLCChannel *channel, QObject *parent = nullptr);
+    explicit ChannelEdit(QLCChannel *channel, QObject *parent = nullptr);
     ~ChannelEdit();
 
     QLCChannel *channel();

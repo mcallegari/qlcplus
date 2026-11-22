@@ -62,7 +62,7 @@ class ChannelModifierGraphicsView final : public QGraphicsView
 {
     Q_OBJECT
 public:
-    ChannelModifierGraphicsView(QWidget *parent);
+    explicit ChannelModifierGraphicsView(QWidget *parent);
 
     /** Set the DMX position map of the currently selected handler */
     void setHandlerDMXValue(uchar pos, uchar value);

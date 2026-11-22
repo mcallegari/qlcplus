@@ -177,7 +177,7 @@ private Q_SLOTS:
     void appendBody(const QByteArray &body);
 
 private:
-    QHttpRequest(QHttpConnection *connection, QObject *parent = 0);
+    explicit QHttpRequest(QHttpConnection *connection, QObject *parent = 0);
 
     static QString MethodToString(HttpMethod method);
 

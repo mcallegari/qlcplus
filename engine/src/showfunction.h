@@ -48,7 +48,7 @@ class ShowFunction final : public QObject
     Q_PROPERTY(bool locked READ isLocked WRITE setLocked NOTIFY lockedChanged)
 
 public:
-    ShowFunction(quint32 id, QObject *parent = 0);
+    explicit ShowFunction(quint32 id, QObject *parent = 0);
     virtual ~ShowFunction() {}
 
     /** Get the ShowFunction unique identifier in a Show */

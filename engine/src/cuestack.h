@@ -56,7 +56,7 @@ class CueStack final : public QObject, public DMXSource
      * Initialization
      ************************************************************************/
 public:
-    CueStack(Doc* doc);
+    explicit CueStack(Doc* doc);
     ~CueStack();
 
 private:

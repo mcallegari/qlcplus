@@ -38,7 +38,7 @@ class QLCClipboard final : public QObject
     Q_OBJECT
 
 public:
-    QLCClipboard(Doc *doc);
+    explicit QLCClipboard(Doc *doc);
 
 public:
     void resetContents();

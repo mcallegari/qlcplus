@@ -57,7 +57,7 @@ public:
      *
      * @param parent The parent Doc that owns the instance
      */
-    MasterTimer(Doc* doc);
+    explicit MasterTimer(Doc* doc);
 
     /** Destroy a MasterTimer instance */
     virtual ~MasterTimer();

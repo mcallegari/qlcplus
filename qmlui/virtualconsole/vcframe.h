@@ -70,7 +70,7 @@ class VCFrame : public VCWidget
      * Initialization
      *********************************************************************/
 public:
-    VCFrame(Doc* doc = nullptr, VirtualConsole *vc = nullptr, QObject *parent = nullptr);
+    explicit VCFrame(Doc* doc = nullptr, VirtualConsole *vc = nullptr, QObject *parent = nullptr);
     virtual ~VCFrame();
 
     virtual void initializeProperties();

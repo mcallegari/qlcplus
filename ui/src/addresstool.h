@@ -36,7 +36,7 @@ class DIPSwitchSlider final : public QObject
 {
     Q_OBJECT
 public:
-    DIPSwitchSlider(QObject *parent = 0);
+    explicit DIPSwitchSlider(QObject *parent = 0);
     ~DIPSwitchSlider();
 
     void setPosition(QPoint pos, QSize size);
@@ -53,7 +53,7 @@ class DIPSwitchWidget final : public QWidget
     Q_OBJECT
 
 public:
-    DIPSwitchWidget(QWidget *parent = 0, int presetValue = 1);
+    explicit DIPSwitchWidget(QWidget *parent = 0, int presetValue = 1);
     ~DIPSwitchWidget();
 
     void setColor(QColor col);

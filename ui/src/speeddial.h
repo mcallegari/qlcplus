@@ -49,7 +49,7 @@ class FocusSpinBox final : public QSpinBox
     Q_OBJECT
 
 public:
-    FocusSpinBox(QWidget* parent = 0);
+    explicit FocusSpinBox(QWidget* parent = 0);
 
 signals:
     void focusGained();
@@ -81,7 +81,7 @@ public:
         Infinite     = 1 << 7,
     };
 
-    SpeedDial(QWidget* parent);
+    explicit SpeedDial(QWidget* parent);
     ~SpeedDial();
 
     /**

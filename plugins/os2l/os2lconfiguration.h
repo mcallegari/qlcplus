@@ -32,7 +32,7 @@ class OS2LConfiguration final : public QDialog, public Ui_OS2LConfiguration
      * Initialization
      *********************************************************************/
 public:
-    OS2LConfiguration(OS2LPlugin* plugin, QWidget* parent = 0);
+    explicit OS2LConfiguration(OS2LPlugin* plugin, QWidget* parent = 0);
     virtual ~OS2LConfiguration();
 
     /** @reimp */

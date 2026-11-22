@@ -134,7 +134,7 @@ void Chaser_Test::steps()
     QVERIFY(c.steps().size() == 0);
 
     /* Add a function with id "12" to the chaser */
-    QVERIFY(c.addStep(12));
+    QVERIFY(c.addStep(ChaserStep(12)));
     QVERIFY(c.steps().size() == 1);
     QVERIFY(c.steps().at(0) == ChaserStep(12));
 
@@ -848,10 +848,10 @@ void Chaser_Test::tap()
     m_doc->addFunction(s4);
 
     Chaser* c = new Chaser(m_doc);
-    c->addStep(s1->id());
-    c->addStep(s2->id());
-    c->addStep(s3->id());
-    c->addStep(s4->id());
+    c->addStep(ChaserStep(s1->id()));
+    c->addStep(ChaserStep(s2->id()));
+    c->addStep(ChaserStep(s3->id()));
+    c->addStep(ChaserStep(s4->id()));
     m_doc->addFunction(c);
 
     c->preRun(m_doc->masterTimer());
@@ -898,12 +898,12 @@ void Chaser_Test::writeHTP()
     Scene* s1 = new Scene(m_doc);
     s1->setValue(fxi->id(), 0, 255);
     m_doc->addFunction(s1);
-    c->addStep(s1->id());
+    c->addStep(ChaserStep(s1->id()));
 
     Scene* s2 = new Scene(m_doc);
     s2->setValue(fxi->id(), 0, 127);
     m_doc->addFunction(s2);
-    c->addStep(s2->id());
+    c->addStep(ChaserStep(s2->id()));
 
     MasterTimer timer(m_doc);
 
@@ -954,12 +954,12 @@ void Chaser_Test::writeLTP()
     Scene* s1 = new Scene(m_doc);
     s1->setValue(fxi->id(), 0, 20);
     m_doc->addFunction(s1);
-    c->addStep(s1->id());
+    c->addStep(ChaserStep(s1->id()));
 
     Scene* s2 = new Scene(m_doc);
     s2->setValue(fxi->id(), 0, 142);
     m_doc->addFunction(s2);
-    c->addStep(s2->id());
+    c->addStep(ChaserStep(s2->id()));
 
     MasterTimer timer(m_doc);
     QList<Universe*> ua;
@@ -1071,12 +1071,12 @@ void Chaser_Test::quickChaser()
     Scene* s1 = new Scene(m_doc);
     s1->setValue(fxi->id(), 0, 255);
     m_doc->addFunction(s1);
-    c->addStep(s1->id());
+    c->addStep(ChaserStep(s1->id()));
 
     Scene* s2 = new Scene(m_doc);
     s2->setValue(fxi->id(), 0, 127);
     m_doc->addFunction(s2);
-    c->addStep(s2->id());
+    c->addStep(ChaserStep(s2->id()));
 
     MasterTimer timer(m_doc);
 

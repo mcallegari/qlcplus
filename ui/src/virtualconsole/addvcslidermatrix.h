@@ -32,7 +32,7 @@ class AddVCSliderMatrix final : public QDialog, public Ui_AddVCSliderMatrix
     Q_OBJECT
 
 public:
-    AddVCSliderMatrix(QWidget* parent);
+    explicit AddVCSliderMatrix(QWidget* parent);
     ~AddVCSliderMatrix();
 
     int amount() const;

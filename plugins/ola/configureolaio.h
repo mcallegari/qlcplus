@@ -33,7 +33,7 @@ class ConfigureOlaIO final : public QDialog, public Ui_ConfigureOlaIO
      * Initialization
      *********************************************************************/
 public:
-    ConfigureOlaIO(OlaIO* plugin, QWidget* parent = 0);
+    explicit ConfigureOlaIO(OlaIO* plugin, QWidget* parent = 0);
     virtual ~ConfigureOlaIO();
 
 private:

@@ -38,7 +38,7 @@ class AudioRendererCoreAudio final : public AudioRenderer
 {
     Q_OBJECT
 public:
-    AudioRendererCoreAudio(QObject * parent = 0);
+    explicit AudioRendererCoreAudio(QObject * parent = 0);
     ~AudioRendererCoreAudio();
 
     /** @reimpl */

@@ -62,7 +62,7 @@ class VCSpeedDial : public VCWidget
      * Initialization
      *********************************************************************/
 public:
-    VCSpeedDial(Doc* doc = nullptr, QObject *parent = nullptr);
+    explicit VCSpeedDial(Doc* doc = nullptr, QObject *parent = nullptr);
     virtual ~VCSpeedDial();
 
     /** @reimp */

@@ -346,7 +346,7 @@ void VCXYPadProperties::slotAddClicked()
             fixture->channel(QLCChannel::Tilt) == QLCChannel::invalid())
         {
             // Disable all fixtures without pan or tilt channels
-            disabled << fixture->id();
+            disabled << GroupHead(fixture->id());
         }
         else
         {

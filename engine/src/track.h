@@ -48,7 +48,7 @@ class Track : public QObject
      ************************************************************************/
 public:
     /** Create a new Track and associate it to a Scene  */
-    Track(quint32 sceneID = Function::invalidId(), QObject *parent = 0);
+    explicit Track(quint32 sceneID = Function::invalidId(), QObject *parent = 0);
 
     /** destroy this Track */
     ~Track();

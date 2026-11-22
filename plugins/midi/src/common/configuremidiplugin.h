@@ -33,7 +33,7 @@ class ConfigureMidiPlugin final : public QDialog, public Ui_ConfigureMidiPlugin
     Q_OBJECT
 
 public:
-    ConfigureMidiPlugin(MidiPlugin* plugin, QWidget* parent = 0);
+    explicit ConfigureMidiPlugin(MidiPlugin* plugin, QWidget* parent = 0);
     ~ConfigureMidiPlugin();
 
 public slots:

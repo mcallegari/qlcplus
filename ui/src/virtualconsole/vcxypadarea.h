@@ -44,7 +44,7 @@ class VCXYPadArea final : public QFrame
      * Initialization
      *************************************************************************/
 public:
-    VCXYPadArea(QWidget* parent);
+    explicit VCXYPadArea(QWidget* parent);
     virtual ~VCXYPadArea();
 
     void setMode(Doc::Mode mode);

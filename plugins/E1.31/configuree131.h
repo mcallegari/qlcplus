@@ -32,7 +32,7 @@ class ConfigureE131 final : public QDialog, public Ui_ConfigureE131
      * Initialization
      *********************************************************************/
 public:
-    ConfigureE131(E131Plugin* plugin, QWidget* parent = 0);
+    explicit ConfigureE131(E131Plugin* plugin, QWidget* parent = 0);
     virtual ~ConfigureE131();
 
     /** @reimp */

@@ -40,7 +40,7 @@ class ModeEdit final : public QObject
     Q_PROPERTY(QStringList actsOnChannels READ actsOnChannels NOTIFY actsOnChannelsChanged)
 
 public:
-    ModeEdit(QLCFixtureMode *mode, QObject *parent = nullptr);
+    explicit ModeEdit(QLCFixtureMode *mode, QObject *parent = nullptr);
     ~ModeEdit();
 
     /** Get/Set the name of the mode being edited */

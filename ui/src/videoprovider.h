@@ -34,7 +34,7 @@ class VideoWidget final : public QObject
     Q_OBJECT
 
 public:
-    VideoWidget(Video *video, QObject *parent = NULL);
+    explicit VideoWidget(Video *video, QObject *parent = NULL);
 
 protected slots:
     void slotSourceUrlChanged(QString url);

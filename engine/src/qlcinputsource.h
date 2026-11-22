@@ -40,8 +40,8 @@ public:
     static quint32 invalidID;
 
 public:
-    QLCInputSource(QThread * parent = 0);
-    QLCInputSource(quint32 universe, quint32 channel, QThread * parent = 0);
+    explicit QLCInputSource(QThread* parent = 0);
+    QLCInputSource(quint32 universe, quint32 channel, QThread* parent = 0);
     virtual ~QLCInputSource();
 
     bool isValid() const;

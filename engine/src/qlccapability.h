@@ -85,8 +85,9 @@ class QLCCapability final : public QObject
      ********************************************************************/
 public:
     /** Default constructor */
-    QLCCapability(uchar min = 0, uchar max = UCHAR_MAX,
-                  const QString& name = QString(), QObject *parent = 0);
+    explicit QLCCapability(uchar min = 0, uchar max = UCHAR_MAX,
+                           const QString& name = QString(),
+                           QObject *parent = 0);
 
     QLCCapability *createCopy();
 

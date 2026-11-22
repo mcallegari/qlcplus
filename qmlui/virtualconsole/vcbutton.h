@@ -43,7 +43,7 @@ class VCButton : public VCWidget
      * Initialization
      *********************************************************************/
 public:
-    VCButton(Doc* doc = nullptr, QObject *parent = nullptr);
+    explicit VCButton(Doc* doc = nullptr, QObject *parent = nullptr);
     virtual ~VCButton();
 
     /** @reimp */

@@ -32,7 +32,7 @@ class AudioCaptureQt5 final : public AudioCapture
 {
     Q_OBJECT
 public:
-    AudioCaptureQt5(QObject * parent = 0);
+    explicit AudioCaptureQt5(QObject* parent = 0);
     ~AudioCaptureQt5();
 
     /** @reimpl */

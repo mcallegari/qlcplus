@@ -43,7 +43,7 @@ class Show final : public Function
      * Initialization
      *********************************************************************/
 public:
-    Show(Doc* doc);
+    explicit Show(Doc* doc);
     virtual ~Show();
 
     /** @reimp */

@@ -66,7 +66,7 @@ public:
      *************************************************************************/
 public:
     /** Constructor */
-    EFXFixture(const EFX* parent);
+    explicit EFXFixture(const EFX* parent);
 
     /** Destructor */
     ~EFXFixture();

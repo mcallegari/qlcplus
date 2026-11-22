@@ -140,7 +140,7 @@ public:
      *********************************************************************/
 public:
     /** Create a new function instance with the given QObject parent. */
-    Function(QObject* parent = 0);
+    explicit Function(QObject* parent = 0);
 
     /**
      * Create a new function

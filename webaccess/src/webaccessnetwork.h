@@ -45,7 +45,7 @@ class WebAccessNetwork final : public QObject
 {
     Q_OBJECT
 public:
-    WebAccessNetwork(QObject *parent = 0);
+    explicit WebAccessNetwork(QObject *parent = 0);
 
     void resetInterface(InterfaceInfo *iface) const;
     void appendInterface(InterfaceInfo iface);

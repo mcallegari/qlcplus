@@ -179,8 +179,8 @@ protected Q_SLOTS:
     void onRangeChanged(int minimum, int maximum);
 
 protected:
-    ctkRangeSlider(ctkRangeSliderPrivate *impl, Qt::Orientation o, QWidget *par= 0);
-    ctkRangeSlider(ctkRangeSliderPrivate *impl, QWidget *par = 0);
+    explicit ctkRangeSlider(ctkRangeSliderPrivate *impl, Qt::Orientation o, QWidget *par= 0);
+    explicit ctkRangeSlider(ctkRangeSliderPrivate *impl, QWidget *par = 0);
 
     // Description:
     // Standard Qt UI events

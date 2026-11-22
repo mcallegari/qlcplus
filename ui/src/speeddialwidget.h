@@ -39,7 +39,7 @@ class SpeedDialWidget final : public QWidget
     Q_OBJECT
 
 public:
-    SpeedDialWidget(QWidget* parent);
+    explicit SpeedDialWidget(QWidget* parent);
     ~SpeedDialWidget();
 
     /************************************************************************

@@ -46,8 +46,8 @@ class QXmlStreamWriter;
 class Cue final
 {
 public:
-    Cue(const QString& name = QString());
-    Cue(const QMap <uint,uchar> values);
+    explicit Cue(const QString& name = QString());
+    explicit Cue(const QMap <uint,uchar> values);
     Cue(const Cue& cue);
     ~Cue();
 

@@ -32,7 +32,7 @@ class GPIOConfiguration final : public QDialog, public Ui_GPIOConfiguration
      * Initialization
      *********************************************************************/
 public:
-    GPIOConfiguration(GPIOPlugin* plugin, QWidget* parent = 0);
+    explicit GPIOConfiguration(GPIOPlugin* plugin, QWidget* parent = 0);
     virtual ~GPIOConfiguration();
 
     /** @reimp */

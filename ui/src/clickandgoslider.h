@@ -55,7 +55,7 @@ class ClickAndGoSlider final : public QSlider
 {
     Q_OBJECT
 public:
-    ClickAndGoSlider(QWidget *parent = 0);
+    explicit ClickAndGoSlider(QWidget *parent = 0);
     void setSliderStyleSheet(const QString& styleSheet);
     void setShadowLevel(int level);
 

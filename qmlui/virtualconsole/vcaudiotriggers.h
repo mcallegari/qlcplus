@@ -47,7 +47,7 @@ class VCAudioTriggers : public VCWidget, public DMXSource
      * Initialization
      *********************************************************************/
 public:
-    VCAudioTriggers(Doc* doc = nullptr, VirtualConsole *vc = nullptr, QObject *parent = nullptr);
+    explicit VCAudioTriggers(Doc* doc = nullptr, VirtualConsole *vc = nullptr, QObject *parent = nullptr);
     virtual ~VCAudioTriggers();
 
     /** @reimp */

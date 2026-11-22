@@ -61,7 +61,7 @@ struct WebAccessUser
     , passwordSalt(_passwordSalt)
     {}
 
-    WebAccessUser(
+    explicit WebAccessUser(
         WebAccessUserLevel _level
     )
     : username("")
@@ -89,7 +89,7 @@ class WebAccessAuth final
 {
 
 public:
-    WebAccessAuth(const QString& realm);
+    explicit WebAccessAuth(const QString& realm);
 
     /**
      * Loads file with entries in form:

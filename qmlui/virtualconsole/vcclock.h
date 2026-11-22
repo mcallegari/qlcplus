@@ -37,7 +37,7 @@ class VCClockSchedule : public QObject
     Q_PROPERTY(int weekFlags READ weekFlags WRITE setWeekFlags NOTIFY weekFlagsChanged)
 
 public:
-    VCClockSchedule(QObject* parent = 0);
+    explicit VCClockSchedule(QObject* parent = 0);
 
     virtual ~VCClockSchedule() { }
 
@@ -122,7 +122,7 @@ class VCClock : public VCWidget
      * Initialization
      *********************************************************************/
 public:
-    VCClock(Doc* doc = nullptr, QObject *parent = nullptr);
+    explicit VCClock(Doc* doc = nullptr, QObject *parent = nullptr);
     virtual ~VCClock();
 
     /** @reimp */

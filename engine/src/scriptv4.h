@@ -72,7 +72,7 @@ public:
      * Initialization
      ************************************************************************/
 public:
-    Script(Doc* doc);
+    explicit Script(Doc* doc);
     virtual ~Script();
 
     /** @reimp */

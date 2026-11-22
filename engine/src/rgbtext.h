@@ -35,7 +35,7 @@
 class RGBText final : public RGBAlgorithm
 {
 public:
-    RGBText(Doc * doc);
+    explicit RGBText(Doc* doc);
     RGBText(const RGBText& t);
     ~RGBText();
 

@@ -32,7 +32,7 @@ class MidiEnumerator final : public QObject
     Q_OBJECT
 
 public:
-    MidiEnumerator(QObject* parent = 0);
+    explicit MidiEnumerator(QObject* parent = 0);
     ~MidiEnumerator();
 
     void rescan();

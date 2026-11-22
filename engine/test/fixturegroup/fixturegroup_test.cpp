@@ -446,13 +446,13 @@ void FixtureGroup_Test::resignFixture()
     // Remove a fixture
     grp.resignFixture(13);
     QCOMPARE(grp.headList().size(), 15);
-    QVERIFY(grp.headList().contains(13) == false);
+    QVERIFY(grp.headList().contains(GroupHead(13)) == false);
     QVERIFY(grp.headsMap().contains(QLCPoint(1, 3)) == false);
 
     // Remove a nonexistent fixture
     grp.resignFixture(42);
     QCOMPARE(grp.headList().size(), 15);
-    QVERIFY(grp.headList().contains(42) == false);
+    QVERIFY(grp.headList().contains(GroupHead(42)) == false);
     QVERIFY(grp.headsMap().contains(QLCPoint(1, 3)) == false);
 
     // Test that the gap is again filled

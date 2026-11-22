@@ -30,7 +30,7 @@ class ReadThread final : public QThread
     Q_OBJECT
 
 public:
-    ReadThread(GPIOPlugin *plugin, QObject *parent = 0);
+    explicit ReadThread(GPIOPlugin *plugin, QObject *parent = 0);
 
     /** Destructor */
     virtual ~ReadThread();

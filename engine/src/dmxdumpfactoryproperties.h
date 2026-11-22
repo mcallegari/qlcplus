@@ -30,7 +30,7 @@
 class DmxDumpFactoryProperties final
 {
 public:
-    DmxDumpFactoryProperties(int universes);
+    explicit DmxDumpFactoryProperties(int universes);
 
     /** Return if all the channels or only those
      *  in $m_channelsMask will be dumped */

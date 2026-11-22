@@ -38,7 +38,7 @@ class MonitorFixture;
 class MonitorLayoutItem final : public QWidgetItem
 {
 public:
-    MonitorLayoutItem(MonitorFixture* mof);
+    explicit MonitorLayoutItem(MonitorFixture* mof);
     ~MonitorLayoutItem();
 
     bool operator<(const MonitorLayoutItem& item);
@@ -54,7 +54,7 @@ class MonitorLayout final : public QLayout
      * Initialization
      ********************************************************************/
 public:
-    MonitorLayout(QWidget *parent);
+    explicit MonitorLayout(QWidget *parent);
     virtual ~MonitorLayout();
 
     /********************************************************************

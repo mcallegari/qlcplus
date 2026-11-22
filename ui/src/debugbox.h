@@ -38,7 +38,7 @@ class DebugBox final : public QDialog, public Ui_DebugBox
     Q_DISABLE_COPY(DebugBox)
 
 public:
-    DebugBox(QWidget* parent = 0, Qt::WindowFlags flags = DEBUGBOX_FLAGS);
+    explicit DebugBox(QWidget* parent = 0, Qt::WindowFlags flags = DEBUGBOX_FLAGS);
     ~DebugBox();
 
     void addText(QString text);

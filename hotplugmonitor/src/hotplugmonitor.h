@@ -66,7 +66,7 @@ private slots:
     void stop();
 
 private:
-    HotPlugMonitor(QObject* parent);
+    explicit HotPlugMonitor(QObject* parent);
     static HotPlugMonitor* instance();
 
     void emitDeviceAdded(uint vid, uint pid);

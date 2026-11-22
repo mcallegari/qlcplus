@@ -46,7 +46,7 @@ class ColorFilters final : public QObject
      ********************************************************************/
 public:
     /** Standard constructor */
-    ColorFilters(QObject *parent = 0);
+    explicit ColorFilters(QObject *parent = 0);
 
     /** Get/Set the color filters name */
     QString name() const;

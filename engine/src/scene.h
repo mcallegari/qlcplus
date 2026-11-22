@@ -73,7 +73,7 @@ public:
      *
      * @param doc The parent object who owns the scene
      */
-    Scene(Doc* doc);
+    explicit Scene(Doc* doc);
 
     /**
      * Destroy the scene

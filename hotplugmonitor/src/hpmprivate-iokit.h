@@ -37,7 +37,7 @@ class HPMPrivate final : public QThread
     friend void onHPMPrivateRawDeviceRemoved(void* refCon, io_iterator_t iterator);
 
 public:
-    HPMPrivate(HotPlugMonitor* parent);
+    explicit HPMPrivate(HotPlugMonitor* parent);
     ~HPMPrivate();
 
 public slots:

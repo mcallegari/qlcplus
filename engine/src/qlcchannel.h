@@ -82,7 +82,7 @@ class QLCChannel final : public QObject
 
 public:
     /** Standard constructor */
-    QLCChannel(QObject *parent = 0);
+    explicit QLCChannel(QObject *parent = 0);
 
     QLCChannel *createCopy();
 

@@ -39,7 +39,7 @@ class MidiEnumeratorPrivate final : public QObject
     Q_OBJECT
 
 public:
-    MidiEnumeratorPrivate(MidiEnumerator* parent);
+    explicit MidiEnumeratorPrivate(MidiEnumerator* parent);
     ~MidiEnumeratorPrivate();
 
     void initAlsa();

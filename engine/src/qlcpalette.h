@@ -89,7 +89,7 @@ public:
      * Initialization
      ************************************************************************/
 public:
-    QLCPalette(QLCPalette::PaletteType type, QObject *parent = 0);
+    explicit QLCPalette(QLCPalette::PaletteType type, QObject *parent = 0);
     QLCPalette *createCopy();
 
     virtual ~QLCPalette();

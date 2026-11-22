@@ -54,7 +54,7 @@ public:
      * Object contsructor.
      * @param parent Parent object.
      */
-    AudioRenderer(QObject * parent = 0);
+    explicit AudioRenderer(QObject* parent = 0);
 
     ~AudioRenderer() { }
 
