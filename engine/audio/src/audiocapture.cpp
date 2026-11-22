@@ -22,6 +22,10 @@
 #include <QDateTime>
 #include <QDebug>
 #include <qmath.h>
+#if defined(Q_OS_ANDROID)
+#include <QCoreApplication>
+#include <QPermissions>
+#endif
 
 #include "audiocapture.h"
 #include "beattracker.h"
@@ -154,7 +158,21 @@ void AudioCapture::registerBandsNumber(int number)
         if (firstBand)
         {
             locker.unlock();
+#if defined(Q_OS_ANDROID)
+            // RECORD_AUDIO must be granted at runtime and requested from the main thread
+            QMetaObject::invokeMethod(this, [this]()
+            {
+                qApp->requestPermission(QMicrophonePermission{}, this, [this](const QPermission &permission)
+                {
+                    if (permission.status() != Qt::PermissionStatus::Granted)
+                        qWarning() << "[AudioCapture] Microphone permission denied";
+                    else if (!m_fftMagnitudeMap.isEmpty())
+                        start();
+                });
+            });
+#else
             start();
+#endif
         }
     }
 }
