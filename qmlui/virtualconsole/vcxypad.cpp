@@ -2429,7 +2429,22 @@ bool VCXYPad::loadXML(QXmlStreamReader &root)
         {
             VCXYPadPreset *preset = new VCXYPadPreset(0xff);
             if (preset->loadXML(root))
+            {
                 addPresetInternal(preset);
+
+                // preset external controls are handled by the widget
+                if (preset->m_id <= UCHAR_MAX - INPUT_PRESETS_BASE_ID)
+                {
+                    quint8 ctrlId = INPUT_PRESETS_BASE_ID + preset->m_id;
+                    if (preset->m_inputSource.isNull() == false)
+                    {
+                        preset->m_inputSource->setID(ctrlId);
+                        addInputSource(preset->m_inputSource);
+                    }
+                    if (preset->m_keySequence.isEmpty() == false)
+                        addKeySequence(preset->m_keySequence, ctrlId);
+                }
+            }
             else
                 delete preset;
         }
@@ -2557,7 +2572,30 @@ bool VCXYPad::saveXML(QXmlStreamWriter *doc) const
     doc->writeEndElement();
 
     for (const VCXYPadPreset *preset : presets())
-        preset->saveXML(doc);
+    {
+        if (preset->m_id > UCHAR_MAX - INPUT_PRESETS_BASE_ID)
+        {
+            preset->saveXML(doc);
+            continue;
+        }
+
+        // preset external controls are handled by the widget,
+        // so save the current ones within the preset
+        VCXYPadPreset savePreset(*preset);
+        quint8 ctrlId = INPUT_PRESETS_BASE_ID + preset->m_id;
+
+        savePreset.m_inputSource.clear();
+        for (const QSharedPointer<QLCInputSource> &src : m_inputSources)
+        {
+            if (src && src->id() == ctrlId)
+            {
+                savePreset.m_inputSource = src;
+                break;
+            }
+        }
+        savePreset.m_keySequence = m_keySequenceMap.key(ctrlId);
+        savePreset.saveXML(doc);
+    }
 
     /* Write the <end> tag */
     doc->writeEndElement();
