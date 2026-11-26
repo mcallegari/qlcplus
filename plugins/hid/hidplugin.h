@@ -96,6 +96,23 @@ public:
     void writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged) override;
 
     /*********************************************************************
+     * RDM
+     *********************************************************************/
+public:
+    /** @reimp */
+    int rdmTransportFlags(quint32 universe, quint32 line) override;
+
+    /** @reimp */
+    bool sendRDMFrame(quint32 universe, quint32 line, RDMFrameType type, const QByteArray &frame) override;
+
+    /** @reimp */
+    void setRDMCodec(QLCRDMCodec *codec) override;
+
+private:
+    /** Applied also to the devices found later */
+    QLCRDMCodec *m_rdmCodec = nullptr;
+
+    /*********************************************************************
      * Configuration
      *********************************************************************/
 public:

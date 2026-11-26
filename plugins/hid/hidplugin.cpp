@@ -64,7 +64,7 @@ QString HIDPlugin::name() const
 
 int HIDPlugin::capabilities() const
 {
-    return QLCIOPlugin::Input | QLCIOPlugin::Output;
+    return QLCIOPlugin::Input | QLCIOPlugin::Output | QLCIOPlugin::RDM;
 }
 
 /*****************************************************************************
@@ -160,6 +160,10 @@ bool HIDPlugin::openOutput(quint32 output, quint32 universe)
     HIDDevice* dev = deviceOutput(output);
     if (dev != NULL)
     {
+        connect(dev, SIGNAL(rdmFrameReceived(quint32,quint32,QByteArray)),
+                this, SIGNAL(rdmFrameReceived(quint32,quint32,QByteArray)), Qt::QueuedConnection);
+        connect(dev, SIGNAL(rdmTimeout(quint32,quint32,int)),
+                this, SIGNAL(rdmTimeout(quint32,quint32,int)), Qt::QueuedConnection);
         addToMap(universe, output, Output);
         return dev->openOutput();
     }
@@ -175,6 +179,10 @@ void HIDPlugin::closeOutput(quint32 output, quint32 universe)
     {
         removeFromMap(output, universe, Output);
         dev->closeOutput();
+        disconnect(dev, SIGNAL(rdmFrameReceived(quint32,quint32,QByteArray)),
+                   this, SIGNAL(rdmFrameReceived(quint32,quint32,QByteArray)));
+        disconnect(dev, SIGNAL(rdmTimeout(quint32,quint32,int)),
+                   this, SIGNAL(rdmTimeout(quint32,quint32,int)));
     }
     else
         qDebug() << name() << "has no output number:" << output;
@@ -225,6 +233,38 @@ void HIDPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray
         if (dev != NULL)
             dev->outputDMX(data);
     }
+}
+
+/*****************************************************************************
+ * RDM
+ *****************************************************************************/
+
+int HIDPlugin::rdmTransportFlags(quint32 universe, quint32 line)
+{
+    Q_UNUSED(universe)
+
+    HIDDevice *dev = deviceOutput(line);
+    if (dev == NULL || dev->hasRDM() == false)
+        return 0;
+
+    return QLCIOPlugin::RDMRawDiscovery | QLCIOPlugin::RDMNeedsMute;
+}
+
+bool HIDPlugin::sendRDMFrame(quint32 universe, quint32 line, RDMFrameType type, const QByteArray &frame)
+{
+    HIDDevice *dev = deviceOutput(line);
+    if (dev == NULL || dev->hasRDM() == false)
+        return false;
+
+    return dev->sendRDMFrame(universe, line, int(type), frame);
+}
+
+void HIDPlugin::setRDMCodec(QLCRDMCodec *codec)
+{
+    m_rdmCodec = codec;
+
+    for (HIDDevice *dev : std::as_const(m_devices))
+        dev->setRDMCodec(codec);
 }
 
 /*****************************************************************************
@@ -369,6 +409,7 @@ void HIDPlugin::addDevice(HIDDevice* device)
     Q_ASSERT(device != NULL);
 
     m_devices.append(device);
+    device->setRDMCodec(m_rdmCodec);
     emit deviceAdded(device);
 
     emit configurationChanged();

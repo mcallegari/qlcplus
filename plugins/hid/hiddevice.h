@@ -24,6 +24,7 @@
 #include <QFile>
 
 class HIDPlugin;
+class QLCRDMCodec;
 
 /*****************************************************************************
  * HIDDevice
@@ -174,6 +175,23 @@ public:
 
     /** Output data, which is a DMX universe */
     virtual void outputDMX(const QByteArray &data, bool forceWrite = false);
+
+    /*************************************************************************
+     * RDM
+     *************************************************************************/
+public:
+    virtual bool hasRDM() const { return false; }
+
+    /** Queue a complete RDM frame (start code and checksum included).
+     *  The reply is notified by rdmFrameReceived or rdmTimeout */
+    virtual bool sendRDMFrame(quint32 universe, quint32 line, int type, const QByteArray &frame);
+
+    /** Set the codec of the RDM payload (nullptr = none) */
+    virtual void setRDMCodec(QLCRDMCodec *codec) { Q_UNUSED(codec) }
+
+signals:
+    void rdmFrameReceived(quint32 universe, quint32 line, QByteArray frame);
+    void rdmTimeout(quint32 universe, quint32 line, int type);
 };
 
 #endif

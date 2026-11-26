@@ -963,6 +963,32 @@ int HID_API_EXPORT hid_get_feature_report(hid_device *dev, unsigned char *data, 
         return -1;
 }
 
+int HID_API_EXPORT hid_get_input_report(hid_device *dev, unsigned char *data, size_t length)
+{
+    /* unnumbered reports: IOKit wants the buffer without the report ID byte */
+    unsigned char *buf = data;
+    CFIndex len = length;
+    IOReturn res;
+
+    if (dev->disconnected)
+        return -1;
+
+    if (data[0] == 0x0) {
+        buf++;
+        len--;
+    }
+
+    res = IOHIDDeviceGetReport(dev->device_handle,
+                               kIOHIDReportTypeInput,
+                               data[0], /* Report ID */
+                               buf, &len);
+    if (res != kIOReturnSuccess)
+        return -1;
+
+    /* report the length as if the report ID was included */
+    return (buf == data) ? len : len + 1;
+}
+
 
 void HID_API_EXPORT hid_close(hid_device *dev)
 {

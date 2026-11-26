@@ -53,6 +53,9 @@
 #ifndef HIDIOCGFEATURE
 #define HIDIOCGFEATURE(len)    _IOC(_IOC_WRITE|_IOC_READ, 'H', 0x07, len)
 #endif
+#ifndef HIDIOCGINPUT
+#define HIDIOCGINPUT(len)      _IOC(_IOC_WRITE|_IOC_READ, 'H', 0x0A, len)
+#endif
 
 
 /* USB HID device property names */
@@ -773,6 +776,18 @@ int HID_API_EXPORT hid_get_feature_report(hid_device *dev, unsigned char *data, 
 	if (res < 0)
 		perror("ioctl (GFEATURE)");
 
+
+	return res;
+}
+
+int HID_API_EXPORT hid_get_input_report(hid_device *dev, unsigned char *data, size_t length)
+{
+	int res;
+
+	/* Linux >= 5.11 */
+	res = ioctl(dev->device_handle, HIDIOCGINPUT(length), data);
+	if (res < 0)
+		perror("ioctl (GINPUT)");
 
 	return res;
 }

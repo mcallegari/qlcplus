@@ -23,6 +23,9 @@
 #define HIDDMXDEVICE_H
 
 #include <QObject>
+#include <QMutex>
+#include <QAtomicPointer>
+#include <QWaitCondition>
 
 #include "hiddevice.h"
 #include "hidapi.h"
@@ -39,6 +42,13 @@
 #define HID_DMX_INTERFACE_PRODUCT_ID_4 0x0833  // DMXControl Projects e.V. Nodle R4S
 
 #define HID_DMX_READ_TIMEOUT 100
+
+/* RDM specific */
+#define HID_DMX_RDM_CHUNK        31     // RDM bytes per report
+#define HID_DMX_RDM_MAX_CHUNKS   17
+#define HID_DMX_RDM_INDEX_BASE   204    // report byte 0 = 204 + chunk index
+#define HID_DMX_RDM_TIMEOUT      100    // ms to wait for a reply
+#define HID_DMX_RDM_KEEPALIVE    250    // ms between keep alive requests
 
 class HIDPlugin;
 
@@ -111,12 +121,73 @@ private:
     /** @reimp */
     void run() override;
 
+    /** Process a 33 bytes DMX input report: [chunk index][32 channel values] */
+    void handleInputReport(const unsigned char *buffer);
+
     /*********************************************************************
      * Output data
      *********************************************************************/
 public:
     /** @reimp */
     void outputDMX(const QByteArray &data, bool forceWrite = false) override;
+
+private:
+    /** Serialize the writes coming from the DMX output, the mode
+     *  changes and the RDM thread (hidapi shares state per handle) */
+    QMutex m_writeMutex;
+
+    /*********************************************************************
+     * RDM
+     *
+     * Report: [report ID 0][204 + chunk index][32 bytes]. The RDM frame
+     * (start code to checksum) is split in 31 bytes chunks, each one
+     * encoded to 32 bytes by the codec installed by the RDM service.
+     * Replies use the same format and are read with GET_REPORT: 0xFF
+     * means no data. A discovery reply comes back raw (preamble included)
+     * in chunk 0. After RDM traffic, the dongle reboots if the host stays
+     * quiet for about a second, so the thread keeps polling it.
+     *********************************************************************/
+public:
+    /** @reimp */
+    bool hasRDM() const override { return m_rdm && m_rdmCodec.loadAcquire() != nullptr; }
+
+    /** @reimp */
+    bool sendRDMFrame(quint32 universe, quint32 line, int type, const QByteArray &frame) override;
+
+    /** @reimp */
+    void setRDMCodec(QLCRDMCodec *codec) override;
+
+private:
+    struct RDMRequest
+    {
+        quint32 universe;
+        quint32 line;
+        int type;
+        QByteArray frame;
+    };
+
+    /** Write a complete RDM frame as encoded chunks */
+    void writeRDMFrame(QLCRDMCodec *codec, const QByteArray &frame);
+
+    /** GET_REPORT one input report. Returns the chunk index and its
+     *  decoded bytes in data (if codec is set), or -1 if the dongle has no data */
+    int readRDMChunk(QLCRDMCodec *codec, QByteArray &data);
+
+    /** Send a queued request and wait for its reply. Device thread only */
+    void processRDMRequest(const RDMRequest &request);
+
+    /** true if the dongle supports RDM */
+    bool m_rdm;
+
+    /** The RDM payload codec, set by the RDM service */
+    QAtomicPointer<QLCRDMCodec> m_rdmCodec;
+
+    /** true once RDM has been used: the dongle needs keep alive requests */
+    bool m_rdmActive;
+
+    QList<RDMRequest> m_rdmQueue;
+    QMutex m_rdmMutex;
+    QWaitCondition m_rdmCondition;
 
      /*********************************************************************
      * FX5 - specific functions and device handle

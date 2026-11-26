@@ -87,6 +87,23 @@ typedef struct
 
 } PluginUniverseDescriptor;
 
+/**
+ * Codec of the RDM payload, for the transports which elaborate it on the
+ * wire. Implemented and owned by the RDM service, which installs it on the
+ * I/O plugins with QLCIOPlugin::setRDMCodec(). Called by the plugin threads.
+ */
+class QLCRDMCodec
+{
+public:
+    virtual ~QLCRDMCodec() { }
+
+    /** Encode a chunk of RDM data. The result goes on the wire after the chunk header */
+    virtual QByteArray encode(const QByteArray &payload) = 0;
+
+    /** Decode a chunk read from the wire, chunk header excluded */
+    virtual QByteArray decode(const QByteArray &data) = 0;
+};
+
 class QLCIOPlugin : public QObject
 {
     Q_OBJECT
@@ -443,6 +460,10 @@ public:
     /** Request the table of devices (TOD) to the line (RDMTodDiscovery lines only).
      *  The reply is notified by rdmTodReceived. @return false if not supported */
     virtual bool requestRDMTod(quint32 universe, quint32 line);
+
+    /** Install the codec of the transports obfuscating the RDM payload,
+     *  or remove it with nullptr. It must stay valid until removed */
+    virtual void setRDMCodec(QLCRDMCodec *codec);
 
 signals:
     /** A raw RDM frame has been received from the given line */

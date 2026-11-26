@@ -316,6 +316,14 @@ extern "C" {
 		*/
 		int HID_API_EXPORT HID_API_CALL hid_get_feature_report(hid_device *device, unsigned char *data, size_t length);
 
+		/** @brief Get an input report from a HID device with a
+			GET_REPORT control request, instead of reading it from
+			the interrupt endpoint.
+
+			Same parameters and return value as hid_get_feature_report()
+		*/
+		int HID_API_EXPORT HID_API_CALL hid_get_input_report(hid_device *device, unsigned char *data, size_t length);
+
 		/** @brief Close a HID device.
 
 			@ingroup API

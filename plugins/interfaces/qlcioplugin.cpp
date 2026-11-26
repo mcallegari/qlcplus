@@ -267,3 +267,8 @@ bool QLCIOPlugin::requestRDMTod(quint32 universe, quint32 line)
 
     return false;
 }
+
+void QLCIOPlugin::setRDMCodec(QLCRDMCodec *codec)
+{
+    Q_UNUSED(codec)
+}

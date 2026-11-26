@@ -122,3 +122,17 @@ void HIDDevice::outputDMX(const QByteArray &data, bool forceWrite)
     Q_UNUSED(data);
     Q_UNUSED(forceWrite);
 }
+
+/*****************************************************************************
+ * RDM
+ *****************************************************************************/
+
+bool HIDDevice::sendRDMFrame(quint32 universe, quint32 line, int type, const QByteArray &frame)
+{
+    Q_UNUSED(universe);
+    Q_UNUSED(line);
+    Q_UNUSED(type);
+    Q_UNUSED(frame);
+
+    return false;
+}

@@ -39,6 +39,7 @@
 #define HID_IO_TIMEOUT_MS   1000
 #define HID_MAX_PACKET      1024
 
+#define HID_REPORT_TYPE_INPUT   0x01
 #define HID_REPORT_TYPE_OUTPUT  0x02
 #define HID_REPORT_TYPE_FEATURE 0x03
 #define HID_REQ_GET_REPORT      0x01
@@ -248,6 +249,11 @@ int HID_API_EXPORT hid_send_feature_report(hid_device *dev, const unsigned char 
 int HID_API_EXPORT hid_get_feature_report(hid_device *dev, unsigned char *data, size_t length)
 {
     return reportTransfer(dev, true, HID_REPORT_TYPE_FEATURE, data, length);
+}
+
+int HID_API_EXPORT hid_get_input_report(hid_device *dev, unsigned char *data, size_t length)
+{
+    return reportTransfer(dev, true, HID_REPORT_TYPE_INPUT, data, length);
 }
 
 void HID_API_EXPORT hid_close(hid_device *dev)
