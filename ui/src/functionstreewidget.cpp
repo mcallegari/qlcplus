@@ -326,6 +326,10 @@ void FunctionsTreeWidget::slotItemChanged(QTreeWidgetItem *item)
         return;
     }
 
+    // path separators are not allowed in folder names
+    if (item->text(COL_NAME).contains('/'))
+        item->setText(COL_NAME, item->text(COL_NAME).replace('/', '-'));
+
     QTreeWidgetItem *parent = item->parent();
     if (parent != NULL)
     {
