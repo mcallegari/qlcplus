@@ -194,6 +194,7 @@ bool Chaser::moveStep(int sourceIdx, int destIdx)
     }
 
     emit changed(this->id());
+    emit stepsListChanged(this->id());
 
     return true;
 }
