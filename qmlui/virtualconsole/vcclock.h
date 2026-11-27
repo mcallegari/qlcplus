@@ -227,6 +227,17 @@ private:
     QList<VCClockSchedule*>m_scheduleList;
 
     /*********************************************************************
+     * External input
+     *********************************************************************/
+public:
+    /** @reimp */
+    void updateFeedback() override;
+
+public slots:
+    /** @reimp */
+    void slotInputValueChanged(quint8 id, uchar value) override;
+
+    /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:

@@ -45,6 +45,12 @@
 
 #define KXMLQLCVCClockScheduleTime QStringLiteral("Time")  // LEGACY
 
+#define KXMLQLCVCClockPlay  QStringLiteral("PlayPause")
+#define KXMLQLCVCClockReset QStringLiteral("Reset")
+
+#define INPUT_ACTIVATION_ID 0
+#define INPUT_RESET_ID      1
+
 VCClock::VCClock(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
     , m_clocktype(Clock)
@@ -54,6 +60,9 @@ VCClock::VCClock(Doc *doc, QObject *parent)
     , m_enableSchedule(false)
 {
     setType(VCWidget::ClockWidget);
+
+    registerExternalControl(INPUT_ACTIVATION_ID, tr("Activation"), true);
+    registerExternalControl(INPUT_RESET_ID, tr("Reset"), true);
 
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(slotTimerTimeout()));
@@ -316,6 +325,7 @@ void VCClock::setTimerRunning(bool running)
 
     m_timerRunning = running;
     emit timerRunningChanged(running);
+    updateFeedback();
 }
 
 void VCClock::triggerCountdownSchedules()
@@ -471,6 +481,7 @@ void VCClock::setEnableSchedule(bool enableSchedule)
 
     m_enableSchedule = enableSchedule;
     emit enableScheduleChanged(enableSchedule);
+    updateFeedback();
 }
 
 QVariantList VCClock::scheduleList()
@@ -532,6 +543,43 @@ void VCClock::removeSchedule(int index)
         f->stop(functionParent());
     delete sch;
     emit scheduleListChanged();
+}
+
+/*********************************************************************
+ * External input
+ *********************************************************************/
+
+void VCClock::updateFeedback()
+{
+    if (clockType() == Clock)
+        sendFeedback(enableSchedule() ? UCHAR_MAX : 0, INPUT_ACTIVATION_ID);
+    else
+        sendFeedback(timerRunning() ? UCHAR_MAX : 0, INPUT_ACTIVATION_ID);
+}
+
+void VCClock::slotInputValueChanged(quint8 id, uchar value)
+{
+    if (value == 0)
+        return;
+
+    if (id == INPUT_RESET_ID)
+    {
+        resetTimer();
+        return;
+    }
+
+    if (id != INPUT_ACTIVATION_ID)
+        return;
+
+    if (clockType() == Clock)
+    {
+        if (m_scheduleList.isEmpty() == false)
+            setEnableSchedule(!enableSchedule());
+    }
+    else
+    {
+        playPauseTimer();
+    }
 }
 
 /*********************************************************************
@@ -607,6 +655,14 @@ bool VCClock::loadXML(QXmlStreamReader &root)
             if (sch->loadXML(root) == true)
                 addSchedule(sch);
         }
+        else if (root.name() == KXMLQLCVCClockPlay)
+        {
+            loadXMLSources(root, INPUT_ACTIVATION_ID);
+        }
+        else if (root.name() == KXMLQLCVCClockReset)
+        {
+            loadXMLSources(root, INPUT_RESET_ID);
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown clock tag:" << root.name().toString();
@@ -652,6 +708,10 @@ bool VCClock::saveXML(QXmlStreamWriter *doc) const
 
     for (VCClockSchedule *sch : m_scheduleList) // C++11
         sch->saveXML(doc);
+
+    /* External control */
+    saveXMLInputControl(doc, INPUT_ACTIVATION_ID, false, KXMLQLCVCClockPlay);
+    saveXMLInputControl(doc, INPUT_RESET_ID, false, KXMLQLCVCClockReset);
 
     /* End the <Clock> tag */
     doc->writeEndElement();

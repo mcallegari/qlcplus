@@ -188,7 +188,7 @@ VCWidgetItem
         IconButton
         {
             id: enableChk
-            visible: clockObj ? clockObj.scheduleList.length > 0 : false
+            visible: clockObj ? clockType === VCClock.Clock && clockObj.scheduleList.length > 0 : false
             anchors.verticalCenter: parent.verticalCenter
             height: Math.min(clockRoot.height, UISettings.iconSizeDefault)
             width: height
