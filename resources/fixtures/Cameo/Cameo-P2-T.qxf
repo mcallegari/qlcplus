@@ -8,7 +8,7 @@
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
  <Model>P2 T</Model>
- <Type>Dimmer</Type>
+ <Type>Color Changer</Type>
  <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
  <Channel Name="Strobe Functions">
