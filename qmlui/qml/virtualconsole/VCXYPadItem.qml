@@ -20,6 +20,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import QtQuick.Window
 
 import org.qlcplus.classes 1.0
 import "."
@@ -147,6 +148,50 @@ VCWidgetItem
             Layout.fillWidth: true
             clip: true
             color: UISettings.bgStrong
+            border.width: activeFocus ? 2 : 0
+            border.color: UISettings.highlight
+
+            /* Arrow keys nudge the position within the range window.
+               Pan/Tilt mode: 1 DMX step, CTRL x10, SHIFT 1/256 (fine).
+               Floor mode: 0.1m, CTRL x10, SHIFT 1/10 */
+            Keys.onPressed: (event) =>
+            {
+                if (!xyPadObj || virtualConsole.editMode)
+                    return
+
+                var dx = 0, dy = 0
+                switch (event.key)
+                {
+                    case Qt.Key_Left: dx = -1; break
+                    case Qt.Key_Right: dx = 1; break
+                    case Qt.Key_Up: dy = -1; break
+                    case Qt.Key_Down: dy = 1; break
+                    default: return
+                }
+
+                var step = xyPadRoot.floorControl ? 0.1 : 1
+                if (event.modifiers & Qt.ControlModifier)
+                    step *= 10
+                if (event.modifiers & Qt.ShiftModifier)
+                    step /= xyPadRoot.floorControl ? 10 : 256
+
+                if (xyPadRoot.floorControl)
+                {
+                    var fs = xyPadRoot.floorSize
+                    var fp = xyPadRoot.floorPosition
+                    xyPadObj.floorPosition = Qt.vector3d(
+                        Math.min(Math.max(fp.x + dx * step, (horizRange.x * fs.x) / 255.0), (horizRange.y * fs.x) / 255.0),
+                        fp.y,
+                        Math.min(Math.max(fp.z + dy * step, (vertRange.x * fs.z) / 255.0), (vertRange.y * fs.z) / 255.0))
+                }
+                else
+                {
+                    xyPadObj.currentPosition = Qt.point(
+                        Math.min(Math.max(currPosition.x + dx * step, horizRange.x), horizRange.y),
+                        Math.min(Math.max(currPosition.y + dy * step, vertRange.x), vertRange.y))
+                }
+                event.accepted = true
+            }
 
             /* Range window. The same 0-255 window drives both modes, so the
                geometry is identical: in floor mode it marks the reachable
@@ -435,8 +480,18 @@ VCWidgetItem
                         xyPadObj.currentPosition = getXYPosition(mouse)
                 }
 
+                // grab the keyboard focus on hover, so arrow keys work without
+                // clicking first, unless a text field is being edited
+                onEntered:
+                {
+                    var fi = Window.activeFocusItem
+                    if (!(fi && "cursorPosition" in fi))
+                        previewArea.forceActiveFocus()
+                }
+
                 onPressed: (mouse) =>
                 {
+                    previewArea.forceActiveFocus()
                     virtualConsole.enableFlicking(false)
                     updatePosition(mouse)
                 }
