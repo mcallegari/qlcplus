@@ -34,7 +34,11 @@ TechniqueFilter
         Parameter { name: "normalTex"; value: gBuffer ? gBuffer.normal : null },
         Parameter { name: "depthTex"; value: gBuffer ? gBuffer.depth : null },
         Parameter { name: "shadowTex"; value: shadowTex },
-        Parameter { name: "useShadows"; value: (useShadows ? 1 : 0) }
+        Parameter { name: "useShadows"; value: (useShadows ? 1 : 0) },
+        // Global gain on the light fixtures cast on surfaces. Supplied here, at
+        // the frame graph level, so it applies once to every fixture rather than
+        // having to be threaded through each item type's lightIntensity.
+        Parameter { name: "fixtureLightIntensity"; value: View3D ? View3D.fixtureLightIntensity : 1.0 }
     ]
 
     RenderStateSet
