@@ -30,6 +30,7 @@ AudioRenderer::AudioRenderer (QObject* parent)
     , m_userStop(true)
     , m_pause(false)
     , m_isEos(false)
+    , m_seekRequest(-1)
     , m_intensity(1.0)
     , m_currentIntensity(1.0)
     , m_adec(NULL)
@@ -117,6 +118,11 @@ void AudioRenderer::setUserStop(bool stop)
     m_userStop = stop;
 }
 
+void AudioRenderer::requestSeek(qint64 ms)
+{
+    m_seekRequest.storeRelaxed(qMax<qint64>(0, ms));
+}
+
 
 /*********************************************************************
  * Thread functions
@@ -136,6 +142,17 @@ void AudioRenderer::run()
     while (!m_userStop)
     {
         QMutexLocker locker(&m_mutex);
+
+        qint64 seekTo = m_seekRequest.fetchAndStoreRelaxed(-1);
+        if (seekTo >= 0)
+        {
+            m_adec->seek(seekTo);
+            pendingAudioBytes = 0;
+            m_isEos = false;
+            sourceEofReached = false;
+            eosWaitCycles = 0;
+            flushOutput();
+        }
 
         if (m_pause == false && m_isEos == false)
         {

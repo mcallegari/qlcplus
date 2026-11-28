@@ -67,6 +67,9 @@ protected:
     /** @reimpl */
     void resume() override;
 
+    /** @reimpl */
+    void flushOutput() override;
+
     /*********************************************************************
      * Thread functions
      *********************************************************************/
