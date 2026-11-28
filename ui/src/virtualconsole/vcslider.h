@@ -579,6 +579,11 @@ public:
     /** Get the keyboard key combination to reset a level override */
     QKeySequence overrideResetKeySequence() const;
 
+    /** Put a monitored level slider in override mode, so that its value
+     *  wins over the monitored DMX levels until the override is reset.
+     *  Used when the slider is moved by the user or by an external source */
+    void enableOverride();
+
 private slots:
     void slotResetButtonClicked();
 
