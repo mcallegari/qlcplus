@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.3.1</Version>
+  <Author>Cyrille Polier</Author>
+ </Creator>
+ <Manufacturer>Eliminator Lighting</Manufacturer>
+ <Model>Stryker Max</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Hue" Preset="IntensityHue"/>
+ <Channel Name="Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="CCT Present">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">No Function</Capability>
+  <Capability Min="1" Max="27">2800K</Capability>
+  <Capability Min="28" Max="55">3200K</Capability>
+  <Capability Min="56" Max="83">3600K</Capability>
+  <Capability Min="84" Max="111">4500K</Capability>
+  <Capability Min="112" Max="139">5000K</Capability>
+  <Capability Min="140" Max="167">5600K</Capability>
+  <Capability Min="168" Max="195">6200K</Capability>
+  <Capability Min="196" Max="223">6800K</Capability>
+  <Capability Min="224" Max="251">7500K</Capability>
+  <Capability Min="252" Max="255">8500K</Capability>
+ </Channel>
+ <Channel Name="Color Macros" Preset="ColorMacro"/>
+ <Channel Name="Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0" Preset="SlowToFast">Effect Off</Capability>
+  <Capability Min="1" Max="100">Wave</Capability>
+  <Capability Min="101" Max="200">Dream</Capability>
+  <Capability Min="201" Max="255">Color Chase</Capability>
+ </Channel>
+ <Channel Name="Glory Red" Preset="IntensityRed"/>
+ <Channel Name="Glory Green" Preset="IntensityGreen"/>
+ <Channel Name="Glory Blue" Preset="IntensityBlue"/>
+ <Channel Name="Glory Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Glory Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Glory Effect close</Capability>
+  <Capability Min="16" Max="35">Glory single LED Effect</Capability>
+  <Capability Min="36" Max="55">Glory 3 LED Effect</Capability>
+  <Capability Min="56" Max="75">Glory 6 LED Effect</Capability>
+  <Capability Min="76" Max="95">Glory 12 LED Effect</Capability>
+  <Capability Min="96" Max="115">Glory 3 LED 4 modules Effect</Capability>
+  <Capability Min="116" Max="135">Glory 6 LED 4 modules Effect</Capability>
+  <Capability Min="136" Max="155">Glory 4 modules Effect</Capability>
+  <Capability Min="156" Max="175">Glory loop fill Effect</Capability>
+  <Capability Min="176" Max="195">RGB 3 colors rainbow Effect</Capability>
+  <Capability Min="196" Max="215">RGB 3 colors Effect</Capability>
+  <Capability Min="216" Max="235">Glory rainbow Effect</Capability>
+  <Capability Min="236" Max="255">Glory segment Effect</Capability>
+ </Channel>
+ <Channel Name="Glory Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Glory Speed</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
+ <Channel Name="Inner Rotate">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Positions</Capability>
+  <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Clockwise, fast to slow</Capability>
+  <Capability Min="191" Max="192" Preset="RotationStop">Stop</Capability>
+  <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter-clockwise, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="LampOff">Off</Capability>
+  <Capability Min="4" Max="127" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="128" Max="191" Preset="PulseSlowToFast">Pulse Strobe, slow to fast</Capability>
+  <Capability Min="192" Max="251" Preset="StrobeRandomSlowToFast">Random Strobe, slow to fast</Capability>
+  <Capability Min="252" Max="255" Preset="LampOn">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer Fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="21">Off</Capability>
+  <Capability Min="22" Max="25">No Function</Capability>
+  <Capability Min="26" Max="76" Preset="ResetEffects">Reset Effect (hold 3s)</Capability>
+  <Capability Min="77" Max="128" Preset="ResetPanTilt">Reset Pan/Tilt Motor (hold 3s)</Capability>
+  <Capability Min="129" Max="255" Preset="ResetAll">Reset All (hold 3s)</Capability>
+ </Channel>
+ <Mode Name="20CH">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">Color Macros</Channel>
+  <Channel Number="7">Effect</Channel>
+  <Channel Number="8">Glory Red</Channel>
+  <Channel Number="9">Glory Green</Channel>
+  <Channel Number="10">Glory Blue</Channel>
+  <Channel Number="11">Glory Dimmer</Channel>
+  <Channel Number="12">Glory Effect</Channel>
+  <Channel Number="13">Glory Speed</Channel>
+  <Channel Number="14">Zoom</Channel>
+  <Channel Number="15">Inner Rotate</Channel>
+  <Channel Number="16">Shutter</Channel>
+  <Channel Number="17">Dimmer</Channel>
+  <Channel Number="18">Pan/Tilt Speed</Channel>
+  <Channel Number="19">Reset</Channel>
+ </Mode>
+ <Mode Name="26CH">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">White</Channel>
+  <Channel Number="8">Hue</Channel>
+  <Channel Number="9">Saturation</Channel>
+  <Channel Number="10">CCT Present</Channel>
+  <Channel Number="11">Color Macros</Channel>
+  <Channel Number="12">Effect</Channel>
+  <Channel Number="13">Glory Red</Channel>
+  <Channel Number="14">Glory Green</Channel>
+  <Channel Number="15">Glory Blue</Channel>
+  <Channel Number="16">Glory Dimmer</Channel>
+  <Channel Number="17">Glory Effect</Channel>
+  <Channel Number="18">Glory Speed</Channel>
+  <Channel Number="19">Zoom</Channel>
+  <Channel Number="20">Inner Rotate</Channel>
+  <Channel Number="21">Shutter</Channel>
+  <Channel Number="22">Dimmer</Channel>
+  <Channel Number="23">Dimmer Fine</Channel>
+  <Channel Number="24">Pan/Tilt Speed</Channel>
+  <Channel Number="25">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.5" Width="292" Height="180" Depth="369"/>
+  <Lens Name="Other" DegreesMin="4" DegreesMax="55"/>
+  <Focus Type="Fixed" PanMax="538" TiltMax="180"/>
+  <Technical PowerConsumption="257" DmxConnector="Other"/>
+ </Physical>
+</FixtureDefinition>
