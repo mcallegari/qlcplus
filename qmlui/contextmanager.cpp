@@ -1138,6 +1138,25 @@ void ContextManager::setFixturesAlignment(int alignment)
     m_doc->setModified();
 }
 
+void ContextManager::item2DGeometry(quint32 itemID, QPointF &pos, QSizeF &size) const
+{
+    // use the geometry actually displayed by the 2D view when available,
+    // so that distribution matches what the user sees
+    if (m_2DView->isEnabled() && m_2DView->itemGeometry(itemID, pos, size))
+        return;
+
+    quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+    quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+    quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+    Fixture *fixture = m_doc->fixture(fxID);
+
+    pos = FixtureUtils::item2DPosition(m_monProps, m_monProps->pointOfView(),
+                                       m_monProps->fixturePosition(fxID, headIndex, linkedIndex));
+    // same rule as MainView2D: dimmers are drawn with the default size
+    size = FixtureUtils::item2DDimension(fixture == nullptr || fixture->type() == QLCFixtureDef::Dimmer ?
+                                         nullptr : fixture->fixtureMode(), m_monProps->pointOfView());
+}
+
 void ContextManager::setFixturesDistribution(int direction)
 {
     if (m_selectedFixtures.count() < 3)
@@ -1162,13 +1181,9 @@ void ContextManager::setFixturesDistribution(int direction)
      */
     for (quint32 &itemID : m_selectedFixtures)
     {
-        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
-        quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
-        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
-        Fixture *fixture = m_doc->fixture(fxID);
-        QPointF fxPos = FixtureUtils::item2DPosition(m_monProps, m_monProps->pointOfView(),
-                                                     m_monProps->fixturePosition(fxID, headIndex, linkedIndex));
-        QSizeF fxRect = FixtureUtils::item2DDimension(fixture->fixtureMode(), m_monProps->pointOfView());
+        QPointF fxPos;
+        QSizeF fxRect;
+        item2DGeometry(itemID, fxPos, fxRect);
         qreal pos = direction == Qt::Horizontal ? fxPos.x() : fxPos.y();
         qreal size = direction == Qt::Horizontal ? fxRect.width() : fxRect.height();
         int i = 0;
@@ -1212,8 +1227,10 @@ void ContextManager::setFixturesDistribution(int direction)
         quint32 fxID = FixtureUtils::itemFixtureID(itemID);
         quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
         quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
-        Fixture *fixture = m_doc->fixture(fxID);
-        QSizeF fxRect = FixtureUtils::item2DDimension(fixture->fixtureMode(), m_monProps->pointOfView());
+        QPointF itemPos;
+        QSizeF fxRect;
+        item2DGeometry(itemID, itemPos, fxRect);
+        Q_UNUSED(itemPos)
         qreal size = direction == Qt::Horizontal ? fxRect.width() : fxRect.height();
         QVector3D fxPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
 

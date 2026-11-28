@@ -62,6 +62,10 @@ public:
     /** Set/update the flags of a fixture item */
     void setFixtureFlags(quint32 itemID, quint32 flags);
 
+    /** Return the 2D geometry (in millimeters) of the item with ID $itemID,
+     *  exactly as it is displayed. Returns false if the item doesn't exist */
+    bool itemGeometry(quint32 itemID, QPointF &pos, QSizeF &size) const;
+
     /** Select some Fixtures included in the provided $rect area */
     QList<quint32> selectFixturesRect(QRectF rect) const;
 

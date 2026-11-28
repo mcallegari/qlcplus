@@ -274,6 +274,19 @@ void MainView2D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     updateFixture(fixture, values);
 }
 
+bool MainView2D::itemGeometry(quint32 itemID, QPointF &pos, QSizeF &size) const
+{
+    QQuickItem *fxItem = m_itemsMap.value(itemID);
+
+    if (fxItem == nullptr)
+        return false;
+
+    pos = QPointF(fxItem->property("mmXPos").toReal(), fxItem->property("mmYPos").toReal());
+    size = QSizeF(fxItem->property("mmWidth").toReal(), fxItem->property("mmHeight").toReal());
+
+    return true;
+}
+
 void MainView2D::setFixtureFlags(quint32 itemID, quint32 flags)
 {
     QQuickItem *fxItem = m_itemsMap.value(itemID);
