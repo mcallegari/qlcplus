@@ -34,7 +34,7 @@ RenderTarget
         id: colorAttachment
         width: 1024
         height: 1024
-        format: Texture.RGBA32F
+        format: Texture.RGBA16F
         generateMipMaps: false
         magnificationFilter: Texture.Linear
         minificationFilter: Texture.Linear
@@ -52,7 +52,7 @@ RenderTarget
         height: 1024
         // We use RGBA32F here instead of a more fitting format because
         // OpenGL vendors might not support other formats
-        format: Texture.RGBA32F
+        format: Texture.RGBA16F
         generateMipMaps: false
         magnificationFilter: Texture.Linear
         minificationFilter: Texture.Linear
@@ -70,7 +70,7 @@ RenderTarget
         height: 1024
         // We use RGBA32F here instead of a more fitting format because
         // OpenGL vendors might not support other formats
-        format: Texture.RGBA32F
+        format: Texture.RGBA16F
         generateMipMaps: false
         magnificationFilter: Texture.Linear
         minificationFilter: Texture.Linear
