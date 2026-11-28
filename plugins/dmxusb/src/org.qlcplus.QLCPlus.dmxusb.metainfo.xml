@@ -13,5 +13,6 @@
     <modalias>usb:v0403pC850d*</modalias>
     <modalias>usb:v03EBp2018d*</modalias>
     <modalias>usb:v04D8pFA63d*</modalias>
+    <modalias>usb:v2E8Ap1180d*</modalias>
   </provides>
 </component>

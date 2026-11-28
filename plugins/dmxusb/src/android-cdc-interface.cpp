@@ -47,7 +47,8 @@ static const QVector<int> s_cdcIds =
 {
     DMXInterface::NXPVID,       DMXInterface::DMXKINGMAXPID,
     DMXInterface::MICROCHIPVID, DMXInterface::EUROLITEPID,
-    DMXInterface::ATMELVID,     DMXInterface::NANODMXPID
+    DMXInterface::ATMELVID,     DMXInterface::NANODMXPID,
+    DMXInterface::RASPBERRYPIVID, DMXInterface::DMXCOREPID
 };
 
 AndroidCDCInterface::AndroidCDCInterface(const QString& serial, const QString& name, const QString& vendor,
