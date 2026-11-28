@@ -137,6 +137,46 @@ private:
     StageType m_stageType;
 
     /********************************************************************
+     * 3D View rendering
+     ********************************************************************/
+public:
+    /** Get/Set the 3D view render quality. The value matches the
+     *  MainView3D::RenderQuality enum (0 = Low ... 3 = Ultra) */
+    inline void setRenderQuality(int quality) { m_renderQuality = quality; }
+    inline int renderQuality() const { return m_renderQuality; }
+
+    /** Get/Set the 3D view ambient light intensity (0.0 - 1.0) */
+    inline void setAmbientLightIntensity(qreal intensity) { m_ambientLightIntensity = intensity; }
+    inline qreal ambientLightIntensity() const { return m_ambientLightIntensity; }
+
+    /** Get/Set the 3D view smoke/haze amount (0.0 - 1.0) */
+    inline void setSmokeAmount(qreal amount) { m_smokeAmount = amount; }
+    inline qreal smokeAmount() const { return m_smokeAmount; }
+
+    /** Get/Set whether the 3D view FPS counter overlay is shown */
+    inline void setShowFPS(bool show) { m_showFPS = show; }
+    inline bool showFPS() const { return m_showFPS; }
+
+private:
+    int m_renderQuality;
+    qreal m_ambientLightIntensity;
+    qreal m_smokeAmount;
+    bool m_showFPS;
+
+    /********************************************************************
+     * 3D View editing
+     ********************************************************************/
+public:
+    /** Get/Set whether the 3D view "Scale" X/Y/Z fields of a generic item
+     *  are locked together, i.e. editing one of them scales the item
+     *  uniformly on the three axes */
+    inline void setScaleLocked(bool locked) { m_scaleLocked = locked; }
+    inline bool scaleLocked() const { return m_scaleLocked; }
+
+private:
+    bool m_scaleLocked;
+
+    /********************************************************************
      * Items flags
      ********************************************************************/
 public:
