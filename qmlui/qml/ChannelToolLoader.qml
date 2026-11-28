@@ -144,7 +144,8 @@ Item
             }
             else
             {
-                item.updatePresets(fixtureManager.presetChannel(itemRoot.fixtureId, itemRoot.channelIndex))
+                item.updatePresets(fixtureManager.presetChannel(itemRoot.fixtureId, itemRoot.channelIndex),
+                                   itemRoot.channelValue)
             }
 
             item.closeOnSelect = true
