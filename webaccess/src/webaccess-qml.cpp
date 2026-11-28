@@ -827,6 +827,9 @@ void WebAccessQml::slotHandleWebSocketRequest(QHttpConnection *conn, QString dat
                 }
                 else
                 {
+                    // like the slider widget itself, never go beyond the
+                    // slider range (e.g. a low limit protecting a lamp)
+                    value = qBound(int(slider->rangeLowLimit()), value, int(slider->rangeHighLimit()));
                     slider->setValue(value, true, true);
                 }
             }
